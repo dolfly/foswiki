@@ -5,7 +5,7 @@
 ---++ Documentation
 %STARTSECTION{"documentation"}%
 The TopicType is the root of the type system of the <nop>TWikiWorbench. Every TWikiTopic has got one
-or more <nop>TopicTypes. <nop>TopicTypes often correlate to DataForms, where a type indicates the properties
+or more <nop>TopicTypes. <nop>TopicTypes often correlate with <nop>TWikiForms, where a type indicates the properties
 and use of the form being attached to a topic. However, there are also <nop>TopicTypes that only
 serve more as an additional marker to a generic <nop>TWikiForm being used in different applications.
 
@@ -35,7 +35,6 @@ The TopicType topic is the factory to create new <nop>TopicTypes as well.
 %STARTINCLUDE%
 %DBCALL{"Applications.RenderSimpleTopicCreator" 
   TEXT="TopicType" 
-  VALUE="..."
   TYPE="TopicType, TWikiForm, DocuTopic, ApplicationTopic"
   TEMPLATE="Applications.TopicTypeTemplate"
   FORM="Applications.TopicType"
@@ -75,7 +74,7 @@ The TopicType topic is the factory to create new <nop>TopicTypes as well.
 
 ---++ TopicType form
 | *Name:*| *Type:* | *Size:* | *Values:* | *Tooltip message:* | *Attributes:* |
-| TopicType | checkbox | 3 |%DBCALL{"Applications.GetTopicTypes" remote="off"}%| Document type  | |
+| TopicType | label | 1 |%DBCALL{"Applications.GetTopicTypes" remote="off"}%| Document type  | |
 | <nop>TopicTitle | text | 75 | | title | |
 | Inheritance | checkbox | 3 |%DBCALL{"Applications.GetTopicTypes" remote="off"}%| TopicType whose properties are implemented here too (see java's interfaces)  | |
 | Summary | text | 75 | | Short description of the role of this topic | |
@@ -83,7 +82,7 @@ The TopicType topic is the factory to create new <nop>TopicTypes as well.
 
 
 %META:FORM{name="Applications.TopicType"}%
-%META:FIELD{name="TopicType" attributes="" title="TopicType" value="DocuTopic, TopicType, TWikiTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicType, TWikiTopic"}%
 %META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicType"}%
 %META:FIELD{name="Inheritance" attributes="" title="Inheritance" value="ApplicationTopic"}%
 %META:FIELD{name="Summary" attributes="" title="Summary" value="TopicType of all possible TopicTypes"}%

@@ -6,7 +6,7 @@ BEGIN {
   }
 }
 
-use TWiki::Contrib::Build;
-$build = new TWiki::Contrib::Build('TWikiWorkbenchAddOn');
+use Foswiki::Contrib::Build;
+$build = new Foswiki::Contrib::Build('TWikiWorkbenchAddOn');
 $build->build($build->{target});
 

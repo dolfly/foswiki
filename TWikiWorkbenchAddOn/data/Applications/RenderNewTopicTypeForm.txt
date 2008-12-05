@@ -9,7 +9,7 @@
    * TEMPLATE: TopicTemplate to be used 
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%
 ~~~
 <div class="twikiPageForm blogAdminButtons">
@@ -45,6 +45,7 @@
 
 
 %META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" attributes="M" title="TopicType" value="TopicFunction"}%
-%META:FIELD{name="Summary" attributes="M" title="Summary" value="Renders a form that allows generate a new topic of the given type"}%
-%META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TWikiApplication"}%
+%META:FIELD{name="TopicType" attributes="" title="TopicType" value="TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderNewTopicTypeForm"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Renders a form that allows generate a new topic of the given type"}%
+%META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TWikiWorkbench"}%

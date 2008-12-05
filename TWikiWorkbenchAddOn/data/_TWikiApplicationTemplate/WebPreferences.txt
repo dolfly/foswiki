@@ -34,9 +34,9 @@ Chose the skin to be used for this web:
 ---+++ Access rights
    * Set #DENYWEBVIEW =
    * Set #ALLOWWEBVIEW = 
-   * Set DENYWEBCHANGE = %MAINWEB%.WikiGuest
-   * Set ALLOWWEBCHANGE = %MAINWEB%.AdminGroup
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
+   * Set DENYWEBCHANGE = %MAINWEB%.TWikiGuest
+   * Set ALLOWWEBCHANGE = %MAINWEB%.TWikiAdminGroup
+   * Set ALLOWTOPICCHANGE = %MAINWEB%.TWikiAdminGroup
 
 ---+++ Application Pointer
 <nop>DBCachePlugin settings registering the WebDB
@@ -54,7 +54,7 @@ TopicFunctions to generate html page header information:
 </verbatim>
 
 ---+++ Misc
-Definition of DataForms:
+Definition of TWikiForms:
    * Set WEBFORMS = Applications.ApplicationTopic, Applications.TopicStub, Applications.TWikiTopic
 
    * Set FINALPREFERENCES = ATTACHFILESIZELIMIT, WIKIWEBMASTER, WEBCOPYRIGHT, WEBTOPICLIST, DENYWEBVIEW, ALLOWWEBVIEW, DENYWEBCHANGE, ALLOWWEBCHANGE, WEBDB

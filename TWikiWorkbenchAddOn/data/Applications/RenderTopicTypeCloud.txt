@@ -21,7 +21,7 @@
 %ENDSECTION{"documentation"}%
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%
 <div class="twbTopicTypeCloud">
 ---++ %IFDEFINED{"%TITLE%" then="%TITLE%" else="%TYPE%s" glue="off"}%

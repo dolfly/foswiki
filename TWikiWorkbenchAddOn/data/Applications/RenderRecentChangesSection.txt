@@ -17,7 +17,7 @@
 %ENDSECTION{name="documentation" type="section"}%
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE% <!-- -->
 %~~ DBQUERY{
 ~~~   limit="%IFDEFINED{"%LIMIT%" then="%LIMIT%" else="5"}%"

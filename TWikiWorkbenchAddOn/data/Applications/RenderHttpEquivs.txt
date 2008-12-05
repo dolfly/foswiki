@@ -10,7 +10,7 @@ to the html header section of a page in the <nop>%BASEWEB% web.
 NONE
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%
 %IFDEFINEDTHEN{"$percntFORMFIELD{\"Summary\"}$percnt" glue="off"}%
 <meta name="description" content="$test" />

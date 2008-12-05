@@ -17,7 +17,7 @@
 %ENDSECTION{"documentation"}%
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE% <noautolink>
 ~~~
 %~~ DBQUERY{"TopicType=~'\b%IFDEFINED{"%TYPE%" then="%TYPE%" else="%BASETOPIC%"}%\b'

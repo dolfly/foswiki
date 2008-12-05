@@ -7,7 +7,7 @@
 NONE
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%
 ---++ Calls to '%INCLUDINGTOPIC%'
 %~~ DBQUERY{"text=~'\b%INCLUDINGTOPIC%\b'"

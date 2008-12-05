@@ -19,7 +19,7 @@
 %ENDSECTION{"documentation"}%
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%<!-- renderpagenavigation -->
 <!--
 <noautolink>
@@ -60,7 +60,7 @@
 %DBCALL{"Applications.RenderFunctionCallers"}%
 
 %META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" attributes="" title="TopicType" value="TopicFunction"}%
-%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderPageNavigation"}%
 %META:FIELD{name="Summary" attributes="" title="Summary" value="Render a navigation to previous/next blog entries on the front page"}%
 %META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TWikiWorkbench"}%

@@ -13,7 +13,7 @@
 %ENDSECTION{"css"}%
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%
 <noautolink>
 <div class="twbManifestHolder">

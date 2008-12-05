@@ -4,8 +4,8 @@
 %FORMFIELD{"Summary"}%
 
 ---++ Implementation
-<verbatim>
-%STARTINCLUDE% <!-- -->
+<verbatim class="tml">
+%STARTINCLUDE% <!-- applications.rendersidebar -->
 ~~~ <noautolink> 
 ~~~   <div class="twbSideBarSection">
 ~~~   <div class="jqTreeview closed unique" style="white-space:nowrap">
@@ -13,8 +13,8 @@
 %~~   DBQUERY{"TopicType=~'\bWebTool\b'" web="%BASEWEB%"
 ~~~     hidenull="on"
 ~~~     header="<li>[[WebTools]]<ul>"
-~~~     format="<li>$index. 
-~~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
+~~~     format="<li>$index.&nbsp;
+*~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
 ~~~          title='$encode($expand(Summary))'>$expand(topictitle)</a>
 *~~       </li>"
 ~~~     footer="</ul></li>"
@@ -22,8 +22,8 @@
 %~~   DBQUERY{"TopicType=~'\bTopicFunction\b'" web="%BASEWEB%"
 ~~~     hidenull="on"
 ~~~     header="<li>[[TopicFunctions]]<ul>"
-~~~     format="<li>$index. 
-~~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
+~~~     format="<li>$index.&nbsp;
+*~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
 ~~~          title='$encode($expand(Summary))'>$expand(topictitle)</a>
 *~~       </li>"
 ~~~     footer="</ul></li>"
@@ -32,8 +32,8 @@
 %~~   DBQUERY{"TopicType=~'\bTopicTemplate\b'" web="%BASEWEB%"
 ~~~     hidenull="on"
 ~~~     header="<li>[[TopicTemplates]]<ul>"
-~~~     format="<li>$index. 
-~~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
+~~~     format="<li>$index.&nbsp;
+*~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
 ~~~          title='$encode($expand(Summary))'>$expand(topictitle)</a>
 *~~       </li>"
 ~~~     footer="</ul></li>"
@@ -42,8 +42,8 @@
 %~~   DBQUERY{"TopicType=~'\bTopicType\b'" web="%BASEWEB%"
 ~~~     hidenull="on"
 ~~~     header="<li>[[TopicTypes]]<ul>"
-~~~     format="<li>$index. 
-~~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
+~~~     format="<li>$index.&nbsp;
+*~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
 ~~~          title='$encode($expand(Summary))'>$expand(topictitle)</a>
 *~~       </li>"
 ~~~     footer="</ul></li>"
@@ -52,8 +52,8 @@
 %~~   DBQUERY{"TopicType=~'\bTopicView\b'" web="%BASEWEB%"
 ~~~     hidenull="on"
 ~~~     header="<li>[[TopicViews]]<ul>"
-~~~     format="<li>$index. 
-~~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
+~~~     format="<li>$index.&nbsp;
+*~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
 ~~~          title='$encode($expand(Summary))'>$expand(topictitle)</a>
 *~~       </li>"
 ~~~     footer="</ul></li>"
@@ -61,9 +61,9 @@
 ~~~
 %~~   DBQUERY{"TopicType=~'\bTWikiForm\b'" web="%BASEWEB%"
 ~~~     hidenull="on"
-~~~     header="<li>[[DataForms]]<ul>"
-~~~     format="<li>$index. 
-~~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
+~~~     header="<li>[[TWikiForms]]<ul>"
+~~~     format="<li>$index.&nbsp;
+*~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
 ~~~          title='$encode($expand(Summary))'>$expand(topictitle)</a>
 *~~       </li>"
 ~~~     footer="</ul></li>"
@@ -71,8 +71,8 @@
 %~~   DBQUERY{"TopicType=~'\bTWikiFormAttribute\b'" web="%BASEWEB%"
 ~~~     hidenull="on"
 ~~~     header="<li>[[TWikiFormAttributes]]<ul>"
-~~~     format="<li>$index. 
-~~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
+~~~     format="<li>$index.&nbsp;
+*~~       <a href='%SCRIPTURLPATH{"view"}%/$web/$topic' 
 ~~~          title='$encode($expand(Summary))'>$expand(topictitle)</a>
 *~~       </li>"
 ~~~     footer="</ul></li>"
@@ -82,7 +82,7 @@
 ~~~ </div>
 ~~~ </noautolink>
 ~~~
-%STOPINCLUDE%
+<!-- //applications.rendersidebar -->%STOPINCLUDE%
 </verbatim>
 
 %DBCALL{"Applications.RenderFunctionCallers"}%

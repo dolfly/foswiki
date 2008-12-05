@@ -6,15 +6,14 @@ different parts of your <nop>%WIKITOOLNAME% wiki. It is used as a
 library and repository as well as a development interface to write
 new applications. 
 
+%DBCALL{"TWikiApplicationFactory"}%
+
 ---++ Installed TWikiApplications
 %~~ FORMATLIST{"%FLEXWEBLIST{subwebs="Applications" format="$web;$name" separator=", "}%" 
 ~~~   pattern="(.*);(.*)"
 ~~~   format="   1 [[$1.WebHome][$2]]: $percntVAR{\"SITEMAPWHAT\" web=\"$1\"}$percnt"
 ~~~   separator="$n"
 ~~~ }%
-
----++ Create a new TWikiApplication
-%DBCALL{"TWikiApplicationFactory" section="factory"}%
 
 
 <!--
@@ -23,6 +22,7 @@ new applications.
 
 
 %META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" attributes="" title="TopicType" value="WebTool"}%
+%META:FIELD{name="TopicType" title="TopicType" value="WebTool"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WebHome"}%
 %META:FIELD{name="Summary" attributes="" title="Summary" value="%25SITEMAPWHAT%25"}%
 %META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TWikiWorkbench"}%

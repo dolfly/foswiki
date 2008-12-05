@@ -27,9 +27,10 @@ The TWikiWorkbench is a standardized way to write and deploy TWikiApplications. 
 
 %META:FORM{name="Applications.TWikiApplication"}%
 %META:FIELD{name="TopicType" attributes="" title="TopicType" value="TWikiApplication"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TWikiWorkbench"}%
 %META:FIELD{name="Summary" attributes="" title="Summary" value="TWikiApplication to develop TWikiApplications"}%
-%META:FIELD{name="Version" attributes="" title="Version" value="0.03"}%
+%META:FIELD{name="Version" attributes="" title="Version" value="0.05"}%
 %META:FIELD{name="Author" attributes="" title="Author" value="Michael Daum"}%
-%META:FIELD{name="Copyright" attributes="" title="Copyright" value="&copy; 2006-2007 Michael Daum http://wikiring.de"}%
-%META:FIELD{name="License" attributes="" title="License" value="GnuGeneralPublicLicense"}%
+%META:FIELD{name="Copyright" attributes="" title="Copyright" value="&copy; 2006-2008 Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="License" attributes="" title="License" value="Applications.GnuGeneralPublicLicense"}%
 %META:FIELD{name="Dependencies" attributes="" title="Dependencies" value=""}%

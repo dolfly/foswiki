@@ -33,9 +33,9 @@
 
 ---++ Copyright
 <div style="text-align:justify;margin:1em;">
-&copy; 2007 %WIKINAME% %USERINFO{format="$emails"}%
+%URLPARAM{"Copyright"}%
 
-%DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
+%DBCALL{"%URLPARAM{"License"}%" section="notice"}%
 </div>
 
 %STARTSECTION{type="templateonly"}%
@@ -46,5 +46,6 @@ See also: TopicFunction
 
 %META:FORM{name="Applications.ApplicationTopic"}%
 %META:FIELD{name="TopicType" attributes="" title="TopicType" value="TopicTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicFunctionTemplate"}%
 %META:FIELD{name="Summary" attributes="" title="Summary" value="Template to create TopicFunctions"}%
 %META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TWikiWorkbench"}%

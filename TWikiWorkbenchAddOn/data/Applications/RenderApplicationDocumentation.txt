@@ -20,7 +20,7 @@
 %ENDSECTION{"documentation"}%
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%
 ~~~
 %~~ DBQUERY{
@@ -60,6 +60,7 @@
 </div>
 
 %META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" attributes="" title="TopicType" value="TopicFunction"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderApplicationDocumentation"}%
 %META:FIELD{name="Summary" attributes="" title="Summary" value="Extracts the documentation section from all parts of a TWikiApplication"}%
 %META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TWikiWorkbench"}%

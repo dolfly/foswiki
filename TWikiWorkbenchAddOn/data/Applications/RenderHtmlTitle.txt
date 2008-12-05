@@ -9,7 +9,7 @@ This will render the pagetitle of the BASETOPIC.
 NONE
 
 ---++ Implementation
-<verbatim>
+<verbatim class="tml">
 %STARTINCLUDE%<noautolink>
 %TOPICTITLE% - %FORMATLIST{"%BASEWEB%" reverse="on" split="[./]" format="$1" separator=" - "}%
 </noautolink>%STOPINCLUDE%

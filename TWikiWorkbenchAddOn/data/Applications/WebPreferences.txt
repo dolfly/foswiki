@@ -4,7 +4,7 @@
 %TOC%
 <br clear="all" />
 
----+++ DataForms
+---+++ TWikiForms
    * Set WEBFORMS = Applications.TWikiTopic, Applications.TopicStub, Applications.TWikiApplication, Applications.ApplicationTopic, Applications.TopicType
 
 ---+++ Naming
@@ -22,24 +22,12 @@ Color to be displayed in the sitemap representing this web:
 Flag to enable/disable listing this web on the sitemap:
    * Set SITEMAPLIST = on
 
----+++ Skin
-Chose the skin to be used for this web:
-   * #Set SKIN = pattern
-
-<nop>NatSkin variables:
-   * #Set SKINSTYLE = Kubrick
-   * #Set STYLESIDEBAR = right
-   * #Set STYLEBORDER= thin
-   * #Set STYLEBUTTONS = on
-   * #Set STYLEVARIATION =
-   * #Set STYLESEARCHBOX = pos2
-
 ---+++ Access rights
    * Set #DENYWEBVIEW =
    * Set #ALLOWWEBVIEW = 
-   * Set DENYWEBCHANGE = %MAINWEB%.WikiGuest
-   * Set ALLOWWEBCHANGE = %MAINWEB%.AdminGroup
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
+   * Set DENYWEBCHANGE = %MAINWEB%.TWikiGuest
+   * Set ALLOWWEBCHANGE = %MAINWEB%.TWikiAdminGroup
+   * Set ALLOWTOPICCHANGE = %MAINWEB%.TWikiAdminGroup
 
 ---+++ Application Pointer
 <nop>DBCachePlugin settings registering the WebDB
