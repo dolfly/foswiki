@@ -15,8 +15,8 @@ If the contrib is properly installed (and !JavaScript is enabled in your browser
 
 ---+++ Basic Twisty
 <verbatim>
-<span id="demo1show" class="twistyTrigger twistyMakeVisible"><button class="twikiButton"> Unfold </button></span>
-<span id="demo1hide" class="twistyTrigger twistyHidden"><button class="twikiButton"> Fold </button></span>
+<span id="demo1show" class="twistyTrigger twistyMakeVisible"><button class="foswikiButton"> Unfold </button></span>
+<span id="demo1hide" class="twistyTrigger twistyHidden"><button class="foswikiButton"> Fold </button></span>
 <span id="demo1toggle" class="twistyContent twistyMakeHidden">
 my twisty content
 </span>
@@ -24,8 +24,8 @@ my twisty content
 
 Generates:
 
-<span id="demo1show" class="twistyTrigger twistyMakeVisible"><button class="twikiButton"> Unfold </button></span>
-<span id="demo1hide" class="twistyTrigger twistyHidden"><button class="twikiButton"> Fold </button></span>
+<span id="demo1show" class="twistyTrigger twistyMakeVisible"><button class="foswikiButton"> Unfold </button></span>
+<span id="demo1hide" class="twistyTrigger twistyHidden"><button class="foswikiButton"> Fold </button></span>
 <span id="demo1toggle" class="twistyContent twistyMakeHidden">
 my twisty content
 </span>
@@ -111,14 +111,14 @@ In any topic, your users can now write things like this:
 You can toggle all Twisties on or off at once by putting a link or button on the page with class =twistyExpandAll= or =twistyCollapseAll=.
 
 <verbatim>
-<button class="twistyExpandAll twikiButton">Expand all</button> 
-<button class="twistyCollapseAll twikiButton">Collapse all</button>
+<button class="twistyExpandAll foswikiButton">Expand all</button> 
+<button class="twistyCollapseAll foswikiButton">Collapse all</button>
 </verbatim>
 
 Creates these controls:
 
-<button class="twistyExpandAll twikiButton">Expand all</button> 
-<button class="twistyCollapseAll twikiButton">Collapse all</button>
+<button class="twistyExpandAll foswikiButton">Expand all</button> 
+<button class="twistyCollapseAll foswikiButton">Collapse all</button>
 
 When you want to use links, write:
 

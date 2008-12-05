@@ -1,7 +1,7 @@
 %META:TOPICINFO{author="ProjectContributor" date="1142931446" format="1.1" version="$Rev$"}%
 %META:TOPICPARENT{name="TopicView"}%
 %TMPL:INCLUDE{"view"}%
-%TMPL:DEF{"textcontent"}%<div class="patternTopic">
+%TMPL:DEF{"textcontent"}%<div class="foswikiTopic">
 %TEXT% 
 </div>%TMPL:END%
 %TMPL:DEF{"form"}%%TMPL:END%

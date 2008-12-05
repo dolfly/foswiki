@@ -25,13 +25,13 @@
 /* Form elements */
 
 .twikiSubmit,
-.twikiButton {
+.foswikiButton {
 	border-color:#ddd #aaa #aaa #ddd;
 	color:#333;
 	background-color:#fff;
 }
 .twikiSubmit:active,
-.twikiButton:active {
+.foswikiButton:active {
 	border-color:#999 #ccc #ccc #999;
 	color:#000;
 }
@@ -81,7 +81,7 @@ a:hover.twistyTrigger {
 .tipsOfTheDay {
 	background-color:#f8fbfc;
 }
-.patternTopic .tipsOfTheDayHeader {
+.foswikiTopic .tipsOfTheDayHeader {
 	color:#333;
 }
 /* TipsContrib - in left bar */
@@ -277,8 +277,8 @@ table.patternDiffOptions img {
 
 /* edit.pattern.tmpl */
 
-.twikiChangeFormButton .twikiButton,
-.twikiChangeFormButtonHolder .twikiButton { /* looks like a link */
+.twikiChangeFormButton .foswikiButton,
+.twikiChangeFormButtonHolder .foswikiButton { /* looks like a link */
 	color:#06c;
 	background:none;
 }
@@ -352,7 +352,7 @@ tr.twikiDiffDebug .twikiDiffUnchangedText {
 	background-image:none;
 	border:none;
 }
-.twikiButton {
+.foswikiButton {
 	QQbackground-image:url(background_button.gif);
 	background-repeat:repeat-x;
 }
@@ -491,7 +491,7 @@ select option {
 	padding:1px;
 }
 .twikiSubmit,
-.twikiButton,
+.foswikiButton,
 .twikiCheckbox {
 	border-width:1px;
 	border-style:solid;
@@ -501,7 +501,7 @@ select option {
 	vertical-align:middle;
 }
 .twikiCheckbox,
-.twikiRadioButton {
+.foswikiRadioButton {
 	margin:0 .3em 0 0;
 	border:0;
 }
@@ -588,15 +588,15 @@ blockquote {
 .tipsOfTheDayContents .tipsOfTheDayTitle {
 	font-weight:bold;
 }
-.patternTopic .tipsOfTheDayHeader {
+.foswikiTopic .tipsOfTheDayHeader {
 	display:block;
 	padding:3px 5px;
 }
-.patternTopic .tipsOfTheDayText {
+.foswikiTopic .tipsOfTheDayText {
 	padding:0 5px 5px 5px;
 }
-.patternTopic .tipsOfTheDayText a:link,
-.patternTopic .tipsOfTheDayText a:visited {
+.foswikiTopic .tipsOfTheDayText a:link,
+.foswikiTopic .tipsOfTheDayText a:visited {
 	text-decoration:none;
 }
 /* TipsContrib - in left bar */
@@ -631,7 +631,7 @@ blockquote {
 	-----------------------------------------------------------	*/
 
 .twikiLast,
-.patternTopic .twikiLast,
+.foswikiTopic .twikiLast,
 .foswikiForm .twikiLast,
 .twikiTable .twikiLast {
 	border-bottom-style:none;
@@ -1029,8 +1029,8 @@ table.patternDiffOptions input {
 	margin:.5em 0;
 	float:right;
 }
-.twikiChangeFormButton .twikiButton,
-.twikiChangeFormButtonHolder .twikiButton {
+.twikiChangeFormButton .foswikiButton,
+.twikiChangeFormButtonHolder .foswikiButton {
 	padding:0;
 	margin:0;
 	border:none;

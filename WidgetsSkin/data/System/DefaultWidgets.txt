@@ -154,14 +154,14 @@ powered by the community. 28th October 2008.
         %IF{"context SubscribePluginEnabled AND NOT context authenticated" then="You need to log in to subscribe to a topic<div stlye='display:none;'>"}%
         %SUBSCRIBE{
             topic="%BASEWEB%.%BASETOPIC%"
-            format="<a href='$url' class='twikiButton'>$action</a> to changes to %BASEWEB%.%BASETOPIC%"
-            formatunsubscribe="<a href='$url' class='twikiButton'>$action</a> from changes to %BASEWEB%.%BASETOPIC%"
+            format="<a href='$url' class='foswikiButton'>$action</a> to changes to %BASEWEB%.%BASETOPIC%"
+            formatunsubscribe="<a href='$url' class='foswikiButton'>$action</a> from changes to %BASEWEB%.%BASETOPIC%"
         }%
         %BR%
         %SUBSCRIBE{
             topic="%BASEWEB%.*"
-            format="<a href='$url' class='twikiButton'>$action</a> to changes in %BASEWEB% web"
-            formatunsubscribe="<a href='$url' class='twikiButton'>$action</a> from changes in %BASEWEB% web"
+            format="<a href='$url' class='foswikiButton'>$action</a> to changes in %BASEWEB% web"
+            formatunsubscribe="<a href='$url' class='foswikiButton'>$action</a> from changes in %BASEWEB% web"
         }%
         %IF{"context SubscribePluginEnabled AND NOT context authenticated" then="</div>"}%
     </div>
@@ -182,7 +182,7 @@ powered by the community. 28th October 2008.
 <input  type="hidden" name="ReportedBy" value="%WIKIUSERNAME%" />
 <input  type="hidden" name="Priority" value="Normal" />
 <input  type="hidden" name="CurrentState" value="New" />
-<input  type="submit" value="Add Issue" class="twikiButton" />
+<input  type="submit" value="Add Issue" class="foswikiButton" />
 </form>
     </div>
 </div>%ENDSECTION{"widget-subscribe"}%

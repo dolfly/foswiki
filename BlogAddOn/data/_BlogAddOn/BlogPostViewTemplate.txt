@@ -11,7 +11,7 @@ imgName="%FORMFIELD{"Picture" web="%MAINWEB%" topic="%FORMFIELD{"Author"}%"}%" i
 
 
 %TMPL:DEF{"content"}%%INCLUDE{"BlogAddOnStyles"}%
-<div class="patternTopic">%BROADCASTMESSAGE%
+<div class="foswikiTopic">%BROADCASTMESSAGE%
 %IF{"{Plugins}{BlogAddOn}{ShowPersonalInfoAddOnPictures}" then="$percntTMPL:P{picture}$percnt"}% <h1 class="blogAddOnTitle"> %FORMFIELD{"Title"}% </h1>
 <div class="foswikiGrayText twikiSmallish blogPostAddOnHeaderInfo">%TMPL:P{"postinfo"}%</div><br class="twikiClear" />
 %TEXT%

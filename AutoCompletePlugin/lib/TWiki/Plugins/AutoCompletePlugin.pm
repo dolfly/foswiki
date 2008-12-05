@@ -76,7 +76,7 @@ sub renderFormFieldForEditHandler {
     unless( $value eq $possibleValues ){
 	$params{value} = $value;
     }
-    $params{class} = 'twikiInputField twikiEditFormTextField';
+    $params{class} = 'twikiInputField';
 
     return _createTextfield(\%params);
 

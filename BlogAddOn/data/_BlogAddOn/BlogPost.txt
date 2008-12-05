@@ -1,7 +1,7 @@
 %META:TOPICINFO{author="ProjectContributor" date="1165927036" format="1.1" reprev="1.1" version="1.1"}%
 ---+!! Blog posts
 <form method="get" action="%SCRIPTURL{view}%/%WEB%/BlogPostCreator">
-<input type="submit" class="twikiButton" value="%MAKETEXT{"Write a new blog post"}%" />
+<input type="submit" class="foswikiButton" value="%MAKETEXT{"Write a new blog post"}%" />
 </form>
 
 %STARTINCLUDE%%INCLUDE{"BlogAddOnStyles"}%
@@ -15,7 +15,7 @@
 &nbsp; %IF{"$ sort='created'" then='<strong>%MAKETEXT{"Date"}%</strong>' else="[[%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined limit and $ limit != ''" then="limit=%URLPARAM{"limit"}%;"}%sort=created;sortdirection=descending#BlogPosts][%MAKETEXT{"Date"}%]]"}%
 &nbsp; %IF{"$ sort='modified'" then='<strong>%MAKETEXT{"Last modified"}%</strong>' else="[[%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined limit and $ limit != ''" then="limit=%URLPARAM{"limit"}%;"}%sort=modified;sortdirection=descending#BlogPosts][%MAKETEXT{"Last modified"}%]]"}%
 </div><!--/twikiLeft-->
-<!-- Filter options --><form name="blogPostCategorySelection" action="%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%#BlogPosts" method="get"><div id="noJsUpdateButton" class="twikiRight blogPostViewOptionsFilter">%BR%<input type="submit" class="twikiButton" value='%MAKETEXT{"Update"}%' /></div>
+<!-- Filter options --><form name="blogPostCategorySelection" action="%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%#BlogPosts" method="get"><div id="noJsUpdateButton" class="twikiRight blogPostViewOptionsFilter">%BR%<input type="submit" class="foswikiButton" value='%MAKETEXT{"Update"}%' /></div>
 <div class="twikiRight">%IF{"defined sort and $ sort != ''" then='<input type="hidden" name="sort" value="%URLPARAM{"sort" default="%sort%" encode="url"}%" />'}%<nop>
 %IF{"defined sortdirection and $ sortdirection != ''" then='<input type="hidden" name="sortdirection" value="%URLPARAM{"sortdirection" default="%sortdirection%" encode="url"}%" />'}%<nop>
 <div class="twikiLeft blogPostViewOptionsFilter">
