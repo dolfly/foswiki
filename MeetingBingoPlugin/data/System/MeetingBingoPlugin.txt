@@ -9,7 +9,7 @@ One line description, required for extensions repository catalog.
 
 ---++ Games rules.
 
-The game is simple. You create a TWiki topic with one or more lines with the TWiki variable %<nop>MEETINGBINGO%.
+The game is simple. You create a Foswiki topic with one or more lines with the Foswiki variable %<nop>MEETINGBINGO%.
 
 The plugin then makes a table 5 rows by 5 columns with 25 of the MEETINGBINGOWORDS in a completely random order.
 
@@ -29,6 +29,8 @@ The original rule is that the winner stands up and shout "Bullshit". If your man
 
    * %<nop>MEETINGBINGO% - creates a bingo card
    * %<nop>MEETINGBINGOWORDS - are the words for bingo. Minimum 25 words comma separated
+   * %<nop>MEETINGBINGOFREESPACE - optional to define a fixed text in center space of grid. 
+   
    
 ---++ Settings
 
@@ -42,8 +44,8 @@ Typical IT/Telecoms Business words
 Typical Generic Business Words
    * #Set MEETINGBINGOWORDS =  Leverage, Utilize, Synergy, Value Adding, Ethical, Best Practice, Lessons Learned, Benchmarking, Performance, Showstopper, Innovative, Creative, Proactive, Commitment, Scorecard, Optimize, Cost Reduction, Empower, Increase, Cycle time, Protect, Commodity, Work Ahead, Pass the Gate, Change Control, Maintenance, Next Release, Authorization, Enhance, Consolidate, Balanced, Milestone, Out of the Box, Cost Effective, Maximize, On The Same Page, Prioritize, Fault Tolerant, Skill Set, Automated, Market Leader, Process, Raising The Bar, Seamless, Conversion, Go Live, Red Flag, Critical Path, Streamline, Success, Integration, Workflow, End To End, Solution, Ownership, Portfolio, Revisit, Scope, Off-line, Ball Park, Low Hanging Fruit, Out Source, Metric, Action, Game Plan, Prototype, Optimization, Walk The Talk, Facilitate, Legacy, Business Plan, Opportunity, Patent, Scenarios, Deliverable, Mission Critical, Cutting Edge, Data Mining, 24/7, No-Brainer, Win-Win, Think Outside The Box, Off The Shelf, In A Nutshell, Ramp Up, Pipeline, Drop The Ball, Knowledge Base, Due Diligence, Fast Track, Basically, Policy, Forecast, Follow-up, Bandwidth, Expectations, Communicate, Gap Analysis, Team Player, Issue, Re-invent The Wheel, Measurement, Drill Down, Team Building, Time To Market, Paradigm, Off Site Meeting, Strategic, Bottom Line, At the end of the day
 
-Typical TWiki release meetings words
-   * #Set MEETINGBINGOWORDS = Backward Compatible, Performance, Next Release, Customer Focus, Process, Out of the Box, Sponsor, Low Hanging Fruit, Urgent, Action Item, Facilitate, Legacy, Show Stopper, No-Brainer, Plug-in, User Friendly, Georgetown, Freetown, Cairo, Dakar, Edinburgh, Realistic, Proposal, Customers Advocates, Priorities, Feature, TWiki Mission, Sponsorships, WYSIWYG, CPAN, Enhancement, Feature Freeze, Cache, Documentation, Scalability, Speed, Slow, Wikipedia, Wizard, AJAX, Use Cases, Minor, Major, Patch, Community, Database, Stable Code, Resources, Committed, Driver, Educational, Re-factor, Toolbox, Deprecate, Encourage, De Facto, Unit Test, Test Case, Descriptive, Upgrade, Newbie
+Typical Foswiki release meetings words
+   * #Set MEETINGBINGOWORDS = Backward Compatible, Performance, Next Release, Customer Focus, Process, Out of the Box, Sponsor, Low Hanging Fruit, Urgent, Action Item, Facilitate, Legacy, Show Stopper, No-Brainer, Plug-in, User Friendly, Georgetown, Freetown, Cairo, Dakar, Edinburgh, Realistic, Proposal, Customers Advocates, Priorities, Feature, Foswiki Mission, Sponsorships, WYSIWYG, CPAN, Enhancement, Feature Freeze, Cache, Documentation, Scalability, Speed, Slow, Wikipedia, Wizard, AJAX, Use Cases, Minor, Major, Patch, Community, Database, Stable Code, Resources, Committed, Driver, Educational, Re-factor, Toolbox, Deprecate, Encourage, De Facto, Unit Test, Test Case, Descriptive, Upgrade, Newbie
 
 
 ---++ Bingo Card
@@ -61,18 +63,18 @@ If this plug-in is installed you should get a bingo card below
 |  Plugin Author(s): | Main.KennethLavrsen |
 |  Copyright: | &copy; 2008, Kenneth Lavrsen |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-|  Plugin Version: | 1.1 (30 Jan 2008) |
+|  Plugin Version: | 1.2 (07 Dec 2008) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.2 (07 Dec 2008) | Moved to Foswiki namespace. Added FREESPACE feature as provided by Luke Suchocki |
 |  1.1 (30 Jan 2008) | Fixed lots of spelling errors |
 |  1.0 (29 Jan 2008) | Initial version |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.006 |
-|  Foswiki:Extensions/Benchmark: | Plugin does not slow down TWiki measurably unless MEETINGBINGO tag is used |
+|  Foswiki:Extensions/Benchmark: | Plugin does not slow down Foswiki measurably unless MEETINGBINGO tag is used |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], %SYSTEMWEB%.DeveloperDocumentationCategory, %SYSTEMWEB%.AdminDocumentationCategory, %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
 
-<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on twiki.org instead. -->
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on foswiki.org instead. -->

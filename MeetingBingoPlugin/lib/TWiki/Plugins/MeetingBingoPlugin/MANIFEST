@@ -1,4 +1,0 @@
-# Release manifest for MeetingBingoPlugin
-data/TWiki/MeetingBingoPlugin.txt 0644 Documentation
-lib/TWiki/Plugins/MeetingBingoPlugin.pm 0644 Perl module
-
