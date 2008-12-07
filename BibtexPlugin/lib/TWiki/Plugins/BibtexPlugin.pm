@@ -818,7 +818,7 @@ sub getBibfiles {
 ###############################################################################
 sub showError {
   my $msg = shift;
-  return "<span class=\"foswikiAlert\">Error: $msg</span>" ;
+  return "<span class=\"twikiAlert\">Error: $msg</span>" ;
 }
 
 1;

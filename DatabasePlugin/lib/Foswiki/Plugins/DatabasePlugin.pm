@@ -95,7 +95,7 @@ sub _dispatch {
         use strict 'refs';
     };
     if ($@) {
-        $result = "<span class='foswikiAlert'>$@</span>";
+        $result = "<span class='twikiAlert'>$@</span>";
     }
     return $result;
 }

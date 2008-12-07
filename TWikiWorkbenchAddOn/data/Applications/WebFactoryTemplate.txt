@@ -13,15 +13,15 @@
 <input name="newtopic" type="hidden" value="" />
 <table>
 <tr>
-<td class="foswikiFirstCol">Name:</td>
+<td class="twikiFirstCol">Name:</td>
 <td><input class="twikiInputField" name="newweb" type="text" value="" size="50" /></td>
 </tr>
 <tr>
-<td class="foswikiFirstCol">Description:</td>
+<td class="twikiFirstCol">Description:</td>
 <td><input class="twikiInputField" type="text" name="sitemapwhat" value="" size="50" /></td>
 </tr>
 <tr>
-<td class="foswikiFirstCol">&nbsp;</td>
+<td class="twikiFirstCol">&nbsp;</td>
 <td>
    <input type="submit" class="twikiSubmit natOkButton" value="Submit" />
     <input type="reset" class="natCancelButton" value="Reset" />

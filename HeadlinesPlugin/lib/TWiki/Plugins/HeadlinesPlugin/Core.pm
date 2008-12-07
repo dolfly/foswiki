@@ -324,7 +324,7 @@ sub doInit {
 sub errorMsg {
   return 
     $_[0] .
-    '<span class="foswikiAlert">' .
+    '<span class="twikiAlert">' .
     '<noautolink>'."\n".
     'HeadlinesPlugin '.
     $_[1] ."\n".
