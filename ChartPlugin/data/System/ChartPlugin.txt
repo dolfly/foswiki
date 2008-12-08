@@ -179,9 +179,12 @@ If the required parameters are not defined, then an error message is returned or
 
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus |
-|  Plugin Version: | %$VERSION% |
+|  Plugin Author: | Current maintainer Foswiki:Main.KennethLavrsen, original authors from old project: TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus |
+|  Copyright &copy;: | 2004-2006, TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus; 2008 Kenneth Lavrsen and Foswiki Contributors | 
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
+|  Plugin Version: | 08 Dec 2008 |
+|   08 Dec 2008: | Kenneth Lavrsen: Changed the author to myself. TWiki:Main.TaitCyrus is the original author but has not been maintaining this since and is not registered user on fork. So now I officially take the task as maintainer. Plugin is changed to Foswiki namespace and tested and works under Foswiki 1.0.0 |  
 |   18 May 2007: | Added discontinuous ranges - Foswiki:Main.CrawfordCurrie |
 |	16 Nov 2004: | V1.401 - Added benchmarks (no code changes) |
 |	30 Aug 2004: | V1.400 - Added support for =subtype="bar"= (includes various global bar settings), updated =gridcolor= to not only define the grid color but allowing the user to define the line style (for drawing user defined dotted lines), add a global for how wide lines are drawn instead of a hard coded value, change the order of how things are drawn so now the order is: areas, grid lines and X/Y axis labels, bars, lines/points/plines, rectangle around chart, data point labels, chart title/X/Y labels, and finally the legends. |

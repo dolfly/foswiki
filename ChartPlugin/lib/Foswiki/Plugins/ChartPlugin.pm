@@ -51,7 +51,7 @@ use vars qw(
 
 $VERSION = '$Rev: 13790 $';
 
-$RELEASE = 'Dakar';
+$RELEASE = '08 Dec 2008';
 
 $pluginInitialized = 0;
 $initError = '';
