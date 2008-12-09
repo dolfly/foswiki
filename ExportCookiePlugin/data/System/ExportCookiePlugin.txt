@@ -1,0 +1,32 @@
+---+!! <nop>%TOPIC%
+
+Exports the value of a Cookie into the Foswiki variable <verbatim>%EXPORTCOOKIE%</verbatim>
+
+%TOC%
+
+---++ USAGE
+Use the macro <verbatim>%EXPORTCOOKIE%</verbatim> to display the value. You can use this in links or further pugins.
+
+---++ Plugin Settings
+   * you need to set the CookieName in the Foswiki configure-system
+
+---++ Plugin Installation Instructions
+   * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it trough an user-interface
+---++ Plugin Info
+
+|  Plugin Author: | Foswiki:Main.MayerEugen |
+|  Copyright: | &copy; 2006, Impressive.media |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 09 Dez 2008 (V0.2) |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  09 Dez 2008: | Renamed plugin to ExportCookiePlugin to generelize the use  |
+|  01 Dez 2008: | Initial version |
+|  Foswiki Dependency: |  |
+|  CPAN Dependencies: | HTTP::Cookies::Find |
+|  Other Dependencies: | |
+|  Perl Version: | 5.005 |
+|  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
+
+__Related Topics:__ 

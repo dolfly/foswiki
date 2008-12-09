@@ -1,0 +1,4 @@
+data/System/ExportCookiePlugin.txt Plugin topic
+lib/Foswiki/Plugins/ExportCookiePlugin.pm Plugin Perl module
+lib/Foswiki/Plugins/ExportCookiePlugin/Config.spec 0644
+
