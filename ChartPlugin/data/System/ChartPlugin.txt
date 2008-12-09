@@ -1,6 +1,6 @@
 %META:TOPICINFO{author="ProjectContributor" date="1100674597" format="1.0" version="1.0"}%
 <!--
-    * Set SHORTDESCRIPTION = Create PNG or GIF charts to visualize Foswiki tables
+   * Set SHORTDESCRIPTION = Create PNG or GIF charts to visualize Foswiki tables
 -->
 
 ---+!! Chart Plugin
