@@ -3,4 +3,4 @@
 
 # **STRING**
 # Name of the cookie to export
-$Foswiki::cfg{Plugins}{ExportCookie}{CookieName}="";
+$Foswiki::cfg{Plugins}{ExportCookiePlugin}{CookieName}="";

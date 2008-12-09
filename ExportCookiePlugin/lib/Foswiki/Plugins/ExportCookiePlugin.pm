@@ -34,14 +34,12 @@ sub initPlugin {
     my( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $Foswiki::Plugins::VERSION < 1.026 ) {
+    if( $Foswiki::Plugins::VERSION < 2.0 ) {
         Foswiku::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
         return 0;
     }
 
-    $debug = $Foswiki::cfg{Plugins}{PHPsidPlugin}{Debug} || 0;
-
-    Foswiki::Func::registerTagHandler( 'EXPORTCOOKIE', \&_GETCOOKIE );
+    Foswiki::Func::registerTagHandler( 'EXPORTCOOKIE', \&_GETCOOKIEVALUE );
     return 1;
 }
 
@@ -49,7 +47,7 @@ sub _GETCOOKIEVALUE {
     my($this, $params, $theTopic, $theWeb) = @_;
  	my $query = Foswiki::Func::getCgiQuery();	
 	my $value = "";
-	my $CookieName = $Foswiki::cfg{Plugins}{ExportCookie}{CookieName};
+	my $CookieName = $Foswiki::cfg{Plugins}{ExportCookiePlugin}{CookieName};
 
 	foreach my $name ($query->cookie()) {
 		if($name eq $CookieName)
