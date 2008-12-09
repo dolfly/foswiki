@@ -1,11 +1,14 @@
 ---+!! <nop>%TOPIC%
 
-Exports the value of a Cookie into the Foswiki variable <verbatim>%EXPORTCOOKIE%</verbatim>
+<!--
+   * Set SHORTDESCRIPTION = Exports the value of a cookie into the Foswiki variable EXPORTCOOKIE
+-->
+%SHORTDESCRIPTION%
 
 %TOC%
 
 ---++ USAGE
-Use the macro <verbatim>%EXPORTCOOKIE%</verbatim> to display the value. You can use this in links or further pugins.
+Use the macro <verbatim>%EXPORTCOOKIE%</verbatim> to display the value. You can use it for auth systems or connecting system like Drupal with Foswiki.
 
 ---++ Plugin Settings
    * you need to set the CookieName in the Foswiki configure-system
