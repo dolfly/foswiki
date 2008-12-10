@@ -24,7 +24,7 @@ Later more features may be added. But the plugin is created for this simple purp
 
 ---++ Syntax Rules
 
-%INCLUDE{"%SYSTEMWEB%.VarEXTENDEDWEBLIST"}%
+%INCLUDE{"VarEXTENDEDWEBLIST"}%
 
 ---++ Example
 
