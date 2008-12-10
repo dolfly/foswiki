@@ -1,0 +1,55 @@
+---+!! !ExtendedWebListPlugin
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Extended Web List Plugin provides the ability to only show subwebs within current top web.
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Description
+
+The current built-in WEBLIST macro does not have the capability of only showing subwebs within the current top level web. This plugin adds this feature to a new macro EXTENDEDWEBLIST.
+
+This plugin is very simple. It mirrors all the features of WEBLIST except it adds the option =rootwebs= which will cause EXTENDEDWEBLIST to return the entire web tree under the current web branch.
+
+This is useful when you have many webs with many subwebs. The list of webs in the WebLeftBar can become quite long when you see all the subwebs. With this plugin you can put something like this in the %SYSTEMWEB%/WebLeftBarWebsList
+
+<verbatim>
+   * *%MAKETEXT{"Webs"}%*
+%EXTENDEDWEBLIST{"   * <span style=\"white-space:nowrap\"><a href=\"%SCRIPTURLPATH{"view"}%/$name/%HOMETOPIC%\"><img src=\"%ICONURL{web-bg}%\" border=\"0\" alt=\"\" width=\"16\" height=\"16\" style=\"background-color:%$markerVAR{\"WEBBGCOLOR\" web=$qname}$marker%\" />&nbsp;<nop>$indentedname</a></span>" subwebs="%BASEWEB%" rootwebs="on" webs="public"}%
+</verbatim>
+
+Later more features may be added. But the plugin is created for this simple purpose.
+
+---++ Syntax Rules
+
+%INCLUDE{"%SYSTEMWEB%.VarEXTENDEDWEBLIST"}%
+
+---++ Example
+
+If this plug-in is installed you should get a weblist below in bullet view
+
+%EXTENDEDWEBLIST{"   * $indentedname" subwebs="%BASEWEB%" rootwebs="on" webs="public"}%
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+|  Plugin Author(s): | Foswiki:Main.KennethLavrsen |
+|  Copyright: | &copy; 2008, Kenneth Lavrsen and Foswiki Contributors |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Plugin Version: | 1.0 (10 Dec 2008) |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.0 (10 Dec 2008) | Initial version. Plugin policy is feel free to modify in compatible way |
+|  CPAN Dependencies: | none |
+|  Other Dependencies: | none |
+|  Perl Version: | 5.008 |
+|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+
+__Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], %SYSTEMWEB%.DeveloperDocumentationCategory, %SYSTEMWEB%.AdminDocumentationCategory, %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on foswiki.org instead. -->

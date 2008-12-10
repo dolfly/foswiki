@@ -1,0 +1,5 @@
+# Release manifest for ExtendedWebListPlugin
+data/System/ExtendedWebListPlugin.txt 0644 Documentation
+data/System/VarEXTENDEDWEBLIST.txt 0644 Documentation
+lib/Foswiki/Plugins/ExtendedWebListPlugin.pm 0644 Perl module
+
