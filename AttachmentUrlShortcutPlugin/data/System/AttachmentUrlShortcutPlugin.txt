@@ -1,0 +1,48 @@
+%META:TOPICINFO{author="EugenMayer" date="1229041003" format="1.1" reprev="1.2" version="1.2"}%
+---+ !AttachmentUrlShortcutPlugin
+Gives you the ability to you use shortened syntaxes for links to attachments !%A%
+
+%TOC%
+
+---++ Usage
+ Use the macro !%A% to create a link to an attachement: 
+| *Parameter* (both working, but only use one) | *Default* | *Description* |
+| _web_ or _Bereich_  | Current web | Sets the web of the topic, where the attachment is attached to |
+| _topic_ or _Dokument_ | Current topic | Sets the topic name, where the attachment is attached to |
+| _file_ or _Anhang_ | - | Sets the name of the attachment. It must match the filename! |
+| _name_ or _Name__ | _file_ | Optional to set the name of the link. If its not set, _file is used as name |
+ If you use file to define the file to attache to, the link is create automatically, so you dont need to use braces<verbtim>[[]]</varbatim> like in example 1. 
+---+++ Example
+ Different ways to link the attachment TestAttachement.pdf of this topic 
+   1 <verbatim>[[%A{web="System" topic="AttachmentUrlShortcutPlugin"}%TestAttachment.pdf][Test attachment]]</verbatim> [[%A{web="System" topic="AttachmentUrlShortcutPlugin"}%TestAttachment.pdf][Test attachment]]
+   1 <verbatim>%A{web="System" topic="AttachmentUrlShortcutPlugin" file="TestAttachment.pdf" name="Test attachment"}%</verbatim> %A{web="System" topic="AttachmentUrlShortcutPlugin" file="TestAttachment.pdf" name="Test attachment"}%
+   1 <verbatim>%A{file="TestAttachment.pdf" name="Test attachment"}%</verbatim> %A{file="TestAttachment.pdf" name="Test attachment"}%
+   1 <verbatim>%A{file="TestAttachment.pdf"}%</verbatim> %A{file="TestAttachment.pdf"}%
+---++ Plugin Installation Instructions
+
+__Note:__ You do not need to install anything on the browser to use this Plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
+
+---+++ Installation instructions
+   * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it trough an user-interface
+
+   * Set SHORTDESCRIPTION = Gives you the ability to you use shortened syntaxes for links to attachments !%A%
+
+|  Plugin Author: | Foswiki:Main.EugenMayer |
+|  Copyright: | &copy; 2006, Impressive.media |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 11 Dez 2008 (V0.2) |
+|  Change History: | <!-- versions below in reverse order --> |
+|  11 Dez 2008: | Renewed plugin for Foswiki |
+|  01 Dez 2007: | Initial version for TWiki |
+|  Foswiki Dependency: | |
+|  CPAN Dependencies: | |
+|  Other Dependencies: | |
+|  Perl Version: | 5.005 |
+|  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
+ __Related Topic:__
+
+-- Foswiki:Main/EugenMayer - 11 Dez 2008
+
+%META:FILEATTACHMENT{name="TestAttachment.pdf" attachment="TestAttachment.pdf" attr="" comment="" date="1229040729" path="TestAttachment.pdf" size="14728" stream="IO::File=GLOB(0x8993660)" tmpFilename="/var/tmp/CGItemp36464" user="EugenMayer" version="1"}%
