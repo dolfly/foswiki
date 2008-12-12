@@ -1,6 +1,22 @@
-# Copyright (C) 2007 Eugen Mayer@Impressive-media.de
-# www.impressive-media.de
-# All rights reserved
+#!/usr/local/bin/perl -wI.
+#
+# This script Copyright (c) 2008 Impressive.media 
+# and distributed under the GPL (see below)
+#
+# Based on parts of GenPDF, which has several sources and authors
+# This script uses html2pdf as backend, which is distributed under the LGPL
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details, published at 
+# http://www.gnu.org/copyleft/gpl.html
+
 
 package Foswiki::Plugins::AttachmentUrlShortcutPlugin;
 
