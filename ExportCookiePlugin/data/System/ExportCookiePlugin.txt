@@ -32,4 +32,11 @@ Use the macro <verbatim>%EXPORTCOOKIE%</verbatim> to display the value. You can 
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
 
-__Related Topics:__ 
+__Related Topics:__
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}% 
