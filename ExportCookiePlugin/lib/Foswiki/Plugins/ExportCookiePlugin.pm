@@ -1,6 +1,10 @@
-# Copyright (C) 2007 Impressive-media.de
-# Author Eugen Mayer
-# www.i:mpressive-media.de
+#!/usr/local/bin/perl -wI.
+#
+# This script Copyright (c) 2008 Impressive.media 
+# and distributed under the GPL (see below)
+#
+# Based on parts of GenPDF, which has several sources and authors
+# This script uses html2pdf as backend, which is distributed under the LGPL
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -10,8 +14,9 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at
+# GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
+
 
 package Foswiki::Plugins::ExportCookiePlugin;
 
