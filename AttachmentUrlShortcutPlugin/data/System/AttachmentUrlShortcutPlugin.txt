@@ -46,3 +46,9 @@ __Note:__ You do not need to install anything on the browser to use this Plugin.
 -- Foswiki:Main/EugenMayer - 11 Dez 2008
 
 %META:FILEATTACHMENT{name="TestAttachment.pdf" attachment="TestAttachment.pdf" attr="" comment="" date="1229040729" path="TestAttachment.pdf" size="14728" stream="IO::File=GLOB(0x8993660)" tmpFilename="/var/tmp/CGItemp36464" user="EugenMayer" version="1"}%
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
