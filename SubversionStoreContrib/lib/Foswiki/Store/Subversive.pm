@@ -33,7 +33,7 @@ sub init {
         close(F);
 
         my ( $output, $exit ) =
-          $Foswiki::sandbox->sysCommand(
+          Foswiki::Sandbox->sysCommand(
               $Foswiki::cfg{SubversionContrib}{svnCommand}.
                 ' add %FILENAME|F%', FILENAME => $this->{file} );
         if ($exit) {
@@ -57,7 +57,7 @@ sub _mkPathTo {
         elsif ($path) {
             if ( !-e "$path$dir" && -e "$path/.svn" ) {
                 my ( $output, $exit ) =
-                  Foswiki::sandbox->sysCommand(
+                  Foswiki::Sandbox->sysCommand(
                       $Foswiki::cfg{SubversionContrib}{svnCommand}.
                         ' mkdir %FILENAME|F%', FILENAME => $path . $dir );
                 if ($exit) {
@@ -75,7 +75,7 @@ sub _mkPathTo {
 
 sub getRevisionInfo {
     my ($this, $version) = @_;
-    my $info = Foswiki::sandbox->sysCommand(
+    my $info = Foswiki::Sandbox->sysCommand(
         $Foswiki::cfg{SubversionContrib}{svnCommand}.
           ' info -r $version %FILENAME|F%',
         FILENAME => $this->{file} );
@@ -116,7 +116,7 @@ sub getLatestRevisionTime {
     my $this = shift;
 
     my ( $output, $exit ) =
-      $Foswiki::sandbox->sysCommand(
+      Foswiki::Sandbox->sysCommand(
           $Foswiki::cfg{SubversionContrib}{svnCommand}.
             ' info %FILE|F%', FILE => $this->{file} );
     if ($exit) {
@@ -328,7 +328,7 @@ sub _copyFile {
 
     _mkPathTo( $this, $to );
 
-    my ( $output, $exit ) = $Foswiki::sandbox->sysCommand(
+    my ( $output, $exit ) = Foswiki::Sandbox->sysCommand(
         $Foswiki::cfg{SubversionContrib}{svnCommand}.' cp %FROM|F% %TO|F%',
         FROM => $from,
         TO   => $to
@@ -343,7 +343,7 @@ sub _moveFile {
     my ( $this, $from, $to ) = @_;
 
     _mkPathTo( $this, $to );
-    my ( $output, $exit ) = $Foswiki::sandbox->sysCommand(
+    my ( $output, $exit ) = Foswiki::Sandbox->sysCommand(
         $Foswiki::cfg{SubversionContrib}{svnCommand}.' mv %FROM|F% %TO|F%',
         FROM => $from,
         TO   => $to
@@ -442,7 +442,7 @@ sub _rmtree {
     my ( $this, $root ) = @_;
 
     my ( $output, $exit ) =
-      $Foswiki::sandbox->sysCommand( $Foswiki::cfg{SubversionContrib}{svnCommand}.
+      Foswiki::Sandbox->sysCommand( $Foswiki::cfg{SubversionContrib}{svnCommand}.
                                      ' rm %FILENAME|F%', FILENAME => $root );
     if ($exit) {
         throw Error::Simple( 'svn rm of ' . $root . ' failed: ' . $output );
@@ -477,7 +477,7 @@ sub numRevisions {
     my $this = shift;
 
     my ( $output, $exit ) =
-      $Foswiki::sandbox->sysCommand(
+      Foswiki::Sandbox->sysCommand(
           $Foswiki::cfg{SubversionContrib}{svnCommand}.
             ' info %FILE|F%', FILE => $this->{file} );
     if ($exit) {
@@ -503,7 +503,7 @@ sub revisionDiff {
         return [];
     }
 
-    my ( $output, $exit ) = $Foswiki::sandbox->sysCommand(
+    my ( $output, $exit ) = Foswiki::Sandbox->sysCommand(
         $Foswiki::cfg{SubversionContrib}{svnCommand}.
           ' diff -r%FT|U% --non-interactive %FILE|F%',
         FT   => $ft,
@@ -520,7 +520,7 @@ sub revisionDiff {
 sub getRevisionAtTime {
     my ($this, $date) = @_;
     throw Error::Simple("Not implemented");
-    my $info = Foswiki::sandbox->sysCommand(
+    my $info = Foswiki::Sandbox->sysCommand(
         $Foswiki::cfg{SubversionContrib}{svnCommand}.
           ' info -r {%DATE|U%} %FILENAME|F%',
         DATE => Foswiki::FormatTime($date, '$http'),
