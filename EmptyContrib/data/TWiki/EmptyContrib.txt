@@ -30,7 +30,7 @@ Settings are stored as preferences variables. To reference a setting write ==%<n
 	%$DEPENDENCIES%
 
    * Test if the installation was successful:
-      * __enter sample here__
+      * *enter sample here*
       * see also [[Sandbox.PluginTest%TOPIC%]]
 
 ---++ Contrib Info
@@ -46,6 +46,5 @@ Settings are stored as preferences variables. To reference a setting write ==%<n
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
 
-__Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
-
--- TWiki:Main/%USERNAME% - %DATE%
+---
+*Related Topics:* %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
