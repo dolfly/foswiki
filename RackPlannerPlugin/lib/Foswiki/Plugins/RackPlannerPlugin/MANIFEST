@@ -1,0 +1,4 @@
+lib/Foswiki/Plugins/RackPlannerPlugin/RackPlanner.pm
+lib/Foswiki/Plugins/RackPlannerPlugin.pm
+data/System/RackPlannerPlugin.txt
+pub/System/RackPlannerPlugin/rackplannertooltips.js

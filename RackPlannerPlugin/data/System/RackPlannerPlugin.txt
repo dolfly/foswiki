@@ -2,7 +2,7 @@
 ---+ <nop>RackPlannerPlugin
 The <nop>RackPlannerPlugin handles the tag =%<nop>RACKPLANNER%= and renders a rack overview (HTML table) with devices (computer, router, switches, ...). 
 ---++ Syntax Rules
-Devices are defined within a TWiki table. Following columns are supported:
+Devices are defined within a Foswiki table. Following columns are supported:
 
 | *Device* | *Rack* | *Starting Unit* | *Form Factor* | *Connected to:* | *Owner* | *Color/Image* | *Notes* |
 | device name(s) (separated by =' / '= or =' # '=) | rack name | a starting unit (a number between 1 and =units=) | a form factor (units, e.g. 4U, 2, 1U, ...) | device(s) is/are connected to ... (comma separated list of other devices, ports ...); every 'connected to' item is displayed as a icon (see =connectedtoicon=, e.g. %M%) with the text as tooltip; if you use links the icons are also links; | the device owner(s) is/are displayed as tooltip of the device name | colors or a background image (a URL or shortcut, e.g. @sun - see attachments) for the table data cell | notes are displayed as a icon (=notesicon= e.g. %P%) with the note as tooltip; if you use a link the icon is also a link |
@@ -133,20 +133,20 @@ a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>E
 
 ---++ Plugin Installation Instructions
 
-__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the TWiki server. 
+__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the Foswiki server. 
 
 	* Download the ZIP file from the Plugin web (see below)
 	* Unzip ==%TOPIC%.zip== in your twiki installation directory. Content:
 	  | *File:* | *Description:* |
 	  | ==data/System/%TOPIC%.txt== | Plugin topic |
-	  | ==data/TWiki/VarRACKPLANNER.txt== | Documentation |
+	  | ==data/System/VarRACKPLANNER.txt== | Documentation |
 	  | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
 	  | ==lib/Foswiki/Plugins/%TOPIC%/RackPlanner.pm== | Plugin Perl library |
-	  | ==pub/TWiki/%TOPIC%/rackplannertooltips.js== | <nop>JavaScript module |
-	  | ==pub/TWiki/%TOPIC%/*.png | some base icons for devices |
+	  | ==pub/System/%TOPIC%/rackplannertooltips.js== | <nop>JavaScript module |
+	  | ==pub/System/%TOPIC%/*.png | some base icons for devices |
 
 	* Configure the Plugin:
-		* TWiki 4.0 and up: Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script to enable the Plugin
+		* Foswiki 1.0 and up: Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script to enable the Plugin
 		* Change the Plugin settings as needed
 	* Test if the installation was successful:
 		* see Examples section
@@ -157,6 +157,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | V1.006 (30 Aug 2007) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  ?V1.006 (13 Des 2008) | Rebranded to Foswiki. Main.LarsEik, Tasks.Item8030 |
 |  V1.006 (30 Aug 2007) | fixed minor tooltip foreground/background color bug; added device icon shortcut feature; added some base device icons; |
 |  V1.005 (5 Jun 2007) | TWiki:Main.DanielRohde: fixed links in 'connected to' or 'owner' field bug; added new attribute (clicktooltip...); added documentation |
 |  V1.004 (20 Apr 2007) | TWiki:Main.DanielRohde: fixed replacement in =tooltipformat= bug; improved =tooltipformat=; improved HTML rendering performance; added and fixed documenation; | 

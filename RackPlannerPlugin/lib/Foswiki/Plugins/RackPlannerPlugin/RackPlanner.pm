@@ -18,7 +18,7 @@
 #
 # For licensing info read LICENSE file in the TWiki root.
 
-package TWiki::Plugins::RackPlannerPlugin::RackPlanner;
+package Foswiki::Plugins::RackPlannerPlugin::RackPlanner;
 
 use strict;
 ###use warnings;
@@ -62,7 +62,7 @@ sub expand {
 }
 # =========================
 sub _initDefaults {
-	my $webbgcolor = &TWiki::Func::getPreferencesValue("WEBBGCOLOR", $web) || '#33CC66';
+	my $webbgcolor = &Foswiki::Func::getPreferencesValue("WEBBGCOLOR", $web) || '#33CC66';
 	%defaults = (
 		'topic' => "$web.$topic",
 		'autotopic' => 'off',
@@ -119,7 +119,7 @@ sub _initDefaults {
 sub _initOptions {
         my ($attributes) = @_;
 
-        my %params = &TWiki::Func::extractParameters($attributes);
+        my %params = &Foswiki::Func::extractParameters($attributes);
 
 
         my @allOptions = keys %defaults;
@@ -142,9 +142,9 @@ sub _initOptions {
                         }
                 } else {
                         if (grep /^\Q$option\E$/, @flagOptions) {
-                                $v = &TWiki::Func::getPreferencesFlag("\U$pluginName\E_\U$option\E") || undef;
+                                $v = &Foswiki::Func::getPreferencesFlag("\U$pluginName\E_\U$option\E") || undef;
                         } else {
-                                $v = &TWiki::Func::getPreferencesValue("\U$pluginName\E_\U$option\E");
+                                $v = &Foswiki::Func::getPreferencesValue("\U$pluginName\E_\U$option\E");
                         }
 			$v=undef if (defined $v) && ($v eq "");
                         $options{$option}=(defined $v)? $v : $defaults{$option};
@@ -154,15 +154,15 @@ sub _initOptions {
         # Render some options:
         foreach my $option (@renderedOptions) {
                 if ($options{$option} !~ /^(\s|\&nbsp\;)*$/) {
-                        $options{$option}=&TWiki::Func::expandCommonVariables($options{$option}, $web);
-                        $options{$option}=&TWiki::Func::renderText($options{$option}, $web);
+                        $options{$option}=&Foswiki::Func::expandCommonVariables($options{$option}, $web);
+                        $options{$option}=&Foswiki::Func::renderText($options{$option}, $web);
                 }
         }
 
 
         @processedTopics = ( );
 
-	$cgi = &TWiki::Func::getCgiQuery();
+	$cgi = &Foswiki::Func::getCgiQuery();
 
         return 1;
 }
@@ -212,7 +212,7 @@ sub _renderJSTooltipText {
 	$text =~s /\%DEVICE\%/\%SERVER\%/gs;
 	$text =~s /\%([^\%\s]+?ICON)\%/(defined $options{"\L$1\E"}?$options{"\L$1\E"}:"\%$1\%")/egs;
 	$text =~s /\%([^\%\s]+)\%/(defined $$entryRef{"\L$1\E"}?$$entryRef{"\L$1\E"}:"\%$1\%")/egs;
-	return &TWiki::Func::renderText($text);
+	return &Foswiki::Func::renderText($text);
 }
 # =========================
 sub _renderHorizontal {
@@ -380,7 +380,7 @@ sub _render {
 
 	for (my $rackNumber=0; $rackNumber<=$#racks; $rackNumber++) {
 		my $rack = $racks[$rackNumber];
-		$tr.=$cgi->th({-align=>'center'},&TWiki::Func::renderText($rack))."\n";
+		$tr.=$cgi->th({-align=>'center'},&Foswiki::Func::renderText($rack))."\n";
 		$tr.=$unitColumnHeader if $options{'displayunitcolumn'} && ($options{'unitcolumnpos'}=~/^all$/i) && ($rackNumber<$#racks);
 
 	}
@@ -518,7 +518,7 @@ sub _renderUnitColumn {
 		my $f = $options{'unitcolumnformat'};
 		my $u = abs($unit);
 		$f =~ s/%U/$u/g;
-		$f = "<span style=\"background-color:".(defined $options{'unitcolumnbgcolor'}?$options{'unitcolumnbgcolor'}:"")."\">$f</span>";
+		$f = "<span style=\"background-color:".(defined $options{'unitcolumnbgcolor'}?$options{'unitcolumnbgcolor'}:"brown")."\">$f</span>";
 		$text.=$cgi->Tr($cgi->td({-valign=>'top',-align=>'right',-rowspan=>'1',-nowrap=>'nowrap'}, $f));
 	}
 	$text = '<noautolink>'.$cgi->start_table({-cellspacing=>'1',-cellpadding=>'0',-height=>'100%',-width=>'100%',})
@@ -596,7 +596,7 @@ sub _renderTextContent {
 		$text .= &_renderIconContent($connectedto,$note);
 		my ($fgcolor, $bgcolor, $style) = &_getColorsAndStyle($colors,($$entryRef{'server'}!~/\//));
 
-		$text = &TWiki::Func::renderText($text);
+		$text = &Foswiki::Func::renderText($text);
 
 		$text =~ s/<sup[^>]*>(.*?)<\/sup[^>]*>/$1/igs;
 		$text =~ s/<sub[^>]*>(.*?)<\/sub[^>]*>/$1/igs;
@@ -636,7 +636,7 @@ sub _renderIconContent {
 	my $connectedtoIcon = &_resizeIcon($options{'connectedtoicon'});
 	if ((defined $connectedto) && ($connectedto!~/^\s*$/) && (!$options{'displayconnectedto'})) {
 		foreach my $ct (split(/\s*\,\s*/, $connectedto)) {
-			my $rt = TWiki::Func::renderText($ct);
+			my $rt = Foswiki::Func::renderText($ct);
 			my $title = &_encodeTitle($ct);
 			my $icon = &_retitleIcon($connectedtoIcon, $title);
 
@@ -651,7 +651,7 @@ sub _renderIconContent {
 
 
 	if (defined $note && $note!~/^\s*$/ && !$options{'notes'}) {
-		my $rt = TWiki::Func::renderText($note);
+		my $rt = Foswiki::Func::renderText($note);
 		my $title = &_encodeTitle($note);
 		my $icon = &_retitleIcon($notesIcon, $title);
 		if ($rt=~/<a\s+[^>]*?href=\"([^\">]+)\"/) {
@@ -671,7 +671,7 @@ sub _getColorsAndStyle {
 	if (($colors=~s/\@([a-z0-9]+)//i)&&(!$denybgimage)) {
 		$style .= $style eq '' ? '' : ';';
 		$style.='background-position:center;background-repeat:no-repeat;'
-			.'background-image:url('.TWiki::Func::getPubUrlPath().'/'.TWiki::Func::getTwikiWebname().'/'.$pluginName.'/'.$1.'.png)';
+			.'background-image:url('.Foswiki::Func::getPubUrlPath().'/'.$Foswiki::cfg{SystemWebName}.'/'.$pluginName.'/'.$1.'.png)';
 			
 	}
 	foreach my $colimg (split(/\s*,\s*/, $colors)) {
@@ -835,10 +835,10 @@ sub _readTopicText
 {
         my( $theWeb, $theTopic ) = @_;
         my $text = '';
-        if( $TWiki::Plugins::VERSION >= 1.010 ) {
-                $text = &TWiki::Func::readTopicText( $theWeb, $theTopic, '', 1 );
+        if( $Foswiki::Plugins::VERSION >= 1.010 ) {
+                $text = &Foswiki::Func::readTopicText( $theWeb, $theTopic, '', 1 );
         } else {
-                $text = &TWiki::Func::readTopic( $theWeb, $theTopic );
+                $text = &Foswiki::Func::readTopic( $theWeb, $theTopic );
         }
         # return raw topic text, including meta data
         return $text;
@@ -850,7 +850,7 @@ sub _expandIncludedEvents
 
         my ($theWeb, $theTopic) = ($web, $topic);
 
-        my $webTopic = &TWiki::Func::extractNameValuePair( $theAttributes );
+        my $webTopic = &Foswiki::Func::extractNameValuePair( $theAttributes );
         if( $webTopic =~ /^([^\.]+)[\.\/](.*)$/ ) {
                 $theWeb = $1;
                 $theTopic = $2;
@@ -871,14 +871,14 @@ sub _expandIncludedEvents
         # recursively expand includes
         $text =~ s/%INCLUDE{(.*?)}%/&_expandIncludedEvents( $1, $theProcessedTopicsRef )/geo;
 
-        ## $text = TWiki::Func::expandCommonVariables($text, $theTopic, $theWeb);
+        ## $text = Foswiki::Func::expandCommonVariables($text, $theTopic, $theWeb);
 
         return $text;
 }
 # =========================
 sub _createUnknownParamsMessage {
         my $msg;
-        $msg = TWiki::Func::getPreferencesValue("\U$pluginName\E_UNKNOWNPARAMSMSG") || undef;
+        $msg = Foswiki::Func::getPreferencesValue("\U$pluginName\E_UNKNOWNPARAMSMSG") || undef;
         $msg = $defaults{unknownparamsmsg} unless defined $msg;
         $msg =~ s/\%UNKNOWNPARAMSLIST\%/join(', ', sort @unknownParams)/eg;
         $msg =~ s/\%KNOWNPARAMSLIST\%/join(', ', sort keys %defaults)/eg;
