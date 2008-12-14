@@ -1,11 +1,11 @@
 #!/usr/bin/perl 
-#  
+#
 # This file is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
 # of the License, or (at your option) any later version. For
 # more details read COPYING in the root of this distribution.
-# 
+#
 # This program is distributed in the hope that it will be useful, but
 # WITHOUT ANY WARRANTY, to the extent permitted by law; without even the
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -16,14 +16,12 @@
 use strict;
 use warnings;
 
-
-
-my $runCmd  = "$ARGV[0]";  # Command to be executed
-my $libDir  = "$ARGV[1]";  # Library directory
-my $inFile  = "$ARGV[2]";  # Input file
-my $ioStr   = "$ARGV[3]";  # Parameters
-my $errFile = "$ARGV[4]";  # Error file
-my $logFile = "$ARGV[5]";  # Debug file if debug enabled, otherwise null
+my $runCmd  = "$ARGV[0]";    # Command to be executed
+my $libDir  = "$ARGV[1]";    # Library directory
+my $inFile  = "$ARGV[2]";    # Input file
+my $ioStr   = "$ARGV[3]";    # Parameters
+my $errFile = "$ARGV[4]";    # Error file
+my $logFile = "$ARGV[5]";    # Debug file if debug enabled, otherwise null
 
 my $debug = 1 if $logFile;
 
@@ -37,9 +35,11 @@ if ($debug) {
 if ( $#ARGV != 5 ) {
     open( DEBUGFILE, ">>$logFile" );
     print DEBUGFILE "Received $#ARGV parameters \n";
-    print DEBUGFILE "Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile\n";
+    print DEBUGFILE
+"Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile\n";
     close DEBUGFILE;
-    die "Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile\n";
+    die
+"Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile\n";
 }
 
 open( ERRFILE, "$errFile" );
@@ -54,7 +54,7 @@ close ERRFILE;
 #}
 
 # GV_FILE_PATH need to be set for dot to load custom icons (shapefiles)
-$ENV{'GV_FILE_PATH'} = "$libDir"."/";
+$ENV{'GV_FILE_PATH'} = "$libDir" . "/";
 my $execCmd = "$runCmd $inFile $ioStr 2> $errFile ";
 
 if ($debug) {
@@ -65,23 +65,27 @@ if ($debug) {
 }
 
 my $execError = "";
-system("$execCmd");          # Execute the command
+system("$execCmd");    # Execute the command
 
-if ($? != 0) {
-    if ($? == -1) {
+if ( $? != 0 ) {
+    if ( $? == -1 ) {
         $execError = "failed to execute: $!\n";
     }
-    elsif ($? & 127) {
-        $execError =  sprintf ("child died with signal %d, %s coredump\n",
-        ($? & 127),  ($? & 128) ? 'with' : 'without' );
+    elsif ( $? & 127 ) {
+        $execError = sprintf(
+            "child died with signal %d, %s coredump\n",
+            ( $? & 127 ),
+            ( $? & 128 ) ? 'with' : 'without'
+        );
     }
     else {
-        $execError = sprintf( "child exited with value %d\n", $? >> 8) ;
+        $execError = sprintf( "child exited with value %d\n", $? >> 8 );
     }
 
-        open( ERRFILE, ">>$errFile" );
-        print ERRFILE "Problem executing dot command: '$execCmd', got:\n $execError\n ";
-        close ERRFILE;
-        die "Problem executing dot command";
-    }
+    open( ERRFILE, ">>$errFile" );
+    print ERRFILE
+      "Problem executing dot command: '$execCmd', got:\n $execError\n ";
+    close ERRFILE;
+    die "Problem executing dot command";
+}
 1;

@@ -14,7 +14,7 @@ Attachments are shipped with this topic - must use API to access them.
 
 ---++ Introduction
 
-Support for creating advanced directed graphs has been installed on this TWiki installation. Directed graphs are rendered by [[http://www.graphviz.org][Graphviz]]. Only the most important basics are covered here, you should consult the dotguide.pdf from Graphviz's homepage for a more thourough guide on creating directed graphs.
+Support for creating advanced directed graphs has been installed on this Foswiki installation. Directed graphs are rendered by [[http://www.graphviz.org][Graphviz]]. Only the most important basics are covered here, you should consult the dotguide.pdf from Graphviz's homepage for a more thourough guide on creating directed graphs.
 
 ---++ What are directed graphs?
 
@@ -37,7 +37,7 @@ digraph G {
 </td><td valign="top">
 To the left here you can see a simple directed graph with three ="nodes"=, one on the top and two below (which are connected from top to bottom). Connecting these nodes you can also see two ="edges"=, which is the technical term for the arrow connecting the three nodes.
 
-When entering directed graphs in TWiki, everything you do is to define nodes and their edges (or connections); the directed graph engine then does all placing by itself, fully automatic.
+When entering directed graphs in Foswiki, everything you do is to define nodes and their edges (or connections); the directed graph engine then does all placing by itself, fully automatic.
 
 No layout more than which nodes and their relationship, together with node and edge style is defined by the author; the engine takes care of *all* layout and placing of nodes, which makes creating advanced graphs extremely simple and fast.
 
@@ -349,7 +349,7 @@ digraph ladder {  ranksep=".1"; nodesep=".1"; size="3,3.5";
   
 # Now each step in the ladder
   { rank=same; 
-    a2 -> b2 [dir=forward label="S1" URL="http://twiki.org/" ]  }
+    a2 -> b2 [dir=forward label="S1" URL="http://foswiki.org/" ]  }
   { rank=same; 
     b3 -> c3 [dir=forward label="S2" URL="#EndNote" ]  }
   { rank=same; 
@@ -420,7 +420,7 @@ digraph ladder {  ranksep=".1"; nodesep=".1";
   
 # Now each step in the ladder
   { rank=same; 
-    a2 -> b2 [dir=forward label="S1" URL="http://twiki.org/" ]  }
+    a2 -> b2 [dir=forward label="S1" URL="http://foswiki.org/" ]  }
   { rank=same; 
     b3 -> c3 [dir=forward label="S2" ]  }
   { rank=same; 
@@ -738,41 +738,41 @@ digraph G {
 -- TWiki:Main.MikaelOlenfalk - 08 Aug 2005
 
 
-%META:FILEATTACHMENT{name="shape_diamond.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_diamond.png" size="1340" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_invtrapezium.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_invtrapezium.png" size="1468" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_tripleoctagon.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200463" path="shape_tripleoctagon.png" size="1606" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_polygon.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_polygon.png" size="320" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_circle.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_circle.png" size="1782" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_invtriangle.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_invtriangle.png" size="2187" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_octagon.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_octagon.png" size="691" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="grouping_nodes.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="grouping_nodes.png" size="10707" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_trapezium.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_trapezium.png" size="1506" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="added_attributes.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="added_attributes.png" size="3298" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="arrow_dot.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200463" path="arrow_dot.png" size="2697" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_doublecircle.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_doublecircle.png" size="3441" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_box.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="shape_box.png" size="320" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="arrow_none.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200243" path="arrow_none.png" size="2448" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="simple_two_nodes.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="simple_two_nodes.png" size="3324" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="arrow_inv.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_inv.png" size="2711" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_egg.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_egg.png" size="2223" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_plaintext.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_plaintext.png" size="1327" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_Mdiamond.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_Mdiamond.png" size="1828" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="arrow_invdot.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_invdot.png" size="2931" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_Mcircle.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_Mcircle.png" size="1784" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="arrow_invodot.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_invodot.png" size="2973" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_house.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_house.png" size="1239" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_parallelogram.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_parallelogram.png" size="1442" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_invhouse.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_invhouse.png" size="1283" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_point.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_point.png" size="233" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_hexagon.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_hexagon.png" size="1739" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_doubleoctagon.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_doubleoctagon.png" size="1183" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_triangle.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_triangle.png" size="1873" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="arrow_odot.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_odot.png" size="2762" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="with_labels.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="with_labels.png" size="4730" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_ellipse.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_ellipse.png" size="2114" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="arrow_normal.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_normal.png" size="2743" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="add_subgraphs.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="add_subgraphs.png" size="11651" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="example1.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="example1.png" size="7080" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="shape_Msquare.png" attr="h" autoattached="1" comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_Msquare.png" size="644" user="Main.GeorgeClark" version="1"}%
-%META:FILEATTACHMENT{name="ladder_diagram.png" attachment="ladder_diagram.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1209265027" size="7904" stream="GLOB(0x8639e5c)" tmpFilename="/var/www/SVN/twiki/core/working/tmp/DGP5Xa3z5UkAh.png" user="BaseUserMapping_333" version="1"}%
-%META:FILEATTACHMENT{name="ladder_diagram.cmapx" attachment="ladder_diagram.cmapx" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1209265027" size="739" stream="GLOB(0x8639f10)" tmpFilename="/var/www/SVN/twiki/core/working/tmp/DGP4wJVBoxIY1.cmapx" user="BaseUserMapping_333" version="1"}%
+%META:FILEATTACHMENT{name="shape_diamond.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_diamond.png" size="1340" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_invtrapezium.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_invtrapezium.png" size="1468" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_tripleoctagon.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200463" path="shape_tripleoctagon.png" size="1606" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_polygon.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_polygon.png" size="320" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_circle.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_circle.png" size="1782" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_invtriangle.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_invtriangle.png" size="2187" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_octagon.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_octagon.png" size="691" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="grouping_nodes.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="grouping_nodes.png" size="10707" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_trapezium.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_trapezium.png" size="1506" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="added_attributes.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="added_attributes.png" size="3298" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="arrow_dot.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200463" path="arrow_dot.png" size="2697" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_doublecircle.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_doublecircle.png" size="3441" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_box.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="shape_box.png" size="320" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="arrow_none.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200243" path="arrow_none.png" size="2448" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="simple_two_nodes.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="simple_two_nodes.png" size="3324" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="arrow_inv.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_inv.png" size="2711" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_egg.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_egg.png" size="2223" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_plaintext.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_plaintext.png" size="1327" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_Mdiamond.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_Mdiamond.png" size="1828" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="arrow_invdot.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_invdot.png" size="2931" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_Mcircle.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_Mcircle.png" size="1784" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="arrow_invodot.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_invodot.png" size="2973" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_house.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_house.png" size="1239" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_parallelogram.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_parallelogram.png" size="1442" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_invhouse.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_invhouse.png" size="1283" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_point.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_point.png" size="233" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_hexagon.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_hexagon.png" size="1739" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_doubleoctagon.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200240" path="shape_doubleoctagon.png" size="1183" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_triangle.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_triangle.png" size="1873" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="arrow_odot.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_odot.png" size="2762" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="with_labels.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="with_labels.png" size="4730" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_ellipse.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200239" path="shape_ellipse.png" size="2114" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="arrow_normal.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200242" path="arrow_normal.png" size="2743" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="add_subgraphs.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="add_subgraphs.png" size="11651" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="example1.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200238" path="example1.png" size="7080" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="shape_Msquare.png" attr="h"  comment="<nop>DirectedGraphPlugin: DOT graph" date="1200200241" path="shape_Msquare.png" size="644" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="ladder_diagram.png" attachment="ladder_diagram.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1209265027" size="7904" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="ladder_diagram.cmapx" attachment="ladder_diagram.cmapx" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1209265027" size="739" user="Main.ProjectContributor" version="1"}%

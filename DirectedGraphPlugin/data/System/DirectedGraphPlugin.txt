@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1224123278" format="1.1" reprev="1.7" version="1.7"}%
+%META:TOPICINFO{author="Main.ProjectContributor" date="1228709045" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! Directed Graph Plugin
 %TABLE{databg="#AAAAFF"}%
 | To avoid topic corruption, please do not edit with WYSIWYG Editor |
@@ -15,7 +15,7 @@ This plugin uses [[http://www.graphviz.org/][Graphviz's]] applications to create
 
 | %X% *Caution* The plugin will also update attached files during __Preview__.  if the edit is subsequently canceled, the attachments will be regenerated again. |
 
-A MD5 hash is calculated for each dot command input and the results saved in the TWiki work_area directory. The hash file is named with the Web name, the Topic name, and the string ==-filehash==  The location of the workarea has changed in recent TWiki releases.  If the calculated hash matches on subsequent page visits, the attached graphics files are used without rerunning Graphviz. If the hash doesn't match, the attachments are regenerated.  
+A MD5 hash is calculated for each dot command input and the results saved in the Foswiki work_area directory. The hash file is named with the Web name, the Topic name, and the suffix ==-filehash==   If the calculated hash matches on subsequent page visits, the attached graphics files are used without rerunning Graphviz. If the hash doesn't match, the attachments are regenerated.  
 
 Default behavior is to leave any previously generated attachments even if the =&lt;dot&gt;= tags are removed from the file.  If the configuration setting DELETEATTACHMENTS is enabled, then the plugin will remove any old attachments that are not needed.  However if the final =&lt;dot&gt;= tag is removed, the plugin is not invoked, and the attachments will not be deleted. 
 
@@ -23,8 +23,7 @@ Default behavior is to leave any previously generated attachments even if the =&
 | %X% *Caution!* If a topic has not previously been processed by this version of the plugin, attachments named using the original "Graph[32 character hex checksum].jpg will *all* be deleted from the topic when this parameter is enabled! Once the new ==-filehash== file has been created, old style attachments will not be deleted.  If you want to go back and clean up the old atachment filenames, you can remove the =Web_Topic-filehash= file from the workare directory. |
 </blockquote>
 
-In TWiki 4.2.0 and later, if a topic is renamed, the ==-filehash== file in the TWiki workarea directory will be renamed as well and regeneration of attachment files will be avoided.  In previous versions, there is no afterRenameHandler.  The hash file will be orphaned, and the graphics attachments will be regenerated when the page is displayed.
-
+If a topic is renamed, the ==-filehash== file in the workarea directory will be renamed as well and regeneration of attachment files will be avoided. 
 
 | %X% *Caution* =&lt;dot&gt;= syntax is not currently compatible with the WYSIWYG editor.  Raw editing is recommended, or use &lt;sticky&gt; tags to protect the dot tags. |
 
@@ -49,13 +48,13 @@ You can use the following parameters in the =dot= tag to control the rendering o
 | =map="on"= | Create a client side map for the generated image. This will turn any =[URL="..."];= attribute in the graph description into a clickable area (see demonstration below). | =off= |
 | =vectorformats="ps svg"= | The PNG file created from the graph per default is a bitmap file. If you need a vector based file rendering or other bitmap types as well, you can specify =ps=, =svg= and =jpg= formats (will be attached to topic, visible under attachments view). Any format supported by !GraphViz is supported by this plugin. It is mapped to the =-T= parameter. | none |
 | =engine="neato"= | Which layout engine to use for the graph: One of =dot=, =neato=, =twopi=, =circo= or =fdp=. | =dot= |
-| =library="Main.GroupIcons"= | Which icon library topic to use for custom shapes ([shapefile] parameter). Needs to be explicitly set, also if icons are attached locally to the current graph topic. See demo below. | =%SYSTEMWEB%.DirectedGraphPlugin= |
+| =library="Main.GroupIcons"= | Which icon library topic to use for custom shapes ([shapefile] parameter). Needs to be explicitly set, also if icons are attached locally to the current graph topic. See demo below. | =System.DirectedGraphPlugin= |
 | =file="file_prefix"= | Overrides the dynamically generated filenames. If specified, must be unique for each graph within a single topic! Suffix is still generated automatically based upon file type.  | =graph_nn= nn increments per graph |
 | =hideattachments="on"= | Set whether or not attachments should be hidden from the attachment table | =on= |
 | =inlineattachment="png"= | Specifies the type of file to be attached inline to the page.  Must be png or jpg. | =png= |
 | =linkattachments="off"= | Add links for file types other than the inline type if present | =off= |
 | =dothash="on"= | Controls the hash calculation against the dot command input. If the dot hash is disabled, a previously created .png file will not be recreated unless the attachment is deleted, or the =dothash= parameter is enabled or removed. This can be used to create a portable topic and attachments that can be moved without regenerating all of the graphs. Used in the HowtoDirectedGraphs topic. | =on= |
-| =forceattachapi="off"= | Force standard TWiki attachment API processing.  Ignores setting of configure attachPath and attachUrlPath parameters.  Used to create portable topic across TWiki installations. | =off= |
+| =forceattachapi="off"= | Force standard Foswiki attachment API processing.  Ignores setting of configure attachPath and attachUrlPath parameters.  Used to create portable topic across Foswiki installations. | =off= |
 | *Postscript based Antialiasing (optional)* |||
 | =antialias="on"= | Enable antialiasing of current graph by setting this to =on=. Note that if Graphviz is installed with the cairo rendering engine, this option should not be needed. When enabled, a postscript image is created, and post-processed with the ImageMagick "convert" utility. | =off= |
 | =density="300"= | Passed to the imagemagick =convert= utility. Specifies the dots per inch used for image generation.  | =300= |
@@ -124,9 +123,9 @@ __You type:__
 <verbatim>
 <dot map="1">
 digraph G {
-    URL="http://www.twiki.org";
-    Plugins [URL="http://twiki.org/cgi-bin/view/Plugins/PluginPackage"];
-    DirectedGraphPlugin [URL="http://twiki.org/cgi-bin/view/Plugins/DirectedGraphPlugin"];
+    URL="http://foswiki.org";
+    Plugins [URL="http://foswiki.org/Extensions"];
+    DirectedGraphPlugin [URL="http://foswiki.org/Extensions/DirectedGraphPlugin"];
     Plugins -> DirectedGraphPlugin;
 }
 </dot>
@@ -134,18 +133,18 @@ digraph G {
 <table><tr><td valign="top" width="25%">
 __You get: (simulated)__ <br />
 <map id="sample" name="sample">
-<area shape="rect" href="http://twiki.org/cgi&#45;bin/view/Plugins/PluginPackage" title="Plugins" alt="" coords="60,8,150,56" />
-<area shape="rect" href="http://twiki.org/cgi&#45;bin/view/Plugins/DirectedGraphPlugin" title="DirectedGraphPlugin" alt="" coords="8,104,202,152" />
-<area shape="rect" href="http://www.twiki.org" alt="" coords="8,8,202,152" />
+<area shape="rect" href="http://foswiki.org/Extensions/PluginPackage" title="Plugins" alt="" coords="60,8,150,56" />
+<area shape="rect" href="http://foswiki.org/Extensions/DirectedGraphPlugin" title="DirectedGraphPlugin" alt="" coords="8,104,202,152" />
+<area shape="rect" href="http://www.foswiki.org" alt="" coords="8,8,202,152" />
 </map>
 <img usemap="#sample" src="%ATTACHURLPATH%/graphsample2.png"/>
 </td><td valign="top" width="25%">
 __You get: (if installed)__ <br />
 <dot map="1">
 digraph G {
-    URL="http://www.twiki.org";
-    Plugins [URL="http://twiki.org/cgi-bin/view/Plugins/PluginPackage"];
-    DirectedGraphPlugin [URL="http://twiki.org/cgi-bin/view/Plugins/DirectedGraphPlugin"];
+    URL="http://www.foswiki.org";
+    Plugins [URL="http://foswiki.org/Extensions/PluginPackage"];
+    DirectedGraphPlugin [URL="http://foswiki.org/Extensions/DirectedGraphPlugin"];
     Plugins -> DirectedGraphPlugin;
 }
 </dot>
@@ -158,9 +157,9 @@ __You get: (simulated, antialiasing on)__ <br />
 __You get: (if installed, antialiasing on)__ <br />
 <dot map="1" antialias="on" size="205x155">
 digraph G {
-    URL="http://www.twiki.org";
-    Plugins [URL="http://twiki.org/cgi-bin/view/Plugins/PluginPackage"];
-    DirectedGraphPlugin [URL="http://twiki.org/cgi-bin/view/Plugins/DirectedGraphPlugin"];
+    URL="http://www.foswiki.org";
+    Plugins [URL="http://foswiki.org/Extensions/PluginPackage"];
+    DirectedGraphPlugin [URL="http://foswiki.org/Extensions/DirectedGraphPlugin"];
     Plugins -> DirectedGraphPlugin;
 }
 </dot>
@@ -259,9 +258,9 @@ digraph G {
     pdfplugin -> browser [dir=back]
     {
       graph [rank=same]
-      pngpage [label=PNG shape=box URL="/cgi-bin/webdot/webdot/demo.dot.dot.png"]
-      svgpage [label=SVGZ shape=box URL="/cgi-bin/webdot/webdot/demo.dot.dot.svgz"]
-      pdfpage [label=PDF shape=box URL="/cgi-bin/webdot/webdot/demo.dot.dot.pdf"]
+      pngpage [label=PNG shape=box URL="/webdot/webdot/demo.dot.dot.png"]
+      svgpage [label=SVGZ shape=box URL="/webdot/webdot/demo.dot.dot.svgz"]
+      pdfpage [label=PDF shape=box URL="/webdot/webdot/demo.dot.dot.pdf"]
     }
     pngpage -> browser [dir=none style=dotted]
     svgpage -> svgplugin [dir=none style=dotted]
@@ -270,7 +269,7 @@ digraph G {
   subgraph cluster_1 {
     graph [label="Server 1"]
     httpd1 [label=httpd URL="http://httpd.apache.org/"]
-    webdot [label="/cgi-bin/webdot" style=filled fillcolor=yellow color=black URL="/webdot/"]
+    webdot [label="/webdot" style=filled fillcolor=yellow color=black URL="/webdot/"]
   }
   subgraph cluster_2 {
     graph [label="Server 2"]
@@ -299,7 +298,7 @@ __You get: (simulated)__ <br />
 </td>
 <td valign="top" width="25%">
 __You get: (if installed)__ <br />
-<dot engine="dot"  size="300x300" library="%SYSTEMWEB%.DirectedGraphPlugin">
+<dot engine="dot"  size="300x300" library="System.DirectedGraphPlugin">
 digraph G { size="2,3!"; dpi="100";
     edge [arrowhead=none color=blue];
     node [fontcolor=blue color=white];
@@ -321,7 +320,7 @@ digraph G { size="2,3!"; dpi="100";
 </td>
 <td valign="top" width="25%">
 __You get: (if installed, antialiased)__ <br />
-<dot engine="dot"  antialias="1" size="300x300" density="100" library="%SYSTEMWEB%.DirectedGraphPlugin">
+<dot engine="dot"  antialias="1" size="300x300" density="100" library="System.DirectedGraphPlugin">
 digraph G { size="2,3!"; dpi="100";
     edge [arrowhead=none color=blue];
     node [fontcolor=blue color=white];
@@ -344,12 +343,12 @@ digraph G { size="2,3!"; dpi="100";
 </tr></table>
 </sticky>
 
----++ <nop>%TOPIC% Global Settings
+---++ <nop>%TOPIC% Global Preference Settings
 
 Changes to the settings marked %X% will cause changes to the file hash.  This will result in the attached graphcs being regenerated on the next view.
 
-   * One line description, shown in the %SYSTEMWEB%.TextFormattingRules topic: 
-      * Set SHORTDESCRIPTION = Embed directed graphs in TWiki topics (using the Graphviz package)
+   * One line description, shown in the System.TextFormattingRules topic: 
+      * Set SHORTDESCRIPTION = Embed directed graphs in Foswiki topics (using the Graphviz package)
 
    * %X% Layout engine to use per default. Can be one of =dot=, =neato=, =twopi=, =circo=, =fdp= 
       * Set ENGINE = dot
@@ -372,7 +371,7 @@ Changes to the settings marked %X% will cause changes to the file hash.  This wi
    * If enabled, the plugin will delete any remaining attachments when  a =&lt;dot&gt;= is removed or modified.
       * Set DELETEATTACHMENTS = off
 
-   * If enabled, the plugin will ignore the "configure" settings of =attachPath= and =attachUrlPath=.  Forcing use of the attachment API can be used to create topics that are portable across TWiki installations.  (for example, the HowtoDirectedGraphs topic)  It can be also used to get standard attachment revision history handling on the generated attachments. [This parameter is ignored and the TWiki attachment API always used if the configure settings =attachPath= and =attachUrlPath= are not supplied.
+   * If enabled, the plugin will ignore the "configure" settings of =attachPath= and =attachUrlPath=.  Forcing use of the attachment API can be used to create topics that are portable across Foswiki installations.  (for example, the HowtoDirectedGraphs topic)  It can be also used to get standard attachment revision history handling on the generated attachments. [This parameter is ignored and the Foswiki attachment API always used if the configure settings =attachPath= and =attachUrlPath= are not supplied.
       * Set FORCEATTACHAPI = off
 
    * %X% Default image size (pixels, =widthxheight=) for antialias option (keeps aspect ratio; enlarges until max of one of the dimensions is reached). 
@@ -382,35 +381,27 @@ Changes to the settings marked %X% will cause changes to the file hash.  This wi
       * Set VECTORFORMATS = none
 
    * %X% Default topic to read library icons (shapefiles) from 
-      * Set LIBRARY = %SYSTEMWEB%.DirectedGraphPlugin
+      * Set LIBRARY = System.DirectedGraphPlugin
 
    * Debug plugin: (See output in =data/debug.txt=) 
       * Set DEBUG = 0
 
 ---++ Plugin Installation Instructions
 
-__Note:__ The following instructions are for the administrator who installs the plugin on the server where TWiki is running.
+__Note:__ The following instructions are for the administrator who installs the plugin on the server where Foswiki is running.
    * Install the Graphviz package
    * On Linux install cairo and the graphviz-cairo plugin if desired
    * Install required web fonts
    * Install the <nop>ImageMagick package
    * Install the Perl module Digest::MD5
    * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your twiki installation directory.
-   * Using the TWiki =configure= interface, set the paths to the graphviz =dot= and <nop>ImageMagick =convert= commands, along with perl, and the TWiki tools directory.
-   * [Optional] Set the attachPath and attachUrlPath.  These can be set to match the TWiki pubUrlPath and pubDir settings, or set to a web-readable directory outside of TWiki.  
-      * If not set, the standard TWiki "attach" API will be used by the plugin. View users will require "update" permission if the plugin needs to regenerate the attached files.
-      * If the attachPath is set, standard TWiki attachment handling will be bypassed and files will be written directly to this path.  Attachments will not be subject to revision controls.
-      * If the attachPath is _not_ the TWiki pub directory, then the attachUrlPath must be configured for the plugin to generate correct URLs.
-      * %X% The plugin does not attempt to manage attachments across changes between direct file I/O and the TWiki API.  Attachments can be orphaned when these parameters are changed.
-
-   * %X% For TWiki 4.0.1, the =configure= interface does not set plugin variables.  Manually insert the following lines into the lib/TWiki.cfg file 
-      * =$TWiki::cfg{DirectedGraphPlugin}{enginePath} = '/usr/bin/';=
-      * =$TWiki::cfg{DirectedGraphPlugin}{magickPath} = '/usr/bin/';=
-      * =$TWiki::cfg{DirectedGraphPlugin}{toolsPath} = '[complete path of twiki/tools/ directory]';=
-      * =$TWiki::cfg{DirectedGraphPlugin}{perlCmd} = '/usr/bin/perl';=
-      * =$TWiki::cfg{DirectedGraphPlugin}{attachPath} = '';=   [optional]
-      * =$TWiki::cfg{DirectedGraphPlugin}{attachUrlPath} = '';= [optional]
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory.
+   * Using the Foswiki =configure= interface, set the paths to the graphviz =dot= and <nop>ImageMagick =convert= commands, along with perl, and the Foswiki tools directory.
+   * [Optional] Set the attachPath and attachUrlPath.  These can be set to match the Foswiki pubUrlPath and pubDir settings, or set to a web-readable directory outside of Foswiki.  
+      * If not set, the standard Foswiki "attach" API will be used by the plugin. View users will require "update" permission if the plugin needs to regenerate the attached files.
+      * If the attachPath is set, standard Foswiki attachment handling will be bypassed and files will be written directly to this path.  Attachments will not be subject to revision controls.
+      * If the attachPath is _not_ the Foswiki pub directory, then the attachUrlPath must be configured for the plugin to generate correct URLs.
+      * %X% The plugin does not attempt to manage attachments across changes between direct file I/O and the Foswiki API.  Attachments can be orphaned when these parameters are changed.
 
    * Verify your installation
       * Ensure that the =dot= command can manually generate a png file.  
@@ -432,8 +423,8 @@ Plugin zip content:
 | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
 | ==lib/Foswiki/Plugins/%TOPIC%/Config.spec== | Template file for configure interface |
 | ==tools/%TOPIC%.pl== | Helper application |
-| ==pub/TWiki/%TOPIC%/graphsample.png== | sample image |
-| ==pub/TWiki/%TOPIC%/graphsample2.png== | sample image |
+| ==pub/Foswiki/%TOPIC%/graphsample.png== | sample image |
+| ==pub/Foswiki/%TOPIC%/graphsample2.png== | sample image |
 
 Dependencies:
 | *Package:* | *Description:* |
@@ -456,7 +447,7 @@ There are two ways to accomplish antialiased output. The older method, enabled b
 
 This method is not compatible with client side image maps unless the imagesize rendered by graphviz is the same as the final output from ImageMagick. For example, the following parameters will result in compatible maps.
 
-   $ dot parameters passed to =convert=: antialias="1" size="300x300" density="100" library="%SYSTEMWEB%.DirectedGraphPlugin" 
+   $ dot parameters passed to =convert=: antialias="1" size="300x300" density="100" library="System.DirectedGraphPlugin" 
       * Size the image size in dots, density is dots per inch.
    $ graph parameters used by =dot=: digraph G { size="2,3!"; dpi="100"; 
       * Size is the image size in inches, ! = scale to fill one dimension.
@@ -486,6 +477,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order --> |
+|  14 Dec 2008: | Foswikitask:Item8031: Port to Foswiki -- Foswiki:Main.GeorgeClark |
 |  11 Oct 2008: | TWikibug:Item6058: Incompatibilities with Windows, improved some error messages. --TWiki:Main.GeorgeClark | 
 |  31 Aug 2008: | TWikibug:Item5954: DirectedGraphPlugin should permit direct file I/O --TWiki:Main.GeorgeClark | 
 |  26 Jul 2008: | TWikibug:Item5332 - Attachment handing needs improvements.  Remove old attachments, Add support for inline .jpg files, Use single workarea file per topic.<br />  TWikibug:Item5349 - DirectedGraphPlugin uses too many global variables  -- TWiki:Main.GeorgeClark |
@@ -504,12 +496,12 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  01 Jul 2004: | Initial version |
 |  TWiki Dependency: | $TWiki::Plugins::VERSION 1.024 |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle 99%, %SYSTEMWEB%.FormattedSearch 99%, %TOPIC% 99% |
+|  Foswiki:Extensions/Benchmark: | System.GoodStyle 99%, System.FormattedSearch 99%, %TOPIC% 99% |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
 
-__Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
+__Related Topics:__ System.DefaultPreferences, %USERSWEB%.SitePreferences, [[System.Plugins][Plugins]]
 
 -- TWiki:Main.ColeBeck - 01 Jul 2004
 
@@ -533,3 +525,17 @@ __Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, 
 %META:FILEATTACHMENT{name="Sun_Workstation.jpg" attachment="Sun_Workstation.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777052" path="Sun_Workstation.jpg" size="4481" stream="IO::File=GLOB(0x8be103c)" tmpFilename="/usr/tmp/CGItemp11800" user="ProjectContributor" version="1"}%
 %META:FILEATTACHMENT{name="Wireless_Router.jpg" attachment="Wireless_Router.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777069" path="Wireless_Router.jpg" size="5046" stream="IO::File=GLOB(0x8be1434)" tmpFilename="/usr/tmp/CGItemp11852" user="ProjectContributor" version="1"}%
 %META:FILEATTACHMENT{name="Workgroup_Switch.jpg" attachment="Workgroup_Switch.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777089" path="Workgroup_Switch.jpg" size="4483" stream="IO::File=GLOB(0x8be155c)" tmpFilename="/usr/tmp/CGItemp11850" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_1.png" attachment="DirectedGraphPlugin_1.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709039" size="37194" stream="GLOB(0x901937c)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPjQA7QDrDgL.png" user="Main.ProjectContributor" version="3"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_2.png" attachment="DirectedGraphPlugin_2.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709039" size="10287" stream="GLOB(0x869f170)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPHDE9OnvIhJ.png" user="Main.ProjectContributor" version="3"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_2.cmapx" attachment="DirectedGraphPlugin_2.cmapx" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709039" size="614" stream="GLOB(0x90195bc)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGP3y6OE8RONP.cmapx" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_3.png" attachment="DirectedGraphPlugin_3.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709040" size="12201" stream="GLOB(0x9037b5c)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPelhW22ozB3.png" user="Main.ProjectContributor" version="2"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_3.cmapx" attachment="DirectedGraphPlugin_3.cmapx" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709039" size="614" stream="GLOB(0x9037a18)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGP7xLweqXD5w.cmapx" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_3.ps" attachment="DirectedGraphPlugin_3.ps" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709039" size="5383" stream="GLOB(0x9019448)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGP9jYvIx8oHK.ps" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_4.png" attachment="DirectedGraphPlugin_4.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709042" size="97986" stream="GLOB(0x90379dc)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPwjnQtZUv2f.png" user="Main.ProjectContributor" version="2"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_4.ps" attachment="DirectedGraphPlugin_4.ps" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709040" size="20033" stream="GLOB(0x90379f4)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPMYYkElXPW9.ps" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_5.png" attachment="DirectedGraphPlugin_5.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709044" size="56050" stream="GLOB(0x9037d6c)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGP56wwbUVpLX.png" user="Main.ProjectContributor" version="2"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_5.cmapx" attachment="DirectedGraphPlugin_5.cmapx" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709042" size="1965" stream="GLOB(0x90192d4)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPbp0KgUI8pj.cmapx" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_5.ps" attachment="DirectedGraphPlugin_5.ps" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709042" size="12887" stream="GLOB(0x9019268)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPIcoWZYWf9d.ps" user="Main.ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_6.png" attachment="DirectedGraphPlugin_6.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709044" size="19486" stream="GLOB(0x9019244)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPi0bOsIbnrL.png" user="Main.ProjectContributor" version="2"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_7.png" attachment="DirectedGraphPlugin_7.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709045" size="67579" stream="GLOB(0x9019250)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPJWZyCrXi5e.png" user="Main.ProjectContributor" version="2"}%
+%META:FILEATTACHMENT{name="DirectedGraphPlugin_7.ps" attachment="DirectedGraphPlugin_7.ps" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709044" size="203045" stream="GLOB(0x8fc3a58)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGP2FZrEHUphj.ps" user="Main.ProjectContributor" version="1"}%
