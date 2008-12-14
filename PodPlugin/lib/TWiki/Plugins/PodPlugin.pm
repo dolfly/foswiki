@@ -23,7 +23,7 @@ use TWiki::Plugins::PodPlugin::Pod2Html;
 
 use vars qw( $web $topic $user $installWeb $SHORTDESCRIPTION $VERSION $RELEASE $pluginName $debug $do_index );
 
-$VERSION = '$Rev: 8170 $';
+$VERSION = '$Rev$';
 $RELEASE = '0.1';
 $pluginName = 'PodPlugin';
 $SHORTDESCRIPTION = 'Extract Perl Old Documentation (POD) online. (Write TWiki topics in POD!!!)';

@@ -40,7 +40,7 @@ BEGIN {
  unshift @INC, "../lib/TWiki/Plugins/TWikiReleaseTrackerPlugin";
 }
 
-$VERSION    = '$Rev: 6827 $';
+$VERSION    = '$Rev$';
 $pluginName = 'TWikiReleaseTrackerPlugin';    # Name of this Plugin
 $debug      = 0;
 

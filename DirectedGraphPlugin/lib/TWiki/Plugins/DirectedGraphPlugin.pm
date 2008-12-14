@@ -52,10 +52,10 @@ use File::Copy;   # Used for TWiki attach API bypass
 
 #use vars qw( %TWikiCompatibility );
 
-# This should always be $Rev: 17659 $ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that TWiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
-$VERSION = '$Rev: 17659 $';
+$VERSION = '$Rev$';
 
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part

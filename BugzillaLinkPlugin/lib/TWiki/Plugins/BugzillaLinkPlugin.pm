@@ -48,7 +48,7 @@ use vars qw(
 	$bugUrl $milestoneBugListUrl $milestoneBugListText $bugText $bugImgUrl
     );
 
-$VERSION = '$Rev: 15560 $';
+$VERSION = '$Rev$';
 $RELEASE = '1.300';
 
 # =========================

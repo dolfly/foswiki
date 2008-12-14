@@ -33,7 +33,7 @@ By Colas Nahaboo. http://colas.nahaboo.net
 |  Base Name: | koalaskin |
 |  Skin Author: | [[http://colas.nahaboo.net][Colas Nahaboo]] |
 |  Skin Version: | see Foswiki:Extensions/KoalaSkin  |
-|  Skin CVS Infos: | $Revision: 1.5 $, $Date: 2006/08/27 11:25:31 $ |
+|  Skin CVS Infos: | $Revision$, $Date$ |
 |  Change History: | see  Foswiki:Extensions/KoalaSkin#History_of_revisions |
 |  Dependencies: |  |
 |  Skin Home: | http://foswiki.org/Extensions/%TOPIC% |

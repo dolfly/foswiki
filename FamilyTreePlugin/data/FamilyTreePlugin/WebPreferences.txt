@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1112002813" format="1.0" version="$Rev: 12168 $"}%
+%META:TOPICINFO{author="ProjectContributor" date="1112002813" format="1.0" version="$Rev$"}%
 %META:TOPICPARENT{name="WebHome"}%
 ---+!! <nop>%WEB% Web Preferences
 

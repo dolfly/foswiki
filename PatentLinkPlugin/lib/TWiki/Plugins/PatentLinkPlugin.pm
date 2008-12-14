@@ -47,10 +47,10 @@ use vars qw(
 	$patentUrl01 $patentUrl02 $patentUrl03 $patentApplicationUrl01 $patentApplicationUrl02 $patentApplicationUrl03 $patentText $patentApplicationText $patentImgUrl $patentApplicationImgUrl
     );
 
-# This should always be $Rev: 6827 $ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that TWiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
-$VERSION = '$Rev: 6827 $';
+$VERSION = '$Rev$';
 
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part

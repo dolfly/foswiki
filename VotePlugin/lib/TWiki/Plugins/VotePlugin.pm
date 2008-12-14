@@ -23,7 +23,7 @@ use vars qw(
   $VERSION $RELEASE $NO_PREFS_IN_TOPIC $SHORTDESCRIPTION
 );
 
-$VERSION = '$Rev: 14296 $';
+$VERSION = '$Rev$';
 $RELEASE = '1.33';
 $NO_PREFS_IN_TOPIC = 1;
 $SHORTDESCRIPTION = 'Simple way to count votes';

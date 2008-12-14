@@ -15,7 +15,7 @@
 
 package TWiki::Plugins::MailToTWikiPlugin;
 
-our $VERSIO$Rev: 6758 $';
+our $VERSIO$Rev$';
 our $PluginName = q{MailToTWikiPlugin};
 
 #

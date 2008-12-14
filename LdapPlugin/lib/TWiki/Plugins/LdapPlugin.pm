@@ -34,7 +34,7 @@ use vars qw(
 	$LDAP_jpegDefaultPhoto
     );
 
-$VERSION = '$Rev: 6858 $';
+$VERSION = '$Rev$';
 $RELEASE = '1.011';  # 03 Oct 2005
 
 # =========================

@@ -29,7 +29,7 @@ use strict;
 # =========================
 use vars qw($VERSION $RELEASE $isInitialized $doneHeader);
 
-$VERSION = '$Rev: 15564 $';
+$VERSION = '$Rev$';
 $RELEASE = '2.12';
 
 # =========================

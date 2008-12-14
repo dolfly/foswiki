@@ -30,7 +30,7 @@ use vars qw(
   $debug $phpAdsNewBase $selectionStringPrefix $selectionStringSuffix;
 );
 
-$VERSION = '$Rev: 6827 $';
+$VERSION = '$Rev$';
 $RELEASE = 'Dakar';
 $pluginName = 'AdvertsPlugin';    # Name of this Plugin
 
