@@ -539,3 +539,10 @@ __Related Topics:__ System.DefaultPreferences, %USERSWEB%.SitePreferences, [[Sys
 %META:FILEATTACHMENT{name="DirectedGraphPlugin_6.png" attachment="DirectedGraphPlugin_6.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709044" size="19486" stream="GLOB(0x9019244)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPi0bOsIbnrL.png" user="Main.ProjectContributor" version="2"}%
 %META:FILEATTACHMENT{name="DirectedGraphPlugin_7.png" attachment="DirectedGraphPlugin_7.png" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709045" size="67579" stream="GLOB(0x9019250)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGPJWZyCrXi5e.png" user="Main.ProjectContributor" version="2"}%
 %META:FILEATTACHMENT{name="DirectedGraphPlugin_7.ps" attachment="DirectedGraphPlugin_7.ps" attr="h" comment="<nop>DirectedGraphPlugin: DOT graph" date="1228709044" size="203045" stream="GLOB(0x8fc3a58)" tmpFilename="/var/www/SVN/foswiki/core/working/tmp/DGP2FZrEHUphj.ps" user="Main.ProjectContributor" version="1"}%
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
