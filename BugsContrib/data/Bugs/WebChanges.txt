@@ -13,7 +13,7 @@
   limit="%URLPARAM{"limit" default="20"}%" 
   order="modified"  
   header="| *Id* | *Summary* | *State,%BR% Waiting for* | *Priority* | *Applies&nbsp;To* | *Changed&nbsp;By* |" 
-  format="| [[$web.$topic#r$rev][$topic(10)]] | $formfield(Summary) | $formfield(CurrentState) $percntCALC{$IF($EXACT($formfield(CurrentState), Waiting for Feedback), $SUBSTITUTE($formfield(WaitingFor), TWiki:Main[\.\/], : <nop>, , r))}$percnt | $formfield(Priority) | $formfield(AppliesTo) $formfield(Component) | [[TWiki:$wikiusername][$wikiname]] <span style='white-space: nowrap;'>$date</span> | "
+  format="| [[$web.$topic#r$rev][$topic(10)]] | $formfield(Summary) | $formfield(CurrentState) $percntCALC{$IF($EXACT($formfield(CurrentState), Waiting for Feedback), $SUBSTITUTE($formfield(WaitingFor), %USERSWEB%[\.\/], : <nop>, , r))}$percnt | $formfield(Priority) | $formfield(AppliesTo) $formfield(Component) | [[$wikiusername][$wikiname]] <span style='white-space: nowrap;'>$date</span> | "
 }%
 
 __See also:__ %ICON{rss-small}% [[%SCRIPTURL{"view"}%/%INCLUDINGWEB%/WebRss][RSS feed]], recent changes with 

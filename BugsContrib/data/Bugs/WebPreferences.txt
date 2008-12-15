@@ -19,7 +19,7 @@ __Preferences:__
 	* List this web in the %SYSTEMWEB%.SiteMap:
 		* If yes, set SITEMAPLIST to =on=, do not set NOSEARCHALL, and add the "what" and "use to..." description for the site map. Make sure to list only links that include the name of the web, e.g. <nop>%WEB%.Topic links.
 		* Set SITEMAPLIST = on
-		* Set SITEMAPWHAT = TWiki Form based Issue tracking system
+		* Set SITEMAPWHAT = Data Form based Issue tracking system
 		* Set SITEMAPUSETO = ...collaborate on
 
 	* Exclude web from a =web="all"= search: (Set to =on= for hidden webs)

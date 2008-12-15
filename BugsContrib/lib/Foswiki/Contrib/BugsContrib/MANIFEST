@@ -28,10 +28,10 @@ data/Bugs/ItemViewTemplate.txt 0770
 data/Bugs/Summary.txt 0770
 data/Bugs/WaitingFor.txt 0770
 data/Bugs/WebTopicList.txt 0770
-data/TWiki/BugsContrib.txt 0770
+data/System/BugsContrib.txt 0770
 pub/Bugs/HideTextarea/hidetextarea.css  0770
 pub/Bugs/WebPreferences/favicon.ico  0770
 pub/Bugs/WebPreferences/logo.png  0770
-pub/TWiki/BugsContrib/wikiring-bugscontrib.png
-pub/TWiki/BugsContrib/wikiring-bugscontrib.xcf
-pub/TWiki/BugsContrib/wikiring.png
+pub/System/BugsContrib/wikiring-bugscontrib.png
+pub/System/BugsContrib/wikiring-bugscontrib.xcf
+pub/System/BugsContrib/wikiring.png

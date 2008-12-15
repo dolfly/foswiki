@@ -1,5 +1,5 @@
 
----+ Comment template for use with <nop>ItemViewTemplate, adds TWiki: In front of username.
+---+ Comment template for use with <nop>ItemViewTemplate.
 
 Overrides =threadmode=.
 

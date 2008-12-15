@@ -3,7 +3,7 @@
 <channel rdf:about="%SCRIPTURL{view}%/%WEB%">
   <title>%WIKITOOLNAME%'s <nop>%WEB% web</title>
   <link>%SCRIPTURL{view}%/%WEB%</link>
-  <description>The <nop>%WEB% web of TWiki. TWiki is a Web-Based Collaboration Platform for the Corporate World.</description>
+  <description>Chnages to the <nop>%WIKITOOLNAME% <nop>%WEB% tracking system</description>
   <dc:language>en-us</dc:language>
   <dc:rights>%WEBRSSCOPYRIGHT%</dc:rights>
   <dc:publisher>%WIKIWEBMASTERNAME% [%WIKIWEBMASTER%]</dc:publisher>

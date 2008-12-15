@@ -10,9 +10,9 @@ BEGIN {
     }
 }
 
-use TWiki::Contrib::Build;
+use System::Contrib::Build;
 
-@BugsContribBuild::ISA = ( "TWiki::Contrib::Build" );
+@BugsContribBuild::ISA = ( "System::Contrib::Build" );
 
 sub new {
     my $class = shift;
