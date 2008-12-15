@@ -110,7 +110,6 @@ sub initPlugin {
         return 0;
     }
 
-    # TWiki-4 or more recent
     # path to dot, neato, twopi, circo and fdp (including trailing /)
     $enginePath = $Foswiki::cfg{DirectedGraphPlugin}{enginePath};
 
@@ -120,17 +119,17 @@ sub initPlugin {
     # path to imagemagick convert routine
     $toolsPath = $Foswiki::cfg{DirectedGraphPlugin}{toolsPath};
 
-# path to store attachments - optional.  If not provided, TWiki attachment API is used
+# path to store attachments - optional.  If not provided, Foswiki attachment API is used
     $attachPath = $Foswiki::cfg{DirectedGraphPlugin}{attachPath};
 
-# URL to retrieve attachments - optional.  If not provided, TWiki pub path is used.
+# URL to retrieve attachments - optional.  If not provided, Foswiki pub path is used.
     $attachUrlPath = $Foswiki::cfg{DirectedGraphPlugin}{attachUrlPath};
 
     # path to imagemagick convert routine
     $perlCmd = $Foswiki::cfg{DirectedGraphPlugin}{perlCmd};
 
     die
-"Path to GraphViz commands not defined. Use bin/configure or edit DirectedGraphPlugin.pm "
+"Path to GraphViz commands not defined. Use bin/configure and set the enginePath "
       unless $enginePath;
 
     # Get plugin debug flag
@@ -370,7 +369,7 @@ sub _handleDot {
 
     $library =~ s/\./\//;
     my $workingDir = Foswiki::Func::getPubDir() . "/$library";
-    unless ( -l "$workingDir" ) {
+    unless ( -e "$workingDir" ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: library parameter should point to topic with attachments to use: <br /> <nop>Web.TopicName (was: $library)  <br /> pub dir is $workingDir </font>";
     }
@@ -460,10 +459,6 @@ sub _handleDot {
 " >>> Processing changed dot tag or missing file $outFilename.$inlineAttach <<< "
         );
 
-        my $sandbox = undef;
-        $sandbox = $Foswiki::sharedSandbox    # 4.0 - 4.1.2
-          || $Foswiki::sandbox;               # 4.2
-
         my $outString = "";
         my %tempFile;
 
@@ -503,7 +498,7 @@ sub _handleDot {
         }
 
         #  Execute dot - generating all output into the Foswiki temp directory
-        my ( $output, $status ) = $sandbox->sysCommand(
+        my ( $output, $status ) = Foswiki::Sandbox->sysCommand(
             $perlCmd . $engineCmd,
             HELPERSCRIPT => $toolsPath . $dotHelper,
             DOT          => $enginePath . $engine,
@@ -534,7 +529,7 @@ sub _handleDot {
         ### matches correctly.
 
         if ($antialias) {    # Convert the postscript image to the inline format
-            my ( $output, $status ) = $sandbox->sysCommand(
+            my ( $output, $status ) = Foswiki::Sandbox->sysCommand(
                 $magickPath . $antialiasCmd,
                 DENSITY  => $density,
                 GEOMETRY => $size,

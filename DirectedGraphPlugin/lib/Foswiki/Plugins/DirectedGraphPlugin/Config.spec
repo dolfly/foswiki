@@ -20,6 +20,7 @@ $Foswiki::cfg{DirectedGraphPlugin}{perlCmd} = '/usr/bin/perl';
 # **PATH**
 # Path for plugin to store generated attachments<br>
 #  Optional.  If not provided, plugin will manage attachments using the standard Foswiki attachment functions.
+#  <b>If not provided, first visit to System.DirectedGraphPlugin will require admin / sudo login for write access, in order to save generated attachments</b>
 #  If set to the /pub path, generated attachments will be invisible to Foswiki topics.
 #  This directory must be web readable.
 $Foswiki::cfg{DirectedGraphPlugin}{attachPath} = '';
