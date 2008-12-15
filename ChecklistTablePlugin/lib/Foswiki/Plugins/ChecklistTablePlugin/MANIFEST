@@ -1,0 +1,6 @@
+data/System/ChecklistTablePlugin.txt 0644
+data/System/VarCHECKLISTTABLE.txt 0644
+lib/Foswiki/Plugins/ChecklistTablePlugin.pm 0444
+lib/Foswiki/Plugins/ChecklistTablePlugin/Core.pm 0444
+pub/System/ChecklistTablePlugin/cltpinsertform.js 0644
+pub/System/ChecklistTablePlugin/example.png 0644
