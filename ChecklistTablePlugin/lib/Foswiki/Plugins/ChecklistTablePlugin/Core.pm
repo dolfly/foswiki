@@ -2,6 +2,10 @@
 #
 # Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
 # Copyright (C) 2001-2004 Peter Thoeny, peter@thoeny.com
+# Copyright (C) 2007-2008 Daniel Rohde
+# and Foswiki Contributors. All Rights Reserved. Foswiki Contributors
+# are listed in the AUTHORS file in the root of this distribution.
+# NOTE: Please extend that file, not this notice.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -22,7 +26,7 @@
 #    + JavaScript based moves/edits (maybe AJAX too)
 #
 
-package TWiki::Plugins::ChecklistTablePlugin::Core;
+package Foswiki::Plugins::ChecklistTablePlugin::Core;
 
 use strict;
 ## use warnings;
@@ -122,7 +126,7 @@ sub _renderTable {
 	## anchor name (an):
 	my $an = "CLTP_TABLE_$tablenum";
 
-	$text.=$cgi->start_form('post',TWiki::Func::getScriptUrl($options{'theWeb'},$options{'theTopic'},'viewauth')."#$an");
+	$text.=$cgi->start_form('post',Foswiki::Func::getScriptUrl($options{'theWeb'},$options{'theTopic'},'viewauth')."#$an");
 	$text.=$cgi->a({-name=>$an});
 
 
@@ -181,7 +185,7 @@ sub _renderTable {
 		$hiddenTable.=$cgi->div({-style=>'text-align:left;background-color:gray;width:auto;'},
 			$cgi->a({-style=>'color:yellow;',-title=>'Close Insert Window',-onClick=>"cltpCloseInputForm('CLTP_HIDDEN_$tablenum')"},'[x]')
 			. $cgi->span({-style=>'color:white;'},"&nbsp;&nbsp;Insert a new entry (row)"));
-		$hiddenTable.=$cgi->start_form('post',TWiki::Func::getScriptUrl($options{'theWeb'},$options{'theTopic'},'viewauth')."#$an");
+		$hiddenTable.=$cgi->start_form('post',Foswiki::Func::getScriptUrl($options{'theWeb'},$options{'theTopic'},'viewauth')."#$an");
 		$hiddenTable.=_renderForm('hidden',$tablenum,undef,0);
 		$hiddenTable.=$cgi->end_form();
 		$text.=$cgi->div({-id=>"CLTP_HIDDEN_$tablenum",-style=>'visibility:hidden;position:absolute;top:0;left:0;z-index:2;font: normal 8pt sans-serif;padding: 3px; border: solid 3px gray;background-color:#ffffff;min-width:95%;overflow:scroll;'}, $hiddenTable);
@@ -281,13 +285,13 @@ sub _renderForm {
 		} elsif ($type eq 'date') {
 			my($initval,$dateformat);
 			($initval,$dateformat) = split(/,/,$default,2) if defined $default;
-			$initval=&TWiki::Func::expandCommonVariables( $initval, $options{'theTopic'},$options{'theWeb'}) if defined $initval && $initval!~/^\s*$/;
+			$initval=&Foswiki::Func::expandCommonVariables( $initval, $options{'theTopic'},$options{'theWeb'}) if defined $initval && $initval!~/^\s*$/;
 			$initval="" unless defined $initval;
-			$dateformat=TWiki::Func::getPreferencesValue('JSCALENDARDATEFORMAT') if (!defined $dateformat || $dateformat eq "");
+			$dateformat=Foswiki::Func::getPreferencesValue('JSCALENDARDATEFORMAT') if (!defined $dateformat || $dateformat eq "");
 			$dateformat=~s/'/\\'/g if defined $dateformat;
 			$evalue = $STARTENCODE._editencode($initval).$ENDENCODE unless defined $entryRef;
 			$text .= $cgi->textfield(-name=>$valname, -value=>$evalue, -size=>$param, -id=>$valname);
-			$text .= $cgi->image_button(-name=>'calendar', -src=>'%PUBURLPATH%/TWiki/JSCalendarContrib/img.gif', -alt=>'Calendar', -title=>'Calendar', -onClick=>qq@return showCalendar('$valname','$dateformat')@);
+			$text .= $cgi->image_button(-name=>'calendar', -src=>'%PUBURLPATH%/%SYSTEMWEB%/JSCalendarContrib/img.gif', -alt=>'Calendar', -title=>'Calendar', -onClick=>qq@return showCalendar('$valname','$dateformat')@);
 		} else { # label or unkown:
 			$text.= $value.'<noautolink>'.$cgi->hidden(-name=>$valname, -value=>$value).'</noautolink>';
 		}
@@ -553,28 +557,28 @@ sub _handleActions {
 	$cgi->delete('etedit','ettablenr','etrows'); 
 
 	#### Check access permissions (before any action...):
-	my $mainWebName=&TWiki::Func::getMainWebname();
-	my $user =TWiki::Func::getWikiName();
+	my $mainWebName=&Foswiki::Func::getMainWebname();
+	my $user =Foswiki::Func::getWikiName();
 	$user = "$mainWebName.$user" unless $user =~ m/^$mainWebName\./;
 
-	if (! TWiki::Func::checkAccessPermission("CHANGE",$user,undef,$theTopic, $theWeb)) {
-		eval { require TWiki::AccessControlException; };
+	if (! Foswiki::Func::checkAccessPermission("CHANGE",$user,undef,$theTopic, $theWeb)) {
+		eval { require Foswiki::AccessControlException; };
 		if ($@) {
-			TWiki::Func::redirectCgiQuery($cgi,TWiki::Func::getOopsUrl($theWeb,$theTopic,"oopsaccesschange"));
+			Foswiki::Func::redirectCgiQuery($cgi,Foswiki::Func::getOopsUrl($theWeb,$theTopic,"oopsaccesschange"));
 		} else {
 			require Error;
-			 throw TWiki::AccessControlException(
+			 throw Foswiki::AccessControlException(
 					'CHANGE', 
-					$TWiki::Plugins::SESSION->{user},
+					$Foswiki::Plugins::SESSION->{user},
 					$theTopic, $theWeb, 'denied'
 				);
 		}
 		return 1;
 	}
 
-	my( $oopsUrl, $lockUser ) = TWiki::Func::checkTopicEditLock( $theWeb, $theTopic );
-	if (defined $lockUser && $lockUser ne "" && $lockUser ne TWiki::Func::wikiToUserName($user)) {
-		TWiki::Func::redirectCgiQuery($cgi, $oopsUrl);
+	my( $oopsUrl, $lockUser ) = Foswiki::Func::checkTopicEditLock( $theWeb, $theTopic );
+	if (defined $lockUser && $lockUser ne "" && $lockUser ne Foswiki::Func::wikiToUserName($user)) {
+		Foswiki::Func::redirectCgiQuery($cgi, $oopsUrl);
 		return 1;
 	}
 
@@ -585,9 +589,9 @@ sub _handleActions {
 	my ($tablenum, $rownum) = ($1,$4);
 
 	if ($action ne 'cancel') {
-		$oopsUrl = TWiki::Func::setTopicEditLock($theWeb, $theTopic, 1);
+		$oopsUrl = Foswiki::Func::setTopicEditLock($theWeb, $theTopic, 1);
 		if ($oopsUrl) {
-			TWiki::Func::redirectCgiQuery($cgi, $oopsUrl);
+			Foswiki::Func::redirectCgiQuery($cgi, $oopsUrl);
 			return 1;
 		}
 	}
@@ -597,9 +601,9 @@ sub _handleActions {
 		my $error;
 		$error = _handleChangeAction($theTopic, $theWeb, $action, $tablenum, $rownum) unless $action eq 'cancel';
 
-		TWiki::Func::setTopicEditLock($theWeb, $theTopic, 0);
+		Foswiki::Func::setTopicEditLock($theWeb, $theTopic, 0);
 
-		my $url = TWiki::Func::getViewUrl($theWeb,$theTopic);
+		my $url = Foswiki::Func::getViewUrl($theWeb,$theTopic);
 		## preserve sort order:
 		if (!$error) {
 			my $anchor;
@@ -610,7 +614,7 @@ sub _handleActions {
 			}
 			$url.=$anchor if defined $anchor;
 		}
-		TWiki::Func::redirectCgiQuery($cgi, $error ? $error : $url );
+		Foswiki::Func::redirectCgiQuery($cgi, $error ? $error : $url );
 		return 1;
 	}
 
@@ -625,7 +629,7 @@ sub _handleChangeAction {
 
 	return if $action eq 'cancel';
 	my $newText = "";
-	my $text = TWiki::Func::readTopicText($theWeb,$theTopic);
+	my $text = Foswiki::Func::readTopicText($theWeb,$theTopic);
 
 	$rownum=-2 unless defined $rownum;
 
@@ -704,7 +708,7 @@ sub _handleChangeAction {
 	}
 	$newText=~s/\n<nop>\n$//s;
 
-	return TWiki::Func::saveTopicText($theWeb, $theTopic, $newText, 1, $action =~ /^(qsaverow|qsavetable)$/);
+	return Foswiki::Func::saveTopicText($theWeb, $theTopic, $newText, 1, $action =~ /^(qsaverow|qsavetable)$/);
 	
 }
 # =========================
@@ -796,13 +800,13 @@ sub _initDefaults {
 		'initdirection'=>undef,
 	);
 	@flagOptions = ('allowmove', 'quietsave', 'headerislabel', 'sort','quickadd','quickinsert');
-	$cgi = TWiki::Func::getCgiQuery();
+	$cgi = Foswiki::Func::getCgiQuery();
 	$defaultsInitialized = 1;
 }
 # =========================
 sub _initOptions {
 	my ($attributes,$topic,$web) = @_;
-	my %params = TWiki::Func::extractParameters($attributes);
+	my %params = Foswiki::Func::extractParameters($attributes);
 
 	my @allOptions = keys %defaults;
 
@@ -825,9 +829,9 @@ sub _initOptions {
 			}
 		} else {
 			if (grep /^\Q$option\E$/, @flagOptions) {
-				$v = ( TWiki::Func::getPreferencesFlag("\U${TWiki::Plugins::ChecklistTablePlugin::pluginName}_$option\E") || undef );
+				$v = ( Foswiki::Func::getPreferencesFlag("\U${Foswiki::Plugins::ChecklistTablePlugin::pluginName}_$option\E") || undef );
 			} else {
-				$v = TWiki::Func::getPreferencesValue("\U${TWiki::Plugins::ChecklistTablePlugin::pluginName}_$option\E"); 
+				$v = Foswiki::Func::getPreferencesValue("\U${Foswiki::Plugins::ChecklistTablePlugin::pluginName}_$option\E"); 
 			}
 			$v = undef if (defined $v) && ($v eq "");
 			$options{$option}= (defined $v?$v:$defaults{$option});
@@ -843,7 +847,7 @@ sub _initOptions {
 # =========================
 sub _createUnknownParamsMessage {
 	my $msg="";
-	$msg = TWiki::Func::getPreferencesValue('UNKNOWNPARAMSMSG') || undef;
+	$msg = Foswiki::Func::getPreferencesValue('UNKNOWNPARAMSMSG') || undef;
 	$msg = $defaults{'unknownparamsmsg'} unless defined $msg;
 	$msg =~ s/\%UNKNOWNPARAMSLIST\%/join(', ', sort @unknownParams)/eg;
 	my @params = sort grep {!/^(_DEFAULT|unknownparamsmsg)$/} keys %defaults;

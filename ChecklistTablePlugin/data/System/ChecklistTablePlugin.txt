@@ -13,7 +13,7 @@ This plugin helps you to create a checklist with tables. A HTML form for a quick
 	* table based checklists with persistent item states: you can add or remove items without state lost
 	* table row editor: a simple way to add, insert or (re)move table entries (rows)
 	* various table cell formats are supported (item, text, textarea, date, ...) 
-	* automatic table format detection: simply put the =%<nop>CHECKLISTTABLE%= tag before an existing TWiki table to get a table editor
+	* automatic table format detection: simply put the =%<nop>CHECKLISTTABLE%= tag before an existing Foswiki table to get a table editor
 
 ---++ Syntax Rules
 
@@ -57,9 +57,9 @@ You can use the =%<nop>CHECKLIST%= tag to customize the checklist states, icons 
 | allowmove | enables/disables buttons for move a entry (row) up or down | =allowmove="off"= |
 | buttonpos | defines the button position of the row actions (edit, insert, move up/down, delete), allowed values: left, right (default), both  | =buttonpos="right"= |
 | changerows | enables/disables row changes (add/insert/remove); allowed values: on, off, add (= allows only add not remove) | =changerows="on"= |
-| defaultcellformat | if the =format= attribute does not match with a given TWiki table the format of a table cell will be changed to this default | =defaultcellformat="textarea,3x30"= | 
+| defaultcellformat | if the =format= attribute does not match with a given Foswiki table the format of a table cell will be changed to this default | =defaultcellformat="textarea,3x30"= | 
 | format | table format (see Table Format section) | =format="&#124;item&#124;text,30&#124;textarea,3x30&#124;"= |
-| header | table header: a TWiki table like header or 'off' to disable header | =header="&#124;*State*&#124;*Item*&#124;*Comment*&#124;"= |
+| header | table header: a Foswiki table like header or 'off' to disable header | =header="&#124;*State*&#124;*Item*&#124;*Comment*&#124;"= |
 | headerislabel | table headers are read-only (labels) if set to 'on' | =headerislabel="on"= |
 | initdirection | initial sorting direction for initsort, set to "up" or "down" | =initdirection="up"= |
 | initsort | column to sort initially ("1" to number of columns) | =initsort="1"= |
@@ -133,44 +133,42 @@ Plugin settings are stored as preferences variables. To reference a plugin setti
 
 ---++ Plugin Installation Instructions
 
-__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the TWiki server. 
+__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the Foswiki server. 
 
 	* Install (or upgrade to) the latest Foswiki:Extensions.ChecklistPlugin plugin 
 	* Download the ZIP file from the Plugin web (see below)
-	* Unzip ==%TOPIC%.zip== in your twiki installation directory. Content:
+	* Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
 	  | *File:* | *Description:* |
 	  | ==data/System/%TOPIC%.txt== | Plugin topic |
-	  | ==data/TWiki/VarCHECKLISTTABLE.txt== | Plugin tag documentation | 
+	  | ==data/System/VarCHECKLISTTABLE.txt== | Plugin tag documentation | 
 	  | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
 	  | ==lib/Foswiki/Plugins/%TOPIC%/Core.pm== | Perl module |
-          | ==pub/TWiki/%TOPIC%/cltpinsertform.js== | <nop>JavaScript module |
-	  | ==pub/TWiki/%TOPIC%/example.png== | example image |
+          | ==pub/System/%TOPIC%/cltpinsertform.js== | <nop>JavaScript module |
+	  | ==pub/System/%TOPIC%/example.png== | example image |
 	* Configure the Plugin:
-		* TWiki 4.0 and up: Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script to enable the Plugin
+		* Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script to enable the Plugin
 		* Change the Plugin settings as needed
 	* Test if the installation was successful:
 		* see Examples section
 
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main.DanielRohde |
-|  Copyright: | &copy; 2007, TWiki:Main.DanielRohde |
+|  Plugin Author: | Foswiki:Main.DanielRohde |
+|  Copyright: | &copy; 2007-2008, Foswiki:Main.DanielRohde |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | V1.004 (16 Jan 2008) |
+|  Plugin Version: | V1.005 (15 Dec 2008) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  V1.005 (15 Dec 2008) | Foswiki:Main.KennethLavrsen: Changed namespace to Foswiki and added missing MANIFEST and build script for development on SVN |
 |  V1.004 (16 Jan 2008) | TWiki:Main:DanielRohde:  added initsort and initdirection feature; fixed numeric eq error; fixed missing default value rendering of 'date' format type; |
 |  V1.003 (22 Oct 2007) | TWiki:Main.DanielRohde: added quick insert feature; added new attributes (quickadd, quickinsert, buttonpos); fixed typos; fixed whitespaces in format bug; fixed (forced) link in text(area) bug; |
 |  V1.002 (30 Aug 2007): | TWiki:Main.DanielRohde: fixed major pre/verbatim bug; fixed and added documentation; added sort feature; added changerows attribute; added EDITCELL feature; fixed Opera bug; fixed topic lock bug |
 |  V1.001 (28 Aug 2007): | TWiki:Main.DanielRohde Initial version |
-|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.1 <br/> ChecklistPlugin, JSCalendarContrib |
+|  Foswiki Dependency: | $Foswiki::Plugins::VERSION 1.1 <br/> ChecklistPlugin, JSCalendarContrib |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
-|  Perl Version: | 5.005 |
-|  [[Foswiki:Extensions/Benchmark][Benchmarks]]: | %SYSTEMWEB%.GoodStyle 97%, %SYSTEMWEB%.FormattedSearch 99%, %TOPIC% 92% |
+|  Perl Version: | 5.008 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], ChecklistPlugin
 
--- TWiki:Main.DanielRohde - 20 Aug 2007
