@@ -182,8 +182,8 @@ If the required parameters are not defined, then an error message is returned or
 |  Plugin Author: | Current maintainer Foswiki:Main.KennethLavrsen, original authors from old project: TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus |
 |  Copyright &copy;: | 2004-2006, TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus; 2008 Kenneth Lavrsen and Foswiki Contributors | 
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Change History: | <!-- specify latest version first -->&nbsp; |
 |  Plugin Version: | 08 Dec 2008 |
+|  Change History: | <!-- specify latest version first -->&nbsp; |
 |   08 Dec 2008: | Kenneth Lavrsen: Changed the author to myself. TWiki:Main.TaitCyrus is the original author but has not been maintaining this since and is not registered user on fork. So now I officially take the task as maintainer. Plugin is changed to Foswiki namespace and tested and works under Foswiki 1.0.0 |  
 |   18 May 2007: | Added discontinuous ranges - Foswiki:Main.CrawfordCurrie |
 |	16 Nov 2004: | V1.401 - Added benchmarks (no code changes) |
@@ -197,10 +197,8 @@ If the required parameters are not defined, then an error message is returned or
 |  27 Jun 2002: | V1.001 - Data range specified is clipped to actual table size; more forgiving data parsing by extracting first numeral from a table cell, e.g. extract =25= from =&lt;u&gt;25%&lt;/u&gt;= |
 |  20 Jun 2002: | Initial version (V1.000) |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle 96%, %SYSTEMWEB%.FormattedSearch 97%, ChartPlugin 69% |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
 
 __Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
 
