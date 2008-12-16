@@ -1,3 +1,4 @@
+
 %META:TOPICINFO{author="StevenSprouse" date="1100553250" format="1.0" version="1.5"}%
 %META:TOPICPARENT{name="SearchResult"}%
 ---+ <nop>%TOPIC%
@@ -59,21 +60,21 @@ headercolor="#FFFFCC" databg="#CCCCCC, #EFEFEF" headerrows="1" footerrows="1" }%
 </verbatim>
 ---+++ Plugin Installation Instructions
 
-__Note:__ You do not need to install anything on your browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where TWiki is running. 
+__Note:__ You do not need to install anything on your browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where Foswiki is running. 
 
 	* Make sure your Perl administrator has installed the Barcode::Code128 module. (perl -MCPAN -e "install Barcode::Code128")
 	* Make sure you have GD 1.20 or later installed. 
 	* Download the ZIP file from the Plugin web (see below)
-	* Unzip ==%TOPIC%.zip== in your twiki installation directory. Content:
+	* Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
 	  | *File:* | *Description:* |
 	  | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
 	  | ==data/System/%TOPIC%.txt== | Plugin topic |
 	  | ==data/System/%TOPIC%.txt,v== | Plugin topic repository |
-	  | ==pub/TWiki/BarcodePlugin/example_0.png== | Sample =barcode= image |
-	  | ==pub/TWiki/BarcodePlugin/example_1.png== | Sample =barcode= image|
-	  | ==pub/TWiki/BarcodePlugin/example_0.png,v== | Sample =barcode= repository |
-	  | ==pub/TWiki/BarcodePlugin/example_1.png,v== | Sample =barcode= repository |
-	* (Dakar) Visit =configure= in your TWiki installation, and enable the plugin in the {Plugins} section.
+	  | ==pub/Foswiki/BarcodePlugin/example_0.png== | Sample =barcode= image |
+	  | ==pub/Foswiki/BarcodePlugin/example_1.png== | Sample =barcode= image|
+	  | ==pub/Foswiki/BarcodePlugin/example_0.png,v== | Sample =barcode= repository |
+	  | ==pub/Foswiki/BarcodePlugin/example_1.png,v== | Sample =barcode= repository |
+	* (Dakar) Visit =configure= in your Foswiki installation, and enable the plugin in the {Plugins} section.
 	* Test if the plugin is correctly installed:
 		* Check above examples if the "if installed" column shows images instead of variables.
 
@@ -81,12 +82,13 @@ __Note:__ You do not need to install anything on your browser to use this plugin
 ---+++ Plugin Info
 
 |  Plugin Author: | TWiki:Main/StevenSprouse |
-|  Plugin Version: | 8 Sep 2004 |
+|  Plugin Version: | 15 Dec 2008 |
 |  Change History: | |
+|  15 Dec 2008| v1.003 - Rebranded to Foswiki |
 |  11 Nov 2004| v1.002 - Improved benchmarks by changing Perl module load timing. |
 |  5 Nov 2004| v1.001 - Added cue_cat flag |
 |  4 Nov 2004| v1.000 - Initial release |
-|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.024 |
+|  Foswiki Dependency: | $Foswiki::Plugins::VERSION 1.024 |
 |  CPAN Dependencies: | Barcode::Code128 |
 |  | GD v1.20 or later |
 |  Other Dependencies: | none |

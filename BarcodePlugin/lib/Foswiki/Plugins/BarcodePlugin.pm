@@ -23,7 +23,7 @@
 
 
 # =========================
-package TWiki::Plugins::BarcodePlugin;    # change the package name and $pluginName!!!
+package Foswiki::Plugins::BarcodePlugin;    # change the package name and $pluginName!!!
 # =========================
 
 use vars qw(
@@ -43,7 +43,7 @@ use vars qw(
 		$pluginInitialized;
     );
 
-# This should always be $Rev$ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev$';
@@ -61,13 +61,13 @@ sub initPlugin
     ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1 ) {
-        TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+    if( $Foswiki::Plugins::VERSION < 1 ) {
+        Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
         return 0;
     }
 
     # Get plugin debug flag
-    $debug = TWiki::Func::getPreferencesFlag( "\U$pluginName\E_DEBUG" );
+    $debug = Foswiki::Func::getPreferencesFlag( "\U$pluginName\E_DEBUG" );
 
     # Get plugin preferences, the variable defined by:          * Set EXAMPLE = ...
 	# $barcodeCount is used to assign a unique filename to each barcode in a topic.
@@ -75,7 +75,7 @@ sub initPlugin
 	$pluginInitialized = 0;
 
     # Plugin correctly initialized
-    TWiki::Func::writeDebug( "- TWiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK" ) if $debug;
+    Foswiki::Func::writeDebug( "- Foswiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK" ) if $debug;
     return 1;
 }
 
@@ -139,7 +139,7 @@ sub _parse_parameters
     return %args;
 }
 
-# Return the value for the specified TWiki plugin parameter.  If the
+# Return the value for the specified Foswiki plugin parameter.  If the
 # parameter does not exist, then return the specified default value.  The
 # parameter is deleted from the list of specified parameters allowing the
 # code to determine what parameters remain and were not requested.
@@ -172,7 +172,7 @@ sub _make_filename
 
     # before save, create directories if they don't exist.
     # If the top level "pub/$web" directory doesn't exist, create it.
-    my $dir = TWiki::Func::getPubDir() . "/$web";
+    my $dir = Foswiki::Func::getPubDir() . "/$web";
     if( ! -e "$dir" ) {
         umask( 002 );
         mkdir( $dir, 0775 );
@@ -193,7 +193,7 @@ sub commonTagsHandler
 {
 ### my ( $text, $topic, $web ) = @_;   # do not uncomment, use $_[0], $_[1]... instead
 
-    TWiki::Func::writeDebug( "- ${pluginName}::commonTagsHandler( $_[2].$_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::commonTagsHandler( $_[2].$_[1] )" ) if $debug;
 
     # This is the place to define customized tags and variables
     # Called by sub handleCommonTags, after %INCLUDE:"..."%
@@ -204,7 +204,7 @@ sub commonTagsHandler
 
 # =========================
 sub _makeBarcode {
-    TWiki::Func::writeDebug( "- ::makeBarcode " ) if $debug;
+    Foswiki::Func::writeDebug( "- ::makeBarcode " ) if $debug;
 	my ($args, $topic, $web) = @_;
 	if (!$pluginInitialized) {
 		$pluginInitialized = 1;
@@ -217,14 +217,14 @@ sub _makeBarcode {
 	#Parse the args
 	my %parameters = _parse_parameters($args);
 
-    TWiki::Func::writeDebug( "- ${pluginName}::handleBarcode( arg=$args )" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::handleBarcode( arg=$args )" ) if $debug;
 
 	#Create the PNG
 	my $bc = new Barcode::Code128;
 	
 	# Get text 
 	my ($text) = _get_parameter("text",$defaultText, \%parameters);
-    TWiki::Func::writeDebug( "- ${pluginName}::handleBarcode text=$text" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::handleBarcode text=$text" ) if $debug;
 	# Get Default Paramters 
 	my ($padding) = _get_parameter("padding",$defaultPadding, \%parameters);
 	my ($height) = _get_parameter("height",$defaultHeight, \%parameters);
@@ -249,7 +249,7 @@ sub _makeBarcode {
 		$text =~ tr|A-Za-z\-|a-zA-Z/|;
 	}
 	my ($dir, $filename) = _make_filename("barcode",$barcodeCount++, $topic, $web);
-    TWiki::Func::writeDebug( "- ${pluginName}::handleBarcode file=$dir $filename" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::handleBarcode file=$dir $filename" ) if $debug;
 
 	my $bc_png;
 	eval {$bc_png=$bc->png($text)} || return _make_error $@;
