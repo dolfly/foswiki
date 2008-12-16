@@ -22,7 +22,7 @@ Firebug Lite creates the variables "firebug" and "pi" and doesn't affect or inte
    2 hit F12 - this should bring up the firebuglite console.
    
 ---++ TODO
-   1 change the path to the =firebug-lite.css= file to a local TWiki path
+   1 change the path to the =firebug-lite.css= file to a local Foswiki path
    2 add a setting to add =debug="true"= to the html tag, to always bring up the console.
 
 ---++ Installation Instructions
@@ -34,15 +34,14 @@ Firebug Lite creates the variables "firebug" and "pi" and doesn't affect or inte
 Many thanks to the following sponsors for supporting this work:
    * Acknowledge any sponsors here
 
-|  Plugin Author(s): | TWiki:Main.SvenDowideit - SvenDowideit@wikiring.com - <img src="%ATTACHURLPATH%/wikiringlogo20x20.png" /> [[http://www.wikiring.com][WikiRing.com]] |
+|  Plugin Author(s): | Foswiki:Main.SvenDowideit - SvenDowideit@wikiring.com - <img src="%ATTACHURLPATH%/wikiringlogo20x20.png" /> [[http://www.wikiring.com][WikiRing.com]] |
 |  Copyright: | see http://getfirebug.com/ |
-|  Licenses: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] (TWiki plugin) && [[http://www.mozilla.org/MPL/][Mozilla Public License 1.1]] (the js and css) |
+|  Licenses: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] (Foswiki plugin) && [[http://www.mozilla.org/MPL/][Mozilla Public License 1.1]] (the js and css) |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Plugin Home: | http://twiki.org/cgi-bin/view/Plugins/FirebugLitePlugin |
-|  Feedback: | http://twiki.org/cgi-bin/view/Plugins/FirebugLitePluginDev |
-|  Appraisal: | http://twiki.org/cgi-bin/view/Plugins/FirebugLitePluginAppraisal |
+|  Plugin Home: | http://foswiki.org/Extensions/FirebugLitePlugin |
+|  Feedback: | http://foswiki.org/Extensions/FirebugLitePluginDev |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], %SYSTEMWEB%.DeveloperDocumentationCategory, %SYSTEMWEB%.AdminDocumentationCategory, %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
 
