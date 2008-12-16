@@ -236,7 +236,7 @@ Column layouts
    * Set LASTCOLS = 7
 
 CSSes
-   * Set DEFAULTCSS = 70
+   * Set DEFAULTCSS = 87
    * Set FIRSTCSS = 50
 removed as they are MT3 css   
    * Set CSS47 = %PUBURL%/%SYSTEMWEB%/WidgetsSample3Design/theme.css

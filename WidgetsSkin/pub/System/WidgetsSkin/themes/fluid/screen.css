@@ -1,0 +1,226 @@
+/*
+
+name: Fluid
+designer: Sven Dowideit
+designer_url: http://fosiki.com
+layouts: layout-wtt, layout-twt, layout-wt, layout-tw, layout-wm, layout-mw
+
+so far, only tw works on IE6
+
+*/
+/* ie6 pre mess? */
+html body pre {)
+width:98%;
+}
+
+/* Layout ----------------------------------------------------------------- */
+
+body {
+    text-align: center;
+    background: #fff;
+}
+
+#container-inner {
+    width: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#header, #content, #alpha, #beta, #gamma, #footer {
+    position: relative;
+}
+
+/* undo the floating */
+#alpha, #beta, #gamma {
+    display: inline;
+    float: none;
+}
+
+#header-inner, #content-inner, #footer-inner,
+#alpha-inner, #beta-inner, #gamma-inner {
+    position: static;
+}
+
+#header-inner, #content-inner, #footer-inner {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+#header-inner, #footer-inner,
+#alpha-inner, #beta-inner, #gamma-inner {
+    overflow: hidden;
+    padding-right: 20px;
+    padding-left: 20px;
+}
+
+
+/* Wide-Thin-Thin */
+
+.layout-wtt #alpha {
+    float:left;
+    width:100%;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-wtt  #alpha-inner {
+    margin: 0 400px 0 20px;
+    position:relative;
+}
+
+.layout-wtt #beta {
+    float:left;
+    width:200px;
+    margin-left:-200px;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-wtt #gamma {
+    float:left;
+    width:200px;
+    margin-left:-200px;
+}
+
+
+
+/* Thin-Wide-Thin */
+
+.layout-twt #alpha {
+    float:left;
+    width:100%;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-twt  #alpha-inner {
+    margin: 0 200px 0 200px;
+    position:relative;
+}
+
+.layout-twt #beta {
+    float:left;
+    margin-left:-100%;
+    width:200px;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-twt #gamma {
+    float:left;
+    width:200px;
+    margin-left:-200px;
+}
+
+
+/* Wide-Thin */
+
+.layout-wt #alpha {
+    float:left;
+    width:100%;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-wt  #alpha-inner {
+    margin: 0 200px 0 20px;
+    position:relative;
+}
+
+.layout-wt #beta {
+    float:left;
+    width:200px;
+    margin-left:-200px;
+}
+
+/* Thin-Wide */
+
+/*  http://blog.html.it/layoutgala/LayoutGala14.html
+div#wrapper{float:left;width:100%}
+div#content{margin: 0 200px}
+div#navigation{float:left;width:200px;margin-left:-200px}
+div#extra{float:left;width:200px;margin-left:-100%}
+div#footer{clear:left;width:100%}
+*/
+
+
+
+.layout-tw #alpha {
+    float:left;
+    width:100%;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-tw  #alpha-inner {
+    margin: 0 20px 0 200px;
+    position:relative;
+}
+
+.layout-tw #beta {
+    float:left;
+    margin-left:-100%;
+    width:200px;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-tw #gamma {
+    float:left;
+    width:200px;
+    margin-left:-200px;
+}
+
+/* Medium-Wide */
+
+
+.layout-mw #alpha {
+    float:left;
+    width:100%;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-mw  #alpha-inner {
+    margin: 0 20px 0 330px;
+    position:relative;
+}
+
+.layout-mw #beta {
+    float:left;
+    margin-left:-100%;
+    width:330px;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-mw #gamma {
+    float:left;
+    width:200px;
+    margin-left:-200px;
+}
+
+/* Wide-Medium */
+
+.layout-wm #alpha {
+    float:left;
+    width:100%;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-wm  #alpha-inner {
+    margin: 0 330px 0 20px;
+    position:relative;
+}
+
+.layout-wm #NObeta {
+    float:left;
+    margin-left:-100%;
+    width:330px;
+    left: auto; /* attempt to undo base-weblog.css */
+}
+
+.layout-wm #beta {
+    float:left;
+    width:330px;
+    margin-left:-330px;
+}
+
+
+/*  footer  */
+#footer-widgets {
+    clear:left;
+    width:100%;
+}
