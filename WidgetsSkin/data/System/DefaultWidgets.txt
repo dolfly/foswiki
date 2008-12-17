@@ -44,6 +44,14 @@ Need a magical WebWidgets topic that can add widgets to the list for a web - sim
    </div>
 </div>%ENDSECTION{"widget-search"}%
 
+---+++ widget-breadcrumb
+%STARTSECTION{"widget-breadcrumb"}%<div class="widget-breadcrumb widget">
+   <div class="widget-content">
+<a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%HOMETOPIC%">%MAKETEXT{"[_1] Web" args="<nop>%BASEWEB%"}%</a>
+ > %META{"parent" nowebhome="on" prefix="%TMPL:P{"breadcrumb:separator"}%" separator=">" suffix=""}%
+<a href="%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%" title='%MAKETEXT{"Topic revision:"}% %REVINFO{format="$rev ($date - $time)"}%'><nop>%BASETOPIC%</a>
+   </div>
+</div>%ENDSECTION{"widget-breadcrumb"}%
 
 ---+++ widget-categories
 %STARTSECTION{"widget-categories"}%<div class="widget-categories widget">
