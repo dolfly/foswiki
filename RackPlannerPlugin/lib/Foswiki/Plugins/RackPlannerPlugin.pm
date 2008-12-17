@@ -38,9 +38,10 @@ $VERSION = '$Rev: 8670$';
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
 $RELEASE = 'Foswiki 1.0';
- 
 
-$REVISION = '1.006'; #dro# fixed minor tooltip foreground/background color bug; added device icon shortcut feature; added some base device icons;
+$REVISION = '1.006'
+  ; #dro# fixed minor tooltip foreground/background color bug; added device icon shortcut feature; added some base device icons;
+
 #$REVISION = '1.005'; #dro# fixed links in 'connected to' or 'owner' field bug; added new attribute (clicktooltip...); added documentation
 #$REVISION = '1.004'; #dro# fixed replacement in tooltipformat bug; improved tooltipformat; improved HTML rendering performance;  added and fixed documenation;
 #$REVISION = '1.003'; #dro# fixed displayowner/displaynotes bug reported by TWiki:Main.PatrickTuite; added horizontal rendering feature requested by TWiki:Main.OlofStockhaus; added new attributes (columnwidth, textdir); fixed HTML validation bug;
@@ -79,11 +80,12 @@ and highly dangerous!
 =cut
 
 sub initPlugin {
-    my( $topic, $web, $user, $installWeb ) = @_;
+    my ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $Foswiki::Plugins::VERSION < 1.021 ) {
-        Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+    if ( $Foswiki::Plugins::VERSION < 1.021 ) {
+        Foswiki::Func::writeWarning(
+            "Version mismatch between $pluginName and Plugins.pm");
         return 0;
     }
 
@@ -99,13 +101,11 @@ sub initPlugin {
     # register the _EXAMPLETAG function to handle %EXAMPLETAG{...}%
     ####Foswiki::Func::registerTagHandler( 'TIMETABLE', \&_TIMETABLE);
 
-    # Allow a sub to be called from the REST interface 
+    # Allow a sub to be called from the REST interface
     # using the provided alias
     ####Foswiki::Func::registerRESTHandler('example', \&restExample);
 
-    eval {
-       &Foswiki::Plugins::RackPlannerPlugin::RackPlanner::initPlugin;
-    };
+    eval { &Foswiki::Plugins::RackPlannerPlugin::RackPlanner::initPlugin; };
 
     # Plugin correctly initialized
     return 1;
@@ -113,8 +113,9 @@ sub initPlugin {
 
 # The function used to handle the %EXAMPLETAG{...}% tag
 # You would have one of these for each tag you want to process.
-sub _TIMETABLE{
-    my($session, $params, $theTopic, $theWeb) = @_;
+sub _TIMETABLE {
+    my ( $session, $params, $theTopic, $theWeb ) = @_;
+
     # $session  - a reference to the TWiki session object (if you don't know
     #             what this is, just ignore it)
     # $params=  - a reference to a Foswiki::Attrs object containing parameters.
@@ -162,10 +163,13 @@ __Since:__ Foswiki::Plugins::VERSION = '1.010'
 =cut
 
 sub DISABLE_initializeUserHandler {
+
     # do not uncomment, use $_[0], $_[1]... instead
     ### my ( $loginName, $url, $pathInfo ) = @_;
 
-    Foswiki::Func::writeDebug( "- ${pluginName}::initializeUserHandler( $_[0], $_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug(
+        "- ${pluginName}::initializeUserHandler( $_[0], $_[1] )")
+      if $debug;
 }
 
 =pod
@@ -182,10 +186,13 @@ __Since:__ Foswiki::Plugins::VERSION = '1.010'
 =cut
 
 sub DISABLE_registrationHandler {
+
     # do not uncomment, use $_[0], $_[1]... instead
     ### my ( $web, $wikiName, $loginName ) = @_;
 
-    Foswiki::Func::writeDebug( "- ${pluginName}::registrationHandler( $_[0], $_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug(
+        "- ${pluginName}::registrationHandler( $_[0], $_[1] )")
+      if $debug;
 }
 
 =pod
@@ -217,11 +224,15 @@ handler.
 =cut
 
 require Foswiki::Plugins::RackPlannerPlugin::RackPlanner;
+
 sub commonTagsHandler {
+
     # do not uncomment, use $_[0], $_[1]... instead
     ### my ( $text, $topic, $web ) = @_;
 
-    Foswiki::Func::writeDebug( "- ${pluginName}::commonTagsHandler( $_[2].$_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug(
+        "- ${pluginName}::commonTagsHandler( $_[2].$_[1] )")
+      if $debug;
 
     # do custom extension rule, like for example:
     # $_[0] =~ s/%XYZ%/&handleXyz()/ge;
@@ -229,390 +240,18 @@ sub commonTagsHandler {
 
     eval {
 
-            $_[0] =~ s/<\/head>/<script src="%PUBURL%\/%SYSTEMWEB%\/$pluginName\/rackplannertooltips.js" language="javascript" type="text\/javascript"><\/script><\/head>/is unless ($_[0]=~/rackplannertooltips.js/);
+        $_[0] =~
+s/<\/head>/<script src="%PUBURL%\/%SYSTEMWEB%\/$pluginName\/rackplannertooltips.js" language="javascript" type="text\/javascript"><\/script><\/head>/is
+          unless ( $_[0] =~ /rackplannertooltips.js/ );
 
-	    $_[0] =~ s/%RACKPLANNER%/&Foswiki::Plugins::RackPlannerPlugin::RackPlanner::expand("",$_[0],$_[1],$_[2])/ge;
-	    $_[0] =~ s/%RACKPLANNER{(.*?)}%/&Foswiki::Plugins::RackPlannerPlugin::RackPlanner::expand($1, $_[0], $_[1], $_[2])/ge;
-
+        $_[0] =~
+s/%RACKPLANNER%/&Foswiki::Plugins::RackPlannerPlugin::RackPlanner::expand("",$_[0],$_[1],$_[2])/ge;
+        $_[0] =~
+s/%RACKPLANNER{(.*?)}%/&Foswiki::Plugins::RackPlannerPlugin::RackPlanner::expand($1, $_[0], $_[1], $_[2])/ge;
 
     };
     &Foswiki::Func::writeWarning($@) if $@;
 }
 
-=pod
-
----++ beforeCommonTagsHandler($text, $topic, $web )
-   * =$text= - text to be processed
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-This handler is called before TWiki does any expansion of it's own
-internal tags. It is designed for use by cache plugins. Note that
-when this handler is called, &lt;verbatim> blocks are still present
-in the text.
-
-__NOTE__: This handler is called once for each call to
-=commonTagsHandler= i.e. it may be called many times during the
-rendering of a topic.
-
-__NOTE:__ meta-data is _not_ embedded in the text passed to this
-handler.
-
-=cut
-
-sub DISABLE_beforeCommonTagsHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ### my ( $text, $topic, $web ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::beforeCommonTagsHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ afterCommonTagsHandler($text, $topic, $web )
-   * =$text= - text to be processed
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-This handler is after TWiki has completed expansion of %TAGS%.
-It is designed for use by cache plugins. Note that when this handler
-is called, &lt;verbatim> blocks are present in the text.
-
-__NOTE__: This handler is called once for each call to
-=commonTagsHandler= i.e. it may be called many times during the
-rendering of a topic.
-
-__NOTE:__ meta-data is _not_ embedded in the text passed to this
-handler.
-
-=cut
-
-sub DISABLE_afterCommonTagsHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ### my ( $text, $topic, $web ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::afterCommonTagsHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ preRenderingHandler( $text, \%map )
-   * =$text= - text, with the head, verbatim and pre blocks replaced with placeholders
-   * =\%removed= - reference to a hash that maps the placeholders to the removed blocks.
-
-Handler called immediately before TWiki syntax structures (such as lists) are
-processed, but after all variables have been expanded. Use this handler to process special syntax only recognised by your plugin.
-
-Placeholders are text strings constructed using the tag name and a sequence number e.g. 'pre1', "verbatim6", "head1" etc. Placeholders are inserted into the text inside &lt;!--!marker!--&gt; characters so the text will contain &lt;!--!pre1!--&gt; for placeholder pre1.
-
-Each removed block is represented by the block text and the parameters passed to the tag (usually empty) e.g. for
-<verbatim>
-<pre class='slobadob'>
-XYZ
-</pre>
-the map will contain:
-<pre>
-$removed->{'pre1'}{text}:   XYZ
-$removed->{'pre1'}{params}: class="slobadob"
-</pre>
-Iterating over blocks for a single tag is easy. For example, to prepend a line number to every line of every pre block you might use this code:
-<verbatim>
-foreach my $placeholder ( keys %$map ) {
-    if( $placeholder =~ /^pre/i ) {
-       my $n = 1;
-       $map->{$placeholder}{text} =~ s/^/$n++/gem;
-    }
-}
-</verbatim>
-
-__NOTE__: This handler is called once for each rendered block of text i.e. it may be called several times during the rendering of a topic.
-
-__NOTE:__ meta-data is _not_ embedded in the text passed to this
-handler.
-
-Since Foswiki::Plugins::VERSION = '1.026'
-
-=cut
-
-sub DISABLE_preRenderingHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    #my( $text, $pMap ) = @_;
-}
-
-=pod
-
----++ postRenderingHandler( $text )
-   * =$text= - the text that has just been rendered. May be modified in place.
-
-__NOTE__: This handler is called once for each rendered block of text i.e. it may be called several times during the rendering of a topic.
-
-__NOTE:__ meta-data is _not_ embedded in the text passed to this
-handler.
-
-Since Foswiki::Plugins::VERSION = '1.026'
-
-=cut
-
-sub DISABLE_postRenderingHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    #my $text = shift;
-}
-
-=pod
-
----++ beforeEditHandler($text, $topic, $web )
-   * =$text= - text that will be edited
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-This handler is called by the edit script just before presenting the edit text
-in the edit box. It is called once when the =edit= script is run.
-
-__NOTE__: meta-data may be embedded in the text passed to this handler (using %META: tags)
-
-__Since:__ Foswiki::Plugins::VERSION = '1.010'
-
-=cut
-
-sub DISABLE_beforeEditHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ### my ( $text, $topic, $web ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::beforeEditHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ afterEditHandler($text, $topic, $web )
-   * =$text= - text that is being previewed
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-This handler is called by the preview script just before presenting the text.
-It is called once when the =preview= script is run.
-
-__NOTE:__ this handler is _not_ called unless the text is previewed.
-
-__NOTE:__ meta-data is _not_ embedded in the text passed to this
-handler.
-
-__Since:__ Foswiki::Plugins::VERSION = '1.010'
-
-=cut
-
-sub DISABLE_afterEditHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ### my ( $text, $topic, $web ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::afterEditHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ beforeSaveHandler($text, $topic, $web, $meta )
-   * =$text= - text _with embedded meta-data tags_
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-   * =$meta= - the metadata of the topic being saved, represented by a Foswiki::Meta object.
-
-This handler is called each time a topic is saved.
-
-__NOTE:__ meta-data is embedded in $text (using %META: tags)
-
-__Since:__ Foswiki::Plugins::VERSION = '1.010'
-
-=cut
-
-sub DISABLE_beforeSaveHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ### my ( $text, $topic, $web ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::beforeSaveHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ afterSaveHandler($text, $topic, $web, $error, $meta )
-   * =$text= - the text of the topic _excluding meta-data tags_
-     (see beforeSaveHandler)
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-   * =$error= - any error string returned by the save.
-   * =$meta= - the metadata of the saved topic, represented by a Foswiki::Meta object 
-
-This handler is called each time a topic is saved.
-
-__NOTE:__ meta-data is embedded in $text (using %META: tags)
-
-__Since:__ Foswiki::Plugins::VERSION = '1.020'
-
-=cut
-
-sub DISABLE_afterSaveHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ### my ( $text, $topic, $web, $error, $meta ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::afterSaveHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ beforeAttachmentSaveHandler(\%attrHash, $topic, $web )
-   * =\%attrHash= - reference to hash of attachment attribute values
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-This handler is called once when an attachment is uploaded.
-
-The attributes hash
-will include at least the following attributes:
-   * =attachment= => the attachment name
-   * =comment= - the comment
-   * =user= - the user's Web.<nop>WikiName
-
-__Since:__ Foswiki::Plugins::VERSION = '1.023'
-
-=cut
-
-sub DISABLE_beforeAttachmentSaveHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ###   my( $attrHashRef, $topic, $web ) = @_;
-    Foswiki::Func::writeDebug( "- ${pluginName}::beforeAttachmentSaveHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ afterAttachmentSaveHandler(\%attrHash, $topic, $web, $error )
-   * =\%attrHash= - reference to hash of attachment attribute values
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-   * =$error= - any error string generated during the save process
-This handler is called just after the save action. The attributes hash
-will include at least the following attributes:
-   * =attachment= => the attachment name
-   * =comment= - the comment
-   * =user= - the user's Web.<nop>WikiName
-
-__Since:__ Foswiki::Plugins::VERSION = '1.023'
-
-=cut
-
-sub DISABLE_afterAttachmentSaveHandler {
-    # do not uncomment, use $_[0], $_[1]... instead
-    ###   my( $attrHashRef, $topic, $web ) = @_;
-    Foswiki::Func::writeDebug( "- ${pluginName}::afterAttachmentSaveHandler( $_[2].$_[1] )" ) if $debug;
-}
-
-=pod
-
----++ mergeHandler( $diff, $old, $new, \%info ) -> $text
-Try to resolve a difference encountered during merge. The =differences= array is an array of hash references, where each hash contains the following fields:
-   * =$diff= => one of the characters '+', '-', 'c' or ' '.
-      * '+' - =new= contains text inserted in the new version
-      * '-' - =old= contains text deleted from the old version
-      * 'c' - =old= contains text from the old version, and =new= text from the version being saved
-      * ' ' - =new= contains text common to both versions, or the change only involved whitespace
-   * =$old= => text from version currently saved
-   * =$new= => text from version being saved
-   * =\%info= is a reference to the form field description { name, title, type, size, value, tooltip, attributes, referenced }. It must _not_ be wrtten to. This parameter will be undef when merging the body text of the topic.
-
-Plugins should try to resolve differences and return the merged text. For example, a radio button field where we have ={ diff=>'c', old=>'Leafy', new=>'Barky' }= might be resolved as ='Treelike'=. If the plugin cannot resolve a difference it should return undef.
-
-The merge handler will be called several times during a save; once for each difference that needs resolution.
-
-If any merges are left unresolved after all plugins have been given a chance to intercede, the following algorithm is used to decide how to merge the data:
-   1 =new= is taken for all =radio=, =checkbox= and =select= fields to resolve 'c' conflicts
-   1 '+' and '-' text is always included in the the body text and text fields
-   1 <del>conflict</del> <ins>markers</ins> are used to mark 'c' merges in text fields
-
-The merge handler is called whenever a topic is saved, and a merge is required to resolve concurrent edits on a topic.
-
-=cut
-
-sub DISABLE_mergeHandler {
-}
-
-=pod
-
----++ modifyHeaderHandler( \%headers, $query )
-   * =\%headers= - reference to a hash of existing header values
-   * =$query= - reference to CGI query object
-Lets the plugin modify the HTTP headers that will be emitted when a
-page is written to the browser. \%headers= will contain the headers
-proposed by the core, plus any modifications made by other plugins that also
-implement this method that come earlier in the plugins list.
-<verbatim>
-$headers->{expires} = '+1h';
-</verbatim>
-
-Note that this is the HTTP header which is _not_ the same as the HTML
-&lt;HEAD&gt; tag. The contents of the &lt;HEAD&gt; tag may be manipulated
-using the =Foswiki::Func::addToHEAD= method.
-
-__Since:__ Foswiki::Plugins::VERSION 1.026
-
-=cut
-
-sub DISABLE_modifyHeaderHandler {
-    my ( $headers, $query ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::modifyHeaderHandler()" ) if $debug;
-}
-
-=pod
-
----++ redirectCgiQueryHandler($query, $url )
-   * =$query= - the CGI query
-   * =$url= - the URL to redirect to
-
-This handler can be used to replace TWiki's internal redirect function.
-
-If this handler is defined in more than one plugin, only the handler
-in the earliest plugin in the INSTALLEDPLUGINS list will be called. All
-the others will be ignored.
-
-__Since:__ Foswiki::Plugins::VERSION = '1.010'
-
-=cut
-
-sub DISABLE_redirectCgiQueryHandler {
-    # do not uncomment, use $_[0], $_[1] instead
-    ### my ( $query, $url ) = @_;
-
-    Foswiki::Func::writeDebug( "- ${pluginName}::redirectCgiQueryHandler( query, $_[1] )" ) if $debug;
-}
-
-=pod
-
----++ renderFormFieldForEditHandler($name, $type, $size, $value, $attributes, $possibleValues) -> $html
-
-This handler is called before built-in types are considered. It generates the HTML text rendering this form field, or false, if the rendering should be done by the built-in type handlers.
-   * =$name= - name of form field
-   * =$type= - type of form field
-   * =$size= - size of form field
-   * =$value= - value held in the form field
-   * =$attributes= - attributes of form field 
-   * =$possibleValues= - the values defined as options for form field, if any. May be a scalar (one legal value) or a ref to an array (several legal values)
-Return HTML text that renders this field. If false, form rendering continues by considering the built-in types.
-
-=cut
-
-sub DISABLE_renderFormFieldForEditHandler {
-}
-
-
-=pod
-
-
----++ restExample($session) -> $text
-
-This is an example of a sub to be called by the =rest= script. The parameter is:
-   * =$session= - The TWiki object associated to this session.
-
-Additional parameters can be recovered via de query object in the $session.
-
-For more information, check %SYSTEMWEB%.CommandAndCGIScripts#rest
-
-=cut
-
-sub restExample {
-   #my ($session) = @_;
-   return "This is an example of a REST invocation\n\n";
-}
 
 1;
