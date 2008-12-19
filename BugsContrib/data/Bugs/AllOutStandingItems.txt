@@ -1,6 +1,6 @@
 
 ---++ Filter results by
-<form action="%SCRIPTURL{view}%/%WEB%/%TOPIC%">
+<form action="%SCRIPTURL{view}%/%WEB%/%TOPIC%" method="post">
 <table width="50%">
 <tr valign="top">
 	<th>Applies<nop>To (%URLPARAM{"classes" multiple="$item" separator="," default="ALL"}%) </th>
