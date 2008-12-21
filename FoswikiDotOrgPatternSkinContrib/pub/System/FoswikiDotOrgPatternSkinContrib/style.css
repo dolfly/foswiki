@@ -969,6 +969,8 @@ li.patternLogIn {
 #patternClearHeaderLeft {
   height: 90px;
   background-color: #2E5CAC;
+background-color:pink;
+background-color:#13469F;
 }
 div #patternTopBarContents {
 	height: 80px;
