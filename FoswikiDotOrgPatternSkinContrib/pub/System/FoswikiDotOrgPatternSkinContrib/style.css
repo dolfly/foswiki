@@ -1,5 +1,7 @@
 div #patternTopBarContents {
-	background: #2E5CAC;
+/*	background: #2E5CAC; */
+	height: 90px;
+	padding-top: 10px;
 }
 
 /*
@@ -36,25 +38,89 @@ th, td {
 /* LAYOUT ELEMENTS */
 
 #patternScreen {
-	background:#e2e2e2;
+	background:#fff;
 }
 #patternPage {
-	border-color:#ccc;
+/*	border-color:#ccc; */
+	border: none;
 }
 #patternTopBar {
-   border-color:#e2e2e2;
-	/* color is defined as WEBHEADERBGCOLOR in System/DefaultPreferences */
+   background:transparent url(foswiki-header.png) no-repeat scroll 0 0;
+   border: none;
+/*   height: 126px;  */
+   padding-bottom: 2em;
 }
+/*
+#patternTopBarContent {
+  height: 90px;
+} */
+#patternTopBarButtons {
+  background-color: #9CBAEF;
+  border-top: solid 1px #e1eafa;
+  padding-left: 2em;
+}
+
+#patternTopBarButtons ul {
+  display: inline;
+  margin: 0;
+  padding: 0.5em 0;
+  color: #339;
+  font-weight: bold;
+  line-height: 2em;
+  height: 2em;
+  border-left: 1px solid #e1eafa;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
+}
+
+#patternTopBarButtons ul a {
+  line-height: 2em;
+  height: 2em;
+  padding: 0.5em 1em;
+  margin: 0 -1em;
+  color: #00458f;
+  width: 100%;
+  border: none;
+  text-decoration: none;
+}
+
+#patternTopBarButtons ul a.active,
+#patternTopBarButtons ul a:hover {
+  background: #fff;
+}
+#patternTopBarButtons ul a.inactive {
+}
+
+
+#patternTopBarButtons li {
+  display: inline;
+  margin: 0;
+  padding: 0.5em 1em;
+  color: #339;
+  border-right: 1px solid #e1eafa;
+  font-weight: bold;
+  line-height: 2em;
+  height: 2em;
+}
+
+
 #patternMain { /* don't set a background here; use patternOuter */ }
 #patternOuter {
-   background:none;
-   border-color:#dadada;
+   background:#fff;
+/*   border-color:#dadada; */
 }
+
+#patternMainContents {
+	border: solid #ccc 1px;
+	background-color: #fff;
+}
+
 #patternSideBar {
-	background:pink;
+	background:#e2e2e2;
 }
 #patternWrapper {
-   background:#fff;
+   background:#e2e2e2;
 }
 #patternBottomBar {
    border-color:#ccc;
@@ -443,7 +509,7 @@ a:hover .foswikiAccessKey {
    Pattern skin specific elements
    -----------------------------------------------------------   */
 #patternPage {
-   background-color:#fff;
+/*   background-color:#fff;*/
 }
 .patternHomePath a:link,
 .patternHomePath a:visited {
@@ -466,7 +532,55 @@ a:hover .foswikiAccessKey {
 /* Left bar */
 #patternSideBarContents {
    color:#000;
+   padding-left: 1em;
 }
+#patternSideBarContents h2 {
+ font-size:120%;
+}
+#patternSideBarContents h2,
+#patternSideBarContents h2 a {
+ font-family:arial;
+ text-decoration:none;
+ background-color:#62B000;
+ background-image:url(button-bg.png);
+ background-repeat:repeat-x;
+ background-position:left bottom;
+ color:white;
+ /* ie 6 */
+ _background-image:none;
+}
+#patternSideBarContents h2 a {
+ display:block;
+ margin:0em -1em;
+ padding:0em 1em;
+}
+#patternSideBarContents h2 a:hover {
+ background:#5AA301;
+}
+#patternSideBarContents h2 {
+ font-weight:normal;
+ letter-spacing:0.1em;
+ display:block;
+ margin:0em -1em 0em;
+ padding:0px 1em;
+ line-height:1.5em;
+ border-top:1px solid #BDEB86;
+}
+#patternSideBarContents li {
+ line-height:2.0em;
+ margin:0px;
+ padding:1px 1em;
+ border-top:1px solid #ddd;
+}
+#patternSideBarContents ul li a:hover,
+#patternSideBarContents ul li a {
+ font-weight:normal;
+ display:block;
+ color:#434343;
+ margin:0px -1em;
+ padding:0px 1em;
+}
+
 #patternSideBarContents hr {
    color:#e2e2e2;
    background-color:#e2e2e2;
@@ -852,11 +966,13 @@ li.patternLogIn {
 }
 
 
-
-
-
+#patternClearHeaderLeft {
+  height: 90px;
+  background-color: #2E5CAC;
+}
 div #patternTopBarContents {
-	background: #2E5CAC;
+	height: 80px;
+	/*background-color: #2E5CAC; */
 }
 .foswikiTopic a,
 .foswikiTopic :link {
