@@ -572,6 +572,12 @@ a:hover .foswikiAccessKey {
  padding:1px 1em;
  border-top:1px solid #ddd;
 }
+#patternSideBarContents {
+	padding: 0;
+}
+#patternSideBarContents ul li:hover {
+	background-color: #ffffff;
+}
 #patternSideBarContents ul li a:hover,
 #patternSideBarContents ul li a {
  font-weight:normal;
@@ -968,9 +974,7 @@ li.patternLogIn {
 
 #patternClearHeaderLeft {
   height: 90px;
-  background-color: #2E5CAC;
-background-color:pink;
-background-color:#13469F;
+  background-color:#13469F;
 }
 div #patternTopBarContents {
 	height: 80px;
