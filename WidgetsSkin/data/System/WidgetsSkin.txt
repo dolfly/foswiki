@@ -139,7 +139,7 @@ You can use this technique to create a FoswikiSkin that matches closely the HTML
 
 %TABLE{ id="ContribInfoTable"}%
 |  Contrib Author: | Foswiki:Main.SvenDowideit - SvenDowideit@fosiki.com [[http://fosiki.com][fosiki]] - a <img src="%ATTACHURLPATH%/wikiringlogo20x20.png" /> [[http://www.wikiring.com][WikiRing.com]] partner |
-|  Copyright &copy;: | !SixApart and designs by various, twiki adaption by Foswiki:Main.SvenDowideit - SvenDowideit@fosiki.com |
+|  Copyright &copy;: | !SixApart and designs by various, foswiki adaption by Foswiki:Main.SvenDowideit - SvenDowideit@fosiki.com |
 |  License: | Various Open Source |
 |  Description: | a Foswiki skin based on the HTML used by [[http://www.thestylecontest.com][The Style Archive]] and [[http://www.sixapart.com/movabletype/styles/library][The Six Apart style library]] |
 |  Screenshot: | <a href="%ATTACHURL%/fullscreen.gif"><img class="demoImage"  src="%ATTACHURL%/screenshot.gif" alt="Click for full screen image" width="600" height="130" /></a> |
@@ -147,10 +147,11 @@ You can use this technique to create a FoswikiSkin that matches closely the HTML
 |  Screenshot: | <a href="%ATTACHURL%/iconic.gif"><img class="demoImage" src="%ATTACHURL%/iconic_preview.gif" alt="Click for full screen image" width="600" height="130" /></a> |
 |  Preview: | [[%SCRIPTURL%/view%SCRIPTSUFFIX%/%WEB%/%TOPIC%][Preview with this topic]] |
 |  Base Name: | Widget |
-|  Skin Version: | 03 Apr 2007 (v1.000) |
+|  Skin Version: | %$VERSION% |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  30 Dec 2008: | update to Foswiki |
 |  7 Dec 2007:  | stop the demo images from overflowing the design, other Skin fixes |
 |  15 Oct 2007: | Doc rewrite - Foswiki:Main.CrawfordCurrie |
 |  30 Mar 2007: | initial release of Skin | 
