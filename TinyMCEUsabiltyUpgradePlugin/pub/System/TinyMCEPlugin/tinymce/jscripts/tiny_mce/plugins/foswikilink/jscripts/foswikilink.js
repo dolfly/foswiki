@@ -24,8 +24,7 @@ function init() {
 	window.focus();
 }
 
-function init_topics() {
-        
+function init_topics() {        
         var url = scriptUrl+"/rest/TopicListPlugin/topiclist?topic=System.WebHome&max=0&format=%TOPIC&globalformat=%TOPICS&delimiter=%NL";
         $j("#topic_name").autocomplete(url,
         {
@@ -101,7 +100,7 @@ function insertFoswikiLink() {
     }
     tinyMCEPopup.restoreSelection();
     tinyMCEPopup.execCommand("mceBeginUndoLevel");
-    tinyMCEPopup.execCommand("mceInsertContent", false, href);
+    tinyMCEPopup.execCommand("mceInsertContent", false, '<span class="WYSIWYG_LINK">'+href+'</span>');
     tinyMCEPopup.execCommand("mceEndUndoLevel");
     tinyMCEPopup.close();
 }
