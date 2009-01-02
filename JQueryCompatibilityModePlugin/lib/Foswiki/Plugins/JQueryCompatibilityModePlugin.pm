@@ -1,8 +1,5 @@
-# This script Copyright (c) 2008 Impressive.media
+# This script Copyright (c) 2008 Impressive.media 
 # and distributed under the GPL (see below)
-#
-# Based on parts of GenPDF, which has several sources and authors
-# This script uses html2pdf as backend, which is distributed under the LGPL
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -12,7 +9,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at
+# GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
 # =========================
@@ -36,7 +33,7 @@ $VERSION = '$Rev: 12445$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '0.1';
+$RELEASE = '0.2';
 
 # Short description of this plugin
 # One line description, is shown in the %FoswikiWEB%.TextFormattingRules topic:
@@ -57,8 +54,4 @@ sub initPlugin {
     $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/jquery_init.js'></script>";
     Foswiki::Func::addToHEAD($pluginName."_jquerylib_init",$output,$pluginName."_jquerylib");
     return 1;
-}
-
-sub earlyInitPlugin {
-
 }
