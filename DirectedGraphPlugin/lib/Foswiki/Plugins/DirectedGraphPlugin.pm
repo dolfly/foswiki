@@ -758,6 +758,7 @@ sub _loadHashCodes {
     foreach my $a (@attachments) {
         my $aname = $a->{name};
         my ( $n, $t ) = $aname =~ m/^(.*)\.(.*)$/;    # Split file name and type
+        next unless $t;    # If no type, skip it, it's not ours.
         &_writeDebug("    - Attach = |$aname| Name = |$n| Type = |$t| ");
         $typeHash{$n} .= " " . $t;
         my ($on) = $n =~
