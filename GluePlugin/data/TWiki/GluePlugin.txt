@@ -14,27 +14,27 @@
 <table style="float:right">
 <tr>
   <td><img src="%ATTACHURLPATH%/wikiringlogo40x40.png"></td>
-  <td><a href="http://wikiring.de" title="Make your Wiki ring!" style="text-decoration:none">
+  <td><a href="http://wikiring.com" title="Make your Wiki ring!" style="text-decoration:none">
       Powered by <br /> <nop>WikiRing Consultants </a>
   </td>
 </tr>
 </table>
-This plugin will help you to write _readable_ markup (<nop>TWikiMarkup, HMTL, ...)
-within TWiki by allowing tags and arguments to be formatted on multiple lines.
+This plugin will help you to write _readable_ markup (<nop>TopicMarkup, HMTL, ...)
+by allowing tags and arguments to be formatted on multiple lines.
 This is done by removing whitespaces surrounding tilde characters at the
 beginning of a line and recombine consecutive lines again.  Basically, there
 are two ways of glueing and recombining lines by either removing all whitespaces
 between two lines using =%*~~= or 
 by removing all whitespaces and separateing lines with a
 single space using =%~~~=.  
-There's a helper character sequence =%~~= that prevents the TWiki engine to
+There's a helper character sequence =%~~= that prevents the engine to
 interprete tags before the GluePlugin could reformat the text.
-In addition there's a glue sequence =#~~= to insert comments within a <nop>TWikiMarkup
+In addition there's a glue sequence =#~~= to insert comments within a <nop>TopicMarkup
 expression.
 
 While these glue sequences might feel strange at the beginning they help you
 to format and recognize your markup and make it more readable. That way you
-will be able to format a <nop>TWikiApplications that looked like this
+will be able to format a <nop>WikiApplications that looked like this
 
 <verbatim>
 %SEARCH{"..." type="query" header="<table width="100%" border="5px"><thead><tr><th>Name</th><th>Description</th><th>Date</th></tr></thead>" format="<tr><th>$formfield(Name)</th><th>$summary</th><th>$createdate</th></tr>" footer="</table>"}%
@@ -44,7 +44,7 @@ somewhat like this
 
 <verbatim>
 #~~ #################################
-#~~ # This is my new TWikiApplication
+#~~ # This is my new WikiApplication
 ~~~
 %~~ SEARCH{
 #~~ #################################
@@ -84,7 +84,7 @@ somewhat like this
 ~~~ }%
 #~~ #################################
 #~~ # sure we could have used 
-#~~ # | TWikiTables | as well |
+#~~ # | WikiTables | as well |
 #~~ # but these aren't robust against newlines
 #~~ # in the $summary field
 #~~ #################################
@@ -101,7 +101,7 @@ somewhat like this
 The &lt;space> is a literal whitespace blank. The =~~~&lt;space>= and 
 =*~~&lt;space>= sequences are recognized only at the beginning of a line, whereas
 the =%~~&lt;space>= escape sequence might appear everywhere. The basic
-anatomy of writing a TWiki tag using the GluePlugin is exemplified by
+anatomy of writing a tag using the GluePlugin is exemplified by
 <verbatim>
 %~~ TAG{
 ~~~ key="
@@ -231,9 +231,9 @@ Oranges
    * Unzip it in your twiki installation directory. Content: 
      | *File:* | *Description:* |
 %$MANIFEST%
-   * Visit =configure= in your TWiki installation, and enable the plugin in the {Plugins} section.
+   * Visit =configure= in your installation, and enable the plugin in the {Plugins} section.
    * Set the plugins evaluation order to put the GluePlugin in first position, e.g. 
-     <verbatim>$TWiki::cfg{PluginsOrder} = 'GluePlugin,IfDefinedPlugin,SpreadSheetPlugin';</verbatim>
+     <verbatim>$Foswiki::cfg{PluginsOrder} = 'GluePlugin,IfDefinedPlugin,SpreadSheetPlugin';</verbatim>
    * If the plugin is installed correctly then the following two fruits
      will appear joined on one line: Apples
 
@@ -242,15 +242,16 @@ Oranges
 
 ---++ Plugin Info
 <!-- provided for compatibility only
-   * Set SHORTDESCRIPTION = Enable <nop>TWikiML to span multiple lines
+   * Set SHORTDESCRIPTION = Enable <nop>TopicMarkup to span multiple lines
 -->
 
-|  Plugin Author: | TWiki:Main.MichaelDaum |
-|  Copyright &copy;: | 2005-2007, Michael Daum http://michaeldaumconsulting.com |
+|  Plugin Author: | Michael Daum |
+|  Copyright &copy;: | 2005-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.00 |
+|  Plugin Version: | v2.10 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  23 Nov 2007: | added way to add comments in the middle of a <nop>TWikiMarkup expression |
+|  07 Jan 2009: | certified for foswiki/compat |
+|  23 Nov 2007: | added way to add comments in the middle of a <nop>TopicMarkup expression |
 |  31 Aug 2006: | added NO_PREFS_IN_TOPIC |
 |  28 Jul 2006: | fixed MANIFEST;\
                   some minor docu updates; \
@@ -262,7 +263,7 @@ Oranges
           performance improvements;\
         fixed use if uninitialized value | 
 |  15 Aug 2005: | Initial version |
-|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.024 |
+|  Dependency: | $Foswiki::Plugins::VERSION 1.024 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.005 |
@@ -271,7 +272,5 @@ Oranges
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
 |  Appraisal: | Foswiki:Extensions/%TOPIC%Appraisal |
 
-
--- TWiki:Main.MichaelDaum - 23 Nov 2007
 
 %META:FILEATTACHMENT{name="wikiringlogo40x40.png" attr="h" autoattached="0" comment="" date="1190996093" path="wikiringlogo40x40.png" size="2571" user="ProjectContributor" version="1"}%

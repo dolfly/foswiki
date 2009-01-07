@@ -24,7 +24,7 @@ use vars qw(
     );
 
 $VERSION = '$Rev$';
-$RELEASE = '2.00';
+$RELEASE = '2.10';
 $NO_PREFS_IN_TOPIC = 1;
 $SHORTDESCRIPTION = 'Enable markup to span multiple lines';
 
