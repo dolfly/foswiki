@@ -17,10 +17,10 @@ you can escape from there using breadcrumbs navigation.
 Two types of breadcrumb are supported; "location" breadcrumbs, which show you
 where you are in the site hierarchy, taking into account topic parent relationships, and "path" breadcrumbs, that simply show you where you have been, but without going in circles.
 
-In a way, location breadcrumbs have always been supported by TWiki using the
+In a way, location breadcrumbs have always been supported using the
 =META{"parent"}= variable to display the list of parent topics. Since version
-4.x  TWiki also supports hierarchical subwebs, but the breadcrumbs support of
-TWiki does not allow the display of parent webs as part of of the location
+the advent of hierarchical, subwebs breadcrumbs support of
+the standard engine does not allow the display of parent webs as part of of the location
 breadcrumbs.
 
 Path breadcrumbs show you which topics you visited to reach the current topic. If you revisit a topic you visited earlier, the path is trimmed back to that topic, so it gives you a sort of visual history of where you have been on the site. Path breadcrumbs require that you have session support enabled.
@@ -41,7 +41,7 @@ BREADCRUMBS will result in an undefined behaviour.
 ---+++ Displaying !TopicTitles
 !TopicTitles are a concept introduced by the Foswiki:Extensions/DBCachePlugin. These are stored
 in a topic in the =TOPICTITLE= preference variable or in a formfield
-'TopicTitle ' of a !TWikiForm attached to the topic. If a !TopicTitle is
+'TopicTitle ' of a forms attached to the topic. If a !TopicTitle is
 defined for a topic, it will be displayed in the breadcrumbs instead of the
 normal !WikiWord topic name. For efficiency it is recommended to install the
 Foswiki:Extensions/DBCachePlugin to determine the !TopicTitle.
@@ -90,7 +90,7 @@ separator) may contain special variables:
    * =$n=: replaced with a newline char (\n)
    * =$percnt=: replaced with a percent char (%)
    * =$dollar=: replaced with a dollar char ($)
-   * =$nop=: removed from the format string before expanding common TWiki variables
+   * =$nop=: removed from the format string before expanding common variables
 
 ---++ Examples
 ---+++ default
@@ -160,18 +160,19 @@ separator) may contain special variables:
    * Set SHORTDESCRIPTION = A flexible way to display breadcrumbs navigation
 -->
 
-|  Plugin Author: | TWiki:Main.MichaelDaum |
-|  Copyright &copy;: | 2006-2008, Michael Daum http://michaeldaumconsulting.com |
+|  Plugin Author: | Michael Daum |
+|  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.20 (%$VERSION%) |
+|  Plugin Version: | v2.21 (%$VERSION%) |
 |  Change History: | &nbsp; |
+|  07 Jan 2009: | fixed breadcrumbs breadcrumbs title for pattern skin |
 |  11 Nov 2008: | hide <nop>WebHome in location breadcrumbs |
 |  15 Sep 2008: | switching off current topic in =topicoff= mode |
-|  01 Sep 2008: | TWiki:Main.OliverKrueger Bugs:Item5972 fixed: minor cosmetics |
+|  01 Sep 2008: | Oliver Krueger Bugs:Item5972 fixed: minor cosmetics |
 |  28 Apr 2008: | many new features for 2.0: topic titles, ellipsis, ... |
 |  08 May 2007: | respect HOMETOPIC setting, don't hardcoded '<nop>WebHome' |
-|  19 Apr 2007: | TWiki:Main.CrawfordCurrie added =topicformat= |
-|  20 Feb 2007: | TWiki:Main.CrawfordCurrie added path breadcrumbs |
+|  19 Apr 2007: | Crawford Currie added =topicformat= |
+|  20 Feb 2007: | Crawford Currie added path breadcrumbs |
 |  18 Dec 2006: | added $webtopic pseudo-parameter |
 |  31 Aug 2006: | added NO_PREFS_IN_TOPIC;\
                   removed commonTagsHandler thus dropping cairo support |
