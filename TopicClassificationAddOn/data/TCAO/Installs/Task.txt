@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1170274802" format="1.1" version="1.5"}%
+%META:TOPICINFO{author="ProjectContributor" date="1170274802" format="1.1" version="1.5"}%
 %TOPICCRE%NOP%ATE{ topic="TaskTemplate" template="%TCAOWEB%/Installs.TaskTemplate" }%
 %TOPICCRE%NOP%ATE{ topic="TaskForm" template="%TCAOWEB%/Installs.TaskForm" }%
 %META:TOPICINFO{author="ProjectContributor" date="1191524454" format="1.1" reprev="1.1" version="1.1"}%
@@ -6,7 +6,7 @@
 To enable any of these settings, replace the explanation with the value you want and remove the "#" before "Set". 
 To enable any of these settings, replace the explanation with the value you want and remove the "#" before "Set". 
    * Set CATEGORY_DESCRIPTION = Topics for tracking development of specific features or other site admin/dev tasks.
-   * Set SEARCH_FORMAT = | [[$web.$topic][$percntSPACEOUT{$topic}$percnt]]  | $formfield(SubjectArea)  | $formfield(Priority)   | $formfield(Status)   | $formfield(Due)  | %MAINWEB%.$expand(info.author)   | $formatTime(info.date)   |
+   * Set SEARCH_FORMAT = | [[$web.$topic][$percntSPACEOUT{$topic}$percnt]]  | $formfield(SubjectArea)  | $formfield(Priority)   | $formfield(Status)   | $formfield(Due)  | %USERWEB%.$expand(info.author)   | $formatTime(info.date)   |
    * Set HEADER_FORMAT = | *Task* |  *SubjectArea*  |  *Priority*  |  *Status*  |  *Due Date*  | *Last modified by:*  | *Last modified on:* |$n
    * #Set FOOTER_FORMAT - Optional custom format for search results footer. Defaults to "Number of topics found = $count".
    * #Set CATEGORY_EXTRA - Specify additional form elements to be included when created new topics of this type.
@@ -14,7 +14,7 @@ To enable any of these settings, replace the explanation with the value you want
 
 %DBCALL{"%TCAOWEB%.RenderClassificationTopic" remote="on"}%
 
-<div class="twikiHidden">
+<div class="foswikiHidden">
 You can modify the options for creating new topics of this type by changing the parameters to RenderTopicCreator. See that topic for more info.
 %STARTSECTION{name="new" type="section"}%
 %DBCALL{"%TCAOWEB%.RenderTopicCreator"  TEMPLATE="%TOPIC%Template" TYPE="%TOPIC%"  FORM="%TOPIC%Form" FACETS="%FORMFIELD{"Facets"}%" TOPICSUMMARY="Provide short summary of what's to be accomplished." EXTRA="%INCLUDE{"%TOPIC%" section="extras"}%" remote="on"}%
@@ -26,8 +26,8 @@ You can modify the options for creating new topics of this type by changing the 
 </div>
 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 
 %META:FORM{name="TopicClassForm"}%

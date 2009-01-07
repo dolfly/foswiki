@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1130443857" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1130443857" format="1.1" version="1.2"}%
 %INCLUDE{"%IF{"context can_login" then="%SYSTEMWEB%.WebLeftBarLogin"}%" warn="off"}%
 <div class="patternSideBarContents">
 %INCLUDE{ "%SYSTEMWEB%.WebLeftBarSearch" }%

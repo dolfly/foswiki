@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1168436605" format="1.1" reprev="1.4" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1168436605" format="1.1" reprev="1.4" version="1.4"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -26,8 +26,8 @@
 
 Use the following form to install the core %SYSTEMWEB%.TopicClassificationAddOn components to an existing web.
 
-<div class="twikiFormSteps">
-<div class="twikiFormStep">
+<div class="foswikiFormSteps">
+<div class="foswikiFormStep">
 <script type="text/javascript">
 function setWeb(theWeb) {
    document.installTCAO.topic.value = theWeb + ".TopicClassification";
@@ -39,8 +39,8 @@ function setWeb(theWeb) {
 *Select web to install !TopicClassification framework:* <select name="selectWeb" onchange="setWeb(this.value);" ><option> Select web... </option>%WEBLIST{"<option>$name</option>" separator=" " }% </select> %BR% 
 <input type="submit" value=" Install !TopicClassificationAddOn " /> <br /> _You will be sent immediately to the !TopicClassification topic in the choosen web and presented further instructions for setting up TCAO within the web._ 
 </form>
-</div><!--/twikiFormStep-->
-</div><!--/twikiFormSteps-->
+</div><!--/foswikiFormStep-->
+</div><!--/foswikiFormSteps-->
 %STOPINCLUDE%
 </verbatim>
 

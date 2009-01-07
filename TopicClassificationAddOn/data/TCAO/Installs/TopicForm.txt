@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1167331728" format="1.1" version="1.5"}%
+%META:TOPICINFO{author="ProjectContributor" date="1167331728" format="1.1" version="1.5"}%
 ---+ %TOPIC% for the %WEB% web
 
 | *Name:*| *Type:* | *Size:* | *Values:* | *Tooltip message:* | *Attributes:* |
@@ -9,8 +9,8 @@
 Related Topic: TopicClassification, WebPreferences, %SYSTEMWEB%.DataForms
 
 <!-- Topic Permissions
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-   * Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+   * Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+   * Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 -->
 
 For more information about how you can use form to organize topics or create simple database applications, see %SYSTEMWEB%.DataForms.

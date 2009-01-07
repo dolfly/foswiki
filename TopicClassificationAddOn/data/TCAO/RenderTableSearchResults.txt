@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1173485322" format="1.1" version="1.11"}%
+%META:TOPICINFO{author="ProjectContributor" date="1173485322" format="1.1" version="1.11"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -55,7 +55,7 @@
 *~~            $percntIFDEFINEDTHEN{\"%SEARCH_FORMAT%\" glue=\"off\"}$percnt
 ~~~            %SEARCH_FORMAT%
 ~~~            $percntELSEDEFINED$percnt
-*~~            | [[$web.$topic][$percntSPACEOUT{$topic}$percnt]] <span class=\"twikiSmall\" ><em>
+*~~            | [[$web.$topic][$percntSPACEOUT{$topic}$percnt]] <span class=\"foswikiSmall\" ><em>
 *~~                 $percntIFDEFINED{\"$expand(TopicType or Classification)\" 
 ~~~                       then=\"<noautolink>$expand(TopicType or Classification)</noautolink>\" glue=\"off\"}$percnt</em></span>  |
 ~~~                <noautolink>$formfield(Summary)</noautolink>   | 

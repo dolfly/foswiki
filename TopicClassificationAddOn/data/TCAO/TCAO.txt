@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1159892079" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1159892079" format="1.1" version="1.2"}%
 %META:TOPICPARENT{name="TcaoAdmin"}%
 _...short for TopicClassificationAddOn._
 %META:FORM{name="TCAO.WebForm"}%

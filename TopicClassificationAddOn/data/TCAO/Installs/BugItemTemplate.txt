@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1164258737" format="1.1" reprev="1.3" version="1.3"}%
+%META:TOPICINFO{author="ProjectContributor" date="1164258737" format="1.1" reprev="1.3" version="1.3"}%
 %META:TOPICPARENT{name="BugItem"}%
 %INCLUDE{BugItemHeader}%
 
@@ -10,8 +10,8 @@
 
 %STARTSE%NOP%CTION{type="templateonly"}% 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 %ENDSEC%NOP%TION{type="templateonly"}%
 

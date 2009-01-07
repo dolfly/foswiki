@@ -1,8 +1,8 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1167330901" format="1.1" version="1.5"}%
+%META:TOPICINFO{author="ProjectContributor" date="1167330901" format="1.1" version="1.5"}%
 %META:TOPICPARENT{name="WebHome"}%
 ---++ <nop>%WEB% Web Preferences
 
-The following settings are __web preferences__ of the [[%WEB%.%HOMETOPIC%][%WEB%]] web. These preferences overwrite the __site-level preferences__ in %SYSTEMWEB%.%WIKIPREFSTOPIC%, and can be overwritten by __user preferences__ (your personal topic, eg: %MAINWEB%.WikiGuest in the [[%MAINWEB%.%HOMETOPIC%][%MAINWEB%]] web).
+The following settings are __web preferences__ of the [[%WEB%.%HOMETOPIC%][%WEB%]] web. These preferences overwrite the __site-level preferences__ in %SYSTEMWEB%.%WIKIPREFSTOPIC%, and can be overwritten by __user preferences__ (your personal topic, eg: %USERWEB%.WikiGuest in the [[%USERWEB%.%HOMETOPIC%][%USERWEB%]] web).
 
 
 __Preferences:__
@@ -40,13 +40,13 @@ __Preferences:__
 		*# Set DENYWEBVIEW = 
 		*# Set ALLOWWEBVIEW = 
 		*# Set DENYWEBCHANGE = 
-		* Set ALLOWWEBCHANGE = %MAINWEB%.AdminGroup
+		* Set ALLOWWEBCHANGE = %USERWEB%.AdminGroup
 		*# Set DENYWEBRENAME = 
 		*# Set ALLOWWEBRENAME = 
 
-	* Users or groups allowed to change or rename this <nop>%TOPIC% topic: (e.g., %MAINWEB%.AdminGroup)
-		* Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-		* Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+	* Users or groups allowed to change or rename this <nop>%TOPIC% topic: (e.g., %USERWEB%.AdminGroup)
+		* Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+		* Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 
 	* Web preferences that are *not* allowed to be overridden by user preferences:
 		* Set FINALPREFERENCES = NOSEARCHALL, ATTACHFILESIZELIMIT, WIKIWEBMASTER, WEBCOPYRIGHT, WEBTOPICLIST, DENYWEBVIEW, ALLOWWEBVIEW, DENYWEBCHANGE, ALLOWWEBCHANGE, DENYWEBRENAME, ALLOWWEBRENAME
@@ -61,7 +61,7 @@ __Notes:__
 
 __Related Topics:__
 	* %SYSTEMWEB%.%WIKIPREFSTOPIC% has site-level preferences.
-	* %MAINWEB%.%WIKIUSERSTOPIC% has a list of user topics. User topics can have optional user preferences.
+	* %USERWEB%.%WIKIUSERSTOPIC% has a list of user topics. User topics can have optional user preferences.
 	* [[%SYSTEMWEB%.Macros][Macros]] has a list of common =%<nop>VARIABLES%=.
 	* %SYSTEMWEB%.AccessControl explains how to restrict access by users or groups.
 

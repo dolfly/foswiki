@@ -1,12 +1,12 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1161060479" format="1.1" reprev="1.10" version="1.10"}%
+%META:TOPICINFO{author="ProjectContributor" date="1161060479" format="1.1" reprev="1.10" version="1.10"}%
 %META:TOPICPARENT{}%
 %DBCALL{"%TCAOWEB%.RenderClassificationTopic" }%
 
 %DBCALL{"%TCAOWEB%.RenderAddClassification" TYPE="TopicType" }%
 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 -->
 
 %META:FORM{name="TopicClassForm"}%

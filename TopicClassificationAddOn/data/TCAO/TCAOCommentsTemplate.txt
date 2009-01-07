@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1191523072" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1191523072" format="1.1" reprev="1.1" version="1.1"}%
 ---++  TCAO %SYSTEMWEB%.CommentPlugin Templates
 _This topic defines %SYSTEMWEB%.CommentPlugin templates used by %SYSTEMWEB%.TopicClassificationAddOn._
 
@@ -8,7 +8,7 @@ Simple comment box
 <verbatim>
 %TMPL:DEF{PROMPT:comment}%
 <div style="background: #f9f9f9;border-bottom: 1px solid #efefef;margin: 0 0 5px 0;clear: left;color: #333;padding: 5px;">
-<table border="0" cellpadding="0" cellspacing="0"><tr valign="middle"><td>%ICON{bubble}% <span style="margin: 0 0 10px 0;font-size: .9em;color: #666;padding: 3px 0;font-weight: normal;"> *%SPACEOUT{%WIKINAME%}% said...*  </span> %BR%<textarea %DISABLED% rows="%rows|7%" cols="%cols|80%" name="comment" class="twikiInputField" wrap="soft" onfocus="if(this.value=='%MESSAGE%')this.value=''" onblur="if(this.value=='')this.value='%MESSAGE%'">%MESSAGE%</textarea></td></tr><tr><td><input %DISABLED% type="submit" value="%button|Post this comment%" class="foswikiButton" /></td></tr></table></div>
+<table border="0" cellpadding="0" cellspacing="0"><tr valign="middle"><td>%ICON{bubble}% <span style="margin: 0 0 10px 0;font-size: .9em;color: #666;padding: 3px 0;font-weight: normal;"> *%SPACEOUT{%WIKINAME%}% said...*  </span> %BR%<textarea %DISABLED% rows="%rows|7%" cols="%cols|80%" name="comment" class="foswikiInputField" wrap="soft" onfocus="if(this.value=='%MESSAGE%')this.value=''" onblur="if(this.value=='')this.value='%MESSAGE%'">%MESSAGE%</textarea></td></tr><tr><td><input %DISABLED% type="submit" value="%button|Post this comment%" class="foswikiButton" /></td></tr></table></div>
 %TMPL:END%
 </verbatim>
 <verbatim>
@@ -21,7 +21,7 @@ Simple comment box
 </verbatim>
 ---------------------------------------------------------------------------
 ---+++ Removable help section 
-This template is used by %SYSTEMWEB%.TopicClassificationAddOn to display instructions for new !TopicTypes. - TWiki:Main.LynnwoodBrown
+This template is used by %SYSTEMWEB%.TopicClassificationAddOn to display instructions for new !TopicTypes. - Foswiki:Main.LynnwoodBrown
 <verbatim>
 %TMPL:DEF{PROMPT:removeable_help}%
 <div style="background-color:%HELP_BACKGROUND_COLOR%;padding:1em;">
@@ -38,7 +38,7 @@ This template is used by %SYSTEMWEB%.TopicClassificationAddOn to display instruc
 Like tocDiscuss except posts immediately *below* the comment box for log-type entries (i.e. most recent at top)
 <verbatim>
 %TMPL:DEF{PROMPT:logEntry}%
-*Headline:* <span class="twikiSmall"> _Enter a short headline for your log entry._ </span><br />
+*Headline:* <span class="foswikiSmall"> _Enter a short headline for your log entry._ </span><br />
 <input %DISABLED% type="text" size="60" name="comment_headline" /> <br /> *Comment:* <br />
 <textarea %DISABLED% 
 ~~~    rows="%rows|5%" 
@@ -73,7 +73,7 @@ Like tocDiscuss except posts immediately *below* the comment box for log-type en
 %TMPL:DEF{OUTPUT:logEntry}%
 %POS:AFTER%---
 %POS:AFTER%---++++ %SERVERTIME{"$mo/$day/$ye"}% - %URLPARAM{"comment_headline"}% 
-%POS:AFTER% <span class="twikiSmall"> _Posted by %WIKIUSERNAME% on %DATE% at %SERVERTIME{"$hour:$min"}%._ </span> 
+%POS:AFTER% <span class="foswikiSmall"> _Posted by %WIKIUSERNAME% on %DATE% at %SERVERTIME{"$hour:$min"}%._ </span> 
 
 %POS:AFTER%%URLPARAM{"comment_text" }%
 %POS:AFTER%

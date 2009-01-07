@@ -1,4 +1,4 @@
-data/TWiki/TopicClassificationAddOn.txt 0644
+data/System/TopicClassificationAddOn.txt 0644
 data/TCAO/AllNews.txt 0644
 data/TCAO/CreateNewTopic.txt 0644
 data/TCAO/CreateNewWebLog.txt 0644
@@ -124,4 +124,4 @@ data/TCAO/WebSearchAdvanced.txt 0644
 data/TCAO/WebTopicList.txt 0644
 data/TCAO/changes 0644
 data/TCAO/mailnotify 0644
-lib/TWiki/Contrib/TopicClassificationAddOn.pm 0644
+lib/Foswiki/Contrib/TopicClassificationAddOn.pm 0644

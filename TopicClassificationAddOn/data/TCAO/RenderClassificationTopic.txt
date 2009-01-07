@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1173332344" format="1.1" version="1.32"}%
+%META:TOPICINFO{author="ProjectContributor" date="1173332344" format="1.1" version="1.32"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -20,6 +20,7 @@ The following parameters allow customization of how specific Classification topi
    * INITSORT - Optionally set initial sort. Defaults to "modified".
    * INITLIMIT - Optionally set initial limit to # of results. Defaults to "all".
    * REVERSE - Optionally to reverse the search order. Defaults to "off."
+   * CREATELINK - Optionally set to "off" to over-ride default of having "Create New XX" button for !TopicType topics. Set to "yes" for force include button. In this case, their must be a section called "new" that defines the form for posting new topics. See !TopicType topics for example. If set to any other sting, that string will be displayed. If not defined (the default) then the button is included in !TopicType topics.
 
 ---+++++ Css
    * None
@@ -28,7 +29,7 @@ The following parameters allow customization of how specific Classification topi
 ---++ Implementation
 <verbatim>
 %STARTINCLUDE%
-<span class="twikiRight" style="margin:.25em 0 0 0;" /><form name="browseSubjects" action="%SCRIPTURLPATH%/view%SCRIPTSUFFIX%/%BASEWEB%/" >
+<span class="foswikiRight" style="margin:.25em 0 0 0;" /><form name="browseSubjects" action="%SCRIPTURLPATH%/view%SCRIPTSUFFIX%/%BASEWEB%/" >
 <select name="subject" size="1" onchange="document.location=this.value;"> 
 <option>Jump to different <nop>%FORMFIELD{"%IFDEFINED{"%CLASS_NAME%" then="$test" else="Classification" glue="off"}%" topic="%BASEWEB%.%BASETOPIC%"}%...</option>
 ~~~  
@@ -41,6 +42,14 @@ The following parameters allow customization of how specific Classification topi
 ~~~  }% </select></form> </span>
 ---++!! %SPACEOUT{%BASETOPIC%}%
 %IF{"defined CLASS_DESCRIPTION" then="%CLASS_DESCRIPTION%"}%
+%IFDEFINEDTHEN{"%IFACCESS{"%BASEWEB%.WebNotify" type="change"}%" as="1" glue="off"}%
+%IFDEFINEDTHEN{"%CREATELINK%" as="no" glue="off"}%
+%ELSIFDEFINED{"%CREATELINK%" as="yes" }%
+%INCLUDE{"%TOPIC%" section="createlink"}%
+%ELSIFDEFINED{"%CREATELINK%" as="..*" }%
+$test
+%ELSEDEFINED%
+%STARTSECTION{"createlink"}%
 %~~   IFDEFINED{"%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%" 
 ~~~         as="TopicType" 
 ~~~         then="<p /><form method=\"link\" 
@@ -52,6 +61,27 @@ The following parameters allow customization of how specific Classification topi
 ~~~            </form>" 
 ~~~        glue="off"
 ~~~    }%
+%ENDSECTION{"createlink"}%
+%FIDEFINED%%FIDEFINED%
+
+%~~   IFDEFINED{"
+*~~
+%~~      DBQUERY{"parent = '%BASETOPIC%' 
+~~~            AND Classification = '%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%'"
+~~~         web="%BASEWEB%"
+~~~         format="none"
+~~~         header="$count"
+~~~         hidenull="on"
+~~~       }%"
+~~~      then="<em>See also sub-%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%s: 
+~~~         $percntDBQUERY{\"parent = '%BASETOPIC%'
+~~~            AND Classification = '%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%'\"
+~~~            web=\"%BASEWEB%\"
+~~~            format=\"$web.$topic\"
+~~~            separator=\", \" 
+~~~         }$percnt</em>"
+~~~      glue="off"
+~~~    }%
 
 %IFDEFINEDTHEN{"%LISTFORMAT%" glue="off" }%
 %DBCALL{"%LISTFORMAT%" %IFDEFINED{"%FACET%" then="FACETS=\"$test\"" glue="off"}% remote="on"}%
@@ -62,7 +92,7 @@ The following parameters allow customization of how specific Classification topi
 ~~~       BASESEARCH="%IFDEFINED{"%CLASS_NAME%" 
 ~~~               then="$test"
 ~~~               else="%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%"}%
-~~~             =~ '%BASETOPIC%'" 
+~~~             =~ '%BASETOPIC%'" }% 
 ~~~  %FIDEFINED%
 _For more information on content organization within the *%BASEWEB%* web, see %BASEWEB%.TopicClassification._
 

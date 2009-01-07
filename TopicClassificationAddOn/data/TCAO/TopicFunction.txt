@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1171575696" format="1.1" reprev="1.6" version="1.6"}%
+%META:TOPICINFO{author="ProjectContributor" date="1171575696" format="1.1" reprev="1.6" version="1.6"}%
 %META:TOPICPARENT{name="TopicType"}%
 <!-- Optional Topic Settings
 To enable any of these settings, replace the explanation with the value you want and remove the "#" before "Set". 
@@ -12,15 +12,15 @@ To enable any of these settings, replace the explanation with the value you want
 
 See also: %TOPIC%Template
 
-<div class="twikiHidden">
+<div class="foswikiHidden">
 You can modify the options for creating new topics of this type by changing the parameters to RenderTopicCreator. See that topic for more info.
 %STARTSECTION{name="new" type="section"}%
 %DBCALL{"%TCAOWEB%.RenderTopicCreator"  TEMPLATE="%TOPIC%Template" TYPE="%TOPIC%"  VALUE="Render..." TOPICSUMMARY="Summarize what this TopicFunction does." }%
 %ENDSECTION{name="new" type="section"}%
 </div>
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 
 %META:FORM{name="TopicClassForm"}%

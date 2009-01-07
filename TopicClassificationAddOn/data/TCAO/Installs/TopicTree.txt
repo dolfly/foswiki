@@ -5,7 +5,7 @@
 
 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 -->
 

@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1160083625" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1160083625" format="1.1" version="1.4"}%
 ---+ %TOPIC% for the <nop>%WEB% web
 
 | *Name:*| *Type:* | *Size:* | *Values:* | *Tooltip message:* |
@@ -9,7 +9,7 @@
 Related Topic: TopicClassification, WebPreferences, %SYSTEMWEB%.DataForms
 
 <!-- Topic Permissions
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-   * Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+   * Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+   * Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 -->
 

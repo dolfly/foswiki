@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1168437146" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1168437146" format="1.1" version="1.2"}%
 ---+++ Using !JustBlogIt! extention for !FireFox in conjuction with !TopicClassificationAddOn
 
 This topic explains how to install and use the [[http://blog.warmbrain.com/justblogit/][JustBlogIt]] Mozilla/Firebird extension in conjunction with the weblog application for !TopicClassificationAddOn. These two work together really well and provide the following features:

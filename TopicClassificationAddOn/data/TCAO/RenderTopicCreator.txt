@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1173983290" format="1.1" reprev="1.49" version="1.49"}%
+%META:TOPICINFO{author="ProjectContributor" date="1173983290" format="1.1" reprev="1.49" version="1.49"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -14,7 +14,7 @@ This TopicFunction is for creating new topics. It is mostly called indirectly fr
    * NAME: Determines topic naming option. If set to "auto", then the topic is automatically named and no imput box is provided. 
    * TEXT: button text; defaults to BASETOPIC name
    * VALUE: initial value of the text input field (optional)
-   * FORM: TWikiForm to be used when creating a topic, defaults to TopicForm
+   * FORM: DataForms to be used when creating a topic, defaults to TopicForm
    * TEMPLATE: TopicTemplate to be used (optional)
    * TOPICSUMMARY: If defined, a Summary input box will be included and the value of this parameter will be listed as a "tip" below the input box.
    * FACETS: List of classifications or TopicTypes for which to provide select elements. 
@@ -22,7 +22,7 @@ This TopicFunction is for creating new topics. It is mostly called indirectly fr
    * CLASS_NAME: Optional alternative class name. Defaults to !TopicType.
    * EXTRA: additional =&lt;input ... />= . Note: items much be formatted as follows:
       * quotes must be escaped with <em>double</em> backslashes ("\\").
-      * Each extra item must be formatted as a TWiki 2-column table row. E.g.: ==|  *Name of item:* |   <input type="text" ...etc > |==
+      * Each extra item must be formatted as a Foswiki 2-column table row. E.g.: ==|  *Name of item:* |   <input type="text" ...etc > |==
    * SAVE: Included "checkbox" option to directly save topic (skip "edit" screen"). If set to "checked" then checkbox will be checked by default. If set to "option" then the option will be provided but will not be checked.
    * ALLOWNONWIKIWORD - If defined, will check option to allow non-wiki word.
    * PARENT - If defined as "choice" then form will include section with choices for setting the parent. If defined as the same as one of the FACETS, then the parent will be set to the selection from that facet's dropdown. If set to any other value (a topic), the parent will be set to that topic. 
@@ -129,12 +129,12 @@ if (! inCheckBox) return;
 }
 function enableSubmit(inButton) {
 if (!inButton) return;
-	removeClass(inButton, "twikiSubmitDisabled");
+	removeClass(inButton, "foswikiSubmitDisabled");
 	inButton.disabled = false;
 }
 function disableSubmit(inButton) {
 if (!inButton) return;
-	addClass(inButton, "twikiSubmitDisabled");
+	addClass(inButton, "foswikiSubmitDisabled");
 	inButton.disabled = true;
 }
 
@@ -195,17 +195,17 @@ function assignParent( form, parent ) {
 ~~~           <input type="hidden" name="topic" value="%IFDEFINED{"%VALUE%" glue="off"}%AUTOINC0000"/>
 ~~~           <em>Your %IFDEFINED{"%TYPE%" then=" %TYPE% "}% topic will be auto-named.</em>  
 *~~         %ELSEDEFINED% 
-~~~        <input type="text" class="twikiInputField" name="topic" id="topic" size="40" 
+~~~        <input type="text" class="foswikiInputField" name="topic" id="topic" size="40" 
 ~~~            value="%IFDEFINED{"%VALUE%" glue="off"}%"
 ~~~            onkeyup="canSubmit(this.form,false);" 
 ~~~            onchange="canSubmit(this.form,false);"  
 ~~~            onblur="canSubmit(this.form,true);" /> 
-~~~        <input type="checkbox" class="twikiCheckbox" id="nonwikiword" 
+~~~        <input type="checkbox" class="foswikiCheckbox" id="nonwikiword" 
 ~~~               name="nonwikiword" %IFDEFINED{"%ALLOWNONWIKIWORD%" then="checked" glue="off"}%
 ~~~               onchange="canSubmit(this.form,false);" 
 ~~~               onmouseup="canSubmit(this.form,false);" />
 ~~~              <label for="nonwikiword">%MAKETEXT{"Allow non <nop>WikiWord"}%</label>  %BR% 
-~~~      <span id="webTopicCreatorFeedback" class="twikiInputFieldDisabled"><!--generated name will be put here--></span>
+~~~      <span id="webTopicCreatorFeedback" class="foswikiInputFieldDisabled"><!--generated name will be put here--></span>
 ~~~     %FIDEFINED%    |
 *~~
 %IFDEFINEDTHEN{"%TOPICSUMMARY%" glue="off" }%
@@ -246,7 +246,7 @@ function assignParent( form, parent ) {
 ~~~            onchange="assignParent(this.form, this.value);" ><option value="" > Select... </option><option value="">%MAKETEXT{"(no parent, orphaned topic)"}%</option>
 ~~~            %TOPICLIST{"<option>$name</option>" separator=" " }% </select>
 ~~~      <br />%ICON{help}% _Topic "parentage" defines the hierarchy in [[%BASEWEB%.TopicTree][TopicTree]]._   |%FIDEFINED%
-|| <input id="submit" type="submit" class="twikiSubmit" value='%MAKETEXT{"Create this topic"}%' />
+|| <input id="submit" type="submit" class="foswikiSubmit" value='%MAKETEXT{"Create this topic"}%' />
 ~~~        
 %~~        IFDEFINED{"%SAVE%" then="<input type=\"checkbox\" $variable name=\"directSave\" value=\"save\"> 
 ~~~            _Directly save topic without editing._ " glue="off" 
@@ -274,7 +274,7 @@ document.forms.newtopic.topic.focus();
 
 ---++ Test
 
-%DBCALL{"%TOPIC%" TEXT="Topic" TYPE="DiscussionTopic" VALUE="TWikiTopic" FACETS="TopicType, SubjectArea " SAVE="option" PARENT="topic" TOPICSUMMARY="Enter short summary statement about your new topic" }%
+%DBCALL{"%TOPIC%" TEXT="Topic" TYPE="DiscussionTopic" VALUE="Topic" FACETS="TopicType, SubjectArea " SAVE="option" PARENT="topic" TOPICSUMMARY="Enter short summary statement about your new topic" }%
 
 
 %DBCALL{"RenderFunctionCallers"}%

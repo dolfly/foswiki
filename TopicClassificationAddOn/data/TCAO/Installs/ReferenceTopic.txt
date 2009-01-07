@@ -14,7 +14,7 @@ To enable any of these settings, replace the explanation with the value you want
 %COMMENT{type="removeable_help" remove="on"}%
 %INCLUDE{"%TCAOWEB%.RenderClassificationTopic" }%
 
-<div class="twikiHidden">
+<div class="foswikiHidden">
 You can modify the options for creating new topics of this type by changing the parameters to RenderTopicCreator. See that topic for more info.
 %STARTSECTION{"new" type="section"}%
 %DBCALL{"%TCAOWEB%.RenderTopicCreator"  TEMPLATE="%TOPIC%Template" TYPE="%TOPIC%"  FACETS="SubjectArea" TOPICSUMMARY="Summarize information topic provides." }%
@@ -22,8 +22,8 @@ You can modify the options for creating new topics of this type by changing the 
 </div>
 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 
 %META:FORM{name="TopicClassForm"}%

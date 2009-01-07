@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1171039855" format="1.1" reprev="1.10" version="1.10"}%
+%META:TOPICINFO{author="ProjectContributor" date="1171039855" format="1.1" reprev="1.10" version="1.10"}%
 %TOPICCRE%NOP%ATE{ topic="TopicType" template="%TCAOWEB%/Installs.TopicType" }%
 %TOPICCRE%NOP%ATE{ topic="SubjectArea" template="%TCAOWEB%/Installs.SubjectArea" }%
 %TOPICCRE%NOP%ATE{ topic="TopicClassForm" template="%TCAOWEB%/Installs.TopicClassForm" }%
@@ -11,7 +11,7 @@
 
 
 <!-- Topic Settings
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-   * Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+   * Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+   * Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
    * Set HELPTOPIC = %TCAOWEB%.PostTCAOInstallHelp
 -->

@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1171946375" format="1.1" reprev="1.6" version="1.6"}%
+%META:TOPICINFO{author="ProjectContributor" date="1171946375" format="1.1" reprev="1.6" version="1.6"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -19,7 +19,7 @@ This is a layout for TopicTypes that are messages and have comments. The countin
 ---++ Implementation
 <verbatim>
 %STARTINCLUDE%
-<span class="twikiRight" style="margin:.25em 0 0 0;" /><form name="browseClasses" action="%SCRIPTURLPATH%/view%SCRIPTSUFFIX%/%BASEWEB%/" >
+<span class="foswikiRight" style="margin:.25em 0 0 0;" /><form name="browseClasses" action="%SCRIPTURLPATH%/view%SCRIPTSUFFIX%/%BASEWEB%/" >
 <select name="subject" size="1" onchange="document.location=this.value;"> <option>Jump to different <nop>%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%...</option>%DBQUERY{ "Classification='%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%'" web="%BASEWEB%"  exclude="%BASETOPIC%" regex= "on" noheader="on" nosearch="on" nosummary="on" nototal="on" order="topic" format= "<option>$topic</option>" }% </select></form> </span>
 ---++!! %SPACEOUT{%BASETOPIC%}%
 %IF{"defined CLASS_DESCRIPTION" then="%CLASS_DESCRIPTION%"}%
@@ -35,7 +35,7 @@ This is a layout for TopicTypes that are messages and have comments. The countin
 ~~~    newline="%BR%" 
 ~~~    separator="$n$n"
 ~~~    format="<h3>[[$web.$topic][$percntSPACEOUT{$topic}$percnt]] </h3>
-~~~       <span class=twikiSmall><em>
+~~~       <span class=foswikiSmall><em>
 ~~~          Posted $createdate by $createwikiusername $percntIFDEFINED{\"$formfield(SubjectArea)\" then=\" 
 ~~~          in <noautolink>$formfield(SubjectArea)</noautolink>\"}$percnt &nbsp; |  
 ~~~          $percntIFDEFINED{\"$count(.*?(COMMENT_TAG) .*)\" as=\"1\" then=\"$test comment\" else=\"$test comments\" glue=\"off\" }$percnt

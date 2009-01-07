@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1171041582" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1171041582" format="1.1" reprev="1.1" version="1.1"}%
 ---+!! %SPACEOUT{%TOPIC%}%
 _This topic is displayed in TopicClassification after TCAO has been enabled within a specific web and outlines some next steps for getting the most use out of TCAO._
 

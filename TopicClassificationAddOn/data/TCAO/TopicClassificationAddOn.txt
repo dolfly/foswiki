@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1171040186" format="1.1" reprev="1.4" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1171040186" format="1.1" reprev="1.4" version="1.4"}%
 ---+!! %TOPIC%
 %TOC%
 
@@ -6,7 +6,7 @@
 #AddOn
 ---+ Topic Classification Add-On 
 
-<b> %TOPIC% (aka TCAO) helps you organize the content in your wiki by classifying topics according to their _function_ and/or _subject matter._ </b> It also provides a user-friendly interface for creating new topics that automatically incorporates this classification system. Together, these basic elements provide a platform that allow you to create any number of simple TWikiApplications.
+<b> %TOPIC% (aka TCAO) helps you organize the content in your wiki by classifying topics according to their _function_ and/or _subject matter._ </b> It also provides a user-friendly interface for creating new topics that automatically incorporates this classification system. Together, these basic elements provide a platform that allow you to create any number of simple "Wiki Applications".
 
 Some of the features of %TOPIC% include:
    * See TCAO.TopicClassification for basic info.
@@ -16,7 +16,7 @@ Some of the features of %TOPIC% include:
    * Ability to create completely alternative classification schemes.
 
 ---++ Dependencies
-TopicClassificationAddOn makes fairly extensive use of TWiki plugins. These include:
+TopicClassificationAddOn makes fairly extensive use of Foswiki plugins. These include:
    * 
    * Foswiki:Extensions.DBCacheContrib
    * Foswiki:Extensions.DBCachePlugin
@@ -30,10 +30,10 @@ It also requires ={EnableHierarchicalWebs}= to be enabled under in =configure= (
 
 ---++ Add-On Installation Instructions
 
-__Note:__ You do not need to install anything on the browser to use this add-on. The following instructions are for the administrator who installs the add-on on the server where TWiki is running.
+__Note:__ You do not need to install anything on the browser to use this add-on. The following instructions are for the administrator who installs the add-on on the server where Foswiki is running.
 
    1 Download the ZIP file from the Add-on Home (see below)
-   1 Unpack the Add-on archive in the root of your TWiki installation.
+   1 Unpack the Add-on archive in the root of your Foswiki installation.
    1 Add the following preference section to [[%USERSWEB%.SitePreferences]]:
 <verbatim>
 ---++ %SYSTEMWEB%.TopicClassificationAddOn Preferences 
@@ -41,7 +41,7 @@ __Note:__ You do not need to install anything on the browser to use this add-on.
       * Set TCAOWEB = TCAO
       * Set HELP_BACKGROUND_COLOR = #E0B9A6
 </verbatim>
-   4 Go to %MAINWEB%.WikiGroups and create a new group called ==ModeratorGroup==. This group can add new classifications within webs where TCAO is enabled. 
+   4 Go to %USERWEB%.WikiGroups and create a new group called ==ModeratorGroup==. This group can add new classifications within webs where TCAO is enabled. 
    5 Add the following %SYSTEMWEB%.CommentPlugin templates definitions to %SYSTEMWEB%.UserCommentsTemplate (create this topic if you have not already).
 <verbatim>
 ---------------------------------------------------------------------------
@@ -49,7 +49,7 @@ __Note:__ You do not need to install anything on the browser to use this add-on.
 Discussion with heading for Table of Content - People.LynnwoodBrown
 <verbatim>
 %TMPL:DEF{PROMPT:tocdiscuss}%
-*Headline:* <span class="twikiSmall"> _Enter a short headline for your comment._ </span><br />
+*Headline:* <span class="foswikiSmall"> _Enter a short headline for your comment._ </span><br />
 <input %DISABLED% type="text" size="60" name="comment_headline" /> <br /> *Comment:* <br />
 <textarea %DISABLED% rows="%rows|5%" cols="%cols|60%" name="comment_text" wrap="soft" onfocus="if(this.value=='%MESSAGE%')this.value=''" onblur="if(this.value=='')this.value='%MESSAGE%'">%MESSAGE%</textarea> <br /> <input %DISABLED% type="submit" value="%button|Add Comment%" /> 
 %TMPL:END%
@@ -57,7 +57,7 @@ Discussion with heading for Table of Content - People.LynnwoodBrown
 <verbatim>
 %TMPL:DEF{OUTPUT:tocdiscuss}%
 %POS:BEFORE%---++++ %URLPARAM{"comment_headline"}% 
-%POS:BEFORE% <span class="twikiSmall"> _Posted by %WIKIUSERNAME% on %DATE% at %SERVERTIME{"$hour:$min"}%._ </span> 
+%POS:BEFORE% <span class="foswikiSmall"> _Posted by %WIKIUSERNAME% on %DATE% at %SERVERTIME{"$hour:$min"}%._ </span> 
 
 %POS:BEFORE%%URLPARAM{"comment_text" }%
 %POS:BEFORE%
@@ -88,12 +88,12 @@ This template is used by %SYSTEMWEB%.TopicClassificationAddOn
 %INCLUDE{"%TCAOWEB%.RenderInstallTopicClassification" warm="off"}%
 
 ---+++ Setting up Topic Classification within a web
-Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes* and *SubjectAreas* to be used in that web. To do this, go to those respective topics (e.g. go to !TopicType to add new !TopicTypes) and use form at bottom that is only visible to members of !ModeratorGroup (or %MAINWEB%.AdminGroup, of course).
+Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes* and *SubjectAreas* to be used in that web. To do this, go to those respective topics (e.g. go to !TopicType to add new !TopicTypes) and use form at bottom that is only visible to members of !ModeratorGroup (or %USERWEB%.AdminGroup, of course).
 
 ---++ Add-On Info
 
-|  Add-on Author: | TWiki:Main/LynnwoodBrown |
-|  Add-on Version: | 09 Feb 2007 (v2.000) |
+|  Add-on Author: | Foswiki:Main/LynnwoodBrown |
+|  Add-on Version: | 09 Jan 2009 (v3.000) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  13 Oct 2004: | 1.0 |
 |  CPAN Dependencies: | none |
@@ -102,8 +102,7 @@ Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes
 |  License: | GPL |
 |  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-|  Demo url: | http://skyloom.com/Demo/TopicClassification |
+|  Demo url: |  |
 
 __Related Topic:__ %SYSTEMWEB%.ContributedAddOns
 
-%META:REVCOMMENT{ncomments="0"}%

@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1167776643" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1167776643" format="1.1" version="1.4"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%

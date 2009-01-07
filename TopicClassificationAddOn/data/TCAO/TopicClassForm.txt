@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1167783863" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1167783863" format="1.1" version="1.4"}%
 ---+ %TOPIC% for the <nop>%WEB% web
 
 | *Name:*| *Type:* | *Size:* | *Values:* | *Tooltip message:* |
@@ -9,8 +9,8 @@
 Related Topic: TopicClassification, WebPreferences, %SYSTEMWEB%.DataForms
 
 <!-- Topic Permissions
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-   * Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+   * Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+   * Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 
 %META:TOPICMOVED{by="LynnwoodBrown" date="1159852501" from="TCAO2.TopicTypeForm" to="TCAO2.TopicClassForm"}%

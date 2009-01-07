@@ -1,10 +1,10 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1161015272" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1161015272" format="1.1" version="1.4"}%
 %META:TOPICPARENT{name="TopicClassification"}%
 %INCLUDE{"%TCAOWEB%.RenderCreateNewTopic" }%
 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 -->
 
 

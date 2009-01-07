@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1167331847" format="1.1" reprev="1.3" version="1.3"}%
+%META:TOPICINFO{author="ProjectContributor" date="1167331847" format="1.1" reprev="1.3" version="1.3"}%
 %META:TOPICPARENT{name="TopicType"}%
 ---+ %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -7,16 +7,16 @@
 %STARTSECTION{"documentation"}%
 The TopicForm can be used for a wide range of TopicTypes that only need to be marked
 as being of a given TopicType.
-If you need more structure then you have to define a specific TWikiForm that 
-extends the TWikiFormAttributes of this form. That is the attributes defined here
+If you need more structure then you have to define a specific DataForm that 
+extends the DataFormAttributes of this form. That is the attributes defined here
 are a minimal set of attributes that all DataForms should have. 
 
-Every TopicType is used in combination with one TWikiForm, that is associated with it,
+Every TopicType is used in combination with one DataForm, that is associated with it,
 either this generic TopicForm or a more specific one. 
-Multiple TopicTypes can share the same TWikiForm. In this case such a TWikiForm must allow to select from a set of TopicTypes to mark it properly. 
-Very often there is one TopicType for one TWikiForm.
+Multiple TopicTypes can share the same DataForm. In this case such a DataForm must allow to select from a set of TopicTypes to mark it properly. 
+Very often there is one TopicType for one DataForm.
 Note, that a topic can be of several TopicTypes which indicates that it fullfills several
-duties at once, that is the associated TWikiForm contains the attributes of a couple 
+duties at once, that is the associated DataForm contains the attributes of a couple 
 of DataForms.
 %ENDSECTION{"documentation"}%
 
@@ -30,8 +30,7 @@ of DataForms.
 Related Topic: TopicClassification, WebPreferences, %SYSTEMWEB%.DataForms
 
 <!-- Topic Permissions
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-   * Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+   * Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+   * Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 -->
 
-%META:REVCOMMENT{ncomments="0"}%

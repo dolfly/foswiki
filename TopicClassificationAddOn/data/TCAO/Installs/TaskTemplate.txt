@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1191521635" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1191521635" format="1.1" version="1.2"}%
 %META:TOPICPARENT{name="Task"}%
 %INCLUDE{"%TCAOWEB%.TaskTopicMaster" section="taskSummary"}%
 
@@ -16,7 +16,7 @@
 
 %STARTSECTION{type="templateonly"}% 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 %ENDSECTION{type="templateonly"}%

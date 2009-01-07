@@ -12,7 +12,7 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Contrib::TopicClassificationAddOn;
+package Foswiki::Contrib::TopicClassificationAddOn;
 
 use strict;
 

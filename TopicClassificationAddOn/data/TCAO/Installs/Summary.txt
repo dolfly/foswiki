@@ -1,9 +1,9 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1160083618" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1160083618" format="1.1" version="1.2"}%
 %INCLUDE{%TCAOWEB%.%TOPIC%}%
 
 <!-- Topic Permissions
-   * Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
-   * Set ALLOWTOPICRENAME = %MAINWEB%.AdminGroup
+   * Set ALLOWTOPICCHANGE = %USERWEB%.AdminGroup
+   * Set ALLOWTOPICRENAME = %USERWEB%.AdminGroup
 -->
 
 %META:TOPICMOVED{by="LynnwoodBrown" date="1160083618" from="TCAO2/Installs.TopicHeadline" to="TCAO2/Installs.Summary"}%

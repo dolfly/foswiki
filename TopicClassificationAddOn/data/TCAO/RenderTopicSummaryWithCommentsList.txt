@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1172278418" format="1.1" reprev="1.3" version="1.3"}%
+%META:TOPICINFO{author="ProjectContributor" date="1172278418" format="1.1" reprev="1.3" version="1.3"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -37,7 +37,7 @@
 ~~~    newline="%BR%" 
 ~~~    separator="$n$n"
 ~~~    format="<h4>[[$web.$topic][$percntSPACEOUT{$topic}$percnt]] </h4>
-~~~       <span class=twikiSmall><em>
+~~~       <span class=foswikiSmall><em>
 ~~~          Posted $createdate by $createwikiusername $percntIFDEFINED{\"$formfield(SubjectArea)\" then=\" 
 ~~~          in <noautolink>$formfield(SubjectArea)</noautolink>\"}$percnt &nbsp; |  
 ~~~          $percntIFDEFINED{\"$count(.*?(---[+][+][+][+]) .*)\" as=\"1\" then=\"$test comment\" else=\"$test comments\" glue=\"off\" }$percnt

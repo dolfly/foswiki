@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1168443043" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1168443043" format="1.1" version="1.4"}%
 ---++ %SPACEOUT{%TOPIC%}%
 
 Provides formatting for heading of !WebLog topics.

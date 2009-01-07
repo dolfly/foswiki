@@ -3,7 +3,7 @@
 %STARTINCLUDE%
 ---++ <nop>%TOPIC% Using <nop>%URLPARAM{"root" default="(no root selected)"}% as Root
 
-<div class="twikiRight" style="width:30%;border:2px dotted %WEBBGCOLOR%;padding:1em;margin:0.5em;">
+<div class="foswikiRight" style="width:30%;border:2px dotted %WEBBGCOLOR%;padding:1em;margin:0.5em;">
 <noautolink>
 *Select Other Roots* %BR%
 <form name="selectType" action="%SCRIPTURLPATH%/view%SCRIPTSUFFIX%/%BASEWEB%/%BASETOPIC%" >

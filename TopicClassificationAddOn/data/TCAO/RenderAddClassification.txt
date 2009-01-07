@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1190225991" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1190225991" format="1.1" version="1.4"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -15,8 +15,8 @@
 %STARTSECTION{name="documentation" type="section"}%
 %TOPIC% is INCLUDED in TopicClassification and provides interface for adding new classifications to a web where TopicClassificationApplication is used.
 
-Restrict view to %MAINWEB%.ModeratorGroup. This makes this form invisible for anyone not authorized to add TopicClassifications.
-   * Set ALLOWTOPICVIEW = %MAINWEB%.ModeratorGroup
+Restrict view to %USERWEB%.ModeratorGroup. This makes this form invisible for anyone not authorized to add TopicClassifications.
+   * Set ALLOWTOPICVIEW = %USERWEB%.ModeratorGroup
 
 ---+++++ Parameters
    * TYPE = %RED% Required %ENDCOLOR% - type of Classification form is form
@@ -148,7 +148,7 @@ Use this section for assigning no parent as is the default for !TopicTypes
 ---+++ defaultTemplate NEWEXTRA section
 Use this section to create a new template topic based on the name of the new classification. Requires an accompanying CREATETOPIC tag in the template for the new class.
 <verbatim>
-%STARTSECTION{name="defaultTemplate" type="section"}% %BR% A new template topic called <span id="newTemplateFeedback" class="twikiInputFieldDisabled">...<!--generated name will be put here--></span> will automatically be created. %ENDSECTION{"defaultTemplate"}%
+%STARTSECTION{name="defaultTemplate" type="section"}% %BR% A new template topic called <span id="newTemplateFeedback" class="foswikiInputFieldDisabled">...<!--generated name will be put here--></span> will automatically be created. %ENDSECTION{"defaultTemplate"}%
 </verbatim>
 
 ---+++ selectClassParent ALLEXTRA section

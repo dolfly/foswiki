@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1173339440" format="1.1" reprev="1.15" version="1.15"}%
+%META:TOPICINFO{author="ProjectContributor" date="1173339440" format="1.1" reprev="1.15" version="1.15"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---+!! Function: %TOPIC%
 %FORMFIELD{"Summary"}%
@@ -25,7 +25,7 @@
 #FilterBar
 <form name="filterList" action="%SCRIPTURLPATH%/view%SCRIPTSUFFIX%/%BASEWEB%/%BASETOPIC%#FilterBar" >
 ~~~     <div style="padding:.5em .5em 2em .5em;color:#666;background-color:#FCF8EC;font-size:94%;margin:0 0 0 0;">
-~~~     <div class="twikiLeft">
+~~~     <div class="foswikiLeft">
 ~~~     *Sort by:*  <select name="sort" onchange="submit();" > 
 *~~       <option value="modified" %IFDEFINED{"%URLPARAM{"sort" default="%INITSORT%"}%" as="modified" then="selected" glue="off"}% >
 *~~                Last Modified</option>
@@ -52,8 +52,8 @@
 ~~~       separator=\" \" }$percnt</select>" 
 ~~~      }%  
 ~~~      %FIDEFINED%
-~~~     </div><!-- twikiLeft -->
-*~~     <div class="twikiRight">
+~~~     </div><!-- foswikiLeft -->
+*~~     <div class="foswikiRight">
 ~~~     *Limit To:* <select name="limit" onchange="submit();" > 
 ~~~         <option %IFDEFINED{"%URLPARAM{"limit" default="%INITLIMIT%"}%" as="10" then="selected" glue="off"}% >10</option>
 ~~~         <option %IFDEFINED{"%URLPARAM{"limit" default="%INITLIMIT%"}%" as="20" then="selected" glue="off"}% >20</option>
@@ -61,7 +61,7 @@
 ~~~         <option %IFDEFINED{"%URLPARAM{"limit" default="%INITLIMIT%"}%" as="100" then="selected" glue="off"}%>100</option>
 ~~~         <option %IFDEFINED{"%URLPARAM{"limit" default="%INITLIMIT%"}%" as="all" then="selected" glue="off"}%>all</option>
 ~~~    </select> </div> 
-*~~    </form></div><!-- bar styling --></noautolink><div class="twikiClear"></div>%STOPINCLUDE%
+*~~    </form></div><!-- bar styling --></noautolink><div class="foswikiClear"></div>%STOPINCLUDE%
 </verbatim>
 
 <!-- interrupt glue -->

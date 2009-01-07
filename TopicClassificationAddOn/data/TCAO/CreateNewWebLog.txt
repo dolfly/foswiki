@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1167306811" format="1.1" reprev="1.5" version="1.5"}%
+%META:TOPICINFO{author="ProjectContributor" date="1167306811" format="1.1" reprev="1.5" version="1.5"}%
 %META:TOPICPARENT{}%
 __This topic is the master topic for creating new !WebLog topics]. It is it's on file (instead of being hidden in the !WebLog topic) for use by  !JustBlogIt (see JustBlogItInstallation). It is included in the following topics in %WIKITOOLNAME%: %SEARCH{"INCLUDE\{.*?%TOPIC%\}" scope="text" casesenstive="on" type="regex" recurse="on" nonoise="on" web="all" separator=", " format="[[$web.$topic]]" }%.__
 ---
@@ -23,6 +23,6 @@ __This topic is the master topic for creating new !WebLog topics]. It is it's on
 %META:FORM{name="TopicForm"}%
 %META:FIELD{name="TopicType" attributes="M" title="TopicType" value="TopicFunction"}%
 %META:FIELD{name="Summary" attributes="" title="Summary" value="Topic for creating new !WebLogs"}%
-%META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TopicClassification"}%
-%META:REVCOMMENT{comment_1=" " minor_1="1" ncomments="1" rev_1="5" t_1="1167306485"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="TopicClassification"}%
+
 

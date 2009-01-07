@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1160083626" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="ProjectContributor" date="1160083626" format="1.1" version="1.4"}%
 %META:TOPICPARENT{name=""}%
 
 %TOPICCRE%NOP%ATE{ topic="CreateNewWebLog" template="%TCAOWEB%/Installs.CreateNewWebLog" }%
@@ -18,7 +18,7 @@ To enable any of these settings, replace the explanation with the value you want
 
 %INCLUDE{"%TCAOWEB%.RenderClassificationTopic" remote="on" }%
 
-<div class="twikiHidden">
+<div class="foswikiHidden">
 You can modify the options for creating new topics of this type by changing the parameters to RenderTopicCreator. See that topic for more info.
 %STARTSECTION{name="new" type="section"}%
 %INCLUDE{"%TCAOWEB%.CreateNewWebLog" }%
@@ -26,8 +26,8 @@ You can modify the options for creating new topics of this type by changing the 
 </div>
 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 
 

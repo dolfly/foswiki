@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1130435904" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1130435904" format="1.1" version="1.2"}%
 
 ---+ %SPACEOUT{%TOPIC%}%
 
@@ -11,7 +11,7 @@
 
 %STARTSECTION{type="templateonly"}% 
 <!-- Topic Permissions
-	* Set ALLOWTOPICCHANGE = %MAINWEB%.ModeratorGroup
-	* Set ALLOWTOPICRENAME = %MAINWEB%.ModeratorGroup
+	* Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
+	* Set ALLOWTOPICRENAME = %USERWEB%.ModeratorGroup
 -->
 %ENDSECTION{type="templateonly"}%

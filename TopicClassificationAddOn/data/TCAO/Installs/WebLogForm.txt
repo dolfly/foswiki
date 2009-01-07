@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="LynnwoodBrown" date="1160083627" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1160083627" format="1.1" version="1.2"}%
 %META:TOPICPARENT{name="WebLog"}%
 ---+ %TOPIC% for the %WEB% web
 
