@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2006 Michael Daum <micha@nats.informatik.uni-hamburg.de>
+# Copyright (C) 2006-2009 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -64,10 +64,12 @@ sub handleTagCloud {
   $theFooter ||= '';
 
   # fix params
-  $theBuckets =~ s/[^\d]//go;
   $theMin =~ s/[^\d]//go;
+  $theMin = 0 unless $theMin;
+  $theBuckets =~ s/[^\d]//go;
+  $theBuckets = 10 if !$theBuckets || $theBuckets < 2;
   $theOffset =~ s/[^\d]//go;
-  $theBuckets = 10 if $theBuckets < 2;
+  $theOffset = 10 unless defined $theOffset;
   $theSort = 'alpha' unless $theSort =~ /^(alpha|weight|count)$/;
   $theReverse = 'off' unless $theReverse =~ /^(on|off)$/;
   $theLowerCase = 'off' unless $theLowerCase =~ /^(on|off)$/;
@@ -88,7 +90,7 @@ sub handleTagCloud {
 
   if (&expandVariables($theTerms)) {
     writeDebug("initially theTerms=$theTerms\n");
-    $theTerms = &TWiki::Func::expandCommonVariables($theTerms, $theTopic, $theWeb);
+    $theTerms = TWiki::Func::expandCommonVariables($theTerms, $theTopic, $theWeb);
   }
 
   # count terms
@@ -228,7 +230,7 @@ sub handleTagCloud {
   }
   &expandVariables($theHeader);
   &expandVariables($theFooter);
-  $result = &TWiki::Func::expandCommonVariables($theHeader.$result.$theFooter, $theTopic, $theWeb);
+  $result = TWiki::Func::expandCommonVariables($theHeader.$result.$theFooter, $theTopic, $theWeb);
 
   return $result;
 }

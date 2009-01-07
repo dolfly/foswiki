@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1142021683" format="1.1" version="$Rev$"}%
+%META:TOPICINFO{author="ProjectContributor" date="1231362374" format="1.1" version="1.2"}%
 <!--
 
    PLEASE DO NOT EDIT THIS TOPIC
@@ -39,7 +39,7 @@ First, the input data has to be tokenized and normalized to match each word in
 the input to a term by 
    1 splitting up the data, removing special characters,
    1 mapping different terms on one term, like handling synonyms
-    (e.g. twikiapps=<nop>TWikiApplication)
+    (e.g. twikiapps=<nop>WikiApplication)
     (optional)
    1 filtering unwanted words; there's a predefined list of (english) stop
      words that can applied
@@ -147,6 +147,7 @@ Cloud for the above text:
   plural="off"
   min="2"
   map="bucket=pail"
+  filter="on"
 }%
 </verbatim>
 
@@ -168,20 +169,20 @@ Cloud for the above text:
   plural="off"
   min="2"
   map="bucket=pail"
+  filter="on"
 }%
 </div>
 
 ---++ Plugin Installation Instructions
 
-   * Note: this plugin works on TWiki releases > 4.0 only
-   * [[http://twiki.org/p/pub/Plugins/%TOPIC%/%TOPIC%.zip][Download]] the ZIP file
+   * Download the ZIP file
    * Unzip it in your twiki installation directory. Content: 
      | *File:* | *Description:* |
 %$MANIFEST%
 
 <!--
    * Optionally, run ==%TOPIC%_installer.pl== to automatically check and
-     install other TWiki modules that this module depends on. You can also do
+     install other modules that this module depends on. You can also do
      this step manually.
    * Alternatively, manually make sure the dependencies listed in the table
      below are resolved.
@@ -195,11 +196,13 @@ Cloud for the above text:
    * Set SHORTDESCRIPTION = Renders a tag cloud given a list of terms
 -->
 
-|  Plugin Author: | TWiki:Main.MichaelDaum |
-|  Copyright &copy;: | 2006-2008, Michael Daum http://michaeldaumconsulting.com |
+|  Plugin Author: | Michael Daum |
+|  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v1.10|
+|  Plugin Version: | v1.20|
 |  Change History: | &nbsp; |
+|  07 Jan 2009: | fixed parsing of parameters (tststs); \
+                  certified for foswiki/compat | 
 |  03 Jan 2008: | added limit parameter; \
                   added sorting according to term frequency (count) |
 |  13 Sep 2007: | don't remove numericals from terms |
@@ -223,8 +226,5 @@ Cloud for the above text:
 |  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle nn%, %SYSTEMWEB%.FormattedSearch nn%, %TOPIC% nn% |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
-
--- TWiki:Main/MichaelDaum - 03 Jan 2008
-
 
 %META:FILEATTACHMENT{name="TagCloud.jpg" attachment="TagCloud.jpg" attr="" comment="" date="1141219293" path="TagCloud.jpg" size="22049" stream="TagCloud.jpg" user="ProjectContributor" version="1"}%

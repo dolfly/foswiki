@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2006 Michael Daum <micha@nats.informatik.uni-hamburg.de>
+# Copyright (C) 2006-2009 Michael Daum http://michaeldaumconsulting.com
 #
 # Additional copyrights apply to some or all of the code in this
 # file as follows:
@@ -48,8 +48,7 @@ sub _TAGCLOUD {
   #my($session, $params, $theTopic, $theWeb) = @_;
 
   unless ($isInitialized) {
-    eval 'use TWiki::Plugins::TagCloudPlugin::Core;';
-    die $@ if $@;
+    require TWiki::Plugins::TagCloudPlugin::Core;
     $isInitialized = 1;
   }
   return TWiki::Plugins::TagCloudPlugin::Core::handleTagCloud(@_);
