@@ -106,7 +106,7 @@ th, td {
 }
 
 #patternTopBar {
- /*  background:transparent url(foswiki-header.png) no-repeat scroll -10px 0px;
+ /*  background:transparent url(foswiki-header.png) no-repeat scroll -10px 0;
    background-color: red; 
 */
    border: none;
@@ -660,25 +660,23 @@ a:hover .foswikiAccessKey {
 /* wtf, do we need this? */
 #patternSideBarContents h2 a {
  display:block;
- margin:0em -1em;
- padding:0em 1.5em;
+ padding:0 2em;
 }
 #patternSideBarContents h2 a:hover {
  background:#5AA301;
 }
 #patternSideBarContents h2 {
  font-weight:normal;
- letter-spacing:0.1em;
  display:block;
- margin:0em -1em 0em;
- padding:0px 1.5em;
+ margin:0;
+ padding:0 12px;
  line-height:1.5em;
  border-top:1px solid #BDEB86;
 }
 #patternSideBarContents li {
- line-height:2.0em;
- margin:0px;
- padding:1px 1em;
+ line-height:2.0;
+ margin:0;
+ padding:1px 12px;
  border-top:1px solid #ddd;
 }
 #patternSideBarContents {
@@ -692,8 +690,8 @@ a:hover .foswikiAccessKey {
  font-weight:normal;
  display:block;
  color:#434343;
- margin:0px -1em;
- padding:0px 1em;
+ margin:0 -1em;
+ padding:0 1em;
 }
 
 #patternSideBarContents hr {
@@ -908,21 +906,21 @@ tr.foswikiDiffDebug .foswikiDiffUnchangedText {
 .foswikiSubmit,
 a.foswikiSubmit:link,
 a.foswikiSubmit:visited {
-   background-position:0px 0px;
+   background-position:0 0;
    background-color:#06c;
    border-color:#94cce2 #0e66a2 #0e66a2 #94cce2;
    color:#fff;
 }
 .foswikiSubmit:hover,
 a.foswikiSubmit:hover {
-   background-position:0px -80px;
+   background-position:0 -80px;
    background-color:#0047b7;
    border-color:#0e66a2 #94cce2 #94cce2 #0e66a2;
    color:#fff;
 }
 .foswikiSubmit:active,
 a.foswikiSubmit:active {
-   background-position:0px -160px;
+   background-position:0 -160px;
    background-color:#73ace6;
    border-color:#0e66a2 #94cce2 #94cce2 #0e66a2;
    color:#fff;
@@ -930,7 +928,7 @@ a.foswikiSubmit:active {
 .foswikiSubmitDisabled,
 .foswikiSubmitDisabled:hover,
 .foswikiSubmitDisabled:active {
-   background-position:0px -240px;
+   background-position:0 -240px;
    background-color:#d9e8f7;
    border-color:#ccc #ccc #ccc #ccc;
    color:#ccc;
@@ -940,7 +938,7 @@ a.foswikiButton:link,
 a.foswikiButton:visited {
    background-image:url(bg_button_gradient.gif);
    background-repeat:repeat-x;
-   background-position:0px 0px;
+   background-position:0 0;
    border-color:#fff #94cce2 #94cce2 #fff;
    background-color:#cce7f1;
    color:#333;
@@ -949,7 +947,7 @@ a.foswikiButton:visited {
 .foswikiButton:active,
 a.foswikiButton:hover,
 a.foswikiButton:active {
-   background-position:0px -160px;
+   background-position:0 -160px;
    border-color:#94cce2 #94cce2 #94cce2 #94cce2;
    background-color:#cce7f1;
    color:#333;
@@ -959,7 +957,7 @@ a.foswikiButton:active {
 .foswikiButtonDisabled:active {
    background-image:url(bg_button_gradient.gif);
    background-repeat:repeat-x;
-   background-position:0px -240px;
+   background-position:0 -240px;
    border-color:#ccc #ccc #ccc #ccc;
    background-color:#edece6;
    color:#bbb;
@@ -967,19 +965,19 @@ a.foswikiButton:active {
 .foswikiButtonCancel {
    background-image:url(bg_buttoncancel_gradient.gif);
    background-repeat:repeat-x;
-   background-position:0px 0px;
+   background-position:0 0;
    border-color:#f3ddd7 #ce5232 #ce5232 #f3ddd7;
    background-color:#dd724d;
    color:#fff;
 }
 .foswikiButtonCancel:hover {
-   background-position:0px -80px;
+   background-position:0 -80px;
    border-color:#ce5232 #f3ddd7 #f3ddd7 #ce5232;
    background-color:#dd724d;
    color:#fff;
 }
 .foswikiButtonCancel:active {
-   background-position:0px -160px;
+   background-position:0 -160px;
    border-color:#ce5232 #f3ddd7 #f3ddd7 #ce5232;
    background-color:#dd724d;
    color:#fff;
@@ -992,26 +990,26 @@ a.foswikiButton:active {
 }
 .patternToolBar span a:link,
 .patternToolBar span a:visited {
-   background-position:0px 0px;
+   background-position:0 0;
    border: none;
    background-color:white;
    color:#333;
 }
 .patternToolBar span a:hover {
-   background-position:0px -80px;
+   background-position:0 -80px;
    border: none;
    background-color:#efefef;
    color:#222;
 }
 .patternToolBar span a:active {
-   background-position:0px -160px;
+   background-position:0 -160px;
    border-color:#94cce2 #94cce2 #94cce2 #94cce2;
    background-color:white;
    color:#222;
 }
 .patternToolBar span s,
 .patternToolBar span strike {
-   background-position:0px -240px;
+   background-position:0 -240px;
    border-color:#eae9e7 #eae9e7 #eae9e7 #eae9e7;
    background-color:#edece6;
    color:#bbb;
