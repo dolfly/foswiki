@@ -13,7 +13,7 @@
 <table style="float:right">
 <tr>
   <td><img src="%ATTACHURLPATH%/wikiringlogo40x40.png"></td>
-  <td><a href="http://wikiring.de" title="Make your Wiki ring!" style="text-decoration:none">
+  <td><a href="http://wikiring.com" title="Make your Wiki ring!" style="text-decoration:none">
       Powered by <br /> <nop>WikiRing Consultants </a>
   </td>
 </tr>
@@ -45,7 +45,7 @@ insert a topic by processing its content.
    * =skip="&lt;n>"= skip the first n occurences
    * =exclude="..."=: skip occurences that match this regular expression
    * sort="on,off,alpha,num" order of the formatted items (default "off")
-   * =expand="on,off"=: toggle expansion of TWiki markup before filtering
+   * =expand="on,off"=: toggle expansion of markup before filtering
      (defaults to =on=) 
 
 ---+++ STARTSUBST, STOPSUBST
@@ -147,13 +147,13 @@ to a navigation to jump to the groups within the index.
 <div class="text"><div class="comment">
 This is a first comment.
 </div><div class="posted">
--- TWiki:Main.MichaelDaum on 22 Aug 2005
+-- Michael Daum on 22 Aug 2005
 </div></div>
 
 <div class="text"><div class="comment">
 This is a second comment.
 </div><div class="posted">
--- TWiki:Main.MichaelDaum on 22 Aug 2005
+-- Michael Daum on 22 Aug 2005
 </div></div>
 
 ---+++ Extract table data
@@ -185,15 +185,15 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
    * Unzip it in your twiki installation directory. Content: 
      | *File:* | *Description:* |
 %$MANIFEST%
-   * Visit =configure= in your TWiki installation, and enable the plugin in the {Plugins} section.
+   * Visit =configure= in your installation, and enable the plugin in the {Plugins} section.
 
 ---++ Plugin Info
 <!-- provided for compatibility only
    * Set SHORTDESCRIPTION = Substitute and extract information from content by using regular expressions
 -->
 
-|  Plugin Author: | TWiki:Main.MichaelDaum |
-|  Copyright &copy;: | 2005-2008, Michael Daum http://michaeldaumconsulting.com |
+|  Plugin Author: | Michael Daum |
+|  Copyright &copy;: | 2005-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | v1.70 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
@@ -221,7 +221,7 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  06 Dec 2005: | fixed SUBST not to cut off the rest of the text |
 |  09 Nov 2005: | fixed deep recursion using =expand="on"= |
 |  22 Aug 2005: | Initial version; added =expand= toggle |
-|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.024 |
+|  Dependency: | $TWiki::Plugins::VERSION 1.024 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.005 |
@@ -229,7 +229,5 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
 |  Appraisal: | Foswiki:Extensions/%TOPIC%Appraisal |
-
--- TWiki:Main.MichaelDaum - 08 Oct 2008
 
 %META:FILEATTACHMENT{name="wikiringlogo40x40.png" attr="h" autoattached="1" comment="" date="1189788323" path="wikiringlogo40x40.png" size="2571" user="ProjectContributor" version="1"}%

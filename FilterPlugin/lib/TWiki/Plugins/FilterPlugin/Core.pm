@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2005-2008 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2005-2009 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -293,7 +293,7 @@ sub handleMakeIndex {
     if ($theSort eq 'nocase') {
       $crit = uc($crit);
     }
-    $crit =~ s/[^$TWiki::regex{mixedAlphaNum}]//go;
+    $crit =~ s/[^$mixedAlphaNum]//go;
     my $group = substr($crit, 0, 1);
 
     my $itemFormat = $theFormat;
