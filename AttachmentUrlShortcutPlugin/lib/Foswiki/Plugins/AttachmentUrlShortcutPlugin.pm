@@ -36,8 +36,8 @@ sub initPlugin {
         Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
         return 0;
     }
-
-    Foswiki::Func::registerTagHandler( 'A', \&_AURLSHORT );
+    my $marcoName = $Foswiki::cfg{Plugins}{AttachmentUrlShortcutPlugin}{MacroName};
+    Foswiki::Func::registerTagHandler( $marcoName, \&_AURLSHORT );
 
     return 1;
 }
@@ -46,8 +46,8 @@ sub _AURLSHORT {
     my($this, $params, $topic, $web) = @_;
     $web = $params->{'Bereich'} || $params->{'web'} || $web;
     $topic = $params->{'Dokument'} || $params->{'topic'} || $topic;
-    my $file = $params->{'Anhang'} || $params->{'file'} || "";
-    my $name = $params->{'Name'} || $params->{'name'} || $file;
+    my $file = $params->{'Anhang'} || $params->{'name'} || "";
+    my $name = $params->{'Name'} || $params->{'label'} || $file;
     my $url;
     if($file eq "") {
        return Foswiki::Func::getScriptUrl($web, $topic, 'viewfile', 'filename'=>'');	

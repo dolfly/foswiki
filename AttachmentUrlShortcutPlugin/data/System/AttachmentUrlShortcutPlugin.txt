@@ -5,19 +5,21 @@ Gives you the ability to you use shortened syntaxes for links to attachments !%A
 %TOC%
 
 ---++ Usage
- Use the macro !%A% to create a link to an attachement: 
+You can choose the Macro-Name should be used for the attachment-shortcut, so e.g. like in AttachLinkPlugin, you can use ATTACHMENT instead A%BR%%BR%
+
+ Use the macro !%A% *or the one you configured in the Configuration-System under AttachmentUrlShortcupPlugin* to create a link to an attachement: 
 | *Parameter* (both working, but only use one) | *Default* | *Description* |
 | _web_ or _Bereich_  | Current web | Sets the web of the topic, where the attachment is attached to |
 | _topic_ or _Dokument_ | Current topic | Sets the topic name, where the attachment is attached to |
-| _file_ or _Anhang_ | - | Sets the name of the attachment. It must match the filename! |
-| _name_ or _Name__ | _file_ | Optional to set the name of the link. If its not set, _file is used as name |
+| _name_ or _Anhang_ | - | Sets the name of the attachment. It must match the filename! |
+| _Label_ or _Name__ | _name_ | Optional to set the name of the link. If its not set, _file is used as name |
  If you use file to define the file to attache to, the link is create automatically, so you dont need to use braces<verbtim>[[]]</varbatim> like in example 1. 
 ---+++ Example
  Different ways to link the attachment TestAttachement.pdf of this topic 
    1 <verbatim>[[%A{web="System" topic="AttachmentUrlShortcutPlugin"}%TestAttachment.pdf][Test attachment]]</verbatim> [[%A{web="System" topic="AttachmentUrlShortcutPlugin"}%TestAttachment.pdf][Test attachment]]
-   1 <verbatim>%A{web="System" topic="AttachmentUrlShortcutPlugin" file="TestAttachment.pdf" name="Test attachment"}%</verbatim> %A{web="System" topic="AttachmentUrlShortcutPlugin" file="TestAttachment.pdf" name="Test attachment"}%
-   1 <verbatim>%A{file="TestAttachment.pdf" name="Test attachment"}%</verbatim> %A{file="TestAttachment.pdf" name="Test attachment"}%
-   1 <verbatim>%A{file="TestAttachment.pdf"}%</verbatim> %A{file="TestAttachment.pdf"}%
+   1 <verbatim>%A{web="System" topic="AttachmentUrlShortcutPlugin" name="TestAttachment.pdf" label="Test attachment"}%</verbatim> %A{web="System" topic="AttachmentUrlShortcutPlugin" file="TestAttachment.pdf" name="Test attachment"}%
+   1 <verbatim>%A{name="TestAttachment.pdf" label="Test attachment"}%</verbatim> %A{name="TestAttachment.pdf" label="Test attachment"}%
+   1 <verbatim>%A{name="TestAttachment.pdf"}%</verbatim> %A{file="TestAttachment.pdf"}%
 ---++ Plugin Installation Instructions
 
 __Note:__ You do not need to install anything on the browser to use this Plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
@@ -25,13 +27,14 @@ __Note:__ You do not need to install anything on the browser to use this Plugin.
 ---+++ Installation instructions
    * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it trough an user-interface
 
-   * Set SHORTDESCRIPTION = Gives you the ability to you use shortened syntaxes for links to attachments !%A%
+   * Set SHORTDESCRIPTION = Easy linking to attachments for everyone !%A%
 
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; 2006, Impressive.media |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 11 Dez 2008 (V0.2) |
+|  Plugin Version: | 07 Jan 2008 (V0.3) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  07 Jan 2009: | * You can now choose the MacroName to fit your own needs %BR% Changed the name / label systax to be conform with AttachLinkPlugin |
 |  11 Dez 2008: | Renewed plugin for Foswiki |
 |  01 Dez 2007: | Initial version for TWiki |
 |  Foswiki Dependency: | |
