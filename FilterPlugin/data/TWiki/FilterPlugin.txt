@@ -143,7 +143,6 @@ to a navigation to jump to the groups within the index.
 | *Date* | *Author* | *Headline* |
 %EXTRACT{topic="%TOPIC%" expand="off" pattern=".div class=\"text\">.*?[\r\n]+(.*?)[\r\n]+(?:.*?[\r\n]+)+?-- (.*?) on (.*?)[\r\n]+" format="| $3 | $2 | $1 ... |$n"}%
 
-%STARTINCLUDE%
 <div class="text"><div class="comment">
 This is a first comment.
 </div><div class="posted">
@@ -156,20 +155,6 @@ This is a second comment.
 -- Michael Daum on 22 Aug 2005
 </div></div>
 
----+++ Extract table data
-| *Pos* | *Description* | *Hours* | 
-|  1 | onsite troubleshooting |  3 | 
-|  2 | normalizing data to new format |  10 |
-|  3 | testing server performace |  5 |
-%STOPINCLUDE%
-
-%EXTRACT{topic="%TOPIC%" 
-  expand="off" 
-  pattern="\|\s*(.*?)\s*\|\s*(.*?)\s*\|\s*(.*?)\s*\|" 
-  format="   * it took $3 hours $2$n"
-  skip="1"
-}%
-
 ---+++ MAKEINDEX example
 compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing_attention][Philosophy articles needing attention]]
 
@@ -181,14 +166,14 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 }%
 
 ---++ Plugin Installation Instructions
-   * [[http://twiki.org/p/pub/Plugins/%TOPIC%/%TOPIC%.zip][Download]] the ZIP file
+   * Download the ZIP file from the Plugin Home (see below)
    * Unzip it in your twiki installation directory. Content: 
      | *File:* | *Description:* |
 %$MANIFEST%
    * Visit =configure= in your installation, and enable the plugin in the {Plugins} section.
 
 ---++ Plugin Info
-<!-- provided for compatibility only
+<!-- 
    * Set SHORTDESCRIPTION = Substitute and extract information from content by using regular expressions
 -->
 
@@ -221,13 +206,11 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  06 Dec 2005: | fixed SUBST not to cut off the rest of the text |
 |  09 Nov 2005: | fixed deep recursion using =expand="on"= |
 |  22 Aug 2005: | Initial version; added =expand= toggle |
-|  Dependency: | $TWiki::Plugins::VERSION 1.024 |
+|  Dependency: | $Foswiki::Plugins::VERSION 1.024 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.005 |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle nn%, %SYSTEMWEB%.FormattedSearch nn%, %TOPIC% nn% |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
-|  Appraisal: | Foswiki:Extensions/%TOPIC%Appraisal |
 
 %META:FILEATTACHMENT{name="wikiringlogo40x40.png" attr="h" autoattached="1" comment="" date="1189788323" path="wikiringlogo40x40.png" size="2571" user="ProjectContributor" version="1"}%
