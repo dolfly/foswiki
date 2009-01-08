@@ -42,7 +42,7 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.2';
+$RELEASE = '1.21';
 
 $pluginName = 'JQueryTwistyPlugin';
 
@@ -85,10 +85,10 @@ sub _setDefaults {
       || 'span';
     $prefShowLink = TWiki::Func::getPreferencesValue('TWISTYSHOWLINK')
       || TWiki::Func::getPluginPreferencesValue('TWISTYSHOWLINK')
-      || '';
+      || 'Show...';
     $prefHideLink = TWiki::Func::getPreferencesValue('TWISTYHIDELINK')
       || TWiki::Func::getPluginPreferencesValue('TWISTYHIDELINK')
-      || '';
+      || 'Hide...';
     $prefRemember = TWiki::Func::getPreferencesValue('TWISTYREMEMBER')
       || TWiki::Func::getPluginPreferencesValue('TWISTYREMEMBER')
       || '';
@@ -101,10 +101,10 @@ sub _addHeader {
 
     my $header = <<'EOF';
 <style type="text/css" media="all">
-@import url("%PUBURL%/%SYSTEMWEB%/JQueryTwistyPlugin/twist.css");
+@import url("%PUBURL%/%TWIKIWEB%/JQueryTwistyPlugin/twist.css");
 </style>
-<script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/JQueryTwistyPlugin/twist.js"></script>
-<script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/JavascriptFiles/foswikiPref.js"></script>
+<script type="text/javascript" src="%PUBURL%/%TWIKIWEB%/JQueryTwistyPlugin/twist.js"></script>
+<script type="text/javascript" src="%PUBURL%/%TWIKIWEB%/JavascriptFiles/foswikiPref.js"></script>
 <script type="text/javascript">
 // <![CDATA[
 var styleText = '<style type="text/css" media="all">.twikiMakeVisible{display:inline;}.twikiMakeVisibleInline{display:inline;}.twikiMakeVisibleBlock{display:block;}.twikiMakeHidden{display:none;}</style>';

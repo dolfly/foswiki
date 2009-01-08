@@ -3,15 +3,15 @@
 
 ---++ About a jQuery rework
 This is a fork of the famous Foswiki:Extensions/TwistyPlugin by 
-[[TWiki:Main.RafaelAlvarez][Rafael Alvarez]] and [[TWiki:Main.ArthurClemens][Arthur Clemens]].
-Instead of being build on top of Behaviour and TWiki's own homebrewed <nop>JavaScript framework,
+Rafael Alvarez and Arthur Clemens.
+Instead of being build on top of Behaviour and Foswiki's own homebrewed <nop>JavaScript framework,
 this rework is solely based on <nop>jQuery, a lean and simple 3rd party framework which
-easily supersedes Behaviour and makes most of TWiki's own <nop>JavaScript framework superfluous.
+easily supersedes Behaviour and makes most of Foswiki's own <nop>JavaScript framework superfluous.
 In addition, the JQueryTwistyPlugin adds open/close animations to twisties making them even
 more userfriendly.
 
 The other motivation to patch the original <nop>TwistyPlugin/Contrib was to remove
-the Behaviour contrib all together. It really was only used in twisties in TWiki and wasn't
+the Behaviour contrib all together. It really was only used in twisties and wasn't
 up to being used much in any other place. So this way you will only have to deal with
 _one_ instead of two <nop>JavaScript frameworks, reducing download time and adding
 all the merrits of jQuery along the way.
@@ -433,27 +433,20 @@ a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>T
    * Set DEBUG = 0
    
 ---++ Plugin Installation Instructions
-   * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your root ($TWIKI_ROOT) directory. Content:
-   | *File:* | *Description:* |
-%$MANIFEST%
-   * Optionally, if it exists, run ==%TOPIC%_installer== to automatically check and install other TWiki modules that this module depends on. You can also do this step manually.
-   * Alternatively, manually make sure the dependencies listed in the table below are resolved.
-   %$DEPENDENCIES%
-   * Visit =configure= in your TWiki installation, and enable the plugin in the {Plugins} section.
+%$INSTALL_INSTRUCTIONS%
 
 
 ---++ Plugin Info
 
-| Authors: | TWiki:Main.RafaelAlvarez, TWiki:Main.ArthurClemens |
-| Copyright &copy;: | 2005 Rafael Alvarez; 2006, 2007 Arthur Clemens, 2007-2008 Michael Daum |
+| Authors: | Rafael Alvarez, Arthur Clemens, Michael Daum |
+| Copyright &copy;: | 2005 Rafael Alvarez; 2006, 2007 Arthur Clemens, 2007-2009 Michael Daum |
 | License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
 | Dependencies: | %$DEPENDENCIES% |
-| Plugin&nbsp;Version: | 1.2  |
+| Plugin&nbsp;Version: | 1.21  |
 | Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+| 08 Jan 2009 | certified for foswiki/compat |
 | 28 Apr 2008 | warn on wrong ordering of TWISTY ... ENDTWISTY |
 | 13 Feb 2008 | minor fixes for jquery-1.2.3 |
 | 15 Nov 2007 | first version forking <nop>TwistyPlugin/<nop>TwistyContrib |
 | Home: | http://foswiki.org/Extensions/%TOPIC% |
 | Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-| Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
