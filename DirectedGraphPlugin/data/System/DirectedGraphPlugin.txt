@@ -477,6 +477,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order --> |
+|   8 Jan 2009: | Foswikitask:Item8035: Uninitialized variables reported in server Error log.-- Foswiki:Main.GeorgeClark | 
 |  14 Dec 2008: | Foswikitask:Item8031: Port to Foswiki -- Foswiki:Main.GeorgeClark |
 |  11 Oct 2008: | TWikibug:Item6058: Incompatibilities with Windows, improved some error messages. --TWiki:Main.GeorgeClark | 
 |  31 Aug 2008: | TWikibug:Item5954: DirectedGraphPlugin should permit direct file I/O --TWiki:Main.GeorgeClark | 
