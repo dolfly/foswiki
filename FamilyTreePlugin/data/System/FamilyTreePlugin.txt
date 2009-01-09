@@ -1,4 +1,4 @@
---+ Family Tree Plugin
+---+ Family Tree Plugin
 %TOC%
 The Family Tree Plugin is a simple database that uses Foswiki searches to perform
 queries over genealogical data in a Foswiki web and generate family trees (pedigrees). It is a !FoswikiApplication combined with a simple plugin that provides some standard searches over the data and generates pedigree pictures. Pedigrees can be generated using either HTML (as in the example) or using the !DirectedGraphPlugin to generate a nice graphical picture of the tree.
