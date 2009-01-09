@@ -6,7 +6,7 @@ Copyright (C) Crawford Currie 2005 http://c-dot.co.uk
 
 =cut
 
-package TWiki::Plugins::FamilyTreePlugin;
+package Foswiki::Plugins::FamilyTreePlugin;
 
 use strict;
 
@@ -22,15 +22,15 @@ sub initPlugin {
     my( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1.026 ) {
-        TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+    if( $Foswiki::Plugins::VERSION < 1.026 ) {
+        Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
         return 0;
     }
 
-    TWiki::Func::registerTagHandler( 'MANCESTORS', \&_MANCESTORS );
-    TWiki::Func::registerTagHandler( 'FANCESTORS', \&_FANCESTORS );
-    TWiki::Func::registerTagHandler( 'DESCENDANTS', \&_DESCENDANTS );
-    TWiki::Func::registerTagHandler( 'GRDESCENDANTS', \&_GRDESCENDANTS );
+    Foswiki::Func::registerTagHandler( 'MANCESTORS', \&_MANCESTORS );
+    Foswiki::Func::registerTagHandler( 'FANCESTORS', \&_FANCESTORS );
+    Foswiki::Func::registerTagHandler( 'DESCENDANTS', \&_DESCENDANTS );
+    Foswiki::Func::registerTagHandler( 'GRDESCENDANTS', \&_GRDESCENDANTS );
 
     return 1;
 }
@@ -169,7 +169,7 @@ sub _GRDESCENDANTS {
 
     $node = 0;  # Counter for unnamed nodes (no issue) 
 
-    my $nodeURL = TWiki::Func::getScriptUrl( $web, "X", "view" );
+    my $nodeURL = Foswiki::Func::getScriptUrl( $web, "X", "view" );
     chop($nodeURL);
     
     my  $gdPrefix .= $lt . "dot map=1 vectorformats=\"ps\" engine=\"$engine\" >\n";
@@ -212,12 +212,12 @@ sub _graphDescendants {
         my $m1 = "%SPACEOUT{" . _getMale( $marriage ) .
           "}% m. %SPACEOUT{" . _getFemale( $marriage ) . "}%" ;
 
-        my $mdate = TWiki::Func::expandCommonVariables(
+        my $mdate = Foswiki::Func::expandCommonVariables(
             '%FORMFIELD{"Date" topic="'.$marriage.'"}%');
-        my $m3 = TWiki::Func::expandCommonVariables(
+        my $m3 = Foswiki::Func::expandCommonVariables(
             '%FORMFIELD{"Disolved" topic="'.$marriage.'"}%');
         if (length($m3) > 1) {   $mdate .= " - " . $m3 ;}
-        $m3 = TWiki::Func::expandCommonVariables(
+        $m3 = Foswiki::Func::expandCommonVariables(
             '%FORMFIELD{"Cause" topic="'.$marriage.'"}%');
         if (length($m3) > 1) {
             $mdate .= " (" . $m3 . ")";
@@ -296,7 +296,7 @@ sub _tabulateDescendants {
 # Find out who $who married
 sub _getMarriages {
     my $who = shift;
-    my $list = TWiki::Func::expandCommonVariables(
+    my $list = Foswiki::Func::expandCommonVariables(
         '%SEARCH{ "(^'.$who.'X|X'.$who.'$)"
                   type="regex"
                   format="$topic"
@@ -313,7 +313,7 @@ sub _getParents {
     my $of = shift;
 
     # Establish the main line of descent
-    my $parents = TWiki::Func::expandCommonVariables(
+    my $parents = Foswiki::Func::expandCommonVariables(
         '%SEARCH{ "\| '.$of.' \|"
          type="regex"
          format="$topic"
@@ -326,7 +326,7 @@ sub _getParents {
 sub _getMale {
     my $of = shift;
 
-    return TWiki::Func::expandCommonVariables(
+    return Foswiki::Func::expandCommonVariables(
         '%FORMFIELD{"Male" topic="'.$of.'"}%');
 }
 
@@ -334,7 +334,7 @@ sub _getMale {
 sub _getFemale {
     my $of = shift;
 
-    return TWiki::Func::expandCommonVariables(
+    return Foswiki::Func::expandCommonVariables(
         '%FORMFIELD{"Female" topic="'.$of.'"}%');
 }
 
@@ -350,7 +350,7 @@ sub _getSiblings {
 # Get all the offspring of a union, as an array ref
 sub _getOffspring {
     my $marriage = shift;
-    my $list = TWiki::Func::expandCommonVariables(
+    my $list = Foswiki::Func::expandCommonVariables(
         '%SEARCH{ "^\| [A-Z][A-Za-z0-9]+ \|.?$"
          type="regex"
          topic="'.$marriage.'"

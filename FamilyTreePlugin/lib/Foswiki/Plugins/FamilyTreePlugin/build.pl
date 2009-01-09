@@ -7,7 +7,7 @@ BEGIN {
         unshift @INC, $pc;
     }
 }
-use TWiki::Contrib::Build;
+use Foswiki::Contrib::Build;
 
-$build = new TWiki::Contrib::Build( "FamilyTreePlugin" );
+$build = new Foswiki::Contrib::Build( "FamilyTreePlugin" );
 $build->build($build->{target});
