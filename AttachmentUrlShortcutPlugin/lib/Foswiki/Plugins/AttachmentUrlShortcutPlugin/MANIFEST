@@ -1,3 +1,4 @@
 lib/Foswiki/Plugins/AttachmentUrlShortcutPlugin.pm Plugin Perl module
 data/System/AttachmentUrlShortcutPlugin.txt Plugin topic
 pub/System/AttachmentUrlShortcutPlugin/TestAttachment.pdf
+lib/Foswiki/Plugins/AttachmentUrlShortcutPlugin/Config.spec 0644
