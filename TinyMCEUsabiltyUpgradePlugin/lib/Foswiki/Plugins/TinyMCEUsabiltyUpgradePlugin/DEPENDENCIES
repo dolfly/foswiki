@@ -1,4 +1,0 @@
-Foswiki::Plugins::TinyMCEPlugin,>=0,perl,Required.
-Foswiki::Plugins::TopicListPlugin,>=0,perl,Required.
-Foswiki::Plugins::JQueryCompatibilityModePlugin,>=0,perl,Required.
-Foswiki::Plugins::AutoCompletitionLibPlugin,>=0,perl,Required.
