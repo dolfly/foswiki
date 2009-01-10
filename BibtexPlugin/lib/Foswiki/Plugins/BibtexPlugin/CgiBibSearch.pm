@@ -1,82 +1,38 @@
-#!/usr/bin/perl -wT
-###############################################################################
-# Foswiki - The Free and Open Source Wiki, http://foswiki.org/
-#
-# Copyright (C) 2003 Michael Daum <micha@nats.informatik.uni-hamburg.de>
-#
-# This program is free software; you can redistribute it and/or
-# modify it under the terms of the GNU General Public License
-# as published by the Free Software Foundation; either version 2
-# of the License, or (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
-# http://www.gnu.org/copyleft/gpl.html
-###############################################################################
-
-# Set library paths in @INC, at compile time
-BEGIN { 
-  if ($ENV{GATEWAY_INTERFACE} !~ /^CGI-Perl/) {
-    unshift @INC, '.'; require 'setlib.cfg'; 
-  }
-}
-
-if ($ENV{GATEWAY_INTERFACE} !~ /^CGI-Perl/) {
-  use CGI::Carp qw( fatalsToBrowser );
-  use CGI;
-  use Foswiki;
-  use Foswiki::UI::View;
-}
-
-package bibsearch;
+package Foswiki::Plugins::BibtexPlugin::CgiBibSearch;
 
 use strict;
-our $debug = 0;
 
-# if( $Foswiki::Plugins::VERSION >= 2.0 ) { 
-    Foswiki::UI::run( \&main );
-# } else {
-#     my $cgi = CGI->new();
-#     print $cgi->header();
-#     print "At minimum, need Foswiki 1.0.x to run bibsearch\n"; 
-# }
-# 
+use Assert;
+use Error qw( :try );
 
-###############################################################################
+require Foswiki;
+require Foswiki::UI;
+require Foswiki::Time;
+
+my $debug = 1;
+
 sub writeDebug {
-  &Foswiki::Func::writeDebug("bibsearch - " . $_[0]) if $debug;
+  &Foswiki::Func::writeDebug("cgisearch - " . $_[0]) if $debug;
 }
 
 sub writeDebugTimes {
-  &Foswiki::Func::writeDebugTimes("bibsearch - " . $_[0]) if $debug;
+  &Foswiki::Func::writeDebugTimes("cgisearch - " . $_[0]) if $debug;
 }
 
 
-
 ###############################################################################
-sub main
-{
-    my ($query); # , $webName, $topic, $scriptUrlPath, $userName );
-    
-    # if( $Foswiki::Plugins::VERSION >= 2.0 ) { 
-    {
-        my $session = shift;
+sub cgibibsearch {
+# the cgi-interface:
 
-        $Foswiki::Plugins::SESSION = $session;
+    $Foswiki::Plugins::SESSION = shift; 
         
-        $query = $session->{cgiQuery};
-    }
+    my $query = $Foswiki::Plugins::SESSION->{cgiQuery};
 
-  &Foswiki::Func::writeHeader($query);
-    print $query;
-    return;
     my $thePathInfo = $query->path_info(); 
     my $theRemoteUser = $query->remote_user();
     my $theUrl = $query->url;
 
-  &writeDebug("starting");
+  &writeDebug("starting cgisearch");
 
   ## 
   # initialize the wiki engine
@@ -251,8 +207,12 @@ sub main
   ##
   # finaly, print out
   ##
-  &Foswiki::Func::writeHeader($query);
-  print $tmpl;
-  &writeDebug("done");
+  &Foswiki::Func::writeHeader();
+   print "\n    testing 1 2 3 \n";
+   print $tmpl;
+   &writeDebug("done");
+
+    return(0);
 }
 
+# 1;

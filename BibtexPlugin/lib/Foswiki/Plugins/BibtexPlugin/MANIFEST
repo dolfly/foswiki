@@ -1,0 +1,15 @@
+bin/bibsearch 
+data/System/BibtexPlugin.txt 
+data/System/BibtexSearchTemplate.txt 
+data/System/BibtexSelectTemplate.txt 
+data/System/BibtexSimpleSearchTemplate.txt 
+lib/Foswiki/Plugins/BibtexPlugin.pm 
+pub/System/BibtexPlugin/bibtoolrsc 
+pub/System/BibtexPlugin/sample.bib 
+pub/System/BibtexPlugin/style.css 
+pub/System/BibtexPlugin/bibtex-cite-ex.png
+pub/System/BibtexPlugin/bibtex-inline-ex.png
+pub/System/BibtexPlugin/bibtex-ref-ex.png
+pub/System/BibtexPlugin/bibtex-select-ex.png
+tools/render.pl 
+tools/render.sh 

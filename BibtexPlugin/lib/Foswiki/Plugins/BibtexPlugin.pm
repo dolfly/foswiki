@@ -1,5 +1,5 @@
 ###############################################################################
-# Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
+# Plugin for Foswiki Collaboration Platform, http://foswiki.org/
 #
 # Copyright (C) 2003 Michael Daum <micha@nats.informatik.uni-hamburg.de>
 #
@@ -20,21 +20,21 @@
 
 ### for custom .bst styles, bibtex processing needs to know where to
 ### find them.  The easiest way is to use a texmf tree below 'HOME'
-$ENV{'HOME'} = $TWiki::cfg{Plugins}{BibtexPlugin}{home} ||
+$ENV{'HOME'} = $Foswiki::cfg{Plugins}{BibtexPlugin}{home} ||
     '/home/nobody';
 
-package TWiki::Plugins::BibtexPlugin;
+package Foswiki::Plugins::BibtexPlugin;
 
 use vars qw(
         $web $topic $user $installWeb $VERSION $RELEASE $pluginName
         $debug $defaultTopic $defaultSearchTemplate $pubUrlPath $hostUrl $pubDir
 	$isInitialized $currentBibWeb $currentBibTopic 
-	$cmdTemplate $sandbox $render_script
+	$cmdTemplate $render_script
         %bibliography $script
         $bibtexPrg $citeno $bibcite
     );
 
-use vars qw( %TWikiCompatibility );
+# use vars qw( %TWikiCompatibility );
 
 use File::Basename;
 
@@ -42,7 +42,7 @@ use strict;
 $VERSION = '$Rev$';
 $RELEASE = '1.5';
 $pluginName = 'BibtexPlugin'; 
-$debug = 0; # toggle me
+$debug = 1; # toggle me
 
 my %bibliography = ();
 my $citefile = "";
@@ -53,7 +53,7 @@ my $bibcite = ($TWiki::Plugins::BibliographyPlugin::VERSION) ? 1 : 0;
 
 ###############################################################################
 sub writeDebug {
-  &TWiki::Func::writeDebug("$pluginName - " . $_[0]) if $debug;
+  &Foswiki::Func::writeDebug("$pluginName - " . $_[0]) if $debug;
   # print STDERR "$pluginName - $_[0]\n" if $debug;
 }
 
@@ -62,8 +62,8 @@ sub initPlugin {
   ($topic, $web, $user, $installWeb) = @_;
 
   # check for Plugins.pm versions
-  if ($TWiki::Plugins::VERSION < 1) {
-    TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+  if ($Foswiki::Plugins::VERSION < 1) {
+    Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
     return 0;
   }
 
@@ -78,46 +78,24 @@ sub initPlugin {
 sub doInit {
   return if $isInitialized;
 
-  unless (defined &TWiki::Sandbox::new) {
-    eval "use TWiki::Contrib::DakarContrib;";
-    $sandbox = new TWiki::Sandbox();
-  } else {
-    $sandbox = $TWiki::sharedSandbox || $TWiki::sandbox;
-  }
-
   writeDebug("called doInit");
 
-  # get tools (moved to render script)
-  # my $bibtoolPrg = $TWiki::cfg{Plugins}{BibtexPlugin}{bibtool} ||
-  #   '/usr/bin/bibtool';
-  # my $bib2bibPrg = $TWiki::cfg{Plugins}{BibtexPlugin}{bib2bib} ||
-  #   '/usr/bin/bib2bib';
-  # my $bibtex2htmlPrg =  $TWiki::cfg{Plugins}{BibtexPlugin}{bibtex2html} ||
-  #   '/usr/bin/bibtex2html';
-  # my $bibtexPrg =  $TWiki::cfg{Plugins}{BibtexPlugin}{bibtex} ||
-  #   '/usr/bin/bibtex';
-  $render_script = $TWiki::cfg{Plugins}{BibtexPlugin}{render} ||
-      '/var/www/twiki/tools/bibtex_render.sh';
-
-  # for getRegularExpression
-  if ($TWiki::Plugins::VERSION < 1.020) {
-    eval 'use TWiki::Contrib::CairoContrib;';
-    #writeDebug("reading in CairoContrib");
-  }
+  $render_script = $Foswiki::cfg{Plugins}{BibtexPlugin}{render} ||
+      '/var/www/foswiki/tools/bibtex_render.sh';
 
   # get configuration
-  $defaultTopic = TWiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTTOPIC", $web ) || 
-    TWiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTTOPIC" ) || 
+  $defaultTopic = Foswiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTTOPIC", $web ) || 
+    Foswiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTTOPIC" ) || 
     "System.BibtexPlugin";
-  $defaultSearchTemplate = TWiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTSEARCHTEMPLATE", $web ) || 
-    TWiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTSEARCHTEMPLATE" ) || 
+  $defaultSearchTemplate = Foswiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTSEARCHTEMPLATE", $web ) || 
+    Foswiki::Func::getPreferencesValue( "\U${pluginName}\E_DEFAULTSEARCHTEMPLATE" ) || 
     "System.BibtexSearchTemplate";
 
-  $hostUrl = &TWiki::Func::getUrlHost();
-  $pubUrlPath = &TWiki::Func::getPubUrlPath();
-  $pubDir = &TWiki::Func::getPubDir();
+  $hostUrl = &Foswiki::Func::getUrlHost();
+  $pubUrlPath = &Foswiki::Func::getPubUrlPath();
+  $pubDir = &Foswiki::Func::getPubDir();
 
-#  $cmdTemplate = $pubDir .  '/TWiki/BibtexPlugin/bibtex_render.sh ' .
+#  $cmdTemplate = $pubDir .  '/System/BibtexPlugin/bibtex_render.sh ' .
   $cmdTemplate = $render_script . 
     ' %MODE|U%' .
     ' %BIBTOOLRSC|F%' .
@@ -139,7 +117,7 @@ sub beforeCommonTagsHandler
 {
 ### my ( $text, $web ) = @_;   # do not uncomment, use $_[0], $_[1] instead
     
-    TWiki::Func::writeDebug( "- ${pluginName}::beforeCommonTagsHandler( $_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::beforeCommonTagsHandler( $_[1] )" ) if $debug;
     
     # This handler is called by getRenderedVersion just before the line loop
     
@@ -154,10 +132,10 @@ sub beforeCommonTagsHandler
 sub commonTagsHandler {
 ### my ( $text, $topic, $web ) = @_;   # do not uncomment, use $_[0], $_[1]... instead
 
-  TWiki::Func::writeDebug( "- ${pluginName}::CommonTagsHandler( $_[1] )" ) if $debug;
+  Foswiki::Func::writeDebug( "- ${pluginName}::CommonTagsHandler( $_[1] )" ) if $debug;
 
   # bail out if latex=tml
-  return if ( TWiki::Func::getContext()->{'LMPcontext'}->{'alltexmode'} );
+  return if ( Foswiki::Func::getContext()->{'LMPcontext'}->{'alltexmode'} );
 
   $_[0] =~ s/%(BIBCITE|CITE){(.*?)}%/&handleCitation2($2,$1)/ge;
 
@@ -171,12 +149,12 @@ sub commonTagsHandler {
 }
 
 
-$TWikiCompatibility{endRenderingHandler} = 1.1;
-sub endRenderingHandler
-{
-    # for backwards compatibility with Cairo
-    postRenderingHandler($_[0]);
-}
+# $TWikiCompatibility{endRenderingHandler} = 1.1;
+# sub endRenderingHandler
+# {
+#     # for backwards compatibility with Cairo
+#     postRenderingHandler($_[0]);
+# }
 	
 # =========================
 sub postRenderingHandler
@@ -243,7 +221,7 @@ sub handleBibtexBibliography
 {
     my ($args) = @_;
 
-    my %opts = TWiki::Func::extractParameters( $args );
+    my %opts = Foswiki::Func::extractParameters( $args );
 
     my $header = "\n\n---+ References\n";
 
@@ -258,7 +236,7 @@ sub handleBibtexBibliography
 
     if ($script =~ m/genpdflatex/) {
 
-        my $bibtexPrg =  $TWiki::cfg{Plugins}{BibtexPlugin}{bibtex} ||
+        my $bibtexPrg =  $Foswiki::cfg{Plugins}{BibtexPlugin}{bibtex} ||
             '/usr/bin/bibtex';
 
         my $errMsg = &doInit();
@@ -272,7 +250,7 @@ sub handleBibtexBibliography
             my ($webName, $topicName) = &scanWebTopic($defaultTopic);
             &writeDebug("... trying $webName.$topicName now");
             return &showError("topic '$defaultTopic' not found") 
-                if !&TWiki::Func::topicExists($webName, $topicName);
+                if !&Foswiki::Func::topicExists($webName, $topicName);
             @bibfiles = &getBibfiles($webName, $topicName, $files);
         }
 
@@ -284,9 +262,9 @@ sub handleBibtexBibliography
         my $theSelect = join(' or ', map { "(\$key : \"$_\")" } @cites );
 
         my ($result, $code) = 
-            $sandbox->sysCommand($cmdTemplate,
+            Foswiki::Sandbox->sysCommand($cmdTemplate,
                                  MODE => 'raw',
-                                 BIBTOOLRSC => $pubDir . '/TWiki/BibtexPlugin/bibtoolrsc',
+                                 BIBTOOLRSC => $pubDir . '/System/BibtexPlugin/bibtoolrsc',
                                  BIBFILES => \@bibfiles,
                                  SELECT => $theSelect? "-c '$theSelect'" : "",
                                  BIBTEX2HTMLARGS => '',
@@ -313,7 +291,7 @@ sub handleBibtexBibliography
         # run bibtex
         if (-f $auxfile) {
             ($result, $code) = 
-                $sandbox->sysCommand( "$bibtexPrg %BIBFILE|F%",
+                Foswiki::Sandbox->sysCommand( "$bibtexPrg %BIBFILE|F%",
                                       BIBFILE => $auxfile ),
                 &writeDebug("result code $code");
         }
@@ -375,24 +353,24 @@ sub handleBibtex {
 
   &writeDebug("handleBibtex - theAttributes=$theAttributes");
 
-  my $theSelect = &TWiki::Func::extractNameValuePair($theAttributes, "select");
-  my $theBibfile = &TWiki::Func::extractNameValuePair($theAttributes, "file");
-  my $theTopic = &TWiki::Func::extractNameValuePair($theAttributes, "topic");
-  $theTopic = &TWiki::Func::extractNameValuePair($theAttributes, "web").'.'.$theTopic if length(&TWiki::Func::extractNameValuePair($theAttributes, "web"))>0;
+  my $theSelect = &Foswiki::Func::extractNameValuePair($theAttributes, "select");
+  my $theBibfile = &Foswiki::Func::extractNameValuePair($theAttributes, "file");
+  my $theTopic = &Foswiki::Func::extractNameValuePair($theAttributes, "topic");
+  $theTopic = &Foswiki::Func::extractNameValuePair($theAttributes, "web").'.'.$theTopic if length(&Foswiki::Func::extractNameValuePair($theAttributes, "web"))>0;
 
-  my $theStyle = &TWiki::Func::extractNameValuePair($theAttributes, "bibstyle");
-  my $theSort = &TWiki::Func::extractNameValuePair($theAttributes, "sort");
-  my $theErrors = &TWiki::Func::extractNameValuePair($theAttributes, "errors");
-  my $theReverse = &TWiki::Func::extractNameValuePair($theAttributes, "rev");
-  my $theMixed = &TWiki::Func::extractNameValuePair($theAttributes, "mix");
-  my $theForm = &TWiki::Func::extractNameValuePair($theAttributes, "form");
-  my $theAbstracts = &TWiki::Func::extractNameValuePair($theAttributes, "abstracts") ||
-    &TWiki::Func::extractNameValuePair($theAttributes, "abstract");
-  my $theKeywords = &TWiki::Func::extractNameValuePair($theAttributes, "keywords") ||
-    &TWiki::Func::extractNameValuePair($theAttributes, "keyword");
-  my $theTotal = &TWiki::Func::extractNameValuePair($theAttributes, "total");
-  my $theDisplay = &TWiki::Func::extractNameValuePair($theAttributes, "display");
-  my $usecites = &TWiki::Func::extractNameValuePair($theAttributes, "citefile");
+  my $theStyle = &Foswiki::Func::extractNameValuePair($theAttributes, "bibstyle");
+  my $theSort = &Foswiki::Func::extractNameValuePair($theAttributes, "sort");
+  my $theErrors = &Foswiki::Func::extractNameValuePair($theAttributes, "errors");
+  my $theReverse = &Foswiki::Func::extractNameValuePair($theAttributes, "rev");
+  my $theMixed = &Foswiki::Func::extractNameValuePair($theAttributes, "mix");
+  my $theForm = &Foswiki::Func::extractNameValuePair($theAttributes, "form");
+  my $theAbstracts = &Foswiki::Func::extractNameValuePair($theAttributes, "abstracts") ||
+    &Foswiki::Func::extractNameValuePair($theAttributes, "abstract");
+  my $theKeywords = &Foswiki::Func::extractNameValuePair($theAttributes, "keywords") ||
+    &Foswiki::Func::extractNameValuePair($theAttributes, "keyword");
+  my $theTotal = &Foswiki::Func::extractNameValuePair($theAttributes, "total");
+  my $theDisplay = &Foswiki::Func::extractNameValuePair($theAttributes, "display");
+  my $usecites = &Foswiki::Func::extractNameValuePair($theAttributes, "citefile");
  
   return &bibSearch($theTopic, $theBibfile, $theSelect, $theStyle, $theSort, 
 	 $theReverse, $theMixed, $theErrors, $theForm, $theAbstracts, $theKeywords, 
@@ -409,19 +387,19 @@ sub handleInlineBibtex {
   &writeDebug("handleInlineBibtex: attributes=$theAttributes") if $theAttributes;
   #&writeDebug("handleInlineBibtex: bibtext=$theBibtext");
 
-  my $theSelect = &TWiki::Func::extractNameValuePair($theAttributes, "select");
-  my $theStyle = &TWiki::Func::extractNameValuePair($theAttributes, "bibstyle");
-  my $theSort = &TWiki::Func::extractNameValuePair($theAttributes, "sort");
-  my $theErrors = &TWiki::Func::extractNameValuePair($theAttributes, "errors");
-  my $theReverse = &TWiki::Func::extractNameValuePair($theAttributes, "rev");
-  my $theMixed = &TWiki::Func::extractNameValuePair($theAttributes, "mix");
-  my $theForm = &TWiki::Func::extractNameValuePair($theAttributes, "form");
-  my $theAbstracts = &TWiki::Func::extractNameValuePair($theAttributes, "abstracts") ||
-    &TWiki::Func::extractNameValuePair($theAttributes, "abstract");
-  my $theKeywords = &TWiki::Func::extractNameValuePair($theAttributes, "keywords") ||
-    &TWiki::Func::extractNameValuePair($theAttributes, "keyword");
-  my $theTotal = &TWiki::Func::extractNameValuePair($theAttributes, "total");
-  my $theDisplay = &TWiki::Func::extractNameValuePair($theAttributes, "display");
+  my $theSelect = &Foswiki::Func::extractNameValuePair($theAttributes, "select");
+  my $theStyle = &Foswiki::Func::extractNameValuePair($theAttributes, "bibstyle");
+  my $theSort = &Foswiki::Func::extractNameValuePair($theAttributes, "sort");
+  my $theErrors = &Foswiki::Func::extractNameValuePair($theAttributes, "errors");
+  my $theReverse = &Foswiki::Func::extractNameValuePair($theAttributes, "rev");
+  my $theMixed = &Foswiki::Func::extractNameValuePair($theAttributes, "mix");
+  my $theForm = &Foswiki::Func::extractNameValuePair($theAttributes, "form");
+  my $theAbstracts = &Foswiki::Func::extractNameValuePair($theAttributes, "abstracts") ||
+    &Foswiki::Func::extractNameValuePair($theAttributes, "abstract");
+  my $theKeywords = &Foswiki::Func::extractNameValuePair($theAttributes, "keywords") ||
+    &Foswiki::Func::extractNameValuePair($theAttributes, "keyword");
+  my $theTotal = &Foswiki::Func::extractNameValuePair($theAttributes, "total");
+  my $theDisplay = &Foswiki::Func::extractNameValuePair($theAttributes, "display");
 
   #$theBibtext =~ s/%INCLUDE{(.*?)}%/&handleIncludeFile($1, $topic, $web)/ge;
 
@@ -438,10 +416,10 @@ sub handleCitation {
   my $errMsg = &doInit();
   return $errMsg if $errMsg;
 
-  my $theKey = &TWiki::Func::extractNameValuePair($theAttributes) ||
-    &TWiki::Func::extractNameValuePair($theAttributes, "key");
+  my $theKey = &Foswiki::Func::extractNameValuePair($theAttributes) ||
+    &Foswiki::Func::extractNameValuePair($theAttributes, "key");
     
-  my $theTopic = &TWiki::Func::extractNameValuePair($theAttributes, "topic");
+  my $theTopic = &Foswiki::Func::extractNameValuePair($theAttributes, "topic");
   if ($theTopic) {
     ($currentBibWeb, $currentBibTopic) = &scanWebTopic($theTopic);
   } elsif (!$currentBibWeb || !$currentBibTopic) {
@@ -505,7 +483,7 @@ sub bibSearch {
   &writeDebug("theDisplay=$theDisplay");
   &writeDebug("theBibfile=$theBibfile");
   &writeDebug("usecites=$usecites");
-
+  &writeDebug("$defaultSearchTemplate;");
 
   # extract webName and topicName
   my $formTemplate = "";
@@ -529,12 +507,11 @@ sub bibSearch {
   &writeDebug("webName=$webName") if $theTopic;
   &writeDebug("topicName=$topicName") if $theTopic;
 
-
   # check for error
   return &showError("topic '$theTopic' not found") 
-    if !$theBibtext && !&TWiki::Func::topicExists($webName, $topicName);
+    if !$theBibtext && !&Foswiki::Func::topicExists($webName, $topicName);
   return &showError("topic '$formTemplate' not found") 
-    if $formTemplate && !&TWiki::Func::topicExists($formWebName, $formTopicName);
+    if $formTemplate && !&Foswiki::Func::topicExists($formWebName, $formTopicName);
 
   # get bibtex database
   my @bibfiles = ();
@@ -544,7 +521,7 @@ sub bibSearch {
     if (!@bibfiles) {
       &writeDebug("no bibfiles found at $webName.$topicName");
       &writeDebug("... trying inlined $webName.$topicName now");
-      my ($meta, $text) = &TWiki::Func::readTopic($webName, $topicName);
+      my ($meta, $text) = &Foswiki::Func::readTopic($webName, $topicName);
       if ($text =~ /%STARTBIBTEX.*?%(.*?)%STOPBIBTEX%/gs) {
 	$theBibtext = $1;
 	&writeDebug("found inline bibtex database at $webName.$topicName");
@@ -552,13 +529,13 @@ sub bibSearch {
 	($webName, $topicName) = &scanWebTopic($defaultTopic);
 	&writeDebug("... trying $webName.$topicName now");
 	return &showError("topic '$defaultTopic' not found") 
-	  if !&TWiki::Func::topicExists($webName, $topicName);
+	  if !&Foswiki::Func::topicExists($webName, $topicName);
 	@bibfiles = &getBibfiles($webName, $topicName, $theBibfile);
 
 	if (!@bibfiles) {
 	  &writeDebug("no bibfiles found at $webName.$topicName");
 	  &writeDebug("... trying inlined $webName.$topicName now");
-	  ($meta, $text) = &TWiki::Func::readTopic($webName, $topicName);
+	  ($meta, $text) = &Foswiki::Func::readTopic($webName, $topicName);
 	  if ($text =~ /%STARTBIBTEX.*?%(.*)%STOPBIBTEX%/gs) {
 	    $theBibtext = $1;
 	    &writeDebug("found inline bibtex database at $webName.$topicName");
@@ -596,9 +573,9 @@ sub bibSearch {
     # raw mode
     if ($theStyle eq "raw") {
       &writeDebug("reading from process $cmdTemplate");
-      ($result, $code) = $sandbox->sysCommand($cmdTemplate,
+      ($result, $code) = Foswiki::Sandbox->sysCommand($cmdTemplate,
 	MODE => 'raw',
-	BIBTOOLRSC => $pubDir . '/TWiki/BibtexPlugin/bibtoolrsc',
+	BIBTOOLRSC => $pubDir . '/System/BibtexPlugin/bibtoolrsc',
 	BIBFILES => \@bibfiles,
 	SELECT => $theSelect? "-c '$theSelect'" : "",
 	BIBTEX2HTMLARGS => '',
@@ -623,7 +600,7 @@ sub bibSearch {
          if ( (-f $citefile) and ($usecites eq 'on') );
 
       if ($theStyle ne 'bibtool') {
-         $bibtex2HtmlArgs .= "-s $theStyle -a ";
+         $bibtex2HtmlArgs .= ""; # "-s $theStyle -a ";
       } else {
          $bibtex2HtmlArgs .= ' -dl --use-keys ';
       }
@@ -646,14 +623,14 @@ sub bibSearch {
       &writeDebug("reading from process $cmdTemplate");
       my %h = (
 	MODE => 'html',
-	BIBTOOLRSC => $pubDir . "/TWiki/BibtexPlugin/bibtoolrsc",
+	BIBTOOLRSC => $pubDir . "/System/BibtexPlugin/bibtoolrsc",
 	BIBFILES => \@bibfiles,
 	SELECT => $theSelect? "-c '$theSelect'" : '',
 	BIBTEX2HTMLARGS => "$bibtex2HtmlArgs",
 	STDERR => $stdErrFile );
       &writeDebug(join("\n\t", map {"$_ => $h{$_}"} keys %h));
 
-      ($result, $code) = $sandbox->sysCommand($cmdTemplate, %h);
+      ($result, $code) = Foswiki::Sandbox->sysCommand($cmdTemplate, %h);
 
       &writeDebug("result code $code");
       &processBibResult(\$result, $webName, $topicName);
@@ -675,7 +652,7 @@ sub bibSearch {
 
   # insert into the bibsearch form
   if ($formTemplate) {
-    my ($meta, $text) = &TWiki::Func::readTopic($formWebName, $formTopicName);
+    my ($meta, $text) = &Foswiki::Func::readTopic($formWebName, $formTopicName);
     writeDebug("reading formTemplate $formWebName.$formTopicName");
     $text =~ s/.*?%STARTINCLUDE%//s;
     $text =~ s/%STOPINCLUDE%.*//s;
@@ -691,8 +668,8 @@ sub bibSearch {
   }
 
   # add style
-  my $styleUrl = TWiki::Func::getPreferencesValue("BIBTEXPLUGIN_STYLE") ||
-    $hostUrl .  $pubUrlPath . "/" . &TWiki::Func::getTwikiWebname() . 
+  my $styleUrl = Foswiki::Func::getPreferencesValue("BIBTEXPLUGIN_STYLE") ||
+    $hostUrl .  $pubUrlPath . "/" . $Foswiki::cfg{SystemWebName} . 
     "/BibtexPlugin/style.css";
   $result .= "<style type=\"text/css\">\@import url(\"$styleUrl\");</style>\n";
 
@@ -727,7 +704,7 @@ sub renderStderror {
   
   foreach my $file (@_) {
     next if ! $file;
-    $errors .= &TWiki::Func::readFile($file);
+    $errors .= &Foswiki::Func::readFile($file);
   }
   if ($errors) {
   
@@ -766,7 +743,7 @@ sub getTempFileName {
   if ($count == 100) {
     return undef;
   } else {
-    return TWiki::Sandbox::normalizeFileName($base_name);
+    return Foswiki::Sandbox::normalizeFileName($base_name);
   }
 }
 
@@ -777,8 +754,8 @@ sub scanWebTopic {
   my $topicName = $topic; # default to current topic
   my $webName = $web; # default to current web
 
-  my $topicRegex = &TWiki::Func::getRegularExpression('mixedAlphaNumRegex');
-  my $webRegex = &TWiki::Func::getRegularExpression('webNameRegex');
+  my $topicRegex = &Foswiki::Func::getRegularExpression('mixedAlphaNumRegex');
+  my $webRegex = &Foswiki::Func::getRegularExpression('webNameRegex');
 
   if ($webTopic) {
     $webTopic =~ s/^\s+//o;
@@ -801,12 +778,12 @@ sub getBibfiles {
 
   $bibfile = ".*\.bib" if ! $bibfile;
 
-  my ($meta, $text) = &TWiki::Func::readTopic($webName, $topicName);
+  my ($meta, $text) = &Foswiki::Func::readTopic($webName, $topicName);
   
   my @attachments = $meta->find( 'FILEATTACHMENT' );
   foreach my $attachment (@attachments) {
     if ($attachment->{name} =~ /^$bibfile$/) {
-      push @bibfiles, TWiki::Sandbox::normalizeFileName(
+      push @bibfiles, Foswiki::Sandbox::normalizeFileName(
 	"$pubDir/${webName}/${topicName}/$attachment->{name}");
     }
   }
@@ -818,7 +795,8 @@ sub getBibfiles {
 ###############################################################################
 sub showError {
   my $msg = shift;
-  return "<span class=\"twikiAlert\">Error: $msg</span>" ;
+  return "<span class=\"Alert\">Error: $msg</span>" ;
 }
+
 
 1;

@@ -4,10 +4,10 @@
 %TOC%
 
 ---++ Disclaimer
-This plugin is formerly known as the <nop>EmbedBibPlugin by TWiki:Main/DonnyKurniawan. As it has been rewritten in major parts and stuff has been renamed.   BTW, the new name seems more appropriate.
+This plugin is fork from the TWiki:Plugins/EmbedBibPlugin by TWiki:Main/DonnyKurniawan. As it has been rewritten in major parts and stuff has been renamed.   BTW, the new name seems more appropriate.
 
 ---++ Synopsis
-This is a plugin that you can use to embed <nop>BibTeX entries in TWiki webs. It uses [[http://lml.ls.fi.upm.es/manuales/bibtool/][BibTool]], [[http://www.lri.fr/~filliatr/bibtex2html/][Bib2bib and Bibtex2html]]
+This is a plugin that you can use to embed <nop>BibTeX entries in Foswiki. It uses [[http://www.gerd-neugebauer.de/software/TeX/BibTool.en.html][BibTool]] (by Gerd Neugebauer) and [[http://www.lri.fr/~filliatr/bibtex2html/][Bib2bib and Bibtex2html]]
 
 ---++ Preview
 You type 
@@ -132,7 +132,7 @@ you get (simulated) <img src="%ATTACHURL%/bibtex-cite-ex.png" alt="bibtex select
 
 The text within the citation is dictated by the results of the %<nop>BIBTEXREF% declaration in the topic (see below).
 
-_Note: The %<nop>CITE% macro is also defined by the Foswiki:Extensions.BibliographyPlugin.  If both plugins are installed, one must use the alternate declaration, %<nop>BIBCITE{...}%, to access the !BibtexPlugin functionality._
+_Note: The %<nop>CITE% macro is also defined by the TWiki:Plugins.BibliographyPlugin.  If both plugins are installed, one must use the alternate declaration, %<nop>BIBCITE{...}%, to access the !BibtexPlugin functionality._
 
 ---++ Syntax
 	* =%<nop>BIBTEX{&lt;attributes&gt;}%= - render a set of bibtex files attached to some topic 
@@ -174,11 +174,11 @@ tag on the same topic (see [[#Tips][Tips]]).
 
 ---++ Citations and Automated Reference Lists
 
-As of release v1.3, the %TOPIC% has functionality similar to the Foswiki:Extensions.BibliographyPlugin.  Specifically, if a topic has =%<nop>CITE{key}%= declarations through out, the use of =%<nop>BIBTEXREF{...}%= will generate a list of references based on the citations declared.  The output of the reference list is dictated by <nop>BibTeX.  Thus, the HTML output can use all of the flexibility of bibtex, including custom bibtex style templates and string macros.
+As of release v1.3, the %TOPIC% has functionality similar to the TWiki:Plugins.BibliographyPlugin.  Specifically, if a topic has =%<nop>CITE{key}%= declarations through out, the use of =%<nop>BIBTEXREF{...}%= will generate a list of references based on the citations declared.  The output of the reference list is dictated by <nop>BibTeX.  Thus, the HTML output can use all of the flexibility of bibtex, including custom bibtex style templates and string macros.
 
 The citation keys _must refer to the output key produced by this plugin_, which may differ from the entries in the associated .bib files according to the bibtool resource file in use.  Simply use the output key produced by [[#SearchTemplates][<nop>BibtexPlugin search template]] query results.
 
-Again, if both the Foswiki:Extensions.BibliographyPlugin and TWiki:BibtexPlugin are installed, one must use %<nop>BIBCITE{...}% inplace of %<nop>CITE% for the <nop>BibtexPlugin functionality to work.
+Again, if both the TWiki:Plugins.BibliographyPlugin and Foswiki:BibtexPlugin are installed, one must use %<nop>BIBCITE{...}% inplace of %<nop>CITE% for the <nop>BibtexPlugin functionality to work.
 
 ---+++ Example
 
@@ -278,9 +278,9 @@ in a topic to which .bib files are attached.  The resulting rendered form
 files.
 
 	* Available search templates
-		* %SYSTEMWEB%.BibtexSearchTemplate - verbose .bib file query form
-		* %SYSTEMWEB%.BibtexSimpleSearchTemplate - !BibTeX key query form
-		* %SYSTEMWEB%.BibtexSelectTemplate - query .bib files using bib2bib 'select' syntax
+		* System.BibtexSearchTemplate - verbose .bib file query form
+		* System.BibtexSimpleSearchTemplate - !BibTeX key query form
+		* System.BibtexSelectTemplate - query .bib files using bib2bib 'select' syntax
 
 ---+++ Bibtool Resource Files
 Actually this is an art for itself. The author has taken care to give you a quite reasonable
@@ -335,7 +335,7 @@ have a look at the bibtool manual page and dig into the =bibtoolrcs= file yourse
 		* by setting the current database with %<nop>BIBTEX{topic="BibtexDatabase" display="off"}%, or
 		* by specifying the bibtex database in every %<nop>CITE% tag (not seriously)
 	* Merging bibtex databases from different sources: %BR%
-	  If there are lots of databases all over your twiki site, you might want to merge them or extend them
+	  If there are lots of databases all over your Foswiki site, you might want to merge them or extend them
 	  with some extra entries you don't want in the main database. Example: the main database contains all
 	  publications of your division but not the crossrefering presentation slides. You might want to keep 
 	  them separate on your home-topic. You do that by _nesting_ one or several %<nop>;BIBTEX{...bibstyle="raw"...}% 
@@ -350,7 +350,7 @@ have a look at the bibtool manual page and dig into the =bibtoolrcs= file yourse
 		%STOPBIBTEX%
 </verbatim>
 	* Manipulating the Cascading Style Sheet: %BR%
-	  You possibly don't like the default stylesheet for bibtexing installed on your twiki site. Or you just
+	  You possibly don't like the default stylesheet for bibtexing installed on your Foswiki site. Or you just
 	  want to render a bibtex database differently on a single topic. Then add a stylesheet section in the topic:
 	  &lt;style type="text/css"&gt; ... &lt;/style&gt;. Section [[#CustomizingAnchor][Customizing Look &amp; Feel]]
 	  lists the styles used.
@@ -371,34 +371,34 @@ have a look at the bibtool manual page and dig into the =bibtoolrcs= file yourse
 
 ---++ Global Settings
 	* One line description, shown in the %SYSTEMWEB%.TextFormattingRules topic:
-		* Set SHORTDESCRIPTION = Embeds <nop>BibTeX entries in a TWiki page
+		* Set SHORTDESCRIPTION = Embeds <nop>BibTeX entries in a Foswiki page
 
 	* Default topic name for <nop>BibTeX files:
-		* Set DEFAULTTOPIC = %SYSTEMWEB%.BibtexPlugin
+		* Set DEFAULTTOPIC = System.BibtexPlugin
 
 	* Default search template
-		* Set DEFAULTSEARCHTEMPLATE = %SYSTEMWEB%.BibtexSearchTemplate
+		* Set DEFAULTSEARCHTEMPLATE = System.BibtexSearchTemplate
 
 
 ---++ Plugin Installation Instructions
 
 	* Download the .zip or .tgz file from the Plugin web (see below)
-	* extract the plugin files in your twiki installation directory. Content:
+	* extract the plugin files in your foswiki installation directory. Content:
 	  | *File:* | *Description:* |
 	  | ==data/System/%TOPIC%.txt== | Plugin topic |
-	  | ==data/TWiki/BibtexSearchTemplate.txt== | default query template |
-	  | ==data/TWiki/BibtexSimpleSearchTemplate.txt== | simple query template |
-	  | ==data/TWiki/BibtexSelectTemplate.txt== | expert query template |
-	  | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
-	  | ==pub/TWiki/BibtexPlugin/sample.bib== | Plugin sample <nop>BibTeX file |
-	  | ==pub/TWiki/BibtexPlugin/style.css== | default style definitions |
-	  | ==pub/TWiki/BibtexPlugin/bibtoolrsc== | bibtool resource file |
+	  | ==data/System/BibtexSearchTemplate.txt== | default query template |
+	  | ==data/System/BibtexSimpleSearchTemplate.txt== | simple query template |
+	  | ==data/System/BibtexSelectTemplate.txt== | expert query template |
+	  | ==lib/System/Plugins/%TOPIC%.pm== | Plugin Perl module |
+	  | ==pub/System/BibtexPlugin/sample.bib== | Plugin sample <nop>BibTeX file |
+	  | ==pub/System/BibtexPlugin/style.css== | default style definitions |
+	  | ==pub/System/BibtexPlugin/bibtoolrsc== | bibtool resource file |
 	  | ==bin/bibsearch== | cgi query script |
 	  | ==tools/render.sh== | bibtex to html/raw rendering script |
 	* modify the =render.sh= script to point to the installed versions of =bibtool=, =bib2bib=, =bibtex2html=, and =bibtex=.
-	* set =$TWiki::cfg{Plugins}{BibtexPlugin}{render}= to declare the full path to =render.sh= in !LocalSite.cfg
+	* set =$Foswiki::cfg{Plugins}{BibtexPlugin}{render}= to declare the full path to =render.sh= in !LocalSite.cfg
 
-If TWiki access control is managed at the web-server level, be sure to add
+If access control is managed at the web-server level, be sure to add
 =bibsearch= to the authorization list. E.g., for Apache, add the following
 lines to the .htaccess file: 
 <verbatim>
@@ -408,10 +408,11 @@ lines to the .htaccess file:
 </verbatim>
 
 ---++ Plugin Info
-|  Plugin Author: | TWiki:Main/MichaelDaum, TWiki:Main/ScottHoge |
+|  Plugin Author: | Foswiki:Main/MichaelDaum, Foswiki:Main/ScottHoge |
 |  16 Okt 2003: | Initial version |
-|  Plugin Version: | v1.4 |
+|  Plugin Version: | v2.0 |
 |  Change History: | &nbsp; |
+|  2008/11/23: | (v2.0) ported to Foswiki |
 |  2008/01/31: | (v1.5) updated to operate with TWiki 4.2 |
 |  2006/12/02: | minor bug fix: removed space requirement of render path |
 |  2006/08/29: | (v1.4) minor bug fixes: =bibstyle= replaces =style=, CITE/BIBCITE cleanup |
@@ -428,9 +429,9 @@ lines to the .htaccess file:
 |  Other Dependencies: | [[http://lml.ls.fi.upm.es/manuales/bibtool/][BibTool]], \
 		[[http://www-sop.inria.fr/epidaure/personnel/malandain/codes/bibtex2html.html][Bibtex2html]] |
 |  Perl Version: | >=5.6.1 |
-|  Plugin Home: | Foswiki:Extensions/BibtexPlugin |
-|  Feedback: | Foswiki:Extensions/BibtexPluginDev |
-|  Appraisal: | Foswiki:Extensions/%TOPIC%Appraisal |
+|  Plugin Home: | Foswiki:Plugins/BibtexPlugin |
+|  Feedback: | Foswiki:Plugins/BibtexPluginDev |
+|  Appraisal: | Foswiki:Plugins/%TOPIC%Appraisal |
 
 %META:FILEATTACHMENT{name="style.css" attr="" autoattached="1" comment="" date="1134157744" path="style.css" size="1221" user="UnknownUser" version=""}%
 %META:FILEATTACHMENT{name="bibtoolrsc" attr="" autoattached="1" comment="" date="1136505651" path="bibtoolrsc" size="1905" user="UnknownUser" version=""}%
