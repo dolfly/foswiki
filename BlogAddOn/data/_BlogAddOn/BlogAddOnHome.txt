@@ -61,10 +61,10 @@ You may want to have a list of links that lead to a filtered blogpost list. For 
 Here's how:
 <verbatim>
 *Categories:*
-<div class="twikiUnvisited">%SEARCH{"   *\s*.*?" topic="BlogCategory" web="%WEB%" type="regex" multiple="on" casesensitive="on" nonoise="on" format="<a href='%SCRIPTURL{view}%/%WEB%/BlogPost?sort=created;limit=10;sortdirection=descending;category=$pattern(.*   \*\s*([^\n]*).*)'>$pattern(.*   \*\s*([^\n]*).*)</a>"}%</div>
+<div class="foswikiUnvisited">%SEARCH{"   *\s*.*?" topic="BlogCategory" web="%WEB%" type="regex" multiple="on" casesensitive="on" nonoise="on" format="<a href='%SCRIPTURL{view}%/%WEB%/BlogPost?sort=created;limit=10;sortdirection=descending;category=$pattern(.*   \*\s*([^\n]*).*)'>$pattern(.*   \*\s*([^\n]*).*)</a>"}%</div>
 </verbatim>
 
 This will generate:
 
 *Categories:*
-<div class="twikiUnvisited">%SEARCH{"   *\s*.*?" topic="BlogCategory" web="%WEB%" type="regex" multiple="on" casesensitive="on" nonoise="on" format="<a href='%SCRIPTURL{view}%/%WEB%/BlogPost?sort=created;limit=10;sortdirection=descending;category=$pattern(.*   \*\s*([^\n]*).*)'>$pattern(.*   \*\s*([^\n]*).*)</a>"}%</div>
+<div class="foswikiUnvisited">%SEARCH{"   *\s*.*?" topic="BlogCategory" web="%WEB%" type="regex" multiple="on" casesensitive="on" nonoise="on" format="<a href='%SCRIPTURL{view}%/%WEB%/BlogPost?sort=created;limit=10;sortdirection=descending;category=$pattern(.*   \*\s*([^\n]*).*)'>$pattern(.*   \*\s*([^\n]*).*)</a>"}%</div>
