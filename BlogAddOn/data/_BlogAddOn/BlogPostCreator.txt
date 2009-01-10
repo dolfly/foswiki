@@ -2,6 +2,7 @@
 ---+!! %MAKETEXT{"Write a new blog post"}%
 
 <script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/JavascriptFiles/foswikiString.js"></script>
+<script type="text/javascript" src="%PUBURLPATH%/%SYSTEMWEB%/JavascriptFiles/foswikiStringUnicodeChars.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
 var didSwitchToJsField = false;
