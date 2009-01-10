@@ -42,7 +42,7 @@ use strict;
 $VERSION = '$Rev$';
 $RELEASE = '1.5';
 $pluginName = 'BibtexPlugin'; 
-$debug = 1; # toggle me
+$debug = 0; # toggle me
 
 my %bibliography = ();
 my $citefile = "";

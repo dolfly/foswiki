@@ -9,7 +9,7 @@ require Foswiki;
 require Foswiki::UI;
 require Foswiki::Time;
 
-my $debug = 1;
+my $debug = 0;
 
 sub writeDebug {
   &Foswiki::Func::writeDebug("cgisearch - " . $_[0]) if $debug;
@@ -18,7 +18,6 @@ sub writeDebug {
 sub writeDebugTimes {
   &Foswiki::Func::writeDebugTimes("cgisearch - " . $_[0]) if $debug;
 }
-
 
 ###############################################################################
 sub cgibibsearch {
@@ -207,12 +206,12 @@ sub cgibibsearch {
   ##
   # finaly, print out
   ##
-  &Foswiki::Func::writeHeader();
-   print "\n    testing 1 2 3 \n";
+  &Foswiki::Func::writeHeader();   # headers aren't being generated properly,
+     print "\n    testing 1 2 3 \n"; # so the CGI script will throw a 500 error if this line is removed.
    print $tmpl;
    &writeDebug("done");
 
     return(0);
 }
 
-# 1;
+1;
