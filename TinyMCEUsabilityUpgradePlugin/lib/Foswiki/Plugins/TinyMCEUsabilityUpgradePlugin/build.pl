@@ -8,6 +8,6 @@ BEGIN {
 
 use Foswiki::Contrib::Build;
 
-$build = new Foswiki::Contrib::Build( "TinyMCEUsabiltyUpgradePlugin" );
+$build = new Foswiki::Contrib::Build( "TinyMCEUsabilityUpgradePlugin" );
 $build->build($build->{target});
 

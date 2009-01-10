@@ -1,6 +1,5 @@
-lib/Foswiki/Plugins/TinyMCEUsabilityUpgradePlugin.pm Plugin topic
-data/System/TinyMCEUsabilityUpgradePlugin.txt Perl modul
-lib/Foswiki/Plugins/TinyMCEUsabilityUpgradePlugin/Config.spec
+lib/Foswiki/Plugins/TinyMCEUsabilityUpgradePlugin.pm Perl modul
+data/System/TinyMCEUsabilityUpgradePlugin.txt Plugin topic
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/editor_plugin.js
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/editor_plugin_src.js
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/jscripts/foswikilink.js
