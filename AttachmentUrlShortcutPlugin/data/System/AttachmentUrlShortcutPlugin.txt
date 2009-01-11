@@ -5,9 +5,10 @@ Gives you the ability to you use shortened syntaxes for links to attachments !%A
 %TOC%
 
 ---++ Usage
-You can choose the Macro-Name should be used for the attachment-shortcut, so e.g. like in AttachLinkPlugin, you can use ATTACHMENT instead A%BR%%BR%
-
- Use the macro !%A% *or the one you configured in the Configuration-System under AttachmentUrlShortcupPlugin* to create a link to an attachement: 
+%BR%
+*Hint:* You can choose the *Macro-Name*, whi should be used for the attachment-shortcut, so e.g. like in AttachLinkPlugin, you can use ATTACHMENT instead A%BR%%BR%
+Use the macro !%A% *or the one you configured in the Configuration-System under AttachmentUrlShortcutPlugin* to create a link to an attachement: 
+%BR%
 | *Parameter* (both working, but only use one) | *Default* | *Description* |
 | _web_ or _Bereich_  | Current web | Sets the web of the topic, where the attachment is attached to |
 | _topic_ or _Dokument_ | Current topic | Sets the topic name, where the attachment is attached to |
@@ -27,8 +28,8 @@ __Note:__ You do not need to install anything on the browser to use this Plugin.
 ---+++ Installation instructions
    * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it trough an user-interface
 
-   * Set SHORTDESCRIPTION = Easy linking to attachments for everyone !%A%
-
+<!--   * Set SHORTDESCRIPTION = Easy linking to attachments for everyone !%A% -->
+-----
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; 2006, Impressive.media |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
