@@ -33,7 +33,7 @@ $VERSION = '$Rev: 12445$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '0.2';
+$RELEASE = '0.3';
 
 # Short description of this plugin
 # One line description, is shown in the %FoswikiWEB%.TextFormattingRules topic:
@@ -68,14 +68,14 @@ $Foswiki::cfg{Plugins}{AutoCompletitionLibPlugin}{AutoInclude} = 1;
 
 sub addDialogScripts() {
 	my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$pluginName";
-    my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.core.js'></script>";
-    Foswiki::Func::addToHEAD($pluginName."_jqueryuicore",$output,$pluginName."_jquerylibdialog");
+	   my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.core.js'></script>";
+    Foswiki::Func::addToHEAD($pluginName."_jqueryuicore",$output,$pluginName."_jquerylib_init");
     
 	$output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.dialog.js'></script>";
     Foswiki::Func::addToHEAD($pluginName."_jquerylibdialog",$output,$pluginName."_jqueryuicore");
     
     $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.draggable.js'></script>";
-    Foswiki::Func::addToHEAD($pluginName."_jquerylibdraggable",$output,$pluginName."_jqueryuicore");	
+    Foswiki::Func::addToHEAD($pluginName."_jquerylibdraggable",$output,$pluginName."_jquerylibdialog");	
     
     $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.dimensions.js'></script>";
     Foswiki::Func::addToHEAD($pluginName."_jquerylibdimensions",$output,$pluginName."_jqueryuicore");
