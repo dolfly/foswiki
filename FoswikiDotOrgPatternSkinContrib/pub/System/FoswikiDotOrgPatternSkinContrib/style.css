@@ -1,10 +1,11 @@
 div #patternTopBarContents {
 /*	background:#2E5CAC;*/
-	height:90px;
+	height:80px;
 	padding-top:10px;
 	padding-left:0;
 	position:relative;
 	left:-25px;
+	background:none;
 }
 
 /*
@@ -22,19 +23,9 @@ a {
 	background:none;
 	text-decoration:underline;
 }
-/*
-th {
-	color:#ffffff;
-	background:#96c0ec;
 
-}
-th, td {
-	padding:8px 12px;
-}
-*/
-
-#quickSearchBox {
-	margin-top:20px;
+.patternMetaMenu {
+	padding-top:10px;
 }
 
 .patternToolBar {
@@ -49,11 +40,7 @@ th, td {
 
 
 #patternScreen {
-	background:white url('GrayBlend.gif') repeat-x;
-/*
-	background-image:url('GrayBlend.gif');
-	background-repeat:repeat-x;*/
-	/* background-color:#fff;*/
+	background:white url('GrayBlend.gif') repeat-x scroll 0 0;
 }
 
 .patternPrintPage #patternScreen {
@@ -82,7 +69,6 @@ th, td {
 }
 
 #userbar {
-	background-color:transparent;
 	font-size:.85em;
 	padding:0 .5em .5em .5em;
 	text-align:right;
@@ -106,21 +92,14 @@ th, td {
 }
 
 #patternTopBar {
-	/*  background:transparent url(foswiki-header.png) no-repeat scroll -10px 0;
-	background-color:red;
-*/
 	border:none;
-/*   height:126px;*/
-	padding-bottom:2em;
+	padding-bottom:30px;
 }
-/*
-#patternTopBarContent {
-	height:90px;
-} */
 #patternTopBarButtons {
 	background-color:#96c0ec;
 	border-top:solid 1px #e1eafa;
 	padding-left:2em;
+	height:30px;
 }
 
 #patternTopBarButtons ul {
@@ -129,14 +108,14 @@ th, td {
 	padding:.5em 0;
 	color:#339;
 	font-weight:bold;
-	line-height:2em;
+	line-height:30px;
 	border-left:1px solid #e1eafa;
 	list-style-image:none;
 	list-style-position:outside;
 	list-style-type:none;
 }
 #patternTopBarButtons ul a {
-	line-height:2em;
+	line-height:30px;
 	padding:.5em 1em .7em 1em;
 	margin:0 -1em 0 0;
 	color:#00458f;
@@ -159,8 +138,8 @@ th, td {
 	color:#339;
 	border-right:1px solid #e1eafa;
 	font-weight:bold;
-	line-height:2em;
-	height:2em;
+	line-height:30px;
+	height:30px;
 }
 
 #patternMain { /* don't set a background here;use patternOuter */ }
@@ -168,34 +147,21 @@ th, td {
 /*   margin-right:0;*/
 }
 
-#patternOuter {
-	background:transparent;
+.patternViewPage #patternWrapper,
+.patternViewPage #patternSideBar {
+	background:#dbdbe0;
 }
-
-.patternViewPage #patternOuter {
-	border-right:16em solid #e2e2e2;
-	margin-right:0;
-}
-
 .patternPrintPage #patternOuter {
 	margin-right:0;
 	border:none;
 }
-
 #patternMainContents {
 	border:solid #ccc 1px;
 	background-color:#fff;
 }
-
 .patternPrintPage #patternMainContents {
 	border:none;
 }
-
-.patternViewPage #patternSideBar {
-	background:#e9eaec;
-	float:right; /* not necessary */
-}
-
 .patternPrintPage #patternSideBar {
 	display:none;
 }
@@ -265,7 +231,7 @@ blockquote h2 {
 	background:none;
 }
 h1 {
-	color:#2e5cac;
+	color:#0fa475;
 }
 h2, h3, h4, h5, h6 {
 	color:#444444;
@@ -327,7 +293,7 @@ h3, h4, h5, h6 {
 #patternMainContents h4 a:link, #patternMainContents h4 a:visited,
 #patternMainContents h5 a:link, #patternMainContents h5 a:visited,
 #patternMainContents h6 a:link, #patternMainContents h6 a:visited {
-	color:#444444;
+	color:#444;
 }
 #patternMainContents h1 a:hover,
 #patternMainContents h2 a:hover,
@@ -443,11 +409,6 @@ select {
 a:hover.twistyTrigger {
 	color:#000;
 }
-
-/* TipsContrib */
-.tipsOfTheDay {
-}
-
 /* RevCommentPlugin */
 .revComment .patternTopicAction {
 	background-color:#f5f5f5;
@@ -609,10 +570,10 @@ a:hover .foswikiAccessKey {
 }
 
 .patternTop {
-	padding:2em 0;
+	padding:2em 0 0 0;
 	font-size:.9em;
+	height:1%;
 }
-
 .patternTop a:hover {
 	border:none;
 	color:#000;
@@ -627,11 +588,15 @@ a:hover .foswikiAccessKey {
 	color:#000;
 }
 
+.patternContent {
+	margin:1.5em 0 0 0;
+}
+
 /* Left bar */
 #patternSideBarContents {
 	color:#000;
 	padding-left:1em;
-	margin-top:2em;
+	margin-top:30px;
 }
 #patternSideBarContents h2 {
 	font-size:100%;
@@ -639,25 +604,15 @@ a:hover .foswikiAccessKey {
 	font-weight:bold;
 	display:block;
 	margin:0;
-	padding:.2em 12px;
-	line-height:1.5em;
+	padding:.6em 12px;
 	border-top:1px solid #BDEB86;
 }
 #patternSideBarContents h2,
 #patternSideBarContents h2 a {
-	background-color:#649f2a;
-	background-image:url(button-bg.png);
+	background-color:#0fa475;
 	background-repeat:repeat-x;
 	background-position:left bottom;
 	color:white;
-	/* ie 6 */
-	_background-image:none;
-}
-
-/* wtf, do we need this? */
-#patternSideBarContents h2 a {
-	display:block;
-	padding:0 2em;
 }
 #patternSideBarContents h2 a:hover {
 	background:#5AA301;
@@ -1075,10 +1030,6 @@ li.patternLogIn {
 	height:90px;
 	background-color:#2e5cac;
 }
-div #patternTopBarContents {
-	height:80px;
-	/*background-color:#2E5CAC;*/
-}
 .foswikiTopic a,
 .foswikiTopic :link {
 	color:#0055b5;
@@ -1089,4 +1040,15 @@ div #patternTopBarContents {
 	color:#62B000;
 	background:none;
 	text-decoration:underline;
+}
+#foswikiLogo a img {
+	display:none;
+}
+#foswikiLogo a {
+	display:block;
+	background-image:url(logo.gif);
+	background-repeat:no-repeat;
+	height:90px;
+	width:315px;
+	margin:-10px 0 0 -25px;
 }

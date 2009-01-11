@@ -1,11 +1,11 @@
 data/System/FoswikiDotOrgPatternSkinContrib.txt 0644
 lib/Foswiki/Contrib/FoswikiDotOrgPatternSkinContrib.pm 0666
 pub/System/FoswikiDotOrgPatternSkinContrib/GrayBlend.gif 0644
-pub/System/FoswikiDotOrgPatternSkinContrib/GreyBlend.gif 0644
 pub/System/FoswikiDotOrgPatternSkinContrib/attach.png 0644
 pub/System/FoswikiDotOrgPatternSkinContrib/foswiki-header-left.png 0644
 pub/System/FoswikiDotOrgPatternSkinContrib/foswiki-header-right.png 0644
 pub/System/FoswikiDotOrgPatternSkinContrib/foswiki-header.png 0644
+pub/System/FoswikiDotOrgPatternSkinContrib/logo.gif 0644
 pub/System/FoswikiDotOrgPatternSkinContrib/page_white_add.png 0644
 pub/System/FoswikiDotOrgPatternSkinContrib/page_white_stack.png 0644
 pub/System/FoswikiDotOrgPatternSkinContrib/pencil.png 0644

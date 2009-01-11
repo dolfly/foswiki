@@ -1,10 +1,13 @@
 /* hacks for ie 6 and lower */
-/* people still using these browsers ought to be shot */
+/* people still using these browsers ought to be spanked */
 
 #patternTopBarRight {
-   left: 0;
+	left:0;
 }
-
 #patternTopBarButtons li {
-  padding: 0 1em 0 0;
+	padding:0 1em 0 0;
+}
+#patternScreen {
+	background-image:none;
+	background-color:#d4d4d9;
 }
