@@ -1,0 +1,4 @@
+# Release manifest for YuiMenuContrib
+data/System/YuiMenuContrib.txt 0644 Documentation
+lib/Foswiki/Contrib/YuiMenuContrib.pm 0644 Perl module
+
