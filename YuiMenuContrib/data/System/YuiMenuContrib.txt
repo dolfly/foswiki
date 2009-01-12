@@ -153,19 +153,21 @@ YAHOO.util.Event.onContentReady('yui-navigation-menu', function () {
 .yui-skin-sam li {
    color:#000000;
    cursor:default;
-   padding:10px;
    text-decoration:none;
 }
 .yui-skin-sam .foswikiNewLink {
    border: 0px;
 }
+.yui-skin-sam  li a { /* set the height of each menu element */
+   line-height: 2.35em;
+}
 .yui-skin-sam  :link:hover,
 .yui-skin-sam  :visited:hover{
-background-color:transparent;
+   background-color:transparent;
 }
 /* damn, need to over-ride the overflow in Pattern Skin */
 #patternSideBar {
-overflow:visible;
+   overflow:visible;
 }
 </style>
 %ADDTOHEAD{
