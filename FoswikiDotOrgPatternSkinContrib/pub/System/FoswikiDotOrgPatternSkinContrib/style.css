@@ -147,7 +147,9 @@ a {
 /*   margin-right:0;*/
 }
 
-.patternViewPage #patternWrapper,
+.patternViewPage #patternWrapper {
+	background:#fff;
+}
 .patternViewPage #patternSideBar {
 	background:#dbdbe0;
 }
