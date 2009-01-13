@@ -33,6 +33,8 @@ sub cgibibsearch {
 
   &writeDebug("starting cgisearch");
 
+   # &Foswiki::Func::writeHeader();   # headers aren't being generated properly,
+
   ## 
   # initialize the wiki engine
   ##
@@ -206,8 +208,8 @@ sub cgibibsearch {
   ##
   # finaly, print out
   ##
-  &Foswiki::Func::writeHeader();   # headers aren't being generated properly,
-     print "\n    testing 1 2 3 \n"; # so the CGI script will throw a 500 error if this line is removed.
+#  &Foswiki::Func::writeHeader();   # headers aren't being generated properly,
+   print "Content-Type: text/html\n\n";
    print $tmpl;
    &writeDebug("done");
 
