@@ -151,7 +151,7 @@ a {
 	background:#fff;
 }
 .patternViewPage #patternSideBar {
-	background:#dbdbe0;
+	background:#e5e5e8;
 }
 .patternPrintPage #patternOuter {
 	margin-right:0;
@@ -233,17 +233,12 @@ blockquote h2 {
 	background:none;
 }
 h1 {
-	color:#096;
+	color:#5fa809;
 }
 h2, h3, h4, h5, h6 {
 	color:#444444;
 }
-h2 {
-	border-color:#e2e2e2;
-}
-h3, h4, h5, h6 {
-	border-color:#e2e2e2;
-}
+
 /* to override old Render.pm coded font color style */
 .foswikiNewLink font {
 	color:inherit;
@@ -611,7 +606,7 @@ a:hover .foswikiAccessKey {
 }
 #patternSideBarContents h2,
 #patternSideBarContents h2 a {
-	background-color:#0fa475;
+	background-color:#77b819;
 	background-repeat:repeat-x;
 	background-position:left bottom;
 	color:white;
