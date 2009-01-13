@@ -1,1 +1,1 @@
-check foswiki.org/Extensions/TinyMCEPlugin
+check foswiki.org/Extensions/TinyMCEUsabiltyUpgradePlugin

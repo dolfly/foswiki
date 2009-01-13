@@ -10,8 +10,8 @@ function changeClass() {
 	var formObj = document.forms[0];
 	formObj.classes.value = getSelectValue(formObj, 'classlist');
 }
-
-function init() {
+;(function($j){
+window.init = function() {
 	tinyMCEPopup.resizeToInnerSize();   
 
 	var selecetedText = tinyMCE.selectedInstance.selection.getSelectedHTML();
@@ -24,7 +24,7 @@ function init() {
 	window.focus();
 }
 
-function init_topics() {        
+window.init_topics= function() {        
         var url = scriptUrl+"/rest/TopicListPlugin/topiclist?topic=System.WebHome&max=0&format=%TOPIC&globalformat=%TOPICS&delimiter=%NL";
         $j("#topic_name").autocomplete(url,
         {
@@ -40,7 +40,7 @@ function init_topics() {
         });
 }
 
-function init_webs() {
+window.init_webs = function () {
     var url = scriptUrl+"/rest/TopicListPlugin/weblist?topic=System.WebHome&excludewebs=Trash,_default,_empty";
     $j.getJSON(url, 
           function(data){
@@ -64,11 +64,11 @@ function init_webs() {
     
 }
 
-function convertURL(url, node, on_save) {
+window.convertURL =  function (url, node, on_save) {
 	return eval("tinyMCEPopup.windowOpener." + tinyMCE.settings['urlconverter_callback'] + "(url, node, on_save);");
 }
 
-function insertFoswikiLink() {
+window.insertFoswikiLink = function() {
     var href = "";
     var title = "";
     var link_name = tinyMCE.selectedInstance.selection.getSelectedHTML();
@@ -104,5 +104,6 @@ function insertFoswikiLink() {
     tinyMCEPopup.execCommand("mceEndUndoLevel");
     tinyMCEPopup.close();
 }
+})(jQuery);
 // While loading
 preinit();

@@ -2,6 +2,7 @@
  *
  * @author Eugen Mayer
  * @copyright Copyright Impressive.media GbR
+ * @licence GPL3
  */
 
 /* Import plugin specific language pack */
@@ -14,7 +15,7 @@ var TinyMCE_FoswikiLinkPlugin = {
             author : 'Eugen Mayer - Impressive.media GbR',
             authorurl : 'http://impressive-media.de',
             infourl : 'http://impressive-media.de',
-            version : "0.1"
+            version : "0.2"
         };
     },
 
