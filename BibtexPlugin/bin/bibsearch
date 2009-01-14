@@ -40,7 +40,7 @@ BEGIN {
 
 use Foswiki;
 use Foswiki::UI;
-Foswiki::UI::run( );
+$Foswiki::engine->run();
 # Note: to run this script in Foswiki, it needs to be registered with the SwitchBoard.
 #       add the following line to LocalSite.cfg:
 # $Foswiki::cfg{SwitchBoard}{bibsearch} = [ "Foswiki::Plugins::BibtexPlugin::CgiBibSearch", "cgibibsearch", { bibsearch => 1 } ];

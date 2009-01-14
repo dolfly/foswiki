@@ -4,6 +4,7 @@ data/System/BibtexSearchTemplate.txt
 data/System/BibtexSelectTemplate.txt 
 data/System/BibtexSimpleSearchTemplate.txt 
 lib/Foswiki/Plugins/BibtexPlugin.pm 
+lib/Foswiki/Plugins/BibtexPlugin/CgiBibSearch.pm 
 pub/System/BibtexPlugin/bibtoolrsc 
 pub/System/BibtexPlugin/sample.bib 
 pub/System/BibtexPlugin/style.css 

@@ -382,7 +382,7 @@ have a look at the bibtool manual page and dig into the =bibtoolrcs= file yourse
 
 ---++ Plugin Installation Instructions
 
-	* Download the .zip or .tgz file from the Plugin web (see below)
+	* Download the .zip or .tgz file from the Extensions web (see below)
 	* extract the plugin files in your foswiki installation directory. Content:
 	  | *File:* | *Description:* |
 	  | ==data/System/%TOPIC%.txt== | Plugin topic |
@@ -397,6 +397,10 @@ have a look at the bibtool manual page and dig into the =bibtoolrcs= file yourse
 	  | ==tools/render.sh== | bibtex to html/raw rendering script |
 	* modify the =render.sh= script to point to the installed versions of =bibtool=, =bib2bib=, =bibtex2html=, and =bibtex=.
 	* set =$Foswiki::cfg{Plugins}{BibtexPlugin}{render}= to declare the full path to =render.sh= in !LocalSite.cfg
+	* register the bibsearch script in !LocalSite.cfg, by adding the following line:
+<verbatim>
+$Foswiki::cfg{SwitchBoard}{bibsearch} = [ "Foswiki::Plugins::BibtexPlugin::CgiBibSearch", "cgibibsearch", { bibsearch => 1 } ];
+</verbatim>
 
 If access control is managed at the web-server level, be sure to add
 =bibsearch= to the authorization list. E.g., for Apache, add the following
@@ -412,7 +416,7 @@ lines to the .htaccess file:
 |  16 Okt 2003: | Initial version |
 |  Plugin Version: | v2.0 |
 |  Change History: | &nbsp; |
-|  2008/11/23: | (v2.0) ported to Foswiki |
+|  2009/01/14: | (v2.0) ported to Foswiki |
 |  2008/01/31: | (v1.5) updated to operate with TWiki 4.2 |
 |  2006/12/02: | minor bug fix: removed space requirement of render path |
 |  2006/08/29: | (v1.4) minor bug fixes: =bibstyle= replaces =style=, CITE/BIBCITE cleanup |

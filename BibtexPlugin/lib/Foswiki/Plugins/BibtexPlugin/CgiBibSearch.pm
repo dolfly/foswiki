@@ -31,15 +31,13 @@ sub cgibibsearch {
     my $theRemoteUser = $query->remote_user();
     my $theUrl = $query->url;
 
-  &writeDebug("starting cgisearch");
-
-   # &Foswiki::Func::writeHeader();   # headers aren't being generated properly,
+  &writeDebug("starting cgibibsearch");
 
   ## 
-  # initialize the wiki engine
+  # initialize the topic location
   ##
-  my($topic, $web) = 
-    &Foswiki::initialize($thePathInfo, $theRemoteUser, undef, $theUrl, $query);
+  my $topic = $Foswiki::Plugins::SESSION->{topicName};
+  my $web = $Foswiki::Plugins::SESSION->{webName};
 
   ##
   # get params
@@ -208,12 +206,12 @@ sub cgibibsearch {
   ##
   # finaly, print out
   ##
-#  &Foswiki::Func::writeHeader();   # headers aren't being generated properly,
-   print "Content-Type: text/html\n\n";
-   print $tmpl;
-   &writeDebug("done");
+  &Foswiki::Func::writeHeader();
+  $Foswiki::Plugins::SESSION->{response}->print( $tmpl );
 
-    return(0);
+  &writeDebug("cgibibsearch done");
+
+  return(0);
 }
 
 1;
