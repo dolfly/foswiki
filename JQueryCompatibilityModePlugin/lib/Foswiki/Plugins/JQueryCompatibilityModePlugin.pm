@@ -45,7 +45,7 @@ $pluginName = 'JQueryCompatibilityModePlugin';
 
 # =========================
 
-
+my $jqPluginName = $pluginName;
 sub initPlugin {# ---+ AutoCompletitionLibPlugin
 # This is the configuration used by the <b>ToPDFPlugin</b> and the
 # <h2>General</h2>
@@ -57,26 +57,28 @@ $Foswiki::cfg{Plugins}{AutoCompletitionLibPlugin}{AutoInclude} = 1;
     my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$pluginName";
     if(   $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeCore} ) {
 	    my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/jquery.js'></script>";
-	    Foswiki::Func::addToHEAD($pluginName."_jquerylib",$output);
+	    Foswiki::Func::addToHEAD($jqPluginName."_jq",$output);
 	    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/jquery_init.js'></script>";
-	    Foswiki::Func::addToHEAD($pluginName."_jquerylib_init",$output,$pluginName."_jquerylib");
+	    Foswiki::Func::addToHEAD($jqPluginName."_jq_init",$output,$jqPluginName."_jq");
     }
  
     addDialogScripts() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude});
     return 1;
 }
 
-sub addDialogScripts() {
-	my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$pluginName";
-	   my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.core.js'></script>";
-    Foswiki::Func::addToHEAD($pluginName."_jqueryuicore",$output,$pluginName."_jquerylib_init");
+sub addDialogScripts() {    
+    my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$jqPluginName";
+    my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/ui/ui.core.js'></script>";
+    Foswiki::Func::addToHEAD($jqPluginName."_jqui.core",$output,$jqPluginName."_jq_init");
     
-	$output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.dialog.js'></script>";
-    Foswiki::Func::addToHEAD($pluginName."_jquerylibdialog",$output,$pluginName."_jqueryuicore");
+    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/ui/ui.draggable.js'></script>";    
+    Foswiki::Func::addToHEAD($jqPluginName."_jqui.draggable",$output,$jqPluginName."_jqui.core");
     
-    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.draggable.js'></script>";
-    Foswiki::Func::addToHEAD($pluginName."_jquerylibdraggable",$output,$pluginName."_jquerylibdialog");	
+    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/ui/ui.dialog.js'></script>";
+    Foswiki::Func::addToHEAD($jqPluginName."_jqui.dialog",$output,$jqPluginName."_jqui.core"); 
     
-    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.dimensions.js'></script>";
-    Foswiki::Func::addToHEAD($pluginName."_jquerylibdimensions",$output,$pluginName."_jqueryuicore");
+    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/ui/ui.resizable.js'></script>";
+    Foswiki::Func::addToHEAD($jqPluginName."_jqui.resiz",$output,$jqPluginName."_jqui.core");
+    #$output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.dimensions.js'></script>";
+    #Foswiki::Func::addToHEAD($pluginName."_jquerylibdimensions",$output,$pluginName."_jqueryuicore");
 }
