@@ -42,7 +42,7 @@ __Note:__ You do not need to install anything on the browser to use this Plugin.
 |  CPAN Dependencies: | |
 |  Other Dependencies: | |
 |  Perl Version: | 5.005 |
-|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
  __Related Topic:__
