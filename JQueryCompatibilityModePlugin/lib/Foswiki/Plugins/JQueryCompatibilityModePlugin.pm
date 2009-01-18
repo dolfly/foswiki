@@ -57,7 +57,7 @@ $Foswiki::cfg{Plugins}{AutoCompletitionLibPlugin}{AutoInclude} = 1;
     my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$pluginName";
     if(   $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeCore} ) {
 	    my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/jquery.js'></script>";
-	    Foswiki::Func::addToHEAD($jqPluginName."_jq",$output);
+	    Foswiki::Func::addToHEAD($jqPluginName."_jq",$output,$jqPluginName."_fowikiVars");
 	    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/jquery_init.js'></script>";
 	    Foswiki::Func::addToHEAD($jqPluginName."_jq_init",$output,$jqPluginName."_jq");
     }
@@ -79,6 +79,14 @@ sub addDialogScripts() {
     
     $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/ui/ui.resizable.js'></script>";
     Foswiki::Func::addToHEAD($jqPluginName."_jqui.resiz",$output,$jqPluginName."_jqui.core");
+    
+    my $foswikiJSvars = "var foswiki;\nif (!foswiki) { foswiki = {};}";
+    $foswikiJSvars .= "\nfoswiki.systemWeb='" . $Foswiki::cfg{SystemWebName}."';"; 
+    $foswikiJSvars .= "\nfoswiki.userWeb='" . $Foswiki::cfg{UsersWebName}."';";
+    $foswikiJSvars .= "\nfoswiki.scriptUrl='" . Foswiki::Func::getScriptUrlPath()."';";
+
+    $output = "<script type='text/javascript'>$foswikiJSvars</script>";
+    Foswiki::Func::addToHEAD($jqPluginName."_fowikiVars",$output);    
     #$output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.dimensions.js'></script>";
     #Foswiki::Func::addToHEAD($pluginName."_jquerylibdimensions",$output,$pluginName."_jqueryuicore");
 }
