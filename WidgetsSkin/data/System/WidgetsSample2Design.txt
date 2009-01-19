@@ -1,7 +1,7 @@
 %META:TOPICINFO{author="NoneSvenDowideit" date="1174054820" format="1.1" reprev="1.1" version="1.1"}%
 %META:TOPICPARENT{name="WidgetsSkin"}%
 ---+ <nop>%TOPIC%
-This theme has been created by copying and simplifying the WidgetSampleDesign topic and pub/Foswiki directory, 
+This theme has been created by copying and simplifying the WidgetsSampleDesign topic and pub/Foswiki directory, 
 and then replacing the content of theme.css with css generated using the [[http://styles.movalog.com/generator/][Moveable Type Style Generator]]. 
 
 

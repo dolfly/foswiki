@@ -1,7 +1,7 @@
 %META:TOPICPARENT{name="WidgetsSkin"}%
 ---+ <nop>%TOPIC%
 Create your own Foswiki <nop>Widget design by attaching your Moveable Type css and images 
-(and a copy of base-weblog.css) to your copy of the WidgetSampleDesign topic. 
+(and a copy of base-weblog.css) to your copy of the WidgetsSampleDesign topic. 
 Then configure the settings on the topic to match, so that you can Proof your design. 
 
 =wiki.gif= background is from Ward Cunninghams' Wiki - http://c2.com/cgi/wiki
