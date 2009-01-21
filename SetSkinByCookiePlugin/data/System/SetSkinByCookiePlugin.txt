@@ -1,0 +1,64 @@
+---+!! <nop>%TOPIC%
+
+<!--
+   * Set SHORTDESCRIPTION = Lets you set the current skin by using a cookie
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+*ATTENTION*: Until further informations, this plugin is only useable with the next major release of Foswiki, so accordingly 1.1.0
+
+---++ Introduction
+By setting a cookie like =SetSkin=collaborganize= you can change your current displayed sking accordingly. This plugins supports diffrent modes,
+so you can add the skin or skins addded by the cookie to the skin-list which is present right now, or you simply overwrite all other settings
+and force this skin to be used in any cases.
+
+---++ USAGE
+You can define the Cookie-Name which should be used to set the skin in the configuration center ( bin/configure ), by default this is
+*SetSkin*. If you prefix the follwing things, you can switch between the modes described in the introduction
+| *Prefix* | *Meaning* |
+| < | *Add* the defined skin or skin list to the current skin list, but on the *left* side. %BR%. This means, the *SetSkin* skins will be used in a higher priority |
+| > | *Add* the defined skin or skin list to the current skin list, but on the *right* side. %BR%. This means, the *SetSkin* skins will be used in a lower priority |
+| _no prefix_ | Overwrite the current skin settings and force the SetSkin to be the only one |
+
+*Expamples*: Your *current skin* would be +SKIN="nat, pattern"* %BR%
+<blockquote>
+   * SetSkin = "<collaborganize"
+      * *Result*: SKIN = "collaborganize, nat, pattern"
+   * SetSkin = ">collaborganize"
+      * *Result*: SKIN = "nat, pattern, collaborganize"      
+   * SetSkin = "collaborganize"
+      * *Result*: SKIN = "collaborganize"                  
+</blockquote>
+
+*Hint*: This also overrules the parameter &skin= !
+---++ Plugin Settings
+   * you need to set the CookieName in the Foswiki configure-system
+
+---++ Plugin Installation Instructions
+   * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it trough an user-interface
+---++ Plugin Info
+
+|  Plugin Author: | Foswiki:Main.MayerEugen |
+|  Copyright: | &copy; 2006, Impressive.media |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 20 Jan 2009 (V0.1) |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  20 Jan 2009: | Initial version |
+|  Foswiki Dependency: |  |
+|  CPAN Dependencies: | HTTP::Cookies::Find |
+|  Other Dependencies: | |
+|  Perl Version: | 5.005 |
+|  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
+
+__Related Topics:__
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}% 
