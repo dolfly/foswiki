@@ -27,7 +27,7 @@ use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN
 
 $VERSION = '$Rev: 12445$';
 
-$RELEASE = '0.1';
+$RELEASE = '0.2';
 
 $SHORTDESCRIPTION = ' ';
 $NO_PREFS_IN_TOPIC = 1;
