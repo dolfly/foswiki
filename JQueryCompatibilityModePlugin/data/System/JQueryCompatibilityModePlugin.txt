@@ -4,9 +4,40 @@ Just the same as JqueryPlugin but using the compatibilty mode to provide use wit
 %TOC%
 
 ---++ Introduction
-This plugin includes the jquery javascript library. In difference to JqueryPlugin it uses the build in compatibilty mode to not provoke a clash with !$ in other frameworks like dojo or prototype
+This plugin includes the jquery javascript library. In difference to JQueryPlugin it uses the build in compatibilty mode to not provoke a clash with =$= in other frameworks like dojo or prototype
+
 ---++ Usage
-    After installing the plugin, all you need to do is using !$j instead of !$ for accessing jquery
+   * After installing the plugin, all you need to do is using =$j= instead of =$= for accessing jquery.
+   * In addition, you hava a *global* javascript variable *Foswiki* exporting the following Foswiki-intern values needed by most scripts
+| *Value* | *Foswiki Value* |
+| Foswiki.systemWeb | The current Foswiki-System-Web |
+| Foswiki.userWeb | The current Foswiki-User-Web |
+| Foswiki.scriptUrlPath | The current Foswiki getScriptUrlPath |
+| Foswiki.pubUrlPath | The current Foswiki pubUrlPath |
+| Foswiki.scriptSuffix | The current Foswiki scriptSuffix |
+| Foswiki.scriptUrlPath | The current Foswiki scriptUrlPath |
+| Foswiki.viewScript | The current Foswiki viewScript path |
+    
+
+*Hint:* %BR%
+If you enclose your javascritpt by the following general body, you can use this script in any enviroment, no matter to which variable JQuery is currently bind to.
+This would mean you could use this script with JQueryPlugin also or even in environments, where Jquery is bind to =$foo=
+<verbatim>
+(function($) {
+.
+// global accessable function
+window.myGloablFunc = function () { $("#foo").show() }
+.
+.
+// local accessable function
+function myGloablFunc () { $("#foo").show() }
+.
+.
+})(jQuery);
+</verbatim>
+
+You can use any shortcut variable you like in this code, so =;(function($foo) {..}= would let you use $foo in for acces JQuery
+
 ---++ Installation instructions
    * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
 __Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
@@ -16,8 +47,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; Impressive.media |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 11 Jan 2009 (V0.3) |
+|  Plugin Version: | 20 Jan 2009 (V0.4) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  20 Jan 2009: | Adding pubURL and other vars to window.Foswiki, updating docs|
 |  11 Jan 2009: | added Jquery-Dialog API. You can choose, if Jquery or/and the Dialog API should be included automatically on page-load|
 |  28 Dez 2008: | initial release |
 |  Foswiki Dependency: | |

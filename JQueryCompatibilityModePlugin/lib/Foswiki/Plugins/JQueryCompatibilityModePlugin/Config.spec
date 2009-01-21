@@ -3,9 +3,17 @@
 # <h2>General</h2>
 
 # **BOOLEAN**
-# should the Jquery-core api included automatically
-$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeCore} = 1;
+# Should the window.foswiki variable be initilazed
+$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{InitializeFoswikiVar} = 1;
 
 # **BOOLEAN**
 # include JQuery-Dialog api
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude} = 0;
+
+# **BOOLEAN**
+# should the Jquery-core api included automatically
+$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeCore} = 1;
+
+
+
+
