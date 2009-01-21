@@ -22,7 +22,7 @@ eg =Set SKIN=pattern_yuimenu,pattern= in your %MAINWEB%.SitePreferences. To try 
 add =?skin=pattern_yuimenu,pattern= to the end of your URL -
    * eg [[%SCRIPTURL{view}%/%BASEWEB%/%HOMETOPIC%?skin=pattern_yuimenu,pattern][try me using pattern skin]]
 
-You can then customise the side bar by creating a YuiMenu in %USERSWEB% as detailed below.
+You can then customise the side bar by creating a SiteMenu in %USERSWEB% as detailed below.
 
 You can also use create other menu's by re-using the concepts in this contrib :)
 
@@ -41,7 +41,7 @@ You can also use create other menu's by re-using the concepts in this contrib :)
 <verbatim>
 %STARTINCLUDE%
 %INCLUDE{
-   "%IF{"istopic '%USERSWEB%.YuiMenu'" then="%USERSWEB%.YuiMenu" else="%SYSTEMWEB%.YuiMenuContrib"}%"
+   "%IF{"istopic '%USERSWEB%.SiteMenu'" then="%USERSWEB%.SiteMenu" else="%SYSTEMWEB%.YuiMenuContrib"}%"
    MENUWEB="%MENUWEB%"
    section="topmenu"
 }%
@@ -49,8 +49,8 @@ You can also use create other menu's by re-using the concepts in this contrib :)
 </verbatim>
 ---+++ WebMenu defaulting
 This way, SideBarMenu can INCLUDE the $web.WebMenu if it exists, or (using warn=)
-fall back to this topic, which will use the customised USERWEB.DefaultWebMenu topic or
-fall back to the MenuContrib's SYSTEM.DefaultWebMenu
+fall back to this topic, which will use the customised %USERSWEB%.DefaultWebMenu topic in the %USERSWEB% or
+fall back to the default in this topic
 
 <verbatim>
 %STARTSECTION{"webmenu-defaultselector"}%

@@ -3,3 +3,5 @@ data/System/YuiMenuContrib.txt 0644 Documentation
 lib/Foswiki/Contrib/YuiMenuContrib.pm 0644 Perl module
 templates/viewsidebar.pattern_yuimenu.tmpl 0644 pattern skin template to get sidebar to use our menu
 
+data/System/WebMenu.txt 0644
+data/Main/WebMenu.txt 0644

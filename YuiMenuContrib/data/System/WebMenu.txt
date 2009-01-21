@@ -1,0 +1,18 @@
+
+%STARTSECTION{"webmenu"}%
+   * <b>%MAKETEXT{"User Reference"}%</b>
+   * %MENUWEB%.BeginnersStartHere
+   * %MENUWEB%.TextFormattingRules
+   * [[%MENUWEB%.Macros][Macros]]
+   * %MENUWEB%.FormattedSearch
+   * %MENUWEB%.QuerySearch
+   * %MENUWEB%.DocumentGraphics
+   * %MENUWEB%.SkinBrowser
+   * %MENUWEB%.InstalledPlugins
+   * <b>%MAKETEXT{"Categories"}%</b>
+   * [[%MENUWEB%.AdminDocumentationCategory][Admin Documentation]]
+   * [[%MENUWEB%.AdminToolsCategory][Admin Tools]]
+   * [[%MENUWEB%.DeveloperDocumentationCategory][Developer Doc]]
+   * [[%MENUWEB%.UserDocumentationCategory][User Documentation]]
+   * [[%MENUWEB%.UserToolsCategory][User Tools]]
+%ENDSECTION{"webmenu"}%

@@ -1,0 +1,10 @@
+
+%STARTSECTION{"webmenu"}%
+   * [[%MENUWEB%.WebTopicList][ %ICON{"index"}% %MAKETEXT{"Index"}%]]
+   * [[%MENUWEB%.WebSearch][ %ICON{"searchtopic"}% %MAKETEXT{"Search"}%]]
+   * [[%MENUWEB%.WebChanges][ %ICON{"changes"}% %MAKETEXT{"Changes"}%]]
+   * [[%MENUWEB%.WebNotify][ %ICON{"notify"}% %MAKETEXT{"Notifications"}%]]
+   * [[%MENUWEB%.WebRss][ %ICON{"feed"}% %MAKETEXT{"RSS Feed"}%]]
+   * [[%MENUWEB%.WebStatistics][ %ICON{"statistics"}% %MAKETEXT{"Statistics"}%]]
+   * [[%MENUWEB%.WebPreferences][ %ICON{"wrench"}% %MAKETEXT{"Preferences"}%]]
+%ENDSECTION{"webmenu"}%
