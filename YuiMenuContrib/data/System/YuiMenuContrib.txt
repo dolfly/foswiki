@@ -73,6 +73,7 @@ to define your own WebMenu for all webs, copy and customise the content below to
    text="%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib" section="yui-navigation-menu-js-yui"}%"
    requires="yui-menu"
 }%
+%INCLUDE{System.WebLeftBarLogin}%
    <div id="yui-navigation-menu" class="yuimenu">
       <div class="bd">
 	 <ul>
