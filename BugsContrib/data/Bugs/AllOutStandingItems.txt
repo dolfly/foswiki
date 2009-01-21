@@ -80,6 +80,3 @@ LIMIT=""
 }%
 
 
-%META:FILEATTACHMENT{name="untitled.draw" attachment="untitled.draw" attr="" comment="" date="1169574511" path="untitled.draw" size="7509" stream="untitled.draw" user="Main.CrawfordCurrie" version="3"}%
-%META:FILEATTACHMENT{name="untitled.gif" attachment="untitled.gif" attr="" comment="" date="1169575309" path="untitled.gif" size="3687" stream="untitled.gif" user="Main.CrawfordCurrie" version="5"}%
-%META:FILEATTACHMENT{name="untitled.map" attachment="untitled.map" attr="" comment="" date="1169574551" path="untitled.map" size="1095" stream="untitled.map" user="Main.CrawfordCurrie" version="1"}%
