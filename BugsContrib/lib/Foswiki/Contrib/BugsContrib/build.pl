@@ -10,9 +10,9 @@ BEGIN {
     }
 }
 
-use System::Contrib::Build;
+use Foswiki::Contrib::Build;
 
-@BugsContribBuild::ISA = ( "System::Contrib::Build" );
+@BugsContribBuild::ISA = ( "Foswiki::Contrib::Build" );
 
 sub new {
     my $class = shift;
