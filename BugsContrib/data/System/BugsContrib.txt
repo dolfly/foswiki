@@ -49,7 +49,6 @@ See the Bugs.WebHome topic in the new web for help in configuring the applicatio
 |  9804 | Foswiki:Main.CrawfordCurrie - packaged for Release |
 |  Home: | Foswiki:Extensions/%TOPIC% |
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
-|  Appraisal: | Foswiki:Extensions/%TOPIC%Appraisal |
 
 %META:FILEATTACHMENT{name="wikiring-bugscontrib.png" attachment="wikiring-bugscontrib.png" attr="" comment="" date="" path="logo.png" user="ProjectContributor" version="2"}%
 %META:FILEATTACHMENT{name="wikiring.png" attachment="wikiring.png" attr="" comment="" date=""  user="ProjectContributor" version="4"}%
