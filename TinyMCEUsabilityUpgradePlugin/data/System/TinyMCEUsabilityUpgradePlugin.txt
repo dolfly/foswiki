@@ -8,14 +8,11 @@ With this plugin you get new functions, dialogs and adjustments for having more 
 | Type | Name | Description |
 | Dialog | Link-Dialog | This upgrade replaces the default link with a more Foswiki specific one.%BR% You can select Webs out of a list and topic-names are auto-completed while typing%BR%.Combide with the TopicListPlugin and the caching of the autocomplete method, it should also work for big topics |
 ---++ Installation instructions
-Just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
-*Important: You must use TinyMCEPlugin with a Version greater or equal to 2095 ( 22 Jan 2009 )*
+Just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface 
+%BR% Important: You must use TinyMCEPlugin with a Version greater or equal to 22 Jan 2009*
 
 ---+++ Link-Dialog  
-You need to edit the [[System.TinyMCEPlugin#Settings]] topic and add the *foswikilink* plugin to list in the settings, what should look like that in the end:
-<blockqoute>
-plugins : "table,searchreplace,autosave,paste,foswikibuttons,foswikiimage%IF{"$TINYMCEPLUGIN_DEBUG" then=",devkit"}%, foswikilink",
-</blockquote>
+When you activate the TinyMCEUsabilityUpgradePlugin, the new link dialog is activated automacally
 
 __Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
 
@@ -26,7 +23,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | 22 Jan 2009 (V0.5) |
 |  Change History: | <!-- versions below in reverse order --> |
-|  22 Jan 2009: | Fixed several bugs in including javascript and CSS files and not using the correct pub path and SystemWEB %BR% which makes problems on system with pub not being under pub/ %BR% also fixed similar problem on rest-handler calls  |
+|  22 Jan 2009: | Link dialog is activated automatically, when plugin is enabled. Fixed several bugs in including javascript and CSS files and not using the correct pub path and SystemWEB %BR% which makes problems on system with pub not being under pub/ %BR% also fixed similar problem on rest-handler calls  |
 |  17 Jan 2009: | Back to JQueryCompatibilityModePlugin |
 |  13 Jan 2009: | Now using the JQueryPlugin, no longer using JQueryCompatibiltyPlugin |
 |  10 Jan 2009: | Plugin renamed to TinyMCEUsabilityUpgradePlugin due a typo. Corrected Dependencies |
