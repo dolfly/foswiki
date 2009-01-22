@@ -36,12 +36,17 @@ You can subdivide the web into different areas using the Bugs.AppliesTo field, a
 
 	* First, check that you do no have an existing web called "Bugs". if you do, move it out of the way.
 	* Download the archive from the Plugins web (see below)
-	* Unpack it in your twiki installation directory. 
+	* Unpack it in your Foswiki installation directory. 
 	* Make sure that all files are readable by the web server user
 	* Run =perl= ==%TOPIC%_installer.pl== =install= to automatically check and install other Foswiki modules that this module depends on, that you may not have installed. This script also includes an =uninstall= option should you ever wish to remove the plugin from your installation, and an =upgrade= option that will automatically download and install the latest version.
+	* To notify users via email when a report they have created, or are expected to provide feedback for, has changed, modify your crontab entry for the MailerContrib
+
+<verbatim>
+0 0 * * *      ( cd /path/to/foswiki/bin && ../tools/genwebnotify && ../tools/mailnotify )
+</verbatim>
 
 
----++++ Configuring the Bugs Web
+---++++ Customising the Bugs Web
 
 The web is configured as a simple bug tracker, but can easily be customised to meet your own requirements. Here are some pointers:
    1 Bugs.ItemTemplate contains the basic bug form. This is a [[%SYSTEMWEB%.DataForms][DataForm]].
