@@ -1,29 +1,40 @@
-<img src="%PUBURL%/%SYSTEMWEB%/BugsContrib/wikiring-bugscontrib.png" style="float:right;" />
 
-This is an Item Tracking System implemented using [[%SYSTEMWEB%.DataForms][DataForms]]. 
-It has been implemented to be used in a web on its own, but could be intermingled with a discussion style Web. 
-It is a pure Foswiki Data Application implemented using only what you get in the box when you download Foswiki. 
-See %SYSTEMWEB%.BugsContrib for more information.
+%ICON{"home"}% %INCLUDINGWEB% Web <img src="%PUBURL%/%BASEWEB%/WebPreferences/logo.png" />
+   * [[MyItems][ %ICON{"arrowbright"}% My Reports]]
+   * [[%SCRIPTURL{edit}%/%INCLUDINGWEB%/Item%NEWTOPICNAME%?templatetopic=WebTopicEditTemplate;formtemplate=ItemTemplate;_T=%SERVERTIME{$hou$min$sec}%][ %ICON{"newtopic"}% Create New Report]]
+   * *[[%SCRIPTURL{"view"}%/Bugs/AllOutStandingItems?class=.*&amp;amp=&amp;sortcol=3;table=1;up=1#sorted_table][%X% Items by urgency]]*
+   * [[AllOutStandingItems][ %ICON{"wip"}% Open Reports]]
+   * [[ReleaseBlockers][ %ICON{"wip"}% Release Blockers]]
+   * [[RecentlyClosed][ %ICON{"choice-yes"}% Recently Closed]]
+   * [[WebChanges][ %ICON{"changes"}% Changes]] 
+      (<a href="%SCRIPTURLPATH{view}%/%WEB%/WebChanges?limit=50" rel=nofollow>50</a>,
+       <a href="%SCRIPTURLPATH{view}%/%WEB%/WebChanges?limit=100" rel=nofollow>100</a>)
+     [[%SCRIPTURL{view}%/%INCLUDINGWEB%/WebRss?skin=rss][ %PUBURL%/%SYSTEMWEB%/DocumentGraphics/rss-small.gif ]]
+   * [[WebSearch][ %ICON{"searchtopic"}% Search]]
+
+
+*List by CurrentState*
+   * [[%SCRIPTURL{view}%/%INCLUDINGWEB%/CurrentState?state=New][%ICON{"viewtopic"}% New]]
+   * [[%SCRIPTURL{view}%/%INCLUDINGWEB%/CurrentState?state=Waiting+for+Feedback][%ICON{"rfc"}% Waiting for Feedback]]
+   * [[%SCRIPTURL{view}%/%INCLUDINGWEB%/CurrentState?state=Confirmed][%ICON{"viewtopic"}% Confirmed]]
+   * [[%SCRIPTURL{view}%/%INCLUDINGWEB%/CurrentState?state=Being+Worked+On][%ICON{"wip"}% Being Worked On]]
+   * [[%SCRIPTURL{view}%/%INCLUDINGWEB%/CurrentState?state=Waiting+For+Release][%ICON{"rfc"}% Waiting For Release]]
+   * [[%SCRIPTURL{view}%/%INCLUDINGWEB%/CurrentState?state=Closed][%ICON{"choice-yes"}% Closed]]
+   * [[%SCRIPTURL{view}%/%INCLUDINGWEB%/CurrentState?state=No+Action+Required][%ICON{"choice-cancel"}% No Action Required]]
+
+----
 
 ---+ How to use the Bugs Web
 
 The Bugs web is intended for collecting reports of issues, and then tracking progress towards getting those issues fixed. 
-Issues are structured Foswiki topics, where forms are used to store a number of fields that contain data about the issue.
+Issues are structured topics, where forms are used to store a number of fields that contain data about the issue.
 
 The main entry point for examining the list of issues is AllOutStandingItems, which can be used to perform general purpose searches over the database. 
 You can subdivide the web into different areas using the AppliesTo field, and provide each area with its own search topic.
 
 The reporting form has extensive help information associated with it, so when you create a new issue you get help suggesting how it should be used.
 
+<!--
 You create a new bug by clicking the "Create New Item" link in the left bar.
+-->
 
----+ Configuring the Bugs Web
-
-The web is configured as a simple bug tracker, but can easily be customised to meet your own requirements. Here are some pointers:
-   1 ItemTemplate contains the basic bug form. This is a [[%SYSTEMWEB%.DataForms][DataForm]].
-   1 WebLeftBar contains the left menu bar
-   1 AppliesTo contains the list of areas that an issue might apply to. Configure this to your own requirements
-   1 [[Priority]] contains a list of valid priorities
-   1 CurrentState contains a list of valid item states
-   
-   
