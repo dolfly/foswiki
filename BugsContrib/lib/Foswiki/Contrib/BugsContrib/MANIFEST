@@ -15,6 +15,9 @@ data/Bugs/WebStatistics.txt 0770
 data/Bugs/WebSearchAdvanced.txt 0770
 data/Bugs/ItemTemplate.txt 0770
 data/Bugs/AllOutStandingItems.txt 0770
+data/Bugs/ReleaseBlockers.txt 0770
+data/Bugs/ReleaseNormals.txt 0770
+data/Bugs/ReleaseLows.txt 0770
 data/Bugs/MyItems.txt 0770
 data/Bugs/Tabulator.txt 0770
 data/Bugs/WebAtom.txt 0770
@@ -28,6 +31,8 @@ data/Bugs/ItemViewTemplate.txt 0770
 data/Bugs/Summary.txt 0770
 data/Bugs/WaitingFor.txt 0770
 data/Bugs/WebTopicList.txt 0770
+data/Bugs/GenerateWebNotify.txt 0770
+data/Bugs/DontBugMe.txt 0770
 data/System/BugsContrib.txt 0770
 pub/Bugs/HideTextarea/hidetextarea.css  0770
 pub/Bugs/WebPreferences/favicon.ico  0770
@@ -35,3 +40,4 @@ pub/Bugs/WebPreferences/logo.png  0770
 pub/System/BugsContrib/wikiring-bugscontrib.png
 pub/System/BugsContrib/wikiring-bugscontrib.xcf
 pub/System/BugsContrib/wikiring.png
+tools/genwebnotify 0555
