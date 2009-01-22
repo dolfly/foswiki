@@ -1,10 +1,10 @@
 
 ---+ Bugs Configuration
    * WebPreferences
----++ Bug Item Topic creation Templates
+---++ Bug Item Topic Creation Templates
    * ItemTemplate
    * WebTopicEditTemplate
----++ Bug Field definitions
+---++ Bug Field Definitions
    * [[Summary]]
    * ReportedBy
    * AppliesTo
@@ -13,7 +13,7 @@
    * WaitingFor
    
    
----++ DisplayTemplates
+---++ Display Templates
    * ItemViewTemplate
    
 
