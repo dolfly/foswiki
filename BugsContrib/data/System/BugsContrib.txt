@@ -62,10 +62,11 @@ The web is configured as a simple bug tracker, but can easily be customised to m
 |  Authors: | Foswiki:Main.SvenDowideit of [[http://distributedINFORMATION.com][distributedINFORMATION.com]], %PUBURL%/%WEB%/%TOPIC%/wikiring.png http://wikiring.com partners & others |
 | Plasticbug logo | by [[http://liquisoft.com][Ryan Ford]] |
 |  Dependencies: | None |
-|  Version: | 2085 (21 Jan 2009) |
+|  Version: | 2085 (22 Jan 2009) |
 |  License: | GPL |
 |  Change History: | |
-|  15447  | 1 Nov 2007 - Foswiki:Main.SvenDowideit - updated to fix bugs reported in the Dev topic (4.2 query release to come later) |
+|         | 22 Jan 2009 - Foswiki:Main.WillNorris - support to email users when a report they have created, or are expected to provide feedback for, has changed |
+|  15447 | 1 Nov 2007 - Foswiki:Main.SvenDowideit - updated to fix bugs reported in the Dev topic (4.2 query release to come later) |
 |  12856 | 13 Feb 2007 - Foswiki:Main.SvenDowideit - update with lessons learned from longer term use |
 |  9804 | Foswiki:Main.CrawfordCurrie - packaged for Release |
 |  Home: | Foswiki:Extensions/%TOPIC% |
