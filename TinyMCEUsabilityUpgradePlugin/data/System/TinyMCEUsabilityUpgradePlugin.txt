@@ -9,7 +9,8 @@ With this plugin you get new functions, dialogs and adjustments for having more 
 | Dialog | Link-Dialog | This upgrade replaces the default link with a more Foswiki specific one.%BR% You can select Webs out of a list and topic-names are auto-completed while typing%BR%.Combide with the TopicListPlugin and the caching of the autocomplete method, it should also work for big topics |
 ---++ Installation instructions
 Just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
-   
+*Important: You must use TinyMCEPlugin with a Version greater or equal to 2095 ( 22 Jan 2009 )*
+
 ---+++ Link-Dialog  
 You need to edit the [[System.TinyMCEPlugin#Settings]] topic and add the *foswikilink* plugin to list in the settings, what should look like that in the end:
 <blockqoute>
