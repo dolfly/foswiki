@@ -1,2 +1,2 @@
 # Dependencies for BugsContrib TWiki application
-#NONE
+MailerContrib,>0,perl,Optional.
