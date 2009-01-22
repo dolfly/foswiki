@@ -12,15 +12,23 @@
    Instead, you could check your fix in, raise a bug in the Bugs web, or mail thge author.
 -->
 
-This is a Tracking System implemented using %SYSTEMWEB%.DataForms. 
-It has been implemented to be used in a web on its own, but could be intermingled with a discussion style !Web.
+The [[Bugs.WebHome][Bugs]] web is intended for collecting reports of issues, and then tracking progress towards getting those issues fixed. 
+Issues are structured Foswiki topics, where forms are used to store a number of fields that contain data about the issue.
+
+This is an Item Tracking System implemented using %SYSTEMWEB%.DataForms.
+It has been implemented to be used in a web on its own, but could be intermingled with a discussion style Web. 
+It is a pure Foswiki Data Application implemented using only what you get in the box when you download Foswiki. 
 
 A customised version of it has been in use as TWiki's bug tracking and shakeout system since 2005 - See http://develop.twiki.org/~twiki4/cgi-bin/view/Bugs, and
-now also as [[http://foswiki.org/Tasks][Foswiki's tracking system]] since the Fork.
+now also as [[http://foswiki.org/Tasks][Foswiki's tracking system]] since the [[http://foswiki.org/Home/WhyThisFork][Fork]].
 
 The BugsContrib is a _Foswiki Application_ (an application that is implemented entirely in Foswiki topics). 
 It is designed to use the left bars supported by %SYSTEMWEB%.PatternSkin and the Foswiki:Extensions.MoveableTypeSkin, 
 though could easily be converted to another skin. It's ideal for a small bug database (we have used it with over 4000 items with no problems) for a disciplined team.
+
+The main entry point for examining the list of issues is Bugs.AllOutStandingItems, which can be used to perform general purpose searches over the database. 
+You can subdivide the web into different areas using the Bugs.AppliesTo field, and provide each area with its own search topic.
+
 
 ---++ Installation
 
@@ -28,20 +36,28 @@ though could easily be converted to another skin. It's ideal for a small bug dat
 
 	* First, check that you do no have an existing web called "Bugs". if you do, move it out of the way.
 	* Download the archive from the Plugins web (see below)
-	* Unpack it in your twiki installation directory. Content:
-     | *File:* | *Description:* |
-%$MANIFEST%
+	* Unpack it in your twiki installation directory. 
 	* Make sure that all files are readable by the web server user
 	* Run =perl= ==%TOPIC%_installer.pl== =install= to automatically check and install other Foswiki modules that this module depends on, that you may not have installed. This script also includes an =uninstall= option should you ever wish to remove the plugin from your installation, and an =upgrade= option that will automatically download and install the latest version.
 
-See the Bugs.WebHome topic in the new web for help in configuring the application to your needs.
+
+---++++ Configuring the Bugs Web
+
+The web is configured as a simple bug tracker, but can easily be customised to meet your own requirements. Here are some pointers:
+   1 Bugs.ItemTemplate contains the basic bug form. This is a [[%SYSTEMWEB%.DataForms][DataForm]].
+   1 Bugs.WebLeftBar contains the left menu bar
+   1 Bugs.AppliesTo contains the list of areas that an issue might apply to. Configure this to your own requirements
+   1 [[Bugs.Priority][Priority]] contains a list of valid priorities
+   1 Bugs.CurrentState contains a list of valid item states
+   
+----
 
    * Set SHORTDESCRIPTION = Item Tracking system implemented as a Foswiki Application
 
 |  Authors: | Foswiki:Main.SvenDowideit of [[http://distributedINFORMATION.com][distributedINFORMATION.com]], %PUBURL%/%WEB%/%TOPIC%/wikiring.png http://wikiring.com partners & others |
 | Plasticbug logo | by [[http://liquisoft.com][Ryan Ford]] |
-|  Dependencies: | %$DEPENDENCIES% |
-|  Version: | %$VERSION% |
+|  Dependencies: | None |
+|  Version: | 2085 (21 Jan 2009) |
 |  License: | GPL |
 |  Change History: | |
 |  15447  | 1 Nov 2007 - Foswiki:Main.SvenDowideit - updated to fix bugs reported in the Dev topic (4.2 query release to come later) |
