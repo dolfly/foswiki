@@ -1,0 +1,14 @@
+%META:TOPICINFO{author="CrawfordCurrie" date="1210058241" format="1.1" reprev="1.2" version="1.2"}%
+This topic contains a search that is used to generate a new WebNotify topic based on the content of Waiting For and Reported by fields. It is paired with =tools/genwebnotify.pl=
+<!--
+   * Set TINYMCEPLUGIN_DISABLE = 1
+   * Set NOAUTOLINK = on
+-->
+---+ Reported by
+<pre>
+%SEARCH{"CurrentState='New' OR CurrentState='Confirmed' OR CurrentState='Waiting for Feedback' OR CurrentState='Being Worked On'" topic="Item*" type="query" nonoise="on" format="$formfield(ReportedBy): $topic" }%
+</pre>
+---+ Waiting for
+<pre>
+%SEARCH{"WaitingFor!='' AND (CurrentState='New' OR CurrentState='Confirmed' OR CurrentState='Waiting for Feedback' OR CurrentState='Being Worked On')" topic="Item*" type="query" nonoise="on" format="$formfield(WaitingFor): $topic" }%
+</pre>
