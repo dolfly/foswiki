@@ -1,17 +1,11 @@
-var templates = { "window.open" : "window.open('${url}','${target}','${options}')" };
-var scriptUrl = "/bin";
 
 function preinit() {
 	// Initialize
 	tinyMCE.setWindowArg('mce_windowresize', false);
 }
 
-function changeClass() {
-	var formObj = document.forms[0];
-	formObj.classes.value = getSelectValue(formObj, 'classlist');
-}
 ;(function($j){
-window.init = function() {
+window.initFoswikiLinks = function() {
 	tinyMCEPopup.resizeToInnerSize();   
 
 	var selecetedText = tinyMCE.selectedInstance.selection.getSelectedHTML();
@@ -25,7 +19,7 @@ window.init = function() {
 }
 
 window.init_topics= function() {        
-        var url = scriptUrl+"/rest/TopicListPlugin/topiclist?topic=System.WebHome&max=0&format=%TOPIC&globalformat=%TOPICS&delimiter=%NL";
+        var url = window.Foswiki.scriptUrl+"/rest/TopicListPlugin/topiclist?topic=System.WebHome&max=0&format=%TOPIC&globalformat=%TOPICS&delimiter=%NL";
         $j("#topic_name").autocomplete(url,
         {
            extraParams: {
@@ -41,7 +35,7 @@ window.init_topics= function() {
 }
 
 window.init_webs = function () {
-    var url = scriptUrl+"/rest/TopicListPlugin/weblist?topic=System.WebHome&excludewebs=Trash,_default,_empty";
+    var url = window.Foswiki.scriptUrl+"/rest/TopicListPlugin/weblist?topic=System.WebHome&excludewebs=Trash,_default,_empty";
     $j.getJSON(url, 
           function(data){
               var output='<select name="web_name" id="web_name">';
@@ -107,3 +101,4 @@ window.insertFoswikiLink = function() {
 })(jQuery);
 // While loading
 preinit();
+initFoswikiLinks ();

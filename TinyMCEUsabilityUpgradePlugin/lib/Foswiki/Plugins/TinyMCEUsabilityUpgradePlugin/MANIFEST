@@ -3,7 +3,9 @@ data/System/TinyMCEUsabilityUpgradePlugin.txt Plugin topic
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/editor_plugin.js
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/editor_plugin_src.js
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/jscripts/foswikilink.js
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/jscripts/utils.js
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/langs/en.js
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/langs/de.js
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/css/foswikilink.css
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/link.htm
 pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/foswikilink/readme.txt

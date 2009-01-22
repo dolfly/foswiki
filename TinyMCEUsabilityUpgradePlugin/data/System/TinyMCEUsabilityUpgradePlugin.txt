@@ -23,8 +23,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; Impressive.media |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 13 Jan 2009 (V0.4) |
+|  Plugin Version: | 22 Jan 2009 (V0.5) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  22 Jan 2009: | Fixed several bugs in including javascript and CSS files and not using the correct pub path and SystemWEB %BR% which makes problems on system with pub not being under pub/ %BR% also fixed similar problem on rest-handler calls  |
 |  17 Jan 2009: | Back to JQueryCompatibilityModePlugin |
 |  13 Jan 2009: | Now using the JQueryPlugin, no longer using JQueryCompatibiltyPlugin |
 |  10 Jan 2009: | Plugin renamed to TinyMCEUsabilityUpgradePlugin due a typo. Corrected Dependencies |
@@ -38,7 +39,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
  __Related Topic:__
 
--- Foswiki:Main/EugenMayer - 28 Dez 2008
+-- Foswiki:Main/EugenMayer - 22 Jan 2009
 
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%

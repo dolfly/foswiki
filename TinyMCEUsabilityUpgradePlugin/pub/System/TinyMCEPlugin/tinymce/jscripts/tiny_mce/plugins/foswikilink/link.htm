@@ -5,35 +5,38 @@
 	<script language="javascript" type="text/javascript" src="../../utils/mctabs.js"></script>
 	<script language="javascript" type="text/javascript" src="../../utils/form_utils.js"></script>
 	<script language="javascript" type="text/javascript" src="../../utils/validate.js"></script>
-
+<script language='javascript' type='text/javascript' src='jscripts/utils.js'></script>
 <script language='javascript' type='text/javascript' >
-var sets = tinyMCE.getParam("foswiki_vars", "");
-var foswikiVars = eval(sets);
 var Foswiki = {};
-Foswiki.pubUrlPath = foswikiVars['PUBURLPATH'];
-Foswiki.pubDir = foswikiVars['PUBURL'];
-Foswiki.SystemWeb = foswikiVars['WEB'];
-
-var jqpath = window.Foswiki.pubUrlPath+"/System/JQueryCompatibilityModePlugin/jquery.js";
-
-
+function initPage() {
+	var sets = tinyMCE.getParam("foswiki_vars", "");
+	var foswikiVars = eval(sets);	
+	window.Foswiki.pubUrlPath = foswikiVars['PUBURLPATH'];
+	window.Foswiki.pubDir = foswikiVars['PUBURL'];
+	window.Foswiki.systemWeb = foswikiVars['SYSTEMWEB'];
+	window.Foswiki.scriptUrl = foswikiVars['SCRIPTURL'];
+	var pubSystemWebPath = window.Foswiki.pubUrlPath+"/"+Foswiki.systemWeb;
+	
+	var jqpath = pubSystemWebPath+"/JQueryCompatibilityModePlugin/jquery.js";
+	var autocompl = pubSystemWebPath+"/AutoCompletitionLibPlugin/js/jquery.autocomplete.pack.js";
+	var jqbigframe = pubSystemWebPath+"/JQueryCompatibilityModePlugin/js/lib/jquery.bgiframe.min.js";
+	var thickbox = pubSystemWebPath+"/AutoCompletitionLibPlugin/js/lib/thickbox-compressed.js";
+	var jqueryq = pubSystemWebPath+"/AutoCompletitionLibPlugin/js/lib/jquery.ajaxQueue.js";
+	
+	var foswikilink = "jscripts/foswikilink.js";
+	IncludeJS( [["",jqpath] ] );
+	IncludeJS( [["",autocompl],["",jqueryq],["",thickbox],["",jqbigframe]] );
+	IncludeJS( [["",foswikilink]] );
+	var thickboxcss = pubSystemWebPath+"/AutoCompletitionLibPlugin/css/thickbox.css";
+    var autocomplcss = pubSystemWebPath+"/AutoCompletitionLibPlugin/css/jquery.autocomplete.css";
+	IncludeCSS([["",thickboxcss],["",autocomplcss]]);
+}
 </script>
 
-<!-- JQueryPlugin_jquerylib --> <script language='javascript' type='text/javascript' src=''></script>
-<!-- AutoCompletitionLibPlugin_jqueryautocompletejs --> <script language='javascript' type='text/javascript' src='/pub/System/AutoCompletitionLibPlugin/js/jquery.autocomplete.pack.js'></script>
-
-<!-- AutoCompletitionLibPlugin_autocompletecss --> <link rel='stylesheet' type='text/css' href='/pub/System/AutoCompletitionLibPlugin/css/jquery.autocomplete.css' />
-<!-- AutoCompletitionLibPlugin_bgiframejs --> <script type='text/javascript' src='/pub/System/AutoCompletitionLibPlugin/js/lib/jquery.bgiframe.min.js'></script>
-<!-- AutoCompletitionLibPlugin_thickboxjs --> <script type='text/javascript' src='/pub/System/AutoCompletitionLibPlugin/js/lib/thickbox-compressed.js'></script>
-<!-- AutoCompletitionLibPlugin_jqueryajaxQueuejs --> <script type='text/javascript' src='/pub/System/AutoCompletitionLibPlugin/js/lib/jquery.ajaxQueue.js'></script>
-<!-- AutoCompletitionLibPlugin_thickboxcss --> <link rel='stylesheet' type='text/css' href='/pub/System/AutoCompletitionLibPlugin/css/lib/thickbox.css' />
-<script language='javascript' type='text/javascript' src='jscripts/foswikilink.js'></script>
-
-
-	<link href="css/foswikilink.css" rel="stylesheet" type="text/css" />
+<link href="css/foswikilink.css" rel="stylesheet" type="text/css" />
 	<base target="_self" />
 </head>
-<body id="foswikilink" onload="tinyMCEPopup.executeOnLoad('init();');" style="display: none">
+<body id="foswikilink" onload="tinyMCEPopup.executeOnLoad('initPage();');" style="display: none">
     <form onsubmit="insertAction();return false;" action="#">
 		<div class="tabs">
 			<ul>
