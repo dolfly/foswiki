@@ -1,13 +1,24 @@
 #!/usr/bin/perl
 # Author: Crawford Currie http://c-dot.co.uk
-#
+# Updates Copyright (c) 2009 Will Norris.
 # Generates WebNotify from the WaitingFor and ReportedBy fields
 #
-my $where = '/home/foswiki.org/data/Tasks';
-my $text = `cd /home/trunk.foswiki.org/core/bin && perl -T ./view topic="Tasks.GenerateWebNotify" -skin text -contenttype text/plain`;
+
+BEGIN {
+    require 'setlib.cfg';
+}
+
+require 'LocalSite.cfg';
+
+my $web = 'Bugs';
+
+my $bugsDataDir = $Foswiki::cfg{DataDir} . '/' . $web;
+
+my $text = `perl -T ./view topic="$web.GenerateWebNotify" -skin text -contenttype text/plain`;
+
 my %topics;
 foreach my $line (split(/\r?\n/, $text)) {
-    $line =~ s#(TWiki:)?Main[./]##g;
+    $line =~ s#${Foswiki::cfg{UsersWebName}}[./]##g;
     if ($line =~ /^(.*):(.*)$/) {
         my ($names, $topic) = ($1, $2);
         foreach my $name (split(/[,;\s]+/, $names)) {
@@ -17,16 +28,16 @@ foreach my $line (split(/\r?\n/, $text)) {
         }
     }
 }
-if (open(F, "<$where/DontBugMe.txt")) {
+if (open(F, "<$bugsDataDir/DontBugMe.txt")) {
     local $/ = "\n";
     while (<F>) {
-        $_ =~ s#(TWiki:)?Main[./]##g;
+        $_ =~ s#${Foswiki::cfg{UsersWebName}}[./]##g;
         next unless $_ =~ /^\s*\* ([A-Z]+[a-z]+[A-Z]\w+)\s*$/;
         delete $topics{$1};
     }
     close(F);
 }
-open(F, ">$where/WebNotify.txt") || die "Can't open WebNotify: $!";
+open(F, ">$bugsDataDir/WebNotify.txt") || die "Can't open WebNotify: $!";
 print F <<GUFF;
 <!--
    * Set NOAUTOLINK = on
