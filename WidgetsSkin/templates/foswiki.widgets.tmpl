@@ -71,7 +71,7 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 %INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-banner" warn="off"}%         </div>
          <div id="pagebody">
             <div id="pagebody-inner" class="pkg">               <div id="alpha">
-%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-main"}%  <div id="alpha-inner" class="pkg">
+%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-main" warn="off"}%  <div id="alpha-inner" class="pkg">
 	<span id="twiki_text">%TMPL:END%
 	
 	
@@ -80,7 +80,7 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 %{ ******************************************* }%
 %TMPL:DEF{"standardfooter"}%
 	</span><!-- twiki_text -->
-  </div>%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-main"}%
+  </div>%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-main" warn="off"}%
                </div>%TMPL:P{thin-columns}%      </div>
                %TMPL:P{footer-widgets}%
          </div>
@@ -94,13 +94,13 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 %{ ******************************************* }%
 %TMPL:DEF{"thin-columns"}%%TMPL:P{two-columns}%%TMPL:P{three-columns}%%TMPL:END%
 %{ ******************************************* }%
-%TMPL:DEF{"three-columns"}%               <div id='gamma' >%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-right-three-column"}%
+%TMPL:DEF{"three-columns"}%               <div id='gamma' >%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-right-three-column" warn="off"}%
 <div id='gamma-inner' class='pkg'> %INCLUDE{"%TMPL:P{widgetstext}%" section="column-two" warn="off"}% </div>
-%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-right-three-column"}%</div>%TMPL:END%
+%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-right-three-column" warn="off"}%</div>%TMPL:END%
 %{ ******************************************* }%
-%TMPL:DEF{"two-columns"}%               <div id="beta" >%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-left-three-column"}%
+%TMPL:DEF{"two-columns"}%               <div id="beta" >%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-left-three-column" warn="off"}%
 <div id='beta-inner' class='pkg'> %INCLUDE{"%TMPL:P{widgetstext}%" section="column-one" warn="off"}% </div>
-%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-left-three-column"}%</div>           %TMPL:END%
+%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-left-three-column" warn="off"}%</div>           %TMPL:END%
 %{ ******************************************* }%
 %TMPL:DEF{footer-widgets}%               <div id="footer-widgets" >
             %INCLUDE{"%TMPL:P{widgetstext}%" section="footer-widgets"}%
