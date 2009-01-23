@@ -61,14 +61,14 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
    <div id="container">
       <div id="container-inner" class="pkg">%TMPL:END%
 %{ ******************************************* }%
-%TMPL:DEF{"standardheader"}%         <div id="header">%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-banner"}%
+%TMPL:DEF{"standardheader"}%         <div id="header">%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-banner" warn="off"}%
                <span id="banner-extra"></span>
             <div id="header-inner" class="pkg">
             <div id="header-content">
 		%TMPL:P{header-widgets}%
             </div>
             </div>
-%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-banner"}%         </div>
+%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-banner" warn="off"}%         </div>
          <div id="pagebody">
             <div id="pagebody-inner" class="pkg">               <div id="alpha">
 %INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-main"}%  <div id="alpha-inner" class="pkg">
@@ -106,7 +106,10 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
             %INCLUDE{"%TMPL:P{widgetstext}%" section="footer-widgets"}%
             </div>%TMPL:END%
 %{ ******************************************* }%
-%TMPL:DEF{header-widgets}%		<div id="header-widgets" >
-	%INCLUDE{"%TMPL:P{widgetstext}%" section="header-widgets"}%
-	</div>%TMPL:END%
+%TMPL:DEF{header-widgets}%		<div id="header-widgets" >	%INCLUDE{
+		"%SYSTEMWEB%.DefaultWidgets"
+		section="header-widgets-default" 
+		warn="off"
+		WIDGETSTOPIC="%TMPL:P{widgetstext}%"
+	}%</div>%TMPL:END%
 %TMPL:END%

@@ -38,6 +38,14 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}%
 %ENDSECTION{"footer-widgets"}%
 
+---+++ header
+%STARTSECTION{"header-widgetsQ"}%
+NOT your parent's header
+	<h1 id="header-name">%TMPL:P{"titleaction"}%%IF{"defined PAGETITLE" then="%PAGETITLE%" else="<nop>%TOPIC% "}%</h1>
+        <h2 id="header-description"> [[%WEB%.WebHome][%WEB%]] </h2>
+%ENDSECTION{"header-widgetsQ"}%
+
+
 
 %META:FILEATTACHMENT{name="base-weblog.css" attachment="base-weblog.css" attr="" comment="" date="1174054380" path="base-weblog.css" size=""  user="SvenDowideit" version="1"}%
 %META:FILEATTACHMENT{name="Foswiki.css" attachment="Foswiki.css" attr="" comment="" date="1174054380" path="Foswiki.css" user="SvenDowideit" version="1"}%
