@@ -65,8 +65,7 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
                <span id="banner-extra"></span>
             <div id="header-inner" class="pkg">
             <div id="header-content">
-               <h1 id="header-name">%TMPL:P{"titleaction"}%%IF{"defined PAGETITLE" then="%PAGETITLE%" else="<nop>%TOPIC% "}%</h1>
-               <h2 id="header-description"> [[%WEB%.WebHome][%WEB%]] </h2>
+		%TMPL:P{header-widgets}%
             </div>
             </div>
 %INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-banner"}%         </div>
@@ -106,5 +105,8 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 %TMPL:DEF{footer-widgets}%               <div id="footer-widgets" >
             %INCLUDE{"%TMPL:P{widgetstext}%" section="footer-widgets"}%
             </div>%TMPL:END%
-
-
+%{ ******************************************* }%
+%TMPL:DEF{header-widgets}%		<div id="header-widgets" >
+	%INCLUDE{"%TMPL:P{widgetstext}%" section="header-widgets"}%
+	</div>%TMPL:END%
+%TMPL:END%
