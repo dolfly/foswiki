@@ -194,14 +194,17 @@ powered by the community. 28th October 2008.
 </form>
     </div>
 </div>%ENDSECTION{"widget-subscribe"}%
-
+----
 ---+++ footer
-%STARTSECTION{"footer-widgets"}%
-%INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}%
-%ENDSECTION{"footer-widgets"}%
+%STARTSECTION{"footer-widgets"}% %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}% %ENDSECTION{"footer-widgets"}%
 
 ---+++ header
-%STARTSECTION{"header-widgets-default"}%
+%STARTSECTION{"header-widgets"}%	<h1 id="header-name">%TMPL:P{"titleaction"}%%IF{"defined PAGETITLE" then="%PAGETITLE%" else="<nop>%TOPIC% "}%</h1>
+        <h2 id="header-description"> [[%WEB%.WebHome][%WEB%]] </h2>%ENDSECTION{"header-widgets"}%
+---++ widget default mechanisms
+do not change or re-define these.
+---++++ header defaulting section 
+%STARTSECTION{"header-widgets-default"}%<div class="header-widgets">
 	%INCLUDE{
 		"%IF{"'%INCLUDE{"%WIDGETSTOPIC%" section="header-widgets" warn="off" pattern=".*([a-zA-Z]).*"}%' ~ ''"
 			else="%WIDGETSTOPIC%"
@@ -211,9 +214,19 @@ powered by the community. 28th October 2008.
 		warn="off"
 		WIDGETSTOPIC="%WIDGETSTOPIC%"
 	}%
-%ENDSECTION{"header-widgets-default"}%
-%STARTSECTION{"header-widgets"}%	<h1 id="header-name">%TMPL:P{"titleaction"}%%IF{"defined PAGETITLE" then="%PAGETITLE%" else="<nop>%TOPIC% "}%</h1>
-        <h2 id="header-description"> [[%WEB%.WebHome][%WEB%]] </h2>%ENDSECTION{"header-widgets"}%
+</div>%ENDSECTION{"header-widgets-default"}%
+---++++ footer defaulting section 
+%STARTSECTION{"footer-widgets-default"}%	%INCLUDE{
+		"%IF{"'%INCLUDE{"%WIDGETSTOPIC%" section="footer-widgets" warn="off" pattern=".*([a-zA-Z]).*"}%' ~ ''"
+			else="%WIDGETSTOPIC%"
+			then="%SYSTEMWEB%.DefaultWidgets"
+		}%"
+		section="footer-widgets" 
+		warn="on"
+		WIDGETSTOPIC="%WIDGETSTOPIC%"
+	}%%ENDSECTION{"footer-widgets-default"}%
+
+
 
 %META:FILEATTACHMENT{name="base-weblog.css" attachment="base-weblog.css" attr="" comment="" date="1174054380" path="base-weblog.css" size="" user="SvenDowideit" version="1"}%
 %META:FILEATTACHMENT{name="Foswiki.css" attachment="Foswiki.css" attr="" comment="" date="1174054380" path="Foswiki.css" user="SvenDowideit" version="1"}%

@@ -34,16 +34,17 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 %ENDSECTION{"column-two"}%
 
 ---+++ footer
+The footer-widgets have been redefined here, if you remove the SECTIONs below, the footer will come from %SYSTEMWEB%.DefaultWidgets
 %STARTSECTION{"footer-widgets"}%
-%INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}%
+BANANANA %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}%
 %ENDSECTION{"footer-widgets"}%
 
 ---+++ header
-%STARTSECTION{"header-widgetsQ"}%
-NOT your parent's header
+to redefine the header-widgets remove the =DISABLED= from the START and END SECTION - otherwise the header will come from %SYSTEMWEB%.DefaultWidgets
+%STARTSECTION{"header-widgetsDISABLED"}%
 	<h1 id="header-name">%TMPL:P{"titleaction"}%%IF{"defined PAGETITLE" then="%PAGETITLE%" else="<nop>%TOPIC% "}%</h1>
         <h2 id="header-description"> [[%WEB%.WebHome][%WEB%]] </h2>
-%ENDSECTION{"header-widgetsQ"}%
+%ENDSECTION{"header-widgetsDISABLED"}%
 
 
 

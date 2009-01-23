@@ -102,9 +102,12 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 <div id='beta-inner' class='pkg'> %INCLUDE{"%TMPL:P{widgetstext}%" section="column-one" warn="off"}% </div>
 %INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-left-three-column" warn="off"}%</div>           %TMPL:END%
 %{ ******************************************* }%
-%TMPL:DEF{footer-widgets}%               <div id="footer-widgets" >
-            %INCLUDE{"%TMPL:P{widgetstext}%" section="footer-widgets"}%
-            </div>%TMPL:END%
+%TMPL:DEF{footer-widgets}%               <div id="footer-widgets" >%INCLUDE{
+		"%SYSTEMWEB%.DefaultWidgets"
+		section="footer-widgets-default" 
+		warn="off"
+		WIDGETSTOPIC="%TMPL:P{widgetstext}%"
+	}%            </div>%TMPL:END%
 %{ ******************************************* }%
 %TMPL:DEF{header-widgets}%		<div id="header-widgets" >	%INCLUDE{
 		"%SYSTEMWEB%.DefaultWidgets"
