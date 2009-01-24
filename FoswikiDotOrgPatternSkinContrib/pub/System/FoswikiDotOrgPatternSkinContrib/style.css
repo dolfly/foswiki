@@ -223,22 +223,22 @@ h2 {
 .foswikiTopic .patternActionButtons a:link,
 .patternActionButtons a:visited,
 .foswikiTopic .patternActionButtons a:visited {
-	color:#339;
+	color:#004fb0;
 }
 .patternActionButtons a:hover,
 .foswikiTopic .patternActionButtons a:hover {
-	color:#339;
+	color:#004fb0;
 }
 .patternTopicAction a:link .foswikiAccessKey,
 .patternTopicAction a:visited .foswikiAccessKey {
-	color:#339;
-	border-color:#339;
+	color:#004fb0;
+	border-color:#004fb0;
 }
 .patternTopicAction a:hover .foswikiAccessKey {
-	color:#339;
+	color:#004fb0;
 }
 .patternTopicAction label {
-	color:#339;
+	color:#004fb0;
 }
 .patternHelpCol {
 	color:#777;
@@ -560,7 +560,7 @@ h2 {
 :visited,
 :link:active,
 :visited:active {
-	color:#0055b5;
+	color:#004fb0;
 	background-color:transparent;
 	text-decoration:none;
 }
@@ -576,11 +576,18 @@ h2 {
 	background-color:transparent;
 }
 .foswikiTopic a:visited {
-	color:#666;
+	color:#4c88cb;
 }
 .foswikiTopic a:hover {
 	color:#62B000;
 }
+.foswikiTopic .foswikiUnvisited a:visited {
+	color:#004fb0;
+}
+.foswikiTopic .foswikiUnvisited a:hover {
+	color:#000;
+}
+
 
 /* to override old Render.pm coded font color style */
 .foswikiNewLink font {
@@ -592,9 +599,9 @@ h2 {
 	border-color:#ddd;
 }
 .foswikiNewLink a:hover sup {
-	background-color:#0055b5;
+	background-color:#004fb0;
 	color:#000;
-	border-color:#0055b5;
+	border-color:#004fb0;
 }
 .foswikiNewLink {
 	border-color:#ddd;
@@ -642,12 +649,6 @@ h2 {
 #patternMainContents h6 a:hover {
 	color:#62B000;
 	text-decoration:underline;
-}
-.foswikiTopic .foswikiUnvisited a:visited {
-	color:#4571d0;
-}
-.foswikiTopic .foswikiUnvisited a:hover {
-	color:#000;
 }
 
 /* Form elements */
@@ -902,7 +903,7 @@ a:hover .foswikiAccessKey {
 	background-color:transparent;
 }
 .foswikiImage a:hover img {
-	border-color:#0055b5;
+	border-color:#004fb0;
 }
 
 /*   -----------------------------------------------------------
@@ -929,4 +930,10 @@ a:hover .foswikiAccessKey {
 .patternPrintPage #patternMainContents {
 	border:none;
 }
-
+.patternPrintPage :link,
+.patternPrintPage .foswikiTopic :link,
+.patternPrintPage :visited,
+.patternPrintPage .foswikiTopic a:visited {
+	color:#444;
+	text-decoration:underline;
+}
