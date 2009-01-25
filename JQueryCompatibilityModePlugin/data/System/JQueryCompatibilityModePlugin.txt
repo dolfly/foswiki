@@ -47,9 +47,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; Impressive.media |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 24 Jan 2009 (V0.5) |
+|  Plugin Version: | 25 Jan 2009 (V0.5) |
 |  Change History: | <!-- versions below in reverse order --> |
-|  25 Jan 2009: | Fixing installer bug |
+|  25 Jan 2009: | Fixing installer bug ( when JQueryCompatibilityModePlugin has been installed, other plugins are failing ( Foswiki:Tasks/Item864 ) |
 |  20 Jan 2009: | Adding pubURL and other vars to window.Foswiki, updating docs|
 |  11 Jan 2009: | added Jquery-Dialog API. You can choose, if Jquery or/and the Dialog API should be included automatically on page-load|
 |  28 Dez 2008: | initial release |
@@ -62,7 +62,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
  __Related Topic:__
 
--- Foswiki:Main/EugenMayer - 11 Jan 2009
+-- Foswiki:Main/EugenMayer - 25 Jan 2009
 
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
