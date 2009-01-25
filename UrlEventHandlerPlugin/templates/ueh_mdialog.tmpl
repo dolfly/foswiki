@@ -1,0 +1,6 @@
+%TMPL:INCLUDE{"foswiki.ajax"}%
+%TMPL:P{"errorCode"}%
+%TMPL:DEF{"errorCode"}%%IF{"defined 'ueh_errorcode'" then="%INCLUDE{"System.UrlEventHandlerPluginErrorCodes" section="%URLPARAM{'ueh_confirmcode'}%"}%" else="%TMPL:P{"confirmCode"}%" }%%TMPL:END%
+%TMPL:DEF{"confirmCode"}%%IF{"defined 'ueh_confirmcode'" then="%INCLUDE{"System.UrlEventHandlerPluginConfirmCodes" section="%URLPARAM{'ueh_confirmcode'}%"}%" else="%TMPL:P{"messageCode"}%" }%%TMPL:END%
+%TMPL:DEF{"messageCode"}%%IF{"defined 'ueh_messagecode'" then="%INCLUDE{"System.UrlEventHandlerPluginMessageCodes" section="%URLPARAM{'ueh_confirmcode'}%"}%" else="Code is not defined" }%%TMPL:END%
+

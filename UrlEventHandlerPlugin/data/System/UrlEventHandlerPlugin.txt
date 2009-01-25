@@ -1,0 +1,48 @@
+---+ !%TOPIC%
+Lets you react on url parameters and e.g. show a message for the user or redirect him somewhere, show a dialog etc.
+
+%TOC%
+
+---++ Introduction
+Lets you react on specific URL parameters. This is primally used for triggering confirn, error or simple message dilaogs or javascript alerts. An example would be, that after an upload you get redirected to the topci and a small
+alert opens, and tells you 'File successfully attached to the topic'. You press on ok and keep on working. You also can show complex dialogs or messages in dialogs.
+%BR%
+Example for the confirmation message after an attachment has been uploaded to a topic:%BR%
+<verbatim>
+/bin/view/Main/WebHome?ueh_type=alert&ueh_confirmcode=attachok
+</verbatim>
+
+---++ Usage
+| *URL parameter* | *allowed values* | *meaning* |
+| ueh_type | alert,mdialog,dialog | * alert: a javascript alert message will be shown %BR% * mdialog: a jquery.dialog will be shown %BR% * dialog: a dialog will be shown |
+| ueh_confirmcode | strings defined in the UrlEventHandlerPluginConfirmCodes topic | this will be the content of the alert/mdialog which will shown |
+| ueh_errorcode | strings defined in the UrlEventHandlerPluginErrorCodes topic | this will be the content of the alert/mdialog which will shown |
+| ueh_messagecode | strings defined in the UrlEventHandlerPluginMessageCodes topic | this will be the content of the alert/mdialog which will shown |
+%BR%%BR%
+Example for the confirmation message after an attachment has been uploaded to a topic:%BR%
+<verbatim>
+/bin/view/Main/WebHome?ueh_type=alert&ueh_confirmcode=attachok
+</verbatim>
+
+---++ Installation instructions
+   * Just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
+*Note:* You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
+<!--
+   * Set SHORTDESCRIPTION = Lets you react on url parameters and e.g. show a message for the user or redirect him somewhere, show a dialog etc.
+-->
+|  Plugin Author: | Foswiki:Main.EugenMayer |
+|  Copyright: | &copy; Impressive.media |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 25 Jan 2009 (V0.1) |
+|  Change History: | <!-- versions below in reverse order --> |
+|  25 Jan 2009: | initial release |
+|  Foswiki Dependency: | |
+|  CPAN Dependencies: | |
+|  Other Dependencies: | |
+|  Perl Version: | 5.005 |
+|  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
+ __Related Topic:__
+
+-- Foswiki:Main/EugenMayer - 25 Jan 2009
