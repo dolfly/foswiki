@@ -71,10 +71,12 @@ sub initPlugin {
             _alertHandler($params);
         }
         case 'mdialog' {
-            _messageDialogHandler($params);
+            # TODO
+            #_messageDialogHandler($params);
         }
         case 'dialog' {
-            _dialogHandler($params);
+            # TODO
+            #_dialogHandler($params);
         }        
     }
 
@@ -94,16 +96,12 @@ sub _alertHandler {
 
 sub _messageDialogHandler {
     my $hashParams = shift; 
-    my $dialogContent = Foswiki::Func::loadTemplate("ueh_mdialog",Foswiki::Func::getSkin(),"System");
-    my $dialog = "alert('$dialogContent')";
+    my $dialogContent = Foswiki::Func::loadTemplate("ueh_mdialog",Foswiki::Func::getSkin());
+    my $dialog = "$dialogContent";
     #my $output = "<script type='text/javascript'>$alert</script>";      
     #Foswiki::Func::addToHEAD($jqPluginName."_alertmessage",$output, "JQueryCompatibilityModePlugin_jqui.dialog");     
 }
 
 sub _dialogHandler {
-    my $hashParams = shift; 
-    my $message = Foswiki::Func::loadTemplate("ueh_alert",Foswiki::Func::getSkin(),"System");
-    my $alert = "alert('$message')";
-    my $output = "<script type='text/javascript'>$alert</script>";      
-    Foswiki::Func::addToHEAD($jqPluginName."_alertmessage",$output);     
+    my $hashParams = shift;   
 }
