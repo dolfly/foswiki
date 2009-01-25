@@ -33,7 +33,7 @@ $VERSION = '$Rev: 12445$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '0.5';
+$RELEASE = '0.';
 
 # Short description of this plugin
 # One line description, is shown in the %FoswikiWEB%.TextFormattingRules topic:
@@ -60,7 +60,7 @@ sub initPlugin {
 	    $foswikiJSvars .= "\nFoswiki.pubDir='" . Foswiki::Func::getPubDir()."';";
 	    $foswikiJSvars .= "\nFoswiki.scriptSuffix='" . $Foswiki::cfg{ScriptSuffix}."';";
 	    $foswikiJSvars .= "\nFoswiki.scriptUrlPath='" . $Foswiki::cfg{ScriptUrlPath}."';";	    
-	    $foswikiJSvars .= "\nFoswiki.viewScript='" . Foswiki::Func::getScriptUrl("view") ."';";
+	    $foswikiJSvars .= "\nFoswiki.viewScript='" . Foswiki::Func::getScriptUrl(undef, undef, "view") ."';";
 	    my $output = "<script type='text/javascript'>$foswikiJSvars</script>";	    
 	    Foswiki::Func::addToHEAD($jqPluginName."_fowikiVars",$output); 
     }
