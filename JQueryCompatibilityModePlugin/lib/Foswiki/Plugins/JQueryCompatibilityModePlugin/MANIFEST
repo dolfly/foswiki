@@ -70,6 +70,8 @@ pub/System/JQueryCompatibilityModePlugin/ui/effects.fold.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.datepicker.js
 pub/System/JQueryCompatibilityModePlugin/jquery-1.2.js
 pub/System/JQueryCompatibilityModePlugin/jquery.js
+pub/System/JQueryCompatibilityModePlugin/foswiki_specific/dialogAPI.js
+pub/System/JQueryCompatibilityModePlugin/foswiki_specific/dialogAPI_settings.js
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.resizable.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.toasterLite.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.toolbar.css

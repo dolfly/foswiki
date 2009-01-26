@@ -33,7 +33,7 @@ $VERSION = '$Rev: 12445$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '0.';
+$RELEASE = '0.5';
 
 # Short description of this plugin
 # One line description, is shown in the %FoswikiWEB%.TextFormattingRules topic:
@@ -90,6 +90,11 @@ sub addDialogScripts() {
     $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/ui/ui.resizable.js'></script>";
     Foswiki::Func::addToHEAD($jqPluginName."_jqui.resiz",$output,$jqPluginName."_jqui.core");
     
-    #$output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/misc/ui.dimensions.js'></script>";
-    #Foswiki::Func::addToHEAD($pluginName."_jquerylibdimensions",$output,$pluginName."_jqueryuicore");
+    if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogDefaultSettingsInclude}) {    
+       $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/foswiki_specific/dialogAPI_settings.js'></script>";
+       Foswiki::Func::addToHEAD($jqPluginName."_foswiki.dialogAPI_settings",$output,$jqPluginName."_jqui.dialog");
+    }
+    
+    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/foswiki_specific/dialogAPI.js'></script>";
+    Foswiki::Func::addToHEAD($jqPluginName."_foswiki.dialogAPI",$output,$jqPluginName."_foswiki.dialogAPI_settings");
 }
