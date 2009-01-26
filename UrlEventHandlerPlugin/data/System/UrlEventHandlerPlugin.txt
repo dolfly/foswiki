@@ -55,7 +55,7 @@ Or for auto-openening a dialog for attachments
 |  Plugin Version: | 26 Jan 2009 (V0.1) |
 |  Change History: | <!-- versions below in reverse order --> |
 |  26 Jan 2009: | initial release |
-|  Foswiki Dependency: | |
+|  Foswiki Dependency: | JQueryCompatibiltyPlugin |
 |  CPAN Dependencies: | |
 |  Other Dependencies: | |
 |  Perl Version: | 5.005 |
