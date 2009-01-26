@@ -13,30 +13,48 @@ Example for the confirmation message after an attachment has been uploaded to a 
 </verbatim>
 
 ---++ Usage
+---+++ URL parameters
 | *URL parameter* | *allowed values* | *meaning* |
 | ueh_type | alert,mdialog,autodialog | * alert: a javascript alert message will be shown %BR% * mdialog: a jquery.dialog will be shown, including the message %BR% * autodialog: a jquery.dialog will be auto opened, fetching a url |
 | ueh_confirmcode | strings defined in the UrlEventHandlerPluginConfirmCodes topic | this will be the content of the alert/mdialog which will shown |
 | ueh_errorcode | strings defined in the UrlEventHandlerPluginErrorCodes topic | this will be the content of the alert/mdialog which will shown |
 | ueh_messagecode | strings defined in the UrlEventHandlerPluginMessageCodes topic | this will be the content of the alert/mdialog which will shown |
-| ueh_dialogcode | only considers for the *autodialog* option. This defines the URL to fetch for the dialog. |
+| ueh_dialogcode | only considered for the *autodialog* option. This defines the code for the section, which defines the URL to fetch for the dialog. |
+%BR%%BR%
+---+++ Topics to define the codes
+Generally every STARTSECTION{codename} defines on message / url for the specific class
+   * [[UrlEventHandlerPluginConfirmCodes][Defining Confirmation Codes]] - Messages, which confirm a action
+   * [[UrlEventHandlerPluginErrorCodes][Defining Error Codes]] - Messages for errors
+   * [[UrlEventHandlerPluginMessageCodes][Defining Message Codes]] - Just notifications or similar messages
+   * [[UrlEventHandlerPluginDialogCodes][Defining Dialog Codes]] - Defining URLs to fetch for specific dialogs
 %BR%%BR%
 Example for the confirmation message after an attachment has been uploaded to a topic:%BR%
 <verbatim>
 /bin/view/Main/WebHome?ueh_type=alert&ueh_confirmcode=attachok
 </verbatim>
+%BR%%BR%
+Or for auto-openening a dialog for attachments
+<verbatim>
+/bin/view/Main/WebHome?ueh_type=autodialog&ueh_dialogcode=attach
+</verbatim>
+
 
 ---++ Installation instructions
    * Just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
 *Note:* You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
+
+---++ TODO
+   * implement the message in the dialog ( type=mdialog )
+   * let alerts / mdialogs also work, if no JS is activated. In that case, a layer should be added to the body ( in the upper liek FLASHNOTE )
 <!--
    * Set SHORTDESCRIPTION = Lets you react on url parameters and e.g. show a message for the user or redirect him somewhere, show a dialog etc.
 -->
 |  Plugin Author: | Foswiki:Main.EugenMayer |
-|  Copyright: | &copy; Impressive.media |
+|  Copyright: | &copy; Collaborganize ( www.collaborganize.com ) |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 25 Jan 2009 (V0.1) |
+|  Plugin Version: | 26 Jan 2009 (V0.1) |
 |  Change History: | <!-- versions below in reverse order --> |
-|  25 Jan 2009: | initial release |
+|  26 Jan 2009: | initial release |
 |  Foswiki Dependency: | |
 |  CPAN Dependencies: | |
 |  Other Dependencies: | |
