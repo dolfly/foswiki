@@ -1,0 +1,3 @@
+%STARTSECTION{"attach"}%
+%SCRIPTURLPATH{attach}%/%URLPARAM{topic}%
+%ENDSECTION{"attach"}%

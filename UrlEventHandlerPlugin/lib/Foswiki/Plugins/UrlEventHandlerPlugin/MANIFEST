@@ -1,8 +1,10 @@
 lib/Foswiki/Plugins/UrlEventHandlerPlugin.pm Perl module
 data/System/UrlEventHandlerPlugin.txt Plugin topic
-data/System/UrlEventHandlerPluginErrorCodes.txt Plugin topic
-data/System/UrlEventHandlerPluginConfirmCodes.txt Plugin topic
-data/System/UrlEventHandlerPluginMessageCodes.txt Plugin topic
+data/System/UrlEventHandlerPluginErrorCodes.txt
+data/System/UrlEventHandlerPluginConfirmCodes.txt
+data/System/UrlEventHandlerPluginMessageCodes.txt
+data/System/UrlEventHandlerPluginDialogCodes.txt
 templates/ueh_alert.tmpl
 templates/ueh_mdialog.tmpl
-pub/System/UrlEventHandlerPluginMessageCodes/ueh_all.css
+templates/ueh_autodialog.tmpl
+pub/System/UrlEventHandlerPlugin/css/ueh_all.css

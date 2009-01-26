@@ -14,10 +14,11 @@ Example for the confirmation message after an attachment has been uploaded to a 
 
 ---++ Usage
 | *URL parameter* | *allowed values* | *meaning* |
-| ueh_type | alert,mdialog,dialog | * alert: a javascript alert message will be shown %BR% * mdialog: a jquery.dialog will be shown %BR% * dialog: a dialog will be shown |
+| ueh_type | alert,mdialog,autodialog | * alert: a javascript alert message will be shown %BR% * mdialog: a jquery.dialog will be shown, including the message %BR% * autodialog: a jquery.dialog will be auto opened, fetching a url |
 | ueh_confirmcode | strings defined in the UrlEventHandlerPluginConfirmCodes topic | this will be the content of the alert/mdialog which will shown |
 | ueh_errorcode | strings defined in the UrlEventHandlerPluginErrorCodes topic | this will be the content of the alert/mdialog which will shown |
 | ueh_messagecode | strings defined in the UrlEventHandlerPluginMessageCodes topic | this will be the content of the alert/mdialog which will shown |
+| ueh_dialogcode | only considers for the *autodialog* option. This defines the URL to fetch for the dialog. |
 %BR%%BR%
 Example for the confirmation message after an attachment has been uploaded to a topic:%BR%
 <verbatim>
