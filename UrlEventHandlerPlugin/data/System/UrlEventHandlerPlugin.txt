@@ -4,6 +4,9 @@ Lets you react on url parameters and e.g. show a message for the user or redirec
 %TOC%
 
 ---++ Introduction
+
+%RED% *!!!IMPORTANT!!!!*: Please secure the *Codes* topics, because they can be used for X-Site-Attacks! *ALLOWTOPICCHANGE* is set to *AdminGroup* by default. After you added your codes you should also remove the "w" flag on the filesystem to be 100% secure in this point
+%ENDCOLOR%%BR%
 Lets you react on specific URL parameters. This is primally used for triggering confirn, error or simple message dilaogs or javascript alerts. An example would be, that after an upload you get redirected to the topci and a small
 alert opens, and tells you 'File successfully attached to the topic'. You press on ok and keep on working. You also can show complex dialogs or messages in dialogs.
 %BR%
@@ -13,6 +16,16 @@ Example for the confirmation message after an attachment has been uploaded to a 
 </verbatim>
 
 ---++ Usage
+%RED% *!!!IMPORTANT!!!!*: Please secure the *Codes* topics, because they can be used for X-Site-Attacks! They are ALLOWTOPICCHANGE is set to AdminGroup by default. After you added your codes you should also remove the "w" flag on the filesystem to be 100% secure in this point
+%ENDCOLOR%%BR%
+---+++ Topics to define the codes 
+
+Generally every STARTSECTION{codename} defines on message / url for the specific class
+   * [[UrlEventHandlerPluginConfirmCodes][Defining Confirmation Codes]] - Messages, which confirm a action
+   * [[UrlEventHandlerPluginErrorCodes][Defining Error Codes]] - Messages for errors
+   * [[UrlEventHandlerPluginMessageCodes][Defining Message Codes]] - Just notifications or similar messages
+   * [[UrlEventHandlerPluginDialogCodes][Defining Dialog Codes]] - Defining URLs to fetch for specific dialogs
+%BR%%BR%
 ---+++ URL parameters
 | *URL parameter* | *allowed values* | *meaning* |
 | ueh_type | alert,mdialog,autodialog | * alert: a javascript alert message will be shown %BR% * mdialog: a jquery.dialog will be shown, including the message %BR% * autodialog: a jquery.dialog will be auto opened, fetching a url |
@@ -20,13 +33,6 @@ Example for the confirmation message after an attachment has been uploaded to a 
 | ueh_errorcode | strings defined in the UrlEventHandlerPluginErrorCodes topic | this will be the content of the alert/mdialog which will shown |
 | ueh_messagecode | strings defined in the UrlEventHandlerPluginMessageCodes topic | this will be the content of the alert/mdialog which will shown |
 | ueh_dialogcode | only considered for the *autodialog* option. This defines the code for the section, which defines the URL to fetch for the dialog. |
-%BR%%BR%
----+++ Topics to define the codes
-Generally every STARTSECTION{codename} defines on message / url for the specific class
-   * [[UrlEventHandlerPluginConfirmCodes][Defining Confirmation Codes]] - Messages, which confirm a action
-   * [[UrlEventHandlerPluginErrorCodes][Defining Error Codes]] - Messages for errors
-   * [[UrlEventHandlerPluginMessageCodes][Defining Message Codes]] - Just notifications or similar messages
-   * [[UrlEventHandlerPluginDialogCodes][Defining Dialog Codes]] - Defining URLs to fetch for specific dialogs
 %BR%%BR%
 Example for the confirmation message after an attachment has been uploaded to a topic:%BR%
 <verbatim>
