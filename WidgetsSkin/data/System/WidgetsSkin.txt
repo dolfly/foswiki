@@ -151,6 +151,7 @@ You can use this technique to create a FoswikiSkin that matches closely the HTML
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  27 Jan 2009: | added header and footer widgets, and some more sectional include magic |
 |  30 Dec 2008: | update to Foswiki |
 |  7 Dec 2007:  | stop the demo images from overflowing the design, other Skin fixes |
 |  15 Oct 2007: | Doc rewrite - Foswiki:Main.CrawfordCurrie |
