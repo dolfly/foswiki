@@ -7,8 +7,7 @@ Lets you react on url parameters and e.g. show a message for the user or redirec
 
 %RED% *!!!IMPORTANT!!!!*: Please secure the *Codes* topics, because they can be used for X-Site-Attacks! *ALLOWTOPICCHANGE* is set to *AdminGroup* by default. After you added your codes you should also remove the "w" flag on the filesystem to be 100% secure in this point
 %ENDCOLOR%%BR%
-Lets you react on specific URL parameters. This is primally used for triggering confirn, error or simple message dilaogs or javascript alerts. An example would be, that after an upload you get redirected to the topci and a small
-alert opens, and tells you 'File successfully attached to the topic'. You press on ok and keep on working. You also can show complex dialogs or messages in dialogs.
+%TOPIC% enables you to run specific actions on URL specific parameters. This is primary used for triggering confirm, error or simple message dialogs or javascript alerts. An example would be, that you get redirected to an topic after an upload and suddenly an alert opens, and tells you 'File successfully attached to the topic'. You press the OK-Button and keep on working. You also can show complex dialogs or messages in dialogs.
 %BR%
 Example for the confirmation message after an attachment has been uploaded to a topic:%BR%
 <verbatim>
