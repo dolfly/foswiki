@@ -35,11 +35,13 @@ function myGloablFunc () { $("#foo").show() }
 .
 })(jQuery);
 </verbatim>
+You can use any shortcut variable you like in this code, so =;(function($foo) {..}= would let you use $foo in for access JQuery
 ---++ Included JQuery libraries
    * JQuery 1.3.1
    * JQuery 1.2 ( deprecated but available. Not used by default )
    * JQuery URL
    * all current UI libs ( effects, dialogs, tabs, slider...)
+   * jquery-ajax-upload 1.0 ( [[http://valums.com/ajax-upload/]] )
 
 ---+++ Something missing?
 There is a lot missing here, so this needs an update. Please send me a short note on what you want to add. Actually the policy is, adding anything which can be useful, so in 99% of the cases the library gets added directly! 
@@ -47,8 +49,10 @@ There is a lot missing here, so this needs an update. Please send me a short not
 ---+++ DialogAPI
 *Attention*: The dialog API does actually only work with the core patch attached to this [[Foswiki:Development.ExtraResponseHeaderFields]FeaturePropsal]] ( 2 lines ). I hope it gets included in the next 1.1 release
 
-You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialogAPI.js ). By calling the =show_dialog= method
+You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialogAPI.js ). By calling the =fetchAndShowDialog= method
 
+---++++ fetchAndShowDialog
+*Fetch, setup and show a dialog*
 | *parameter* | *meaning* |
 | selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
 | aurl | url to fetch  |
@@ -57,7 +61,25 @@ You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialog
 | awidth | size of the dialog  |
 | awidth | size of the dialog  |
 
-You can use any shortcut variable you like in this code, so =;(function($foo) {..}= would let you use $foo in for acces JQuery
+---++++ setupDialog
+*Setup a dialog (not show)*
+| *parameter* | *meaning* |
+| selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
+| data | the data the dialog should show |
+| atitle | title of the dialog  |
+| amodal | boolean, should the dialog be shown modal, so you must close it before you can use the page further |
+| awidth | size of the dialog  |
+| awidth | size of the dialog  |
+
+---++++ showDialog
+*Show a dialog, which was setup before*
+| *parameter* | *meaning* |
+| selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
+
+---++++ hideDialog 
+*hide a dialog*
+| *parameter* | *meaning* |
+| selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
 
 ---++ Installation instructions
    * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
@@ -68,8 +90,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; Collaborganize ( [[www.collaborganize.com]] )|
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 26 Jan 2009 (V0.6) |
+|  Plugin Version: | 27 Jan 2009 (V0.7) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  27 Jan 2009: | Added ajax-upload plugin, fixed dialogAPI waiting dialog, added waiting-dialog message parameter, changed dialog API |
 |  26 Jan 2009: | JQuery updated to 1.3.1 |
 |  26 Jan 2009: | Added a Foswiki specific, updated and friendlyfied docs |
 |  25 Jan 2009: | Fixing installer bug ( when JQueryCompatibilityModePlugin has been installed, other plugins are failing ( Foswiki:Tasks/Item864 ) |

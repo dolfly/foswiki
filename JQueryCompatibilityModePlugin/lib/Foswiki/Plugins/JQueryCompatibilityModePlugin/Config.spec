@@ -20,6 +20,10 @@ $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude} = 0;
 # should the default settings for DialogAPI be included? You dont want this if you implemented own dialogs ( and use own skins, handlers )
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogDefaultSettingsInclude} = 1;
 
+# **BOOLEAN**
+# Plugin: should be the ajax-upload-plugin be included?
+$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AjaxUploadPlugin} = 0;
+
 
 
 

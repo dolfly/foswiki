@@ -19,24 +19,13 @@
 
 
 /*****************************/
-
-/* makes it possible to show a dialog without knowing the jquery.dialog api.
- * selector: The div ID which should be used as the dialog-destination. Generally its a display:hidden 
- * 			 layer hidden somewhere in the layout. You must add a # to your id here, so if the id is
- * 			 "example" you must use "#example" as parameter here
- * aurl:	 url to fetch
- * atitle:	 title of the dialog
- * amodal: 	 boolean, should the dialog be shown modal, so you must close it before you can use the page further
- * awidth:	 size of the dialog
- * aheight:  size of the dialog
- */
-window.show_dialog = function(selector, aurl, atitle, amodal, awidth, aheight ) {
+;(function($j) {
+function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
 	// remove the main window scrollbars, so users dont get confused by scrolling the outer window
 	if(amodal) {
 		setupScrollock();
 	}
-	// adding the skin as parameter, so the fetched data is without layout
-	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);
+ 
 	showWaitingLayer(selector);
 	// show this while we are waiting for the content
     $j(selector).dialog("position", "center");
@@ -53,11 +42,46 @@ window.show_dialog = function(selector, aurl, atitle, amodal, awidth, aheight ) 
 								        		background: "black"
 											},
 											close: function() { uninstallScrollock(); }
-					}); 
+	}); 
 	
+}
+/* makes it possible to show a dialog without knowing the jquery.dialog api.
+ * selector: The div ID which should be used as the dialog-destination. Generally its a display:hidden 
+ * 			 layer hidden somewhere in the layout. You must add a # to your id here, so if the id is
+ * 			 "example" you must use "#example" as parameter here
+ * aurl:	 url to fetch
+ * atitle:	 title of the dialog
+ * amodal: 	 boolean, should the dialog be shown modal, so you must close it before you can use the page further
+ * awidth:	 size of the dialog
+ * aheight:  size of the dialog
+ */
+window.fetchAndShowDialog = function(selector, aurl, atitle, amodal, awidth, aheight ) {
+	fetchAndSetupDialog(selector, aurl, atitle, amodal, awidth, aheight );
+	showDialog();
+}
+/* makes it possible to sertup a dialog without knowing the jquery.dialog api.
+ * selector: The div ID which should be used as the dialog-destination. Generally its a display:hidden 
+ * 			 layer hidden somewhere in the layout. You must add a # to your id here, so if the id is
+ * 			 "example" you must use "#example" as parameter here
+ * data:	 data ( mostyl HTML ) to put inside the dialog
+ * atitle:	 title of the dialog
+ * amodal: 	 boolean, should the dialog be shown modal, so you must close it before you can use the page further
+ * awidth:	 size of the dialog
+ * aheight:  size of the dialog
+ */
+
+window.setupDialog = function (selector, data, atitle, amodal, awidth, aheight ) {
+	bootupDialog(selector, atitle, amodal, awidth, aheight);
+	$j(selector).html(data);
+}
+
+window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, aheight ) {
+	bootupDialog(selector, atitle, amodal, awidth, aheight);
 	// ok show the waiting dialog
 	$j(selector).show();    	
 	$j(selector).dialog("open");
+	// adding the skin as parameter, so the fetched data is without layout
+	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);
 	// now fetch the content
 	$j.ajax({			
 					 url : aurl,	
@@ -68,6 +92,16 @@ window.show_dialog = function(selector, aurl, atitle, amodal, awidth, aheight ) 
 	});
 }
 
+window.showDialog = function (selector) {	
+	$j(selector).show();    	
+	$j(selector).dialog("open");
+}
+
+window.closeDialog = function (selector) {
+	$j(selector).hide(); 
+	$j(selector).dialog("close");
+	$j(selector).dialog("destroy"); 
+}
 // General handler, which can be called after a fetch has been completed
 window.handleDialogCompleteResponse = function (xmlHttp, status,selector) {
 	if(xmlHttp.status != 200){ // error 
@@ -75,6 +109,8 @@ window.handleDialogCompleteResponse = function (xmlHttp, status,selector) {
 			 return;
 	}
 	var data = xmlHttp.responseText;	
+	// welcome to foswiki`s world. Lets remove all the useful "p`s" in arround the dialog
+	$j(selector+" > p").remove();
 	var action = xmlHttp.getResponseHeader("X-FoswikiAction");
 	var uri = xmlHttp.getResponseHeader("X-FoswikiUri");
 	handleGeneralData(selector,data,action,uri);
@@ -158,7 +194,12 @@ window.addSkinParameter = function (url,skin) {
 	return url;
 }
 
-window.showWaitingLayer= function (dialogselector) {
-	var wait = '<table width="100%" height="100%"><tr><td width="100%" align="center" valign="center"><img src="'+Foswiki.pubUrlPath+'/System/CollaborganizeExtensionPlugin/images/loader.gif"></td></tr></table>';
+window.showWaitingLayer= function (dialogselector, message) {
+	if(message == undefined) {
+		message = "loading...";
+	}
+		
+	var wait = '<table width="100%" height="100%"><tr><td width="100%" align="center" valign="center" style="font-weight:bolder">'+message+'<br><br><img src="'+Foswiki.pubUrlPath+'/System/JQueryCompatibilityModePlugin/themes/loader.gif"></td></tr></table>';
     $j(dialogselector).html(wait);
 }
+})(jQuery);

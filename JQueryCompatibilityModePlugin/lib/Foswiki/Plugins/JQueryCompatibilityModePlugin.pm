@@ -33,7 +33,7 @@ $VERSION = '$Rev: 12445$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '0.6';
+$RELEASE = '0.7';
 
 # Short description of this plugin
 # One line description, is shown in the %FoswikiWEB%.TextFormattingRules topic:
@@ -73,6 +73,7 @@ sub initPlugin {
     }
  
     addDialogScripts() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude});
+    addAjaxUpload() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AjaxUploadPlugin});
     return 1;
 }
 
@@ -97,4 +98,10 @@ sub addDialogScripts() {
     
     $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/foswiki_specific/dialogAPI.js'></script>";
     Foswiki::Func::addToHEAD($jqPluginName."_foswiki.dialogAPI",$output,$jqPluginName."_foswiki.dialogAPI_settings");
+}
+
+sub addAjaxUpload() {    
+    my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$jqPluginName";
+    my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/plugins/jquery.ajax_upload.min.js'></script>";
+    Foswiki::Func::addToHEAD($jqPluginName."_jq_ajax_upload",$output,$jqPluginName."_jq_init");    
 }

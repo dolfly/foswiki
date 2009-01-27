@@ -2,6 +2,7 @@ lib/Foswiki/Plugins/JQueryCompatibilityModePlugin/Config.spec
 lib/Foswiki/Plugins/JQueryCompatibilityModePlugin.pm Perl module
 data/System/JQueryCompatibilityModePlugin.txt Plugin topic
 pub/System/JQueryCompatibilityModePlugin/jquery_init.js
+pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.1.0.min.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.resizable.js
 pub/System/JQueryCompatibilityModePlugin/ui/effects.drop.js
 pub/System/JQueryCompatibilityModePlugin/ui/effects.core.js
@@ -173,3 +174,4 @@ pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.datepicker.css
 pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.css
 pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.resizable.css
 pub/System/JQueryCompatibilityModePlugin/themes/ui.datepicker.css
+pub/System/JQueryCompatibilityModePlugin/themes/loader.gif
