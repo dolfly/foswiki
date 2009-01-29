@@ -8,16 +8,23 @@ $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{InitializeFoswikiVar} = 1;
 
 
 # **BOOLEAN**
-# should the Jquery-core api included automatically
+# auto-include the Jquery-core
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeCore} = 1;
 
+# **STRING**
+# JQuery-UI theme name
+$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{UITheme} = "base";
+
 # **BOOLEAN**
-# include JQuery-Dialog api
+# auto-include JQuery-UI theme
+$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{ThemeInclude} = "1";
+
+# **BOOLEAN**
+# auto-include JQuery-Dialog api
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude} = 0;
 
-
 # **BOOLEAN**
-# should the default settings for DialogAPI be included? You dont want this if you implemented own dialogs ( and use own skins, handlers )
+# auto-include the default settings for DialogAPI? You dont want this if you implemented own dialogs ( and use handlers )
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogDefaultSettingsInclude} = 1;
 
 # **BOOLEAN**

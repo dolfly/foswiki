@@ -61,6 +61,7 @@ sub initPlugin {
 	    $foswikiJSvars .= "\nFoswiki.scriptSuffix='" . $Foswiki::cfg{ScriptSuffix}."';";
 	    $foswikiJSvars .= "\nFoswiki.scriptUrlPath='" . $Foswiki::cfg{ScriptUrlPath}."';";	    
 	    $foswikiJSvars .= "\nFoswiki.viewScript='" . Foswiki::Func::getScriptUrl(undef, undef, "view") ."';";
+	    $foswikiJSvars .= "\nFoswiki.jquery={};";
 	    my $output = "<script type='text/javascript'>$foswikiJSvars</script>";	    
 	    Foswiki::Func::addToHEAD($jqPluginName."_fowikiVars",$output); 
     }
@@ -71,8 +72,9 @@ sub initPlugin {
 	    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/jquery_init.js'></script>";
 	    Foswiki::Func::addToHEAD($jqPluginName."_jq_init",$output,$jqPluginName."_jq");
     }
- 
+    _initUITheme();
     addDialogScripts() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude});
+    
     addAjaxUpload() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AjaxUploadPlugin});
     return 1;
 }
@@ -97,9 +99,29 @@ sub addDialogScripts() {
     }
     
     $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/foswiki_specific/dialogAPI.js'></script>";
-    Foswiki::Func::addToHEAD($jqPluginName."_foswiki.dialogAPI",$output,$jqPluginName."_foswiki.dialogAPI_settings");
+    Foswiki::Func::addToHEAD($jqPluginName."_foswiki.dialogAPI",$output,$jqPluginName."_foswiki.dialogAPI_settings".",".$pluginName.'_uithemename');
 }
 
+sub _initUITheme {
+    my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$pluginName";
+    
+    my $themeName = $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{UITheme};    
+    my $themeDir = $themeName;
+
+    if($themeName eq "base") {
+        $themeName = "";       
+    }
+    my $output = "<script type='text/javascript'>Foswiki.jquery.themeName='$themeName'</script>";
+    Foswiki::Func::addToHEAD($pluginName.'_uithemename',$output);
+    if($themeName eq "") {         
+        $themeName = "ui";   
+        $themeDir =  "base"; 
+    } 
+    if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{ThemeInclude}) {
+        $output = '<style type="text/css" media="all">@import '."url('$pluginPubHome/themes/$themeDir/$themeName.all.css');</style>";
+        Foswiki::Func::addToHEAD($pluginName.'_uithemecss',$output);
+    }
+}
 sub addAjaxUpload() {    
     my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$jqPluginName";
     my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/plugins/jquery.ajax_upload.min.js'></script>";

@@ -40,7 +40,7 @@ function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
     $j(selector).dialog("position", "center");
 	// initialize the dialog
 	$j(selector).dialog({
-											dialogClass:"flora",
+											dialogClass: Foswiki.jquery.themeName,
 											title:atitle,
  											autoOpen:false,
 											width:awidth,
