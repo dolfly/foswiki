@@ -2,7 +2,6 @@ lib/Foswiki/Plugins/JQueryCompatibilityModePlugin/Config.spec
 lib/Foswiki/Plugins/JQueryCompatibilityModePlugin.pm Perl module
 data/System/JQueryCompatibilityModePlugin.txt Plugin topic
 pub/System/JQueryCompatibilityModePlugin/jquery_init.js
-pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.min.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.resizable.js
 pub/System/JQueryCompatibilityModePlugin/ui/effects.drop.js
 pub/System/JQueryCompatibilityModePlugin/ui/effects.core.js
@@ -69,10 +68,13 @@ pub/System/JQueryCompatibilityModePlugin/ui/effects.explode.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.draggable.js
 pub/System/JQueryCompatibilityModePlugin/ui/effects.fold.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.datepicker.js
+pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.src.js
+pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.min.js
+pub/System/JQueryCompatibilityModePlugin/jquery.url.js
 pub/System/JQueryCompatibilityModePlugin/jquery-1.2.js
-pub/System/JQueryCompatibilityModePlugin/jquery.js
 pub/System/JQueryCompatibilityModePlugin/foswiki_specific/dialogAPI.js
 pub/System/JQueryCompatibilityModePlugin/foswiki_specific/dialogAPI_settings.js
+pub/System/JQueryCompatibilityModePlugin/jquery.js
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.resizable.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.toasterLite.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.toolbar.css
@@ -133,6 +135,30 @@ pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.calendar.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.dialog.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.tabs.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.all.css
+pub/System/JQueryCompatibilityModePlugin/themes/loader.gif
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.resizable.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.slider.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.dialog.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.progressbar.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.theme.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.accordion.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.tabs.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.allplugins.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.core.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.all.css
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/888888_256x240_icons_icons.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/ffffff_40x100_textures_02_glass_65.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/cd0a0a_256x240_icons_icons.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/fbf9ee_40x100_textures_02_glass_55.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/cccccc_40x100_textures_03_highlight_soft_75.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/ffffff_40x100_textures_02_glass_75.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/454545_256x240_icons_icons.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/222222_256x240_icons_icons.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/e6e6e6_40x100_textures_02_glass_75.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/2e83ff_256x240_icons_icons.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/dadada_40x100_textures_02_glass_75.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/images/fef1ec_40x100_textures_05_inset_soft_95.png
+pub/System/JQueryCompatibilityModePlugin/themes/base/ui.datepicker.css
 pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.slider.css
 pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.tabs.css
 pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.all.css
@@ -174,4 +200,3 @@ pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.datepicker.css
 pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.css
 pub/System/JQueryCompatibilityModePlugin/themes/flora/flora.resizable.css
 pub/System/JQueryCompatibilityModePlugin/themes/ui.datepicker.css
-pub/System/JQueryCompatibilityModePlugin/themes/loader.gif
