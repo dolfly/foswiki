@@ -3,7 +3,7 @@
 # <h2>General</h2>
 
 # **BOOLEAN**
-# Should the window.foswiki variable be initilazed
+# Should the window.Foswiki variable be initilazed
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{InitializeFoswikiVar} = 1;
 
 

@@ -90,8 +90,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; Collaborganize ( [[www.collaborganize.com]] )|
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 27 Jan 2009 (V0.7) |
+|  Plugin Version: | 29 Jan 2009 (V0.8) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  29 Jan 2009: | Fixing IE bug which cache the responses but not the headers, so the response header is completely broken |
 |  27 Jan 2009: | Added ajax-upload plugin, fixed dialogAPI waiting dialog, added waiting-dialog message parameter, changed dialog API |
 |  26 Jan 2009: | JQuery updated to 1.3.1 |
 |  26 Jan 2009: | Added a Foswiki specific, updated and friendlyfied docs |

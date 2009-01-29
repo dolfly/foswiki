@@ -20,6 +20,15 @@
 
 /*****************************/
 ;(function($j) {
+window.Foswiki.generalDialogActionHandler = function (selector,data,scriptname,uri) {
+	$j(selector).html(data);
+}
+
+window.Foswiki.generalActionHandler = function (selector,data,scriptname,uri) {
+	document.location = uri;	
+}
+	
+	
 function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
 	// remove the main window scrollbars, so users dont get confused by scrolling the outer window
 	if(amodal) {
@@ -82,7 +91,9 @@ window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, ah
 
 	// adding the skin as parameter, so the fetched data is without layout
 	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);	
-	
+	// adding this to avoid the hardcore IE caching breaks up the header. Thank you MS
+	var timestamp = new Date();
+	aurl += "&t="+timestamp.getTime();
 	// now fetch the content	
 	$j.ajax({			
 					 url : aurl,	
@@ -151,6 +162,7 @@ window.handleGeneralData = function (selector,data,scriptname, uri) {
 			window[Foswiki.actionHandlers.view](selector,data,scriptname,uri);
 		break;
 		case 'oops':
+			alert(Foswiki.actionHandlers.oops);
 			window[Foswiki.actionHandlers.oops](selector,data,scriptname,uri);
 		break;
 		default:
@@ -159,13 +171,6 @@ window.handleGeneralData = function (selector,data,scriptname, uri) {
 	}	
 }
 
-window.Foswiki.generalDialogActionHandler = function (selector,data,scriptname,uri) {
-	$j(selector).html(data);
-}
-
-window.Foswiki.generalActionHandler = function (selector,data,scriptname,uri) {
-	document.location = uri;	
-}
 
 window.setupScrollock= function () {
     var a = [
