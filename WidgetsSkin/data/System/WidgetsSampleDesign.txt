@@ -20,6 +20,7 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 ---+++ first column
 %STARTSECTION{"column-one"}%
 %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-search" warn="on"}%
+%INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-login" warn="on"}%
 %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-weblist" warn="on"}%
 %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-subscribe" warn="on"}%
 %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-webleftbar" warn="on"}%
