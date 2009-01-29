@@ -56,8 +56,8 @@ function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
  * aheight:  size of the dialog
  */
 window.fetchAndShowDialog = function(selector, aurl, atitle, amodal, awidth, aheight ) {
-	fetchAndSetupDialog(selector, aurl, atitle, amodal, awidth, aheight );
-	showDialog();
+	fetchAndSetupDialog(selector, aurl, atitle, amodal, awidth, aheight );	
+	showDialog(selector);
 }
 /* makes it possible to sertup a dialog without knowing the jquery.dialog api.
  * selector: The div ID which should be used as the dialog-destination. Generally its a display:hidden 
@@ -76,13 +76,14 @@ window.setupDialog = function (selector, data, atitle, amodal, awidth, aheight )
 }
 
 window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, aheight ) {
+	
 	bootupDialog(selector, atitle, amodal, awidth, aheight);
 	// ok show the waiting dialog
-	$j(selector).show();    	
-	$j(selector).dialog("open");
+
 	// adding the skin as parameter, so the fetched data is without layout
-	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);
-	// now fetch the content
+	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);	
+	
+	// now fetch the content	
 	$j.ajax({			
 					 url : aurl,	
 					 type: "GET",  			
