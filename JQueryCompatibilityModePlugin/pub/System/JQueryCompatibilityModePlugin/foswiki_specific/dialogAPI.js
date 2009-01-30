@@ -20,11 +20,11 @@
 
 /*****************************/
 ;(function($j) {
-window.Foswiki.generalDialogActionHandler = function (selector,data,scriptname,uri) {
+window.generalDialogActionHandler = function (selector,data,scriptname,uri) {
 	$j(selector).html(data);
 }
 
-window.Foswiki.generalActionHandler = function (selector,data,scriptname,uri) {
+window.generalActionHandler = function (selector,data,scriptname,uri) {
 	document.location = uri;	
 }
 	

@@ -73,9 +73,8 @@ sub initPlugin {
 	    Foswiki::Func::addToHEAD($jqPluginName."_jq_init",$output,$jqPluginName."_jq");
     }
     _initUITheme();
-    addDialogScripts() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude});
-    
-    addAjaxUpload() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AjaxUploadPlugin});
+    addDialogScripts() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude});    
+    addIncludedPlugins() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{IncludePlugins});
     return 1;
 }
 
@@ -122,8 +121,15 @@ sub _initUITheme {
         Foswiki::Func::addToHEAD($pluginName.'_uithemecss',$output);
     }
 }
-sub addAjaxUpload() {    
+sub addIncludedPlugins() {    
     my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$jqPluginName";
-    my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/plugins/jquery.ajax_upload.min.js'></script>";
-    Foswiki::Func::addToHEAD($jqPluginName."_jq_ajax_upload",$output,$jqPluginName."_jq_init");    
+    my @files = split ",",$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeFiles};
+    
+    # nothing to do. no files to inlcude
+    return if(@files eq 0);
+    foreach my $file ( @files) {        
+            my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/$file'></script>";
+            Foswiki::Func::addToHEAD($jqPluginName."_autoinclude_$file",$output,$jqPluginName."_jq_init".",".$jqPluginName."_jqui.dialog");       
+    }
+
 }
