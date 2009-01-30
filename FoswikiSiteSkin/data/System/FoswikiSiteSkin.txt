@@ -20,14 +20,14 @@ Click to enlarge:%BR%
 
    * Download the ZIP file from the Skin Home page (see below)
    * Unzip ==%TOPIC%.zip== in your Foswiki installation directory
-   * [[%SCRIPTURLPATH{"view"}%/%WEB%/%TOPIC%?skin=foskin,pattern ][Test if installed]]
+   * [[%SCRIPTURLPATH{"view"}%/%WEB%/%TOPIC%?skin=foswikisite,pattern ][Test if installed]]
    
 ---+++ Activation
 Write these settings in %MAINWEB%.SitePreferences:
 <verbatim>
 Overall skin:
-   * Set SKIN = foskin,pattern
-The customized skin file:
+   * Set SKIN = foswikisite,pattern
+Because this skin leans on PatternSkin, also set:
    * Set PATTERNSKIN_THEME = %PUBURL%/%SYSTEMWEB%/PatternSkin/theme_foswiki.css
 The column preference:
    * Set PATTERNSKIN_COLUMNS = %PUBURL%/%SYSTEMWEB%/PatternSkin/column_right.css
@@ -35,10 +35,10 @@ The column preference:
 
 ---++ Skin Info
 
-|  Copyright: | &copy; Koen Martens |
+|  Copyright: | &copy; Koen Martens, Arthur Clemens |
 |  Screenshot: | <a href="%ATTACHURL%/screenshot_full.png"><img src="%ATTACHURL%/screenshot.jpg" style="border:1px solid #eee;" alt="Click for full screen image" width="600" /></a> |
-|  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=foskin,pattern][Preview with this skin]] |
-|  Base Name: | foskin,pattern |
+|  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=foswikisite,pattern][Preview with this skin]] |
+|  Base Name: | foswikisite,pattern |
 |  Skin Version: | 07 Jan 2009 (v1.0.0) | 
 |  History: | <!-- specify latest version first -->&nbsp; |
 |  07 Jan 2009: | Initial version (v1.0.0) |
