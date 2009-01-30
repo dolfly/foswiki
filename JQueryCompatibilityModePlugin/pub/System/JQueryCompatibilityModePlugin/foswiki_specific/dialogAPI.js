@@ -140,6 +140,9 @@ window.handleGeneralData = function (selector,data,scriptname, uri) {
 		case 'login':
 			window[Foswiki.actionHandlers.login](selector,data,scriptname,uri);
 		break;	
+		case 'rename':
+			window[Foswiki.actionHandlers.rename](selector,data,scriptname,uri);
+		break;	
 		case 'manage':
 			window[Foswiki.actionHandlers.manage](selector,data,scriptname,uri);
 		break;	

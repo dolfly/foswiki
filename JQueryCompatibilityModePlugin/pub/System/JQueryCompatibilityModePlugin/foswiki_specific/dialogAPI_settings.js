@@ -26,6 +26,7 @@ if(!window.Foswiki.actionHandlers) {
 }
 window.Foswiki.actionHandlers.login = "generalDialogActionHandler";
 window.Foswiki.actionHandlers.attach = "generalDialogActionHandler";
+window.Foswiki.actionHandlers.rename = "generalDialogActionHandler";
 window.Foswiki.actionHandlers.rdiff = "generalDialogActionHandler";
 window.Foswiki.actionHandlers.register = "generalDialogActionHandler";
 window.Foswiki.actionHandlers.rest = "generalDialogActionHandler";
