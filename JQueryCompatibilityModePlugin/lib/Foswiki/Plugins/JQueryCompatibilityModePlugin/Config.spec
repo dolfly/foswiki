@@ -1,6 +1,6 @@
 # ---+ JQueryCompatibilityModePlugin
 # This is the configuration used by the <b>JQueryCompatibilityModePlugin</b> and the
-# <h2>JQuery Core</h2>
+# ---++JQuery Core
 
 # **BOOLEAN**
 # Should the window.Foswiki variable be initilazed
@@ -11,7 +11,9 @@ $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{InitializeFoswikiVar} = 1;
 # auto-include the Jquery-core
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeCore} = 1;
 
-# <h2>JQuery UI</h2>
+# General setting for large jquery UI package ( dialog, tabs .. )
+# ---++JQuery UI
+
 # **STRING**
 # JQuery-UI theme name
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{UITheme} = "base";
@@ -20,7 +22,7 @@ $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{UITheme} = "base";
 # auto-include JQuery-UI theme
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{ThemeInclude} = "1";
 
-# <h2>Foswiki DialogAPI</h2>
+# ---++Foswiki DialogAPI
 # **BOOLEAN**
 # auto-include JQuery-Dialog api
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude} = 0;
@@ -29,7 +31,7 @@ $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude} = 0;
 # auto-include the default settings for DialogAPI? You dont want this if you implemented own dialogs ( and use handlers )
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogDefaultSettingsInclude} = 1;
 
-# <h2>JQuery Plugins</h2>
+# ---++JQuery Plugins
 # **BOOLEAN**
 # Plugin: should be the ajax-upload-plugin be included?
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{IncludePlugins} = 0;

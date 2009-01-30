@@ -17,7 +17,7 @@ This plugin includes the jquery javascript library. In difference to JQueryPlugi
 | Foswiki.scriptSuffix | The current Foswiki scriptSuffix |
 | Foswiki.scriptUrlPath | The current Foswiki scriptUrlPath |
 | Foswiki.viewScript | The current Foswiki viewScript path |
-    
+   
 
 *Hint:* %BR%
 If you enclose your javascritpt by the following general body, you can use this script in any enviroment, no matter to which variable JQuery is currently bind to.
@@ -42,6 +42,7 @@ You can use any shortcut variable you like in this code, so =;(function($foo) {.
    * JQuery URL
    * all current UI libs ( effects, dialogs, tabs, slider...)
    * jquery-ajax-upload 1.0 ( [[http://valums.com/ajax-upload/]] )
+   * jquery-mbMenu 1.0 ( [[http://plugins.jquery.com/project/mbMenu]] )
 
 ---+++ Something missing?
 There is a lot missing here, so this needs an update. Please send me a short note on what you want to add. Actually the policy is, adding anything which can be useful, so in 99% of the cases the library gets added directly! 
@@ -80,7 +81,9 @@ You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialog
 *hide a dialog*
 | *parameter* | *meaning* |
 | selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
-
+---+++ How to let plugins include
+Run =/bin/configure= and under %TOPIC% you see in the bottom part, the plugin settings. There you can enter a comma seperated list of includes relative to the pub/System/%TOPIC% directory.
+This way you can include your own or specific JQuery-Plugins and script and dont need every application to care about that ( especially because they done know about the directory structure )
 ---++ Installation instructions
    * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
 __Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
@@ -90,8 +93,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; Collaborganize ( [[www.collaborganize.com]] )|
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 30 Jan 2009 (V0.9) |
+|  Plugin Version: | 30 Jan 2009 (V1.0) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  30 Jan 2009: | Adding generized way to include your own scrips / jquery plugins. Fixed bug in dialogAPI handler declaration, updated docs  |
 |  30 Jan 2009: | adding new base-ui-theme, generalizing the ui-theme ( selectable through /bin/configure now ), also dialogAPI using this skin now. Update UI to 1.6.5rc |
 |  29 Jan 2009: | Fixing IE bug which cache the responses but not the headers, so the response header is completely broken |
 |  27 Jan 2009: | Added ajax-upload plugin, fixed dialogAPI waiting dialog, added waiting-dialog message parameter, changed dialog API |

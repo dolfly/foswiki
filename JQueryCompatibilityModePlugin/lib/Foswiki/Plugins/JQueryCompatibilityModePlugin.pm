@@ -33,7 +33,7 @@ $VERSION = '$Rev: 12445$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '0.8';
+$RELEASE = '1.0';
 
 # Short description of this plugin
 # One line description, is shown in the %FoswikiWEB%.TextFormattingRules topic:
@@ -104,7 +104,7 @@ sub addDialogScripts() {
 sub _initUITheme {
     my $pluginPubHome = Foswiki::Func::getPubUrlPath()."/System/$pluginName";
     
-    my $themeName = $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{UITheme};    
+    my $themeName = trim($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{UITheme});    
     my $themeDir = $themeName;
 
     if($themeName eq "base") {
@@ -127,9 +127,20 @@ sub addIncludedPlugins() {
     
     # nothing to do. no files to inlcude
     return if(@files eq 0);
-    foreach my $file ( @files) {        
+    foreach my $file ( @files) {
+            $file = trim($file);
+            # let strip the extensios to have a more unique string not being to long ( as addToHEAD does not include otherwise)
+            my $id = substr($file,-19,-7); 
             my $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/$file'></script>";
-            Foswiki::Func::addToHEAD($jqPluginName."_autoinclude_$file",$output,$jqPluginName."_jq_init".",".$jqPluginName."_jqui.dialog");       
+            Foswiki::Func::addToHEAD($jqPluginName."_$id",$output,$jqPluginName."_jq_init".",".$jqPluginName."_jqui.dialog");       
     }
-
 }
+
+sub trim
+{    
+    my $string = shift;
+    $string =~ s/^\s+//;
+    $string =~ s/\s+$//;
+    return $string;
+}
+

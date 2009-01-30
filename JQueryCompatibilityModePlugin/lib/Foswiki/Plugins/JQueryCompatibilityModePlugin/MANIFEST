@@ -70,6 +70,7 @@ pub/System/JQueryCompatibilityModePlugin/ui/effects.fold.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.datepicker.js
 pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.src.js
 pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.min.js
+pub/System/JQueryCompatibilityModePlugin/plugins/mbMenu.js
 pub/System/JQueryCompatibilityModePlugin/jquery.url.js
 pub/System/JQueryCompatibilityModePlugin/jquery-1.2.js
 pub/System/JQueryCompatibilityModePlugin/foswiki_specific/dialogAPI.js

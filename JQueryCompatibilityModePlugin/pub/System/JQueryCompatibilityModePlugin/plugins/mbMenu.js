@@ -9,7 +9,6 @@
  *         GPL (GPL-LICENSE.txt) licenses.
  */
 ;(function($) {
-document.oncontextmenu = function() { return false };
 $.mbMenu = {
 	actualMenuOpener:false,
 	options: {
