@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #
-# Build for FoswikiDotOrgPatternSkinContrib
+# Build for FoswikiSiteSkin
 #
 BEGIN {
   foreach my $pc (split(/:/, $ENV{FOSWIKI_LIBS})) {
@@ -11,7 +11,7 @@ BEGIN {
 use Foswiki::Contrib::Build;
 
 # Create the build object
-$build = new Foswiki::Contrib::Build( 'BlogAddOn' );
+$build = new Foswiki::Contrib::Build( 'FoswikiSiteSkin' );
 
 # Build the target on the command line, or the default target
 $build->build($build->{target});
