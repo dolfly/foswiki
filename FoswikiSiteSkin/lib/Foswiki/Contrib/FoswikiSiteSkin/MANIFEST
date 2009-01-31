@@ -1,11 +1,12 @@
-data/System/FoswikiSiteSkin.txt 0644
+data/System/FoswikiSiteSkin.txt 0644 Skin documentation
+data/System/FoswikiSiteSkinNavigationTemplate.txt 0644 Top bar navigation buttons
 lib/Foswiki/Contrib/FoswikiSiteSkin.pm 0666
 pub/System/FoswikiSiteSkin/GrayBlend.gif 0644
 pub/System/FoswikiSiteSkin/attach.png 0644
-pub/System/FoswikiSiteSkin/foswiki-header-left.png 0644
-pub/System/FoswikiSiteSkin/foswiki-header-right.png 0644
-pub/System/FoswikiSiteSkin/foswiki-header.png 0644
+pub/System/FoswikiSiteSkin/header-left.png 0644
+pub/System/FoswikiSiteSkin/header.png 0644
 pub/System/FoswikiSiteSkin/logo.gif 0644
+pub/System/FoswikiSiteSkin/menu_background.gif 0644
 pub/System/FoswikiSiteSkin/page_white_add.png 0644
 pub/System/FoswikiSiteSkin/page_white_stack.png 0644
 pub/System/FoswikiSiteSkin/pencil.png 0644

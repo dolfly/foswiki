@@ -1,13 +1,12 @@
-div #patternTopBarContents {
-	height:80px;
-	padding-top:10px;
-	padding-left:0;
-	position:relative;
-	left:-25px;
+#patternTopBarContents {
+	padding:0;
 	background:none;
 }
+#patternTopBarContents table {
+	height:90px;
+}
 .patternMetaMenu {
-	padding-top:10px;
+	padding:15px 2em;
 }
 .patternToolBar {
 	float:right;
@@ -15,82 +14,79 @@ div #patternTopBarContents {
 #patternPage {
 	border:none;
 }
-#patternTopBarLeft {
-	border:none;
-	width:25px;
-	height:90px;
-	float:left;
-}
-#patternTopBarRight {
-	position:relative;
-	left:25px;
-	border:none;
-}
-#userbar {
+#foswikisiteUserBar {
 	font-size:.85em;
 	padding:0 .5em .5em .5em;
 	text-align:right;
 	font-family:arial,Helvetica,sans-serif;
 }
-#userbar a,
-#userbar a:active,
-#userbar a:visited {
-	text-decoration:none;
+#foswikisiteUserBar ul {
+	margin:0;
+	padding:0;
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
 }
-#userbar a:hover {
-	text-decoration:none;
+#foswikisiteUserBar li {
+	display:inline;
+	margin:0;
+	padding:0 0 0 1em;
+	color:#555;
 }
-.userbarsep {
-	padding:0 .5em;
+#foswikisiteUserBar a,
+#foswikisiteUserBar a:active,
+#foswikisiteUserBar a:visited {
+	text-decoration:none;
+	color:#222;
+}
+#foswikisiteUserBar a:hover {
+	text-decoration:underline;
+	color:#000;
 }
 #patternTopBar {
 	border:none;
 	padding-bottom:30px;
 }
 #patternTopBarButtons {
-	border-style:solid none none none;
-	border-width:1px;
+	border:none;
 	padding-left:2em;
 	height:30px;
 }
 #patternTopBarButtons ul {
-	display:inline;
 	margin:0;
-	padding:.5em 0;
-	font-weight:bold;
-	line-height:30px;
+	padding:0;
+	height:30px;
 	border-style:none none none solid;
 	border-width:1px;
 	list-style-image:none;
 	list-style-position:outside;
 	list-style-type:none;
 }
-#patternTopBarButtons ul a {
-	line-height:30px;
-	padding:.5em 1em .7em 1em;
-	margin:0 -1em 0 0;
-	width:100%;
-	border:none;
-	text-decoration:none;
-}
 #patternTopBarButtons li {
 	display:inline;
 	margin:0;
-	padding:.5em 1em .5em 0;
-	border-style:none solid none none;
+	padding:0;
+	height:30px;
+}
+#patternTopBarButtons ul li a {
+	display:block;
+	float:left;
+	padding:0 1em;
+	border-style:solid solid none none;
 	border-width:1px;
+	text-decoration:none;
 	font-weight:bold;
 	line-height:30px;
 	height:30px;
 }
+
 .patternViewPage #patternOuter {
 	border-width:16em;
 	border-style:none solid none none;
 	margin-right: 0;
 }	
 #patternMainContents {
-	border-style:solid;
-	border-width:1px;
+	border-style:none;
 }
 .patternContent {
 	margin:1.5em 0 0 0;
@@ -123,7 +119,6 @@ h2 {
 #patternSideBarContents h2 {
 	font-size:100%;
 	font-weight:bold;
-	border-top:1px solid #BDEB86;
 }
 #patternSideBarContents h2,
 #patternSideBarContents h2 a {
@@ -381,9 +376,6 @@ tr.foswikiDiffDebug .foswikiDiffUnchangedText {
 /* IMAGES */
 /* image positions are set here as well as these are dependent on the image */
 
-#patternTopBar {
-	/* image is defined as WEBHEADERART in System/DefaultPreferences */
-}
 .patternToolBar span a:link,
 .patternToolBar span a:visited,
 .patternToolBar span s,
@@ -443,7 +435,7 @@ li.patternLogIn {
 /* COLORS */
 
 #patternScreen {
-	background:white url('GrayBlend.gif') repeat-x scroll 0 0;
+	background:#f0f0f1 url('GrayBlend.gif') repeat-x scroll 0 0;
 }
 #patternMain { /* don't set a background here;use patternOuter */ }
 .patternViewPage #patternOuter {
@@ -455,11 +447,11 @@ li.patternLogIn {
 .patternViewPage #patternWrapper {
 	background:#fff;
 }
-#patternTopBarLeft {
-	background:transparent url(foswiki-header-left.png) no-repeat scroll 0 0;
+#patternTopBarContentsWrapper {
+	background:transparent url(header-left.png) no-repeat scroll 0 0;
 }
-#patternTopBarRight {
-	background:#2e5cac url(foswiki-header-right.png) no-repeat scroll 0 0;
+#patternTopBar {
+	background:#2e5cac url(header.png) repeat-x scroll 0 0;
 }
 .patternViewPage #patternSideBar {
 	background:#e5e5e8;
@@ -468,31 +460,29 @@ li.patternLogIn {
 	border-color:#ccc;
 	background-color:#fff;
 }
-#userbar {
+#foswikisiteUserBar {
 	color:#444444;
 }
-#userbar a,
-#userbar a:active,
-#userbar a:visited {
+#foswikisiteUserBar a,
+#foswikisiteUserBar a:active,
+#foswikisiteUserBar a:visited {
 	color:#444444;
 }
-#userbar a:hover {
+#foswikisiteUserBar a:hover {
 	color:#73aa31;
 }
-#patternTopBarButtons {
-	background-color:#8bb6e5;
-	border-color:#e1eafa;
-}
+#patternTopBarButtons {}
 #patternTopBarButtons ul {
 	color:#339;
 	border-color:#e1eafa;
 }
 #patternTopBarButtons li {
 	color:#339;
-	border-color:#e1eafa;
 }
 #patternTopBarButtons li a {
-	color:#00458f;
+	border-color:#e1eafa;
+	background:#8bb6e5 url(menu_background.gif) repeat-x scroll 0 0;
+	color:#00346b;
 }
 #patternTopBarButtons li a.active,
 #patternTopBarButtons li a:link:hover,
@@ -512,7 +502,10 @@ li.patternLogIn {
 #patternBottomBarContents a:hover {
 	color:#000;
 }
-
+.patternMetaMenu ul li .foswikiInputFieldBeforeFocus,
+.patternMetaMenu ul li .foswikiSelect {
+	background-color:#e8f0fa;
+}
 html body {
 	background-color:white;
 	color:#000;
@@ -522,7 +515,7 @@ html body.patternEditPage,
 	background-color:#fff;
 }
 /* be kind to netscape 4 that doesn't understand inheritance */
-body, p, li, ul, ol, dl, dt, dd, acronym, h1, h2, h3, h4, h5, h6 {
+p, li, ul, ol, dl, dt, dd, acronym, h1, h2, h3, h4, h5, h6 {
 	background-color:transparent;
 }
 hr {
@@ -619,16 +612,14 @@ h2, h3, h4, h5, h6 {
 .foswikiNewLink {
 	border-color:#ddd;
 }
-#foswikiLogo a img {
-	display:none;
-}
 #foswikiLogo a {
 	display:block;
-	background-image:url(logo.gif);
-	background-repeat:no-repeat;
 	height:90px;
 	width:315px;
 	margin:-10px 0 0 -25px;
+}
+#foswikiLogo a img {
+	display:none;
 }
 .patternTop a:link,
 .patternHomePath .patternRevInfo .a:link,
