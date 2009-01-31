@@ -14,23 +14,3 @@
 </div><!-- /patternPage-->
 </div><!-- /patternPageShadow-->
 </div><!-- /patternScreen-->%TMPL:END%
-
-%TMPL:DEF{"pngfixtraditional"}%iepngfix.js%TMPL:END%
-%TMPL:DEF{"pngfixsleight"}%supersleight.js%TMPL:END%
-%TMPL:DEF{"pngfixnew"}%supersleight-new.js%TMPL:END%
-
-%TMPL:DEF{"script"}%%TMPL:P{"script:skinbase"}%%TMPL:P{"script:skintemplate"}%%TMPL:P{"script:topictemplate"}%
-<!--[if lte IE 6]>
-<script type="text/javascript" src="%PUBURL%/System/FoswikiSiteSkin/%TMPL:P{"pngfixsleight"}%"></script>
-<![endif]-->
-%TMPL:END%
-
-%TMPL:DEF{"templatestyle"}%
-<style type="text/css" media="all">
-	@import url("%PUBURL%/%SYSTEMWEB%/FoswikiSiteSkin/style.css");
-</style>
-<!--[if lte IE 6]>
-<style type="text/css" media="all">
-	@import url("%PUBURL%/System/FoswikiSiteSkin/style-ie.css");
-</style>
-<![endif]-->%TMPL:END%

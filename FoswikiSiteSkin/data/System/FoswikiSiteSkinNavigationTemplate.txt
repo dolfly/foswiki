@@ -1,6 +1,7 @@
 %META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.0" version="$Rev: 1838 $"}%
+<verbatim>
 %{ main navigation items }%
-%TMPL:DEF{"topbarbuttons"}%<ul>
+%TMPL:DEF{"topbarbuttons"}%<div id="patternTopBarButtons"><ul>
 %TMPL:P{"topbarbutton" DESTWEB="Home" LABEL="Home"}%
 %TMPL:P{"topbarbutton" DESTWEB="About" LABEL="About"}%
 %TMPL:P{"topbarbutton" DESTWEB="System" LABEL="Documentation"}%
@@ -9,10 +10,11 @@
 %TMPL:P{"topbarbutton" DESTWEB="Community" LABEL="Community"}%
 %TMPL:P{"topbarbutton" DESTWEB="Development" LABEL="Development"}%
 %TMPL:P{"topbarbutton" DESTWEB="Download" LABEL="Download"}%
-</ul>%TMPL:END%
+</ul></div>%TMPL:END%
 
 %{ definition of main navigation list item }%
 %TMPL:DEF{"topbarbutton"}%<li><a href="%SCRIPTURL{"view"}%/%DESTWEB%/WebHome" class="%IF{"'%DESTWEB%'='%WEB%'" then="active" else="inactive"}%">%LABEL%</a></li>%TMPL:END%
 
 %{ display of name and login / logout links at very top }%
 %TMPL:DEF{"userbar"}%<div id="foswikisiteUserBar"><ul>%IF{"context authenticated" then='<li>%MAKETEXT{"Hello [_1]" args="[[%WIKIUSERNAME%][%SPACEOUT{%WIKINAME%}%]]"}%</li>'}%%IF{"$ LOGOUT != ''" then='<li>%LOGOUT%</li>'}%%IF{"$ LOGIN != '' and not context authenticated" then='<li>You are visiting this site as: [[%WIKIUSERNAME%][%WIKINAME%]]</li><li>%LOGIN% %IF{"context registration_supported AND context registration_enabled" then="%MAKETEXT{"or"}% [[%SYSTEMWEB%.UserRegistration][%MAKETEXT{"Register"}%]]"}%</li>'}%<li>[[%USERSWEB%.WikiUsers][Users]]</li></ul></div>%TMPL:END%
+</verbatim>

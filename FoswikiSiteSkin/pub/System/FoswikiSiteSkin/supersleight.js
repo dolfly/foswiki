@@ -38,8 +38,6 @@ var supersleight	= function() {
 		var mode = 'scale';
 		var bg	= obj.currentStyle.backgroundImage;
 		var src = bg.substring(5,bg.length-2);
-		// ugly hack for ie6
-		if(src.substring(src.length-24)=='foswiki-header-right.png') return;
 		if (obj.currentStyle.backgroundRepeat == 'no-repeat') {
 			mode = 'crop';
 		}
