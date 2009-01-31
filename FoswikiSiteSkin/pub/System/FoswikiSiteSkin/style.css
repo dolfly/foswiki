@@ -198,7 +198,7 @@ h2 {
 
 .patternTopicActions,
 .foswikiTopic .patternTopicActions {
-	background:#e0ecf9 url(menu_background.gif) repeat-x scroll 0 0;
+	background:#e0ecf9 url(topicactions_background.gif) repeat-x scroll 0 0;
 	color:#fff;
 }
 .patternTopicAction {
