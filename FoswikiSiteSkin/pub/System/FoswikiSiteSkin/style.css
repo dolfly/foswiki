@@ -198,8 +198,8 @@ h2 {
 
 .patternTopicActions,
 .foswikiTopic .patternTopicActions {
-	background-color:#e0ecf9;
-	color:#555;
+	background:#e0ecf9 url(menu_background.gif) repeat-x scroll 0 0;
+	color:#fff;
 }
 .patternTopicAction {
 	border-color:#fff;
@@ -212,28 +212,28 @@ h2 {
 }
 .patternTopicAction .foswikiSeparator,
 .foswikiTopic .patternTopicAction .foswikiSeparator {
-	color:#ccc;
+	color:#b2d4fa;
 }
 .patternActionButtons a:link,
 .foswikiTopic .patternActionButtons a:link,
 .patternActionButtons a:visited,
 .foswikiTopic .patternActionButtons a:visited {
-	color:#004fb0;
+	color:#00346b;
 }
 .patternActionButtons a:hover,
 .foswikiTopic .patternActionButtons a:hover {
-	color:#004fb0;
+	color:#00346b;
 }
 .patternTopicAction a:link .foswikiAccessKey,
 .patternTopicAction a:visited .foswikiAccessKey {
-	color:#004fb0;
-	border-color:#004fb0;
+	color:#00346b;
+	border-color:#00346b;
 }
 .patternTopicAction a:hover .foswikiAccessKey {
-	color:#004fb0;
+	color:#00346b;
 }
 .patternTopicAction label {
-	color:#004fb0;
+	color:#00346b;
 }
 .patternHelpCol {
 	color:#777;
@@ -473,7 +473,6 @@ li.patternLogIn {
 }
 #patternTopBarButtons {}
 #patternTopBarButtons ul {
-	color:#339;
 	border-color:#e1eafa;
 }
 #patternTopBarButtons li {
@@ -492,7 +491,7 @@ li.patternLogIn {
 #patternTopBarButtons li a.inactive {}
 #patternBottomBar {
 	border:none;
-	background-color:#fff;
+	background:none;
 }
 #patternBottomBarContents,
 #patternBottomBarContents a:link,
