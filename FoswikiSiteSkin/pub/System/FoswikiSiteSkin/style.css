@@ -130,12 +130,13 @@ h6
 	font-weight:bold;
 }
 
+h2,
 h3,
 h4,
 h5,
 h6
 {
-	color:#d1400e;
+	color:#090;
 	display:block;
 	height:auto;
 	margin:1em 0 .35em;
@@ -266,7 +267,7 @@ a.foswikiButtonCancel,
 	text-align:center;
 	border-style:solid;
 	border-width:1px;
-	padding:.25em .4em;
+	padding:.2em .35em;
 }
 
 .foswikiSubmit,
@@ -1603,14 +1604,6 @@ blockquote h2
 	background:none;
 }
 
-h3,
-h4,
-h5,
-h6
-{
-	color:#444;
-	border-color:#e2e2e2;
-}
 
 /* to override old Render.pm coded font color style */
 .foswikiNewLink font
