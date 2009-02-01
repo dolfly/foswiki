@@ -3,7 +3,6 @@
 
 This plugin can be used to improve the typography of TML text.
 
-
 ---++ Syntax Rules and Examples
 
 | *Syntax* | *Generates* | *Description* |
@@ -12,6 +11,12 @@ This plugin can be used to improve the typography of TML text.
 |  -<nop>-<nop>-  |  &mdash;  | Em dash* |
 |  -<nop>-  |  &ndash;  | En dash* |
 |  &lt;expand&gt;WikiWord(s)&lt;/expand&gt;  |  Wiki Words  | Expands wiki words <br> *Hint*: Use in navigation/title bars |
+
+Dashes
+   * For an ordinary hyphen use "-" (don't use the quotes).
+   * For a range of numbers use the en dash "--" as in 2--8 (named because it is as wide as n).
+   * To indicate a parenthetic expression use the em dash "---" (as wide as m).
+see http://en.wikipedia.org/wiki/Dash for more details on the proper use of dashes
 
 Quotation marks (&quot;) and apostrophes (&apos;) are also converted to rounded quotes.
 
@@ -40,18 +45,21 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 	  | ==lib/Foswiki/Plugins/TypographyPlugin.pm== | Plugin Perl module |
 	* Visit =configure= in your Foswiki installation, and enable the plugin in the {Plugins} section.
 	* Test if the installation was successful:
-		* _enter samples here_
+		* This is a range of numbers from 1--10
+		* Nice typography is pleasing to the eyes---wouldn't you agree?
+		* "That's what he said!"
+		* ``That's what he said!''
+
 
 ---++ Plugin Info
 
 |  Plugin Author: | TWiki:Main/EricScouten, Foswiki:Main.WillNorris |
-|  Plugin Version: | 07 Jan 2003 (V1.000) |
+|  Plugin Version: | 31 Jan 2009 (V1.001) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  31 Jan 2009: | Ported to Foswiki |
 |  07 Jan 2003: | Initial version |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
-|  Perl Version: | 5.005 |
 |  Plugin Home: | http://foswiki.org/Extensions/TypographyPlugin |
 |  Feedback: | http://foswiki.org/Extensions/TypographyPluginDev |
 
