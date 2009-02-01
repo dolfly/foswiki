@@ -28,7 +28,7 @@ Quotation marks (&quot;) and apostrophes (&apos;) are also converted to rounded 
 Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>INTERWIKIPLUGIN_SHORTDESCRIPTION%==
 
 	* One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-		* Set SHORTDESCRIPTION = _Improves the typography of TML tex._
+		* Set SHORTDESCRIPTION = _Improves the typography of TML text._
 
 	* Debug plugin: (See output in =data/debug.txt=)
 		* Set DEBUG = 0
