@@ -51,8 +51,7 @@ function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
 								        		background: "black"
 											},
 											close: function() { uninstallScrollock(); }
-	}); 
-	
+	}); 	
 }
 /* makes it possible to show a dialog without knowing the jquery.dialog api.
  * selector: The div ID which should be used as the dialog-destination. Generally its a display:hidden 
@@ -207,7 +206,7 @@ window.showWaitingLayer= function (dialogselector, message) {
 	if(message == undefined) {
 		message = "loading...";
 	}
-		
+
 	var wait = '<table width="100%" height="100%"><tr><td width="100%" align="center" valign="center" style="font-weight:bolder">'+message+'<br><br><img src="'+Foswiki.pubUrlPath+'/System/JQueryCompatibilityModePlugin/themes/loader.gif"></td></tr></table>';
     $j(dialogselector).html(wait);
 }
