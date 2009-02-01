@@ -1,7 +1,7 @@
 #  *****************************************************************************
 #
 #   TypographyPlugin.pm
-#   Improve typography of TWiki generated text.
+#   Improve typography of TML
 #
 #   Copyright (C) 2002, Eric Scouten
 #   Started Sat, 07 Dec 2002
@@ -25,7 +25,7 @@ package Foswiki::Plugins::TypographyPlugin;
 
 use vars qw($web $topic $user $installWeb $VERSION $RELEASE $debug $doOldInclude $renderingWeb);
 
-# This should always be $Rev$ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev$';

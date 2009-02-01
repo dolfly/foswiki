@@ -1,7 +1,7 @@
 %META:TOPICINFO{author="ProjectContributor" date="1041914040" format="1.0" version="1.1"}%
 ---+ <nop>TypographyPlugin
 
-This plugin can be used to improve the typography of TWiki-generated text.
+This plugin can be used to improve the typography of TML text.
 
 
 ---++ Syntax Rules and Examples
@@ -23,14 +23,14 @@ Quotation marks (&quot;) and apostrophes (&apos;) are also converted to rounded 
 Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>INTERWIKIPLUGIN_SHORTDESCRIPTION%==
 
 	* One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-		* Set SHORTDESCRIPTION = _Improves the typography of TWiki-generated text._
+		* Set SHORTDESCRIPTION = _Improves the typography of TML tex._
 
 	* Debug plugin: (See output in =data/debug.txt=)
 		* Set DEBUG = 0
 
 ---++ Plugin Installation Instructions
 
-__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where TWiki is running. 
+__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where Foswiki is running. 
 
 	* Download the ZIP file from the Plugin web (see below)
 	* Unzip ==%TOPIC%.zip== in your twiki installation directory. Content:
@@ -38,15 +38,16 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 	  | ==data/System/TypographyPlugin.txt== | Plugin topic |
 	  | ==data/System/TypographyPlugin.txt,v== | Plugin topic repository |
 	  | ==lib/Foswiki/Plugins/TypographyPlugin.pm== | Plugin Perl module |
-	* (Dakar) Visit =configure= in your TWiki installation, and enable the plugin in the {Plugins} section.
+	* Visit =configure= in your Foswiki installation, and enable the plugin in the {Plugins} section.
 	* Test if the installation was successful:
 		* _enter samples here_
 
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main/EricScouten |
+|  Plugin Author: | TWiki:Main/EricScouten, Foswiki:Main.WillNorris |
 |  Plugin Version: | 07 Jan 2003 (V1.000) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  31 Jan 2009: | Ported to Foswiki |
 |  07 Jan 2003: | Initial version |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
@@ -55,5 +56,3 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Feedback: | http://foswiki.org/Extensions/TypographyPluginDev |
 
 __Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
-
--- TWiki:Main/EricScouten - 07 Jan 2003
