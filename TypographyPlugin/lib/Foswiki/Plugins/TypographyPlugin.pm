@@ -21,7 +21,7 @@
 #
 #  *****************************************************************************
 
-package TWiki::Plugins::TypographyPlugin;
+package Foswiki::Plugins::TypographyPlugin;
 
 use vars qw($web $topic $user $installWeb $VERSION $RELEASE $debug $doOldInclude $renderingWeb);
 
@@ -46,18 +46,18 @@ sub initPlugin {
 
     # Check for Plugins.pm versions.
 
-    if ($TWiki::Plugins::VERSION < 1) {
-        &TWiki::Func::writeWarning( "Version mismatch between TypographyPlugin and Plugins.pm" );
+    if ($Foswiki::Plugins::VERSION < 1) {
+        &Foswiki::Func::writeWarning( "Version mismatch between TypographyPlugin and Plugins.pm" );
         return 0;
     }
 
     # Get plugin debug flag.
 
-    $debug = &TWiki::Func::getPreferencesFlag("TYPOGRAPHYPLUGIN_DEBUG");
+    $debug = &Foswiki::Func::getPreferencesFlag("TYPOGRAPHYPLUGIN_DEBUG");
 
     # Plugin correctly initialized.
 
-    &TWiki::Func::writeDebug("- TWiki::Plugins::TypographyPlugin::initPlugin( $web.$topic ) is OK") if $debug;
+    &Foswiki::Func::writeDebug("- Foswiki::Plugins::TypographyPlugin::initPlugin( $web.$topic ) is OK") if $debug;
     return 1;
 
 }
@@ -69,7 +69,7 @@ sub startRenderingHandler {
 
 ### my ( $text, $web ) = @_;   # do not uncomment, use $_[0], $_[1] instead
 
-    &TWiki::Func::writeDebug("- TypographyPlugin::startRenderingHandler( $_[1].$topic )") if $debug;
+    &Foswiki::Func::writeDebug("- TypographyPlugin::startRenderingHandler( $_[1].$topic )") if $debug;
 
 	# See if we have Internet Explorer. Other browsers (esp. older Netscapes) aren't
 	# very savvy about typography.
@@ -120,7 +120,7 @@ sub endRenderingHandler {
 
 ### my ($text) = @_;   # do not uncomment, use $_[0] instead
 
-    &TWiki::Func::writeDebug("- TypographyPlugin::endRenderingHandler( $_[0] )") if $debug;
+    &Foswiki::Func::writeDebug("- TypographyPlugin::endRenderingHandler( $_[0] )") if $debug;
 
 	# Patch out <expand> tags.
 
@@ -135,7 +135,7 @@ sub renderExpandSection {
 
 	my ($renderSection) = @_;
 
-    &TWiki::Func::writeDebug("- TypographyPlugin::renderExpandSection( $renderSection )") if $debug;
+    &Foswiki::Func::writeDebug("- TypographyPlugin::renderExpandSection( $renderSection )") if $debug;
 
 	$renderSection =~ s(\b([A-Z]+[a-z]+[A-Z0-9]+[a-zA-Z0-9]*)\b(?![^<]+>)(?![^<{]*}))(&expandWikiWord($1))geo;
 
@@ -150,7 +150,7 @@ sub expandWikiWord {
 
 	my ($wikiWord) = @_;
 
-    &TWiki::Func::writeDebug("- TypographyPlugin::expandWikiWord( $wikiWord )") if $debug;
+    &Foswiki::Func::writeDebug("- TypographyPlugin::expandWikiWord( $wikiWord )") if $debug;
 
 	# Insert spaces between each part of WikiWord.
 
@@ -185,7 +185,7 @@ sub expandWikiWord {
 		$wikiWord =~ s(\bPMLs\b)(PML\'s)go;
 	}
 
-    &TWiki::Func::writeDebug("-      expanded to $wikiWord") if $debug;
+    &Foswiki::Func::writeDebug("-      expanded to $wikiWord") if $debug;
 
 	return $wikiWord;
 
