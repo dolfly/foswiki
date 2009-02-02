@@ -3,7 +3,7 @@
 <!--
    * Set SHORTDESCRIPTION = Skin used on foswiki.org.
 -->
----+ Foswiki.org patternskin custimization
+---+ Foswiki.org skin
 %SHORTDESCRIPTION%
 
 %TOC{title="Page contents"}%
@@ -12,6 +12,11 @@
 
 Click to enlarge:%BR%
 %SEARCH{ "%TOPIC%" scope="topic" nosearch="on" nototal="on" format="<div class='foswikiImage'>$pattern(.*\| *Screenshot\:[^\|]*\|([^\|]*).*)</div>" }%
+
+
+---++ Main navigation
+
+The main horizontal navigation is defined in topic template FoswikiSiteSkinNavigationTemplate and can be edited like any other topic.
 
 ---++ Installation
 
@@ -36,7 +41,6 @@ Because this skin leans on PatternSkin, also set:
 
 Set TablePlugin styles:
    * Set TABLEPLUGIN_TABLEATTRIBUTES = tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#444444" headerbg="#e0e0e4" headerbgsorted="#c5c5cc" databg="#ffffff,#edf4f9" databgsorted="#f1f7fc,#ddebf6" tablerules="rows"
-
 </verbatim>
 
 ---++ Skin Info
@@ -45,7 +49,7 @@ Set TablePlugin styles:
 |  Screenshot: | <a href="%ATTACHURL%/screenshot_full.png"><img src="%ATTACHURL%/screenshot.jpg" style="border:1px solid #eee;" alt="Click for full screen image" width="600" /></a> |
 |  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=foswikisite,pattern][Preview with this skin]] |
 |  Base Name: | foswikisite,pattern |
-|  Skin Version: | 31 Jan 2009 (v1.1.0) | 
+|  Skin Version: | 01 Feb 2009 (v1.1.1) | 
 |  History: | <!-- specify latest version first -->&nbsp; |
 |  31 Jan 2009: | Renamed <nop>FoswikiDotOrgPatternSkinContrib to <nop>FoswikiSiteSkin; visual update, made CSS independent of PatternSkin. |
 |  07 Jan 2009: | Initial version (v1.0.0) |
