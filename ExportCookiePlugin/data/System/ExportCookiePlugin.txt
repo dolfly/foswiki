@@ -18,7 +18,7 @@ Use the macro <verbatim>%EXPORTCOOKIE%</verbatim> to display the value. You can 
 ---++ Plugin Info
 
 |  Plugin Author: | Foswiki:Main.MayerEugen |
-|  Copyright: | &copy; 2006, Impressive.media |
+|  Copyright: | &copy; 2009, Collaborganize [[www.collaborganize.com]] |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | 09 Dez 2008 (V0.2) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
@@ -35,8 +35,9 @@ Use the macro <verbatim>%EXPORTCOOKIE%</verbatim> to display the value. You can 
 __Related Topics:__
 
 %META:FORM{name="PackageForm"}%
-%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="ExtensionClassification" attributes="" title="ExtensionClassification" value="Libraries"}%
+%META:FIELD{name="ExtensionType" attributes="" title="ExtensionType" value="PluginPackage"}%
 %META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
 %META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
 %META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
-%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}% 
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
