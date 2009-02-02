@@ -1,10 +1,18 @@
+<!--
+This topic is part of the documentation for JQueryCompatibilityModePlugin and is
+automatically generated from Subversion. Do not edit it! Your edits
+will be lost the next time the topic is uploaded!
+
+If you want to report an error in the topic, please raise a report at
+http://foswiki.org/view/Tasks/JQueryCompatibilityModePlugin
+-->
 ---+ !JQueryCompatibilityModePlugin
-Just the same as JqueryPlugin but using the compatibilty mode to provide use with other frameworks
+ Just the same as JqueryPlugin but using the compatibilty mode to provide use with other frameworks
 
 %TOC%
 
 ---++ Introduction
-This plugin includes the jquery javascript library. In difference to JQueryPlugin it uses the build in compatibilty mode to not provoke a clash with =$= in other frameworks like dojo or prototype
+ This plugin includes the jquery javascript library. In difference to JQueryPlugin it uses the build in compatibilty mode to not provoke a clash with =$= in other frameworks like dojo or prototype
 
 ---++ Usage
    * After installing the plugin, all you need to do is using =$j= instead of =$= for accessing jquery.
@@ -17,11 +25,8 @@ This plugin includes the jquery javascript library. In difference to JQueryPlugi
 | Foswiki.scriptSuffix | The current Foswiki scriptSuffix |
 | Foswiki.scriptUrlPath | The current Foswiki scriptUrlPath |
 | Foswiki.viewScript | The current Foswiki viewScript path |
-   
 
-*Hint:* %BR%
-If you enclose your javascritpt by the following general body, you can use this script in any enviroment, no matter to which variable JQuery is currently bind to.
-This would mean you could use this script with JQueryPlugin also or even in environments, where Jquery is bind to =$foo=
+*Hint:* %BR% If you enclose your javascritpt by the following general body, you can use this script in any enviroment, no matter to which variable JQuery is currently bind to. This would mean you could use this script with JQueryPlugin also or even in environments, where Jquery is bind to =$foo=
 <verbatim>
 (function($) {
 .
@@ -34,8 +39,8 @@ function myGloablFunc () { $("#foo").show() }
 .
 .
 })(jQuery);
-</verbatim>
-You can use any shortcut variable you like in this code, so =;(function($foo) {..}= would let you use $foo in for access JQuery
+</verbatim> You can use any shortcut variable you like in this code, so =;(function($foo) {..}= would let you use $foo in for access JQuery
+
 ---++ Included JQuery libraries
    * JQuery 1.3.1
    * JQuery 1.2 ( deprecated but available. Not used by default )
@@ -45,31 +50,27 @@ You can use any shortcut variable you like in this code, so =;(function($foo) {.
    * jquery-mbMenu 1.0 ( [[http://plugins.jquery.com/project/mbMenu]] )
    * jquery-jdMenue 1.4.1 ( [[http://jdsharp.us/jQuery/plugins/jdMenu/]] )
 ---+++ How to let JQueryCompatibilityModePlugin include your or other JQuery plugins
-Run =/bin/configure= and under %TOPIC% you see in the bottom part, the plugin settings. There you can enter a comma seperated list of includes relative to the pub/System/%TOPIC% directory.
-This way you can include your own or specific JQuery-Plugins and script and dont need every application to care about that ( especially because they done know about the directory structure )
+ Run =/bin/configure= and under %TOPIC% you see in the bottom part, the plugin settings. There you can enter a comma seperated list of includes relative to the pub/System/%TOPIC% directory. This way you can include your own or specific JQuery-Plugins and script and dont need every application to care about that ( especially because they done know about the directory structure )
 
 ---+++ Something missing?
-There is a lot missing here, so this needs an update. Please send me a short note on what you want to add. Actually the policy is, adding anything which can be useful, so in 99% of the cases the library gets added directly! 
+ There is a lot missing here, so this needs an update. Please send me a short note on what you want to add. Actually the policy is, adding anything which can be useful, so in 99% of the cases the library gets added directly! 
 ---++ Foswiki specific upgrades
 ---+++ DialogAPI
-*Attention*: The dialog API does actually only work with the core patch attached to this [[Foswiki:Development.ExtraResponseHeaderFields]FeaturePropsal]] ( 2 lines ). I hope it gets included in the next 1.1 release
-
 You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialogAPI.js ). By calling the =fetchAndShowDialog= method
 
 ---++++ fetchAndShowDialog
-*Fetch, setup and show a dialog*
-| *parameter* | *type* | *default* |*meaning* |
-| selector | string | required |The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
-| aurl | string |required |url to fetch  |
-| atitle | string |required |title of the dialog  |
-| amodal | boolean |required | should the dialog be shown modal, so you must close it before you can use the page further |
-| awidth | integer |required |size of the dialog  |
-| awidth | integer |required |size of the dialog  |
-| handler | hash | responseHandler['other'] = 'generalRestResponseHandler'; %BR% responseHandler['200'] = 'handleDialogCompleteResponse'; %BR% responseHandler['401'] = 'generalRestResponseHandler'; %BR% responseHandler['403'] = 'generalRestResponseHandler'; %BR% responseHandler['500'] = 'generalRestResponseHandler'; | An hash out of status codes and the function which should be called, when the fetch %BR% request returns with such a status code  Example:%BR% =handler['200'] = "handleSuccess";handler['401'] = "handleNeedLogin";handler['other'] = "handleGeneralResponse";= %BR% A special role has the ='other'= key, which is called, when the response code %BR% has no other handler, in our example status 500 or 501. |
-%BR%
-*Hint to handler parameter*: This is actually something you can use for rest-handler ajax-requests. As RestHandlers should do what they are for and end up with a 200 or other status codes. You can then use your own RestHandlers for e.g. doing something special if your request returns a 401. E.g. for some actions this could be "please login" for some "you have the wrong permissions"
+ *Fetch, setup and show a dialog* 
+| *parameter* | *type* | *default* | *meaning*  |
+| selector | string | required | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here  |
+| aurl | string | required  | url to fetch  |
+| atitle | string | required  | title of the dialog  |
+| amodal | boolean | required  | should the dialog be shown modal, so you must close it before you can use the page further |
+| awidth | integer | required  | size of the dialog  |
+| awidth | integer | required  | size of the dialog  |
+| handler | hash | responseHandler['other'] = 'generalRestResponseHandler'; %BR% responseHandler['200'] = 'handleDialogCompleteResponse'; %BR% responseHandler['401'] = 'generalRestResponseHandler'; %BR% responseHandler['403'] = 'generalRestResponseHandler'; %BR% responseHandler['500'] = 'generalRestResponseHandler'; | An hash out of status codes and the function which should be called, when the fetch %BR% request returns with such a status code Example:%BR% =handler['200'] = "handleSuccess";handler['401'] = "handleNeedLogin";handler['other'] = "handleGeneralResponse";= %BR% A special role has the ='other'= key, which is called, when the response code %BR% has no other handler, in our example status 500 or 501. |
+%BR% *Hint to handler parameter*: This is actually something you can use for rest-handler ajax-requests. As RestHandlers should do what they are for and end up with a 200 or other status codes. You can then use your own RestHandlers for e.g. doing something special if your request returns a 401. E.g. for some actions this could be "please login" for some "you have the wrong permissions" 
 ---++++ setupDialog
-*Setup a dialog (not show)*
+ *Setup a dialog (not show)* 
 | *parameter* | *meaning* |
 | selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
 | data | the data the dialog should show |
@@ -79,12 +80,12 @@ You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialog
 | awidth | size of the dialog  |
 
 ---++++ showDialog
-*Show a dialog, which was setup before*
+ *Show a dialog, which was setup before* 
 | *parameter* | *meaning* |
 | selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
 
----++++ hideDialog 
-*hide a dialog*
+---++++ hideDialog
+ *hide a dialog* 
 | *parameter* | *meaning* |
 | selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
 
@@ -95,7 +96,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
    * Set SHORTDESCRIPTION = Just the same as JqueryPlugin but using the compatibilty mode to provide use with other frameworks
 
 |  Plugin Author: | Foswiki:Main.EugenMayer |
-|  Copyright: | &copy; Collaborganize ( [[www.collaborganize.com]] )|
+|  Copyright: | © Collaborganize ( [[www.collaborganize.com]] ) |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | 02 Feb 2009 (V1.1) |
 |  Change History: | <!-- versions below in reverse order --> |
@@ -107,8 +108,8 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  26 Jan 2009: | JQuery updated to 1.3.1 |
 |  26 Jan 2009: | Added a Foswiki specific, updated and friendlyfied docs |
 |  25 Jan 2009: | Fixing installer bug ( when JQueryCompatibilityModePlugin has been installed, other plugins are failing ( Foswiki:Tasks/Item864 ) |
-|  20 Jan 2009: | Adding pubURL and other vars to window.Foswiki, updating docs|
-|  11 Jan 2009: | added Jquery-Dialog API. You can choose, if Jquery or/and the Dialog API should be included automatically on page-load|
+|  20 Jan 2009: | Adding pubURL and other vars to window.Foswiki, updating docs |
+|  11 Jan 2009: | added Jquery-Dialog API. You can choose, if Jquery or/and the Dialog API should be included automatically on page-load |
 |  28 Dez 2008: | initial release |
 |  Foswiki Dependency: | |
 |  CPAN Dependencies: | |
@@ -119,11 +120,4 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
  __Related Topic:__
 
--- Foswiki:Main/EugenMayer - 25 Jan 2009
-
-%META:FORM{name="PackageForm"}%
-%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
-%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
-%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
-%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
-%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
+-- Foswiki:Main/EugenMayer - 02 Feb 2009

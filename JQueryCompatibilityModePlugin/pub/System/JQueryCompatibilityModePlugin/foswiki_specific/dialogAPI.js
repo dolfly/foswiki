@@ -127,7 +127,7 @@ window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, ah
 						else {
 							handler = responseHandler[status];
 						}	
-						alert(handler);
+
 						// call the corresponding handler
 						window[handler](xmlHttp, status,selector);
 					 }				 
