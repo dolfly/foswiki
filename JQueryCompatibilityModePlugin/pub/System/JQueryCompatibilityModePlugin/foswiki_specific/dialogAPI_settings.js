@@ -36,3 +36,10 @@ window.Foswiki.actionHandlers.manage = "generalDialogActionHandler";
 window.Foswiki.actionHandlers.oops = "generalDialogActionHandler";
 
 window.Foswiki.actionHandlers.view = "generalActionHandler";
+
+if(!window.Foswiki.actionHandlers) {
+	window.Foswiki.UI = {};
+}
+
+window.Foswiki.UI.showLogin = "showLoginForm";
+window.Foswiki.UI.showOops = "showOops";

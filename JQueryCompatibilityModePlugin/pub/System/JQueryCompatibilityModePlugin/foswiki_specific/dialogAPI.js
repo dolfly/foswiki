@@ -83,7 +83,16 @@ window.setupDialog = function (selector, data, atitle, amodal, awidth, aheight )
 	$j(selector).html(data);
 }
 
-window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, aheight ) {
+window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, aheight, responseHandler ) {
+	if(responseHandler == undefined ) {
+		responseHandler = {};
+		// setting 200 / 401 .. just to show how its used, actually only "all" is important here
+		responseHandler['other'] = 'generalRestResponseHandler';
+		responseHandler['200'] = 'handleDialogCompleteResponse';
+		responseHandler['401'] = 'generalRestResponseHandler';
+		responseHandler['403'] = 'generalRestResponseHandler';
+		responseHandler['500'] = 'generalRestResponseHandler';		
+	}
 	
 	bootupDialog(selector, atitle, amodal, awidth, aheight);
 	// ok show the waiting dialog
@@ -99,7 +108,29 @@ window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, ah
 					 type: "GET",  			
 		  			 scriptCharset: "iso-8859-1",
 		  			 dataType:"html",	
-		  			 complete: function(xmlHttp, status) { handleDialogCompleteResponse(xmlHttp, status,selector);}				 
+		  			 complete: function(xmlHttp, status) { 
+						var handler = "";
+						status = xmlHttp.status;
+						// if no handler for the returned status is provided, use the "other" handler
+						if(responseHandler[status] == undefined)  {
+							
+							if(responseHandler["other"] != undefined) {
+								// but if the "other" handler is also undefined, use a dummy 
+								// which displays an error
+								handler = "resposneHandlerNotDefined";
+							}
+							else {
+								// ok other is set, so use it
+								handler =  responseHandler["other"];								
+							}
+						}
+						else {
+							handler = responseHandler[status];
+						}	
+						alert(handler);
+						// call the corresponding handler
+						window[handler](xmlHttp, status,selector);
+					 }				 
 	});
 }
 
@@ -123,7 +154,7 @@ window.handleDialogCompleteResponse = function (xmlHttp, status,selector) {
 	// welcome to foswiki`s world. Lets remove all the useful "p`s" in arround the dialog
 	$j(selector+" > p").remove();
 	var action = xmlHttp.getResponseHeader("X-FoswikiAction");
-	var uri = xmlHttp.getResponseHeader("X-FoswikiUri");
+	var uri = xmlHttp.getResponseHeader("X-FoswikiURI");
 	handleGeneralData(selector,data,action,uri);
 }
 
@@ -209,5 +240,54 @@ window.showWaitingLayer= function (dialogselector, message) {
 
 	var wait = '<table width="100%" height="100%"><tr><td width="100%" align="center" valign="center" style="font-weight:bolder">'+message+'<br><br><img src="'+Foswiki.pubUrlPath+'/System/JQueryCompatibilityModePlugin/themes/loader.gif"></td></tr></table>';
     $j(dialogselector).html(wait);
+}
+
+window.generalRestResponseHandler = function (xmlHttp, status,selector) {
+	var data = xmlHttp.responseText;
+	
+	switch(status) {
+		case 200:
+			$j(selector).html(data);
+			$j(selector+" > p").remove();
+		break;
+		case 401:			
+		case 403:
+			window[Foswiki.UI.showLogin](selector);
+		break;
+		case 500:
+			window[Foswiki.UI.showOops](selector);
+		break;
+	}
+}
+
+window.showLoginForm = function (dialogselector) {
+	// this is the way how we would show a normal login dialog
+	//fetchAndShowDialog(dialogselector,"/bin/login","Login",true,400,400);
+	
+	// but right now as nobody really seperates the login forms and other dialogs using the ajax skin
+	// we make a normal redirect to the login form
+	
+	document.location = "/bin/login";
+}
+
+window.showLoginForm = function (dialogselector) {
+	// this is the way how we would show a normal login dialog. This is for later use or as an example
+	// fetchAndShowDialog(dialogselector,"/bin/login","Login",true,400,400);
+	
+	// but right now as nobody really seperates the login forms and other dialogs using the ajax skin
+	// we make a normal redirect to the login form	
+	document.location = "/bin/login";
+}
+
+window.showOops = function (dialogselector) {
+	// we could try to give the user some feedback what could have happend, but right now, we just 
+	// display a alert that something bad happened. This is to overwrite later by better logic
+	alert("An error occured during your operation");
+}
+
+
+window.resposneHandlerNotDefined = function (xmlHttp, status,selector) {
+
+	alert("No handler defined for status:"+status);
 }
 })(jQuery);

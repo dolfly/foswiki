@@ -44,6 +44,9 @@ You can use any shortcut variable you like in this code, so =;(function($foo) {.
    * jquery-ajax-upload 1.0 ( [[http://valums.com/ajax-upload/]] )
    * jquery-mbMenu 1.0 ( [[http://plugins.jquery.com/project/mbMenu]] )
    * jquery-jdMenue 1.4.1 ( [[http://jdsharp.us/jQuery/plugins/jdMenu/]] )
+---+++ How to let JQueryCompatibilityModePlugin include your or other JQuery plugins
+Run =/bin/configure= and under %TOPIC% you see in the bottom part, the plugin settings. There you can enter a comma seperated list of includes relative to the pub/System/%TOPIC% directory.
+This way you can include your own or specific JQuery-Plugins and script and dont need every application to care about that ( especially because they done know about the directory structure )
 
 ---+++ Something missing?
 There is a lot missing here, so this needs an update. Please send me a short note on what you want to add. Actually the policy is, adding anything which can be useful, so in 99% of the cases the library gets added directly! 
@@ -55,14 +58,16 @@ You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialog
 
 ---++++ fetchAndShowDialog
 *Fetch, setup and show a dialog*
-| *parameter* | *meaning* |
-| selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
-| aurl | url to fetch  |
-| atitle | title of the dialog  |
-| amodal | boolean, should the dialog be shown modal, so you must close it before you can use the page further |
-| awidth | size of the dialog  |
-| awidth | size of the dialog  |
-
+| *parameter* | *type* | *default* |*meaning* |
+| selector | string | required |The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
+| aurl | string |required |url to fetch  |
+| atitle | string |required |title of the dialog  |
+| amodal | boolean |required | should the dialog be shown modal, so you must close it before you can use the page further |
+| awidth | integer |required |size of the dialog  |
+| awidth | integer |required |size of the dialog  |
+| handler | hash | responseHandler['other'] = 'generalRestResponseHandler'; %BR% responseHandler['200'] = 'handleDialogCompleteResponse'; %BR% responseHandler['401'] = 'generalRestResponseHandler'; %BR% responseHandler['403'] = 'generalRestResponseHandler'; %BR% responseHandler['500'] = 'generalRestResponseHandler'; | An hash out of status codes and the function which should be called, when the fetch %BR% request returns with such a status code  Example:%BR% =handler['200'] = "handleSuccess";handler['401'] = "handleNeedLogin";handler['other'] = "handleGeneralResponse";= %BR% A special role has the ='other'= key, which is called, when the response code %BR% has no other handler, in our example status 500 or 501. |
+%BR%
+*Hint to handler parameter*: This is actually something you can use for rest-handler ajax-requests. As RestHandlers should do what they are for and end up with a 200 or other status codes. You can then use your own RestHandlers for e.g. doing something special if your request returns a 401. E.g. for some actions this could be "please login" for some "you have the wrong permissions"
 ---++++ setupDialog
 *Setup a dialog (not show)*
 | *parameter* | *meaning* |
@@ -82,9 +87,7 @@ You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialog
 *hide a dialog*
 | *parameter* | *meaning* |
 | selector | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here |
----+++ How to let plugins include
-Run =/bin/configure= and under %TOPIC% you see in the bottom part, the plugin settings. There you can enter a comma seperated list of includes relative to the pub/System/%TOPIC% directory.
-This way you can include your own or specific JQuery-Plugins and script and dont need every application to care about that ( especially because they done know about the directory structure )
+
 ---++ Installation instructions
    * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
 __Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
@@ -94,9 +97,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; Collaborganize ( [[www.collaborganize.com]] )|
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | Feb Jan 2009 (V1.1) |
+|  Plugin Version: | 02 Feb 2009 (V1.1) |
 |  Change History: | <!-- versions below in reverse order --> |
-|  01 Feb 2009: | Including new menue plugin, updating UI to 1.6.rc6 ( with base theme )  |
+|  02 Feb 2009: | Including new menue plugin, updating UI to 1.6.rc6 ( with base theme ) %BR% Enhancing dialogAPI to be able to handle rest-responses by status codes %BR% updating documentation |
 |  30 Jan 2009: | Adding generized way to include your own scrips / jquery plugins. Fixed bug in dialogAPI handler declaration, updated docs  |
 |  30 Jan 2009: | adding new base-ui-theme, generalizing the ui-theme ( selectable through /bin/configure now ), also dialogAPI using this skin now. Update UI to 1.6.5rc |
 |  29 Jan 2009: | Fixing IE bug which cache the responses but not the headers, so the response header is completely broken |
