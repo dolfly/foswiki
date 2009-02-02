@@ -70,3 +70,10 @@ Or for auto-openening a dialog for attachments
  __Related Topic:__
 
 -- Foswiki:Main/EugenMayer - 25 Jan 2009
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="ExtensionClassification" attributes="" title="ExtensionClassification" value="Libraries, Javascript Utilities"}%
+%META:FIELD{name="ExtensionType" attributes="" title="ExtensionType" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
