@@ -922,7 +922,7 @@ tr.foswikiDiffDebug .foswikiDiffUnchangedText
 .patternMetaMenu ul li .foswikiInputFieldBeforeFocus,
 .patternMetaMenu ul li .foswikiSelect
 {
-	background-color:#cddbef;
+	background-color:#f0f4fa;
 }
 
 .patternPrintPage #patternOuter
@@ -992,17 +992,6 @@ tr.foswikiDiffDebug .foswikiDiffUnchangedText
 	border-color:#fff;
 }
 
-.patternTopicAction .foswikiSeparator
-{
-	color:#e2e2e2;
-}
-
-.patternTopicAction .foswikiSeparator,
-.foswikiTopic .patternTopicAction .foswikiSeparator
-{
-	color:#b2d4fa;
-}
-
 .patternTopicAction a:hover .foswikiAccessKey,
 .patternTopicAction label,
 .patternActionButtons a:link,
@@ -1022,6 +1011,8 @@ tr.foswikiDiffDebug .foswikiDiffUnchangedText
 	color:#00346b;
 }
 
+.patternTopicAction .foswikiSeparator,
+.foswikiTopic .patternTopicAction .foswikiSeparator,
 .patternTopicAction s,
 .patternTopicAction strike,
 .patternTopicAction s,
@@ -1029,7 +1020,7 @@ tr.foswikiDiffDebug .foswikiDiffUnchangedText
 .patternTopicAction strike,
 .foswikiTopic .patternTopicAction strike
 {
-	color:#aaa;
+	color:#c9e2fd;
 }
 
 .patternTopicActions
