@@ -31,7 +31,7 @@ __Note:__ You do not need to install anything on the browser to use this Plugin.
 <!--   * Set SHORTDESCRIPTION = Easy linking to attachments for everyone !%A% -->
 -----
 |  Plugin Author: | Foswiki:Main.EugenMayer |
-|  Copyright: | &copy; 2006, Impressive.media |
+|  Copyright: | &copy; 2009, Collaborganize [[www.collaborganize.com]] |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | 07 Jan 2008 (V0.3) |
 |  Change History: | <!-- versions below in reverse order --> |
@@ -51,7 +51,8 @@ __Note:__ You do not need to install anything on the browser to use this Plugin.
 
 %META:FILEATTACHMENT{name="TestAttachment.pdf" attachment="TestAttachment.pdf" attr="" comment="" date="1229040729" path="TestAttachment.pdf" size="14728" stream="IO::File=GLOB(0x8993660)" tmpFilename="/var/tmp/CGItemp36464" user="EugenMayer" version="1"}%
 %META:FORM{name="PackageForm"}%
-%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="ExtensionClassification" attributes="" title="ExtensionClassification" value="Editing and Editors"}%
+%META:FIELD{name="ExtensionType" attributes="" title="ExtensionType" value="PluginPackage"}%
 %META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
 %META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
 %META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
