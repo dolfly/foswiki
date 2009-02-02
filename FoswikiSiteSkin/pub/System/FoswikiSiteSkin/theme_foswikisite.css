@@ -8,7 +8,6 @@ Overrides global settings in style.css
 	padding:20px 2% 40px 2%;
 	background:#f0f0f1 url('GrayBlend.gif') repeat-x scroll 0 0;
 }
-
 /* top bar */
 #patternTopBarContentsWrapper {
 	background:transparent url(header-left.gif) no-repeat scroll 0 0;
@@ -16,12 +15,6 @@ Overrides global settings in style.css
 #patternTopBar {
 	background:#2e5cac url(header.gif) repeat-x scroll 0 0;
 }
-/*
-#patternSideBar {
-   background:#d6d7da;
-   color:#222;
-}
-*/
 #patternTopBar,
 #patternClearHeaderCenter,
 #patternClearHeaderLeft,
@@ -32,5 +25,6 @@ Overrides global settings in style.css
 	overflow:hidden;
 }
 #patternTopBarContentsWrapper {
+	/* include the navigation bar */
 	height:120px;
 }
