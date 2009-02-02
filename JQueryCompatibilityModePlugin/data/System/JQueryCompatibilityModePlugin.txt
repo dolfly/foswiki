@@ -121,3 +121,12 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
  __Related Topic:__
 
 -- Foswiki:Main/EugenMayer - 02 Feb 2009
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="ExtensionClassification" attributes="" title="ExtensionClassification" value="Javascript Utilities, Libraries"}%
+%META:FIELD{name="ExtensionType" attributes="" title="ExtensionType" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
+
