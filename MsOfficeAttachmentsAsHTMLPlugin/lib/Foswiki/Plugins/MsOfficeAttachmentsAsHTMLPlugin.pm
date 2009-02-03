@@ -47,8 +47,8 @@ sub afterAttachmentSaveHandler {
     my $cmd =
       $Foswiki::cfg{Plugins}{MsOfficeAttachmentsAsHTMLPlugin}{doc2html};
 
-    my ($data, $exit) = $Foswiki::sandbox->sysCommand(
-        $cmd,
+    my ($data, $exit) = Foswiki::Sandbox::sysCommand(
+        undef, $cmd,
         ATTACHDIR => Foswiki::Func::getPubDir() . "/$web/$topic",
         SRC => Foswiki::Func::getPubDir() . "/$web/$topic/$attachmentName$ext",
         DEST => "$attachmentName.html");
