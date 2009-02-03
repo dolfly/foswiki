@@ -1,2 +1,3 @@
 data/TWiki/MsOfficeAttachmentsAsHTMLPlugin.txt NEW
 lib/TWiki/Plugins/MsOfficeAttachmentsAsHTMLPlugin.pm NEW
+lib/TWiki/Plugins/MsOfficeAttachmentsAsHTMLPlugin/Config.spec NEW

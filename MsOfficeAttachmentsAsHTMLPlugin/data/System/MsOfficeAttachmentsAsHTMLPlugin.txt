@@ -8,11 +8,13 @@ One line description, required for extensions repository catalog.
 
 %TOC%
 
+Note: a version of this extension is available for use with TWiki. Please contact Foswiki:Main.CrawfordCurrie for details on how to retrieve it.
+
 ---++ Usage
 
 Attach a .doc file to a topic, and it will automatically generate a .html version of the attachment. If the topic text contains the magic setting:
 <pre>
-   * Set REPLACE_WITH_WORD = on
+   * Set<nop> REPLACE_WITH_ATTACHMENT = on
 </pre>
 then the topic content will automatically be replaced by an include of the (HTML) content of the attachment, using the following template:
    * Set REPLACEMENTNOTE = This text was automatically generated from the attachment <nop>$attachment<br>%INCLUDE{%ATTACHURL%/$convertedAttachmentPath}%
@@ -27,7 +29,7 @@ Run =configure= and if necessary adjust the pathname to the convertor program.
 
 ---++ Info
 
-|  Author(s): | |
+|  Author(s): | Martin Cleaver Martin@Cleaver.org |
 |  Copyright: | &copy; 2003 Martin@Cleaver.org %BR% &copy; 2009 Crawford Currie http://c-dot.co.uk |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
@@ -37,4 +39,3 @@ Run =configure= and if necessary adjust the pathname to the convertor program.
 |  Home page: | %$UPLOADTARGETSCRIPT%/view%$UPLOADTARGETSUFFIX%/%$UPLOADTARGETWEB%/%$MODULE% |
 
 <!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
-

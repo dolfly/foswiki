@@ -1,0 +1,3 @@
+data/System/MsOfficeAttachmentsAsHTMLPlugin.txt (noci)
+lib/Foswiki/Plugins/MsOfficeAttachmentsAsHTMLPlugin.pm Perl module
+lib/Foswiki/Plugins/MsOfficeAttachmentsAsHTMLPlugin/Config.spec configure spec

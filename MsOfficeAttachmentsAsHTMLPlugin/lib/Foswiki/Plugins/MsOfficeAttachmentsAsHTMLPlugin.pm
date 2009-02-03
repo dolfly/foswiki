@@ -1,4 +1,4 @@
-# Plugin for TWiki - The Free and Open Source Wiki, http://foswiki.org/
+# Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # Copyright (C) 2009 Crawford Currie http://c-dot.co.uk
 # Copyright (C) 2003 Martin@Cleaver.org
@@ -16,10 +16,10 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 #
-package TWiki::Plugins::MsOfficeAttachmentsAsHTMLPlugin;
+package Foswiki::Plugins::MsOfficeAttachmentsAsHTMLPlugin;
 
 use strict;
-use TWiki::Sandbox;
+use Foswiki::Sandbox;
 
 our $VERSION = '$Rev$';
 our $RELEASE = '3 Feb 2009';
@@ -45,19 +45,19 @@ sub afterAttachmentSaveHandler {
     my $htmlName = "$attachmentName.html";
 
     my $cmd =
-      $TWiki::cfg{Plugins}{MsOfficeAttachmentsAsHTMLPlugin}{doc2html};
+      $Foswiki::cfg{Plugins}{MsOfficeAttachmentsAsHTMLPlugin}{doc2html};
 
-    my ($data, $exit) = $TWiki::sandbox->sysCommand(
+    my ($data, $exit) = $Foswiki::sandbox->sysCommand(
         $cmd,
-        ATTACHDIR => TWiki::Func::getPubDir() . "/$web/$topic",
-        SRC => TWiki::Func::getPubDir() . "/$web/$topic/$attachmentName$ext",
+        ATTACHDIR => Foswiki::Func::getPubDir() . "/$web/$topic",
+        SRC => Foswiki::Func::getPubDir() . "/$web/$topic/$attachmentName$ext",
         DEST => "$attachmentName.html");
 
     die "$cmd failed with exit code $exit: $data" if $exit;
 
     # Replace the topic text with an include of the attachment
 
-    return unless TWiki::Func::getPreferencesFlag('REPLACE_WITH_ATTACHMENT');
+    return unless Foswiki::Func::getPreferencesFlag('REPLACE_WITH_ATTACHMENT');
 
     $afterSaveHandlerSemaphore = $attachmentName;
 }
@@ -71,7 +71,7 @@ sub afterSaveHandler {
     undef $afterSaveHandlerSemaphore;
 
     $text =
-      TWiki::Func::getPreferencesValue("\U$pluginName\E_REPLACEMENTNOTE")
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_REPLACEMENTNOTE")
       || <<'DEFAULT';
 This text was automatically generated from the attachment $attachment
 %INCLUDE{%ATTACHURL%/$convertedAttachmentPath}%
@@ -80,7 +80,7 @@ DEFAULT
     $text =~ s/\$attachment/$attachmentName.doc/;
     $text =~ s/\$convertedAttachmentPath/$attachmentName.html/;
 
-    TWiki::Func::saveTopicText( $web, $topic, $text );
+    Foswiki::Func::saveTopicText( $web, $topic, $text );
 
     return;
 }
