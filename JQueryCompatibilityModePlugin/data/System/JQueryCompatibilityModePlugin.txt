@@ -98,8 +98,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | © Collaborganize ( [[www.collaborganize.com]] ) |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 02 Feb 2009 (V1.1) |
+|  Plugin Version: | XX XXX 2009 (V1.2) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  XX XXX 2009: | Fixing bug in jdMenug which does not recognise Jquery bounded onclick-events |
 |  02 Feb 2009: | Including new menue plugin, updating UI to 1.6.rc6 ( with base theme ) %BR% Enhancing dialogAPI to be able to handle rest-responses by status codes %BR% updating documentation |
 |  30 Jan 2009: | Adding generized way to include your own scrips / jquery plugins. Fixed bug in dialogAPI handler declaration, updated docs  |
 |  30 Jan 2009: | adding new base-ui-theme, generalizing the ui-theme ( selectable through /bin/configure now ), also dialogAPI using this skin now. Update UI to 1.6.5rc |

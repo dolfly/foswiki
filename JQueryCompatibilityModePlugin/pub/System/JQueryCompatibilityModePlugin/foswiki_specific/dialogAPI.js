@@ -26,15 +26,16 @@ window.generalDialogActionHandler = function (selector,data,scriptname,uri) {
 
 window.generalActionHandler = function (selector,data,scriptname,uri) {
 	document.location = uri;	
-}
+}	
 	
-	
-function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
+function bootupDialog(selector, atitle, amodal, awidth, aheight, buttons ) {
 	// remove the main window scrollbars, so users dont get confused by scrolling the outer window
 	if(amodal) {
 		setupScrollock();
 	}
- 
+	if ( buttons == undefined )
+		buttons = {};
+	
 	showWaitingLayer(selector);
 	// show this while we are waiting for the content
     $j(selector).dialog("position", "center");
@@ -50,6 +51,7 @@ function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
 								        		opacity: 0.4, 
 								        		background: "black"
 											},
+											buttons:buttons,
 											close: function() { uninstallScrollock(); }
 	}); 	
 }
@@ -63,8 +65,8 @@ function bootupDialog(selector, atitle, amodal, awidth, aheight ) {
  * awidth:	 size of the dialog
  * aheight:  size of the dialog
  */
-window.fetchAndShowDialog = function(selector, aurl, atitle, amodal, awidth, aheight ) {
-	fetchAndSetupDialog(selector, aurl, atitle, amodal, awidth, aheight );	
+window.fetchAndShowDialog = function(selector, aurl, atitle, amodal, awidth, aheight, responseHandler, buttons ) {
+	fetchAndSetupDialog(selector, aurl, atitle, amodal, awidth, aheight, responseHandler, buttons );	
 	showDialog(selector);
 }
 /* makes it possible to sertup a dialog without knowing the jquery.dialog api.
@@ -78,12 +80,12 @@ window.fetchAndShowDialog = function(selector, aurl, atitle, amodal, awidth, ahe
  * aheight:  size of the dialog
  */
 
-window.setupDialog = function (selector, data, atitle, amodal, awidth, aheight ) {
-	bootupDialog(selector, atitle, amodal, awidth, aheight);
+window.setupDialog = function (selector, data, atitle, amodal, awidth, aheight, buttons  ) {
+	bootupDialog(selector, atitle, amodal, awidth, aheight, buttons );
 	$j(selector).html(data);
 }
 
-window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, aheight, responseHandler ) {
+window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, aheight, responseHandler, buttons ) {
 	if(responseHandler == undefined ) {
 		responseHandler = {};
 		// setting 200 / 401 .. just to show how its used, actually only "all" is important here
@@ -94,7 +96,7 @@ window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, ah
 		responseHandler['500'] = 'generalRestResponseHandler';		
 	}
 	
-	bootupDialog(selector, atitle, amodal, awidth, aheight);
+	bootupDialog(selector, atitle, amodal, awidth, aheight, buttons);
 	// ok show the waiting dialog
 
 	// adding the skin as parameter, so the fetched data is without layout
