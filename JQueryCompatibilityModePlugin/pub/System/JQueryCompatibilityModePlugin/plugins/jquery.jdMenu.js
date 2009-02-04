@@ -39,7 +39,6 @@
 				
 				// The user clicked the li and we need to trigger a click for the a
 				if ( evt.target == this ) {
-					alert("in");
 					var link = $('> a', evt.target).not('.accessible');
 					if ( link.length > 0 ) {
 						var a = link[0];
