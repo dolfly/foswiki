@@ -68,7 +68,7 @@ pub/System/JQueryCompatibilityModePlugin/ui/effects.explode.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.draggable.js
 pub/System/JQueryCompatibilityModePlugin/ui/effects.fold.js
 pub/System/JQueryCompatibilityModePlugin/ui/ui.datepicker.js
-pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.min.js
+pub/System/JQueryCompatibilityModePlugin/plugins/jquery.ajax_upload.src.js
 pub/System/JQueryCompatibilityModePlugin/plugins/mbMenu.js
 pub/System/JQueryCompatibilityModePlugin/plugins/jquery.url.js
 pub/System/JQueryCompatibilityModePlugin/plugins/jquery.jdMenu.js

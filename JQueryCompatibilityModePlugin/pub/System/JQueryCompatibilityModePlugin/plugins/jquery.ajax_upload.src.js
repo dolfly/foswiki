@@ -85,12 +85,13 @@
 			this.disabled = true;
 			if ( ! this.submitting){
 				this.input.attr('disabled', true);
-				this.button.removeClass('hover');	
+				this.button.removeClass('ui-state-hover');	
 			}			
 		},
 		enable : function(){
 			this.disabled = false;
 			this.input.attr('disabled', false);							
+			this.input.css('pointer', "cursor");			
 		},
 		/**
 		 * Creates wrapper for button and invisible file input
@@ -149,7 +150,8 @@
 					,'width': '220px'
 					,'height': '10px'										
 					,'opacity': 0
-					, cursor: 'pointer'								
+					, 'z-index' : 999
+					, 'cursor': 'pointer'								
 				})
 				.change(function(){
 					if ($(this).val() == ''){
@@ -178,8 +180,8 @@
 				
 				// Emulate button hover effect				
 				.hover(
-					function(){self.button.addClass('hover');}
-					,function(){self.button.removeClass('hover');}
+					function(){self.button.addClass('ui-state-hover');}
+					,function(){self.button.removeClass('ui-state-hover');}
 				);
 				
 			if (this.disabled){
