@@ -10,7 +10,7 @@
 
 :visited
 {
-	color:#4571D0;
+	color:#5A3696;
 }
 
 :link:hover,
@@ -27,7 +27,7 @@
 
 .foswikiTopic a:visited
 {
-	color:#4571D0;
+	color:#5A3696;
 }
 .foswikiTopic a:hover
 {
@@ -299,7 +299,7 @@ select
 #patternSideBarContents h2 a:link,
 #patternSideBarContents h2 a:visited
 {
-	background-color:#00a000;
+	background-color:#090;
 	color:#fff;
 }
 #patternSideBarContents h2 a:hover
