@@ -45,8 +45,8 @@ function bootupDialog(selector, arguments) {
 											dialogClass: Foswiki.jquery.themeName,
 											title:arguments.title,
  											autoOpen:false,
-											width:arguments.width,
-											height:arguments.height,
+											width: arguments.width,
+											height: arguments.height,
 											modal: arguments.modal, 
 								    		overlay: { 
 								        		opacity: 0.4, 
@@ -85,7 +85,9 @@ window.setupDialog = function (selector, data, arguments ) {
 	$j(selector).html(data);
 }
 
-window.fetchAndSetupDialog = function(selector, aurl, arguments ) {	
+window.fetchAndSetupDialog = function(selector, aurl, dialogArguments ) {	
+	// need to use dialogArguments because arguemnts are used in the ajax request internally and gets overwritten, 
+
 	bootupDialog(selector, arguments);
 	// adding the skin as parameter, so the fetched data is without layout
 	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);	
@@ -99,7 +101,7 @@ window.fetchAndSetupDialog = function(selector, aurl, arguments ) {
 		  			 scriptCharset: "iso-8859-1",
 		  			 dataType:"html",	
 		  			 complete: function(xmlHttp, status) { 
-							onFetchComplete(xmlHttp, status, selector, arguments.resHandlers);
+							onFetchComplete(xmlHttp, status, selector, dialogArguments.resHandlers);
 					 }				 
 	});
 }

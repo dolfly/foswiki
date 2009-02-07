@@ -38,7 +38,7 @@ $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{IncludePlugins} = 0;
 
 # **STRING**
 # All JQuery files to include. A comma seperate list,relativ to pub/System/JQueryCompatibiltyPlugin. 
-$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeFiles} = "plugins/jquery.ajax_upload.min.js,plugins/mbMenu.min.js";
+$Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{AutoIncludeFiles} = "plugins/jquery.ajax_upload.src.js,plugins/mbMenu.min.js";
 
 
 
