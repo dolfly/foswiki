@@ -28,13 +28,14 @@ window.generalActionHandler = function (selector,data,scriptname,uri) {
 	document.location = uri;	
 }	
 	
-function bootupDialog(selector, atitle, amodal, awidth, aheight, buttons ) {
+function bootupDialog(selector, arguments) {
 	// remove the main window scrollbars, so users dont get confused by scrolling the outer window
-	if(amodal) {
+	 
+	if(arguments.modal) {
 		setupScrollock();
 	}
-	if ( buttons == undefined )
-		buttons = {};
+	if ( arguments.buttons == undefined )
+		arguments.buttons = {};
 	
 	showWaitingLayer(selector);
 	// show this while we are waiting for the content
@@ -42,16 +43,16 @@ function bootupDialog(selector, atitle, amodal, awidth, aheight, buttons ) {
 	// initialize the dialog
 	$j(selector).dialog({
 											dialogClass: Foswiki.jquery.themeName,
-											title:atitle,
+											title:arguments.title,
  											autoOpen:false,
-											width:awidth,
-											height:aheight,
-											modal: amodal, 
+											width:arguments.width,
+											height:arguments.height,
+											modal: arguments.modal, 
 								    		overlay: { 
 								        		opacity: 0.4, 
 								        		background: "black"
 											},
-											buttons:buttons,
+											buttons:arguments.buttons,
 											close: function() { uninstallScrollock(); }
 	}); 	
 }
@@ -59,14 +60,16 @@ function bootupDialog(selector, atitle, amodal, awidth, aheight, buttons ) {
  * selector: The div ID which should be used as the dialog-destination. Generally its a display:hidden 
  * 			 layer hidden somewhere in the layout. You must add a # to your id here, so if the id is
  * 			 "example" you must use "#example" as parameter here
- * aurl:	 url to fetch
- * atitle:	 title of the dialog
- * amodal: 	 boolean, should the dialog be shown modal, so you must close it before you can use the page further
- * awidth:	 size of the dialog
- * aheight:  size of the dialog
+ * url:	 url to fetch
+ * ---++ Arguments
+ * title:	 title of the dialog
+ * modal: 	 boolean, should the dialog be shown modal, so you must close it before you can use the page further
+ * width:	 size of the dialog
+ * height:   size of the dialog
+ * buttons:  buttons to show in the dialog. 
  */
-window.fetchAndShowDialog = function(selector, aurl, atitle, amodal, awidth, aheight, responseHandler, buttons ) {
-	fetchAndSetupDialog(selector, aurl, atitle, amodal, awidth, aheight, responseHandler, buttons );	
+window.fetchAndShowDialog = function(selector, aurl,arguments ) {
+	fetchAndSetupDialog(selector, aurl,arguments);	
 	showDialog(selector);
 }
 /* makes it possible to sertup a dialog without knowing the jquery.dialog api.
@@ -74,31 +77,16 @@ window.fetchAndShowDialog = function(selector, aurl, atitle, amodal, awidth, ahe
  * 			 layer hidden somewhere in the layout. You must add a # to your id here, so if the id is
  * 			 "example" you must use "#example" as parameter here
  * data:	 data ( mostyl HTML ) to put inside the dialog
- * atitle:	 title of the dialog
- * amodal: 	 boolean, should the dialog be shown modal, so you must close it before you can use the page further
- * awidth:	 size of the dialog
- * aheight:  size of the dialog
+ * Arguments are the same as general for dialogs, like in fetchAndShowDialog
  */
 
-window.setupDialog = function (selector, data, atitle, amodal, awidth, aheight, buttons  ) {
-	bootupDialog(selector, atitle, amodal, awidth, aheight, buttons );
+window.setupDialog = function (selector, data, arguments ) {
+	bootupDialog(selector, arguments );
 	$j(selector).html(data);
 }
 
-window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, aheight, responseHandler, buttons ) {
-	if(responseHandler == undefined ) {
-		responseHandler = {};
-		// setting 200 / 401 .. just to show how its used, actually only "all" is important here
-		responseHandler['other'] = 'generalRestResponseHandler';
-		responseHandler['200'] = 'handleDialogCompleteResponse';
-		responseHandler['401'] = 'generalRestResponseHandler';
-		responseHandler['403'] = 'generalRestResponseHandler';
-		responseHandler['500'] = 'generalRestResponseHandler';		
-	}
-	
-	bootupDialog(selector, atitle, amodal, awidth, aheight, buttons);
-	// ok show the waiting dialog
-
+window.fetchAndSetupDialog = function(selector, aurl, arguments ) {	
+	bootupDialog(selector, arguments);
 	// adding the skin as parameter, so the fetched data is without layout
 	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);	
 	// adding this to avoid the hardcore IE caching breaks up the header. Thank you MS
@@ -111,31 +99,49 @@ window.fetchAndSetupDialog = function(selector, aurl, atitle, amodal, awidth, ah
 		  			 scriptCharset: "iso-8859-1",
 		  			 dataType:"html",	
 		  			 complete: function(xmlHttp, status) { 
-						var handler = "";
-						status = xmlHttp.status;
-						// if no handler for the returned status is provided, use the "other" handler
-						if(responseHandler[status] == undefined)  {
-							
-							if(responseHandler["other"] != undefined) {
-								// but if the "other" handler is also undefined, use a dummy 
-								// which displays an error
-								handler = "resposneHandlerNotDefined";
-							}
-							else {
-								// ok other is set, so use it
-								handler =  responseHandler["other"];								
-							}
-						}
-						else {
-							handler = responseHandler[status];
-						}	
-
-						// call the corresponding handler
-						window[handler](xmlHttp, status,selector);
+							onFetchComplete(xmlHttp, status, selector, arguments.resHandlers);
 					 }				 
 	});
 }
 
+
+window.onFetchComplete= function (xmlHttp, statusmsg, selector, responseHandler ) {
+	if(responseHandler == undefined ) {
+		responseHandler = {};
+		// setting 200 / 401 .. just to show how its used, actually only "all" is important here
+		responseHandler['other'] = 'generalRestResponseHandler';
+		responseHandler['200'] = 'handleDialogCompleteResponse';
+		responseHandler['401'] = 'generalRestResponseHandler';
+		responseHandler['403'] = 'generalRestResponseHandler';
+		responseHandler['500'] = 'generalRestResponseHandler';		
+	}
+	
+	var handler = "";
+	var status = xmlHttp.status;
+	// if no handler for the returned status is provided, use the "other" handler
+	if(responseHandler[status] == undefined)  {
+		
+		if(responseHandler["other"] == undefined) {
+			// but if the "other" handler is also undefined, use a dummy 
+			// which displays an error
+			handler = "resposneHandlerNotDefined";
+		}
+		else {
+			// ok other is set, so use it
+			handler =  responseHandler["other"];								
+		}
+	}
+	else {
+		handler = responseHandler[status];
+	}	
+
+
+	var data = xmlHttp.responseText;
+	var action = xmlHttp.getResponseHeader("X-FoswikiAction");
+	var uri = xmlHttp.getResponseHeader("X-FoswikiURI");
+	// call the corresponding handler
+	window[handler]( selector, data, action, uri,xmlHttp, status, statusmsg);	
+}
 window.showDialog = function (selector) {	
 	$j(selector).show();    	
 	$j(selector).dialog("open");
@@ -147,16 +153,13 @@ window.closeDialog = function (selector) {
 	$j(selector).dialog("destroy"); 
 }
 // General handler, which can be called after a fetch has been completed
-window.handleDialogCompleteResponse = function (xmlHttp, status,selector) {
+window.handleDialogCompleteResponse = function ( selector,data,action,uri,xmlHttp, status ) {
 	if(xmlHttp.status != 200){ // error 
 			// TODO: what to do if error
 			 return;
 	}
-	var data = xmlHttp.responseText;	
 	// welcome to foswiki`s world. Lets remove all the useful "p`s" in arround the dialog
 	$j(selector+" > p").remove();
-	var action = xmlHttp.getResponseHeader("X-FoswikiAction");
-	var uri = xmlHttp.getResponseHeader("X-FoswikiURI");
 	handleGeneralData(selector,data,action,uri);
 }
 
@@ -224,7 +227,6 @@ window.uninstallScrollock = function () {
     $j("body").css("overflow","scroll");
 }
 
-
 window.addSkinParameter = function (url,skin) {
 	var ausdruck = /.*[?].*/;
 	// if there are parameters already
@@ -284,12 +286,11 @@ window.showLoginForm = function (dialogselector) {
 window.showOops = function (dialogselector) {
 	// we could try to give the user some feedback what could have happend, but right now, we just 
 	// display a alert that something bad happened. This is to overwrite later by better logic
-	alert("An error occured during your operation");
+	alert("An error occurred during your operation");
 }
 
 
-window.resposneHandlerNotDefined = function (xmlHttp, status,selector) {
-
+window.resposneHandlerNotDefined = function ( selector, data, action, uri,xmlHttp, status) {
 	alert("No handler defined for status:"+status);
 }
 })(jQuery);
