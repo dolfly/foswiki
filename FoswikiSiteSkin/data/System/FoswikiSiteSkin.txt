@@ -29,6 +29,9 @@ The main horizontal navigation is defined in topic template FoswikiSiteSkinNavig
 ---+++ Activation
 To set Foswiki Site skin as default (site wide) skin, use these settings in [[%MAINWEB%.SitePreferences]]:
 <verbatim>
+
+   * Set SKIN = foswikisite,pattern
+   
    * Global skin styles. To change the look of the site, point these variables to custom CSS attachments.
       * Set FOSWIKI_LAYOUT_URL = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/layout.css
       * Set FOSWIKI_STYLE_URL = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/style.css
