@@ -68,8 +68,9 @@ function bootupDialog(selector, arguments) {
  * height:   size of the dialog
  * buttons:  buttons to show in the dialog. 
  */
-window.fetchAndShowDialog = function(selector, aurl,arguments ) {
-	fetchAndSetupDialog(selector, aurl,arguments);	
+window.fetchAndShowDialog = function(selector, aurl, arguments ) {
+	
+	fetchAndSetupDialog(selector, aurl, arguments);	
 	showDialog(selector);
 }
 /* makes it possible to sertup a dialog without knowing the jquery.dialog api.
@@ -88,7 +89,7 @@ window.setupDialog = function (selector, data, arguments ) {
 window.fetchAndSetupDialog = function(selector, aurl, dialogArguments ) {	
 	// need to use dialogArguments because arguemnts are used in the ajax request internally and gets overwritten, 
 
-	bootupDialog(selector, arguments);
+	bootupDialog(selector, dialogArguments);
 	// adding the skin as parameter, so the fetched data is without layout
 	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);	
 	// adding this to avoid the hardcore IE caching breaks up the header. Thank you MS
