@@ -37,6 +37,9 @@ function bootupDialog(selector, arguments) {
 	if ( arguments.buttons == undefined )
 		arguments.buttons = {};
 	
+	if(arguments.stack == undefined) {
+		arguments.stack = true;
+	}
 	showWaitingLayer(selector);
 	// show this while we are waiting for the content
     $j(selector).dialog("position", "center");
@@ -53,6 +56,7 @@ function bootupDialog(selector, arguments) {
 								        		background: "black"
 											},
 											buttons:arguments.buttons,
+											stack: arguments.stack,
 											close: function() { uninstallScrollock(); }
 	}); 	
 }
