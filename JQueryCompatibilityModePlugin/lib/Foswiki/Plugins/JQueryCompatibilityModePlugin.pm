@@ -33,7 +33,7 @@ $VERSION = '$Rev: 12445$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.3';
+$RELEASE = '1.4';
 
 # Short description of this plugin
 # One line description, is shown in the %FoswikiWEB%.TextFormattingRules topic:
@@ -55,7 +55,6 @@ sub initPlugin {
 	    my $foswikiJSvars = "var Foswiki;\nif (!Foswiki) { Foswiki = {};}";
 	    $foswikiJSvars .= "\nFoswiki.systemWeb='" . $Foswiki::cfg{SystemWebName}."';"; 
 	    $foswikiJSvars .= "\nFoswiki.userWeb='" . $Foswiki::cfg{UsersWebName}."';";
-	    $foswikiJSvars .= "\nFoswiki.scriptUrlPath='" . Foswiki::Func::getScriptUrlPath()."';";
 	    $foswikiJSvars .= "\nFoswiki.pubUrlPath='" . Foswiki::Func::getPubUrlPath() ."';";
 	    $foswikiJSvars .= "\nFoswiki.pubDir='" . Foswiki::Func::getPubDir()."';";
 	    $foswikiJSvars .= "\nFoswiki.scriptSuffix='" . $Foswiki::cfg{ScriptSuffix}."';";
@@ -71,6 +70,9 @@ sub initPlugin {
 	    Foswiki::Func::addToHEAD($jqPluginName."_jq",$output,$jqPluginName."_fowikiVars");
 	    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/jquery_init.js'></script>";
 	    Foswiki::Func::addToHEAD($jqPluginName."_jq_init",$output,$jqPluginName."_jq");
+	    
+	    $output = "<script language='javascript' type='text/javascript' src='$pluginPubHome/foswiki_specific/Func.js'></script>";
+        Foswiki::Func::addToHEAD($jqPluginName."_fos_func",$output,$jqPluginName."_jq_init");
     }
     _initUITheme();
     addDialogScripts() if($Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogInclude});    

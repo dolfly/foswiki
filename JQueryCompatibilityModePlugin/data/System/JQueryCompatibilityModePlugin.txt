@@ -20,7 +20,6 @@ http://foswiki.org/view/Tasks/JQueryCompatibilityModePlugin
 | *Value* | *Foswiki Value* |
 | Foswiki.systemWeb | The current Foswiki-System-Web |
 | Foswiki.userWeb | The current Foswiki-User-Web |
-| Foswiki.scriptUrlPath | The current Foswiki getScriptUrlPath |
 | Foswiki.pubUrlPath | The current Foswiki pubUrlPath |
 | Foswiki.scriptSuffix | The current Foswiki scriptSuffix |
 | Foswiki.scriptUrlPath | The current Foswiki scriptUrlPath |
@@ -52,9 +51,19 @@ function myGloablFunc () { $("#foo").show() }
 ---+++ How to let JQueryCompatibilityModePlugin include your or other JQuery plugins
  Run =/bin/configure= and under %TOPIC% you see in the bottom part, the plugin settings. There you can enter a comma seperated list of includes relative to the pub/System/%TOPIC% directory. This way you can include your own or specific JQuery-Plugins and script and dont need every application to care about that ( especially because they done know about the directory structure )
 
----+++ Something missing?
+---+++ Any library missing?
  There is a lot missing here, so this needs an update. Please send me a short note on what you want to add. Actually the policy is, adding anything which can be useful, so in 99% of the cases the library gets added directly! 
+ 
 ---++ Foswiki specific upgrades
+---+++ Foswiki.Func
+Actually this is nothing special in general, it simply a JS based Foswiki::Func. It trys to never query Foswiki as long as its possible but it provides always exactly the same interface as the Foswiki::Func counterpart.
+It is designed to return exactly the same results as Foswiki::Func would.
+%BR%
+Yet implemented are:
+| *name* |
+| getScriptUrl( web, topic, script ) |
+| getRestUrl( web, topic, plugin, restmethod ) |
+
 ---+++ DialogAPI
 You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialogAPI.js ). By calling the =fetchAndShowDialog= method
 
@@ -62,8 +71,8 @@ You can use the jquery.dialog api specific for Foswiki ( foswiki_specific/dialog
  *Fetch, setup and show a dialog* 
 | *parameter* | *type* | *default* | *meaning*  |
 | selector | string | required | The div ID which should be used as the dialog-destination. Generally its a display:hidden %BR% layer hidden somewhere in the layout. You must add a # to your id here, so if the id is %BR% "example" you must use "#example" as parameter here  |
-| url | string | required  | url to fetch |
-| arguments | Arguments hash |
+| url | string | required | url to fetch |
+| arguments | hash | required | Arguments hash |
 
 %BR% *Hint to handler parameter*: This is actually something you can use for rest-handler ajax-requests. As RestHandlers should do what they are for and end up with a 200 or other status codes. You can then use your own RestHandlers for e.g. doing something special if your request returns a 401. E.g. for some actions this could be "please login" for some "you have the wrong permissions" 
 ---++++ setupDialog
@@ -102,8 +111,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | © Collaborganize ( [[www.collaborganize.com]] ) |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 07Feb 2009 (V1.3) |
+|  Plugin Version: | 04 Feb 2009 (V1.4) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  08 Feb 2009: | Introducing Foswiki.Func which should work as or perl counterpart Foswiki::Func |
 |  07 Feb 2009: | Changed the dialogAPI to use hash-arguments, updating docs |
 |  05 Feb 2009: | Fixing bug in jdMenug which does not recognise Jquery bounded onclick-events, fixing ajax_upload plugin to use ui-themes |
 |  02 Feb 2009: | Including new menue plugin, updating UI to 1.6.rc6 ( with base theme ) %BR% Enhancing dialogAPI to be able to handle rest-responses by status codes %BR% updating documentation |

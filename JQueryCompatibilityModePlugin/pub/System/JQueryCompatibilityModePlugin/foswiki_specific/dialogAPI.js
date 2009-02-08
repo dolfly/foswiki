@@ -28,16 +28,16 @@ window.generalActionHandler = function (selector,data,scriptname,uri) {
 	document.location = uri;	
 }	
 	
-function bootupDialog(selector, arguments) {
+function bootupDialog(selector, dialogArguments) {
 	// remove the main window scrollbars, so users dont get confused by scrolling the outer window
 	 
-	if(arguments.modal) {
+	if(dialogArguments.modal) {
 		setupScrollock();
 	}
-	if ( arguments.buttons == undefined )
+	if ( dialogArguments.buttons == undefined )
 		arguments.buttons = {};
 	
-	if(arguments.stack == undefined) {
+	if(dialogArguments.stack == undefined) {
 		arguments.stack = true;
 	}
 	showWaitingLayer(selector);
@@ -46,17 +46,17 @@ function bootupDialog(selector, arguments) {
 	// initialize the dialog
 	$j(selector).dialog({
 											dialogClass: Foswiki.jquery.themeName,
-											title:arguments.title,
+											title:dialogArguments.title,
  											autoOpen:false,
-											width: arguments.width,
-											height: arguments.height,
-											modal: arguments.modal, 
+											width: dialogArguments.width,
+											height: dialogArguments.height,
+											modal: dialogArguments.modal, 
 								    		overlay: { 
 								        		opacity: 0.4, 
 								        		background: "black"
 											},
-											buttons:arguments.buttons,
-											stack: arguments.stack,
+											buttons:dialogArguments.buttons,
+											stack: dialogArguments.stack,
 											close: function() { uninstallScrollock(); }
 	}); 	
 }
@@ -72,9 +72,8 @@ function bootupDialog(selector, arguments) {
  * height:   size of the dialog
  * buttons:  buttons to show in the dialog. 
  */
-window.fetchAndShowDialog = function(selector, aurl, arguments ) {
-	
-	fetchAndSetupDialog(selector, aurl, arguments);	
+window.fetchAndShowDialog = function(selector, aurl, dialogArguments ) {	
+	fetchAndSetupDialog(selector, aurl, dialogArguments);	
 	showDialog(selector);
 }
 /* makes it possible to sertup a dialog without knowing the jquery.dialog api.
@@ -85,8 +84,8 @@ window.fetchAndShowDialog = function(selector, aurl, arguments ) {
  * Arguments are the same as general for dialogs, like in fetchAndShowDialog
  */
 
-window.setupDialog = function (selector, data, arguments ) {
-	bootupDialog(selector, arguments );
+window.setupDialog = function (selector, data, dialogArguments ) {
+	bootupDialog(selector, dialogArguments );
 	$j(selector).html(data);
 }
 
@@ -142,7 +141,6 @@ window.onFetchComplete= function (xmlHttp, statusmsg, selector, responseHandler 
 		handler = responseHandler[status];
 	}	
 
-
 	var data = xmlHttp.responseText;
 	var action = xmlHttp.getResponseHeader("X-FoswikiAction");
 	var uri = xmlHttp.getResponseHeader("X-FoswikiURI");
@@ -195,7 +193,7 @@ window.handleGeneralData = function (selector,data,scriptname, uri) {
 			window[Foswiki.actionHandlers.register](selector,data,scriptname,uri);
 		break;
 		case 'rest':
-			window[Foswiki.actionHandlers.rest](selector,data,scriptname,uDialogri);
+			window[Foswiki.actionHandlers.rest](selector,data,scriptname,uri);
 		break;	
 		case 'search':
 			window[Foswiki.actionHandlers.search](selector,data,scriptname,uri);

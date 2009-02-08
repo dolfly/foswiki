@@ -75,6 +75,7 @@ pub/System/JQueryCompatibilityModePlugin/plugins/jquery.jdMenu.js
 pub/System/JQueryCompatibilityModePlugin/jquery-1.2.js
 pub/System/JQueryCompatibilityModePlugin/foswiki_specific/dialogAPI.js
 pub/System/JQueryCompatibilityModePlugin/foswiki_specific/dialogAPI_settings.js
+pub/System/JQueryCompatibilityModePlugin/foswiki_specific/Func.js
 pub/System/JQueryCompatibilityModePlugin/jquery.js
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.resizable.css
 pub/System/JQueryCompatibilityModePlugin/themes/ogray/ogray.toasterLite.css
