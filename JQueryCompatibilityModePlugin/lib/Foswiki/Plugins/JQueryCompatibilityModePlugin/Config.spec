@@ -33,7 +33,7 @@ $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{DialogDefaultSettingsInclu
 
 # ---++JQuery Plugins
 # **BOOLEAN**
-# Plugin: should be the ajax-upload-plugin be included?
+# Plugin: should the belowed defined plugins be loaded
 $Foswiki::cfg{Plugins}{JQueryCompatibilityModePlugin}{IncludePlugins} = 0;
 
 # **STRING**

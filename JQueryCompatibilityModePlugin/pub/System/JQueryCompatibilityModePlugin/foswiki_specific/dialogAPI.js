@@ -130,7 +130,7 @@ window.onFetchComplete= function (xmlHttp, statusmsg, selector, responseHandler 
 		if(responseHandler["other"] == undefined) {
 			// but if the "other" handler is also undefined, use a dummy 
 			// which displays an error
-			handler = "resposneHandlerNotDefined";
+			handler = "responseHandlerNotDefined";
 		}
 		else {
 			// ok other is set, so use it
@@ -141,11 +141,18 @@ window.onFetchComplete= function (xmlHttp, statusmsg, selector, responseHandler 
 		handler = responseHandler[status];
 	}	
 
+
 	var data = xmlHttp.responseText;
 	var action = xmlHttp.getResponseHeader("X-FoswikiAction");
 	var uri = xmlHttp.getResponseHeader("X-FoswikiURI");
 	// call the corresponding handler
-	window[handler]( selector, data, action, uri,xmlHttp, status, statusmsg);	
+	if(typeof window[handler] == 'function') {
+		window[handler]( selector, data, action, uri,xmlHttp, status, statusmsg);	
+	} 
+	else {
+		alert("The dialog-handler '"+handler+"' is not defined, method missing");
+	}
+	
 }
 window.showDialog = function (selector) {	
 	$j(selector).show();    	
@@ -294,8 +301,7 @@ window.showOops = function (dialogselector) {
 	alert("An error occurred during your operation");
 }
 
-
-window.resposneHandlerNotDefined = function ( selector, data, action, uri,xmlHttp, status) {
+window.responseHandlerNotDefined = function ( selector, data, action, uri,xmlHttp, status) {
 	alert("No handler defined for status:"+status);
 }
 })(jQuery);
