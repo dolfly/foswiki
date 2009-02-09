@@ -254,7 +254,7 @@ window.showWaitingLayer= function (dialogselector, message) {
 		message = "loading...";
 	}
 
-	var wait = '<table width="100%" height="100%"><tr><td width="100%" align="center" valign="center" style="font-weight:bolder">'+message+'<br><br><img src="'+Foswiki.pubUrlPath+'/System/JQueryCompatibilityModePlugin/themes/loader.gif"></td></tr></table>';
+	var wait = '<table width="200px" height="150px"><tr><td width="100%" align="center" valign="center" style="font-weight:bolder">'+message+'<br><br><img src="'+Foswiki.pubUrlPath+'/System/JQueryCompatibilityModePlugin/themes/loader.gif"></td></tr></table>';
     $j(dialogselector).html(wait);
 }
 
