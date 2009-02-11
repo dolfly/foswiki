@@ -495,12 +495,14 @@ $.widget("ui.dialog", {
 		if(dragging && $.browser.msie && $.browser.version < 7) return;
 		
 		var offset = this.uiDialog.offset();
+		if(this.shadow) {
 		this.shadow.css({
 			left: offset.left,
 			top: offset.top,
 			width: this.uiDialog.outerWidth(),
 			height: this.uiDialog.outerHeight()
 		});
+		}
 	},
 	
 	_destroyShadow: function() {

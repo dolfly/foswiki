@@ -50,6 +50,7 @@ function bootupDialog(selector, dialogArguments) {
  											autoOpen:false,
 											width: dialogArguments.width,
 											height: dialogArguments.height,
+											shadow:false,
 											modal: dialogArguments.modal, 
 								    		overlay: { 
 								        		opacity: 0.4, 
