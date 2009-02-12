@@ -46,7 +46,7 @@ sub _AURLSHORT {
     my($this, $params, $topic, $web) = @_;
     $web = $params->{'Bereich'} || $params->{'web'} || $web;
     $topic = $params->{'Dokument'} || $params->{'topic'} || $topic;
-    my $file = $params->{'Anhang'} || $params->{'name'} || "";
+    my $file = $params->{'Anhang'} || $params->{'name'} || $params->{_DEFAULT} || "";
     my $name = $params->{'Name'} || $params->{'label'} || $file;
     my $url;
     if($file eq "") {
