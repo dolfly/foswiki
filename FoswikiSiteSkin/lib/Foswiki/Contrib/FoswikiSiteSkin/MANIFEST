@@ -9,7 +9,6 @@ pub/System/FoswikiSiteSkin/bullet-toc.gif 0644
 pub/System/FoswikiSiteSkin/button_arrow.gif 0644
 pub/System/FoswikiSiteSkin/button_font_selector.gif 0644
 pub/System/FoswikiSiteSkin/colors.css 0644
-pub/System/FoswikiSiteSkin/column_right.css 0644
 pub/System/FoswikiSiteSkin/GrayBlend.gif 0644
 pub/System/FoswikiSiteSkin/header-left.gif 0644
 pub/System/FoswikiSiteSkin/header.gif 0644
@@ -21,14 +20,15 @@ pub/System/FoswikiSiteSkin/pencil.gif 0644
 pub/System/FoswikiSiteSkin/printer.gif 0644
 pub/System/FoswikiSiteSkin/screenshot.jpg 0644
 pub/System/FoswikiSiteSkin/screenshot_full.png 0644
+pub/System/FoswikiSiteSkin/sidebar_header_background.gif 0644
 pub/System/FoswikiSiteSkin/style.css 0644
 pub/System/FoswikiSiteSkin/supersleight.js 0644 Would fix transparent PNGs on IE6, but does not work, do is disabled
 pub/System/FoswikiSiteSkin/text_align_left.gif 0644
-pub/System/FoswikiSiteSkin/theme_foswikisite.css 0644
 pub/System/FoswikiSiteSkin/topicactions_background.gif 0644
 pub/System/FoswikiSiteSkin/wrench.gif 0644
 pub/System/FoswikiSiteSkin/x.gif 0644
 templates/foswiki.foswikisite.tmpl 0644
+templates/preview.foswikisite.tmpl 0644
 templates/view.foswikisite.tmpl 0644
 templates/viewsidebar.foswikisite.tmpl 0644
 templates/viewtopbar.foswikisite.tmpl 0644

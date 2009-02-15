@@ -37,17 +37,15 @@ To set Foswiki Site skin as default (site wide) skin, use these settings in [[%M
       * Set FOSWIKI_STYLE_URL = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/style.css
       * Set FOSWIKI_COLORS_URL = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/colors.css
 
-   * Themes that add upon the global skin styles.
-      * Set PATTERNSKIN_THEME = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/theme_foswikisite.css
-      * Set PATTERNSKIN_COLUMNS = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/column_right.css
-
    * Overriding styles that add upon the global and theme styles. Enabled by default but empty to prevent browsers from fetching %<nop>USERLAYOUTURL%-style URLs.
       * Set USERLAYOUTURL =
       * Set USERSTYLEURL =
       * Set USERCOLORSURL =
       * Set WEBHEADERART =
       * Set WEBHEADERBGCOLOR =
-
+      * Set PATTERNSKIN_THEME =
+      * Set PATTERNSKIN_COLUMNS =
+      
    * Set TABLEPLUGIN_TABLEATTRIBUTES = tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#444444" headerbg="#e0e0e4" headerbgsorted="#c5c5cc" databg="#ffffff,#edf4f9" databgsorted="#f1f7fc,#ddebf6" tablerules="rows"
 </verbatim>
 
@@ -57,8 +55,9 @@ To set Foswiki Site skin as default (site wide) skin, use these settings in [[%M
 |  Screenshot: | <a href="%ATTACHURL%/screenshot_full.png"><img src="%ATTACHURL%/screenshot.jpg" style="border:1px solid #eee;" alt="Click for full screen image" width="600" /></a> |
 |  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=foswikisite,pattern][Preview with this skin]] |
 |  Base Name: | foswikisite,pattern |
-|  Skin Version: | 02 Feb 2009 (v1.1.3) | 
+|  Skin Version: | 15 Feb 2009 (v1.1.4) | 
 |  History: | <!-- specify latest version first -->&nbsp; |
+|  15 Feb 2009: | Main menu buttons are no longer hidden when viewed on a small screen; improvements to preview screen. |
 |  31 Jan 2009: | Renamed <nop>FoswikiDotOrgPatternSkinContrib to <nop>FoswikiSiteSkin; visual update, made CSS independent of PatternSkin. |
 |  07 Jan 2009: | Initial version (v1.0.0) |
 |  Dependencies: | Foswiki:Extensions/PatternSkin (automatically supported by Dakar) |
