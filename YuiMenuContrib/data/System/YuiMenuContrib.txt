@@ -73,8 +73,7 @@ to define your own WebMenu for all webs, copy and customise the content below to
    text="%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib" section="yui-navigation-menu-js-yui"}%"
    requires="yui-menu"
 }%
-%INCLUDE{System.WebLeftBarLogin}%
-   <div id="yui-navigation-menu" class="yuimenu">
+   <div id="yui-navigation-menu" class="yuimenu-top">
       <div class="bd">
 	 <ul>
 	    %SEARCH{
@@ -151,24 +150,36 @@ YAHOO.util.Event.onContentReady('yui-navigation-menu', function () {
    border: 0px;
    padding: 0px;
 }
-.yui-skin-sam li {
+/* hide foswiki tml created p's */
+.bd p {
+	display:none;
+}
+.yui-skin-sam .yuimenuitemlabel {
    color:#000000;
    cursor:default;
+   padding:10px;
    text-decoration:none;
 }
 .yui-skin-sam .foswikiNewLink {
    border: 0px;
 }
-.yui-skin-sam  li a { /* set the height of each menu element */
-   line-height: 2.35em;
+NO.yui-skin-sam  :link:hover,
+NO.yui-skin-sam  :visited:hover{
+background-color:transparent;
 }
-.yui-skin-sam  :link:hover,
-.yui-skin-sam  :visited:hover{
-   background-color:transparent;
-}
-/* damn, need to over-ride the overflow in Pattern Skin */
+/* need to over-ride the overflow in Pattern Skin */
 #patternSideBar {
-   overflow:visible;
+overflow:visible;
+}
+.yui-skin-sam { 
+       NOposition: static;
+}
+/* IE6 fix */
+.yui-skin-sam .yuimenu .yuimenuitemlabel {
+	_zoom: 1;
+}
+.yui-skin-sam .yuimenu .yuimenu .yuimenuitemlabel {
+	_zoom: normal;
 }
 </style>
 %ADDTOHEAD{
