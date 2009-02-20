@@ -480,6 +480,7 @@ See Foswiki:Extensions.TreeBrowserPluginDev.
 |  Plugin Author: | TWiki:Main.ThomasWeigert & Foswiki:Main.StephaneLenclud |
 |  Plugin Version: | %PLUGINVERSION{"TreeBrowserPlugin"}% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  20 Feb 2009: | (v1.9) - Foswiki port.  By [[Foswiki:Main.StephaneLenclud][St�phane Lenclud]]. |
 |  29 Mar 2007: | (v1.8) - Improved =smenu= CSS and fixing warning.  By [[Foswiki:Main.StephaneLenclud][St�phane Lenclud]]. |
 |  18 Mar 2007: | (v1.7) - Improved =smenu= CSS, resolved _highlighting gap issue_ . Now closing sub-menu when highlighting leaf.  By [[Foswiki:Main.StephaneLenclud][St�phane Lenclud]]. |
 |  18 Mar 2007: | (v1.6) - Sub-menus now working in IE with =smenu= style. Closing sub-menu when going back one level with mouse cursor.  By [[Foswiki:Main.StephaneLenclud][St�phane Lenclud]]. |
@@ -553,3 +554,5 @@ __Related Topics:__ Foswiki:Extensions.RenderListPlugin, Foswiki:Extensions.Tree
 %META:FILEATTACHMENT{name="virtualhome.gif" attr="h" autoattached="1" comment="" date="1151849905" path="virtualhome.gif" size="162" user="UnknownUser" version=""}%
 %META:FILEATTACHMENT{name="plus.gif" attr="h" autoattached="1" comment="" date="1151849905" path="plus.gif" size="89" user="UnknownUser" version=""}%
 %META:FILEATTACHMENT{name="globe.gif" attr="h" autoattached="1" comment="" date="1151849905" path="globe.gif" size="1095" user="UnknownUser" version=""}%
+%META:FORM{name="PackageForm"}% %META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}% %META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}% %META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}% %META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}% %META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}% 
+

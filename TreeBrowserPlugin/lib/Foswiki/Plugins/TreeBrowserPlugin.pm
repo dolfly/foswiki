@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
 # Copyright (C) 2001-2004 Peter Thoeny, peter@thoeny.com
-# Copyright (C) 2006-2007 StÃ©phane Lenclud, twiki@lenclud.com
+# Copyright (C) 2006-2009 Stéphane Lenclud, foswiki@lenclud.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -30,7 +30,7 @@
 
 
 # =========================
-package TWiki::Plugins::TreeBrowserPlugin;
+package Foswiki::Plugins::TreeBrowserPlugin;
 
 
 # =========================
@@ -39,7 +39,7 @@ use vars qw(
         $debug $js
     );
 
-$VERSION = 'v1.8';
+$VERSION = 'v1.9';
 $pluginName = 'TreeBrowserPlugin';
 
 # =========================
@@ -48,18 +48,18 @@ sub initPlugin
     ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1.021 ) {
-        TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+    if( $Foswiki::Plugins::VERSION < 1.021 ) {
+        Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
         return 0;
     }
 
     # Get plugin debug flag
-    $debug = TWiki::Func::getPreferencesFlag( "\U$pluginName\E_DEBUG" );
+    $debug = Foswiki::Func::getPreferencesFlag( "\U$pluginName\E_DEBUG" );
 
     $js = 0;
 
     # Plugin correctly initialized
-    TWiki::Func::writeDebug( "- TWiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK" ) if $debug;
+    Foswiki::Func::writeDebug( "- Foswiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK" ) if $debug;
     return 1;
 }
 
@@ -68,7 +68,7 @@ sub preRenderingHandler {
 # do not uncomment, use $_[0], $_[1]... instead
 #my( $text, $pMap ) = @_;
 
-    #TWiki::Func::writeDebug( "- ${pluginName}::preRenderingHandler-Before( $_[0] )" ) if $debug;
+    #Foswiki::Func::writeDebug( "- ${pluginName}::preRenderingHandler-Before( $_[0] )" ) if $debug;
 
     # Render here, not in commonTagsHandler so that lists produced by
     # Plugins, TOC and SEARCH can be rendered
@@ -86,56 +86,56 @@ A %TREEBROWSER{}% tag won't be processed if it is not followed by a tree.
 =cut
 sub handleLonelyTreeView {
     my ( $theAttr) = @_;
-	TWiki::Func::writeDebug( "- ${pluginName}::handleLonelyTreeView( $theAttr )" ) if $debug;
+	Foswiki::Func::writeDebug( "- ${pluginName}::handleLonelyTreeView( $theAttr )" ) if $debug;
     # Get the =warn= parameter if any. =warn= specifies a message to be displayed by unprocessed tag.
-    my $warn = &TWiki::Func::extractNameValuePair( $theAttr, "warn" );
+    my $warn = &Foswiki::Func::extractNameValuePair( $theAttr, "warn" );
 	return $warn;
 	}
 
 =pod
 Called when a %TREEBROWSER{}% tag need to be processed.
-It reads various settings and configurations from the tag argument list and the TWiki preferences.
+It reads various settings and configurations from the tag argument list and the Foswiki preferences.
 =cut
 sub handleTreeView {
     my ( $theAttr, $thePre, $theList ) = @_;
 
     # decode attributes if these are added
-    my $theme = &TWiki::Func::extractNameValuePair( $theAttr, "theme" ) ||
-                &TWiki::Func::extractNameValuePair( $theAttr );
+    my $theme = &Foswiki::Func::extractNameValuePair( $theAttr, "theme" ) ||
+                &Foswiki::Func::extractNameValuePair( $theAttr );
     $theme = "TREEBROWSERPLUGIN_" . uc( $theme ) . "_THEME";
-    $theme = &TWiki::Func::getPreferencesValue( $theme ) || "unrecognized theme type";
+    $theme = &Foswiki::Func::getPreferencesValue( $theme ) || "unrecognized theme type";
     my ( $type, $params ) = split( /, */, $theme, 2 );
     $type = lc( $type );
 
 
 
     unless ( $type eq "tree" || $type eq "icon" ) {
-		  #TWiki::Func::writeDebug( "- ${pluginName}::handleTreeView() returns $thePre$theList" ) if $debug;
+		  #Foswiki::Func::writeDebug( "- ${pluginName}::handleTreeView() returns $thePre$theList" ) if $debug;
         return "$thePre$theList";
     }
 	
-   my $theTitle = &TWiki::Func::extractNameValuePair( $theAttr, "title" );
-   my $wraptext = &TWiki::Func::extractNameValuePair( $theAttr, "wraptext" );
-   my $open1 = &TWiki::Func::extractNameValuePair( $theAttr, "openTo" );
-   my $open2 = &TWiki::Func::extractNameValuePair( $theAttr, "openAll" );
-   my $shared = &TWiki::Func::extractNameValuePair( $theAttr, "shared" );
-   my $useLines = &TWiki::Func::extractNameValuePair( $theAttr, "uselines" );  
-   my $usePlusMinus = &TWiki::Func::extractNameValuePair( $theAttr, "useplusminus" );
-   my $noIndent = &TWiki::Func::extractNameValuePair( $theAttr, "noindent" );
-   my $noRoot = &TWiki::Func::extractNameValuePair( $theAttr, "noroot" ); #noroot and notitle are the same
-   my $noCss = &TWiki::Func::extractNameValuePair( $theAttr, "nocss" );
+   my $theTitle = &Foswiki::Func::extractNameValuePair( $theAttr, "title" );
+   my $wraptext = &Foswiki::Func::extractNameValuePair( $theAttr, "wraptext" );
+   my $open1 = &Foswiki::Func::extractNameValuePair( $theAttr, "openTo" );
+   my $open2 = &Foswiki::Func::extractNameValuePair( $theAttr, "openAll" );
+   my $shared = &Foswiki::Func::extractNameValuePair( $theAttr, "shared" );
+   my $useLines = &Foswiki::Func::extractNameValuePair( $theAttr, "uselines" );  
+   my $usePlusMinus = &Foswiki::Func::extractNameValuePair( $theAttr, "useplusminus" );
+   my $noIndent = &Foswiki::Func::extractNameValuePair( $theAttr, "noindent" );
+   my $noRoot = &Foswiki::Func::extractNameValuePair( $theAttr, "noroot" ); #noroot and notitle are the same
+   my $noCss = &Foswiki::Func::extractNameValuePair( $theAttr, "nocss" );
    # =style= specifies the CSS file to be used.
-   my $style = &TWiki::Func::extractNameValuePair( $theAttr, "style" );
-   $style="dtree" unless TWiki::Func::attachmentExists($installWeb,$pluginName,"$style.css"); #Default to dtree
-   my $useStatusText = &TWiki::Func::extractNameValuePair( $theAttr, "usestatustext" );
-   my $closeSameLevel = &TWiki::Func::extractNameValuePair( $theAttr, "closesamelevel" );
-   my $autoToggle = &TWiki::Func::extractNameValuePair( $theAttr, "autotoggle" );
-   my $nodeActions = &TWiki::Func::extractNameValuePair( $theAttr, "nodeactions" );
-   my $popup = &TWiki::Func::extractNameValuePair( $theAttr, "popup" );
-   my $closePopupDelay  = &TWiki::Func::extractNameValuePair( $theAttr, "closepopupdelay" );
-   my $popupOffset  = &TWiki::Func::extractNameValuePair( $theAttr, "popupoffset" );
-   my $firstPopupOffset  = &TWiki::Func::extractNameValuePair( $theAttr, "firstpopupoffset" );
-   my $useOpacity  = &TWiki::Func::extractNameValuePair( $theAttr, "useopacity" );                
+   my $style = &Foswiki::Func::extractNameValuePair( $theAttr, "style" );
+   $style="dtree" unless Foswiki::Func::attachmentExists($installWeb,$pluginName,"$style.css"); #Default to dtree
+   my $useStatusText = &Foswiki::Func::extractNameValuePair( $theAttr, "usestatustext" );
+   my $closeSameLevel = &Foswiki::Func::extractNameValuePair( $theAttr, "closesamelevel" );
+   my $autoToggle = &Foswiki::Func::extractNameValuePair( $theAttr, "autotoggle" );
+   my $nodeActions = &Foswiki::Func::extractNameValuePair( $theAttr, "nodeactions" );
+   my $popup = &Foswiki::Func::extractNameValuePair( $theAttr, "popup" );
+   my $closePopupDelay  = &Foswiki::Func::extractNameValuePair( $theAttr, "closepopupdelay" );
+   my $popupOffset  = &Foswiki::Func::extractNameValuePair( $theAttr, "popupoffset" );
+   my $firstPopupOffset  = &Foswiki::Func::extractNameValuePair( $theAttr, "firstpopupoffset" );
+   my $useOpacity  = &Foswiki::Func::extractNameValuePair( $theAttr, "useopacity" );                
         
    my $icons = 0;
    $icons = 1 if ($type eq "icon");
@@ -159,22 +159,20 @@ sub renderTreeView
     my $type = "";
     my $text = "";
 
-    my $attach = TWiki::Func::getPubUrlPath();
+    my $attach = Foswiki::Func::getPubUrlPath();
     my $docgraphics = $attach . "/$installWeb/DocumentGraphics";
     $attach .= "/$installWeb/$pluginName";
-    my $attachUrl = TWiki::Func::getUrlHost() . TWiki::Func::getPubUrlPath();
+    my $attachUrl = Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath();
     
     $theParams="" unless defined $theParams; #Initialize if not defined to get ride of warnings in apache error logs       
-	 #$theParams=TWiki::Func::expandCommonVariables($theParams); #SL: consider using that in future development
+	 #$theParams=Foswiki::Func::expandCommonVariables($theParams); #SL: consider using that in future development
 	 $theParams =~ s/%PUBURL%/$attachUrl/go;
     $attachUrl .= "/$installWeb/$pluginName";
     $theParams =~ s/%ATTACHURL%/$attachUrl/go;
     $theParams =~ s/%WEB%/$installWeb/go;
-    $theParams =~ s/%MAINWEB%/TWiki::Func::getMainWebname()/geo;
-    $theParams =~ s/%SYSTEMWEB%/TWiki::Func::getTwikiWebname()/geo;      
-
-    # deprecated:
-    $theParams =~ s/%TWIKIWEB%/TWiki::Func::getTwikiWebname()/geo;      
+    $theParams =~ s/%MAINWEB%/Foswiki::Func::getMainWebname()/geo;
+    $theParams =~ s/%SYSTEMWEB%/Foswiki::Func::getSystemWebname()/geo;      
+    
 
     my ( $rooticon, $docicon, $fldricon, $fldropenicon )
        = split( /, */, $theParams );
@@ -202,7 +200,7 @@ sub renderTreeView
     }
 
     #Debug    
-    TWiki::Func::writeDebug( "${pluginName} Tree item count:" . scalar(@tree) ) if $debug;
+    Foswiki::Func::writeDebug( "${pluginName} Tree item count:" . scalar(@tree) ) if $debug;
 
    $js++;
    my $var = ($shared)?$shared:"d$js";
@@ -251,7 +249,7 @@ $var = new dTree('$var');\n";
     $text .= "$var.config.useStatusText=false;\n"; #Broken due to dtree usage if ($useStatusText=~/true|1|on/i);
     $text .= "$var.config.useSelection=false;\n"; #Broken due to dtree usage
     $text .= "$var.config.folderLinks=false;\n"; #Broken due to dtree usage
-    $theTitle = &TWiki::Func::renderText( $theTitle, $web );
+    $theTitle = &Foswiki::Func::renderText( $theTitle, $web );
     $theTitle =~ s/\"/\\\"/go;
     $text .= "$var.add(0,-1,\"$theTitle\");\n";
     my @fldrs = ();
@@ -278,14 +276,14 @@ $var = new dTree('$var');\n";
       	}
 
       my $id = $i+1;
-      $label = &TWiki::Func::renderText( $label, $web );
+      $label = &Foswiki::Func::renderText( $label, $web );
       $label =~ s/\"/\\\"/go;
       my $lvl = $tree[$i]->{'level'};
       my $nextlvl = ($i == scalar( @tree ) - 1)?$lvl:$tree[$i+1]->{'level'};
       if ( $lvl < $nextlvl ) {
 	if ( $lvl < ($nextlvl - 1) ) {
 	  # indented too far, correct
-	  TWiki::Func::writeWarning("TreeBrowserPlugin: In topic $topic, item \'" . $tree[$i+1]->{'text'} . "\' to deeply indented.");
+	  Foswiki::Func::writeWarning("TreeBrowserPlugin: In topic $topic, item \'" . $tree[$i+1]->{'text'} . "\' to deeply indented.");
 	  $nextlvl = $lvl + 1;
 	  $tree[$i+1]->{'level'} = $nextlvl;
 	}
