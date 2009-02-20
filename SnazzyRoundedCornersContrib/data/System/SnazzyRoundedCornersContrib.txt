@@ -82,10 +82,11 @@ Settings for demoing on this topic
 ---++ Contrib Info
 
 |  Contrib Author(s): | Foswiki:Main.SvenDowideit |
-|  Copyright: | &copy; 2007 SvenDowideit@distributedINFORMATION.com |
-|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Copyright: | &copy; 2007-2009 SvenDowideit@distributedINFORMATION.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL 3 (Gnu General Public License)]] |
 |  Contrib Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+| Feb 2009: | port to Foswiki |
 |  May 2008: | add sectional INCLUDE support |
 |  Jul 2007: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
