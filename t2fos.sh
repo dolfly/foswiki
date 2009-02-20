@@ -31,10 +31,10 @@ function process_module () {
     echo "Processing $1";
     [ -d $1/lib/TWiki -a ! -d $1/lib/Foswiki ] && \
         svn mv $1/lib/TWiki $1/lib/Foswiki
-    [ -d $1/data/TWiki -a ! -d $1/data/Foswiki ] && \
-        svn mv $1/data/TWiki $1/data/Foswiki
-    [ -d $1/pub/TWiki -a ! -d $1/pub/Foswiki ] && \
-        svn mv $1/pub/TWiki $1/pub/Foswiki
+    [ -d $1/data/TWiki -a ! -d $1/data/System ] && \
+        svn mv $1/data/TWiki $1/data/System
+    [ -d $1/pub/TWiki -a ! -d $1/pub/System ] && \
+        svn mv $1/pub/TWiki $1/pub/System
     for f in `find $1 -name '\.svn' -prune -o -name '*.pm'`; do \
         process $f; done
     for f in `find $1 -name '\.svn' -prune -o -name '*.pl'`; do \
