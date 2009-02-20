@@ -38,11 +38,11 @@ Many thanks to the following sponsors for supporting this work:
 |  Copyright: | see http://getfirebug.com/ |
 |  Licenses: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] (Foswiki plugin) && [[http://www.mozilla.org/MPL/][Mozilla Public License 1.1]] (the js and css) |
 |  Plugin Version: | %$VERSION% |
+|  20 Feb 2009: | port to Foswiki |
 |  16 Dev 2008: | update to firebug lite v1.2 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Plugin Home: | http://foswiki.org/Extensions/FirebugLitePlugin |
-|  Feedback: | http://foswiki.org/Extensions/FirebugLitePluginDev |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], %SYSTEMWEB%.DeveloperDocumentationCategory, %SYSTEMWEB%.AdminDocumentationCategory, %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
 
