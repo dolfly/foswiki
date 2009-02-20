@@ -1,5 +1,5 @@
 data/System/TreeBrowserPlugin.txt NEW
-lib/System/Plugins/TreeBrowserPlugin.pm NEW
+lib/Foswiki/Plugins/TreeBrowserPlugin.pm NEW
 pub/System/TreeBrowserPlugin/base.gif NEW
 pub/System/TreeBrowserPlugin/cd.gif NEW
 pub/System/TreeBrowserPlugin/doc.gif NEW
