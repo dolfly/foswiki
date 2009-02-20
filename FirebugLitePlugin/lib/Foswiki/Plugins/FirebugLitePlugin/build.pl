@@ -22,3 +22,10 @@ sub target_build {
     # Do other build stuff here
 }
 
+package main;
+# Create the build object
+$build = new BuildBuild();
+
+# Build the target on the command line, or the default target
+$build->build($build->{target});
+
