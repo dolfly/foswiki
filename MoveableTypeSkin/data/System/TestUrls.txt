@@ -1,0 +1,31 @@
+%META:TOPICINFO{author="WikiGuest" date="1168248992" format="1.1" reprev="1.1" version="1.1"}%
+test your skin here add =?skin=yourskin= to the URL for this topic, then click on each like to proof 
+
+%SCRIPTURL%/edit/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/attach/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/changes/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/login/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/logon/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/manage/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/manage/Main/WebHome?action=editSettings;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/passwd/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/rdiff/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/rdiff/Main/WebHome?type=history;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/register/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/rename/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/rename/Main/WebHome?newweb=Trash;nonwikiword=on;currentwebonly=on;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/rename/Main/WebHome?newweb=Trash;nonwikiword=on;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/resetpasswd/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/rest/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/save/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/search/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/search/Main/WebHome?serch=home;scope=text;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/statistics/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/twiki/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/upload/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/view/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/view/Main/WebHome?topic=nonwikiword;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/view/Main/WebHome?cover=print;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/view/Main/WebHome?raw=on;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/view/Main/WebHome?raw=debug;skin=%URLPARAM{"skin" default=%SKIN%}%
+%SCRIPTURL%/viewfile/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%

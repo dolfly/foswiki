@@ -1,7 +1,7 @@
 %META:TOPICINFO{author="NoneSvenDowideit" date="1174054820" format="1.1" reprev="1.1" version="1.1"}%
 %META:TOPICPARENT{name="MoveableTypeSkin"}%
 ---+ <nop>%TOPIC%
-This theme has been created by copying and simplifying the MoveableTypeSampleDesign topic and pub/TWiki directory, 
+This theme has been created by copying and simplifying the MoveableTypeSampleDesign topic and pub/System directory, 
 and then replacing the content of theme.css with css generated using the [[http://styles.movalog.com/generator/][Moveable Type Style Generator]]. 
 
 
@@ -9,7 +9,7 @@ and then replacing the content of theme.css with css generated using the [[http:
 ---++ Enable this design
 Copy and paste the following section to your %USERSWEB%.SitePreferences topic (or !WebPreferences, or your personal topic)
 <textarea readonly rows="13" style="width:85%;margin:10px;">
-   * Set TWiki to use this MoveableType design, set the following on %USERSWEB%.SitePreferences (don't copy the raw text)
+   * Set Foswiki to use this MoveableType design, set the following on %USERSWEB%.SitePreferences (don't copy the raw text)
       * Set SKIN=moveabletype
    * set the moveabletype skin to use this topic to get the _Moveable Type Common Text sections_ from this topic
       * Set MOVEABLETYPESKIN_DESIGNTOPIC = %TOPIC%
@@ -27,7 +27,7 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 %STARTSECTION{"module-search-left-three-column"}%%STARTSECTION{"module-search-left-two-column-left"}%%STARTSECTION{"module-search-left"}%%STARTSECTION{"module-search-right-three-column"}%%STARTSECTION{"module-search-right-two-column-right"}%%STARTSECTION{"module-search-right"}%<div class="module-search module">
    <h2 class="module-header">Search</h2>
    <div class="module-content">
-<form name="quickSearchForm" action="%SCRIPTURLPATH{view}%/%INCLUDINGWEB%/WebSearch">%IF{" '%URLPARAM{"search" encode="entity" scope="topic"}%' = '' " then="<input type=\"text\" class=\"twikiInputField\" name=\"search\" value=\"%MAKETEXT{"Search"}%\" size=\"14\" onfocus=\"clearDefaultandCSS(this);\" onblur=\"setDefaultText(this);\" />" else="<input type=\"text\" class=\"twikiInputField\" name=\"search\" value=\"%URLPARAM{ "search" encode="entity" scope="topic" }%\" size=\"14\" />"}%</form>
+<form name="quickSearchForm" action="%SCRIPTURLPATH{view}%/%INCLUDINGWEB%/WebSearch">%IF{" '%URLPARAM{"search" encode="entity" scope="topic"}%' = '' " then="<input type=\"text\" class=\"foswikiInputField\" name=\"search\" value=\"%MAKETEXT{"Search"}%\" size=\"14\" onfocus=\"clearDefaultandCSS(this);\" onblur=\"setDefaultText(this);\" />" else="<input type=\"text\" class=\"foswikiInputField\" name=\"search\" value=\"%URLPARAM{ "search" encode="entity" scope="topic" }%\" size=\"14\" />"}%</form>
    </div>
 </div>%ENDSECTION{"module-search-right"}%%ENDSECTION{"module-search-right-two-column-right"}%%ENDSECTION{"module-search-right-three-column"}%%ENDSECTION{"module-search-left"}%%ENDSECTION{"module-search-left-two-column-left"}%%ENDSECTION{"module-search-left-three-column"}%
 
@@ -80,8 +80,8 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 ---+++ module-powered-left
 %STARTSECTION{"module-powered-right-three-column"}%%STARTSECTION{"module-powered-right-two-column-right"}%%STARTSECTION{"module-powered-right"}%<div class="module-powered module">%STARTSECTION{"module-powered-left-three-column"}%%STARTSECTION{"module-powered-left-two-column-left"}%%STARTSECTION{"module-powered-left"}%<div class="module-powered module">
    <div class="module-content">
-      Powered by<br /><a href="http://twiki.org"><img src="%PUBURLPATH%/%SYSTEMWEB%/ProjectLogos/T-logo-34x26.png" />TWiki</a>
-%BR% skin by <a href="http://DistributedINFORMATION.com">Distributed INFORMATION.com</a>
+      Powered by<br /><a href="http://Foswiki.org"><img src="%PUBURLPATH%/%SYSTEMWEB%/ProjectLogos/T-logo-34x26.png" />Foswiki</a>
+%BR% skin by <a href="http://fosiki.com">fosiki.com</a>
 %BR% [[http://WikiRing.com][a <img src="%PUBURLPATH%/%SYSTEMWEB%/MoveableTypeSkin/wikiringlogo20x20.png" alt="@" width='20' height='20' border='0'  /> WikiRing.com partner]]
    </div>
 </div> %ENDSECTION{"module-powered-left"}%%ENDSECTION{"module-powered-left-two-column-left"}%%ENDSECTION{"module-powered-left-three-column"}%%ENDSECTION{"module-powered-right"}%%ENDSECTION{"module-powered-right-two-column-right"}%%ENDSECTION{"module-powered-right-three-column"}%
@@ -92,4 +92,4 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 
 
 %META:FILEATTACHMENT{name="base-weblog.css" attachment="base-weblog.css" attr="" comment="" date="1174054380" path="base-weblog.css" size=""  user="SvenDowideit" version="1"}%
-%META:FILEATTACHMENT{name="TWiki.css" attachment="TWiki.css" attr="" comment="" date="1174054380" path="TWiki.css" user="SvenDowideit" version="1"}%
+%META:FILEATTACHMENT{name="Foswiki.css" attachment="Foswiki.css" attr="" comment="" date="1174054380" path="Foswiki.css" user="SvenDowideit" version="1"}%
