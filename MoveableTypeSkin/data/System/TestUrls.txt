@@ -21,7 +21,6 @@ test your skin here add =?skin=yourskin= to the URL for this topic, then click o
 %SCRIPTURL%/search/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
 %SCRIPTURL%/search/Main/WebHome?serch=home;scope=text;skin=%URLPARAM{"skin" default=%SKIN%}%
 %SCRIPTURL%/statistics/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
-%SCRIPTURL%/twiki/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
 %SCRIPTURL%/upload/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
 %SCRIPTURL%/view/Main/WebHome?skin=%URLPARAM{"skin" default=%SKIN%}%
 %SCRIPTURL%/view/Main/WebHome?topic=nonwikiword;skin=%URLPARAM{"skin" default=%SKIN%}%
