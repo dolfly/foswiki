@@ -1,6 +1,7 @@
 # Release manifest for JQueryLibPlugin
 data/System/JQueryLibPlugin.txt 0644 Documentation
 lib/Foswiki/Plugins/JQueryLibPlugin.pm 0644 Perl module
+lib/Foswiki/Plugins/JQueryLibPlugin/Config.spec 0644 Configuration
 pub/System/JQueryLibPlugin/jquery-1.2.6.min.js 0644 Javascript
 pub/System/JQueryLibPlugin/jquery-ui-1.5.3.min.js 0644 Javascript
 pub/System/JQueryLibPlugin/themes/smoothness/ui.all.css 0644 Style
