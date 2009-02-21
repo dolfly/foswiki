@@ -43,11 +43,41 @@ pub/System/JQueryLibPlugin/themes/smoothness/images/dadada_40x100_textures_02_gl
 pub/System/JQueryLibPlugin/themes/smoothness/images/e6e6e6_40x100_textures_02_glass_75.png 0644 Image
 pub/System/JQueryLibPlugin/themes/smoothness/images/ffffff_40x100_textures_01_flat_75.png 0644 Image
 pub/System/JQueryLibPlugin/themes/smoothness/images/ffffff_40x100_textures_02_glass_65.png 0644 Image
+pub/System/JQueryLibPlugin/themes/lightness/images
+pub/System/JQueryLibPlugin/themes/lightness/list.txt
+pub/System/JQueryLibPlugin/themes/lightness/ui.all.css
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_arrows_leftright.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_arrows_updown.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_doc.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_minus.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_plus.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_resize_se.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_7x7_arrow_down.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_7x7_arrow_left.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_7x7_arrow_right.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/222222_7x7_arrow_up.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/eeeeee_40x100_textures_03_highlight_soft_100.png
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_arrows_leftright.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_arrows_updown.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_close.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_doc.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_folder_closed.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_folder_open.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_minus.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_11x11_icon_plus.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_7x7_arrow_down.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_7x7_arrow_left.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_7x7_arrow_right.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/ef8c08_7x7_arrow_up.gif
+pub/System/JQueryLibPlugin/themes/lightness/images/f6f6f6_40x100_textures_02_glass_100.png
+pub/System/JQueryLibPlugin/themes/lightness/images/fdf5ce_40x100_textures_02_glass_100.png
+pub/System/JQueryLibPlugin/themes/lightness/images/ffffff_40x100_textures_02_glass_65.png
 pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.css 0644 Style
 pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.js 0644 Javascript
 pub/System/JQueryLibPlugin/plugins/farbtastic/marker.png 0644 Image
 pub/System/JQueryLibPlugin/plugins/farbtastic/mask.png 0644 Image
 pub/System/JQueryLibPlugin/plugins/farbtastic/wheel.png 0644 Image
+
 
 
 
