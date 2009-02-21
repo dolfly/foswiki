@@ -95,14 +95,15 @@ FOOBARSOMETHING. This avoids namespace issues.
 
 sub initPlugin {
     my( $topic, $web, $user, $installWeb ) = @_;
-
+    
     # check for Plugins.pm versions
     if( $Foswiki::Plugins::VERSION < 2.0 ) {
         Foswiki::Func::writeWarning( 'Version mismatch between ',
                                      __PACKAGE__, ' and Plugins.pm' );
         return 0;
     }
-
+    
+    
     # Example code of how to get a preference value, register a macro
     # handler and register a RESTHandler (remove code you do not need)
 
@@ -137,14 +138,14 @@ sub initPlugin {
 ############	
 
 sub addStylesToHead 
-	{   	
-	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles});
-	
-    my @styles = split ",",$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles};    
+	{
+	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles});	   
+	#First the styles 
+    my @styles = split(',',$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles});    
     my $styleDependencies;    
     foreach my $style (@styles)
     	{
-        $style = trim($style);
+        $style = trim($style);        
         Foswiki::Func::addToHEAD("JQueryLibPlugin_$style",JQueryStyle($style),$styleDependencies);
         #Add dependency 
         $styleDependencies.=', ' if (defined $styleDependencies);
@@ -155,13 +156,13 @@ sub addStylesToHead
 ############		
 	
 sub addScriptsToHead	
-	{
-	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts});
-	
-    my @scripts = split ",",$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts};    
+	{	
+	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts});	
+	#Next the scripts 
+    my @scripts = split(',',$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts});    
     my $scriptDependencies;    
     foreach my $script (@scripts)
-    	{
+    	{	    
         $script = trim($script);
         Foswiki::Func::addToHEAD("JQueryLibPlugin_$script",JQueryScript($script),$scriptDependencies);
         #Add dependency

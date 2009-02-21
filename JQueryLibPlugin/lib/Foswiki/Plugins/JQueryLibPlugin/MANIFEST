@@ -43,5 +43,11 @@ pub/System/JQueryLibPlugin/themes/smoothness/images/dadada_40x100_textures_02_gl
 pub/System/JQueryLibPlugin/themes/smoothness/images/e6e6e6_40x100_textures_02_glass_75.png 0644 Image
 pub/System/JQueryLibPlugin/themes/smoothness/images/ffffff_40x100_textures_01_flat_75.png 0644 Image
 pub/System/JQueryLibPlugin/themes/smoothness/images/ffffff_40x100_textures_02_glass_65.png 0644 Image
+pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.css 0644 Style
+pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.js 0644 Javascript
+pub/System/JQueryLibPlugin/plugins/farbtastic/marker.png 0644 Image
+pub/System/JQueryLibPlugin/plugins/farbtastic/mask.png 0644 Image
+pub/System/JQueryLibPlugin/plugins/farbtastic/wheel.png 0644 Image
+
 
 
