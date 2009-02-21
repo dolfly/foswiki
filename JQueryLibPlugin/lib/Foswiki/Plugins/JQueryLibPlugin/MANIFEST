@@ -43,8 +43,6 @@ pub/System/JQueryLibPlugin/themes/smoothness/images/dadada_40x100_textures_02_gl
 pub/System/JQueryLibPlugin/themes/smoothness/images/e6e6e6_40x100_textures_02_glass_75.png 0644 Image
 pub/System/JQueryLibPlugin/themes/smoothness/images/ffffff_40x100_textures_01_flat_75.png 0644 Image
 pub/System/JQueryLibPlugin/themes/smoothness/images/ffffff_40x100_textures_02_glass_65.png 0644 Image
-pub/System/JQueryLibPlugin/themes/lightness/images
-pub/System/JQueryLibPlugin/themes/lightness/list.txt
 pub/System/JQueryLibPlugin/themes/lightness/ui.all.css
 pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_arrows_leftright.gif
 pub/System/JQueryLibPlugin/themes/lightness/images/222222_11x11_icon_arrows_updown.gif
