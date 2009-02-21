@@ -137,8 +137,9 @@ sub initPlugin {
 ############	
 
 sub addStylesToHead 
-	{   
-	#First the styles 
+	{   	
+	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles});
+	
     my @styles = split ",",$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles};    
     my $styleDependencies;    
     foreach my $style (@styles)
@@ -155,7 +156,8 @@ sub addStylesToHead
 	
 sub addScriptsToHead	
 	{
-	#Next the scripts 
+	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts});
+	
     my @scripts = split ",",$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts};    
     my $scriptDependencies;    
     foreach my $script (@scripts)
