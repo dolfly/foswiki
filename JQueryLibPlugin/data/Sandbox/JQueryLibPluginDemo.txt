@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235307295" format="1.1" reprev="1.10" version="1.10"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235345536" format="1.1" reprev="1.3" version="1.3"}%
 <pre style="display:none">
 <script type="text/javascript">
 //Here is some code to extend the jQuery offset function so that it can accept parameters
@@ -26,9 +26,9 @@ Should we have a way to had stuff to head using some macros?
 	<p>I popup</p>
 </div>
 
-<button onclick="$('#popup').show('scale');">Create Popup</button>
-<button onclick="$('#popup').hide('scale');">Close</button>
-<button onclick="$('#popup').toggle('scale');">Toggle</button>
+<button class="ui-default-state" onclick="$('#popup').show('scale');">Create Popup</button>
+<button class="ui-default-state" onclick="$('#popup').hide('scale');">Close</button>
+<button class="ui-default-state" onclick="$('#popup').toggle('scale');">Toggle</button>
 
 
 ---++ Draggable
@@ -37,9 +37,9 @@ Should we have a way to had stuff to head using some macros?
 	<p>Drag me around</p>
 </div>
 
-<button onclick="$('#draggable').draggable().show('scale');">Create Draggable</button>
-<button onclick="$('#draggable').draggable().hide('scale');">Close</button>
-<button onclick="$('#draggable').draggable().toggle('scale');">Toggle</button>
+<button class="ui-default-state" onclick="$('#draggable').draggable().show('scale');">Create Draggable</button>
+<button class="ui-default-state" onclick="$('#draggable').draggable().hide('scale');">Close</button>
+<button class="ui-default-state" onclick="$('#draggable').draggable().toggle('scale');">Toggle</button>
 
 ---++ Dialogs
 
@@ -47,18 +47,26 @@ Should we have a way to had stuff to head using some macros?
 
 <div class="ui-dialog" style="display:none" id="example2" title="Nice title">I have a title and I'm big</div>
 
-<button onclick="$('#example2').dialog({width: 600, height: 300}).show('scale');">Create Dialog</button>
-<button onclick="$('#example2').dialog('close')">Close</button>
+<button class="ui-default-state" onclick="$('#example2').dialog({width: 600, height: 300}).show('scale');">Create Dialog</button>
+<button class="ui-default-state" onclick="$('#example2').dialog('close')">Close</button>
 
 ---++ Farbtastic
 
 <div id="colorpicker" class="ui-component-content ui-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
 
 <script type="text/javascript">  $(document).ready(function() {$('#colorpicker').farbtastic('#mycolor');});</script>
+<script type="text/javascript">  $(document).ready(function() {$.farbtastic('#colorpicker').linkTo('#myothercolor');});</script>
 
-<input id="mycolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
+<input  id="mycolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
 
-<input id="myothercolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
+<input  id="myothercolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
+
+---++ Button 
+
+<button class="ui-default-state" >I'm a button</button>
+
+<a class="ui-default-state">Button demo</a>
+
 
 
 

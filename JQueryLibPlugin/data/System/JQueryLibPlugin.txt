@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235313860" format="1.1" version="1.3"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235346380" format="1.1" version="1.4"}%
 ---+!! !JQueryLibPlugin
 <!--
 One line description, required for extensions repository catalog.
@@ -51,6 +51,7 @@ Many thanks to the following sponsors for supporting this work:
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+| 23 Feb 2009 | 0.2 - Improved demo topic. |
 | 22 Feb 2009 | 0.1 - First named release. Adding Farbtastic in Config.spec. |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/bin/view/Extensions/JQueryLibPlugin |

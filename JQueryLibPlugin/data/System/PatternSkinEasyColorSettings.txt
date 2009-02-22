@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235306176" format="1.1" reprev="1.4" version="1.4"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235337141" format="1.1" reprev="1.4" version="1.4"}%
 <pre style="display:none">
 <script type="text/javascript">
 //Here is some code to extend the jQuery offset function so that it can accept parameters
@@ -129,7 +129,7 @@ First edit and save your color preferences then commit your changes.
 ---+++++ TOP_BAR_BACKGROUND Top bar background
    * Local TOP_BAR_BACKGROUND = #d58c81
 ---+++++ ATTACHMENT_AND_FORM_BACKGROUND Attachment, form
-   * Local ATTACHMENT_AND_FORM_BACKGROUND = #eef7fa
+   * Local ATTACHMENT_AND_FORM_BACKGROUND = #f3e2dd
 ---+++++ TOPIC_ACTION_BACKGROUND Topic action row
    * Local TOPIC_ACTION_BACKGROUND = #e9d2c8
 ---+++++ DIFF_HEADER_BACKGROUND Diff header (dark gray)
@@ -137,7 +137,7 @@ First edit and save your color preferences then commit your changes.
 ---+++++ NOTIFICATION_BACKGROUND Info, broadcast message and notifications
    * Local NOTIFICATION_BACKGROUND = #fff0c4
 ---+++++ INFO_BACKGROUND
-   * Local INFO_BACKGROUND = #f5fbfe
+   * Local INFO_BACKGROUND = #f3e2dd
 
 ---+++ Border colors
 ---+++++ NEUTRAL_BORDER Info (light gray)
@@ -197,7 +197,7 @@ First edit and save your color preferences then commit your changes.
 ---+++++ FORM_BORDER Form (same as foswikiTable border)
    * Local FORM_BORDER = #cfcfcf
 ---+++++ ACTIVE_FORM_BACKGROUND Edit form, form steps
-   * Local ACTIVE_FORM_BACKGROUND = #eef7fa
+   * Local ACTIVE_FORM_BACKGROUND = #f3e2dd
 ---+++++ FORMFIELD_ACTIVE Active form field
    * Local FORMFIELD_ACTIVE = #ffffe0
 ---+++++ FORM_HEADER_TEXT Header text on form background
