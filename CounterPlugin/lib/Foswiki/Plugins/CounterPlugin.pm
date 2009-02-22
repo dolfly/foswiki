@@ -43,12 +43,12 @@
 # the function name. Remove disabled handlers you do not need.
 #
 # NOTE: To interact with TWiki use the official TWiki functions 
-# in the TWiki::Func module. Do not reference any functions or
+# in the Foswiki::Func module. Do not reference any functions or
 # variables elsewhere in TWiki!!
 
 
 # =========================
-package TWiki::Plugins::CounterPlugin;    # change the package name and $pluginName!!!
+package Foswiki::Plugins::CounterPlugin;    # change the package name and $pluginName!!!
 
 # =========================
 #This is plugin specific variable
@@ -74,13 +74,13 @@ sub initPlugin
     ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1 ) {
-        &TWiki::Func::writeWarning( "Version mismatch between CounterPlugin and Plugins.pm" );
+    if( $Foswiki::Plugins::VERSION < 1 ) {
+        &Foswiki::Func::writeWarning( "Version mismatch between CounterPlugin and Plugins.pm" );
         return 0;
     }
    	
     # Plugin correctly initialized
-    &TWiki::Func::writeDebug( "- TWiki::Plugins:CounterPlugin::initPlugin( $web.$topic ) is OK" ) if $debug;
+    &Foswiki::Func::writeDebug( "- Foswiki::Plugins:CounterPlugin::initPlugin( $web.$topic ) is OK" ) if $debug;
     return 1;
 }
 
@@ -95,14 +95,14 @@ sub commonTagsHandler
 sub _handleTag()
 {
 	# increment the counter and throw up the page with this count
-	my $FileLocation = &TWiki::Func::getWorkArea( 'CounterPlugin' );
+	my $FileLocation = &Foswiki::Func::getWorkArea( 'CounterPlugin' );
 	my $DataFile = 'visitor_count.txt';
 	my $CounterFile = "$FileLocation/$DataFile";
-    	&TWiki::Func::writeDebug( "- TWiki::Plugins:CounterPlugin::FileLocation is $FileLocation" );
+    	&Foswiki::Func::writeDebug( "- Foswiki::Plugins:CounterPlugin::FileLocation is $FileLocation" );
 	
 	if ( open(FILE , '<', $CounterFile) )
 	{
-	    &TWiki::Func::writeDebug("Opened $DataFile file successfully");
+	    &Foswiki::Func::writeDebug("Opened $DataFile file successfully");
 	    $Count = <FILE>;
 	    close FILE;
 	}
