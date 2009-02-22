@@ -1,0 +1,67 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235261506" format="1.1" version="1.10"}%
+<pre style="display:none">
+<script type="text/javascript">
+//Here is some code to extend the jQuery offset function so that it can accept parameters
+//See http://groups.google.com/group/jquery-dev/browse_thread/thread/10fa400d3f9d9521
+jQuery.fn._offset = jQuery.fn.offset;
+jQuery.fn.extend({
+    offset: function() {
+        var a = arguments;
+        return (a.length) ? this.animate({ top: a[0].top || a[0], left: a[0].left || a[1] }, (a[0].top ? a[1] : a[2]) || 1) : this._offset();
+    }
+});
+</script>
+</pre>
+
+
+
+
+---+!! jQuery Demo
+
+Should we have a way to had stuff to head using some macros?
+
+---++ Popup
+
+<div id="popup" class="ui-component-content ui-hidden" style="position: absolute; left: 300px; top: 200px; width: 150px; height: 150px;">
+	<p>I popup</p>
+</div>
+
+<button onclick="$('#popup').show('scale');">Create Popup</button>
+<button onclick="$('#popup').hide('scale');">Close</button>
+<button onclick="$('#popup').toggle('scale');">Toggle</button>
+
+
+---++ Draggable
+
+<div id="draggable" class="ui-component-content" style="position: absolute; left: 300px; top: 200px; display:none; width: 150px; height: 150px;">
+	<p>Drag me around</p>
+</div>
+
+<button onclick="$('#draggable').draggable().show('scale');">Create Draggable</button>
+<button onclick="$('#draggable').draggable().hide('scale');">Close</button>
+<button onclick="$('#draggable').draggable().toggle('scale');">Toggle</button>
+
+---++ Dialogs
+
+---+++ Title, Width & Height
+
+<div class="ui-dialog" style="display:none" id="example2" title="Nice title">I have a title and I'm big</div>
+
+<button onclick="$('#example2').dialog({width: 600, height: 300}).show('scale');">Create Dialog</button>
+<button onclick="$('#example2').dialog('close')">Close</button>
+
+---++ Farbtastic
+
+<div id="colorpicker" class="ui-component-content ui-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
+
+<script type="text/javascript">  $(document).ready(function() {$('#colorpicker').farbtastic('#mycolor');});</script>
+
+<input id="mycolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
+
+<input id="myothercolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
+
+
+
+
+
+%META:TOPICMOVED{by="BaseUserMapping_333" date="1235261506" from="Sandbox.JQueryDemo" to="Sandbox.JQueryLibPluginDemo"}%

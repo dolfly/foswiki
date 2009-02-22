@@ -1,5 +1,9 @@
 # Release manifest for JQueryLibPlugin
 data/System/JQueryLibPlugin.txt 0644 Documentation
+data/System/PatternSkinEasyColorSettings.txt 0644 Example
+data/System/PatternSkinColorEditForm.txt 0644 Example
+data/Sandbox/JQueryLibPluginDemo.txt 0644 Example
+lib/Foswiki/Form/Color.pm 0644 Perl module
 lib/Foswiki/Plugins/JQueryLibPlugin.pm 0644 Perl module
 lib/Foswiki/Plugins/JQueryLibPlugin/Config.spec 0644 Configuration
 pub/System/JQueryLibPlugin/jquery-1.2.6.min.js 0644 Javascript
