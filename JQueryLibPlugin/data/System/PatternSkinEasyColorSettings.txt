@@ -1,9 +1,17 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235261249" format="1.1" reprev="1.3" version="1.3"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235303461" format="1.1" reprev="1.4" version="1.4"}%
 ---+!! Color scheme settings for %SYSTEMWEB%.PatternSkin
+
+---++!! Settings
+
+Let %SYSTEMWEB%.PatternSkin point to the custom-made colors style sheet. Copy this line in [[%USERSWEB%.SitePreferences]]: <verbatim>
+   * Set USERCOLORSURL = %PUBURLPATH%/%SYSTEMWEB%/PatternSkin/my_colors.css
+</verbatim>
+
+---++!! Usage
 
 First edit and save your color preferences then commit your changes.
 
-%IF{"context AttachContentPluginEnabled" then='<a href="%SCRIPTURL{save}%/%WEB%/%TOPIC%?action_save=1" class="foswikiButton">Commit</a> This will generate an [[%PUBURLPATH%/%SYSTEMWEB%/PatternSkin/colors.css][attachment]] to topic [[PatternSkin]].' else='Install !AttachContentPlugin to be able to save this topic. On saving, an attachment will be created to topic PatternSkin.'}%
+%IF{"context AttachContentPluginEnabled" then='<a href="%SCRIPTURL{save}%/%WEB%/%TOPIC%?action_save=1" class="foswikiButton">Commit</a> This will generate an [[%PUBURLPATH%/%SYSTEMWEB%/PatternSkin/my_colors.css][attachment]] to topic [[PatternSkin]].' else='Install !AttachContentPlugin to be able to save this topic. On saving, an attachment will be created to topic PatternSkin.'}%
 
 %ICON{"info"}% For more help on customizing styles, see [[PatternSkinCustomization]].
 
@@ -26,170 +34,171 @@ jQuery.fn.extend({
 %EDITPREFERENCES{"%SYSTEMWEB%/PatternSkinColorEditForm"}% 
 %IF{"$ SCRIPTNAME != 'viewauth%SCRIPTSUFFIX%'" then="<span class='foswikiGrayText'>%MAKETEXT{"Quick edit of existing preferences (edit the topic text to set new preferences)"}%</span>" }%
 
----++ Logical groupings
+%TOC{depth="4"}%
+
 ---+++ Text
----++++ MAIN_TEXT Main text color
+---+++++ MAIN_TEXT Main text color
    * Local MAIN_TEXT = #5c607f
----++++ MAIN_TEXT_BACKGROUND Main background color
+---+++++ MAIN_TEXT_BACKGROUND Main background color
    * Local MAIN_TEXT_BACKGROUND = #fff
----++++ LIGHT_ON_DARK_TEXT Light on dark text color
+---+++++ LIGHT_ON_DARK_TEXT Light on dark text color
    * Local LIGHT_ON_DARK_TEXT = #fff
----++++ GRAYED_TEXT
+---+++++ GRAYED_TEXT
    * Local GRAYED_TEXT = #777
----++++ GENERAL_TEXT General text (black)
+---+++++ GENERAL_TEXT General text (black)
    * Local GENERAL_TEXT = #5c607f
----++++ H1_HEADER_TEXT Header text
+---+++++ H1_HEADER_TEXT Header text
    * Local H1_HEADER_TEXT = #efc77b
----++++ HEADER_TEXT Header text
+---+++++ HEADER_TEXT Header text
    * Local HEADER_TEXT = #8a79a9
----++++ CODE_TEXT Code text, left bar text and links
+---+++++ CODE_TEXT Code text, left bar text and links
    * Local CODE_TEXT = #333
----++++ MUTED_TEXT Muted text (dark gray)
+---+++++ MUTED_TEXT Muted text (dark gray)
    * Local MUTED_TEXT = %GRAYED_TEXT%
----++++ GRAYED_OUT_TEXT Grayed out text
+---+++++ GRAYED_OUT_TEXT Grayed out text
    * Local GRAYED_OUT_TEXT = %GRAYED_TEXT%
----++++ GRAYED_OUT_TEXT_ON_DARK Grayed out text on dark background
+---+++++ GRAYED_OUT_TEXT_ON_DARK Grayed out text on dark background
    * Local GRAYED_OUT_TEXT_ON_DARK = #bbb
 
 ---+++ Links
----++++ LINK_TEXT_NORMAL Link normal text
+---+++++ LINK_TEXT_NORMAL Link normal text
    * Local LINK_TEXT_NORMAL = #93bdaa
----++++ LINK_BACKGROUND_NORMAL Link normal background
-   * Local LINK_BACKGROUND_NORMAL =  
+---+++++ LINK_BACKGROUND_NORMAL Link normal background
+   * Local LINK_BACKGROUND_NORMAL = transparent
    * Local LINK_TEXT_NORMAL_VISITED = #666
----++++ LINK_TEXT_ACTION_BUTTON Link text red (same as LINK_BACKGROUND_HOVER)
-   * Local LINK_TEXT_ACTION_BUTTON =  
----++++ LINK_TEXT_HOVER Link hover text
+---+++++ LINK_TEXT_ACTION_BUTTON Link text red (same as LINK_BACKGROUND_HOVER)
+   * Local LINK_TEXT_ACTION_BUTTON = transparent
+---+++++ LINK_TEXT_HOVER Link hover text
    * Local LINK_TEXT_HOVER = #e2ad74
----++++ LINK_BACKGROUND_HOVER Link background hover
-   * Local LINK_BACKGROUND_HOVER =  
----++++ SIDE_BAR_LINK_TEXT Side bar link text
+---+++++ LINK_BACKGROUND_HOVER Link background hover
+   * Local LINK_BACKGROUND_HOVER = transparent
+---+++++ SIDE_BAR_LINK_TEXT Side bar link text
    * Local SIDE_BAR_LINK_TEXT = #444
----++++ BUTTON_TEXT_NORMAL Button text
+---+++++ BUTTON_TEXT_NORMAL Button text
    * Local BUTTON_TEXT_NORMAL = #333
 
 ---+++ Disabled
----++++ DISABLED_BORDER Disabled border
+---+++++ DISABLED_BORDER Disabled border
    * Local DISABLED_BORDER = #e0e0e0
----++++ DISABLED_TEXT Disabled text
+---+++++ DISABLED_TEXT Disabled text
    * Local DISABLED_TEXT = #aaa
----++++ DISABLED_BACKGROUND Disabled background
+---+++++ DISABLED_BACKGROUND Disabled background
    * Local DISABLED_BACKGROUND = #fafaf8
----++++ BUTTON_BORDERS_DISABLED Disabled button borders
+---+++++ BUTTON_BORDERS_DISABLED Disabled button borders
    * Local BUTTON_BORDERS_DISABLED = #fff #ccc #ccc #fff
 
 ---+++ 'New'
----++++ NEW_TEXT New text (green)
+---+++++ NEW_TEXT New text (green)
    * Local NEW_TEXT = #049804
----++++ NEW_BACKGROUND New background (light green)
+---+++++ NEW_BACKGROUND New background (light green)
    * Local NEW_BACKGROUND = #ECFADC
 
 ---+++ Alert
----++++ ALERT_TEXT Alert text (red)
+---+++++ ALERT_TEXT Alert text (red)
    * Local ALERT_TEXT = #f00
----++++ ALERT_TEXT_MUTED Muted alert text (dark red)
+---+++++ ALERT_TEXT_MUTED Muted alert text (dark red)
    * Local ALERT_TEXT_MUTED = #900
----++++ ALERT_BORDER Alert border
+---+++++ ALERT_BORDER Alert border
    * Local ALERT_BORDER = #f00
 
 ---+++ Buttons
----++++ BUTTON_TEXT Button text color (dark gray)
+---+++++ BUTTON_TEXT Button text color (dark gray)
    * Local BUTTON_TEXT = #000
----++++ BUTTON_BORDERS Button borders
+---+++++ BUTTON_BORDERS Button borders
    * Local BUTTON_BORDERS = #fff #888 #888 #fff
----++++ BUTTON_BACKGROUND Button background
+---+++++ BUTTON_BACKGROUND Button background
    * Local BUTTON_BACKGROUND = #e2e3e3
----++++ BUTTON_CANCEL_BACKGROUND Cancel button background
+---+++++ BUTTON_CANCEL_BACKGROUND Cancel button background
    * Local BUTTON_CANCEL_BACKGROUND = #f2d5d0
----++++ SUBMIT_BUTTON_BACKGROUND Submit button background
+---+++++ SUBMIT_BUTTON_BACKGROUND Submit button background
    * Local SUBMIT_BUTTON_BACKGROUND = #ebb819
----++++ SUBMIT_BUTTON_BORDER_TEXT Submit button text color
+---+++++ SUBMIT_BUTTON_BORDER_TEXT Submit button text color
    * Local SUBMIT_BUTTON_BORDER_TEXT = #fff
----++++ SELECT_BORDER Select border
+---+++++ SELECT_BORDER Select border
    * Local SELECT_BORDER = #888
 
 ---+++ Background colors
----++++ PAGE_BACKGROUND General background color
+---+++++ PAGE_BACKGROUND General background color
    * Local PAGE_BACKGROUND = #e2e2e2
----++++ NEUTRAL_BACKGROUND
+---+++++ NEUTRAL_BACKGROUND
    * Local NEUTRAL_BACKGROUND = #f5f5f5
----++++ SIDE_BAR_BACKGROUND Side bar background
+---+++++ SIDE_BAR_BACKGROUND Side bar background
    * Local SIDE_BAR_BACKGROUND = #fff
----++++ TOP_BAR_BACKGROUND Top bar background
-   * Local TOP_BAR_BACKGROUND = #e8f3f7
----++++ ATTACHMENT_AND_FORM_BACKGROUND Attachment, form
+---+++++ TOP_BAR_BACKGROUND Top bar background
+   * Local TOP_BAR_BACKGROUND = #d58c81
+---+++++ ATTACHMENT_AND_FORM_BACKGROUND Attachment, form
    * Local ATTACHMENT_AND_FORM_BACKGROUND = #eef7fa
----++++ TOPIC_ACTION_BACKGROUND Topic action row
-   * Local TOPIC_ACTION_BACKGROUND = #e8bf30
----++++ DIFF_HEADER_BACKGROUND Diff header (dark gray)
+---+++++ TOPIC_ACTION_BACKGROUND Topic action row
+   * Local TOPIC_ACTION_BACKGROUND = #e9d2c8
+---+++++ DIFF_HEADER_BACKGROUND Diff header (dark gray)
    * Local DIFF_HEADER_BACKGROUND = #ccc
----++++ NOTIFICATION_BACKGROUND Info, broadcast message and notifications
+---+++++ NOTIFICATION_BACKGROUND Info, broadcast message and notifications
    * Local NOTIFICATION_BACKGROUND = #fff0c4
----++++ INFO_BACKGROUND
+---+++++ INFO_BACKGROUND
    * Local INFO_BACKGROUND = #f5fbfe
 
 ---+++ Border colors
----++++ NEUTRAL_BORDER Info (light gray)
+---+++++ NEUTRAL_BORDER Info (light gray)
    * Local NEUTRAL_BORDER = #ddd
----++++ SEPARATOR_BORDER
+---+++++ SEPARATOR_BORDER
    * Local SEPARATOR_BORDER = #e2e2e2
----++++ STRONG_BORDER
+---+++++ STRONG_BORDER
    * Local STRONG_BORDER = #ccc
----++++ MINOR_SEPARATOR_BORDER Header H3..H6 bottom
+---+++++ MINOR_SEPARATOR_BORDER Header H3..H6 bottom
    * Local MINOR_SEPARATOR_BORDER = %SEPARATOR_BORDER%
----++++ ATTACHMENT_AND_FORM_BORDER Attachment, form
+---+++++ ATTACHMENT_AND_FORM_BORDER Attachment, form
    * Local ATTACHMENT_AND_FORM_BORDER = #fff
----++++ LAYOUT_ELEMENT_BORDER Main layout elements (neutral tone)
+---+++++ LAYOUT_ELEMENT_BORDER Main layout elements (neutral tone)
    * Local LAYOUT_ELEMENT_BORDER = #dadada
----++++ IMAGE_BORDER Image border
+---+++++ IMAGE_BORDER Image border
    * Local IMAGE_BORDER = #eee
----++++ FORM_STEP_BORDER Form step border
+---+++++ FORM_STEP_BORDER Form step border
    * Local FORM_STEP_BORDER = %SEPARATOR_BORDER%
----++++ NOTIFICATION_BORDER Notification messages
+---+++++ NOTIFICATION_BORDER Notification messages
    * Local NOTIFICATION_BORDER = #ffdf4c
 
 ---++++ Table colors
----+++++ TABLE_DATA_BACKGROUND Table data background
-   * Local TABLE_DATA_BACKGROUND = #f0f6f9
----+++++ TABLE_HEADER_BACKGROUND Table header background
-   * Local TABLE_HEADER_BACKGROUND = #6b7f93
----+++++ TABLE_SELECTED_COLUMN_HEADER_BACKGROUND Sorted table column accent background
-   * Local TABLE_SELECTED_COLUMN_HEADER_BACKGROUND = #345
----+++++ TABLE_DATA_ODD_BACKGROUND Table data background (odd row)
-   * Local TABLE_DATA_ODD_BACKGROUND = #f0f6fb
----+++++ TABLE_DATA_EVEN_BACKGROUND Table data background (even row)
+---++++++ TABLE_DATA_BACKGROUND Table data background
+   * Local TABLE_DATA_BACKGROUND = #f3e2dd
+---++++++ TABLE_HEADER_BACKGROUND Table header background
+   * Local TABLE_HEADER_BACKGROUND = #936b73
+---++++++ TABLE_SELECTED_COLUMN_HEADER_BACKGROUND Sorted table column accent background
+   * Local TABLE_SELECTED_COLUMN_HEADER_BACKGROUND = #704443
+---++++++ TABLE_DATA_ODD_BACKGROUND Table data background (odd row)
+   * Local TABLE_DATA_ODD_BACKGROUND = #f3e2dd
+---++++++ TABLE_DATA_EVEN_BACKGROUND Table data background (even row)
    * Local TABLE_DATA_EVEN_BACKGROUND = #ffffff
----+++++ TABLE_DATA_ODD_SELECTED_BACKGROUND Table data background (odd row, selected column)
-   * Local TABLE_DATA_ODD_SELECTED_BACKGROUND = #dce7ee
----+++++ TABLE_DATA_EVEN_SELECTED_BACKGROUND Table data background (even row, selected column)
-   * Local TABLE_DATA_EVEN_SELECTED_BACKGROUND = #f5f5f5
----+++++ TABLE_DATA_MIX_BACKGROUND Table data background (mix between even and odd)
-   * Local TABLE_DATA_MIX_BACKGROUND = #f7fafc
----++++ TABLE_BORDER Table border, sup (light neutral tone)
+---++++++ TABLE_DATA_ODD_SELECTED_BACKGROUND Table data background (odd row, selected column)
+   * Local TABLE_DATA_ODD_SELECTED_BACKGROUND = #deb2a6
+---++++++ TABLE_DATA_EVEN_SELECTED_BACKGROUND Table data background (even row, selected column)
+   * Local TABLE_DATA_EVEN_SELECTED_BACKGROUND = #f0f0f0
+---++++++ TABLE_DATA_MIX_BACKGROUND Table data background (mix between even and odd)
+   * Local TABLE_DATA_MIX_BACKGROUND = #f8efed
+---+++++ TABLE_BORDER Table border, sup (light neutral tone)
    * Local TABLE_BORDER = #e2e2e2
----++++ LINK_TEXT_NORMAL_TABLE_HEADER Table header link text
+---+++++ LINK_TEXT_NORMAL_TABLE_HEADER Table header link text
    * Local LINK_TEXT_NORMAL_TABLE_HEADER = #fff
----++++ LINK_TEXT_NORMAL_BORDER_TABLE_HEADER Table header link border
+---+++++ LINK_TEXT_NORMAL_BORDER_TABLE_HEADER Table header link border
    * Local LINK_TEXT_NORMAL_BORDER_TABLE_HEADER = #bbb
----++++ LINK_TEXT_SORTED_TABLE_HEADER Sorted table header link text
+---+++++ LINK_TEXT_SORTED_TABLE_HEADER Sorted table header link text
    * Local LINK_TEXT_SORTED_TABLE_HEADER = #fff
----++++ LINK_TEXT_HOVER_TABLE_HEADER Table header link hover text
+---+++++ LINK_TEXT_HOVER_TABLE_HEADER Table header link hover text
    * Local LINK_TEXT_HOVER_TABLE_HEADER = #fff
----++++ LINK_BORDER_TABLE_SELECTED_COLUMN_HEADER Link border in selected column header
+---+++++ LINK_BORDER_TABLE_SELECTED_COLUMN_HEADER Link border in selected column header
    * Local LINK_BORDER_TABLE_SELECTED_COLUMN_HEADER = #999
 
 ---+++ Forms
----++++ INPUT_FIELD_BORDERS Input field borders
+---+++++ INPUT_FIELD_BORDERS Input field borders
    * Local INPUT_FIELD_BORDERS = #bbb #f2f2f2 #f2f2f2 #bbb
----++++ FORM_INPUT_BORDER Textarea, input and select (darker gray)
+---+++++ FORM_INPUT_BORDER Textarea, input and select (darker gray)
    * Local FORM_INPUT_BORDER = #aaa
----++++ FORM_BORDER Form (same as foswikiTable border)
+---+++++ FORM_BORDER Form (same as foswikiTable border)
    * Local FORM_BORDER = #cfcfcf
----++++ ACTIVE_FORM_BACKGROUND Edit form, form steps
+---+++++ ACTIVE_FORM_BACKGROUND Edit form, form steps
    * Local ACTIVE_FORM_BACKGROUND = #eef7fa
----++++ FORMFIELD_ACTIVE Active form field
+---+++++ FORMFIELD_ACTIVE Active form field
    * Local FORMFIELD_ACTIVE = #ffffe0
----++++ FORM_HEADER_TEXT Header text on form background
+---+++++ FORM_HEADER_TEXT Header text on form background
    * Local FORM_HEADER_TEXT = %HEADER_TEXT%
 <!-- END OF COLOR PREFERENCES -->
 
@@ -197,7 +206,7 @@ jQuery.fn.extend({
 <!-- Do not change the text below this line unless you know what you are doing! -->
 
  <verbatim style="display:none">
-%STARTATTACH{"colors.css" web="%SYSTEMWEB%" topic="PatternSkin"}%
+%STARTATTACH{"my_colors.css" web="%SYSTEMWEB%" topic="PatternSkin"}%
 /* PatternSkin colors */
 /* Generated by AttachContentPlugin from %WEB%.%TOPIC% */
 
@@ -432,6 +441,46 @@ select {
 .foswikiTable th {
    border-color:%TABLE_BORDER%;
 }
+
+/*.foswikiTable  	 The table*/
+
+/*.foswikiSortedAscendingCol 	Sorted column, ascending*/
+/*.foswikiSortedDescendingCol 	Sorted column, descending*/
+/*.tableSortIcon 	The sort icon holder (span)*/
+/*.foswikiFirstCol 	The first column*/
+
+.foswikiTableEven td {
+   background-color:%TABLE_DATA_EVEN_BACKGROUND%
+}
+
+.foswikiTableOdd td {
+   background-color:%TABLE_DATA_ODD_BACKGROUND%
+}
+
+.foswikiTableOdd th,
+.foswikiTableEven th {
+   background-color:%TABLE_HEADER_BACKGROUND%
+}
+
+
+/*Selected header*/
+.foswikiTableOdd th.foswikiSortedCol,
+.foswikiTableEven th.foswikiSortedCol {
+   background-color:%TABLE_SELECTED_COLUMN_HEADER_BACKGROUND%
+}
+
+/*Selected odd row*/
+.foswikiTableOdd td.foswikiSortedCol {
+background-color:%TABLE_DATA_ODD_SELECTED_BACKGROUND%
+}
+
+/*Selected even row*/
+.foswikiTableEven td.foswikiSortedCol {
+background-color:%TABLE_DATA_EVEN_SELECTED_BACKGROUND%
+}
+
+
+
 .foswikiTable th a:link,
 .foswikiTable th a:visited,
 .foswikiTable th a font {

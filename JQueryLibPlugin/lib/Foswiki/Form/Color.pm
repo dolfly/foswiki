@@ -10,7 +10,8 @@ sub new {
     #my $size  = $this->{size} || '';
     #$size =~ s/\D//g;
     #$size = 10 if ( !$size || $size < 1 );
-    $this->{size} = 7;
+	#Need enough space to input 'transparent'
+    $this->{size} = 11;
     return $this;
 }
 
