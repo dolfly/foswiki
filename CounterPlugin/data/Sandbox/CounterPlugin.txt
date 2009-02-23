@@ -1,0 +1,14 @@
+%META:TOPICINFO{author="WillNorris" date="1235416420" format="1.1" version="1.1"}%
+
+| *Command* | *Output* |
+| <pre>%<nop>COUNTER_PLUGIN%</pre> | %COUNTER_PLUGIN% |
+| <pre>%<nop>PAGE_COUNTER%</pre> | %PAGE_COUNTER% |
+| <pre>%<nop>PAGE_COUNTER{"System.CounterPlugin"}%</pre> | %PAGE_COUNTER{"System.CounterPlugin"}% |
+| <pre>%<nop>PAGE_COUNTER{web="System" topic="CounterPlugin"}%</pre> | %PAGE_COUNTER{web="System" topic="CounterPlugin"}% |
+| <pre>%<nop>PAGE_COUNTER{web="%WEB%" topic="%TOPIC%"}%</pre> | %PAGE_COUNTER{web="System" topic="CounterPlugin"}% |
+| <pre>%<nop>PAGE_COUNTER{web="%WEB%"}%</pre> | %PAGE_COUNTER{web="%WEB%"}% |
+| <pre>%<nop>PAGE_COUNTER{"%WEB%.%TOPIC%" web="System"}%</pre> | %PAGE_COUNTER{"%WEB%.%TOPIC%" web="System"}% |
+| <pre>%<nop>PAGE_COUNTER{"%WEB%.%TOPIC%" topic="WebHome"}%</pre> | %PAGE_COUNTER{"%WEB%.%TOPIC%" topic="WebHome"}% |
+| <pre>%<nop>PAGE_COUNTER{"%TOPIC%" web="System"}%</pre> | %PAGE_COUNTER{"%TOPIC%" web="System"}% |
+
+%INCLUDE{"Sandbox.IncludeCounterPlugin"}%

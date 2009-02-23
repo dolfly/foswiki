@@ -1,2 +1,4 @@
 data/System/CounterPlugin.txt NEW
+data/Sandbox/CounterPlugin.txt NEW
+data/Sandbox/IncludeCounterPlugin.txt NEW
 lib/Foswiki/Plugins/CounterPlugin.pm NEW

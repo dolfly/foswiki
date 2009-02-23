@@ -34,9 +34,12 @@ our $RELEASE = 'Dakar';
 
 our $SHORTDESCRIPTION = 'Vistor counts';
 
-$debug = 1;
+our $NO_PREFS_IN_TOPIC = 1;
 
-# =========================
+our $debug = 1;
+
+################################################################################
+
 sub initPlugin
 {
     ( $topic, $web, $user, $installWeb ) = @_;
@@ -48,39 +51,68 @@ sub initPlugin
     }
    	
     Foswiki::Func::registerTagHandler( COUNTER_PLUGIN => \&_COUNTER );
+    Foswiki::Func::registerTagHandler( PAGE_COUNTER => \&_COUNTER );
 
+    $Count = _readCounter( $web, $topic );
+    $Count = $Count + 1;
+    _writeCounter( $web, $topic, $Count );
+   
     return 1;
 }
 
-#-------------------------------------------------------------------------------------------------
+################################################################################
+
+sub _writeCounter {
+    my ( $web, $topic, $count ) = @_;
+
+    my $fileName = _getCounterFilename( $web, $topic );
+    if ( open(FILE , '>', $fileName) ) {
+	print FILE $Count;
+	close(FILE);
+    } else {
+	warn "Can't open \"$fileName\" file: $!";
+    }
+}
+
+################################################################################
+
+sub _getCounterFilename {
+    my ( $web, $topic ) = @_;
+
+    return Foswiki::Func::getDataDir() . "/${web}/${topic}.count";
+}
+
+################################################################################
+
+sub _readCounter {
+    my ( $web, $topic ) = @_;
+
+    my $count = 0;
+    my $fileName = _getCounterFilename( $web, $topic );
+    if( open(FILE , '<', $fileName) )
+    {
+	$count = <FILE>;
+	close(FILE);
+    }
+
+    return $count . ( $debug && " ($web,$topic)" || '' );
+}
+
+################################################################################
 
 sub _COUNTER
 {
     my($session, $params, $theTopic, $theWeb) = @_;
 
-	# increment the counter and throw up the page with this count
-	my $FileLocation = &Foswiki::Func::getWorkArea( 'CounterPlugin' );
-	my $DataFile = 'visitor_count.txt';
-	my $CounterFile = "$FileLocation/$DataFile";
-    	&Foswiki::Func::writeDebug( "- Foswiki::Plugins:CounterPlugin::FileLocation is $FileLocation" );
-	
-	if ( open(FILE , '<', $CounterFile) )
-	{
-	    $Count = <FILE>;
-	    close FILE;
-	}
-	else
-	{
-	    # File doesn't exist
-	    $Count = 0;
-	}
-	
-	open(FILE, '>', $CounterFile) || die "Can't open $DataFile file";
-	++$Count;
-	print FILE $Count;
-	close FILE;
-	
-	return $Count;
+    my ( $web, $topic ) = Foswiki::Func::normalizeWebTopicName( '', $params->{_DEFAULT} || "${theWeb}.${theTopic}" );
+    $web = $params->{web} if defined $params->{web};
+    $topic = $params->{topic} if defined $params->{topic};
+
+    unless ( ($web eq $theWeb) and ($topic eq $theTopic) ) {
+	$Count = _readCounter( $web, $topic );
+    }
+
+    return $Count;
 }
 
 1;
