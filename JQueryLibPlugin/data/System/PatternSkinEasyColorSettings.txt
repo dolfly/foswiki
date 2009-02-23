@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235337141" format="1.1" reprev="1.4" version="1.4"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235426970" format="1.1" reprev="1.4" version="1.4"}%
 <pre style="display:none">
 <script type="text/javascript">
 //Here is some code to extend the jQuery offset function so that it can accept parameters
@@ -31,7 +31,7 @@ First edit and save your color preferences then commit your changes.
 
 %ICON{"info"}% For more help on customizing styles, see [[PatternSkinCustomization]].
 
-<div id="colorpicker" class="ui-component-content ui-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
+<div id="colorpicker" class="ui-component-content ui-widget-content ui-hidden ui-helper-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
 
 %EDITPREFERENCES{"%SYSTEMWEB%/PatternSkinColorEditForm"}% 
 %IF{"$ SCRIPTNAME != 'viewauth%SCRIPTSUFFIX%'" then="<span class='foswikiGrayText'>%MAKETEXT{"Quick edit of existing preferences (edit the topic text to set new preferences)"}%</span>" }%
