@@ -1,13 +1,34 @@
 #
 # Release manifest for JQueryLibPlugin
 #
+
+#
+# Plugin home topic and perl module
+#
 data/System/JQueryLibPlugin.txt
+lib/Foswiki/Plugins/JQueryLibPlugin.pm
+
+#
+# Pattern skin customization topics
+#
 data/System/PatternSkinEasyColorSettings.txt
 data/System/PatternSkinColorEditForm.txt
-data/Sandbox/JQueryLibPluginDemo.txt
+#
+# DataForms support for =color= type
+#
 lib/Foswiki/Form/Color.pm
-lib/Foswiki/Plugins/JQueryLibPlugin.pm
+
+#
+# Extra configure settings
+#
 lib/Foswiki/Plugins/JQueryLibPlugin/Config.spec
+
+#
+# Demo topics
+#
+data/Sandbox/JQueryLibPluginDemo.txt
+data/Sandbox/JQueryLibPluginUI1Dot7Demo.txt
+data/Sandbox/JQueryLibPluginUI1Dot7ButtonDemo.txt
 
 #
 # jQuery core
@@ -97,16 +118,6 @@ pub/System/JQueryLibPlugin/themes/lightness/images/fdf5ce_40x100_textures_02_gla
 pub/System/JQueryLibPlugin/themes/lightness/images/ffffff_40x100_textures_02_glass_65.png
 
 #
-# Farbtastic plugin
-# See http://acko.net/dev/farbtastic
-#
-pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.css
-pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.js
-pub/System/JQueryLibPlugin/plugins/farbtastic/marker.png
-pub/System/JQueryLibPlugin/plugins/farbtastic/mask.png
-pub/System/JQueryLibPlugin/plugins/farbtastic/wheel.png
-
-#
 # Smoothness theme for UI 1.7
 #
 pub/System/JQueryLibPlugin/themes/1.7/smoothness/ui.accordion.css
@@ -177,6 +188,16 @@ pub/System/JQueryLibPlugin/i18n/ui.datepicker-tr.js
 pub/System/JQueryLibPlugin/i18n/ui.datepicker-uk.js
 pub/System/JQueryLibPlugin/i18n/ui.datepicker-zh-CN.js
 pub/System/JQueryLibPlugin/i18n/ui.datepicker-zh-TW.js
+
+#
+# Farbtastic plugin
+# See http://acko.net/dev/farbtastic
+#
+pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.css
+pub/System/JQueryLibPlugin/plugins/farbtastic/farbtastic.js
+pub/System/JQueryLibPlugin/plugins/farbtastic/marker.png
+pub/System/JQueryLibPlugin/plugins/farbtastic/mask.png
+pub/System/JQueryLibPlugin/plugins/farbtastic/wheel.png
 
 
 
