@@ -149,7 +149,7 @@ sub addStylesToHead
         Foswiki::Func::addToHEAD("JQueryLibPlugin_$style",JQueryStyle($style),$styleDependencies);
         #Add dependency 
         $styleDependencies.=', ' if (defined $styleDependencies);
-        $styleDependencies.=$style;       
+        $styleDependencies.="JQueryLibPlugin_$style";       
     	}    	
 	}
 
@@ -167,7 +167,7 @@ sub addScriptsToHead
         Foswiki::Func::addToHEAD("JQueryLibPlugin_$script",JQueryScript($script),$scriptDependencies);
         #Add dependency
         $scriptDependencies.=', ' if (defined $scriptDependencies);
-        $scriptDependencies.=$script;       
+        $scriptDependencies.="JQueryLibPlugin_$script";       
     	}    	
 	}
 	
