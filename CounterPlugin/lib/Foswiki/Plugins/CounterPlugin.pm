@@ -47,7 +47,7 @@ sub initPlugin
         return 0;
     }
    	
-    Foswiki::Func::registerTagHandler( COUNTER => \&_COUNTER );
+    Foswiki::Func::registerTagHandler( COUNTER_PLUGIN => \&_COUNTER );
 
     return 1;
 }
@@ -66,14 +66,13 @@ sub _COUNTER
 	
 	if ( open(FILE , '<', $CounterFile) )
 	{
-	    &Foswiki::Func::writeDebug("Opened $DataFile file successfully");
 	    $Count = <FILE>;
 	    close FILE;
 	}
 	else
 	{
 	    # File doesn't exist
-	    $Count = 1;
+	    $Count = 0;
 	}
 	
 	open(FILE, '>', $CounterFile) || die "Can't open $DataFile file";
