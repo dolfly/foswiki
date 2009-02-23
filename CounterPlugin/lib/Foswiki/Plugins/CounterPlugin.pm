@@ -14,7 +14,7 @@
 # http://www.gnu.org/copyleft/gpl.html
 #
 # =========================
-package Foswiki::Plugins::CounterPlugin;    # change the package name and $pluginName!!!
+package Foswiki::Plugins::CounterPlugin;
 
 # =========================
 #This is plugin specific variable
