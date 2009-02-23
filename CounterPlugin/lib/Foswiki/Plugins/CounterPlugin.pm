@@ -73,7 +73,7 @@ sub _COUNTER
 	else
 	{
 	    # File doesn't exist
-	    $Count = 0;
+	    $Count = 1;
 	}
 	
 	open(FILE, '>', $CounterFile) || die "Can't open $DataFile file";
