@@ -5,7 +5,7 @@
 %SHORTDESCRIPTION%
 
 <verbatim>
-Visitor Count is =%<nop>COUNTER_PLUGIN%=
+Visitor Count is %COUNTER_PLUGIN%
 </verbatim>
 
 Visitor Count is %COUNTER_PLUGIN%
