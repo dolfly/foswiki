@@ -25,12 +25,14 @@ use vars qw(
 # This should always be $Rev$ so that TWiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
-$VERSION = '$Rev$';
+our $VERSION = '$Rev$';
 
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Dakar';
+our $RELEASE = 'Dakar';
+
+our $SHORTDESCRIPTION = 'Vistor counts';
 
 $debug = 1;
 
@@ -45,21 +47,17 @@ sub initPlugin
         return 0;
     }
    	
-    # Plugin correctly initialized
-    &Foswiki::Func::writeDebug( "- Foswiki::Plugins:CounterPlugin::initPlugin( $web.$topic ) is OK" ) if $debug;
-    return 1;
-}
+    Foswiki::Func::registerTagHandler( COUNTER => \&_COUNTER );
 
-# =========================
-sub commonTagsHandler
-{
-    $_[0] =~ s/%COUNTER_PLUGIN%/_handleTag( )/geo;	
+    return 1;
 }
 
 #-------------------------------------------------------------------------------------------------
 
-sub _handleTag()
+sub _COUNTER
 {
+    my($session, $params, $theTopic, $theWeb) = @_;
+
 	# increment the counter and throw up the page with this count
 	my $FileLocation = &Foswiki::Func::getWorkArea( 'CounterPlugin' );
 	my $DataFile = 'visitor_count.txt';
