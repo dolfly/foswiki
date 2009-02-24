@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235506448" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235514138" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! !JQueryLibPlugin
 <!--
 One line description, required for extensions repository catalog.
@@ -50,7 +50,7 @@ To use jQuery UI 1.7 preview got to %CONFIGURE% and use the following settings:
 {Plugins}{JQueryLibPlugin}{Styles}=themes/1.7/smoothness/ui.all.css
 </verbatim>
 
-See Sandbox.JQueryLibPluginUI1Dot7Demo and Sandbox.JQueryLibPluginUI1Dot7ButtonDemo for some examples.
+See Sandbox.JQueryLibPluginFoswikiDemo for some examples.
 
 ---++ Supported jQuery plugins
 
