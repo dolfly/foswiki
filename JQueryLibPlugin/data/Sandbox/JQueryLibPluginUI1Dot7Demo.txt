@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235426353" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235469163" format="1.1" reprev="1.2" version="1.2"}%
 <pre class="ui-helper-hidden">
 		<script type="text/javascript">
 			$(function(){
@@ -48,6 +48,7 @@
 				);
 				
 			});
+
 		</script>
 
 		<style type="text/css">
@@ -60,9 +61,18 @@
 			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
 			ul#icons span.ui-icon {float: left; margin: 0 4px;}
 		</style>	
+
+<!-- jQuery UI theme switcher -->
+<script type="text/javascript" src="http://ui.jquery.com/applications/themeroller/themeswitchertool/"></script>
+<script type="text/javascript"> $(function(){ $('<div style="position: absolute; right: 20px;" />').insertAfter('#demoHeader').themeswitcher({height: 150}); });</script>
+
 </pre>
 
 	<h1>Welcome to jQuery UI!</h1>
+
+
+<div id="demoHeader"></div><!-- /demoHeader -->
+
 
    * See System.JQueryLibPlugin
 
