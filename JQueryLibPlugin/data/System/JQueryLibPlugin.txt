@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235433746" format="1.1" version="1.5"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235506448" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! !JQueryLibPlugin
 <!--
 One line description, required for extensions repository catalog.
@@ -15,26 +15,28 @@ One line description, required for extensions repository catalog.
 Provides [[http://jQuery.com][jQuery]] libraries to Foswiki.
 Also includes jQuery UI libraries, themes and some jQuery plugins.
 
----++ Usage
+---++ Tags
 
-This plugin does not currently provides any macro.
+=%<nop>JQSCRIPT{"plugins/myplugin/myplugin.js"}%= : include the specified script to the HTML =head= of your topic. Keep in mind that the =jquery.js= script must be loaded before plug-ins scripts. Scripts will be include in the order in which they appear in the topic. Topic included scripts will be loaded after every scripts listed in ={Plugins}{JQueryLibPlugin}{Scripts}=. Duplicates will be ignored.
+
+=%<nop>JQSTYLE{"plugins/myplugin/myplugin.css"}%= : include the specified style to the HTML =head= of your topic. Styles will be included in the order in which they appear in the topic. Topic included styles will be loaded after every styles listed in ={Plugins}{JQueryLibPlugin}{Styles}=. Duplicates will be ignored.
+
+---++ Settings 
 
 Once installed and enabled you get extra %TOPIC% settings in %CONFIGURE%.
 
-={Plugins}{JQueryLibPlugin}{Scripts}= let you define the scripts to be added in the HTML head of every pages return by your Foswiki installation. %BR%
-={Plugins}{JQueryLibPlugin}{Styles}= let you define the scripts to be added in the HTML head of every pages return by your Foswiki installation.
+={Plugins}{JQueryLibPlugin}{Scripts}= let you define the scripts to be added in the HTML =head= of every pages returned by your Foswiki installation. %BR%
+={Plugins}{JQueryLibPlugin}{Styles}= let you define the scripts to be added in the HTML =head= of every pages returned by your Foswiki installation.
 
-Scripts and styles will be added to the HTML head in the order provided in the settings.
-
----++ Settings 
+Scripts and styles will be added to the HTML =head= in the order provided in the settings.
 
 ---+++ jQuery UI 1.5
 
 To use jQuery UI 1.5 got %CONFIGURE% and use the following settings:
 
 <verbatim>
-{Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.2.6.min.js, jquery-ui-1.5.3.min.js, plugins/farbtastic/farbtastic.js
-{Plugins}{JQueryLibPlugin}{Styles}=themes/lightness/ui.all.css, plugins/farbtastic/farbtastic.css
+{Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.2.6.min.js, jquery-ui-1.5.3.min.js
+{Plugins}{JQueryLibPlugin}{Styles}=themes/lightness/ui.all.css
 </verbatim>
 
 See Sandbox.JQueryLibPluginDemo for some examples.
@@ -44,8 +46,8 @@ See Sandbox.JQueryLibPluginDemo for some examples.
 To use jQuery UI 1.7 preview got to %CONFIGURE% and use the following settings:
 
 <verbatim>
-{Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.3.2.min.js, jquery-ui-1.6rc6.min.js, plugins/farbtastic/farbtastic.js
-{Plugins}{JQueryLibPlugin}{Styles}=themes/1.7/smoothness/ui.all.css, plugins/farbtastic/farbtastic.css
+{Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.3.2.min.js, jquery-ui-1.6rc6.min.js
+{Plugins}{JQueryLibPlugin}{Styles}=themes/1.7/smoothness/ui.all.css
 </verbatim>
 
 See Sandbox.JQueryLibPluginUI1Dot7Demo and Sandbox.JQueryLibPluginUI1Dot7ButtonDemo for some examples.
@@ -53,6 +55,8 @@ See Sandbox.JQueryLibPluginUI1Dot7Demo and Sandbox.JQueryLibPluginUI1Dot7ButtonD
 ---++ Supported jQuery plugins
 
    * [[http://acko.net/dev/farbtastic][Farbtastic color picker]]: comes with DataForms =color= type support and PatternSkinEasyColorSettings.
+   * foswiki: Includes foswiki jQuery ui CSS framework, foswiki jQuery widget behavior and utility functions.
+   * spinner: spinning wheel to make the user happy while waiting on some AJAX response.
 
 ---++ Installation Instructions
 
@@ -68,6 +72,11 @@ Many thanks to the following sponsors for supporting this work:
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+| 24 Feb 2009 | 0.4 - Adding JQSCRIPT and JQSTYLE tags. |
+|^| Adding =foswiki= jQuery plugin. |
+|^| Adding =spinner= jQuery plugin. |
+|^| Much improved demo. |
+|^| Improved =color= System.DataForms field. |
 | 23 Feb 2009 | 0.3 - Fixing broken =addToHEAD= settings order. Adding jQuery UI 1.7 preview. |
 | 23 Feb 2009 | 0.2 - Improved demo topic. |
 | 22 Feb 2009 | 0.1 - First named release. Adding Farbtastic in Config.spec. |

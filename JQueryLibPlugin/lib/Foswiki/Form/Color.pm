@@ -4,8 +4,7 @@ use base 'Foswiki::Form::FieldDefinition';
 
 use strict;
 
-use vars qw($firstField);
-$firstField=1;
+our $firstField=1;
 
 sub new {
     my $class = shift;

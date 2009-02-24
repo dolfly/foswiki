@@ -51,7 +51,7 @@ our $VERSION = '$Rev: 1340 $';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = 'v0.3';
+our $RELEASE = 'v0.4';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
@@ -66,6 +66,10 @@ our $SHORTDESCRIPTION = 'Provides you with the jQuery javascript library';
 # can be defined in your %USERSWEB%.SitePreferences and overridden at the web
 # and topic level.
 our $NO_PREFS_IN_TOPIC = 1;
+
+our $scriptDependencies='';
+our $styleDependencies='';
+
 
 =begin TML
 
@@ -121,7 +125,8 @@ sub initPlugin {
     # Register the _EXAMPLETAG function to handle %EXAMPLETAG{...}%
     # This will be called whenever %EXAMPLETAG% or %EXAMPLETAG{...}% is
     # seen in the topic text.
-    #Foswiki::Func::registerTagHandler( 'EXAMPLETAG', \&_EXAMPLETAG );
+    Foswiki::Func::registerTagHandler( 'JQSCRIPT', \&_JQSCRIPT );
+    Foswiki::Func::registerTagHandler( 'JQSTYLE', \&_JQSTYLE );
 
     # Allow a sub to be called from the REST interface 
     # using the provided alias
@@ -141,37 +146,56 @@ sub addStylesToHead
 	{
 	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles});	   
 	#First the styles 
-    my @styles = split(',',$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles});    
-    my $styleDependencies;    
+    my @styles = split(',',$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Styles});        
     foreach my $style (@styles)
-    	{
-        $style = trim($style);        
-        Foswiki::Func::addToHEAD("JQueryLibPlugin_$style",JQueryStyle($style),$styleDependencies);
-        #Add dependency 
-        $styleDependencies.=', ' if (defined $styleDependencies);
-        $styleDependencies.="JQueryLibPlugin_$style";       
+    	{                
+	    addStyleToHead($style);
     	}    	
 	}
 
-############		
+############			
 	
+sub addStyleToHead
+	{
+	my $style=shift;
+	$style = trim($style);
+	my $styleid="JQueryLibPlugin_$style";	
+	#If our ID is already there don't go any further
+	return unless (index($styleDependencies,$styleid)==-1); 
+    Foswiki::Func::addToHEAD($styleid,JQueryStyle($style), $styleDependencies);
+    #Add dependency 
+    $styleDependencies.=', ' unless ($styleDependencies eq '');
+    $styleDependencies.=$styleid;       		
+	} 	
+	
+############			
+
 sub addScriptsToHead	
 	{	
 	return unless (defined $Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts});	
 	#Next the scripts 
-    my @scripts = split(',',$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts});    
-    my $scriptDependencies;    
+    my @scripts = split(',',$Foswiki::cfg{Plugins}{JQueryLibPlugin}{Scripts});        
     foreach my $script (@scripts)
     	{	    
-        $script = trim($script);
-        Foswiki::Func::addToHEAD("JQueryLibPlugin_$script",JQueryScript($script),$scriptDependencies);
-        #Add dependency
-        $scriptDependencies.=', ' if (defined $scriptDependencies);
-        $scriptDependencies.="JQueryLibPlugin_$script";       
+	    addScriptToHead($script);	
     	}    	
 	}
 	
+############			
 	
+sub addScriptToHead	
+	{
+	my $script=shift;	
+    $script = trim($script);
+    my $scriptid="JQueryLibPlugin_$script";
+    #If our ID is already there don't go any further
+	return unless (index($scriptDependencies,$scriptid)==-1); 
+    Foswiki::Func::addToHEAD($scriptid,JQueryScript($script), $scriptDependencies);
+    #Add dependency
+    $scriptDependencies.=', ' unless ($scriptDependencies eq '');
+    $scriptDependencies.=$scriptid;       		
+	}
+		
 ############	
 	
 sub trim
@@ -198,7 +222,26 @@ sub JQueryStyle
   	return "<style type='text/css'>\@import url('%PUBURLPATH%/%SYSTEMWEB%/JQueryLibPlugin/$styleFileName');</style>";
 	}
 
+##############
+
+sub _JQSCRIPT
+	{
+    my($session, $params, $theTopic, $theWeb) = @_;    
+    addScriptToHead($params->{_DEFAULT});    
+    return '';
+	}
+
+##############	
 	
+sub _JQSTYLE
+	{
+    my($session, $params, $theTopic, $theWeb) = @_;    
+    addStyleToHead($params->{_DEFAULT});
+    return '';    
+	}
+
+
+		
 
 
 # The function used to handle the %EXAMPLETAG{...}% macro
@@ -221,6 +264,8 @@ sub JQueryStyle
 #    # $params->{_DEFAULT} will be 'hamburger'
 #    # $params->{sideorder} will be 'onions'
 #}
+	
+	
 
 =begin TML
 

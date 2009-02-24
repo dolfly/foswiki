@@ -1,4 +1,10 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235499581" format="1.1" reprev="1.4" version="1.4"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235504633" format="1.1" reprev="1.4" version="1.4"}%
+%JQSCRIPT{"plugins/spinner/jquery.spinner.js"}%
+%JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
+%JQSTYLE{"plugins/farbtastic/farbtastic.css"}%
+%JQSCRIPT{"plugins/foswiki/foswiki.js"}%
+%JQSTYLE{"plugins/foswiki/foswiki.css"}%
+
 <pre class="ui-helper-hidden">
 <style type="text/css">	
 	ul#icons {margin: 0; padding: 0;}
@@ -479,6 +485,16 @@
 <div id="spinnerbigfast"></div>
 		
 
+---++ Color picker
+
+<div id="colorpicker" class="ui-widget-content ui-helper-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
+
+<script type="text/javascript">  $(document).ready(function() {$('#colorpicker').farbtastic('#mycolor');});</script>
+<script type="text/javascript">  $(document).ready(function() {$.farbtastic('#colorpicker').linkTo('#myothercolor');});</script>
+
+<input  id="mycolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
+
+<input  id="myothercolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#654321"/>
 
 
 %META:TOPICMOVED{by="BaseUserMapping_333" date="1235488861" from="Sandbox.JQueryLibPluginFoswikiUIDemo" to="Sandbox.JQueryLibPluginFoswikiDemo"}%
