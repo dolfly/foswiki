@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235514138" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235515103" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! !JQueryLibPlugin
 <!--
 One line description, required for extensions repository catalog.
@@ -17,7 +17,7 @@ Also includes jQuery UI libraries, themes and some jQuery plugins.
 
 ---++ Tags
 
-=%<nop>JQSCRIPT{"plugins/myplugin/myplugin.js"}%= : include the specified script to the HTML =head= of your topic. Keep in mind that the =jquery.js= script must be loaded before plug-ins scripts. Scripts will be include in the order in which they appear in the topic. Topic included scripts will be loaded after every scripts listed in ={Plugins}{JQueryLibPlugin}{Scripts}=. Duplicates will be ignored.
+=%<nop>JQSCRIPT{"plugins/myplugin/myplugin.js"}%= : include the specified script to the HTML =head= of your topic. Keep in mind that the =jquery.js= script must be loaded before plug-ins scripts. Scripts will be included in the order in which they appear in the topic. Topic included scripts will be loaded after every scripts listed in ={Plugins}{JQueryLibPlugin}{Scripts}=. Duplicates will be ignored.
 
 =%<nop>JQSTYLE{"plugins/myplugin/myplugin.css"}%= : include the specified style to the HTML =head= of your topic. Styles will be included in the order in which they appear in the topic. Topic included styles will be loaded after every styles listed in ={Plugins}{JQueryLibPlugin}{Styles}=. Duplicates will be ignored.
 
@@ -26,13 +26,13 @@ Also includes jQuery UI libraries, themes and some jQuery plugins.
 Once installed and enabled you get extra %TOPIC% settings in %CONFIGURE%.
 
 ={Plugins}{JQueryLibPlugin}{Scripts}= let you define the scripts to be added in the HTML =head= of every pages returned by your Foswiki installation. %BR%
-={Plugins}{JQueryLibPlugin}{Styles}= let you define the scripts to be added in the HTML =head= of every pages returned by your Foswiki installation.
+={Plugins}{JQueryLibPlugin}{Styles}= let you define the styles to be added in the HTML =head= of every pages returned by your Foswiki installation.
 
 Scripts and styles will be added to the HTML =head= in the order provided in the settings.
 
 ---+++ jQuery UI 1.5
 
-To use jQuery UI 1.5 got %CONFIGURE% and use the following settings:
+To use jQuery UI 1.5 go to %CONFIGURE% and use the following settings:
 
 <verbatim>
 {Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.2.6.min.js, jquery-ui-1.5.3.min.js
