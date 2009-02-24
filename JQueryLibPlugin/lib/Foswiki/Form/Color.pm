@@ -47,6 +47,18 @@ sub renderForEdit {
     return ('',$field);
 }
 
+
+# Note to developers; please undef *all* fields in the object explicitly,
+# whether they are references or not. That way this method is "golden
+# documentation" of the live fields in the object.
+sub finish {
+    my $this = shift;
+    $this->SUPER::finish();
+    undef $this->{size};
+	undef $firstField;
+}
+
+
 1;
 __DATA__
 
