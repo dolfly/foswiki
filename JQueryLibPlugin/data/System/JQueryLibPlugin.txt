@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235426479" format="1.1" reprev="1.4" version="1.4"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235433746" format="1.1" version="1.5"}%
 ---+!! !JQueryLibPlugin
 <!--
 One line description, required for extensions repository catalog.
@@ -48,7 +48,7 @@ To use jQuery UI 1.7 preview got to %CONFIGURE% and use the following settings:
 {Plugins}{JQueryLibPlugin}{Styles}=themes/1.7/smoothness/ui.all.css, plugins/farbtastic/farbtastic.css
 </verbatim>
 
-See Sandbox.JQueryLibPluginUI1Dot7Demo for some examples.
+See Sandbox.JQueryLibPluginUI1Dot7Demo and Sandbox.JQueryLibPluginUI1Dot7ButtonDemo for some examples.
 
 ---++ Supported jQuery plugins
 

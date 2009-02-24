@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235432921" format="1.1" version="1.1"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235433702" format="1.1" reprev="1.1" version="1.1"}%
 <pre class="ui-helper-hidden">
 <style type="text/css">	
 	.fg-button { outline: 0; margin:0 4px 0 0; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
@@ -68,6 +68,9 @@
 		<h1>This is an example from the Filament Group Lab Article: <a href="http://www.filamentgroup.com/lab/styling_buttons_and_toolbars_with_the_jquery_ui_css_framework/">Styling Buttons and Toolbars with the jQuery UI CSS Framework</a></h1>
 		<p id="copyright">&copy;2009 Filament Group, Inc. All Rights Reserved.</p>
 </div><!-- /demoHeader -->
+
+   * Provided with System.JQueryLibPlugin.
+
 <h2>Basic button from different types of markup</h2>
 <a href="#" class="fg-button ui-state-default ui-corner-all">Link</a>
 <button class="fg-button ui-state-default ui-corner-all" type="button">Button element</button>
