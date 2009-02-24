@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235469163" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235473623" format="1.1" reprev="1.2" version="1.2"}%
 <pre class="ui-helper-hidden">
 		<script type="text/javascript">
 			$(function(){
@@ -372,16 +372,19 @@
 		<h2 class="demoHeaders">Highlight / Error</h2>
 
 		<div class="ui-widget">
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em;"> 
-				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				<strong>Hey!</strong> Sample ui-state-highlight style.</p>
+			<div class="ui-state-highlight ui-corner-all" style="padding: 0.8em;"> 
+				<span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em; margin-top: 0.2em;"></span>
+				<strong>Hey!</strong> Sample ui-state-highlight style.
 			</div>
 		</div>
 		<br/>
-		<div class="ui-widget">
 
-			<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
-				<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
-				<strong>Alert:</strong> Sample ui-state-error style.</p>
-			</div>
+		<div class="ui-widget">
+                        <div  class="ui-state-error ui-corner-all" style="float: left; display: inline; padding: 0.8em;">
+                        <span class="ui-icon ui-icon-alert" style="float: left;margin-right: .3em; margin-top: 0.2em;"></span>
+                        <strong>Alert:</strong> Sample ui-state-error style.
+                        </div>
 		</div>
+
+<br /><br />
+
