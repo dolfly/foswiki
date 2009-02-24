@@ -1,19 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235426970" format="1.1" reprev="1.4" version="1.4"}%
-<pre style="display:none">
-<script type="text/javascript">
-//Here is some code to extend the jQuery offset function so that it can accept parameters
-//See http://groups.google.com/group/jquery-dev/browse_thread/thread/10fa400d3f9d9521
-jQuery.fn._offset = jQuery.fn.offset;
-jQuery.fn.extend({
-    offset: function() {
-        var a = arguments;
-        return (a.length) ? this.animate({ top: a[0].top || a[0], left: a[0].left || a[1] }, (a[0].top ? a[1] : a[2]) || 1) : this._offset();
-    }
-});
-</script>
-</pre>
-
-
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235490759" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! Color scheme settings for %SYSTEMWEB%.PatternSkin
 
 ---++!! Settings
@@ -30,8 +15,6 @@ First edit and save your color preferences then commit your changes.
 %IF{"context AttachContentPluginEnabled" then='<a href="%SCRIPTURL{save}%/%WEB%/%TOPIC%?action_save=1" class="foswikiButton">Commit</a> This will generate an [[%PUBURLPATH%/%SYSTEMWEB%/PatternSkin/my_colors.css][attachment]] to topic [[PatternSkin]].' else='Install !AttachContentPlugin to be able to save this topic. On saving, an attachment will be created to topic PatternSkin.'}%
 
 %ICON{"info"}% For more help on customizing styles, see [[PatternSkinCustomization]].
-
-<div id="colorpicker" class="ui-component-content ui-widget-content ui-hidden ui-helper-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
 
 %EDITPREFERENCES{"%SYSTEMWEB%/PatternSkinColorEditForm"}% 
 %IF{"$ SCRIPTNAME != 'viewauth%SCRIPTSUFFIX%'" then="<span class='foswikiGrayText'>%MAKETEXT{"Quick edit of existing preferences (edit the topic text to set new preferences)"}%</span>" }%

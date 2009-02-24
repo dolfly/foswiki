@@ -4,6 +4,9 @@ use base 'Foswiki::Form::FieldDefinition';
 
 use strict;
 
+use vars qw($firstField);
+$firstField=1;
+
 sub new {
     my $class = shift;
     my $this  = $class->SUPER::new(@_);
@@ -11,18 +14,15 @@ sub new {
     #$size =~ s/\D//g;
     #$size = 10 if ( !$size || $size < 1 );
 	#Need enough space to input 'transparent'
-    $this->{size} = 11;
+    $this->{size} = 11;    
     return $this;
 }
 
-
+#TODO: move behavior constant in configuration. Things like the 250ms for instance.
 sub renderForEdit {
     my ( $this, $web, $topic, $value ) = @_;
 
-     
-    return (
-        '',
-        CGI::textfield(
+    my $field=CGI::textfield(
             -class =>
               $this->cssClasses( 'foswikiInputField' ),
             -name  => $this->{name},
@@ -35,8 +35,16 @@ sub renderForEdit {
             -onclick => '$.farbtastic(\'#colorpicker\').linkTo(\'#'. $this->{name} .'\'); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $(\'#colorpicker\').farbtastic().offset(pos).fadeIn(250);'
             )
             #Now make sure the color of the text field gets initialized
-            . '<script type="text/javascript">  $(document).ready(function() {$.farbtastic(\'#colorpicker\').linkTo(\'#'. $this->{name} .'\');});</script>'
-    );
+            . '<script type="text/javascript">  $(document).ready(function() {$.farbtastic(\'#colorpicker\').linkTo(\'#'. $this->{name} .'\');});</script>';
+	
+    #If this is the first field on this page then we output the colorpicker div           
+	if ($firstField)
+		{
+		$firstField=0;
+		$field='<div id="colorpicker" class="ui-component-content ui-widget-content ui-hidden ui-helper-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>'.$field;	
+		}            
+         
+    return ('',$field);
 }
 
 1;
