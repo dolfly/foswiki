@@ -27,8 +27,6 @@ lib/Foswiki/Plugins/JQueryLibPlugin/Config.spec
 # Demo topics
 #
 data/Sandbox/JQueryLibPluginDemo.txt
-data/Sandbox/JQueryLibPluginUI1Dot7Demo.txt
-data/Sandbox/JQueryLibPluginUI1Dot7ButtonDemo.txt
 data/Sandbox/JQueryLibPluginFoswikiDemo.txt
 
 #
@@ -200,6 +198,10 @@ pub/System/JQueryLibPlugin/plugins/farbtastic/marker.png
 pub/System/JQueryLibPlugin/plugins/farbtastic/mask.png
 pub/System/JQueryLibPlugin/plugins/farbtastic/wheel.png
 
-
+#
+# Foswiki plugin
+#
+pub/System/JQueryLibPlugin/plugins/foswiki/foswiki.css
+pub/System/JQueryLibPlugin/plugins/foswiki/foswiki.js
 
 

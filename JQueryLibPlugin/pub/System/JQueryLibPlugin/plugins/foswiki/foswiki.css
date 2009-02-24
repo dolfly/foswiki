@@ -1,0 +1,24 @@
+.fw-button { outline: 0; margin:0 4px 0 0; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
+.fw-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
+	
+a.fw-button { float:left; }
+
+/* remove extra button width in IE */
+button.fw-button { width:auto; overflow:visible; }
+
+.fw-button-icon-left { padding-left: 2.1em; }
+.fw-button-icon-right { padding-right: 2.1em; }
+.fw-button-icon-left .ui-icon { right: auto; left: .2em; margin-left: 0; }
+.fw-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
+
+.fw-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	 /* solo icon buttons must have block properties for the text-indent to work */	
+
+.fw-buttonset { float:left; }
+.fw-buttonset .fw-button { float: left; }
+.fw-buttonset-single .fw-button, 
+.fw-buttonset-multi .fw-button { margin-right: -1px;}
+
+.fw-toolbar { padding: .5em; margin: 0;  }
+.fw-toolbar .fw-buttonset { margin-right:1.5em; padding-left: 1px; }
+.fw-toolbar .fw-button { font-size: 1em;  }
+

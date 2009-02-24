@@ -1,61 +1,13 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235477612" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235489385" format="1.1" version="1.3"}%
 <pre class="ui-helper-hidden">
 <style type="text/css">	
-	.fw-button { outline: 0; margin:0 4px 0 0; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
-	.fw-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
-	
-	a.fw-button { float:left; }
-	
-	/* remove extra button width in IE */
-	button.fw-button { width:auto; overflow:visible; }
-	
-	.fw-button-icon-left { padding-left: 2.1em; }
-	.fw-button-icon-right { padding-right: 2.1em; }
-	.fw-button-icon-left .ui-icon { right: auto; left: .2em; margin-left: 0; }
-	.fw-button-icon-right .ui-icon { left: auto; right: .2em; margin-left: 0; }
-	
-	.fw-button-icon-solo { display:block; width:8px; text-indent: -9999px; }	 /* solo icon buttons must have block properties for the text-indent to work */	
-	
-	.fw-buttonset { float:left; }
-	.fw-buttonset .fw-button { float: left; }
-	.fw-buttonset-single .fw-button, 
-	.fw-buttonset-multi .fw-button { margin-right: -1px;}
-	
-	.fw-toolbar { padding: .5em; margin: 0;  }
-	.fw-toolbar .fw-buttonset { margin-right:1.5em; padding-left: 1px; }
-	.fw-toolbar .fw-button { font-size: 1em;  }
-
 	ul#icons {margin: 0; padding: 0;}
 	ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
 	ul#icons span.ui-icon {float: left; margin: 0 4px;}
-
-
-
 </style>	
 
 <script type="text/javascript">
 	$(function(){
-		//all hover and click logic for buttons
-		$(".fw-button:not(.ui-state-disabled)")
-		.hover(
-			function(){ 
-				$(this).addClass("ui-state-hover"); 
-			},
-			function(){ 
-				$(this).removeClass("ui-state-hover"); 
-			}
-		)
-		.mousedown(function(){
-				$(this).parents('.fw-buttonset-single:first').find(".fw-button.ui-state-active").removeClass("ui-state-active");
-				if( $(this).is('.ui-state-active.fw-button-toggleable, .fw-buttonset-multi .ui-state-active') ){ $(this).removeClass("ui-state-active"); }
-				else { $(this).addClass("ui-state-active"); }	
-		})
-		.mouseup(function(){
-			if(! $(this).is('.fw-button-toggleable, .fw-buttonset-single .fw-button,  .fw-buttonset-multi .fw-button') ){
-				$(this).removeClass("ui-state-active");
-			}
-		});
-
 				// Accordion
 				$("#accordion").accordion({ header: "h3" });
 	
@@ -505,4 +457,4 @@
 
 
 
-%META:TOPICMOVED{by="BaseUserMapping_333" date="1235476166" from="Sandbox.JQueryLibPluginFoswikiUI1Dot7Demo" to="Sandbox.JQueryLibPluginFoswikiUIDemo"}%
+%META:TOPICMOVED{by="BaseUserMapping_333" date="1235488861" from="Sandbox.JQueryLibPluginFoswikiUIDemo" to="Sandbox.JQueryLibPluginFoswikiDemo"}%
