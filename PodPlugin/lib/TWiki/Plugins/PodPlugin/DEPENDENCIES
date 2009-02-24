@@ -1,3 +1,0 @@
-# Dependencies for PodPlugin
-Carp,>=0,cpan,Required for lib/TWiki/Plugins/PodPlugin/Pod2Html.pm
-File::Spec::Unix,>=0,cpan,Required for lib/TWiki/Plugins/PodPlugin/Pod2Html.pm
