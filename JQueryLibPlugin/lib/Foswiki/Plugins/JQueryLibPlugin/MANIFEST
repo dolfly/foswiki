@@ -204,4 +204,10 @@ pub/System/JQueryLibPlugin/plugins/farbtastic/wheel.png
 pub/System/JQueryLibPlugin/plugins/foswiki/foswiki.css
 pub/System/JQueryLibPlugin/plugins/foswiki/foswiki.js
 
+#
+# Spinner plugin
+#
+pub/System/JQueryLibPlugin/plugins/spinner/jquery.spinner.js
+pub/System/JQueryLibPlugin/plugins/spinner/spinner.png
+pub/System/JQueryLibPlugin/plugins/spinner/spinner_big.png
 
