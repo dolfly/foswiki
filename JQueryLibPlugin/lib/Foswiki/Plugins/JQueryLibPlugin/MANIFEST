@@ -29,7 +29,7 @@ lib/Foswiki/Plugins/JQueryLibPlugin/Config.spec
 data/Sandbox/JQueryLibPluginDemo.txt
 data/Sandbox/JQueryLibPluginUI1Dot7Demo.txt
 data/Sandbox/JQueryLibPluginUI1Dot7ButtonDemo.txt
-data/Sandbox/JQueryLibPluginFoswikiUIDemo.txt
+data/Sandbox/JQueryLibPluginFoswikiDemo.txt
 
 #
 # jQuery core
