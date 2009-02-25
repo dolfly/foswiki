@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235504633" format="1.1" reprev="1.4" version="1.4"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235561326" format="1.1" reprev="1.5" version="1.5"}%
 %JQSCRIPT{"plugins/spinner/jquery.spinner.js"}%
 %JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
 %JQSTYLE{"plugins/farbtastic/farbtastic.css"}%
@@ -83,6 +83,8 @@
 <button class="fw-button ui-state-default ui-priority-primary ui-corner-all">Primary</button>
 <button class="fw-button ui-state-default ui-priority-secondary ui-corner-all">Secondary</button>
 <button class="fw-button ui-state-default ui-state-disabled ui-corner-all">Disabled</button> 
+<button class="fw-button ui-state-default ui-state-error ui-corner-all">Cancel</button>
+<button class="fw-button ui-state-default ui-state-highlight ui-corner-all">Highlight</button>
 
 ---++ Toggle buttons
 

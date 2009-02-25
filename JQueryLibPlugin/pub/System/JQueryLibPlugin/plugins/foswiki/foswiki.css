@@ -22,3 +22,5 @@ button.fw-button { width:auto; overflow:visible; }
 .fw-toolbar .fw-buttonset { margin-right:1.5em; padding-left: 1px; }
 .fw-toolbar .fw-button { font-size: 1em;  }
 
+/*Introduced for alert button*/
+/*.fw-state-hover { opacity: .7; filter:Alpha(Opacity=70); }*/
