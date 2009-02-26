@@ -1,4 +1,6 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235504523" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235682653" format="1.1" reprev="1.2" version="1.2"}%
+%JQSCRIPT{"jquery-ui-1.5.2.min.js"}%
+%JQSTYLE{"themes/1.5/smoothness/ui.all.css"}%
 %JQSCRIPT{"plugins/spinner/jquery.spinner.js"}%
 %JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
 %JQSTYLE{"plugins/farbtastic/farbtastic.css"}%
@@ -8,7 +10,8 @@
 
 ---+!! jQuery Demo
 
-Should we have a way to had stuff to head using some macros?
+This demo page is quite limited because jQuery ui 1.5.x will soon be legacy once 1.7 is published.
+For proper jQuery ui demo see JQueryLibPluginFoswikiDemo.
 
 ---++ Popup
 

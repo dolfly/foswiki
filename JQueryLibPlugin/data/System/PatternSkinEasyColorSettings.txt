@@ -1,5 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235504301" format="1.1" version="1.3"}%
-
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235681524" format="1.1" reprev="1.3" version="1.3"}%
 %JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
 %JQSTYLE{"plugins/farbtastic/farbtastic.css"}%
 %JQSCRIPT{"plugins/foswiki/foswiki.js"}%

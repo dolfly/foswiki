@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235515103" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235682346" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! !JQueryLibPlugin
 <!--
 One line description, required for extensions repository catalog.
@@ -15,7 +15,7 @@ One line description, required for extensions repository catalog.
 Provides [[http://jQuery.com][jQuery]] libraries to Foswiki.
 Also includes jQuery UI libraries, themes and some jQuery plugins.
 
----++ Tags
+---++ Macros
 
 =%<nop>JQSCRIPT{"plugins/myplugin/myplugin.js"}%= : include the specified script to the HTML =head= of your topic. Keep in mind that the =jquery.js= script must be loaded before plug-ins scripts. Scripts will be included in the order in which they appear in the topic. Topic included scripts will be loaded after every scripts listed in ={Plugins}{JQueryLibPlugin}{Scripts}=. Duplicates will be ignored.
 
@@ -36,7 +36,7 @@ To use jQuery UI 1.5 go to %CONFIGURE% and use the following settings:
 
 <verbatim>
 {Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.2.6.min.js, jquery-ui-1.5.3.min.js
-{Plugins}{JQueryLibPlugin}{Styles}=themes/lightness/ui.all.css
+{Plugins}{JQueryLibPlugin}{Styles}=themes/1.5/lightness/ui.all.css
 </verbatim>
 
 See Sandbox.JQueryLibPluginDemo for some examples.
@@ -51,6 +51,17 @@ To use jQuery UI 1.7 preview got to %CONFIGURE% and use the following settings:
 </verbatim>
 
 See Sandbox.JQueryLibPluginFoswikiDemo for some examples.
+
+---+++ Performance consideration
+
+To reduce the size of your server pages we recommend you use the macros =JQSCRIPT= and =JQSTYLE= on topic per topic basis rather than adding too many unused styles and scripts to your configuration.
+However for a foswiki installation using a jQuery themed skin we recommend the following configuration:
+
+<verbatim>
+{Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.3.2.min.js, plugins/foswiki/foswiki.js
+{Plugins}{JQueryLibPlugin}{Styles}=themes/1.7/smoothness/ui.all.css, plugins/foswiki/foswiki.css
+</verbatim>
+
 
 ---++ Supported jQuery plugins
 
@@ -72,6 +83,9 @@ Many thanks to the following sponsors for supporting this work:
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+| 26 Feb 2009 | 0.5 - Removing ui script from the default config.spec as it is quite big.  |
+|^| Demo topics update. |
+|^| Adding behavior support for error and highlight button. |
 | 24 Feb 2009 | 0.4 - Adding JQSCRIPT and JQSTYLE tags. |
 |^| Adding =foswiki= jQuery plugin. |
 |^| Adding =spinner= jQuery plugin. |

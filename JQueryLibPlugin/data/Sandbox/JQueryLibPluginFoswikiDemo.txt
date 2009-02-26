@@ -1,4 +1,5 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235561326" format="1.1" reprev="1.5" version="1.5"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235681486" format="1.1" reprev="1.5" version="1.5"}%
+%JQSCRIPT{"jquery-ui-1.6rc6.min.js"}%
 %JQSCRIPT{"plugins/spinner/jquery.spinner.js"}%
 %JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
 %JQSTYLE{"plugins/farbtastic/farbtastic.css"}%
