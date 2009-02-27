@@ -79,8 +79,7 @@ $(document).ready(function()
 			(
 			function()
 				{
-				fwRemoveStateActive($(this));
-				$(this).addClass("ui-state-error"); 	
+				fwRemoveStateActive($(this));	
 				}
 			);		
 			
@@ -112,8 +111,7 @@ $(document).ready(function()
 			(
 			function()
 				{
-				fwRemoveStateActive($(this));
-				$(this).addClass("ui-state-highlight"); 	
+				fwRemoveStateActive($(this));				
 				}
 			);		
 
