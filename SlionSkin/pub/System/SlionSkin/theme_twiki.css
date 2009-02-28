@@ -1,0 +1,46 @@
+/*
+Compatible skin for TWiki-like installations
+Overrides global settings in layout.css, style.css and colors.css
+*/
+
+/* outer 'frame' */
+#slionScreen {
+	padding:0;
+}
+#slionPage {
+	border:none;
+}
+
+/* paddings of main content elements */
+#slionBottomBarContents,
+#slionTopBarContents {
+	padding-right:2em;
+	padding-left:1em;
+}
+#slionMainContents {
+	padding-right:2em;
+	padding-left:2em;
+}
+#slionSideBarContents,
+#slionMainContents {
+	padding-top:1em;
+}
+#slionBottomBarContents {
+	padding-top:1em;
+}
+
+/* top bar */
+#slionTopBarContents {
+	background-image:url(TWiki_header.gif);
+	background-repeat:no-repeat;
+	background-color:#fff;
+}
+#slionTopBar,
+#slionClearHeaderCenter,
+#slionClearHeaderLeft,
+#slionClearHeaderRight,
+#slionTopBarContentsOuter,
+#slionTopBarContents {
+	height:64px;
+	overflow:hidden;
+}

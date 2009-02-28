@@ -1,0 +1,1139 @@
+/*	-----------------------------------------------------------
+	STYLE
+	Appearance: margins, padding, fonts, borders
+	-----------------------------------------------------------	*/
+	
+
+/*	----------------------------------------------------------------------------
+	CONSTANTS
+	
+	Sizes
+	----------------------------------------
+	S1 line-height											1.5em
+	S2 somewhat smaller font size							94%
+	S3 small font size, foswikiSmall							font-size:86%; line-height:110%;
+	S4 horizontal bar padding (h2, slionTop)				5px
+	S5 form and attachment padding							20px
+	S6 left margin left bar									1em
+
+	------------------------------------------------------------------------- */
+
+/* GENERAL HTML ELEMENTS */
+
+html body {
+	font-size:104%; /* to change the site's font size, change #slionPage below */
+	voice-family:"\"}\""; 
+	voice-family:inherit;
+	font-size:small;
+}
+html>body { /* Mozilla */
+	font-size:small;	
+}
+th {
+	line-height:1.15em;
+}
+p {
+	margin:1em 0 0 0;
+}
+label {
+	padding:.15em .3em .15em 0; /* same vertical padding as foswikiInputField */
+}
+hr {
+	height:1px;
+	border:none;
+}
+/* put overflow pre in a scroll area */
+pre {
+    width:auto;
+	height:1%; /* for IE */
+    margin:1em 0; /* Win IE tries to make this bigger otherwise */
+    border-style:solid;
+    border-width:1px;
+    padding:1em;
+}
+pre, code, tt {
+    font-family: "Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
+    font-size:86%;
+}
+
+/* IE behavior for pre is defined in css.slion.tmpl in conditional comment */
+html>body pre { /* hide from IE */
+	/*\*/ overflow:auto !important; /* */ overflow:scroll; width:auto; /* for Mac Safari */
+}
+ol, ul {
+	margin-top:0;
+}
+blockquote {
+	padding:.5em 1.25em;
+	border-style:solid;
+	border-width:1px 1px 1px 5px;
+}
+
+/* Text */
+h1 {
+	margin:0 0 .5em 0;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight:normal;
+	line-height:1em;
+}
+h1 { font-size:190%; }
+h2 { font-size:153%; }
+h3 { font-size:133%; }
+h4 { font-size:122%; font-weight:bold; }
+h5 { font-size:110%; font-weight:bold; }
+h6 { font-size:95%; font-weight:bold; }
+h2, h3, h4, h5, h6 {
+	display:block;
+	/* give header a background color for easy scanning:*/
+	padding:.25em 10px;
+	margin:1em -10px .35em -10px;
+	height:auto;	
+}
+/*
+h2 {
+	border-width:0 0 1px 0;
+	border-style:solid;
+}
+*/
+h1.slionTemplateTitle {
+	font-size:170%;
+	text-align:center;
+}
+h2.slionTemplateTitle {
+	text-align:center;
+	margin-top:.5em;
+	background:none;
+	border:none;
+}
+/* Links */
+/* somehow the foswikiNewLink style have to be before the general link styles */
+.foswikiNewLink {
+	border-width:0 0 1px 0;
+	border-style:solid;
+}
+.foswikiNewLink a {
+	text-decoration:none;
+	margin-left:1px;
+}
+.foswikiNewLink a sup {
+	text-align:center;
+	padding:0 2px;
+	vertical-align:baseline;
+	font-size:100%;
+	text-decoration:none;
+}
+.foswikiNewLink a:link sup,
+.foswikiNewLink a:visited sup {
+	border-width:1px;
+	border-style:solid;
+	text-decoration:none;
+}
+.foswikiNewLink a:hover sup {
+	text-decoration:none;
+}
+
+:link:focus,
+:visited:focus,
+:link,
+:visited,
+:link:active,
+:visited:active {
+	text-decoration:underline;
+}
+:link:hover,
+:visited:hover {
+	text-decoration:none;
+}
+img {
+	vertical-align:text-bottom;
+	border:0;
+}
+
+/* Form elements */
+form { 
+	display:inline;
+	margin:0;
+	padding:0;
+}
+textarea,
+input,
+select {
+	vertical-align:middle;
+	font-family:arial, verdana, sans-serif;
+	font-size:100%;
+}
+.foswikiTextarea {
+	padding:1px 4px;
+}
+.foswikiSubmit,
+.foswikiSubmitDisabled,
+.foswikiButton,
+.foswikiButtonDisabled,
+.foswikiButtonCancel,
+a.foswikiButton,
+a.foswikiSubmit,
+a.foswikiButtonCancel,
+.foswikiCheckbox {
+	border-width:1px;
+	border-style:solid;
+	padding:.1em .2em;
+	font-weight:bold;
+	vertical-align:middle;
+	text-align:center;
+}
+.foswikiSubmit,
+.foswikiSubmitDisabled,
+.foswikiButton,
+.foswikiButtonDisabled,
+.foswikiButtonCancel,
+.foswikiSubmit:hover,
+.foswikiSubmitDisabled:hover,
+.foswikiButton:hover,
+.foswikiSubmit:active,
+.foswikiSubmitDisabled:active,
+.foswikiButton:active {
+	cursor:default;
+	outline:none;
+}
+a.foswikiButton,
+a.foswikiButton:hover,
+a.foswikiButton:link:active,
+a.foswikiButton:visited:active,
+a.foswikiButtonCancel,
+a.foswikiButtonCancel:hover,
+a.foswikiButtonCancel:link:active,
+a.foswikiButtonCancel:visited:active,
+a.foswikiSubmit,
+a.foswikiSubmit:hover,
+a.foswikiSubmit:link:active,
+a.foswikiSubmit:visited:active {
+	text-decoration:none;
+}
+
+.foswikiCheckbox,
+.foswikiRadioButton {
+	margin:1px .25em 1px .1em;
+	padding:0 0 0 .5em;
+	border:0;
+}
+.foswikiTextarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly,
+.foswikiSelect {
+	border-width:2px;
+	border-style:solid;
+}
+.foswikiTextarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly {
+	font-size:100%;
+}
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly {
+	padding:.1em .2em;
+}
+
+/*	-----------------------------------------------------------
+	Plugin elements
+	-----------------------------------------------------------	*/
+
+/* TagMePlugin */
+.tagMePlugin select {
+	margin:0 .25em 0 0;
+}
+.tagMePlugin input { 
+	border:0px;
+}
+
+/* RevCommentPlugin */
+.slionEditPage .revComment {
+	padding:1em 0 2em 0;
+}
+
+/* EditTablePlugin */
+.editTable .foswikiTable {
+	margin:0 0 2px 0;
+}
+.editTableEditImageButton {
+	border:none;
+}
+
+/* TablePlugin */
+.foswikiTable,
+.foswikiTable td,
+.foswikiTable th {
+	border-width:1px;
+}
+.foswikiTable {
+	border-style:solid;
+	margin:2px 0;
+	border-collapse:collapse;
+}
+.foswikiTable td {
+	padding:3px 6px;
+	border-top-style:solid;
+	border-bottom-style:solid;	
+}
+.foswikiTable th {
+	border-left-style:solid;
+	border-right-style:solid;
+	padding:4px 6px;
+}
+.foswikiTable .tableSortIcon {
+	margin:0 0 0 5px;
+}
+
+/*
+.foswikiTable th.foswikiFirstCol {
+	border-left-style:none;
+}
+*/
+.foswikiTable a:link,
+.foswikiTable a:visited {
+	text-decoration:underline;
+}
+.foswikiTable a:hover {
+	text-decoration:underline;
+}
+
+/* TwistyContrib */
+.twistyTrigger a:link,
+.twistyTrigger a:visited {
+	text-decoration:none;
+}
+.twistyTrigger a:link .foswikiLinkLabel,
+.twistyTrigger a:visited .foswikiLinkLabel {
+	text-decoration:none;
+}
+
+/*tipsOfTheDay*/
+.tipsOfTheDay {
+	padding:10px;
+}
+
+/*	-----------------------------------------------------------
+	TWiki styles
+	-----------------------------------------------------------	*/
+
+#foswikiLogin {
+	width:44em;
+	margin:0 auto;
+	text-align:center;
+}
+#foswikiLogin .foswikiFormSteps {
+	border-width:5px;
+}
+#foswikiLogin .slionLoginNotification {
+	padding-left:.5em;
+	padding-right:.5em;
+	border-style:solid;
+	border-width:2px;
+}
+.foswikiAttachments,
+.foswikiForm {
+	margin:1em 0;
+	padding:1px; /* fixes disappearing borders because of overflow:auto; in foswikiForm */
+	height:1%; /* for IE */
+}
+.foswikiTable h2, .foswikiFormTable h2,
+.foswikiTable h3, .foswikiFormTable h3,
+.foswikiTable h4, .foswikiFormTable h4,
+.foswikiTable h5, .foswikiFormTable h5,
+.foswikiTable h6, .foswikiFormTable h6 {
+	border:0;
+	margin:0;
+	padding-left:0;
+	padding-right:0;
+}
+.foswikiFormTable th {
+	font-weight:normal;
+}
+.foswikiFormTable .foswikiTable th {
+	font-weight:bold;
+}
+.slionEditPage .foswikiFormTable td,
+.slionEditPage .foswikiFormTable th {
+	padding:.3em .4em;
+	border-style:solid;
+	border-width:0 0 1px 0;
+	vertical-align:middle;
+}
+.slionContent .foswikiAttachments,
+.slionContent .foswikiForm {
+	/* form or attachment table inside topic area */
+	font-size:94%; /*S2*/
+	padding:1em 20px; /*S5*/ /* top:use less padding for the toggle link; bottom:use less space in case the table is folded in  */
+	margin:0;
+	border-width:2px 0 0 0;
+	border-style:solid;
+}
+.foswikiAttachments .foswikiTable,
+table.foswikiFormTable {
+	margin:10px 0 5px 0;
+	border-collapse:collapse;
+	padding:0px;
+	border-spacing:0px;
+	empty-cells:show;
+	border-style:solid;
+	border-width:1px;
+}
+.foswikiAttachments table {
+	line-height:1.5em; /*S1*/
+	width:auto;
+	width:100%;
+}
+.foswikiAttachments .foswikiTable th {
+	border-style:none none solid solid;
+	border-width:1px;
+}
+.foswikiAttachments .foswikiTable th,
+table.foswikiFormTable th.foswikiFormTableHRow {
+	padding:3px 6px;
+	height:2.5em;
+	vertical-align:middle;
+}
+table.foswikiFormTable th.foswikiFormTableHRow {
+	text-align:center;
+}
+.foswikiFormTableFooter {}
+.foswikiAttachments .foswikiTable td,
+table.foswikiFormTable td {
+	padding:3px 2em 3px 1em;
+	height:1.5em; /*S1*/
+	text-align:left;
+	vertical-align:top;
+}
+.foswikiAttachments .foswikiTable th.foswikiFirstCol,
+.foswikiAttachments .foswikiTable td.foswikiFirstCol {
+	/* make more width for the icon column */
+	width:26px;
+	text-align:center;
+}
+.foswikiAttachments .foswikiTable caption {
+	display:none;
+}
+table.foswikiFormTable th.foswikiFormTableHRow a:link,
+table.foswikiFormTable th.foswikiFormTableHRow a:visited {
+	text-decoration:none;
+}
+.foswikiAttachments h3,
+.foswikiForm h3,
+.slionTwistyButton h3 {
+	font-size:1.1em;
+	font-weight:bold;
+	display:inline;
+	margin:0;
+	padding:0;
+}
+.slionTwistyButton h3 {
+	/* always add class foswikiButton as well */
+	padding:.1em .2em;
+}
+.slionAtachmentHeader {
+	/* behaviour class */
+}
+.foswikiForm h3 a:link,
+.foswikiForm h3 a:visited {
+	text-decoration:none;
+}
+.foswikiForm h3 .foswikiSmall {
+	font-weight:normal;
+	font-size:86%;
+	margin:0 0 0 .15em;
+}
+.foswikiFormSteps {
+	text-align:left;
+	border-width:1px 0 0 0;
+	border-style:solid;
+}
+.foswikiFormStep {
+	line-height:140%;
+	padding:1em 40px;
+	border-width:0 0 1px 0;
+	border-style:solid;
+}
+.foswikiFormStep h2,
+.foswikiFormStep h3,
+.foswikiFormStep h4 {
+	border:none;
+	margin:0 0 .1em 0;
+	padding:0;
+	background:none;
+}
+.foswikiFormStep h2 {
+	font-size:130%;
+	font-weight:bold;
+}
+.foswikiFormStep h3 {
+	font-size:115%;
+	font-weight:bold;
+}
+.foswikiFormStep h4 {
+	font-size:104%;
+	font-weight:bold;
+}
+.foswikiFormStep p {
+	margin:.5em 0;
+}
+.foswikiFormStep blockquote {
+	margin-left:1em;
+	padding-top:.25em;
+	padding-bottom:.25em;
+}
+.foswikiActionFormStepSign {
+	position:absolute;
+	font-size:104%;
+	margin-left:-20px; /* half of S5 */
+	margin-top:-.15em;
+}
+.foswikiToc {
+	margin:1em 0;
+	padding:.3em 0 .6em 0;
+}
+.foswikiToc ul {
+	list-style:none;
+	padding:0 0 0 .5em;
+	margin:0;
+}
+.foswikiToc li {
+	margin-left:1em;
+	padding-left:1em;
+	background-repeat:no-repeat;
+	background-position:0 .5em;
+}
+.foswikiToc .foswikiTocTitle {
+	margin:0;
+	padding:0;
+	font-weight:bold;
+}
+.foswikiSmall {
+	font-size:86%; /*S3*/
+	line-height:1.5em; /*S1*/
+}
+.foswikiSmallish {
+	font-size:94%; /*S2*/
+	line-height:1.5em; /*S1*/
+}
+.foswikiNew {}
+.foswikiSummary {
+	font-size:86%; /*S3*/
+}
+.foswikiEmulatedLink {
+	text-decoration:underline;
+}
+.foswikiPageForm table {
+	border-width:1px;
+	border-style:solid;
+}
+.foswikiPageForm table {
+	width:100%;
+}
+.foswikiPageForm th,
+.foswikiPageForm td {
+	border:0;
+	padding:.5em 1em;
+}
+.foswikiPageForm td {}
+.foswikiPageForm td.first {
+	padding-top:1em;
+}
+.foswikiBroadcastMessage,
+.foswikiNotification {
+	padding:1em 20px; /*S5*/
+}
+.foswikiNotification {
+	margin:1em 0;
+	border-style:solid;
+	border-width:2px;
+}
+.foswikiBroadcastMessage {
+	margin:0 0 1.25em 0;
+}
+.foswikiHelp {
+	height:1%; /* for IE */
+	padding:1em;
+	margin:.25em 0 0 0;
+	border-style:solid;
+	border-width:2px;
+}
+.foswikiHelp ul {
+	margin:0;
+	padding-left:20px;
+}
+.foswikiAccessKey {
+	border:none;
+}
+a:hover .foswikiAccessKey {
+	text-decoration:none;
+	border-width:0 0 1px 0;
+	border-style:solid;
+}
+.foswikiWebIndent {
+	margin:0 0 0 1em;
+}
+.foswikiLinkLabel {}
+.foswikiImage img {
+	padding:3px;
+	border-width:1px;
+	border-style:solid;
+}
+.foswikiImage a:link,
+.foswikiImage a:visited {
+	background:none;
+}
+#foswikiLogo img {
+	margin:0;
+	padding:0;
+    border:0px;
+}
+.foswikiNoBreak {
+	white-space:nowrap;
+}
+.foswikiSearchResultCount {
+	font-weight:bold;
+}
+
+/*	-----------------------------------------------------------
+	Slion skin specific elements
+	-----------------------------------------------------------	*/
+
+/* LAYOUT ELEMENTS */
+/* for specific layout sub-elements see further down */
+
+#slionPage {
+	font-family:arial, verdana, sans-serif;
+	line-height:1.5em; /*S1*/
+	/* change font size here */
+	font-size:105%;
+}
+.slionNoViewPage #slionOuter {
+	margin-left:0;
+	margin-right:0;
+}
+#slionTopBar {
+	border-width:1px;
+	border-style:none none solid none;
+}
+#slionBottomBar {
+	border-width:1px 0 0 0;
+	border-style:solid;
+}
+#slionWebBottomBar {
+	font-size:94%; /*S2*/
+	line-height:125%;
+	text-align:left;
+}
+#slionSideBarContents {
+	margin:0 0 1em 0;
+	padding-right:.5em;
+	padding-left:1em;
+}
+#slionMainContents,
+#slionBottomBarContents,
+#slionSideBarContents,
+#slionTopBarContents {
+	padding-right:2em;
+	padding-left:2em;
+}
+#slionSideBarContents,
+#slionMainContents {
+	padding-top:2em;
+}
+#slionSideBarContents {
+	padding-bottom:2em;
+}
+#slionTopBarContents {
+	padding-top:1em;
+}
+#slionBottomBarContents {
+	padding-top:1em;
+}
+.slionNoViewPage .foswikiTopic {
+	margin-top:2em;
+}
+
+/* bottom paddings */
+#slionMainContents {
+	padding-bottom:4em;
+}
+#slionBottomBarContents {
+	padding-bottom:2em;
+}
+.foswikiTopic {
+	margin:0 0 2em 0;
+}
+.slionNoViewPage #slionMainContents,
+.slionNoViewPage #slionBottomBarContents {
+	margin-left:4%;
+	margin-right:4%;
+}
+.slionEditPage #slionMainContents,
+.slionEditPage #slionBottomBarContents {
+	margin-left:2%;
+	margin-right:2%;
+}
+
+.slionTop {
+	margin:0 0 .5em 0;
+}
+.slionNoViewPage .slionTop {
+	font-size:94%;
+}
+#slionSideBarContents img {
+	margin:0 3px 0 0;
+	vertical-align:text-bottom;
+}
+#slionSideBarContents a:link,
+#slionSideBarContents a:visited {
+	text-decoration:none;
+}
+/*
+#slionSideBarContents .slionLeftBarPersonal a:link,
+#slionSideBarContents .slionLeftBarPersonal a:visited {
+	text-decoration:underline;
+}
+#slionSideBarContents .slionLeftBarPersonal ul a:link,
+#slionSideBarContents .slionLeftBarPersonal ul a:visited {
+	text-decoration:none;
+}
+#slionSideBarContents .slionLeftBarPersonal ul a:hover {
+	text-decoration:underline;
+}
+*/
+#slionSideBarContents ul {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+#slionSideBarContents,
+#slionSideBarContents ul,
+#slionSideBarContents li {
+	line-height:1.35em;
+}
+#slionSideBarContents h2 {
+	border:none;
+	background-color:transparent;
+}
+#slionSideBarContents .slionLeftBarPersonal,
+#slionSideBarContents .slionWebIndicator {
+	height:1%; /* for IE */
+	width:100%; /* for IE */
+	padding:0 1em .75em 1em;
+	margin:0 -1em .75em -1em; /*S6*/
+	border-style:none none solid none;
+	border-width:1px;
+}
+/*
+#slionSideBarContents ul li a:link,
+#slionSideBarContents ul li a:visited {
+	display:block;
+	margin:0 -1em 0 -1em;
+	padding:.2em 1em;
+}
+*/
+.slionWebIndicator a {
+	font-size:1.1em;
+	font-weight:bold;
+}
+.slionLeftBarPersonalContent {
+	padding:1em 0 0 0;
+}
+#slionSideBarContents li {
+	overflow:hidden;
+}
+html>body #slionSideBarContents li { /* Mozilla */
+	overflow:visible;
+}
+
+/* form options in top bar */
+.slionMetaMenu {}
+.slionMetaMenu input,
+.slionMetaMenu select,
+.slionMetaMenu select option {
+	margin:0;
+}
+.slionMetaMenu select option {
+	padding:1px 0 0 0;
+}
+.slionMetaMenu ul {
+    padding:0;
+    margin:0;
+   	list-style:none;
+}
+.slionMetaMenu ul li {
+    padding:0;
+	display:inline;
+}
+.slionMetaMenu ul li .foswikiInputField,
+.slionMetaMenu ul li .foswikiSelect {
+	margin:0 0 0 .5em;
+}
+.slionHomePath .foswikiSeparator {
+	padding:0 .5em;
+}
+.slionHomePath a:link,
+.slionHomePath a:visited {
+	text-decoration:none;
+	border-style:none none solid none;
+	border-width:1px;
+}
+
+.slionToolBar {
+}
+.slionToolBar span {
+	float:left;
+}
+.slionToolBar span s,
+.slionToolBar span strike,
+.slionToolBar span a:link,
+.slionToolBar span a:visited {
+	display:block;
+	border-width:1px;
+	border-style:solid;
+	padding:.1em .35em;
+	margin:0 0 .2em .25em;
+	font-weight:bold;
+}
+.slionToolBar span a:link,
+.slionToolBar span a:visited {
+	text-decoration:none;
+	outline:none;
+}
+.slionToolBar span a:hover,
+.slionToolBar span a:hover {
+	border-width:1px;
+	border-style:solid;
+}
+.slionToolBar span a:active {
+	outline:none;
+}
+.slionToolBar span.foswikiAccessKey { 
+	float:none; 
+}
+.slionToolBar span s,
+.slionToolBar span strike {
+	text-decoration:none;
+}
+
+.slionTopicActions {
+	border:none;
+}
+.slionTopicAction {
+	line-height:1.5em;
+	padding:.4em 20px; /*S5*/
+	border-width:1px 0 0 0;
+	border-style:solid;
+	height:1%; /* for IE */
+}
+.slionOopsPage .slionTopicActions,
+.slionEditPage .slionTopicActions {
+	margin:2em 0 0 0;
+}
+.slionAttachPage .slionTopicAction,
+.slionRenamePage .slionTopicAction {
+	padding-left:40px;
+}
+.slionActionButtons a:link,
+.slionActionButtons a:visited {
+	padding:1px 1px 2px 1px;
+}
+.slionTopicAction .slionActionButtons a:link,
+.slionTopicAction .slionActionButtons a:visited {
+	text-decoration:none;
+}
+.slionTopicAction .slionActionButtons span s,
+.slionTopicAction .slionActionButtons span strike {
+	text-decoration:none;
+}
+.slionActionButtons a.foswikiButton,
+.slionActionButtons a.foswikiSubmit,
+.slionActionButtons a.foswikiButtonCancel {
+	padding:.1em .2em;
+}
+.slionNoViewPage .slionTopicAction {
+	margin-top:-1px;
+}
+.slionInfo {
+	margin:1.5em 0 0 0;
+}
+.slionHomePath .slionRevInfo {
+	font-size:94%;
+	white-space:nowrap;
+}
+.slionMoved {
+	margin:1em 0;
+}
+.slionMoved i,
+.slionMoved em {
+	font-style:normal;
+}
+.slionTopicFooter {
+	margin:1em 0 0 0;
+}
+.slionSimpleLogo {
+	margin:1em 0 0 0;
+}
+
+/* WebSearch, WebSearchAdvanced */
+#foswikiSearchTable {
+	background:none;
+	border-bottom:0;
+} 
+#foswikiSearchTable th,
+#foswikiSearchTable td {
+	padding:1em;
+	border-width:0 0 1px 0;
+	border-style:solid;
+} 
+#foswikiSearchTable th {
+	width:20%;
+	text-align:right;
+}
+#foswikiSearchTable td {
+	width:80%;
+}
+
+/*	-----------------------------------------------------------
+	Search results
+	styles and overridden styles used in search.slion.tmpl
+	-----------------------------------------------------------	*/
+
+.slionSearchResults {
+	/* no longer used in search.slion.tmpl, but remains in rename templates */
+	margin:0 0 1em 0;
+}
+.slionSearchResults blockquote {
+	margin:1em 0 1em 5em;
+}
+h3.slionSearchResultsHeader,
+h4.slionSearchResultsHeader {
+	display:block;
+	border-width:0 0 1px 0;
+	border-style:solid;
+	height:1%; /* for IE */
+	font-weight:bold;
+}
+.slionSearchResults h3 {
+	font-size:115%; /* same as foswikiFormStep */
+	margin:0;
+	padding:.5em 40px; /*S5*/
+	font-weight:bold;
+}
+h4.slionSearchResultsHeader {
+	font-size:100%;
+	padding-top:.3em;
+	padding-bottom:.3em;
+	font-weight:normal;
+}
+.slionSearchResult .foswikiTopRow {
+	padding-top:.2em;
+	margin-top:.1em;
+}
+.slionSearchResult .foswikiBottomRow {
+	margin-bottom:.1em;
+	padding-bottom:.25em;
+	border-width:0 0 1px 0;
+	border-style:solid;
+}
+.slionSearchResult .foswikiAlert {
+	font-weight:bold;
+}
+.slionSearchResult .foswikiSummary .foswikiAlert {
+	font-weight:normal;
+}
+.slionSearchResult .foswikiNew {
+	border-width:1px;
+	border-style:solid;
+	font-size:86%; /*S3*/
+	padding:0 1px;
+	font-weight:bold;
+}
+.slionSearchResults .foswikiHelp {
+	display:block;
+	width:auto;
+	padding:.1em 5px;
+	margin:1em -5px .35em -5px;
+}
+.slionSearchResult .foswikiSRAuthor {
+	width:15%;
+	text-align:left;
+}
+.slionSearchResult .foswikiSRRev {
+	width:30%;
+	text-align:left;
+}
+.slionSearchResultCount {
+	margin:1em 0 3em 0;
+}
+.slionSearched {
+	display:block;
+}
+
+
+/* Search results in book view format */
+
+.slionBookView {
+	border-width:0 0 2px 2px;
+	border-style:solid;
+	/* border color in cssdynamic.slion.tmpl */
+	margin:.5em 0 1.5em -5px;
+	padding:0 0 0 5px;
+}
+.slionBookView .foswikiTopRow {
+	padding:.25em 5px .15em 5px; /*S4*/
+	margin:1em -5px .15em -5px; /*S4*/
+}
+.slionBookView .foswikiBottomRow {
+	font-size:100%;
+	padding:1em 0 1em 0;
+	width:auto;
+	border:none;
+}
+
+/* pages that are not view */
+
+/* edit.slion.tmpl */
+
+.slionNoViewPage #slionMainContents {
+	padding-top:0;
+}
+.slionEditPage #slionMainContents {
+	padding-left:0;
+	padding-right:0;
+}
+.slionEditPage .slionEditTopic {
+	padding:5px;
+	margin:0 0 .5em 0;
+}
+.slionEditPage .foswikiTextarea {
+}
+.slionEditPage .foswikiForm {
+	border:none;
+}
+.foswikiFormHolder { /* constrains the textarea */
+	width:100%;
+}
+.slionEditPage .foswikiForm h1,
+.slionEditPage .foswikiForm h2,
+.slionEditPage .foswikiForm h3 {
+	/* same as foswikiFormStep */
+	font-size:120%;
+	font-weight:bold;
+}
+.foswikiEditboxStyleMono {
+	font-family: "Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
+}
+.foswikiEditboxStyleProportional {
+	font-family:arial, verdana, sans-serif;
+}
+.slionEditPage .slionActionButtons {
+	margin:0.5em 0 0 0;
+}
+.slionSig {
+	text-align:right
+}
+.slionSigLine {
+	margin:.5em 0 0 0;
+	border-style:none;
+	height:1%; /* for IE */
+}
+.foswikiAddFormButton {
+	float:right;
+}
+.slionTextareaButton {
+	margin:0 0 0 1px;
+	display:block;
+	cursor:pointer;
+	border-style:solid;
+	border-width:1px;
+}
+.slionButtonFontSelector {
+	margin:0 8px 0 0;
+}
+.slionSaveOptionsContents {
+	margin:.5em 0 0 0;
+}
+.slionSaveHelp {
+	margin:1em 0 0 0;
+	line-height:1.5em;
+}
+.slionSaveOptions {
+	margin:0.25em 0 0 0;
+	clear:both;
+}
+
+/* preview.slion.tmpl */
+
+.slionPreviewPage #slionMainContents {
+	padding-left:0;
+	padding-right:0;
+}
+.slionPreviewPage .foswikiTopic {
+	margin-bottom:0;
+}
+.foswikiPreviewArea,
+.slionPreviewPage .foswikiForm {
+	border-width:1px;
+	border-style:solid;
+	margin:0 0 1.5em 0;
+	padding:2em;
+	height:1%; /* for IE */
+}
+
+/* attach.slion.tmpl */
+
+.slionAttachPage .foswikiAttachments .foswikiTable {
+	width:auto;
+}
+.slionAttachPage .foswikiAttachments {
+	margin-top:0;
+}
+.slionMoveAttachment {
+	margin:.5em 0 0 0;
+	text-align:right;
+}
+
+/* rdiff.slion.tmpl */
+
+.slionDiff {
+	/* same as slionBookView */
+	border-width:0 0 2px 2px;
+	border-style:solid;
+	margin:.5em 0 1.5em 0;
+	padding:0 0 0 10px;
+}
+.slionDiff h4.slionSearchResultsHeader {
+	padding:.5em 10px;
+}
+.slionDiffPage .slionRevInfo ul {
+	padding:0;
+	margin:2em 0 0 0;
+	list-style:none;
+}
+.slionDiffPage .foswikiDiffTable {
+	margin:2em 0;
+}
+tr.foswikiDiffDebug td {
+	border-width:1px;
+	border-style:solid;
+}
+.slionDiffPage td.foswikiDiffDebugLeft {
+	border-bottom:none;
+}
+.slionDiffPage .foswikiDiffTable th {
+	padding:.25em .5em;
+}
+.slionDiffPage .foswikiDiffTable td {
+	padding:.25em;
+}
+.foswikiDiffLineNumberHeader {
+	padding:.3em 0;
+}
+
+.mceContentBody {
+    padding: 1px 4px;
+}

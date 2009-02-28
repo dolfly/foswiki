@@ -1,0 +1,10 @@
+#slionOuter {
+	margin-left:0;
+}
+#slionSideBar {
+	display:none;
+}
+/* for the content left margin use a bit smaller margin */
+#slionMainContents {
+	padding-left:2em; /*S6*/
+}

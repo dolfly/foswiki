@@ -1,0 +1,24 @@
+/* copy the styles from viewtopbar.slion.tmpl */
+#slionTopBar,
+#slionClearHeaderCenter,
+#slionClearHeaderLeft,
+#slionClearHeaderRight,
+#slionTopBarContentsOuter {
+	height:0;
+}
+#slionTopBar,
+#slionTopBarContents {
+	display:hidden;
+}
+/* move the left bar contents down to show the logo */
+#slionSideBarContents {
+	margin-top:64px; /* top bar height */
+}
+#slionSideBar {
+	/* dynamic background image set in topic */
+	/* or write a hard coded image location here */
+	background-attachment:relative;
+	background-position:1em 11px;
+	background-repeat:no-repeat;
+	border-top:0px;
+}

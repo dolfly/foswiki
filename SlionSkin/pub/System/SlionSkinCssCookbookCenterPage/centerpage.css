@@ -1,0 +1,14 @@
+#slionScreen {
+	padding:0 10px 4% 10px;
+}
+#slionPage {
+	width:960px;
+}
+#slionPage {
+	border-color:#dedede;
+	border-style:solid;
+	border-width:0 1px 1px 1px;
+}
+html body {
+	background-color:#f6f6f6;
+}

@@ -1,0 +1,116 @@
+%META:TOPICINFO{author="ProjectContributor" date="1141775863" format="1.1" version="$Rev: 1707 $"}%
+---+!! CSS elements in !SlionSkin
+
+This page is a reference for all CSS classes used in SlionSkin.
+
+%TOC{title="Page contents:"}%
+
+!SlionSkin uses 4 stylesheets:
+   * [[%PUBURLPATH%/%SYSTEMWEB%/SlionSkin/layout.css][layout.css]]: positioning of block elements on the page
+   * [[%PUBURLPATH%/%SYSTEMWEB%/SlionSkin/style.css][style.css]]: margins, paddings, borders, font sizes
+   * [[%PUBURLPATH%/%SYSTEMWEB%/SlionSkin/colors.css][colors.css]]: text colors, background colors, border colors
+   * [[%PUBURLPATH%/%SYSTEMWEB%/SlionSkin/print.css][print.css]]: optimalizations for printed page
+   
+If you want to learn how to create your own look or skin based on !SlionSkin, read further in SlionSkin.
+
+---++ Naming conventions
+
+   * All !SlionSkin specific classes have the prefix =slion=: slionEditPage, slionTopicAction, etcetera. 
+   * Foswiki specific classes (emitted by the Foswiki engine) have the prefix =twiki=: foswikiButton, foswikiToc, etcetera. See for a complete list CascadingStyleSheets.
+   * Positional containers are referred by id, for instance =#slionSideBar=.
+
+---++ Namespaces
+
+!SlionSkin uses namespaces for templates, by adding one (sometimes two - multiple) class names to the template's body tag. 
+
+   * The body tag in view.slion.tmpl for instance has the class name "slionViewPage": =&lt;body class="slionViewPage"&gt;=. All CSS elements specific to the view template thus can be defined as =.slionViewPage .someClassName=.
+   * All templates that are _not_ the view template have the body class name "slionNoViewPage". That makes it easy to give all of these pages a different layout (smaller or wider margins for instance) in one sweep. Template edit.slion.tmpl uses =&lt;body class="slionNoViewPage slionEditPage"&gt;=.
+
+---+++ Page type classes
+
+   * .slionViewPage
+   * .slionViewPage .slionPrintPage
+   * .slionNoViewPage
+   * .slionNoViewPage .slionEditPage
+   * .slionNoViewPage .slionAttachPage
+   * .slionNoViewPage .slionChangeFormPage
+   * .slionNoViewPage .slionDiffPage
+   * .slionNoViewPage .slionRenamePage
+   * .slionSearchResultsPage
+   * .slionPlainPage (=viewplain.slion.tmpl=)
+
+---++ Layout classes
+
+   * Main layout elements (in order of appearance in =body.slion.tmpl=)
+      * #slionScreen - outer container, used when centering the page (see SlionSkinCssCookbookCenterPage)
+      * #slionPageShadow - shadow border around slionPage; default not used (see SlionSkinCssCookbookCenterPageBorder)
+      * #slionPage - html content container
+      * Left bar:
+         * #slionWrapper
+         * #slionSideBar - left bar area
+         * #slionSideBarContents - used for left menu
+      * #slionOuter - wrapper container
+      * #slionFloatWrap - wrapper container
+      * #slionMain - center area
+      * #slionMainContents - holder of slionTop, foswikiTopic, foswikiForm, foswikiAttachments, etc.
+      * #slionTopBar - top bar area
+      * #slionTopBarContents - header art / logo; contains topic %SYSTEMWEB%.WebTopBar
+      * #slionBottomBar - bottom bar area
+      * #slionBottomBarContents - copyright
+
+---++ Style classes
+
+   * View
+      * .slionContent - container around .foswikiTopic in =view.slion.tmpl= only; to be able to give .foswikiAttachments and .foswikiForm a different appearance when they are not enclosed by it, for example the personal data form on the user pages (where the user form is positioned outside, above the topic text)
+      * .slionTopBarLogo - logo position in slionTopBar (topic %SYSTEMWEB%.WebTopBar)
+      * .slionTopBarOverlay - striped white image background
+      * .foswikiTopic - Foswiki topic text
+      * .slionTop - area at top of topic text, with slionHomePath, revision and action buttons
+      * .slionTopicActions - container for multiple .slionTopicAction rows
+      * .slionTopicAction - container for .slionActionButtons
+      * .slionActionButtons - action buttons at bottom of page
+      * .slionMoved - topic moved info (only visible when the topic has changed name or web)
+      * .slionWebIndicator - colored block at the top of the left bar to indicate the current web
+      * .slionFormHolder - container around form to manage the size of form elements
+      * .slionLeftBarPersonal - block of personal links (included topic %<nop>USERSWEB%.%<nop>USERNAME%LeftBar)
+      * .slionHomePath - breadcrumb at top
+      * .slionHomePathTitle - "You are here" text
+      * .slionRevInfo - revision info and author name
+      * .slionToolBar - holder for .slionToolBarButtons
+      * .slionToolBarButtons - action buttons at top of page
+      * .slionToolBarBottom - seperator
+      * .slionSimpleLogo - logo used on 'simple' pages like the login screen
+      * .slionButton - tab button Edit, Attach, Printable at top of topic
+      * .slionMetaMenu - search box, jump box, language selector
+
+   * Edit
+      * .slionSig - signature copy box
+      * .slionSaveOptions - holder for .slionSaveOptionsContents
+      * .slionSaveOptionsContents - checkboxes that change the state of a topic save; for instance "Force revision" checkbox
+      * .slionSaveHelp - info block with help on save options (access keys and potentially other info)
+
+   * Preview page
+      * .slionPreviewArea - container around preview of .foswikiTopic
+
+   * Attach page
+      * .slionPrevious - attachment table of previous versions
+      * .slionMoveAttachment - container for "Move or Delete attachment"
+      * .slionAttachForm
+
+   * Rename (rename, move, delete)
+      * slionRenameOptionsList - list of topics that can be updated
+
+   * More
+      * slionDiffOptions - row of revision options under "Compare revisions"
+      
+   * Search results
+      * .slionSearchResults - container on rename pages (no longer used on actual search results 'view' pages)
+      * .slionSearchResultsHeader - horizontal bar with the web color
+      * .slionSearchResults - block of one result
+      * .slionSearchResultCount - the number of results
+      * .slionSearched - feedback on the string used to search
+
+---
+*Related Topics:* [[Skins]], AdminDocumentationCategory
+
+%META:FILEATTACHMENT{name="CSS_element_layout_view.slion.tmpl.png" attr="h" comment="" date="1092634624" path="CSS_element_layout_view.slion.tmpl.png" size="37359" user="ProjectContributor" version="1.1"}%

@@ -1,0 +1,19 @@
+/*
+compatible bar for TWiki installations
+*/
+
+#slionOuter {
+	margin-left:14em;
+}
+#slionSideBar {
+	width:14em;
+	margin-left:-14em;
+}
+#slionSideBarContents {
+	padding-right:1em;
+	padding-left:1em;
+}
+#slionSideBarContents {
+	padding-left:1em;
+	padding-right:1em;
+}

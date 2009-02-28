@@ -1,0 +1,271 @@
+body.slionPrintPage {
+	margin:0;
+	padding:0;
+}
+body.slionPrintPage,
+.slionPrintPage #slionBottomBar {
+	background-color:#fff;
+}
+.slionPrintPage #slionScreen,
+.slionPrintPage #slionPageShadow, 
+.slionPrintPage #slionPage,
+.slionPrintPage #slionOuter {
+	margin:0;
+	padding:0;
+	top:0;
+	border:none;
+	float:none;
+}
+.slionPrintPage #slionMain {
+	width:100%;
+	float:right;
+	display:inline;
+	overflow:visible;
+}
+
+/* no left bar */
+.slionPrintPage #slionSideBar {
+	display:none;
+}
+.slionPrintPage #slionWrapper {
+	height:1%;
+}
+
+/* no top bar */
+.slionPrintPage #slionTopBar,
+.slionPrintPage #slionClearHeaderCenter,
+.slionPrintPage #slionClearHeaderLeft,
+.slionPrintPage #slionClearHeaderRight,
+.slionPrintPage #slionTopBarContentsOuter {
+	display:none;
+}
+
+/* hide bits of the gui */
+.slionPrintPage .slionTopicAction,
+.slionPrintPage .slionToolBar,
+.slionPrintPage .slionToolBarBottom,
+.slionPrintPage .slionHomePath img,
+.slionPrintPage .slionHomePathTitle,
+.slionPrintPage .foswikiActionFormStepSign {
+	display:none;
+}
+
+.slionPrintPage #slionMainContents {
+	margin:0;
+	padding:1em 2em;
+}
+.slionPrintPage #slionBottomBarContents,
+.slionPrintPage #slionTopBarContents {
+	padding:0 0 0 2em; /* bigger side margin for binding */
+	margin:0;
+}
+.slionPrintPage #slionBottomBar {
+	border:none;
+	padding:1em 0;
+}
+.slionPrintPage .slionTopicFooter {
+	margin:1em 0 0 0;
+}
+
+/* hide attachment twisty controls */
+.slionPrintPage #attachmentsshow,
+.slionPrintPage #attachmentshide {
+	display:none;
+}
+
+/* make sure that overflowing content is visible */
+.slionPrintPage pre,
+html>body .slionPrintPage pre {
+	overflow:visible !important;
+}
+
+/*Some rules about Page breaks */
+.slionPrintPage h1, .slionPrintPage h2, .slionPrintPage h3, .slionPrintPage h4, .slionPrintPage h5, .slionPrintPage h6 {
+	page-break-after:avoid;
+	page-break-inside:avoid;
+}
+.slionPrintPage img {
+	page-break-inside:avoid;
+	page-break-after:avoid;
+}
+.slionPrintPage blockquote, .slionPrintPage table, .slionPrintPage pre {
+	page-break-inside:avoid;
+}
+.slionPrintPage ul, .slionPrintPage ol, .slionPrintPage dl {
+	page-break-before:avoid;
+}
+
+/* hide plugins */
+.slionPrintPage .commentPlugin {
+	display:none;
+}
+.slionPrintPage .twistyTrigger {
+	display:none;
+}
+.slionPrintPage .editTableEditImageButton {
+	display:none;
+}
+
+@media print {
+	/* Layout */
+	.clear {
+		clear:none; /* otherwise firefox cuts off tables */
+	}
+	body {
+		margin:0;
+		padding:0;
+	}
+	#slionScreen,
+	#slionPageShadow, 
+	#slionPage,
+	#slionOuter {
+		margin:0;
+		padding:0;
+		top:0;
+		border:none;
+		float:none;
+	}
+	#slionMain {
+		width:100%;
+		float:right;
+		display:inline;
+		overflow:visible;
+	}
+	
+	/* no left bar */
+	#slionSideBar {
+		display:none;
+	}
+	#slionWrapper {
+		height:1%;
+	}
+	
+	/* no top bar */
+	#slionTopBar,
+	#slionClearHeaderCenter,
+	#slionClearHeaderLeft,
+	#slionClearHeaderRight,
+	#slionTopBarContentsOuter {
+		display:none;
+	}
+	
+	/* hide bits of the gui */
+	.slionTopicAction,
+	.slionToolBar,
+	.slionToolBarBottom,
+	.slionHomePath img,
+	.slionHomePathTitle,
+	.foswikiActionFormStepSign {
+		display:none;
+	}
+	
+	#slionMainContents {
+		margin:0;
+		padding:1em 2em;
+	}
+	#slionBottomBarContents,
+	#slionTopBarContents {
+		padding:0 0 0 2em; /* bigger side margin for binding */
+		margin:0;
+	}
+	#slionBottomBar {
+		border:none;
+	}
+	.slionTopicFooter {
+		margin:1em 0 0 0;
+	}
+	
+	/* hide attachment twisty controls */
+	#attachmentsshow,
+	#attachmentshide {
+		display:none;
+	}
+	
+	/* make sure that overflowing content is visible */
+	pre,
+	html>body pre {
+		overflow:visible !important;
+	}
+
+	/*Some rules about Page breaks */
+	h1, h2, h3, h4, h5, h6 {
+		page-break-after:avoid;
+		page-break-inside:avoid;
+	}
+	img {
+		page-break-inside:avoid;
+		page-break-after:avoid;
+	}
+	blockquote, table, pre {
+		page-break-inside:avoid;
+	}
+	ul, ol, dl {
+		page-break-before:avoid;
+	}
+	
+	/* hide plugins */
+	.commentPlugin {
+		display:none;
+	}
+	.twistyTrigger {
+		display:none;
+	}
+	.editTableEditImageButton {
+		display:none;
+	}
+	
+	/* Colors */
+	html body {
+		background-color:#fff;
+	}
+	h2, h3, h4, h5, h6 {
+		background-color:transparent;
+	}
+	#slionBottomBar {
+		background-color:transparent;
+	}
+	
+	pre, code, tt {
+		color:#5b4221;
+	}
+	.foswikiTable th {
+		border-style:solid;
+		border-width:0 0 1px 1px;
+		border-color:#ccc;
+		color:#000;
+	}
+	.foswikiTable th a:link,
+	.foswikiTable th a:visited,
+	.foswikiTable th a font,
+	.foswikiAttachments .foswikiTable th a:link,
+	.foswikiAttachments .foswikiTable th a:visited,
+	.foswikiAttachments .foswikiTable th a font {
+		color:#000;
+		text-decoration:none;
+	}
+	:visited,
+	.foswikiTopic a:visited {
+		color:#06c;
+		background-color:transparent;
+	}
+	.foswikiAttachments,
+	.slionContent .foswikiAttachments,
+	.foswikiForm,
+	.slionContent .foswikiForm {
+		background-color:#fff;
+	}
+	.slionRevInfo,
+	.foswikiGrayText {
+		color:#666; /*T7*/
+	}
+	.slionRevInfo a:link,
+	.slionRevInfo a:visited
+	.foswikiGrayText a:link,
+	.foswikiGrayText a:visited {
+		color:#666; /*T7*/
+	}
+
+	
+	/* define custom print styles here */
+
+}
