@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235681486" format="1.1" reprev="1.5" version="1.5"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235836138" format="1.1" version="1.4"}%
 %JQSCRIPT{"jquery-ui-1.6rc6.min.js"}%
 %JQSCRIPT{"plugins/spinner/jquery.spinner.js"}%
 %JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
@@ -106,7 +106,6 @@
 	<button class="fw-button ui-state-default ui-priority-primary ui-corner-left">Visual</button>
 	<button class="fw-button ui-state-default ui-priority-primary">Code</button>
 	<button class="fw-button ui-state-default ui-priority-primary">Split</button>
-
 	<button class="fw-button ui-state-default ui-priority-primary ui-corner-right">Preview</button>
 </div>
 
@@ -119,7 +118,6 @@
 	<button class="fw-button ui-state-default ui-corner-left"><b>B</b></button>
 	<button class="fw-button ui-state-default"><i>I</i></button>
 	<button class="fw-button ui-state-default"><u>U</u></button>
-
 	<button class="fw-button ui-state-default ui-corner-right"><span class="strike">S</span></button>
 </div>
 
@@ -132,14 +130,12 @@
 	<div class="fw-buttonset ui-helper-clearfix">
 		<a href="#" class="fw-button ui-state-default fw-button-icon-solo ui-corner-all" title="Open"><span class="ui-icon ui-icon-folder-open"></span> Open</a>
 		<a href="#" class="fw-button ui-state-default fw-button-icon-solo  ui-corner-all" title="Save"><span class="ui-icon ui-icon-disk"></span> Save</a>
-
 		<a href="#" class="fw-button ui-state-default fw-button-icon-solo  ui-corner-all" title="Delete"><span class="ui-icon ui-icon-trash"></span> Delete</a>
 	</div>
 	<div class="fw-buttonset fw-buttonset-multi">
 		<button class="fw-button ui-state-default ui-corner-left"><b>B</b></button>
 		<button class="fw-button ui-state-default"><i>I</i></button>
 		<button class="fw-button ui-state-default  ui-corner-right"><u>U</u></button>
-
 	</div>
 	<div class="fw-buttonset ui-helper-clearfix">
 		<a href="#" class="fw-button ui-state-default fw-button-icon-solo  ui-corner-all" title="Print"><span class="ui-icon ui-icon-print"></span> Print</a>
@@ -147,7 +143,6 @@
 	</div>
 	<div class="fw-buttonset fw-buttonset-single ui-helper-clearfix">
 		<button class="fw-button ui-state-default ui-state-active ui-priority-primary ui-corner-left">Edit</button>
-
 		<button class="fw-button ui-state-default ui-priority-primary ui-corner-right">View</button>
 	</div>
 </div>
