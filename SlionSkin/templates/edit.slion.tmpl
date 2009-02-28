@@ -14,7 +14,7 @@ foswiki.Event.addLoadEvent(initForm);
 </script>%TMPL:END%
 
 
-%TMPL:DEF{"toolbar"}%<div class="slionTop">%TWISTYBUTTON{id="edithelp" mode="div" remember="on" showlink="<h3>&#9658; %MAKETEXT{"Edit help"}%</h3>" hidelink="<h3>&#9660; %MAKETEXT{"Edit help"}%</h3>" linkclass="foswikiButton slionTwistyButton"}%</div><!--//slionTop-->%TMPL:END%
+%TMPL:DEF{"toolbar"}%<div class="slionTop">%TWISTYBUTTON{id="edithelp" mode="div" remember="on" showlink="<h3>&#9658; %MAKETEXT{"Edit help"}%</h3>" hidelink="<h3>&#9660; %MAKETEXT{"Edit help"}%</h3>" linkclass="%SLIONSKIN_CLASS_BUTTON% slionTwistyButton"}%</div><!--//slionTop-->%TMPL:END%
 
 
 %TMPL:DEF{"bodyclassname"}%slionNoViewPage slionEditPage%TMPL:END%
@@ -36,15 +36,15 @@ foswiki.Event.addLoadEvent(initForm);
 %TMPL:DEF{"action_buttons"}%%TMPL:P{"button_save"}%&nbsp;%TMPL:P{"button_quietsave"}%&nbsp;%TMPL:P{"button_checkpoint"}% %TMPL:P{"button_preview"}% %MAKETEXT{"or"}% %TMPL:P{"button_cancel"}%%TMPL:END%
 
 
-%TMPL:DEF{"button_save"}%<input type="submit" class="foswikiSubmit" name="action_save" id="save" %MAKETEXT{"value='Save' accesskey='s'"}% />%TMPL:END%
+%TMPL:DEF{"button_save"}%<input type="submit" class="%SLIONSKIN_CLASS_BUTTON_PRIMARY%" name="action_save" id="save" %MAKETEXT{"value='Save' accesskey='s'"}% />%TMPL:END%
 
-%TMPL:DEF{"button_quietsave"}%<input type="submit" class="foswikiButton" name="action_quietsave" id="quietsave" %MAKETEXT{"value='Quiet save' accesskey='q'"}% />%TMPL:END%
+%TMPL:DEF{"button_quietsave"}%<input type="submit" class="%SLIONSKIN_CLASS_BUTTON%" name="action_quietsave" id="quietsave" %MAKETEXT{"value='Quiet save' accesskey='q'"}% />%TMPL:END%
 
-%TMPL:DEF{"button_checkpoint"}%<input type="submit" class="foswikiButton" name="action_checkpoint" id="checkpoint" %MAKETEXT{"value='Save and Continue' accesskey='k'"}% />%TMPL:END%
+%TMPL:DEF{"button_checkpoint"}%<input type="submit" class="%SLIONSKIN_CLASS_BUTTON%" name="action_checkpoint" id="checkpoint" %MAKETEXT{"value='Save and Continue' accesskey='k'"}% />%TMPL:END%
 
-%TMPL:DEF{"button_preview"}%<input type="submit" class="foswikiButton" name="action_preview" id="preview" %MAKETEXT{"value='Preview' accesskey='p'"}% onclick="enableTWikiMandatoryChecks()" />%TMPL:END%
+%TMPL:DEF{"button_preview"}%<input type="submit" class="%SLIONSKIN_CLASS_BUTTON%" name="action_preview" id="preview" %MAKETEXT{"value='Preview' accesskey='p'"}% onclick="enableTWikiMandatoryChecks()" />%TMPL:END%
 
-%TMPL:DEF{"button_cancel"}%<input type="submit" class="foswikiButtonCancel" name="action_cancel" id="cancel" title='%MAKETEXT{"Cancel editing and discard changes"}%' %MAKETEXT{"value='Cancel' accesskey='c'"}% onclick="suppressSaveValidation()" />%TMPL:END%
+%TMPL:DEF{"button_cancel"}%<input type="submit" class="%SLIONSKIN_CLASS_BUTTON_CANCEL%" name="action_cancel" id="cancel" title='%MAKETEXT{"Cancel editing and discard changes"}%' %MAKETEXT{"value='Cancel' accesskey='c'"}% onclick="suppressSaveValidation()" />%TMPL:END%
 
 
 %TMPL:DEF{"actionbuttons_help"}%<div class="slionSaveHelp">%TMPL:P{"accesskeys_help"}%</div><!--/slionSaveHelp-->%TMPL:END%
