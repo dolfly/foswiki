@@ -4,7 +4,7 @@
 %TMPL:INCLUDE{"viewsidebar"}%
 %TMPL:DEF{"logo"}%%TMPL:END%
 
-%TMPL:DEF{"bodyclassname"}%slionViewPage%IF{"defined raw" then=" slionRawViewPage"}%%TMPL:END%
+%TMPL:DEF{"bodyclassname"}%%SLIONSKIN_CLASS_BODY% slionViewPage%IF{"defined raw" then=" slionRawViewPage"}%%TMPL:END%
 
 %TMPL:DEF{"script:skintemplate"}%%IF{"defined raw" then='%TMPL:P{"script:skintemplate:viewraw"}%'}%%TMPL:END%
 
