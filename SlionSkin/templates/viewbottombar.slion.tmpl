@@ -1,4 +1,4 @@
 %{ to include a bottom bar on a page, just include this template in the page template }%%TMPL:DEF{"bottombar"}%<div id="slionBottomBar">%TMPL:P{"bottombarcontents"}%</div><!-- /slionBottomBar-->%TMPL:END%
 
 
-%TMPL:DEF{"bottombarcontents"}%<div id="slionBottomBarContents"><div id="slionWebBottomBar">%IF{"istopic '%SYSTEMWEB%.WebBottomBar'" then="$percntINCLUDE{$quot%SYSTEMWEB%.WebBottomBar$quot}$percnt" else="$percntINCLUDE{$quot%SYSTEMWEB%.WebBottomBarExample$quot}$percnt"}%</div><!--/slionWebBottomBar--></div><!-- /slionBottomBarContents-->%TMPL:END%
+%TMPL:DEF{"bottombarcontents"}%<div id="slionBottomBarContents" class="%SLIONSKIN_CLASS_BOTTOMBAR%"><div id="slionWebBottomBar">%IF{"istopic '%SYSTEMWEB%.WebBottomBar'" then="$percntINCLUDE{$quot%SYSTEMWEB%.WebBottomBar$quot}$percnt" else="$percntINCLUDE{$quot%SYSTEMWEB%.WebBottomBarExample$quot}$percnt"}%</div><!--/slionWebBottomBar--></div><!-- /slionBottomBarContents-->%TMPL:END%

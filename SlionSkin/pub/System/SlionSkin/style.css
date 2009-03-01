@@ -608,7 +608,7 @@ a:hover .foswikiAccessKey {
 	font-family:arial, verdana, sans-serif;
 	line-height:1.5em; /*S1*/
 	/* change font size here */
-	font-size:105%;
+	font-size:80%;
 }
 .slionNoViewPage #slionOuter {
 	margin-left:0;
@@ -618,14 +618,19 @@ a:hover .foswikiAccessKey {
 	border-width:1px;
 	border-style:none none solid none;
 }
+
+
+/*
 #slionBottomBar {
-	border-width:1px 0 0 0;
-	border-style:solid;
+	font-weight:50%;	
 }
+*/
+
 #slionWebBottomBar {
-	font-size:94%; /*S2*/
+	font-size:75%; /*S2*/
+	font-weight:lighter;	
 	line-height:125%;
-	text-align:left;
+	text-align:right;
 }
 #slionSideBarContents {
 	margin:0 0 1em 0;
@@ -787,6 +792,7 @@ html>body #slionSideBarContents li { /* Mozilla */
 .slionToolBar span {
 	float:left;
 }
+/*
 .slionToolBar span s,
 .slionToolBar span strike,
 .slionToolBar span a:link,
@@ -798,16 +804,22 @@ html>body #slionSideBarContents li { /* Mozilla */
 	margin:0 0 .2em .25em;
 	font-weight:bold;
 }
+
 .slionToolBar span a:link,
 .slionToolBar span a:visited {
 	text-decoration:none;
 	outline:none;
 }
+
+*/
+
+/*Keep this as it fixes the access key underline*/
 .slionToolBar span a:hover,
 .slionToolBar span a:hover {
 	border-width:1px;
 	border-style:solid;
 }
+
 .slionToolBar span a:active {
 	outline:none;
 }
@@ -819,14 +831,13 @@ html>body #slionSideBarContents li { /* Mozilla */
 	text-decoration:none;
 }
 
+
 .slionTopicActions {
 	border:none;
 }
 .slionTopicAction {
 	line-height:1.5em;
 	padding:.4em 20px; /*S5*/
-	border-width:1px 0 0 0;
-	border-style:solid;
 	height:1%; /* for IE */
 }
 .slionOopsPage .slionTopicActions,
@@ -837,10 +848,12 @@ html>body #slionSideBarContents li { /* Mozilla */
 .slionRenamePage .slionTopicAction {
 	padding-left:40px;
 }
+/*
 .slionActionButtons a:link,
 .slionActionButtons a:visited {
 	padding:1px 1px 2px 1px;
 }
+
 .slionTopicAction .slionActionButtons a:link,
 .slionTopicAction .slionActionButtons a:visited {
 	text-decoration:none;
@@ -849,11 +862,15 @@ html>body #slionSideBarContents li { /* Mozilla */
 .slionTopicAction .slionActionButtons span strike {
 	text-decoration:none;
 }
+
+
 .slionActionButtons a.foswikiButton,
 .slionActionButtons a.foswikiSubmit,
 .slionActionButtons a.foswikiButtonCancel {
 	padding:.1em .2em;
 }
+*/
+
 .slionNoViewPage .slionTopicAction {
 	margin-top:-1px;
 }
