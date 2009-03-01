@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235836138" format="1.1" version="1.4"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1235912134" format="1.1" version="1.5"}%
 %JQSCRIPT{"jquery-ui-1.6rc6.min.js"}%
 %JQSCRIPT{"plugins/spinner/jquery.spinner.js"}%
 %JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
@@ -152,7 +152,6 @@
 
 		<div id="accordion">
 			<div>
-
 				<h3><a href="#">First</a></h3>
 				<div>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</div>
 			</div>
@@ -160,7 +159,6 @@
 				<h3><a href="#">Second</a></h3>
 				<div>Phasellus mattis tincidunt nibh.</div>
 			</div>
-
 			<div>
 				<h3><a href="#">Third</a></h3>
 				<div>Nam dui erat, auctor a, dignissim quis.</div>
