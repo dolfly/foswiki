@@ -51,7 +51,7 @@ When installed, see _YourWebWithBlog_.BlogAddOnHome for additional details.
 | Copyright &copy;: | 2006-2008 Arthur Clemens |
 | License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
 | Dependencies: | %$DEPENDENCIES% |
-| Plugin&nbsp;Version: | 1.3, 10 Jan 2009 |
+| Version: | %$VERSION% |
 | Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
 | 10 Jan 2009 | 1.3 Foswiki release |
 | 07 Apr 2008 | 1.2 Added optional inclusion of author pictures from Foswiki:Extensions/PersonalInfoAddOn. *Important upgrade notice:* this version uses =WIKINAME= instead of  =WIKIUSERNAME= in the =Author= form field. This change is not compatible with existing blog topics. If you have existing posts, you must change all author names from =Main.<nop>UserName= to =<nop>UserName=. |
