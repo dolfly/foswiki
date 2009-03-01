@@ -100,3 +100,8 @@ templates/viewplain.slion.tmpl 0444
 templates/viewprint.slion.tmpl 0444
 templates/viewsidebar.slion.tmpl 0444
 templates/viewtopbar.slion.tmpl 0444
+templates/addform.slion.tmpl 0444
+templates/form.slion.tmpl 0444
+templates/oopsleaseconflict.slion.tmpl 0444
+templates/oopsmore.slion.tmpl 0444
+/templates/viewtopicactionbuttons.slion.tmpl 0444
