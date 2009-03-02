@@ -662,6 +662,7 @@ a:hover .foswikiAccessKey {
 }
 
 /* bottom paddings */
+
 #slionMainContents {
 	padding-bottom:4em;
 }
@@ -676,11 +677,38 @@ a:hover .foswikiAccessKey {
 	margin-left:4%;
 	margin-right:4%;
 }
+
+/*Edit page specifics*/
+
 .slionEditPage #slionMainContents,
 .slionEditPage #slionBottomBarContents {
 	margin-left:2%;
 	margin-right:2%;
+	margin-top:0%;
+	margin-bottom:0%;
+	padding:0 0 0 0;
 }
+
+.slionEditPage #slionMain {
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+}
+
+.slionEditPage .foswikiTopic {
+	margin:0.5em 0 0 0;
+	/*margin-top:0.5em;*/
+	/*padding:0 0 0 0;*/
+}
+
+/*SL: shall we just get read of clear in the templates
+Is that clear stuff actually useful at all?
+*/
+.slionEditPage .clear {
+	display:none;
+}
+
+/*end edit page specifics*/
+
 
 .slionTop {
 	margin:0 0 .5em 0;
@@ -1053,9 +1081,13 @@ h4.slionSearchResultsHeader {
 .foswikiEditboxStyleProportional {
 	font-family:arial, verdana, sans-serif;
 }
+
+/*
 .slionEditPage .slionActionButtons {
 	margin:0.5em 0 0 0;
 }
+*/
+
 .slionSig {
 	text-align:right
 }
@@ -1077,16 +1109,23 @@ h4.slionSearchResultsHeader {
 .slionButtonFontSelector {
 	margin:0 8px 0 0;
 }
+
+/*
 .slionSaveOptionsContents {
 	margin:.5em 0 0 0;
 }
+*/
+
+/*
 .slionSaveHelp {
 	margin:1em 0 0 0;
 	line-height:1.5em;
 }
+*/
+
 .slionSaveOptions {
 	margin:0.25em 0 0 0;
-	clear:both;
+	/*clear:both;*/
 }
 
 /* preview.slion.tmpl */
