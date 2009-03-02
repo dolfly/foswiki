@@ -831,15 +831,19 @@ html>body #slionSideBarContents li { /* Mozilla */
 	text-decoration:none;
 }
 
-
+/*
 .slionTopicActions {
-	border:none;
 }
+*/
+
 .slionTopicAction {
-	line-height:1.5em;
-	padding:.4em 20px; /*S5*/
-	height:1%; /* for IE */
+	/*line-height:1.5em;*/
+	/*padding:.4em 20px;*/ /*S5*/
+	/*height:1%;*/ /* for IE */
+	
 }
+
+/*
 .slionOopsPage .slionTopicActions,
 .slionEditPage .slionTopicActions {
 	margin:2em 0 0 0;
@@ -848,6 +852,8 @@ html>body #slionSideBarContents li { /* Mozilla */
 .slionRenamePage .slionTopicAction {
 	padding-left:40px;
 }
+*/
+
 /*
 .slionActionButtons a:link,
 .slionActionButtons a:visited {
