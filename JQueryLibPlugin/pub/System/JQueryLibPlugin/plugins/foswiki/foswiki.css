@@ -1,4 +1,4 @@
-.fw-button { outline: 0; margin:0 4px 0 0; padding: .4em 1em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
+.fw-button { outline: 0; margin:0 4px 0 0; padding: .2em .4em; text-decoration:none !important; cursor:pointer; position: relative; text-align: center; zoom: 1; }
 .fw-button .ui-icon { position: absolute; top: 50%; margin-top: -8px; left: 50%; margin-left: -8px; }
 	
 a.fw-button { float:left; }
@@ -21,6 +21,11 @@ button.fw-button { width:auto; overflow:visible; }
 .fw-toolbar { padding: .5em; margin: 0;  }
 .fw-toolbar .fw-buttonset { margin-right:1.5em; padding-left: 1px; }
 .fw-toolbar .fw-button { font-size: 1em;  }
+
+/*SL*/
+.fw-float-right { float:right; }
+.fw-float-left { float:left; }
+.fw-float-none { float:none; }
 
 /*Introduced for alert button*/
 /*.fw-state-hover { opacity: .7; filter:Alpha(Opacity=70); }*/
