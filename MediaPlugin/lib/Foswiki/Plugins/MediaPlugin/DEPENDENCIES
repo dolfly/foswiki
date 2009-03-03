@@ -1,0 +1,4 @@
+# Dependencies for ObjectPlugin
+# Example:
+# Time::ParseDate,>=2003.0211,cpan,Required.
+
