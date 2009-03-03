@@ -204,10 +204,8 @@ defining the default CSS properties  (indentation illustrates enclosure).
 |  02 Aug 2002: | Implemented caching of feeds, thanks to TWiki:Main/RobDuarte |
 |  11 Jun 2002: | Initial version (V1.000) |
 |  Perl Version: | 5.8 |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle 100%, %SYSTEMWEB%.FormattedSearch 99.5%, %TOPIC% 94% |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
-|  Appraisal: | Foswiki:Extensions/%TOPIC%Appraisal |
 
 -- TWiki:Main.PeterThoeny - 11 May 2005 %BR%
 -- TWiki:Main.MichaelDaum - 13 Sep 2007

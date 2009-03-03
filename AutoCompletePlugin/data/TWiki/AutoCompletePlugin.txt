@@ -97,10 +97,8 @@ var SubmitJump = function(sType, aArgs) {
 |  14290 | Bugs:Item4304 - Various bug fixes and enhancements |
 |  14277 | Bugs:Item4301 - Initial release |
 |  Dependencies: | %$DEPENDENCIES% |
-|  [[Foswiki:Extensions/Benchmark][Benchmarks]]: | %SYSTEMWEB%.GoodStyle nn%, %SYSTEMWEB%.FormattedSearch nn%, AutoCompletePlugin nn% |
 |  Plugin Home: | http://twiki.org/cgi-bin/view/Plugins/AutoCompletePlugin |
 |  Feedback: | http://twiki.org/cgi-bin/view/Plugins/AutoCompletePluginDev |
-|  Appraisal: | http://twiki.org/cgi-bin/view/Plugins/AutoCompletePluginAppraisal |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], %SYSTEMWEB%.DeveloperDocumentationCategory, %SYSTEMWEB%.AdminDocumentationCategory, %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
 

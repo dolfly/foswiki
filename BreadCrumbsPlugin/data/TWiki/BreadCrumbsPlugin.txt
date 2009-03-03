@@ -183,7 +183,6 @@ separator) may contain special variables:
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.8 |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle nn%, %SYSTEMWEB%.FormattedSearch nn%, %TOPIC% nn% |
 |  Plugin Home: | http://nextwiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://nextwiki.org/Extensions/%TOPIC%Dev |
 

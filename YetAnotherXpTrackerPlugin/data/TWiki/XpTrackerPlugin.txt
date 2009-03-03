@@ -236,8 +236,6 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  29 Jul 2002:    | 1.0 Initial version of Plugin by TWiki:Main.MartinWatt based on code by TWiki:Main.RichardBennett |
 |  Dependencies: | <table border="1"><tr><th>Name</th><th>Version</th><th>Description</th></tr><tr><td align="left">TWiki::Plugins::EditHiddenTablePlugin</td><td align="left">&gt;=0</td><td align="left">Required. Download and install from [[Foswiki:Extensions/EditHiddenTablePlugin][plugin library]].</td></tr><tr><td align="left">TWiki::Plugins::DBCacheContrib</td><td align="left">&gt;=0</td><td align="left">Required. Download and install from [[Foswiki:Extensions/YetAnotherDBCacheContrib][plugin library]].</td></tr><tr><td align="left">TWiki::Plugins::ControlsPlugin</td><td align="left">&gt;=0</td><td align="left">Required. Download and install from [[Foswiki:Extensions/ControlsPlugin][plugin library]].</td></tr><tr><td align="left">HTTP::Date</td><td align="left">&gt;=1</td><td align="left">Required. Available from [[http://cpan.uwinnipeg.ca/dist/Time-modules][CPAN]].</td></tr><tr><td align="left">Time::CTime</td><td align="left">&gt;=1</td><td align="left">Required. Available from [[http://cpan.uwinnipeg.ca/dist/Time-modules][CPAN]].</td></tr></table> |
 |  Perl Version: | 5.0 |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle xx%, %SYSTEMWEB%.FormattedSearch xx%, %TOPIC% xx% |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
-|  Appraisal: | Foswiki:Extensions/%TOPIC%Appraisal |
 

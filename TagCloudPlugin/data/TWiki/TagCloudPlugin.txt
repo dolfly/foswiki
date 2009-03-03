@@ -223,7 +223,6 @@ Cloud for the above text:
                   added fadeRGB format string variable |
 |  24 Feb 2006: | Initial version |
 |  Perl Version: | 5.8 |
-|  Foswiki:Extensions/Benchmark: | %SYSTEMWEB%.GoodStyle nn%, %SYSTEMWEB%.FormattedSearch nn%, %TOPIC% nn% |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
 |  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
 

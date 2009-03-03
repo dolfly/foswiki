@@ -497,10 +497,8 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  01 Jul 2004: | Initial version |
 |  TWiki Dependency: | $TWiki::Plugins::VERSION 1.024 |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Foswiki:Extensions/Benchmark: | System.GoodStyle 99%, System.FormattedSearch 99%, %TOPIC% 99% |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
 
 __Related Topics:__ System.DefaultPreferences, %USERSWEB%.SitePreferences, [[System.Plugins][Plugins]]
 
