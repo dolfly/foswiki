@@ -1,0 +1,54 @@
+---++ the Menu definition
+( web.topic, label, link to next submenu)
+%EDITTABLE{}%
+| System.%HOMETOPIC% | System | submenu | System.WebMenu |
+| Main.%HOMETOPIC% | Main | submenu | Main.WebMenu |
+| Sandbox.%HOMETOPIC% | Sandbox | submenu | Sandbox.WebMenu |
+
+
+
+---
+<verbatim>
+%STARTSECTION{"topmenu"}%<div class="yui-skin-sam">
+%ADDTOHEAD{
+   "yui-navigation-menu-js"
+   text="%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib" section="yui-navigation-menu-js-yui"}%"
+   requires="yui-menu"
+}%
+%IF{
+	"context authenticated" 
+	then='%MAKETEXT{"Hello [_1]" args="[[%WIKIUSERNAME%][%SPACEOUT{%WIKINAME%}%]]"}%'}%%IF{"$ LOGOUT != ''" then='%BR%<ul><li class="patternLogOut">%LOGOUT%</li></ul>'
+}%%IF{
+	"$ LOGIN != '' and not context authenticated" 
+	then='<ul><li class="patternLogIn">%LOGIN% %IF{"context registration_supported AND context registration_enabled" then="%MAKETEXT{"or"}% [[%SYSTEMWEB%.UserRegistration][%MAKETEXT{"Register"}%]]"}%</li></ul>'
+}%
+   <div id="yui-navigation-menu" class="yuimenu">
+      <div class="bd"><ul>
+	    %SEARCH{
+	       "%HOMETOPIC%"
+	       recurse="off"
+	       scope="topic"
+	       web="all"
+	       nonoise="on"
+	       format="<li>[[$web.%HOMETOPIC%][$web]]
+			   <div class='yuimenu'><div class='bd'>
+			      $percntINCLUDE{
+			      $quot%SYSTEMWEB%.YuiMenuContrib$quot
+                              section=$quotwebmenu-builder$percntIF{$quotistopic '$web.WebMenu'$quot then=$quot$quot else=$quot-default$quot}$percnt$quot
+			      MENUWEB=$quot$web$quot
+			      MENUTOPIC=$quotWebMenu$quot
+			      }$percnt
+                  </div></div> 
+	       </li>"
+	    }%
+      </ul>
+      </div>
+   </div>
+</div>
+%IF{
+	"'%USERNAME%'!='guest'" 
+	then="<div class=\"patternLeftBarPersonalContent\">
+$percntINCLUDE{$quot$percntUSERSWEB$percnt.$percntWIKINAME$percntLeftBar$quot warn=$quot<ul><li><a href='%SCRIPTURLPATH{edit}%/%USERSWEB%/%WIKINAME%LeftBar?templatetopic=%SYSTEMWEB%.WebLeftBarPersonalTemplate&amp;topicparent=%WIKINAME%'>%MAKETEXT{Create personal sidebar}%</a></li></ul>$quot }$percnt
+</div><!--/patternLeftBarPersonalContent-->"
+}%%ENDSECTION{"topmenu"}%
+</verbatim>

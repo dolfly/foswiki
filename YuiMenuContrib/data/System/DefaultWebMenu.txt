@@ -1,11 +1,10 @@
+%META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.0" version="$Rev: 1838 $"}%
 
 
 
 ( web.topic, label, link to next submenu)
 %EDITTABLE{}%
 | %MENUWEB%.WebTopicList |  %MAKETEXT{"Index"}% | element |
-| %MENUWEB%.WikiUsers |  %MAKETEXT{"Users"}% | element |
-| %MENUWEB%.WikiGroups |  %MAKETEXT{"Groups"}% | element |
 | %MENUWEB%.WebSearch |  %MAKETEXT{"Search"}% | element |
 | %MENUWEB%.WebChanges |  %MAKETEXT{"Changes"}% | element |
 | %MENUWEB%.WebNotify |  %MAKETEXT{"Notifications"}% | element |

@@ -41,7 +41,7 @@ You can also use create other menu's by re-using the concepts in this contrib :)
 <verbatim>
 %STARTINCLUDE%
 %INCLUDE{
-   "%IF{"istopic '%USERSWEB%.SiteMenu'" then="%USERSWEB%.SiteMenu" else="%SYSTEMWEB%.YuiMenuContrib"}%"
+   "%IF{"istopic '%USERSWEB%.SiteMenu'" then="%USERSWEB%.SiteMenu" else="%SYSTEMWEB%.DefaultMenu"}%"
    MENUWEB="%MENUWEB%"
    section="topmenu"
 }%
@@ -96,11 +96,11 @@ fall back to the default in this topic
             }% </div></div>
 </li>%ENDSECTION{"submenu"}%
 
-****TOTO: this should use the SYSTEM web one we distribute unless the MAINWEB one exists.
+****TODO: edit link should be used to create custom menu if there is no WebMenu topic, using the default one as a template.
 %STARTSECTION{"webmenu-builder-default"}%<ul>
 %SEARCH{
        "^\|.*\|$" 
-       web="%MAINWEB%" 
+       web="%IF{"istopic '%MAINWEB%.DefaultWebMenu' then="%MAINWEB%" else="%SYSTEMWEB%"}%" 
        topic="DefaultWebMenu" 
        type="regex" 
        multiple="on" 
@@ -116,68 +116,9 @@ fall back to the default in this topic
                             SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
                             SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
                         }$percnt"
-}% %IF{"'%MAINWEB%.DefaultWebMenu' allows 'EDIT'" then="<li>[[%MAINWEB%.DefaultWebMenu][edit menu]]</li>"}%
+}% %IF{"'%IF{"istopic '%MAINWEB%.DefaultWebMenu' then="%MAINWEB%" else="%SYSTEMWEB%"}%.DefaultWebMenu' allows 'EDIT'" then="<li>[[%IF{"istopic '%MAINWEB%.DefaultWebMenu' then="%MAINWEB%" else="%SYSTEMWEB%"}%.DefaultWebMenu][edit menu]]</li>"}%
 </ul>%ENDSECTION{"webmenu-builder-default"}%
 </verbatim>
-
----++ Top level Menu entries
-to define your own WebMenu for all webs, copy and customise the content below to your Web's WebMenu topic
-(or to customise the WebMenu for all webs (which don't have a WebMenu topic) copy the text to %USERSWEB%.DefaultWebMenu
-<verbatim>
-%STARTSECTION{"topmenu"}%<div class="yui-skin-sam">
-%ADDTOHEAD{
-   "yui-navigation-menu-js"
-   text="%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib" section="yui-navigation-menu-js-yui"}%"
-   requires="yui-menu"
-}%
-   <div id="yui-navigation-menu" class="yuimenu-top">
-      <div class="bd">
-	 <ul>
-	    %SEARCH{
-	       "%HOMETOPIC%"
-	       recurse="off"
-	       scope="topic"
-	       web="all"
-	       nonoise="on"
-	       format="<li>[[$web.%HOMETOPIC%][$web]]
-			   <div class='yuimenu'><div class='bd'>
-			      $percntINCLUDE{
-			      $quot$web.WebMenu$quot
-			      MENUWEB=$quot$web$quot
-			      warn=$quot$percntINCLUDE{$quot%SYSTEMWEB%.YuiMenuContrib$quot MENUWEB=$quot$web$quot section=$quotwebmenu-defaultselector$quot}$percnt$quot
-			      }$percnt
-</div></div> <!-- cannot be indented due to TML bullet point continuations -->
-	       </li>"
-	    }%
-	 </ul>
-      </div>
-   </div>
-</div>%ENDSECTION{"topmenu"}%
-</verbatim>
-
----++ !WebMenu Selector
-to define your own !WebMenu for all webs, copy and customise the content below to your Web's !WebMenu topic
-(or to customise the !WebMenu for all webs (which don't have a !WebMenu topic) copy the text to %USERSWEB%.DefaultWebMenu
-
-__ADVANCED:__ To add sub menus into the webmenu, you need to add =<div class='yuimenu'><div class='bd'>=
-around another level of bullet lists (unfortuanatly, these must be HTML not TML)
-
-<verbatim>
-%STARTSECTION{"webmenu"}%
-   * [[%SCRIPTURLPATH{"view"}%/%MENUWEB%/WebCreateNewTopic?topicparent=%BASETOPIC%][ %MAKETEXT{"Create New Topic"}%]]
-   * [[%MENUWEB%.WebTopicList][ %MAKETEXT{"Index"}%]]
-   * [[%MENUWEB%.WebSearch][ %MAKETEXT{"Search"}%]]
-      <div class='yuimenu'><div class='bd'><ul>
-         <li>[[%MENUWEB%.WebSearchAdvanced][Advanced %MAKETEXT{"Search"}%]]</li>
-      </ul></div></div>
-   * [[%MENUWEB%.WebChanges][%MAKETEXT{"Changes"}%]]
-   * [[%MENUWEB%.WebNotify][ %MAKETEXT{"Notifications"}%]]
-   * [[%MENUWEB%.WebRss][ %MAKETEXT{"RSS Feed"}%]]
-   * [[%MENUWEB%.WebStatistics][ %MAKETEXT{"Statistics"}%]]
-   * [[%MENUWEB%.WebPreferences][ %MAKETEXT{"Preferences"}%]]
-%ENDSECTION{"webmenu"}%
-</verbatim>
-
 
 
 ---++ YUI JS and CSS sections
