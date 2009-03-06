@@ -28,7 +28,6 @@ You can also use create other menu's by re-using the concepts in this contrib :)
 
 ---+++ TODO
    1 figure out how to make sub-webs INCLUDE fall back via each of its parent webs
-   2 fix the broken side bar / menu when viewing _this_ topic
    3 make a better fallback CSS for when JS is off or broken.
    4 rewrite documentation
 
@@ -184,6 +183,10 @@ text-align:right;
 .yui-skin-sam .menu-edit-link .yuimenuitemlabel  :link:hover {
    color: darkblue;
 }
+/* so that JS off displays all menu elements */
+.yuimenu .yuimenu, .yuimenubar .yuimenu {
+position:inherit;
+}
 /* IE6 fix */
 .yui-skin-sam .yuimenu .yuimenuitemlabel {
 	_zoom: 1;
@@ -210,15 +213,6 @@ text-align:right;
 %ENDSECTION{"yui-navigation-menu-js-yui"}%
 </verbatim>
 
-<verbatim>
-%STARTSECTION{"yui-navigation-sub-menu"}%   * [[%MENUWEB%.WebHome][%MENULABEL%]]
-            <div class='yuimenu'><div class='bd'> %INCLUDE{
-            "%MENUWEB%.WebMenu" 
-            SECTION="webmenu" 
-            MENUWEB="%MENUWEB%"
-            warn="%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib" MENUWEB="%MENUWEB%" section="webmenu-defaultselector"}%"
-            }% </div></div>%ENDSECTION{"yui-navigation-sub-menu"}%
-</verbatim>
 
 
 ---++ Info
@@ -228,6 +222,7 @@ text-align:right;
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  7 March 2009: | change the WebMenu topic format to be a table to simplify editing |
 |  4 March 2009: | fix IE6 rollover |
 |  12 Jan 2009: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |

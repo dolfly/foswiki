@@ -1,8 +1,6 @@
 
 
-
-( web.topic, label, link to next submenu)
-%EDITTABLE{}%
+%EDITTABLE{header="| topic | label | type | extra |" format="| text | text | select, 1, element, submenu, html | text |"}%
 | %MENUWEB%.WebTopicList |  %MAKETEXT{"Index"}% | element |
 | %MENUWEB%.WikiUsers |  %MAKETEXT{"Users"}% | element |
 | %MENUWEB%.WikiGroups |  %MAKETEXT{"Groups"}% | element |

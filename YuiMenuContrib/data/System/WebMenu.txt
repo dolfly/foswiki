@@ -1,7 +1,6 @@
 
 
-( web.topic, label, link to next submenu)
-%EDITTABLE{}%
+%EDITTABLE{header="| topic | label | type | extra |" format="| text | text | select, 1, element, submenu, html | text |"}%
 | %MENUWEB%.BeginnersStartHere | BeginnersStartHere | element |
 | %MENUWEB%.TextFormattingRules | TextFormattingRules | element |
 | %MENUWEB%.Macros | Macros | element |

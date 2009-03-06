@@ -1,9 +1,7 @@
 %META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.0" version="$Rev: 1838 $"}%
 
 
-
-( web.topic, label, link to next submenu)
-%EDITTABLE{}%
+%EDITTABLE{header="| topic | label | type | extra |" format="| text | text | select, 1, element, submenu, html | text |"}%
 | %MENUWEB%.WebTopicList |  %MAKETEXT{"Index"}% | element |
 | %MENUWEB%.WebSearch |  %MAKETEXT{"Search"}% | element |
 | %MENUWEB%.WebChanges |  %MAKETEXT{"Changes"}% | element |
