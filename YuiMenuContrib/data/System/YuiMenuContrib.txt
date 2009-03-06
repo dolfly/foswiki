@@ -100,7 +100,6 @@ fall back to the default in this topic
             <div class='yuimenu'><div class='bd'> %EXTRA% </div></div>
 </li>%ENDSECTION{"html"}%
 
-****TODO: edit link should be used to create custom menu if there is no WebMenu topic, using the default one as a template.
 %STARTSECTION{"webmenu-builder-default"}%<ul>
 %SEARCH{
        "^\|.*\|$" 
