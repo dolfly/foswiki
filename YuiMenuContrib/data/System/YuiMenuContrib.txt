@@ -84,7 +84,7 @@ fall back to the default in this topic
                             SUBMENUWEB=$quot$pattern(^\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
                             SUBMENUTOPIC=$quot$pattern(^\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
                         }$percnt"
-}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li>[[%MENUWEB%.%MENUTOPIC%][edit menu]]</li>"}%
+}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li class='menu-edit-link'>[[%MENUWEB%.%MENUTOPIC%][edit menu]]</li>"}%
 </ul>%ENDSECTION{"webmenu-builder"}%
 
 %STARTSECTION{"element"}%<li>[[%MENUTOPIC%][%MENULABEL%]]</li>%ENDSECTION{"element"}%
@@ -120,7 +120,7 @@ fall back to the default in this topic
                             SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
                             SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
                         }$percnt"
-}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li>[[%MENUWEB%.%MENUTOPIC%][edit menu]]</li>"}%
+}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li class='menu-edit-link'>[[%MENUWEB%.%MENUTOPIC%][edit menu]]</li>"}%
 </ul>%ENDSECTION{"webmenu-builder-default"}%
 </verbatim>
 
@@ -175,6 +175,15 @@ overflow:visible;
 }
 .yui-skin-sam { 
        NOposition: static;
+}
+.yui-skin-sam .menu-edit-link .yuimenuitemlabel {
+NObackground-color:gainsboro;
+padding-bottom:0;
+padding-top:0;
+text-align:right;
+}
+.yui-skin-sam .menu-edit-link .yuimenuitemlabel  :link:hover {
+   color: darkblue;
 }
 /* IE6 fix */
 .yui-skin-sam .yuimenu .yuimenuitemlabel {
