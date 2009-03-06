@@ -83,7 +83,7 @@ fall back to the default in this topic
                             SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
                             SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
                         }$percnt"
-}%
+}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li>[[%MENUWEB%.%MENUTOPIC%][edit menu]]</li>"}%
 </ul>%ENDSECTION{"webmenu-builder"}%
 
 %STARTSECTION{"element"}%<li>[[%MENUTOPIC%][%MENULABEL%]]</li>%ENDSECTION{"element"}%
@@ -97,7 +97,7 @@ fall back to the default in this topic
 </li>%ENDSECTION{"submenu"}%
 
 ****TOTO: this should use the SYSTEM web one we distribute unless the MAINWEB one exists.
-%STARTSECTION{"webmenu-builder-default"}%<ul> SVSV
+%STARTSECTION{"webmenu-builder-default"}%<ul>
 %SEARCH{
        "^\|.*\|$" 
        web="%MAINWEB%" 
@@ -116,7 +116,7 @@ fall back to the default in this topic
                             SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
                             SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
                         }$percnt"
-}%
+}% %IF{"'%MAINWEB%.DefaultWebMenu' allows 'EDIT'" then="<li>[[%MAINWEB%.DefaultWebMenu][edit menu]]</li>"}%
 </ul>%ENDSECTION{"webmenu-builder-default"}%
 </verbatim>
 
