@@ -120,7 +120,7 @@ fall back to the default in this topic
                             SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
                             SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
                         }$percnt"
-}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li class='menu-edit-link'>[[%MENUWEB%.%MENUTOPIC%][edit menu]]</li>"}%
+}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li class='menu-edit-link'>[[%SCRIPTURL{save}%/%MENUWEB%/%MENUTOPIC%?topictemplate=%IF{"istopic '%MAINWEB%.DefaultWebMenu'" then="%MAINWEB%" else="%SYSTEMWEB%"}%.DefaultWebMenu][create menu]]</li>"}%
 </ul>%ENDSECTION{"webmenu-builder-default"}%
 </verbatim>
 
