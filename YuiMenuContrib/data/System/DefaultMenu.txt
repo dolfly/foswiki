@@ -30,16 +30,14 @@
 	       scope="topic"
 	       web="all"
 	       nonoise="on"
-	       format="<li>[[$web.%HOMETOPIC%][$web]]
-			   <div class='yuimenu'><div class='bd'>
-			      $percntINCLUDE{
+	       format="$percntINCLUDE{
 			      $quot%SYSTEMWEB%.YuiMenuContrib$quot
-                              section=$quotwebmenu-builder$percntIF{$quotistopic '$web.WebMenu'$quot then=$quot$quot else=$quot-default$quot}$percnt$quot
-			      MENUWEB=$quot$web$quot
-			      MENUTOPIC=$quotWebMenu$quot
-			      }$percnt
-                  </div></div> 
-	       </li>"
+                              section=$quotsubmenu$quot
+			      SUBMENUWEB=$quot$web$quot
+			      SUBMENUTOPIC=$quotWebMenu$quot
+			      MENUTOPIC=$quot$web.%HOMETOPIC%$quot
+			      MENULABEL=$quot$web$quot
+			      }$percnt"
 	    }%
       </ul>
       </div>
