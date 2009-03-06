@@ -55,13 +55,70 @@ fall back to the default in this topic
 <verbatim>
 %STARTSECTION{"webmenu-defaultselector"}%
 %INCLUDE{
-   "%IF{"istopic '%USERSWEB%.DefaultWebMenu'" then="%USERSWEB%.DefaultWebMenu" else="%SYSTEMWEB%.YuiMenuContrib"}%"
+   "%WEB%.%TOPIC%"
+   MENUTOPIC="%IF{"istopic '%USERSWEB%.DefaultWebMenu'" then="%USERSWEB%.DefaultWebMenu" else="%SYSTEMWEB%.YuiMenuContrib"}%"
    MENUWEB="%MENUWEB%"
-   section="webmenu"
+   section="webmenu-builder"
 }%
 %ENDSECTION{"webmenu-defaultselector"}%
 </verbatim>
 
+<verbatim>
+%STARTSECTION{"webmenu-builder"}%<ul>
+%SEARCH{
+       "^\|.*\|$" 
+       web="%MENUWEB%" 
+       topic="%MENUTOPIC%" 
+       type="regex" 
+       multiple="on" 
+       casesensitive="on" 
+       nonoise="on" 
+       separator="" 
+       format="$percntINCLUDE{
+                            $quot%WEB%.%TOPIC%$quot
+                            MENUWEB=$quot%MENUWEB%$quot
+                            MENUTOPIC=$quot$pattern(\|\s*([^\|\s]*)\s*\|.*)$quot
+                            MENULABEL=$quot$pattern(\|\s*[^\|\s]*\s*\|\s*([^\|]*)\s*\|.*)$quot
+                            section=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*([^\|\s]*)\s*\|.*)$quot
+                            SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
+                            SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
+                        }$percnt"
+}%
+</ul>%ENDSECTION{"webmenu-builder"}%
+
+%STARTSECTION{"element"}%<li>[[%MENUTOPIC%][%MENULABEL%]]</li>%ENDSECTION{"element"}%
+%STARTSECTION{"submenu"}%<li>[[%MENUTOPIC%][%MENULABEL%]]
+            <div class='yuimenu'><div class='bd'> %INCLUDE{
+            "%WEB%.%TOPIC%" 
+            section="webmenu-builder%IF{"istopic '%SUBMENUWEB%.%SUBMENUTOPIC%'" then="" else="-default"}%" 
+            MENUWEB="%SUBMENUWEB%"
+            MENUTOPIC="%SUBMENUTOPIC%"
+            }% </div></div>
+</li>%ENDSECTION{"submenu"}%
+
+****TOTO: this should use the SYSTEM web one we distribute unless the MAINWEB one exists.
+%STARTSECTION{"webmenu-builder-default"}%<ul> SVSV
+%SEARCH{
+       "^\|.*\|$" 
+       web="%MAINWEB%" 
+       topic="DefaultWebMenu" 
+       type="regex" 
+       multiple="on" 
+       casesensitive="on" 
+       nonoise="on" 
+       separator="" 
+       format="$percntINCLUDE{
+                            $quot%WEB%.%TOPIC%$quot
+                            MENUWEB=$quot%MENUWEB%$quot
+                            MENUTOPIC=$quot$pattern(\|\s*([^\|\s]*)\s*\|.*)$quot
+                            MENULABEL=$quot$pattern(\|\s*[^\|\s]*\s*\|\s*([^\|]*)\s*\|.*)$quot
+                            section=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*([^\|\s]*)\s*\|.*)$quot
+                            SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
+                            SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
+                        }$percnt"
+}%
+</ul>%ENDSECTION{"webmenu-builder-default"}%
+</verbatim>
 
 ---++ Top level Menu entries
 to define your own WebMenu for all webs, copy and customise the content below to your Web's WebMenu topic
@@ -198,6 +255,16 @@ overflow:visible;
    text="<link rel='stylesheet' type='text/css' href='%PUBURL%/%SYSTEMWEB%/YahooUserInterfaceContrib/build/menu/assets/skins/sam/menu.css'>"
 }%
 %ENDSECTION{"yui-navigation-menu-js-yui"}%
+</verbatim>
+
+<verbatim>
+%STARTSECTION{"yui-navigation-sub-menu"}%   * [[%MENUWEB%.WebHome][%MENULABEL%]]
+            <div class='yuimenu'><div class='bd'> %INCLUDE{
+            "%MENUWEB%.WebMenu" 
+            SECTION="webmenu" 
+            MENUWEB="%MENUWEB%"
+            warn="%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib" MENUWEB="%MENUWEB%" section="webmenu-defaultselector"}%"
+            }% </div></div>%ENDSECTION{"yui-navigation-sub-menu"}%
 </verbatim>
 
 

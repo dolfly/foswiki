@@ -1,10 +1,12 @@
 
-%STARTSECTION{"webmenu"}%
-   * [[%MENUWEB%.WebTopicList][ %ICON{"index"}% %MAKETEXT{"Index"}%]]
-   * [[%MENUWEB%.WebSearch][ %ICON{"searchtopic"}% %MAKETEXT{"Search"}%]]
-   * [[%MENUWEB%.WebChanges][ %ICON{"changes"}% %MAKETEXT{"Changes"}%]]
-   * [[%MENUWEB%.WebNotify][ %ICON{"notify"}% %MAKETEXT{"Notifications"}%]]
-   * [[%MENUWEB%.WebRss][ %ICON{"feed"}% %MAKETEXT{"RSS Feed"}%]]
-   * [[%MENUWEB%.WebStatistics][ %ICON{"statistics"}% %MAKETEXT{"Statistics"}%]]
-   * [[%MENUWEB%.WebPreferences][ %ICON{"wrench"}% %MAKETEXT{"Preferences"}%]]
-%ENDSECTION{"webmenu"}%
+
+
+( web.topic, label, link to next submenu)
+%EDITTABLE{}%
+| %MENUWEB%.WebTopicList | %ICON{"index"}% %MAKETEXT{"Index"}% | element |
+| %MENUWEB%.WebTopicList | %ICON{"searchtopic"}% %MAKETEXT{"Search"}% | element |
+| %MENUWEB%.WebChanges | %ICON{"changes"}% %MAKETEXT{"Changes"}% | element |
+| %MENUWEB%.WebNotify | %ICON{"notify"}% %MAKETEXT{"Notifications"}% | element |
+| %MENUWEB%.WebRss | %ICON{"feed"}% %MAKETEXT{"RSS Feed"}% | element |
+| %MENUWEB%.WebStatistics | %ICON{"statistics"}% %MAKETEXT{"Statistics"}% | element |
+| %MENUWEB%.WebPreferences | %ICON{"statistics"}% %MAKETEXT{"Statistics"}% | element |

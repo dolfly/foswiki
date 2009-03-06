@@ -1,18 +1,18 @@
 
-%STARTSECTION{"webmenu"}%
-   * <b>%MAKETEXT{"User Reference"}%</b>
-   * %MENUWEB%.BeginnersStartHere
-   * %MENUWEB%.TextFormattingRules
-   * [[%MENUWEB%.Macros][Macros]]
-   * %MENUWEB%.FormattedSearch
-   * %MENUWEB%.QuerySearch
-   * %MENUWEB%.DocumentGraphics
-   * %MENUWEB%.SkinBrowser
-   * %MENUWEB%.InstalledPlugins
-   * <b>%MAKETEXT{"Categories"}%</b>
-   * [[%MENUWEB%.AdminDocumentationCategory][Admin Documentation]]
-   * [[%MENUWEB%.AdminToolsCategory][Admin Tools]]
-   * [[%MENUWEB%.DeveloperDocumentationCategory][Developer Doc]]
-   * [[%MENUWEB%.UserDocumentationCategory][User Documentation]]
-   * [[%MENUWEB%.UserToolsCategory][User Tools]]
-%ENDSECTION{"webmenu"}%
+
+( web.topic, label, link to next submenu)
+%EDITTABLE{}%
+| %MENUWEB%.BeginnersStartHere | BeginnersStartHere | element |
+| %MENUWEB%.TextFormattingRules | TextFormattingRules | element |
+| %MENUWEB%.Macros | Macros | element |
+| %MENUWEB%.FormattedSearch | FormattedSearch | element |
+| %MENUWEB%.QuerySearch | QuerySearch | element |
+| %MENUWEB%.DocumentGraphics | DocumentGraphics | element |
+| %MENUWEB%.SkinBrowser | SkinBrowser | element |
+| %MENUWEB%.InstalledPlugins | InstalledPlugins | element |
+| %MENUWEB%.AdminDocumentationCategory | AdminDocumentationCategory | element |
+| %MENUWEB%.AdminToolsCategory | AdminToolsCategory | element |
+| %MENUWEB%.DeveloperDocumentationCategory | DeveloperDocumentationCategory | element |
+| %MENUWEB%.UserDocumentationCategory | UserDocumentationCategory | element |
+| %MENUWEB%.UserToolsCategory | UserToolsCategory | element |
+| %MENUWEB%.WebChanges | Recent Changes | element |
