@@ -1,8 +1,9 @@
-# Plugin for TWiki Enterprise Collaboration Platform, http://TWiki.org/
+# Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # Copyright (C) 2002-2006 Peter Thoeny, peter@thoeny.org
 # Copyright (C) 2005-2006 Michael Daum <micha@nats.informatik.uni-hamburg.de>
 # Copyright (C) 2005 TWiki Contributors
+# Copyright (C) 2009 Foswiki Contributors 
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -19,7 +20,7 @@
 # =========================
 #
 # This is the HeadlinesPlugin used to show RSS news feeds.
-# Plugin home: http://TWiki.org/cgi-bin/view/Plugins/HeadlinesPlugin
+# Plugin home: http://foswiki.org/Extensions/HeadlinesPlugin
 #
 
 # =========================
@@ -315,7 +316,7 @@ sub doInit {
   $userAgentTimeout = Foswiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTTIMEOUT")
     || 20;
   $userAgentName = Foswiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTNAME") ||
-    'TWikiHeadlinesPlugin/' . $Foswiki::Plugins::HeadlinesPlugin::RELEASE;
+    'FoswikiHeadlinesPlugin/' . $Foswiki::Plugins::HeadlinesPlugin::RELEASE;
 
   $useLWPUserAgent =~ s/^\s*(.*?)\s*$/$1/go;
   $useLWPUserAgent = ($useLWPUserAgent =~ /on|yes|1/)?1:0;
