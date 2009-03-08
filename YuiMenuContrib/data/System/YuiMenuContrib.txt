@@ -9,27 +9,22 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
-To add a Menu to your Foswiki, add the following to the appropriate place in your Skin.
-<verbatim>
-%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib"}%
-</verbatim>
-
 In WidgetsSkin, add a new widget to yout %SYSTEMWEB%.DefaultWidgets
 topic and then add that to the Design topic you are using.
 
-In PatternSkin, it is _currently_ easiest to add =pattern_yuimenu= to the SKIN setting
+In PatternSkin, it is easiest to add =pattern_yuimenu= to the SKIN setting
 eg =Set SKIN=pattern_yuimenu,pattern= in your %MAINWEB%.SitePreferences. To try it out,
 add =?skin=pattern_yuimenu,pattern= to the end of your URL -
    * eg [[%SCRIPTURL{view}%/%BASEWEB%/%HOMETOPIC%?skin=pattern_yuimenu,pattern][try me using pattern skin]]
 
-You can then customise the side bar by creating a SiteMenu in %USERSWEB% as detailed below.
+Or add a Menu to your Foswiki, add the following to the appropriate place in your Skin.
+<verbatim>
+%INCLUDE{"%SYSTEMWEB%.YuiMenuContrib"}%
+</verbatim>
 
-You can also use create other menu's by re-using the concepts in this contrib :)
+You can customise each web's menu by copying the %SYSTEMWEB%.DefaultWebMenu topic into the WebMenu topic in the web you wish to customise.
 
----+++ TODO
-   1 figure out how to make sub-webs INCLUDE fall back via each of its parent webs
-   3 make a better fallback CSS for when JS is off or broken.
-   4 rewrite documentation
+You can also customise the entire side bar by creating a SiteMenu in %USERSWEB% by copying the %SYSTEMWEB%.DefaultMenu topic (requires advances TML knowledge).
 
 ---++ Installation Instructions
 
@@ -219,10 +214,10 @@ position:inherit;
 
 |  Author(s): | Foswiki:Main.SvenDowideit |
 |  Copyright: | &copy; SvenDowideit@fosiki.com |
-|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL 3 (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  7 March 2009: | change the WebMenu topic format to be a table to simplify editing |
+|   M9arch 2009: | change the WebMenu topic format to be a table to simplify editing |
 |  4 March 2009: | fix IE6 rollover |
 |  12 Jan 2009: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
