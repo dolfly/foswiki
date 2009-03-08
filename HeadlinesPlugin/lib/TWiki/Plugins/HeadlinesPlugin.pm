@@ -1,4 +1,4 @@
-# Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
+# Plugin for TWiki Enterprise Collaboration Platform, http://TWiki.org/
 #
 # Copyright (C) 2002-2006 Peter Thoeny, peter@thoeny.org
 # Copyright (C) 2005-2006 Michael Daum <micha@nats.informatik.uni-hamburg.de>
@@ -19,7 +19,7 @@
 # =========================
 #
 # This is the HeadlinesPlugin used to show RSS news feeds.
-# Plugin home: http://foswiki.org/Extensions/HeadlinesPlugin
+# Plugin home: http://TWiki.org/cgi-bin/view/Plugins/HeadlinesPlugin
 #
 
 # =========================
@@ -30,7 +30,7 @@ use strict;
 use vars qw($VERSION $RELEASE $isInitialized $doneHeader);
 
 $VERSION = '$Rev$';
-$RELEASE = '2.12';
+$RELEASE = '2.21';
 
 # =========================
 sub initPlugin {
@@ -49,7 +49,7 @@ sub commonTagsHandler {
   unless ($doneHeader) {
     my $link = 
       '<link rel="stylesheet" '.
-      'href="%PUBURL%/%SYSTEMWEB%/HeadlinesPlugin/style.css" '.
+      'href="%PUBURL%/%TWIKIWEB%/HeadlinesPlugin/style.css" '.
       'type="text/css" media="all" />';
     if($_[0] =~ s/<head>(.*?[\r\n]+)/<head>$1$link\n/o) {
       $doneHeader = 1;
