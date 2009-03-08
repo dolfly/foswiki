@@ -348,7 +348,7 @@ sub readRssFeed
     if (defined &Foswiki::Func::getWorkArea) {
       $cacheDir = Foswiki::Func::getWorkArea('HeadlinesPlugin');
     } else {
-      my $foswikiWeb = ::cfg{SystemWebName};
+      my $foswikiWeb = $Foswiki::cfg{SystemWebName};
       $cacheDir  = Foswiki::Func::getPubDir() . '/' . $foswikiWeb . '/HeadlinesPlugin';
       $cacheDir  =~ /(.*)/;  
       $cacheDir  = $1; # untaint (save because only internal variables)
