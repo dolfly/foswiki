@@ -1,0 +1,4 @@
+data/System/HeadlinesPlugin.txt 0644
+lib/Foswiki/Plugins/HeadlinesPlugin/Core.pm 0644
+lib/Foswiki/Plugins/HeadlinesPlugin.pm 0644
+pub/System/HeadlinesPlugin/style.css 0644

@@ -23,7 +23,7 @@
 #
 
 # =========================
-package TWiki::Plugins::HeadlinesPlugin;
+package Foswiki::Plugins::HeadlinesPlugin;
 use strict;
 
 # =========================
@@ -61,12 +61,12 @@ sub commonTagsHandler {
 sub handleHeadlinesTag {
   
   unless ($isInitialized) {
-    eval 'use TWiki::Plugins::HeadlinesPlugin::Core;';
+    eval 'use Foswiki::Plugins::HeadlinesPlugin::Core;';
     die $@ if $@;
     $isInitialized = 1;
   }
 
-  return TWiki::Plugins::HeadlinesPlugin::Core::handleHeadlinesTag(@_);
+  return Foswiki::Plugins::HeadlinesPlugin::Core::handleHeadlinesTag(@_);
 }
 
 1;

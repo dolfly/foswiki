@@ -23,7 +23,7 @@
 #
 
 # =========================
-package TWiki::Plugins::HeadlinesPlugin::Core;
+package Foswiki::Plugins::HeadlinesPlugin::Core;
 
 use strict;
 use Digest::MD5 qw(md5_hex);
@@ -293,7 +293,7 @@ $debug = 0; # toggle me
 
 # =========================
 sub writeDebug {
-  TWiki::Func::writeDebug('HeadlinesPlugin - ' . $_[0]) if $debug;
+  Foswiki::Func::writeDebug('HeadlinesPlugin - ' . $_[0]) if $debug;
   print STDERR 'HeadlinesPlugin - ' . $_[0] . "\n" if $debug;
 }
 
@@ -304,18 +304,18 @@ sub doInit {
   $isInitialized = 1;
 
   # Get plugin preferences
-  $defaultRefresh = TWiki::Func::getPreferencesValue('HEADLINESPLUGIN_REFRESH') || 60;
-  $defaultLimit   = TWiki::Func::getPreferencesValue('HEADLINESPLUGIN_LIMIT') || 100;
-  $defaultHeader  = TWiki::Func::getPreferencesValue('HEADLINESPLUGIN_HEADER') ||
+  $defaultRefresh = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_REFRESH') || 60;
+  $defaultLimit   = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_LIMIT') || 100;
+  $defaultHeader  = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_HEADER') ||
     '| *[[$link][$title ]]* |';
-  $defaultFormat  = TWiki::Func::getPreferencesValue('HEADLINESPLUGIN_FORMAT') ||
+  $defaultFormat  = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_FORMAT') ||
     '| [[$link][$title]] |';
-  $useLWPUserAgent = TWiki::Func::getPreferencesValue('HEADLINESPLUGIN_USELWPUSERAGENT') 
+  $useLWPUserAgent = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_USELWPUSERAGENT') 
     || 'on';
-  $userAgentTimeout = TWiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTTIMEOUT")
+  $userAgentTimeout = Foswiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTTIMEOUT")
     || 20;
-  $userAgentName = TWiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTNAME") ||
-    'TWikiHeadlinesPlugin/' . $TWiki::Plugins::HeadlinesPlugin::RELEASE;
+  $userAgentName = Foswiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTNAME") ||
+    'TWikiHeadlinesPlugin/' . $Foswiki::Plugins::HeadlinesPlugin::RELEASE;
 
   $useLWPUserAgent =~ s/^\s*(.*?)\s*$/$1/go;
   $useLWPUserAgent = ($useLWPUserAgent =~ /on|yes|1/)?1:0;
@@ -326,7 +326,7 @@ sub doInit {
 sub errorMsg {
   return 
     $_[0] .
-    '<span class="twikiAlert">' .
+    '<span class="foswikiAlert">' .
     '<noautolink>'."\n".
     'HeadlinesPlugin '.
     $_[1] ."\n".
@@ -344,11 +344,11 @@ sub readRssFeed
   my $cacheDir = '';
   my $cacheFile = '';
   if ($theRefresh) {
-    if (defined &TWiki::Func::getWorkArea) {
-      $cacheDir = TWiki::Func::getWorkArea('HeadlinesPlugin');
+    if (defined &Foswiki::Func::getWorkArea) {
+      $cacheDir = Foswiki::Func::getWorkArea('HeadlinesPlugin');
     } else {
-      my $twikiWeb = &TWiki::Func::getTwikiWebname();
-      $cacheDir  = TWiki::Func::getPubDir() . '/' . $twikiWeb . '/HeadlinesPlugin';
+      my $foswikiWeb = ::cfg{SystemWebName};
+      $cacheDir  = Foswiki::Func::getPubDir() . '/' . $foswikiWeb . '/HeadlinesPlugin';
       $cacheDir  =~ /(.*)/;  
       $cacheDir  = $1; # untaint (save because only internal variables)
     }
@@ -356,15 +356,15 @@ sub readRssFeed
     $cacheFile =~ /(.*)/;  $cacheFile = $1; # untaint
     if ((-e $cacheFile) && ((time() - (stat(_))[9]) <= ($theRefresh * 60))) {
       # return cached version if it exists and isn't too old. 1440 = 24h * 60min
-      return TWiki::Func::readFile($cacheFile);
+      return Foswiki::Func::readFile($cacheFile);
     }
   }
 
   unless ($theUrl =~ /^https?:\/\//) { # internal
-    my ($thisWeb, $thisTopic) = TWiki::Func::normalizeWebTopicName($web, $theUrl);
-    $theUrl = TWiki::Func::getViewUrl($thisWeb, $thisTopic);
+    my ($thisWeb, $thisTopic) = Foswiki::Func::normalizeWebTopicName($web, $theUrl);
+    $theUrl = Foswiki::Func::getViewUrl($thisWeb, $thisTopic);
     if ($theUrl =~ /^\//) {
-      $theUrl = TWiki::Func::getUrlHost().$theUrl;
+      $theUrl = Foswiki::Func::getUrlHost().$theUrl;
     }
   }
   #writeDebug("url=$theUrl");
@@ -379,7 +379,7 @@ sub readRssFeed
       mkdir($cacheDir, 0775);
     }
     # save text in cache file before returning it
-    TWiki::Func::saveFile($cacheFile, $text);
+    Foswiki::Func::saveFile($cacheFile, $text);
   }
 
   return ($text, undef);
@@ -392,12 +392,12 @@ sub handleHeadlinesTag {
   
   &doInit();
 
-  my $href    = TWiki::Func::extractNameValuePair($theArgs) || 
-		TWiki::Func::extractNameValuePair($theArgs, 'href');
-  my $refresh = TWiki::Func::extractNameValuePair($theArgs, 'refresh') || $defaultRefresh;
-  my $limit   = TWiki::Func::extractNameValuePair($theArgs, 'limit')   || $defaultLimit;
-  my $header  = TWiki::Func::extractNameValuePair($theArgs, 'header')  || $defaultHeader;
-  my $format  = TWiki::Func::extractNameValuePair($theArgs, 'format')  || $defaultFormat;
+  my $href    = Foswiki::Func::extractNameValuePair($theArgs) || 
+		Foswiki::Func::extractNameValuePair($theArgs, 'href');
+  my $refresh = Foswiki::Func::extractNameValuePair($theArgs, 'refresh') || $defaultRefresh;
+  my $limit   = Foswiki::Func::extractNameValuePair($theArgs, 'limit')   || $defaultLimit;
+  my $header  = Foswiki::Func::extractNameValuePair($theArgs, 'header')  || $defaultHeader;
+  my $format  = Foswiki::Func::extractNameValuePair($theArgs, 'format')  || $defaultFormat;
 
   $header =~ s/\$n([^a-zA-Z])/\n$1/gos; # expand "$n" to new line
   $header =~ s/([^\n])$/$1\n/os;        # append new line if needed
@@ -916,11 +916,11 @@ sub getUrlLWP {
     eval "use LWP::UserAgent";
     die $@ if $@;
 
-    my $proxyHost = TWiki::Func::getPreferencesValue('PROXYHOST') || '';
-    my $proxyPort = TWiki::Func::getPreferencesValue('PROXYPORT') || '';
-    $proxyHost ||= $TWiki::cfg{PROXY}{HOST};
-    $proxyPort ||= $TWiki::cfg{PROXY}{PORT};
-    my $proxySkip = $TWiki::cfg{PROXY}{SkipProxyForDomains} || '';
+    my $proxyHost = Foswiki::Func::getPreferencesValue('PROXYHOST') || '';
+    my $proxyPort = Foswiki::Func::getPreferencesValue('PROXYPORT') || '';
+    $proxyHost ||= $Foswiki::cfg{PROXY}{HOST};
+    $proxyPort ||= $Foswiki::cfg{PROXY}{PORT};
+    my $proxySkip = $Foswiki::cfg{PROXY}{SkipProxyForDomains} || '';
 
     $userAgent = LWP::UserAgent->new();
     $userAgent->agent( $userAgentName ); 
@@ -937,7 +937,7 @@ sub getUrlLWP {
   }
 
   my $request = HTTP::Request->new('GET', $theUrl);
-  $request->referer(TWiki::Func::getViewUrl($web, $topic));
+  $request->referer(Foswiki::Func::getViewUrl($web, $topic));
   my $response = $userAgent->request($request);
   if ($response->is_error) {
     return (undef, $response->status_line);
@@ -967,11 +967,11 @@ sub getUrl {
   }
   return (undef, "invalid format of the href parameter") unless $path;
   
-  # figure out how to get to TWiki::Net which is wide open in Cairo and before,
+  # figure out how to get to Foswiki::Net which is wide open in Cairo and before,
   # but Dakar uses the session object.  
-  my $text = $TWiki::Plugins::SESSION->{net}
-      ? $TWiki::Plugins::SESSION->{net}->getUrl( $host, $port, $path )
-      : TWiki::Net::getUrl( $host, $port, $path );
+  my $text = $Foswiki::Plugins::SESSION->{net}
+      ? $Foswiki::Plugins::SESSION->{net}->getUrl( $host, $port, $path )
+      : Foswiki::Net::getUrl( $host, $port, $path );
 
   if ($text =~ /text\/plain\s*ERROR\: (.*)/s) {
     my $msg = $1;
