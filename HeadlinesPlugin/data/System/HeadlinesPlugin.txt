@@ -90,10 +90,7 @@ The variable $content is refering to the &lt;content:encoding&gt; content &lt;/c
 
 Write
 <verbatim>
-%HEADLINES{"http://slashdot.org/slashdot.rdf" 
-  header="*[[$link][$title]]:* $description" 
-  format="$t* [[$link][$title]]"
-}%
+%HEADLINES{"http://slashdot.org/slashdot.rdf" header="---+!! [[$link][$title]]$n $description" format="$t* [[$link][$title]]"}%
 </verbatim>  
 to get the latest Slashdot news as a bullet list format:
 
