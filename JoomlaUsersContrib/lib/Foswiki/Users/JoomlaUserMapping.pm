@@ -1,7 +1,7 @@
-# Module of TWiki Enterprise Collaboration Platform, http://TWiki.org/
+# Module of Foswiki Collaboration Platform, http://Foswiki.org/
 #
 # Copyright (C) 2006, 2007 Sven Dowideit, SvenDowideit@home.org.au
-# and TWiki Contributors. All Rights Reserved. TWiki Contributors
+# and Foswiki Contributors. All Rights Reserved. Foswiki Contributors
 # are listed in the AUTHORS file in the root of this distribution.
 # NOTE: Please extend that file, not this notice.
 #
@@ -22,7 +22,7 @@
 
 =begin twiki
 
----+ package TWiki::Users::JoomlaUserMapping
+---+ package Foswiki::Users::JoomlaUserMapping
 
 canonical user_id == id number of jos_user table
 login == username column
@@ -30,22 +30,22 @@ login == username column
 
 =cut
 
-package TWiki::Users::JoomlaUserMapping;
-use base 'TWiki::UserMapping';
+package Foswiki::Users::JoomlaUserMapping;
+use base 'Foswiki::UserMapping';
 
 use strict;
 use strict;
 use Assert;
-use TWiki::UserMapping;
-use TWiki::Users::BaseUserMapping;
-use TWiki::Time;
-use TWiki::ListIterator;
+use Foswiki::UserMapping;
+use Foswiki::Users::BaseUserMapping;
+use Foswiki::Time;
+use Foswiki::ListIterator;
 use DBIx::SQLEngine;
 use DBD::mysql;
 
 use Error qw( :try );
 
-#@TWiki::Users::JoomlaUserMapping::ISA = qw( TWiki::Users::BaseUserMapping );
+#@Foswiki::Users::JoomlaUserMapping::ISA = qw( Foswiki::Users::BaseUserMapping );
 
 =pod
 
@@ -120,7 +120,7 @@ sub supportsRegistration {
 
 ---++ ObjectMethod handlesUser ( $cUID, $login, $wikiname) -> $boolean
 
-Called by the TWiki::Users object to determine which loaded mapping
+Called by the Foswiki::Users object to determine which loaded mapping
 to use for a given user (must be fast).
 
 =cut
@@ -185,7 +185,7 @@ sub getLoginName {
 Add a user to the persistant mapping that maps from usernames to wikinames
 and vice-versa, via a *canonical user id* (cUID).
 
-$login and $wikiname must be acceptable to $TWiki::cfg{NameFilter}.
+$login and $wikiname must be acceptable to $Foswiki::cfg{NameFilter}.
 $login must *always* be specified. $wikiname may be undef, in which case
 the user mapper should make one up.
 
@@ -239,7 +239,7 @@ sub getWikiName {
     my ( $this, $user ) = @_;
 
     #print STDERR "getWikiName($user)?";
-    return $TWiki::cfg{DefaultUserWikiName}
+    return $Foswiki::cfg{DefaultUserWikiName}
       if ( $user =~ /^$this->{mapping_id}-1$/ );
 
     my $user_number = $user;
@@ -256,7 +256,7 @@ sub getWikiName {
 #TODO: examine having the mapper returnthe truth, and fakeing guest in the core...
 #throw Error::Simple(
 #   'user_id does not exist: '.$user);
-        return $TWiki::cfg{DefaultUserWikiName};
+        return $Foswiki::cfg{DefaultUserWikiName};
     }
 
     #Make sure we're in 'ok' Wiki word territory
@@ -279,14 +279,14 @@ Subclasses *must* implement this method.
 
 sub userExists {
     my ( $this, $cUID ) = @_;
-    return ($this->canonical2login($cUID) ne $TWiki::cfg{DefaultUserLogin});
+    return ($this->canonical2login($cUID) ne $Foswiki::cfg{DefaultUserLogin});
 }
 
 =pod
 
 ---++ ObjectMethod eachUser () -> listIterator of cUIDs
 
-Called from TWiki::Users. See the documentation of the corresponding
+Called from Foswiki::Users. See the documentation of the corresponding
 method in that module for details.
 
 Subclasses *must* implement this method.
@@ -295,7 +295,7 @@ Subclasses *must* implement this method.
 
 sub eachUser {
     my ($this) = @_;
-    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
     my @list = ();
 
 #TODO: this needs to be implemented in terms of a DB iterator that only selects partial results
@@ -304,14 +304,14 @@ sub eachUser {
         push @list, $this->{mapping_id} . $$row{id};
     }
 
-    return new TWiki::ListIterator( \@list );
+    return new Foswiki::ListIterator( \@list );
 }
 
 =pod
 
----++ ObjectMethod eachGroupMember ($group) ->  TWiki::ListIterator of cUIDs
+---++ ObjectMethod eachGroupMember ($group) ->  Foswiki::ListIterator of cUIDs
 
-Called from TWiki::Users. See the documentation of the corresponding
+Called from Foswiki::Users. See the documentation of the corresponding
 method in that module for details.
 
 Subclasses *must* implement this method.
@@ -321,13 +321,13 @@ Subclasses *must* implement this method.
 sub eachGroupMember {
     my $this      = shift;
     my $groupName = shift;    #group_name
-    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
     ASSERT( defined($groupName) ) if DEBUG;
 
     #    my $store = $this->{session}->{store};
     #    my $users = $this->{session}->{users};
 
-    return new TWiki::ListIterator( $this->{groupCache}{$groupName} )
+    return new Foswiki::ListIterator( $this->{groupCache}{$groupName} )
       if ( defined( $this->{groupCache}{$groupName} ) );
 
     my $members = [];
@@ -357,14 +357,14 @@ sub eachGroupMember {
 
     }
     $this->{groupCache}{$groupName} = $members;
-    return new TWiki::ListIterator($members);
+    return new Foswiki::ListIterator($members);
 }
 
 =pod
 
 ---++ ObjectMethod isGroup ($user) -> boolean
 
-Called from TWiki::Users. See the documentation of the corresponding
+Called from Foswiki::Users. See the documentation of the corresponding
 method in that module for details.
 
 Subclasses *must* implement this method.
@@ -393,7 +393,7 @@ sub isGroup {
 
 ---++ ObjectMethod eachGroup () -> ListIterator of groupnames
 
-Called from TWiki::Users. See the documentation of the corresponding
+Called from Foswiki::Users. See the documentation of the corresponding
 method in that module for details.
 
 Subclasses *must* implement this method.
@@ -403,14 +403,14 @@ Subclasses *must* implement this method.
 sub eachGroup {
     my ($this) = @_;
     _getListOfGroups($this);
-    return new TWiki::ListIterator( \@{ $this->{groupsList} } );
+    return new Foswiki::ListIterator( \@{ $this->{groupsList} } );
 }
 
 =pod
 
 ---++ ObjectMethod eachMembership($cUID) -> ListIterator of groups this user is in
 
-Called from TWiki::Users. See the documentation of the corresponding
+Called from Foswiki::Users. See the documentation of the corresponding
 method in that module for details.
 
 Subclasses *must* implement this method.
@@ -423,7 +423,7 @@ sub eachMembership {
 
     #TODO: reimpl using db
     _getListOfGroups($this);
-    my $it = new TWiki::ListIterator( \@{ $this->{groupsList} } );
+    my $it = new Foswiki::ListIterator( \@{ $this->{groupsList} } );
     $it->{filter} = sub {
         $this->isInGroup( $user, $_[0] );
     };
@@ -435,8 +435,8 @@ sub eachMembership {
 ---++ ObjectMethod isAdmin( $user ) -> $boolean
 
 True if the user is an admin
-   * is $TWiki::cfg{SuperAdminGroup}
-   * is a member of the $TWiki::cfg{SuperAdminGroup}
+   * is $Foswiki::cfg{SuperAdminGroup}
+   * is a member of the $Foswiki::cfg{SuperAdminGroup}
 
 =cut
 
@@ -444,7 +444,7 @@ sub isAdmin {
     my ( $this, $user ) = @_;
     my $isAdmin = 0;
 
-    my $sag = $TWiki::cfg{SuperAdminGroup};
+    my $sag = $Foswiki::cfg{SuperAdminGroup};
     $isAdmin = $this->isInGroup( $user, $sag );
 
     return $isAdmin;
@@ -454,7 +454,7 @@ sub isAdmin {
 
 ---++ ObjectMethod isInGroup ($user, $group, $scanning) -> bool
 
-Called from TWiki::Users. See the documentation of the corresponding
+Called from Foswiki::Users. See the documentation of the corresponding
 method in that module for details.
 
 Default is *false*
@@ -576,7 +576,7 @@ sub setEmails {
 
 ---++ ObjectMethod findUserByWikiName ($wikiname) -> list of cUIDs associated with that wikiname
 
-Called from TWiki::Users. See the documentation of the corresponding
+Called from Foswiki::Users. See the documentation of the corresponding
 method in that module for details.
 
 Subclasses *must* implement this method.
@@ -625,7 +625,7 @@ sub checkPassword {
 
    #print STDERR "checkPassword($user, $password, ".($encrypted||'undef').")\n";
 
-    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
 
     my $pw = $this->fetchPass($user);
 
@@ -709,11 +709,11 @@ sub passwordError {
 #todo: cache DB connections
 sub getJoomlaDB {
     my ( $this, $user ) = @_;
-    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
     my ( $dbi_dsn, $dbi_user, $dbi_passwd ) = (
-        $TWiki::cfg{Plugins}{JoomlaUser}{DBI_dsn},
-        $TWiki::cfg{Plugins}{JoomlaUser}{DBI_username},
-        $TWiki::cfg{Plugins}{JoomlaUser}{DBI_password}
+        $Foswiki::cfg{Plugins}{JoomlaUser}{DBI_dsn},
+        $Foswiki::cfg{Plugins}{JoomlaUser}{DBI_username},
+        $Foswiki::cfg{Plugins}{JoomlaUser}{DBI_password}
     );
 
     #print STDERR "DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)";
@@ -770,7 +770,7 @@ sub login2canonical {
     my ( $this, $login ) = @_;
 
     my $canonical_id = -1;
-    unless ( $login eq $TWiki::cfg{DefaultUserLogin} ) {
+    unless ( $login eq $Foswiki::cfg{DefaultUserLogin} ) {
 
 #QUESTION: is the login known valid? if so, need to ASSERT that
 #QUESTION: why not use the cache to xform if available, and only aske if.. (or is this the case..... DOCCO )
@@ -804,9 +804,9 @@ sub canonical2login {
 
     $user =~ s/^$this->{mapping_id}//;
     return unless ( $user =~ /^\d+$/ );
-    return $TWiki::cfg{DefaultUserLogin} if ( $user == -1 );
+    return $Foswiki::cfg{DefaultUserLogin} if ( $user == -1 );
 
-    my $login = $TWiki::cfg{DefaultUserLogin};
+    my $login = $Foswiki::cfg{DefaultUserLogin};
     my $userDataset =
       $this->dbSelect( 'select username from jos_users c2l where c2l.id = ?',
         $user );
@@ -819,7 +819,7 @@ sub canonical2login {
 #throw Error::Simple(
 #   'user_id does not exist: '.$user);
 #die "did you call c2l using a login?";
-        return $TWiki::cfg{DefaultUserLogin};
+        return $Foswiki::cfg{DefaultUserLogin};
     }
     return $login;
 }
@@ -845,7 +845,7 @@ sub _cacheUser {
 # PRIVATE get a list of groups defined in this TWiki
 sub _getListOfGroups {
     my $this = shift;
-    ASSERT( ref($this) eq 'TWiki::Users::JoomlaUserMapping' ) if DEBUG;
+    ASSERT( ref($this) eq 'Foswiki::Users::JoomlaUserMapping' ) if DEBUG;
 
     unless ( $this->{groupsList} ) {
         $this->{groupsList} = [];
@@ -861,7 +861,7 @@ sub _getListOfGroups {
 
 # Map a login name to the corresponding canonical user name. This is used for
 # lookups, and should be as fast as possible. Returns undef if no such user
-# exists. Called by TWiki::Users
+# exists. Called by Foswiki::Users
 sub lookupLoginName {
     my ( $this, $login ) = @_;
 
@@ -871,7 +871,7 @@ sub lookupLoginName {
 #sub encrypt {
 #    my ( $this, $user, $passwd, $fresh ) = @_;
 #
-#    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
+#    ASSERT($this->isa( 'Foswiki::Users::JoomlaUserMapping')) if DEBUG;
 #
 #	my $toEncode= "$passwd";
 #	my $ret = Digest::MD5::md5_hex( $toEncode );
@@ -883,7 +883,7 @@ sub lookupLoginName {
 
 sub fetchPass {
     my ( $this, $user ) = @_;
-    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
     print STDERR "fetchPass($user)\n";
 
     if ($user) {
@@ -910,14 +910,14 @@ sub fetchPass {
 
 sub passwd {
     my ( $this, $user, $newUserPassword, $oldUserPassword ) = @_;
-    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
 
     return 1;
 }
 
 sub deleteUser {
     my ( $this, $user ) = @_;
-    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
 
     return 1;
 }

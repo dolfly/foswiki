@@ -1,7 +1,7 @@
-# Module of TWiki Enterprise Collaboration Platform, http://TWiki.org/
+# Module of Foswiki Collaboration Platform, http://Foswiki.org/
 #
 # Copyright (C) 2006 Sven Dowideit, SvenDowideit@home.org.au
-# and TWiki Contributors. All Rights Reserved. TWiki Contributors
+# and Foswiki Contributors. All Rights Reserved. Foswiki Contributors
 # are listed in the AUTHORS file in the root of this distribution.
 # NOTE: Please extend that file, not this notice.
 #
@@ -19,22 +19,22 @@
 
 =pod
 
----+ package TWiki::LoginManager::JoomlaLogin
+---+ package Foswiki::LoginManager::JoomlaLogin
 
 This is a login manager that you can specify in the security setup section of [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]]. It provides users with a template-based form to enter usernames and passwords, and works with the PasswordManager that you specify to verify those passwords.
 
-Subclass of TWiki::LoginManager; see that class for documentation of the
+Subclass of Foswiki::LoginManager; see that class for documentation of the
 methods of this class.
 
 =cut
 
-package TWiki::LoginManager::JoomlaLogin;
+package Foswiki::LoginManager::JoomlaLogin;
 
 use strict;
 use Assert;
-use TWiki::LoginManager::TemplateLogin;
+use Foswiki::LoginManager::TemplateLogin;
 
-@TWiki::LoginManager::JoomlaLogin::ISA = ('TWiki::LoginManager::TemplateLogin');
+@Foswiki::LoginManager::JoomlaLogin::ISA = ('Foswiki::LoginManager::TemplateLogin');
 
 sub new {
     my ( $class, $session ) = @_;
@@ -57,7 +57,7 @@ sub loadSession {
     my $twiki = $this->{twiki};
     my $query = $twiki->{cgiQuery};
 
-    ASSERT( $this->isa('TWiki::LoginManager::JoomlaLogin') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::LoginManager::JoomlaLogin') ) if DEBUG;
 
     my $authUser = '';
 
