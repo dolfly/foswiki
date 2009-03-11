@@ -2,7 +2,7 @@
 
 Display date and time with formatting options and localized dates.
 
-This plugin is an extension of the TWiki variable [[%SYSTEMWEB%.VarGMTIME2][GMTIME{"format"}]] (that only allows to show the current date date and time). %BR%
+This plugin is an extension of the Foswiki variable [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] (that only allows to show the current date date and time). %BR%
 !DateTimePlugin lets you show any date and time before or after 'now', and it will return any part of a date such as the month name.
 
 With !DateTimePlugin you can write: %BR%
@@ -20,11 +20,11 @@ For more options use: =%<nop>DATETIME{"format" &lt;optional parameters&gt;}%=
 ---+++ Parameters
 
 | *Parameter* | *Description* | *Example* |
-| ="..."= or =format="..."= | Format of date string; see [[%SYSTEMWEB%.VarGMTIME2][GMTIME{"format"}]] for formatting variables | =%<nop>DATETIME{"$wday"}%= |
+| ="..."= or =format="..."= | Format of date string; see [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] for formatting variables | =%<nop>DATETIME{"$wday"}%= |
 | =date="..."= | Any date in one of the following formats: %BR%%BR% \
-Default TWiki format %BR% \
+Default Foswiki format %BR% \
 &nbsp;&nbsp;&nbsp; =31 Dec 2001 - 23:59= %BR%%BR% \
-TWiki format without time (defaults to =00:00=) %BR% \
+Foswiki format without time (defaults to =00:00=) %BR% \
 &nbsp;&nbsp;&nbsp; =31 Dec 2001= %BR%%BR% \
 Date seperated by '/', '.' or '-', time with '.' or ':' %BR% \
 Date and time separated by ' ', '.' and/or '-' %BR% \
@@ -47,7 +47,7 @@ The local timezone will be assumed. %BR%%BR% \
 | =incseconds="..."= | Increase the date by any number of seconds (may be a negative number) | =%<nop>DATETIME{date="31 Dec 2001" format="$seconds" incseconds="20"}%= |
 
 ---+++ Formatting parameters
-See [[%SYSTEMWEB%.VarGMTIME2][GMTIME{"format"}]] for general date and time formatting parameters to pass to =format=. !DateTimePlugin supports the following additional paramters:
+See [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] for general date and time formatting parameters to pass to =format=. !DateTimePlugin supports the following additional paramters:
 
 | *Parameter* | *Description* | *Example* |
 | =$i_month= | The localized short name of the month. | =Ago= |
@@ -109,7 +109,7 @@ incdays="1"
 results in:
 
 %DATETIME{
-"Create TODO topic for tomorrow: [[ToDo$year$mo$day]] ($lwday, $day $lmonth)"
+"Create TODO topic for tomorrow: <nop>ToDo$year$mo$day ($lwday, $day $lmonth)"
 incdays="1"
 }%
 
@@ -123,27 +123,28 @@ Due to date handling in Perl, !DateTimePlugin cannot handle dates earlier than 1
 Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>DATETIMEPLUGIN_SHORTDESCRIPTION%==
 
    * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-      * Set SHORTDESCRIPTION = Display date and time with formatting options and localized dates
+      * Set SHORTDESCRIPTION = Display date and time with formatting options, relative date parameters and localized dates
 
 ---+++ Localization
-Localized dates are read from [[%SCRIPTURL{configure}%][configure]].
+Localized dates are read from [[%SCRIPTURL{configure}%][configure]] - see settings with ={DateTimePlugin}=.
 
 ---+++ Debugging
 Visit [[%SCRIPTURL{configure}%][configure]] and set ={DateTimePlugin}{Debug}= to 1.
 
 ---++ Plugin Installation Instructions
 
-__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where TWiki is running. 
+__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where Foswiki is running. 
 
    * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your twiki installation directory.
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory.
    * Enable the plugin in [[%SCRIPTURL{configure}%][configure]]
 
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main.AurelioAHeckert (2004), TWiki:Main.ArthurClemens (2008) |
-|  Plugin Version: | 28 Feb 2008 (V1.0)  |
+|  Plugin Author: | TWiki:Main.AurelioAHeckert (2004), Foswiki:Main.ArthurClemens (2008, 2009) |
+|  Plugin Version: | 1.1 (11 Mar 2009)  |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  11 Mar 2009 | 1.1 Foswiki release |
 |  28 Feb 2008 | 1.0 Arthur Clemens: Major rewrite to make this plugin compatible with (and use from) =TWiki::Time=. Localized language strings are now read from configure. |
 |  27 Jul 2004 | 0.90 Aurelio A Heckert: First release |
 |  CPAN Dependencies: | none |

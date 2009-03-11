@@ -3,7 +3,7 @@
 #
 # For DateTimePlugin.pm:
 # Copyright (C) 2004 Aurélio A. Heckert, aurelio@im.ufba.br
-# Copyright (C) 2008 Arthur Clemens, arthur@visiblearea.com
+# Copyright (C) 2008, 2009 Arthur Clemens, arthur@visiblearea.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -16,20 +16,33 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Plugins::DateTimePlugin;
+package Foswiki::Plugins::DateTimePlugin;
 
+use Foswiki::Time;
 use strict;
 
-use vars qw(
-  $web $topic $user $installWeb $VERSION $RELEASE $pluginName
-  $debug
-  @monthsLong @monthsShort @weekdaysLong @weekdaysShort
-  @i18n_monthsLong @i18n_monthsShort @i18n_weekdaysLong
-  @i18n_weekdaysShort $timezoneOffset
-  %fullMonth2IsoMonth $monthLongNamesReStr
-);
+my $web;
+my $topic;
+my $user;
+my $installWeb;
+my $VERSION;
+my $RELEASE;
+my $pluginName;
+my $debug;
+my @monthsLong;
+my @monthsShort;
+my @weekdaysLong;
+my @weekdaysShort;
+my @i18n_monthsLong;
+my @i18n_monthsShort;
+my @i18n_weekdaysLong;
+my @i18n_weekdaysShort;
+my $timezoneOffset;
+my %fullMonth2IsoMonth;
+my $monthLongNamesReStr;
+my $dateStringsInited = 0;
 
-# This should always be $Rev$ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev$';
@@ -37,37 +50,45 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.0';
+$RELEASE = '1.1';
 
-$pluginName = 'DateTimePlugin';    # Name of this Plugin
+$pluginName = 'DateTimePlugin';
+
+=begin TML
+
+=cut
 
 sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if ( $TWiki::Plugins::VERSION < 1 ) {
-        TWiki::Func::writeWarning(
+    if ( $Foswiki::Plugins::VERSION < 1 ) {
+        Foswiki::Func::writeWarning(
             "Version mismatch between $pluginName and Plugins.pm");
         return 0;
     }
 
     # Get plugin debug flag
-    $debug = $TWiki::cfg{DateTimePlugin}{Debug};
+    $debug = $Foswiki::cfg{DateTimePlugin}{Debug};
 
-    TWiki::Func::registerTagHandler( 'DATETIME', \&_formatDateTime );
-
-    _initDateStrings();
+    Foswiki::Func::registerTagHandler( 'DATETIME', \&_formatDateTime );
 
     # Plugin correctly initialized
-    TWiki::Func::writeDebug(
-        "- TWiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK")
+    Foswiki::Func::writeDebug(
+        "- Foswiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK")
       if $debug;
 
     return 1;
 }
 
+=begin TML
+
+=cut
+
 sub _initDateStrings {
 
+	return if $dateStringsInited;
+	
     # Default month and week names array in english (compatibility):
     @monthsLong = (
         'January',   'February', 'March',    'April',
@@ -86,31 +107,31 @@ sub _initDateStrings {
 
     my $upperCasePluginName = uc($pluginName);
 
-    my $language = TWiki::Func::getPreferencesValue("LANGUAGE") || 'en';
+    my $language = Foswiki::Func::getPreferencesValue("LANGUAGE") || 'en';
 
     my $configMonthsLong =
-      $TWiki::cfg{DateTimePlugin}{Dates}{MonthsLong}{"$language"};
+      $Foswiki::cfg{DateTimePlugin}{Dates}{MonthsLong}{"$language"};
     @i18n_monthsLong =
       $configMonthsLong ? split( / /, $configMonthsLong ) : @monthsLong;
 
     my $configMonthsShort =
-      $TWiki::cfg{DateTimePlugin}{Dates}{MonthsShort}{"$language"};
+      $Foswiki::cfg{DateTimePlugin}{Dates}{MonthsShort}{"$language"};
     @i18n_monthsShort =
       $configMonthsShort ? split( / /, $configMonthsShort ) : @monthsShort;
 
     my $configWeekdaysLong =
-      $TWiki::cfg{DateTimePlugin}{Dates}{WeekdaysLong}{"$language"};
+      $Foswiki::cfg{DateTimePlugin}{Dates}{WeekdaysLong}{"$language"};
     @i18n_weekdaysLong =
       $configWeekdaysLong ? split( / /, $configWeekdaysLong ) : @weekdaysLong;
 
     my $configWeekdaysShort =
-      $TWiki::cfg{DateTimePlugin}{Dates}{WeekdaysShort}{"$language"};
+      $Foswiki::cfg{DateTimePlugin}{Dates}{WeekdaysShort}{"$language"};
     @i18n_weekdaysShort =
       $configWeekdaysShort
       ? split( / /, $configWeekdaysShort )
       : @weekdaysShort;
 
-    $timezoneOffset = $TWiki::cfg{DateTimePlugin}{TimezoneOffset};
+    $timezoneOffset = $Foswiki::cfg{DateTimePlugin}{TimezoneOffset};
 
     # all long month names as one 'or' string to be used in regexes
     $monthLongNamesReStr = join( '|', @monthsLong );
@@ -121,14 +142,23 @@ sub _initDateStrings {
         %fullMonth2IsoMonth =
           map { $_ => $monthsShort[ $count++ ] } @monthsLong;
     }
+    
+    $dateStringsInited = 1;
 }
+
+=begin TML
+
+=cut
 
 sub _formatDateTime {
     my ( $session, $params, $inTopic, $inWeb ) = @_;
 
-    my $format = $params->{"format"}
+	_initDateStrings();
+	
+    my $format =
+         $params->{"format"}
       || $params->{_DEFAULT}
-      || $TWiki::cfg{DefaultDateFormat}
+      || $Foswiki::cfg{DefaultDateFormat}
       || '$day $month $year - $hours:$minutes:$seconds';
 
     my $incDays  = $params->{"incdays"};
@@ -155,7 +185,7 @@ sub _formatDateTime {
 
         # try to match long month names
         $dateStr =~ s/($monthLongNamesReStr)/$fullMonth2IsoMonth{$1}/g;
-        $secondsSince1970 = TWiki::Time::parseTime($dateStr);
+        $secondsSince1970 = Foswiki::Time::parseTime($dateStr);
     }
     else {
 
@@ -166,7 +196,7 @@ sub _formatDateTime {
     my $tmpTimeFormat =
 "\$seconds,\$minutes,\$hours,\$day,\$wday,\$dow,\$week,\$month,\$mo,\$year,\$ye,\$tz";
     my $timeString =
-      TWiki::Time::formatTime( $secondsSince1970 + $inc, $tmpTimeFormat, 1 );
+      Foswiki::Time::formatTime( $secondsSince1970 + $inc, $tmpTimeFormat, 1 );
     my @timeValues = split( ",", $timeString );
 
     my $seconds = $timeValues[0];
