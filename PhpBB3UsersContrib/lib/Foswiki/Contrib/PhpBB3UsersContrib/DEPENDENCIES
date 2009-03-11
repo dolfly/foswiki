@@ -1,2 +1,3 @@
 DBIx::SQLEngine, >=0.93, CPAN, (and its pre-requisites) Extends DBI with High-Level Operations
 DBD::mysql, >=3.0000, CPAN, (and its pre-requisites) MySQL driver for the Perl5 Database Interface (DBI)
+phpBB3, >=3.0.4, external, phpBB3 Bulletin Board System
