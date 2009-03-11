@@ -58,12 +58,14 @@ for any required TWiki services.
 
 sub new {
     my ( $class, $session ) = @_;
-    my $this = bless( $class->SUPER::new($session, 'JoomlaUserMapping_'), $class );
+    my $this =
+      bless( $class->SUPER::new( $session, 'JoomlaUserMapping_' ), $class );
+    $this->{mapping_id} = 'JoomlaUserMapping_';
 
     $this->{error} = undef;
     require Digest::MD5;
 
-	$this->{groupCache} = {};
+    $this->{groupCache} = {};
     return $this;
 }
 
@@ -81,7 +83,8 @@ documentation" of the live fields in the object.
 sub finish {
     my $this = shift;
     undef $this->{JoomlaDB};
-	$this->SUPER::finish();
+    $this->SUPER::finish();
+    return;
 }
 
 =begin twiki
@@ -110,7 +113,7 @@ Default is *false*
 =cut
 
 sub supportsRegistration {
-    return 0; # NO, we don't
+    return 0;    # NO, we don't
 }
 
 =begin twiki
@@ -123,20 +126,21 @@ to use for a given user (must be fast).
 =cut
 
 sub handlesUser {
-	my ($this, $cUID, $login, $wikiname) = @_;
-	
-    return 1 if ( defined $cUID && $cUID =~ /$this->{mapping_id}/ );
-	return 1 if ($login && $this->getCanonicalUserID( $login ));
-#	return 1 if ($wikiname && $this->findUserByWikiName( $wikiname ));
+    my ( $this, $cUID, $login, $wikiname ) = @_;
 
-print STDERR "**** Joomla does not handle $cUID, $login";
+    return 1 if ( defined $cUID && $cUID =~ /$this->{mapping_id}.*/ );
+    return 1 if ( $cUID     && $this->login2cUID($cUID) );
+    return 1 if ( $login    && $this->login2cUID($login) );
+    return 1 if ( $wikiname && $this->findUserByWikiName($wikiname) );
 
-	return 0;
+#print STDERR "**** Joomla does not handle ".($cUID||'noCUID').", ".($login||'nologin')."";
+
+    return 0;
 }
 
 =begin twiki
 
----++ ObjectMethod getCanonicalUserID ($login, $dontcheck) -> cUID
+---++ ObjectMethod login2cUID ($login, $dontcheck) -> cUID
 
 Convert a login name to the corresponding canonical user name. The
 canonical name can be any string of 7-bit alphanumeric and underscore
@@ -150,12 +154,12 @@ Subclasses *must* implement this method.
 
 =cut
 
-sub getCanonicalUserID {
-    my ($this, $login, $dontcheck) = @_;
-	
-	#we ignore $dontcheck as this mapper does not do registration.
-	
-	return login2canonical($this, $login);
+sub login2cUID {
+    my ( $this, $login, $dontcheck ) = @_;
+
+    #we ignore $dontcheck as this mapper does not do registration.
+
+    return login2canonical( $this, $login );
 }
 
 =pod
@@ -170,9 +174,10 @@ Subclasses *must* implement this method.
 =cut
 
 sub getLoginName {
-    my ($this, $user) = @_;
+    my ( $this, $user ) = @_;
     return canonical2login( $this, $user );
 }
+
 =pod
 
 ---++ ObjectMethod addUser ($login, $wikiname, $password, $emails) -> cUID
@@ -202,8 +207,8 @@ Throws an Error::Simple if user adding is not supported (the default).
 sub addUser {
     #my ( $this, $login, $wikiname ) = @_;
 
-    throw Error::Simple(
-                'JoomlaUserMapping does not allow creation of users ');
+    throw Error::Simple('JoomlaUserMapping does not allow creation of users ');
+    return 0;
 }
 
 =pod
@@ -216,8 +221,8 @@ user removal is not supported (the default).
 =cut
 
 sub removeUser {
-             throw Error::Simple(
-                'JoomlaUserMapping does not allow removeal of users ');
+    throw Error::Simple('JoomlaUserMapping does not allow removeal of users ');
+    return 0;
 }
 
 =pod
@@ -231,29 +236,34 @@ Returns the $cUID by default.
 =cut
 
 sub getWikiName {
-    my ($this, $user) = @_;
-    $this->ASSERT_IS_CANONICAL_USER_ID($user);
+    my ( $this, $user ) = @_;
 
-#print STDERR "getWikiName($user)?";
-#    $user =~ s/^$this->{mapping_id}//;
-#	return $TWiki::cfg{DefaultUserWikiName} if ($user == -1);	
-	return $TWiki::cfg{DefaultUserWikiName} if ($user =~ /^$this->{mapping_id}-1$/);	
-	
-	my $user_number = $user;
+    #print STDERR "getWikiName($user)?";
+    return $TWiki::cfg{DefaultUserWikiName}
+      if ( $user =~ /^$this->{mapping_id}-1$/ );
+
+    my $user_number = $user;
     $user_number =~ s/^$this->{mapping_id}//;
-	my $name;
-	my $userDataset = $this->dbSelect('select name from jos_users gwn where gwn.id = ?', $user_number );
-     if( exists $$userDataset[0] ) {
-     	$name = $$userDataset[0]{name};
-    }	else {
-		#TODO: examine having the mapper returnthe truth, and fakeing guest in the core...
-             #throw Error::Simple(
-             #   'user_id does not exist: '.$user);
-		return $TWiki::cfg{DefaultUserWikiName};
-	}	
-#print STDERR "getWikiName($user) == $name";
-$name =~ s/ //g;
-	return $name;
+    my $name;
+    my $userDataset =
+      $this->dbSelect( 'select name from jos_users gwn where gwn.id = ?',
+        $user_number );
+    if ( exists $$userDataset[0] ) {
+        $name = $$userDataset[0]{name};
+    }
+    else {
+
+#TODO: examine having the mapper returnthe truth, and fakeing guest in the core...
+#throw Error::Simple(
+#   'user_id does not exist: '.$user);
+        return $TWiki::cfg{DefaultUserWikiName};
+    }
+
+    #Make sure we're in 'ok' Wiki word territory
+    $name =~ s/[^\w]+(\w)/uc($1)/ge;
+
+    #print STDERR "getWikiName($user) == $name";
+    return ucfirst($name);
 }
 
 =pod
@@ -268,7 +278,8 @@ Subclasses *must* implement this method.
 =cut
 
 sub userExists {
-    ASSERT(0);
+    my ( $this, $cUID ) = @_;
+    return ($this->canonical2login($cUID) ne $TWiki::cfg{DefaultUserLogin});
 }
 
 =pod
@@ -281,16 +292,18 @@ method in that module for details.
 Subclasses *must* implement this method.
 
 =cut
+
 sub eachUser {
-    my( $this ) = @_;
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
-	my @list = ();
+    my ($this) = @_;
+    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    my @list = ();
+
 #TODO: this needs to be implemented in terms of a DB iterator that only selects partial results
-	my $userDataset = $this->dbSelect('select id from jos_users' );
+    my $userDataset = $this->dbSelect('select id from jos_users');
     for my $row (@$userDataset) {
-        push @list, $this->{mapping_id}.$$row{id};		
-	}
-	
+        push @list, $this->{mapping_id} . $$row{id};
+    }
+
     return new TWiki::ListIterator( \@list );
 }
 
@@ -306,35 +319,45 @@ Subclasses *must* implement this method.
 =cut
 
 sub eachGroupMember {
-    my $this = shift;
-    my $groupName = shift;	#group_name
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
-    ASSERT(defined($groupName)) if DEBUG;
-#    my $store = $this->{session}->{store};
-#    my $users = $this->{session}->{users};
+    my $this      = shift;
+    my $groupName = shift;    #group_name
+    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( defined($groupName) ) if DEBUG;
 
-	return new TWiki::ListIterator( $this->{groupCache}{$groupName} ) if (defined($this->{groupCache}{$groupName}));
-	
+    #    my $store = $this->{session}->{store};
+    #    my $users = $this->{session}->{users};
+
+    return new TWiki::ListIterator( $this->{groupCache}{$groupName} )
+      if ( defined( $this->{groupCache}{$groupName} ) );
+
     my $members = [];
 
-     #return [] if ($groupName =~ /Registered/);    #LIMIT it cos most users are resistered
-	my $groupIdDataSet = $this->dbSelect(
-			'select group_id from jos_core_acl_aro_groups where name = ?', $groupName );	
-     if( exists $$groupIdDataSet[0] ) {
-     		my $group = $$groupIdDataSet[0]{group_id};
-			my $groupDataset = $this->dbSelect(
-					'select aro_id from jos_core_acl_groups_aro_map where group_id = ?', $group );
-		#TODO: re-write with join & map
-			for my $row (@$groupDataset) {
-				#get rows of users in group
-				my $userDataset = $this->dbSelect('select value from jos_core_acl_aro where aro_id = ?', $$row{aro_id} );
-				my $user_id = $this->{mapping_id}.$$userDataset[0]{value};	# user_id
-				push @{$members}, $user_id;
-			}
-		
-    }		
-	$this->{groupCache}{$groupName} = $members;
-    return new TWiki::ListIterator( $members );
+#return [] if ($groupName =~ /Registered/);    #LIMIT it cos most users are resistered
+    my $groupIdDataSet = $this->dbSelect(
+        'select group_id from jos_core_acl_aro_groups where name = ?',
+        $groupName );
+    if ( exists $$groupIdDataSet[0] ) {
+        my $group        = $$groupIdDataSet[0]{group_id};
+        my $groupDataset = $this->dbSelect(
+            'select aro_id from jos_core_acl_groups_aro_map where group_id = ?',
+            $group
+        );
+
+        #TODO: re-write with join & map
+        for my $row (@$groupDataset) {
+
+            #get rows of users in group
+            my $userDataset = $this->dbSelect(
+                'select value from jos_core_acl_aro where aro_id = ?',
+                $$row{aro_id} );
+            my $user_id =
+              $this->{mapping_id} . $$userDataset[0]{value};    # user_id
+            push @{$members}, $user_id;
+        }
+
+    }
+    $this->{groupCache}{$groupName} = $members;
+    return new TWiki::ListIterator($members);
 }
 
 =pod
@@ -349,12 +372,21 @@ Subclasses *must* implement this method.
 =cut
 
 sub isGroup {
-    my ($this, $user) = @_;
+    my ( $this, $user ) = @_;
 
-    throw Error::Simple('IMPLEMENT/TEST ME');
+    #throw Error::Simple('IMPLEMENT/TEST ME');
+    my $groupIdDataSet = $this->dbSelect(
+        'select group_id from jos_core_acl_aro_groups where name = ?', $user );
+    if ( exists $$groupIdDataSet[0] ) {
 
-	#there are no groups that can login.
-	return 0;
+        #print STDERR "$user is a GROUP\n";
+        return 1;
+    }
+
+    #print STDERR "$user is __not__ a GROUP\n";
+
+    #there are no groups that can login.
+    return 0;
 }
 
 =pod
@@ -369,9 +401,9 @@ Subclasses *must* implement this method.
 =cut
 
 sub eachGroup {
-    my ( $this ) = @_;
-    _getListOfGroups( $this );
-    return new TWiki::ListIterator( \@{$this->{groupsList}} );
+    my ($this) = @_;
+    _getListOfGroups($this);
+    return new TWiki::ListIterator( \@{ $this->{groupsList} } );
 }
 
 =pod
@@ -386,13 +418,14 @@ Subclasses *must* implement this method.
 =cut
 
 sub eachMembership {
-    my ($this, $user) = @_;
+    my ( $this, $user ) = @_;
     my @groups = ();
-#TODO: reimpl using db
-    _getListOfGroups( $this );
-    my $it = new TWiki::ListIterator( \@{$this->{groupsList}} );
+
+    #TODO: reimpl using db
+    _getListOfGroups($this);
+    my $it = new TWiki::ListIterator( \@{ $this->{groupsList} } );
     $it->{filter} = sub {
-        $this->isInGroup($user, $_[0]);
+        $this->isInGroup( $user, $_[0] );
     };
     return $it;
 }
@@ -408,9 +441,8 @@ True if the user is an admin
 =cut
 
 sub isAdmin {
-    my( $this, $user ) = @_;
+    my ( $this, $user ) = @_;
     my $isAdmin = 0;
-	$this->ASSERT_IS_CANONICAL_USER_ID($user) if DEBUG;
 
     my $sag = $TWiki::cfg{SuperAdminGroup};
     $isAdmin = $this->isInGroup( $user, $sag );
@@ -430,19 +462,20 @@ Default is *false*
 =cut
 
 sub isInGroup {
-    my( $this, $user, $group, $scanning ) = @_;
+    my ( $this, $user, $group, $scanning ) = @_;
     ASSERT($user) if DEBUG;
-#TODO: reimpl using db
+
+    #TODO: reimpl using db
 
     my @users;
     my $it = $this->eachGroupMember($group);
-    while ($it->hasNext()) {
+    while ( $it->hasNext() ) {
         my $u = $it->next();
         next if $scanning->{$u};
         $scanning->{$u} = 1;
         return 1 if $u eq $user;
-        if( $this->isGroup($u) ) {
-            return 1 if $this->isInGroup( $user, $u, $scanning);
+        if ( $this->isGroup($u) ) {
+            return 1 if $this->isInGroup( $user, $u, $scanning );
         }
     }
     return 0;
@@ -460,24 +493,27 @@ Returns an empty list by default.
 =cut
 
 sub findUserByEmail {
-    my $this = shift;
+    my $this  = shift;
     my $email = shift;
 
-    if( $email ) {
-            my $dataset = $this->dbSelect('select * from jos_users where email = ?', $email );
-            if( exists $$dataset[0] ) {
-                my @userList = ();
-                for my $row (@$dataset) {
-                    push(@userList, $this->{session}->{users}->findUser( $$row{username} ));
-                }
-                return @userList;
+    if ($email) {
+        my $dataset =
+          $this->dbSelect( 'select * from jos_users where email = ?', $email );
+        if ( exists $$dataset[0] ) {
+            my @userList = ();
+            for my $row (@$dataset) {
+                push( @userList, $this->{mapping_id} . $$row{id} );
             }
-            $this->{error} = 'Login invalid';
-            return 0;
-    } else {
-        $this->{error} = 'No user';
-        return 0;
+            return \@userList;
+        }
+        $this->{error} = 'Login invalid';
+        return;
     }
+    else {
+        $this->{error} = 'No user';
+        return;
+    }
+    return;
 }
 
 =pod
@@ -494,22 +530,25 @@ By default, returns the empty list.
 =cut
 
 sub getEmails {
-    my( $this, $cUID ) = @_;
-	
-    $cUID =~ s/^$this->{mapping_id}//;
-	return unless ( $cUID =~ /^\d+$/ );
+    my ( $this, $cUID ) = @_;
 
-    if( $cUID ) {
-            my $dataset = $this->dbSelect('select * from jos_users where id = ?', $cUID );
-            if( exists $$dataset[0] ) {
-                return ($$dataset[0]{email});
-            }
-            $this->{error} = 'Login invalid';
-            return ;
-    } else {
-        $this->{error} = 'No user';
-        return ;
+    $cUID =~ s/^$this->{mapping_id}//;
+    return unless ( $cUID =~ /^\d+$/ );
+
+    if ($cUID) {
+        my $dataset =
+          $this->dbSelect( 'select * from jos_users where id = ?', $cUID );
+        if ( exists $$dataset[0] ) {
+            return ( $$dataset[0]{email} );
+        }
+        $this->{error} = 'Login invalid';
+        return;
     }
+    else {
+        $this->{error} = 'No user';
+        return;
+    }
+    return;
 }
 
 =pod
@@ -545,25 +584,28 @@ Subclasses *must* implement this method.
 =cut
 
 sub findUserByWikiName {
-    my $this = shift;
+    my $this     = shift;
     my $wikiname = shift;
 
-    if( $wikiname ) {
-            my $dataset = $this->dbSelect('select * from jos_users where name = ?', $wikiname );
-            if( exists $$dataset[0] ) {
-                my @userList = ();
-                for my $row (@$dataset) {
-                    push(@userList, $this->{session}->{users}->findUser( $$row{username} ));
-                }
-                return @userList;
+    if ($wikiname) {
+        my $dataset =
+          $this->dbSelect( 'select * from jos_users where name = ?',
+            $wikiname );
+        if ( exists $$dataset[0] ) {
+            my @userList = ();
+            for my $row (@$dataset) {
+                push( @userList, $this->{mapping_id} . $$row{id} );
             }
-            $this->{error} = 'Login invalid';
-            return 0;
-    } else {
-        $this->{error} = 'No user';
-	    return 0;
+            return \@userList;
+        }
+        $this->{error} = 'Login invalid';
+        return;
     }
-     
+    else {
+        $this->{error} = 'No user';
+        return;
+    }
+    return;
 }
 
 =pod
@@ -579,34 +621,44 @@ Default behaviour is to return 1.
 =cut
 
 sub checkPassword {
-    my ( $this, $user, $password, $encrypted) = @_;
-print STDERR "checkPassword($user, $password, encrypted)";    
-    
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
+    my ( $this, $user, $password, $encrypted ) = @_;
+
+   #print STDERR "checkPassword($user, $password, ".($encrypted||'undef').")\n";
+
+    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+
+    my $pw = $this->fetchPass($user);
+
+    # $pw will be 0 if there is no pw
+    my $salt = '';
+    if ( $pw =~ /^(.{32}):(.*)$/ ) {
+        $pw   = $1;
+        $salt = $2;    #previous versions of joomla did not have a salt.
+    }
+
     my $encryptedPassword;
-    if ((defined($encrypted)) && ($encrypted == 1)) {
+    if ( ( defined($encrypted) ) && ( $encrypted == 1 ) ) {
         $encryptedPassword = $password;
-    } else {
-        $encryptedPassword = $this->encrypt( $user, $password );
+    }
+    else {
+        require Digest::MD5;
+        $encryptedPassword = Digest::MD5::md5_hex( $password . $salt );
     }
 
     $this->{error} = undef;
 
-    my $pw = $this->fetchPass( $user );
-    # $pw will be 0 if there is no pw
+    #print STDERR "checkPassword( $pw && ($encryptedPassword eq $pw) )\n";
 
-print STDERR "checkPassword( $pw && ($encryptedPassword eq $pw) )";
+    return 1 if ( $pw && ( $encryptedPassword eq $pw ) );
 
-    return 1 if( $pw && ($encryptedPassword eq $pw) );
     # pw may validly be '', and must match an unencrypted ''. This is
     # to allow for sysadmins removing the password field in .htpasswd in
     # order to reset the password.
     return 1 if ( $pw eq '' && $password eq '' );
 
     $this->{error} = 'Invalid user/password';
-    return 0;
+    return;
 }
-
 
 =pod
 
@@ -627,13 +679,11 @@ Default behaviour is to fail.
 =cut
 
 sub setPassword {
-    my( $this, $user, $newPassU, $oldPassU ) = @_;
-	$this->ASSERT_IS_CANONICAL_USER_ID($user) if DEBUG;
-    throw Error::Simple(
-          'cannot change user passwords using JoomlaUserMapper');
+    my ( $this, $user, $newPassU, $oldPassU ) = @_;
+    throw Error::Simple('cannot change user passwords using JoomlaUserMapper');
 
-    return $this->{passwords}->setPassword(
-        $this->getLoginName( $user ), $newPassU, $oldPassU);
+    return $this->{passwords}
+      ->setPassword( $this->getLoginName($user), $newPassU, $oldPassU );
 }
 
 =pod
@@ -653,121 +703,63 @@ sub passwordError {
     return $this->{error};
 }
 
-
-=pod
-
----++ ObjectMethod ASSERT_IS_CANONICAL_USER_ID( $user_id ) -> $boolean
-
-Used for debugging to ensure we are actually passing a canonical_id
-
-=cut
-
-sub ASSERT_IS_CANONICAL_USER_ID {
-    my( $this, $user_id ) = @_;
-#	print STDERR "ASSERT_IS_CANONICAL_USER_ID($user_id)";
-#    ASSERT( ($user_id =~/^$this->{mapping_id}-1$/) || ($user_id =~/^$this->{mapping_id}\d+$/) );	#un-signed INT
-
-}
-
-=pod
-
----++ ObjectMethod ASSERT_IS_USER_LOGIN_ID( $user_login ) -> $boolean
-
-Used for debugging to ensure we are actually passing a user login
-
-=cut
-
-sub ASSERT_IS_USER_LOGIN_ID {
-    my( $this, $user_login ) = @_;
-    
-}
-
-
-=pod
-
----++ ObjectMethod ASSERT_IS_USER_DISPLAY_NAME( $user_display ) -> $boolean
-
-Used for debugging to ensure we are actually passing a user display_name
-(commonly a WikiWord Name)
-
-Returns true by default.
-
-=cut
-
-sub ASSERT_IS_USER_DISPLAY_NAME {
-    my( $this, $user_display ) = @_;
-    
-}
-
-=pod
-
----++ ObjectMethod ASSERT_IS_GROUP_DISPLAY_NAME( $group_display ) -> $boolean
-
-used for debugging to ensure we are actually passing a group display_name (commonly a WikiWord Name)
-
-#TODO: i fear we'll need to make a canonical_group_id too 
-
-=cut
-
-sub ASSERT_IS_GROUP_DISPLAY_NAME {
-    my( $this, $group_display ) = @_;
-    
-}
-
 ###############################################################################
 #DB access methods
-
 
 #todo: cache DB connections
 sub getJoomlaDB {
     my ( $this, $user ) = @_;
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
-    my ( $dbi_dsn, $dbi_user, $dbi_passwd ) = 
-            ($TWiki::cfg{Plugins}{JoomlaUser}{DBI_dsn}, 
-            $TWiki::cfg{Plugins}{JoomlaUser}{DBI_username}, 
-            $TWiki::cfg{Plugins}{JoomlaUser}{DBI_password});
+    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    my ( $dbi_dsn, $dbi_user, $dbi_passwd ) = (
+        $TWiki::cfg{Plugins}{JoomlaUser}{DBI_dsn},
+        $TWiki::cfg{Plugins}{JoomlaUser}{DBI_username},
+        $TWiki::cfg{Plugins}{JoomlaUser}{DBI_password}
+    );
 
-#print STDERR "DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)";
-        	
-    unless (defined($this->{JoomlaDB})) {
+    #print STDERR "DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)";
+
+    unless ( defined( $this->{JoomlaDB} ) ) {
+
 #        $this->{session}->writeWarning("DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)");
         try {
-            $this->{JoomlaDB} = DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, $dbi_passwd );
-        } catch Error::Simple with {
+            $this->{JoomlaDB} =
+              DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, $dbi_passwd );
+        }
+        catch Error::Simple with {
             $this->{error} = $!;
-            $this->{session}->writeWarning("ERROR: DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...) : $!");
-            die 'MYSQL login error ('.$dbi_dsn.', '.$dbi_user.') '.$!;
+            $this->{session}->writeWarning(
+                "ERROR: DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...) : $!");
+            #die 'MYSQL login error (' . $dbi_dsn . ', ' . $dbi_user . ') ' . $!;
         };
     }
     return $this->{JoomlaDB};
 }
 
-
 #returns an ref to an array dataset of rows
 #dbSelect(query, @list of params to query)
 sub dbSelect {
-    my $this = shift;
+    my $this  = shift;
     my @query = @_;
     my $dataset;
 
-#print STDERR "fetch_select( @query )";
+    #print STDERR "fetch_select( @query )";
 
-#    $this->{session}->writeWarning("fetch_select( @query )");
-    if( @query ) {
+    #    $this->{session}->writeWarning("fetch_select( @query )");
+    if (@query) {
         try {
             my $db = $this->getJoomlaDB();
-            $dataset = $db->fetch_select(
-                sql => [ @query ]);
-        } catch Error::Simple with {
+            $dataset = $db->fetch_select( sql => [@query] );
+        }
+        catch Error::Simple with {
             $this->{error} = $!;
-print STDERR "            ERROR: fetch_select(@query) : $!";
+            print STDERR "            ERROR: fetch_select(@query) : $!";
             $this->{session}->writeWarning("ERROR: fetch_select(@query) : $!");
         };
     }
-#    $this->{session}->writeWarning("fetch_select => ".@$dataset);
+
+    #    $this->{session}->writeWarning("fetch_select => ".@$dataset);
     return $dataset;
 }
-
 
 ##############################################
 #internal methods
@@ -775,59 +767,67 @@ print STDERR "            ERROR: fetch_select(@query) : $!";
 # canonical name can be any string of 7-bit alphanumeric and underscore
 # characters, and must correspond 1:1 to the login name.
 sub login2canonical {
-    my( $this, $login ) = @_;
-    
-	my $canonical_id = -1;
-    unless ($login eq $TWiki::cfg{DefaultUserLogin}) {
-        #QUESTION: is the login known valid? if so, need to ASSERT that
-        #QUESTION: why not use the cache to xform if available, and only aske if.. (or is this the case..... DOCCO )
+    my ( $this, $login ) = @_;
+
+    my $canonical_id = -1;
+    unless ( $login eq $TWiki::cfg{DefaultUserLogin} ) {
+
+#QUESTION: is the login known valid? if so, need to ASSERT that
+#QUESTION: why not use the cache to xform if available, and only aske if.. (or is this the case..... DOCCO )
         use bytes;
+
         # use bytes to ignore character encoding
         #$login =~ s/([^a-zA-Z0-9])/'_'.sprintf('%02d', ord($1))/ge;
-    	 my $userDataset = $this->dbSelect('select * from jos_users where username = ?', $login );
-         if( exists $$userDataset[0] ) {
-         	$canonical_id = $$userDataset[0]{id};
-    		#TODO:ASSERT there is only one..
-        }	else {
-#                 throw Error::Simple(
-#                    'username does not exist: '.$login);
-			return;
-    	}
+        my $userDataset =
+          $this->dbSelect( 'select * from jos_users where username = ?',
+            $login );
+        if ( exists $$userDataset[0] ) {
+            $canonical_id = $$userDataset[0]{id};
+
+            #TODO:ASSERT there is only one..
+        }
+        else {
+            return;
+        }
         no bytes;
     }
-    
-    $canonical_id = $this->{mapping_id}.$canonical_id;
-    
+
+    $canonical_id = $this->{mapping_id} . $canonical_id;
+
     return $canonical_id;
 }
 
 # See login2 canonical
 sub canonical2login {
-    my( $this, $user ) = @_;
+    my ( $this, $user ) = @_;
     ASSERT($user) if DEBUG;
 
     $user =~ s/^$this->{mapping_id}//;
-	return unless ( $user =~ /^\d+$/ );
-	return $TWiki::cfg{DefaultUserLogin} if ($user == -1);
+    return unless ( $user =~ /^\d+$/ );
+    return $TWiki::cfg{DefaultUserLogin} if ( $user == -1 );
 
     my $login = $TWiki::cfg{DefaultUserLogin};
-	 my $userDataset = $this->dbSelect('select username from jos_users c2l where c2l.id = ?', $user );
-     if( exists $$userDataset[0] ) {
-     	$login = $$userDataset[0]{username};
-    }	else {
-		#TODO: examine having the mapper returnthe truth, and fakeing guest in the core...
-             #throw Error::Simple(
-             #   'user_id does not exist: '.$user);
-		#die "did you call c2l using a login?";
-		return $TWiki::cfg{DefaultUserLogin};
-	}	
+    my $userDataset =
+      $this->dbSelect( 'select username from jos_users c2l where c2l.id = ?',
+        $user );
+    if ( exists $$userDataset[0] ) {
+        $login = $$userDataset[0]{username};
+    }
+    else {
+
+#TODO: examine having the mapper returnthe truth, and fakeing guest in the core...
+#throw Error::Simple(
+#   'user_id does not exist: '.$user);
+#die "did you call c2l using a login?";
+        return $TWiki::cfg{DefaultUserLogin};
+    }
     return $login;
 }
 
 # PRIVATE
 #QUESTION: this seems to pre-suppose that login can at times validly be == wikiname
 sub _cacheUser {
-    my($this, $wikiname, $login) = @_;
+    my ( $this, $wikiname, $login ) = @_;
     ASSERT($wikiname) if DEBUG;
 
     $login ||= $wikiname;
@@ -845,15 +845,16 @@ sub _cacheUser {
 # PRIVATE get a list of groups defined in this TWiki
 sub _getListOfGroups {
     my $this = shift;
-    ASSERT(ref($this) eq 'TWiki::Users::JoomlaUserMapping') if DEBUG;
+    ASSERT( ref($this) eq 'TWiki::Users::JoomlaUserMapping' ) if DEBUG;
 
-    unless( $this->{groupsList} ) {
+    unless ( $this->{groupsList} ) {
         $this->{groupsList} = [];
-            my $dataset = $this->dbSelect('select name from jos_core_acl_aro_groups' );
-            for my $row (@$dataset) {
-		        my $groupID = $$row{name};		
-				push @{$this->{groupsList}}, $groupID;
-			}
+        my $dataset =
+          $this->dbSelect('select name from jos_core_acl_aro_groups');
+        for my $row (@$dataset) {
+            my $groupID = $$row{name};
+            push @{ $this->{groupsList} }, $groupID;
+        }
     }
     return $this->{groupsList};
 }
@@ -862,37 +863,46 @@ sub _getListOfGroups {
 # lookups, and should be as fast as possible. Returns undef if no such user
 # exists. Called by TWiki::Users
 sub lookupLoginName {
-    my ($this, $login) = @_;
+    my ( $this, $login ) = @_;
 
     return login2canonical( $this, $login );
 }
 
-sub encrypt {
-    my ( $this, $user, $passwd, $fresh ) = @_;
-
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
-
-	my $toEncode= "$passwd";
-	return Digest::MD5::md5_hex( $toEncode );
-}
+#sub encrypt {
+#    my ( $this, $user, $passwd, $fresh ) = @_;
+#
+#    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
+#
+#	my $toEncode= "$passwd";
+#	my $ret = Digest::MD5::md5_hex( $toEncode );
+#
+#print STDERR "encrypt($user, $passwd) => $ret\n";
+#
+#	return $ret;
+#}
 
 sub fetchPass {
     my ( $this, $user ) = @_;
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
-print STDERR "fetchPass($user)";    
-    
+    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
+    print STDERR "fetchPass($user)\n";
 
-    if( $user ) {
-            my $dataset = $this->dbSelect('select * from jos_users where username = ?', $user );
-            #$this->{session}->writeWarning("$@$dataset");  
-print STDERR "fetchpass got - ".join(', ', keys(%{$$dataset[0]}))."aa";          
-            if( exists $$dataset[0] ) {
-print STDERR "fetchPass($user, ".$$dataset[0]{password}.")"; 
-                return $$dataset[0]{password};
-            }
-            $this->{error} = 'Login invalid';
-            return 0;
-    } else {
+    if ($user) {
+        my $dataset =
+          $this->dbSelect( 'select * from jos_users where username = ?',
+            $user );
+
+      #$this->{session}->writeWarning("$@$dataset");
+      #print STDERR "fetchpass got - ".join(', ', keys(%{$$dataset[0]}))."\n";
+      #print STDERR "fetchpass got - ".join(', ', values(%{$$dataset[0]}))."\n";
+        if ( exists $$dataset[0] ) {
+
+            #print STDERR "fetchPass($user, ".$$dataset[0]{password}.")\n";
+            return $$dataset[0]{password};
+        }
+        $this->{error} = 'Login invalid';
+        return 0;
+    }
+    else {
         $this->{error} = 'No user';
         return 0;
     }
@@ -900,17 +910,16 @@ print STDERR "fetchPass($user, ".$$dataset[0]{password}.")";
 
 sub passwd {
     my ( $this, $user, $newUserPassword, $oldUserPassword ) = @_;
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
+    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
 
     return 1;
 }
 
 sub deleteUser {
     my ( $this, $user ) = @_;
-    ASSERT($this->isa( 'TWiki::Users::JoomlaUserMapping')) if DEBUG;
+    ASSERT( $this->isa('TWiki::Users::JoomlaUserMapping') ) if DEBUG;
 
     return 1;
 }
-
 
 1;

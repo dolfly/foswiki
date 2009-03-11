@@ -67,8 +67,9 @@ sub loadSession {
     if ( defined( $cookies{'usercookie[username]'} ) ) {
         my $id       = $cookies{'usercookie[username]'}->value;
         my $password = $cookies{'usercookie[password]'}->value;
-        my $user     = $twiki->{users}->findUser( $id, undef, 1 );
+        my $user     = $twiki->{users}->getCanonicalUserID( $id, undef, 1 );
 
+        #print STDERR "$id, $password, $user";
         my $passwordHandler = $twiki->{users}->{passwords};
 
         #return $passwordHandler->checkPassword($this->{login}, $password);
