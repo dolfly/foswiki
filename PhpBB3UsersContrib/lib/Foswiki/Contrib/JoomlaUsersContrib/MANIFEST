@@ -1,0 +1,10 @@
+data/System/JoomlaUsersContrib.txt  Plugin doc page
+lib/Foswiki/Contrib/JoomlaUsersContrib.pm  Plugin Perl module 
+lib/Foswiki/LoginManager/JoomlaLogin.pm use Joomla cookie for session initilaisation
+lib/Foswiki/Users/JoomlaUserMapping.pm get User and Group information from Joomla Database
+lib/Foswiki/Contrib/JoomlaUsersContrib/Config.spec
+pub/System/JoomlaUsersContrib/Joomla.png
+pub/System/JoomlaUsersContrib/wikiring.png
+pub/System/JoomlaUsersContrib/JoomlaIcon.png
+templates/login.joomla.tmpl
+
