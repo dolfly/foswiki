@@ -2,7 +2,7 @@
 use strict;
 
 # Standard preamble
-BEGIN { unshift @INC, split( /:/, $ENV{TWIKI_LIBS} ) }
+BEGIN { unshift @INC, split( /:/, $ENV{FOSWIKI_LIBS} ) }
 
 use Foswiki::Contrib::Build;
 
@@ -12,7 +12,7 @@ use base qw( Foswiki::Contrib::Build );
 
 sub new {
     my $class = shift;
-    return bless( $class->SUPER::new( "JoomlaUsersContrib" ), $class );
+    return bless( $class->SUPER::new( "PhpBB3UsersContrib" ), $class );
 }
 
 # Example: Override the build target

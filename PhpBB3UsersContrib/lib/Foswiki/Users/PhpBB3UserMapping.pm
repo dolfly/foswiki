@@ -19,7 +19,7 @@
 
 =begin twiki
 
----+ package Foswiki::Users::JoomlaUserMapping
+---+ package Foswiki::Users::PhpBB3UserMapping
 
 canonical user_id == id number of jos_user table
 login == username column
@@ -27,7 +27,7 @@ login == username column
 
 =cut
 
-package Foswiki::Users::JoomlaUserMapping;
+package Foswiki::Users::PhpBB3UserMapping;
 use base 'Foswiki::UserMapping';
 
 use strict;
@@ -42,22 +42,22 @@ use DBD::mysql;
 
 use Error qw( :try );
 
-#@Foswiki::Users::JoomlaUserMapping::ISA = qw( Foswiki::Users::BaseUserMapping );
+#@Foswiki::Users::PhpBB3UserMapping::ISA = qw( Foswiki::Users::BaseUserMapping );
 
 =pod
 
 ---++ ClassMethod new( $session ) -> $object
 
 Constructs a new password handler of this type, referring to $session
-for any required TWiki services.
+for any required Foswiki services.
 
 =cut
 
 sub new {
     my ( $class, $session ) = @_;
     my $this =
-      bless( $class->SUPER::new( $session, 'JoomlaUserMapping_' ), $class );
-    $this->{mapping_id} = 'JoomlaUserMapping_';
+      bless( $class->SUPER::new( $session, 'PhpBB3UserMapping_' ), $class );
+    $this->{mapping_id} = 'PhpBB3UserMapping_';
 
     $this->{error} = undef;
     require Digest::MD5;
@@ -79,7 +79,7 @@ documentation" of the live fields in the object.
 
 sub finish {
     my $this = shift;
-    undef $this->{JoomlaDB};
+    undef $this->{PhpBB3DB};
     $this->SUPER::finish();
     return;
 }
@@ -96,7 +96,7 @@ Default is "login"
 =cut
 
 sub loginTemplateName {
-    return 'login.joomla';
+    return 'login.phpbb3';
 }
 
 =pod
@@ -130,7 +130,7 @@ sub handlesUser {
     return 1 if ( $login    && $this->login2cUID($login) );
     return 1 if ( $wikiname && $this->findUserByWikiName($wikiname) );
 
-#print STDERR "**** Joomla does not handle ".($cUID||'noCUID').", ".($login||'nologin')."";
+#print STDERR "**** phpBB3 does not handle ".($cUID||'noCUID').", ".($login||'nologin')."";
 
     return 0;
 }
@@ -204,7 +204,7 @@ Throws an Error::Simple if user adding is not supported (the default).
 sub addUser {
     #my ( $this, $login, $wikiname ) = @_;
 
-    throw Error::Simple('JoomlaUserMapping does not allow creation of users ');
+    throw Error::Simple('PhpBB3UserMapping does not allow creation of users ');
     return 0;
 }
 
@@ -218,7 +218,7 @@ user removal is not supported (the default).
 =cut
 
 sub removeUser {
-    throw Error::Simple('JoomlaUserMapping does not allow removeal of users ');
+    throw Error::Simple('PhpBB3UserMapping does not allow removeal of users ');
     return 0;
 }
 
@@ -292,7 +292,7 @@ Subclasses *must* implement this method.
 
 sub eachUser {
     my ($this) = @_;
-    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
     my @list = ();
 
 #TODO: this needs to be implemented in terms of a DB iterator that only selects partial results
@@ -318,7 +318,7 @@ Subclasses *must* implement this method.
 sub eachGroupMember {
     my $this      = shift;
     my $groupName = shift;    #group_name
-    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
     ASSERT( defined($groupName) ) if DEBUG;
 
     #    my $store = $this->{session}->{store};
@@ -552,7 +552,7 @@ sub getEmails {
 
 ---++ ObjectMethod setEmails($user, @emails)
 
-Joomla manages all user info, TWiki does not 'set'
+phpBB3 manages all user info, Foswiki does not 'set'
 
 =cut
 
@@ -622,7 +622,7 @@ sub checkPassword {
 
    #print STDERR "checkPassword($user, $password, ".($encrypted||'undef').")\n";
 
-    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
 
     my $pw = $this->fetchPass($user);
 
@@ -677,7 +677,7 @@ Default behaviour is to fail.
 
 sub setPassword {
     my ( $this, $user, $newPassU, $oldPassU ) = @_;
-    throw Error::Simple('cannot change user passwords using JoomlaUserMapper');
+    throw Error::Simple('cannot change user passwords using PhpBB3UserMapper');
 
     return $this->{passwords}
       ->setPassword( $this->getLoginName($user), $newPassU, $oldPassU );
@@ -704,22 +704,22 @@ sub passwordError {
 #DB access methods
 
 #todo: cache DB connections
-sub getJoomlaDB {
+sub getPhpBB3DB {
     my ( $this, $user ) = @_;
-    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
     my ( $dbi_dsn, $dbi_user, $dbi_passwd ) = (
-        $Foswiki::cfg{Plugins}{JoomlaUser}{DBI_dsn},
-        $Foswiki::cfg{Plugins}{JoomlaUser}{DBI_username},
-        $Foswiki::cfg{Plugins}{JoomlaUser}{DBI_password}
+        $Foswiki::cfg{Plugins}{PhpBB3User}{DBI_dsn},
+        $Foswiki::cfg{Plugins}{PhpBB3User}{DBI_username},
+        $Foswiki::cfg{Plugins}{PhpBB3User}{DBI_password}
     );
 
     #print STDERR "DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)";
 
-    unless ( defined( $this->{JoomlaDB} ) ) {
+    unless ( defined( $this->{PhpBB3DB} ) ) {
 
 #        $this->{session}->writeWarning("DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)");
         try {
-            $this->{JoomlaDB} =
+            $this->{PhpBB3DB} =
               DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, $dbi_passwd );
         }
         catch Error::Simple with {
@@ -729,7 +729,7 @@ sub getJoomlaDB {
             #die 'MYSQL login error (' . $dbi_dsn . ', ' . $dbi_user . ') ' . $!;
         };
     }
-    return $this->{JoomlaDB};
+    return $this->{PhpBB3DB};
 }
 
 #returns an ref to an array dataset of rows
@@ -744,7 +744,7 @@ sub dbSelect {
     #    $this->{session}->writeWarning("fetch_select( @query )");
     if (@query) {
         try {
-            my $db = $this->getJoomlaDB();
+            my $db = $this->getPhpBB3DB();
             $dataset = $db->fetch_select( sql => [@query] );
         }
         catch Error::Simple with {
@@ -839,10 +839,10 @@ sub _cacheUser {
     return $user;
 }
 
-# PRIVATE get a list of groups defined in this TWiki
+# PRIVATE get a list of groups defined in this Foswiki
 sub _getListOfGroups {
     my $this = shift;
-    ASSERT( ref($this) eq 'Foswiki::Users::JoomlaUserMapping' ) if DEBUG;
+    ASSERT( ref($this) eq 'Foswiki::Users::PhpBB3UserMapping' ) if DEBUG;
 
     unless ( $this->{groupsList} ) {
         $this->{groupsList} = [];
@@ -868,7 +868,7 @@ sub lookupLoginName {
 #sub encrypt {
 #    my ( $this, $user, $passwd, $fresh ) = @_;
 #
-#    ASSERT($this->isa( 'Foswiki::Users::JoomlaUserMapping')) if DEBUG;
+#    ASSERT($this->isa( 'Foswiki::Users::PhpBB3UserMapping')) if DEBUG;
 #
 #	my $toEncode= "$passwd";
 #	my $ret = Digest::MD5::md5_hex( $toEncode );
@@ -880,7 +880,7 @@ sub lookupLoginName {
 
 sub fetchPass {
     my ( $this, $user ) = @_;
-    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
     print STDERR "fetchPass($user)\n";
 
     if ($user) {
@@ -907,14 +907,14 @@ sub fetchPass {
 
 sub passwd {
     my ( $this, $user, $newUserPassword, $oldUserPassword ) = @_;
-    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
 
     return 1;
 }
 
 sub deleteUser {
     my ( $this, $user ) = @_;
-    ASSERT( $this->isa('Foswiki::Users::JoomlaUserMapping') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
 
     return 1;
 }

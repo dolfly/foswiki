@@ -1,23 +1,25 @@
 
-<a href="http://www.joomla.org/" ><img src="%ATTACHURL%/Joomla.png" style="float: right; padding:30px;" /></a>
+<a href="http://www.phpbb.com/" ><img src="%ATTACHURL%/PhpBB3.png" style="float: right; padding:30px;" /></a>
 
----+!! JoomlaUsersContrib Contrib Package
+---+!! PhpBB3UsersContrib Contrib Package
 
-*tested with Joomla 1.0.13*
+*tested with phpBB3 v3.0.4*
 
 
 This Contrib enables you to replace the Foswiki User and Groups system with a read only access to the 
-User and Groups in a [[http://www.joomla.org/][Joomla]] Database. Registration of new users and their 
-association with Groups is then _only_ handled by Joomla, making it possible to remove the distributed Main web.
+User and Groups in a [[http://phpbb.com/][phpBB3]] Database. Registration of new users and their 
+association with Groups is then _only_ handled by phpBB3, making it possible to remove the distributed Main web.
 
-You are advised to use the same same host for Foswiki and the Joomla Database, 
+You are advised to use the same same host for Foswiki and the phpBB3 Database, 
 otherwise user query performance (happens every request) will severely degrade the response time.
 
-*NOTE:* for performance reasons, the Joomla Registered Users group is _not_ brought into the system, 
+*NOTE:* for performance reasons, the phpBB3 Registered Users group is _not_ brought into the system.
 The other groups may cause performance degradation if they have too many members
 
-By selecting JoomlaLogin, Foswiki will also attempt to use the Joomla 'remember me' cookie -
- though this requires the Foswiki and Joomla host names to be the same.
+<!--
+By selecting phpBB3Login, Foswiki will also attempt to use the phpBB3 'remember me' cookie - (CHECK THIS)
+ though this requires the Foswiki and phpBB3 host names to be the same.
+-->
 
 <a href="http://wikiring.com/" ><img src="%ATTACHURL%/wikiringlogo.png" style="float: right; padding:30px;" /></a>
 
@@ -27,10 +29,10 @@ Settings are in =lib/LocalSite.cfg=. the Foswiki configure script does not curre
  but should also not remove them. See the Installation Instructions below for details.
 
    * One line description:
-      * Set SHORTDESCRIPTION = replace the Foswiki User and Groups System with Joomla's
+      * Set SHORTDESCRIPTION = replace the Foswiki User and Groups System with phpBB3's
 
    * Name of the perl package
-      * Set STUB = authenticate using the joomla users - disable registration.
+      * Set STUB = authenticate using the phpBB3 users - disable registration.
 
 ---++ Installation Instructions
 	* Download the ZIP file from the Plugin web (see below)
@@ -39,29 +41,24 @@ Settings are in =lib/LocalSite.cfg=. the Foswiki configure script does not curre
 
 	* Run ==%TOPIC%_installer.pl== to automatically check and install other modules that this module depends on. You can also do this step manually. Dependencies:
 	<table border="1"><tr><th>Name</th><th>Version</th><th>Description</th></tr><tr><td align="left">DBIx::SQLEngine</td><td align="left"> &gt;=0.93</td><td align="left">(and its pre-requisites) Extends DBI with High-Level Operations</td></tr><tr><td align="left">DBD::mysql</td><td align="left"> &gt;=3.0000</td><td align="left">(and its pre-requisites) MySQL driver for the Perl5 Database Interface (DBI)</td></tr></table>
-   * set Foswiki::Users::JoomlaUserMapping as your UserMapping in configure's Security section
-   * set Foswiki::LoginManager::JoomlaLogin as your LoginManager in configure's Security section
+   * set Foswiki::Users::PhpBB3UserMapping as your UserMapping in configure's Security section
+   * set Foswiki::LoginManager::PhpBB3Login as your LoginManager in configure's Security section
    * set none as your PasswordManager in configure's Security section
-   * set the ={AdminGroup}= in the configure security section to one of the Joomla groups (such as =Super Administrator=)
-   * configure  JoomlaUsersContrib from the *User Managers* / *Joomla User Manager* section in configure
-      * this needs a dbi connection string to your Joomla database, and a valid username and password for it.
+   * set the ={AdminGroup}= in the configure security section to one of the phpBB3 groups (such as =admin=)
+   * configure PhpBB3UsersContrib from the *User Managers* / *phpBB3 User Manager* section in configure
+      * this needs a dbi connection string to your phpBB3 database, and a valid username and password for it.
    * Test if the installation was successful:
       * __enter sample here__
       * see also [[Sandbox.PluginTest%TOPIC%]]
 
 ---++ Contrib Info
 
+|  Plugin Author: | Foswiki:Main.WillNorris - <img src="%ATTACHURL%/wikiring.png" /> [[http://www.wikiring.com][WikiRing.com]] |
 |  Plugin Author: | Foswiki:Main.SvenDowideit - of [[http://fosiki.com][fosiki.com]] - <img src="%ATTACHURL%/wikiring.png" /> [[http://www.wikiring.com][WikiRing.com]] |
-|  Copyright: | &copy; 2006-2009, SvenDowideit@fosiki.com |
+|  Copyright: | &copy; 2006-2009, SvenDowideit@fosiki.com, &copy; 2009 Will Norris |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Dependencies: | <table border="1"><tr><th>Name</th><th>Version</th><th>Description</th></tr><tr><td align="left">DBIx::SQLEngine</td><td align="left"> &gt;=0.93</td><td align="left">(and its pre-requisites) Extends DBI with High-Level Operations</td></tr><tr><td align="left">DBD::mysql</td><td align="left"> &gt;=3.0000</td><td align="left">(and its pre-requisites) MySQL driver for the Perl5 Database Interface (DBI)</td></tr></table> |
 |  Version: | 138 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-| Mar 2009 | port to Foswiki |
-| Sep 2008 | updated to 4.2.1 mapping, and fixed for Joomla 1.0.13 - where the password salts were changed |
-| Nov 2007 | updated to TWiki 4.2, and released |
-|  2006 | Initial version (not public) |
+| 11 Mar 2009 | convert from Foswiki:Extensions.JoomlaUsersContrib |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
-
-
--- SvenDowideit@fosiki.com 

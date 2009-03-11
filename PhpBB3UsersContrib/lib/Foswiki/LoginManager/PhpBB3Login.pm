@@ -16,7 +16,7 @@
 
 =pod
 
----+ package Foswiki::LoginManager::JoomlaLogin
+---+ package Foswiki::LoginManager::PhpBB3Login
 
 This is a login manager that you can specify in the security setup section of [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]]. It provides users with a template-based form to enter usernames and passwords, and works with the PasswordManager that you specify to verify those passwords.
 
@@ -25,13 +25,13 @@ methods of this class.
 
 =cut
 
-package Foswiki::LoginManager::JoomlaLogin;
+package Foswiki::LoginManager::PhpBB3Login;
 
 use strict;
 use Assert;
 use Foswiki::LoginManager::TemplateLogin;
 
-@Foswiki::LoginManager::JoomlaLogin::ISA = ('Foswiki::LoginManager::TemplateLogin');
+@Foswiki::LoginManager::PhpBB3Login::ISA = ('Foswiki::LoginManager::TemplateLogin');
 
 sub new {
     my ( $class, $session ) = @_;
@@ -45,7 +45,7 @@ sub new {
 
 ---++ ObjectMethod loadSession()
 
-add Joomla cookie to the session management
+add phpBB3 cookie to the session management
 
 =cut
 
@@ -54,11 +54,11 @@ sub loadSession {
     my $twiki = $this->{twiki};
     my $query = $twiki->{cgiQuery};
 
-    ASSERT( $this->isa('Foswiki::LoginManager::JoomlaLogin') ) if DEBUG;
+    ASSERT( $this->isa('Foswiki::LoginManager::PhpBB3Login') ) if DEBUG;
 
     my $authUser = '';
 
-    # see if there is a joomla username and password cookie
+    # see if there is a phpBB3 username and password cookie
     #TODO: think i should check the password is right too.. otherwise ignore it
     my %cookies = fetch CGI::Cookie;
     if ( defined( $cookies{'usercookie[username]'} ) ) {

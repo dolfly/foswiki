@@ -1,21 +1,21 @@
 
 
 # ---+ User Managers
-# ---++ Joomla User Manager
-# to use JoomlaUserMapping, you need to set the following settings in the "Security Setup" above
+# ---++ phpBB3 User Manager
+# to use PhpBB3UserMapping, you need to set the following settings in the "Security Setup" above
 # <ol><li>
-# UserMappingManager = 'Foswiki::Users::JoomlaUserMapping';
+# UserMappingManager = 'Foswiki::Users::PhpBB3UserMapping';
 # </li><li>
 # SuperAdminGroup = 'Super Administrator';
 # </li><li>
-# LoginManager = 'Foswiki::LoginManager::JoomlaLogin'; - (This setting will allow TWiki to use the 'stay logged in' cookie that Joomla makes.)
+# LoginManager = 'Foswiki::LoginManager::PhpBB3Login'; - (This setting will allow TWiki to use the 'stay logged in' cookie that phpBB3 makes.)
 # </li></ol>
 # **STRING 25**
-# The DSN to connect to the Joomla Database.
-$Foswiki::cfg{Plugins}{JoomlaUser}{DBI_dsn} = 'dbi:mysql:joomla_db:localhost';
+# The DSN to connect to the phpBB3 Database.
+$Foswiki::cfg{Plugins}{PhpBB3User}{DBI_dsn} = 'dbi:mysql:phpBB3_db:localhost';
 # **STRING 25**
-# The user to connect to the Joomla Database.
-$Foswiki::cfg{Plugins}{JoomlaUser}{DBI_username} = 'mysqlpassword';
+# The user to connect to the phpBB3 Database.
+$Foswiki::cfg{Plugins}{PhpBB3User}{DBI_username} = 'mysqlpassword';
 # **PASSWORD**
-# The password to connect to the Joomla Database.
-$Foswiki::cfg{Plugins}{JoomlaUser}{DBI_password} = 'pwd';
+# The password to connect to the phpBB3 Database.
+$Foswiki::cfg{Plugins}{PhpBB3User}{DBI_password} = 'pwd';
