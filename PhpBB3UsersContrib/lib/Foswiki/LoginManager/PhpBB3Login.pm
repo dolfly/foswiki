@@ -51,8 +51,8 @@ add phpBB3 cookie to the session management
 
 sub loadSession {
     my $this  = shift;
-    my $twiki = $this->{twiki};
-    my $query = $twiki->{cgiQuery};
+    my $foswiki = $this->{foswiki};
+    my $query = $foswiki->{cgiQuery};
 
     ASSERT( $this->isa('Foswiki::LoginManager::PhpBB3Login') ) if DEBUG;
 
@@ -64,15 +64,15 @@ sub loadSession {
     if ( defined( $cookies{'usercookie[username]'} ) ) {
         my $id       = $cookies{'usercookie[username]'}->value;
         my $password = $cookies{'usercookie[password]'}->value;
-        my $user     = $twiki->{users}->getCanonicalUserID( $id, undef, 1 );
+        my $user     = $foswiki->{users}->getCanonicalUserID( $id, undef, 1 );
 
         #print STDERR "$id, $password, $user";
-        my $passwordHandler = $twiki->{users}->{passwords};
+        my $passwordHandler = $foswiki->{users}->{passwords};
 
         #return $passwordHandler->checkPassword($this->{login}, $password);
 
         if ( defined($user)
-            && $twiki->{users}->checkPassword( $user->login(), $password, 1 ) )
+            && $foswiki->{users}->checkPassword( $user->login(), $password, 1 ) )
         {
             $authUser = $id;
         }
