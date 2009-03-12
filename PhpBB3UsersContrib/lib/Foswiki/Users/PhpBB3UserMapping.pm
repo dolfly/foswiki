@@ -625,8 +625,8 @@ sub checkPassword {
     ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
 
     my $pw = $this->fetchPass($user);
-    print STDERR "pw=[$pw], length=[", length $pw, "]\n";
-    print STDERR "password=[$password]\n";
+    #print STDERR "pw=[$pw], length=[", length $pw, "]\n";
+    #print STDERR "password=[$password]\n";
     
     my $pwhash;
     if (length($pw) == 34) {
