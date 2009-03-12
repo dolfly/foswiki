@@ -1,5 +1,7 @@
 # Module of Foswiki Collaboration Platform, http://Foswiki.org/
 #
+# Copyright (c) 2009 Will Norris
+# Copyright (c) 2008 Isaac Lin
 # Copyright (C) 2006-9 Sven Dowideit, SvenDowideit@fosiki.com
 #
 # This program is free software; you can redistribute it and/or
@@ -21,7 +23,7 @@
 
 ---+ package Foswiki::Users::PhpBB3UserMapping
 
-canonical user_id == id number of jos_user table
+canonical user_id == id number of jos_users table
 login == username column
 
 
@@ -30,7 +32,6 @@ login == username column
 package Foswiki::Users::PhpBB3UserMapping;
 use base 'Foswiki::UserMapping';
 
-use strict;
 use strict;
 use Assert;
 use Foswiki::UserMapping;
@@ -242,15 +243,13 @@ sub getWikiName {
     my $user_number = $user;
     $user_number =~ s/^$this->{mapping_id}//;
     my $name;
-    my $userDataset =
-      $this->dbSelect( 'select name from jos_users gwn where gwn.id = ?',
-        $user_number );
+    my $userDataset = $this->dbSelect( 'SELECT username FROM phpbb_users WHERE user_id = ?', $user_number );
     if ( exists $$userDataset[0] ) {
-        $name = $$userDataset[0]{name};
+        $name = $$userDataset[0]{username};
     }
     else {
 
-#TODO: examine having the mapper returnthe truth, and fakeing guest in the core...
+#TODO: examine having the mapper return the truth, and fakeing guest in the core...
 #throw Error::Simple(
 #   'user_id does not exist: '.$user);
         return $Foswiki::cfg{DefaultUserWikiName};
@@ -296,9 +295,9 @@ sub eachUser {
     my @list = ();
 
 #TODO: this needs to be implemented in terms of a DB iterator that only selects partial results
-    my $userDataset = $this->dbSelect('select id from jos_users');
+    my $userDataset = $this->dbSelect('SELECT user_id FROM phpbb_users');
     for my $row (@$userDataset) {
-        push @list, $this->{mapping_id} . $$row{id};
+        push @list, $this->{mapping_id} . $$row{user_id};
     }
 
     return new Foswiki::ListIterator( \@list );
@@ -329,6 +328,8 @@ sub eachGroupMember {
 
     my $members = [];
 
+=pod
+
 #return [] if ($groupName =~ /Registered/);    #LIMIT it cos most users are resistered
     my $groupIdDataSet = $this->dbSelect(
         'select group_id from jos_core_acl_aro_groups where name = ?',
@@ -353,6 +354,9 @@ sub eachGroupMember {
         }
 
     }
+
+=cut
+
     $this->{groupCache}{$groupName} = $members;
     return new Foswiki::ListIterator($members);
 }
@@ -370,6 +374,8 @@ Subclasses *must* implement this method.
 
 sub isGroup {
     my ( $this, $user ) = @_;
+
+    return 0;
 
     #throw Error::Simple('IMPLEMENT/TEST ME');
     my $groupIdDataSet = $this->dbSelect(
@@ -442,7 +448,8 @@ sub isAdmin {
     my $isAdmin = 0;
 
     my $sag = $Foswiki::cfg{SuperAdminGroup};
-    $isAdmin = $this->isInGroup( $user, $sag );
+    $isAdmin = 1;
+#TODO    $isAdmin = $this->isInGroup( $user, $sag );
 
     return $isAdmin;
 }
@@ -494,12 +501,11 @@ sub findUserByEmail {
     my $email = shift;
 
     if ($email) {
-        my $dataset =
-          $this->dbSelect( 'select * from jos_users where email = ?', $email );
+        my $dataset = $this->dbSelect( 'SELECT * FROM phpbb_users WHERE user_email = ?', $email );
         if ( exists $$dataset[0] ) {
             my @userList = ();
             for my $row (@$dataset) {
-                push( @userList, $this->{mapping_id} . $$row{id} );
+                push( @userList, $this->{mapping_id} . $$row{user_id} );
             }
             return \@userList;
         }
@@ -534,9 +540,9 @@ sub getEmails {
 
     if ($cUID) {
         my $dataset =
-          $this->dbSelect( 'select * from jos_users where id = ?', $cUID );
+          $this->dbSelect( 'SELECT * FROM phpbb_users WHERE user_id = ?', $cUID );
         if ( exists $$dataset[0] ) {
-            return ( $$dataset[0]{email} );
+            return ( $$dataset[0]{user_email} );
         }
         $this->{error} = 'Login invalid';
         return;
@@ -585,13 +591,11 @@ sub findUserByWikiName {
     my $wikiname = shift;
 
     if ($wikiname) {
-        my $dataset =
-          $this->dbSelect( 'select * from jos_users where name = ?',
-            $wikiname );
+        my $dataset = $this->dbSelect( 'SELECT * FROM phpbb_users where username = ?', $wikiname );
         if ( exists $$dataset[0] ) {
             my @userList = ();
             for my $row (@$dataset) {
-                push( @userList, $this->{mapping_id} . $$row{id} );
+                push( @userList, $this->{mapping_id} . $$row{user_id} );
             }
             return \@userList;
         }
@@ -620,33 +624,25 @@ Default behaviour is to return 1.
 sub checkPassword {
     my ( $this, $user, $password, $encrypted ) = @_;
 
-   #print STDERR "checkPassword($user, $password, ".($encrypted||'undef').")\n";
+    #print STDERR "checkPassword($user, $password, ".($encrypted||'undef').")\n";
 
     ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
 
     my $pw = $this->fetchPass($user);
-
-    # $pw will be 0 if there is no pw
-    my $salt = '';
-    if ( $pw =~ /^(.{32}):(.*)$/ ) {
-        $pw   = $1;
-        $salt = $2;    #previous versions of joomla did not have a salt.
-    }
-
-    my $encryptedPassword;
-    if ( ( defined($encrypted) ) && ( $encrypted == 1 ) ) {
-        $encryptedPassword = $password;
-    }
-    else {
-        require Digest::MD5;
-        $encryptedPassword = Digest::MD5::md5_hex( $password . $salt );
+    #print STDERR "pw=[$pw], length=[", length $pw, "]\n";
+    #print STDERR "password=[$password]\n";
+    
+    my $pwhash;
+    use bytes;
+    if (length($pw) == 34) {
+	$pwhash = phpbb_hash($password, $pw);
     }
 
     $this->{error} = undef;
 
-    #print STDERR "checkPassword( $pw && ($encryptedPassword eq $pw) )\n";
+#    print STDERR "checkPassword( $pw && ($pwhash eq $pw) )\n";
 
-    return 1 if ( $pw && ( $encryptedPassword eq $pw ) );
+    return 1 if ( $pwhash && ( $pwhash eq $pw ) );
 
     # pw may validly be '', and must match an unencrypted ''. This is
     # to allow for sysadmins removing the password field in .htpasswd in
@@ -724,8 +720,7 @@ sub getPhpBB3DB {
         }
         catch Error::Simple with {
             $this->{error} = $!;
-            $this->{session}->writeWarning(
-                "ERROR: DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...) : $!");
+#            $this->{session}->writeWarning( "ERROR: DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...) : $!");
             #die 'MYSQL login error (' . $dbi_dsn . ', ' . $dbi_user . ') ' . $!;
         };
     }
@@ -750,7 +745,7 @@ sub dbSelect {
         catch Error::Simple with {
             $this->{error} = $!;
             print STDERR "            ERROR: fetch_select(@query) : $!";
-            $this->{session}->writeWarning("ERROR: fetch_select(@query) : $!");
+#            $this->{session}->writeWarning("ERROR: fetch_select(@query) : $!");
         };
     }
 
@@ -775,11 +770,9 @@ sub login2canonical {
 
         # use bytes to ignore character encoding
         #$login =~ s/([^a-zA-Z0-9])/'_'.sprintf('%02d', ord($1))/ge;
-        my $userDataset =
-          $this->dbSelect( 'select * from jos_users where username = ?',
-            $login );
+        my $userDataset = $this->dbSelect( 'SELECT * FROM phpbb_users where username = ?', $login );
         if ( exists $$userDataset[0] ) {
-            $canonical_id = $$userDataset[0]{id};
+            $canonical_id = $$userDataset[0]{user_id};
 
             #TODO:ASSERT there is only one..
         }
@@ -804,9 +797,7 @@ sub canonical2login {
     return $Foswiki::cfg{DefaultUserLogin} if ( $user == -1 );
 
     my $login = $Foswiki::cfg{DefaultUserLogin};
-    my $userDataset =
-      $this->dbSelect( 'select username from jos_users c2l where c2l.id = ?',
-        $user );
+    my $userDataset = $this->dbSelect( 'SELECT username FROM phpbb_users WHERE user_id = ?', $user );
     if ( exists $$userDataset[0] ) {
         $login = $$userDataset[0]{username};
     }
@@ -844,15 +835,19 @@ sub _getListOfGroups {
     my $this = shift;
     ASSERT( ref($this) eq 'Foswiki::Users::PhpBB3UserMapping' ) if DEBUG;
 
+=pod
+
     unless ( $this->{groupsList} ) {
         $this->{groupsList} = [];
-        my $dataset =
-          $this->dbSelect('select name from jos_core_acl_aro_groups');
+        my $dataset = $this->dbSelect('select name from jos_core_acl_aro_groups');
         for my $row (@$dataset) {
             my $groupID = $$row{name};
             push @{ $this->{groupsList} }, $groupID;
         }
     }
+
+=cut
+
     return $this->{groupsList};
 }
 
@@ -881,20 +876,18 @@ sub lookupLoginName {
 sub fetchPass {
     my ( $this, $user ) = @_;
     ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
-    print STDERR "fetchPass($user)\n";
+    #print STDERR "fetchPass($user)\n";
 
     if ($user) {
-        my $dataset =
-          $this->dbSelect( 'select * from jos_users where username = ?',
-            $user );
+        my $dataset = $this->dbSelect( 'SELECT * FROM phpbb_users WHERE username = ?', $user );
 
       #$this->{session}->writeWarning("$@$dataset");
       #print STDERR "fetchpass got - ".join(', ', keys(%{$$dataset[0]}))."\n";
       #print STDERR "fetchpass got - ".join(', ', values(%{$$dataset[0]}))."\n";
         if ( exists $$dataset[0] ) {
 
-            #print STDERR "fetchPass($user, ".$$dataset[0]{password}.")\n";
-            return $$dataset[0]{password};
+            #print STDERR "fetchPass($user, ".$$dataset[0]{user_password}.")\n";
+            return $$dataset[0]{user_password};
         }
         $this->{error} = 'Login invalid';
         return 0;
@@ -918,5 +911,96 @@ sub deleteUser {
 
     return 1;
 }
+
+################################################################################
+
+sub phpbb_hash
+{
+  use bytes;
+  my ($password, $setting) = @_;
+  my $itoa64
+    = './0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+  my $output = undef;
+
+  if (substr($setting, 0, 3) ne '$H$')
+  {
+    return;
+  }
+
+  my $count_log2 = index($itoa64, substr($setting, 3, 1));
+  if ($count_log2 < 7 || $count_log2 > 30)
+  {
+    return;
+  }
+  my $count = 1 << $count_log2;
+
+  my $salt = substr($setting, 4, 8);
+  if (length($salt) != 8)
+  {
+    return;
+  }
+
+  # hash the salt and password
+  my $hash = Digest::MD5::md5($salt . $password);
+  do
+  {
+    $hash = Digest::MD5::md5($hash . $password);
+  } while (--$count);
+
+  $output = substr($setting, 0, 12) . hash_encode64($hash, 16, $itoa64);
+
+  return $output;
+}  # sub phpbb_hash
+
+################################################################################
+
+sub hash_encode64
+{
+  my ($input, $count, $itoa64) = @_;
+
+  my $output = undef;
+  my $i = 0;
+
+  ENCODE_LOOP:
+  {
+    do
+    {
+      my $value = ord(substr($input, $i, 1));
+      $output .= substr($itoa64, $value & 0x3f, 1);
+
+      ++$i;
+      if ($i < $count)
+      {
+        $value |= ord(substr($input, $i, 1)) << 8;
+      }
+      $output .= substr($itoa64, ($value >> 6) & 0x3f, 1);
+
+      if ($i >= $count)
+      {
+        last ENCODE_LOOP;
+      }
+      ++$i;
+
+      if ($i < $count)
+      {
+        $value |= ord(substr($input, $i, 1)) << 16;
+      }
+      $output .= substr($itoa64, ($value >> 12) & 0x3f, 1);
+
+      if ($i >= $count)
+      {
+        last ENCODE_LOOP;
+      }
+      ++$i;
+
+      $output .= substr($itoa64, ($value >> 18) & 0x3f, 1);
+    } while ($i < $count);
+  } # ENCODE_LOOP
+
+  return $output;
+}  # sub hash_encode64
+
+################################################################################
 
 1;
