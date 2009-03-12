@@ -222,5 +222,5 @@ defining the default CSS properties  (indentation illustrates enclosure).
 |  11 Jun 2002: | Initial version (V1.000) |
 |  Perl Version: | 5.008 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
