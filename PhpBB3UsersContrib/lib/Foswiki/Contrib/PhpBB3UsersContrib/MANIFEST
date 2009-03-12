@@ -1,4 +1,5 @@
 data/System/PhpBB3UsersContrib.txt  Plugin doc page
+data/Sandbox/PluginTestPhpBB3UsersContrib.txt  Plugin samples page
 lib/Foswiki/Contrib/PhpBB3UsersContrib.pm  Plugin Perl module 
 lib/Foswiki/LoginManager/PhpBB3Login.pm use PhpBB3 cookie for session initilaisation
 lib/Foswiki/Users/PhpBB3UserMapping.pm get User and Group information from PhpBB3 Database

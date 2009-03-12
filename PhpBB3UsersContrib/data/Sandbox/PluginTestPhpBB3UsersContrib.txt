@@ -1,0 +1,13 @@
+
+| *USERINFO* | %USERINFO% |
+| *USERNAME* | %USERNAME% |
+| *WIKINAME* | %WIKINAME% |
+| *WIKIUSERNAME* | %WIKIUSERNAME% |
+| *WIKIUSERSTOPIC* | [[%USERSWEB%.%WIKIUSERSTOPIC%]] |
+
+---++ *GROUPS* 
+%GROUPS%
+
+
+----
+samples/test page for %SYSTEMWEB%.PhpBB3UsersContrib
