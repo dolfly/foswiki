@@ -59,7 +59,7 @@ Settings are in =lib/LocalSite.cfg=. the Foswiki configure script does not curre
 |  Copyright: | &copy; 2006-2009, SvenDowideit@fosiki.com, &copy; 2008 Isaac Lin, &copy; 2009 Will Norris |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Dependencies: | <table border="1"><tr><th>Name</th><th>Version</th><th>Description</th></tr><tr><td align="left">DBIx::SQLEngine</td><td align="left"> &gt;=0.93</td><td align="left">(and its pre-requisites) Extends DBI with High-Level Operations</td></tr><tr><td align="left">DBD::mysql</td><td align="left"> &gt;=3.0000</td><td align="left">(and its pre-requisites) MySQL driver for the Perl5 Database Interface (DBI)</td></tr></table> |
-|  Version: | 138 |
+|  Version: | $Rev$ |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 | 11 Mar 2009 | convert from Foswiki:Extensions.JoomlaUsersContrib |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
