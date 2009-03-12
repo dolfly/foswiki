@@ -256,10 +256,13 @@ sub getWikiName {
     }
 
     #Make sure we're in 'ok' Wiki word territory
-    $name =~ s/[^\w]+(\w)/uc($1)/ge;
+    $name =~ s{\[}{\(}g;
+    $name =~ s{\]}{\)}g;
+#    $name =~ s/[^\w]+(\w)/uc($1)/ge;
 
     #print STDERR "getWikiName($user) == $name";
-    return ucfirst($name);
+    return $name;
+#    return ucfirst($name);
 }
 
 =pod
@@ -315,47 +318,25 @@ Subclasses *must* implement this method.
 =cut
 
 sub eachGroupMember {
-    my $this      = shift;
-    my $groupName = shift;    #group_name
+    my ( $this, $groupName ) = @_;
     ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
     ASSERT( defined($groupName) ) if DEBUG;
-
-    #    my $store = $this->{session}->{store};
-    #    my $users = $this->{session}->{users};
 
     return new Foswiki::ListIterator( $this->{groupCache}{$groupName} )
       if ( defined( $this->{groupCache}{$groupName} ) );
 
     my $members = [];
 
-=pod
-
-#return [] if ($groupName =~ /Registered/);    #LIMIT it cos most users are resistered
-    my $groupIdDataSet = $this->dbSelect(
-        'select group_id from jos_core_acl_aro_groups where name = ?',
-        $groupName );
+    #return [] if ($groupName =~ /Registered/);    #LIMIT it cos most users are resistered
+    my $groupIdDataSet = $this->dbSelect( 'SELECT group_id FROM phpbb_groups WHERE group_name=?', $groupName );
     if ( exists $$groupIdDataSet[0] ) {
         my $group        = $$groupIdDataSet[0]{group_id};
-        my $groupDataset = $this->dbSelect(
-            'select aro_id from jos_core_acl_groups_aro_map where group_id = ?',
-            $group
-        );
-
-        #TODO: re-write with join & map
+        my $groupDataset = $this->dbSelect( 'SELECT * FROM phpbb_users WHERE group_id = ?', $group );
         for my $row (@$groupDataset) {
-
-            #get rows of users in group
-            my $userDataset = $this->dbSelect(
-                'select value from jos_core_acl_aro where aro_id = ?',
-                $$row{aro_id} );
-            my $user_id =
-              $this->{mapping_id} . $$userDataset[0]{value};    # user_id
+            my $user_id = $this->{mapping_id} . $$row{user_id};
             push @{$members}, $user_id;
         }
-
     }
-
-=cut
 
     $this->{groupCache}{$groupName} = $members;
     return new Foswiki::ListIterator($members);
@@ -377,11 +358,13 @@ sub isGroup {
 
     return 0;
 
+    # list of groups:
+    # SELECT DISTINCT(phpbb_users.group_id),group_name FROM phpbb_users,phpbb_groups WHERE phpbb_users.group_id=phpbb_groups.group_id;
+
     #throw Error::Simple('IMPLEMENT/TEST ME');
     my $groupIdDataSet = $this->dbSelect(
         'select group_id from jos_core_acl_aro_groups where name = ?', $user );
     if ( exists $$groupIdDataSet[0] ) {
-
         #print STDERR "$user is a GROUP\n";
         return 1;
     }
@@ -447,9 +430,22 @@ sub isAdmin {
     my ( $this, $user ) = @_;
     my $isAdmin = 0;
 
-    my $sag = $Foswiki::cfg{SuperAdminGroup};
-    $isAdmin = 1;
-#TODO    $isAdmin = $this->isInGroup( $user, $sag );
+    my $sag = 'ADMINISTRATORS' || $Foswiki::cfg{SuperAdminGroup};
+    $isAdmin = $this->isInGroup( $user, $sag );
+
+=pod
+
+    $user =~ s/^$this->{mapping_id}//;
+    return $isAdmin unless ( $user =~ /^\d+$/ );
+
+    my $dataset = $this->dbSelect( 'SELECT phpbb_users.group_id,phpbb_groups.group_name FROM phpbb_users,phpbb_groups WHERE user_id=? AND phpbb_users.group_id=phpbb_groups.group_id', $user );
+    if ( exists $$dataset[0] ) {
+	#print STDERR "isAdmin($user), group_name=[", $$dataset[0]{group_name}, "]\n";
+	$isAdmin = $$dataset[0]{group_id} == 5;
+	$isAdmin = $$dataset[0]{group_name} eq $sag;
+    }
+
+=cut
 
     return $isAdmin;
 }
@@ -591,7 +587,7 @@ sub findUserByWikiName {
     my $wikiname = shift;
 
     if ($wikiname) {
-        my $dataset = $this->dbSelect( 'SELECT * FROM phpbb_users where username = ?', $wikiname );
+        my $dataset = $this->dbSelect( 'SELECT * FROM phpbb_users WHERE username = ?', $wikiname );
         if ( exists $$dataset[0] ) {
             my @userList = ();
             for my $row (@$dataset) {
@@ -629,18 +625,18 @@ sub checkPassword {
     ASSERT( $this->isa('Foswiki::Users::PhpBB3UserMapping') ) if DEBUG;
 
     my $pw = $this->fetchPass($user);
-    #print STDERR "pw=[$pw], length=[", length $pw, "]\n";
-    #print STDERR "password=[$password]\n";
+    print STDERR "pw=[$pw], length=[", length $pw, "]\n";
+    print STDERR "password=[$password]\n";
     
     my $pwhash;
-    use bytes;
     if (length($pw) == 34) {
-	$pwhash = phpbb_hash($password, $pw);
+	# phpBB3-style is 34 bytes long
+	$pwhash = _phpbb_hash($password, $pw);
     }
 
     $this->{error} = undef;
 
-#    print STDERR "checkPassword( $pw && ($pwhash eq $pw) )\n";
+    print STDERR "checkPassword( $pw && ($pwhash eq $pw) )\n";
 
     return 1 if ( $pwhash && ( $pwhash eq $pw ) );
 
@@ -712,8 +708,6 @@ sub getPhpBB3DB {
     #print STDERR "DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)";
 
     unless ( defined( $this->{PhpBB3DB} ) ) {
-
-#        $this->{session}->writeWarning("DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, ...)");
         try {
             $this->{PhpBB3DB} =
               DBIx::SQLEngine->new( $dbi_dsn, $dbi_user, $dbi_passwd );
@@ -770,7 +764,7 @@ sub login2canonical {
 
         # use bytes to ignore character encoding
         #$login =~ s/([^a-zA-Z0-9])/'_'.sprintf('%02d', ord($1))/ge;
-        my $userDataset = $this->dbSelect( 'SELECT * FROM phpbb_users where username = ?', $login );
+        my $userDataset = $this->dbSelect( 'SELECT * FROM phpbb_users WHERE username = ?', $login );
         if ( exists $$userDataset[0] ) {
             $canonical_id = $$userDataset[0]{user_id};
 
@@ -835,18 +829,14 @@ sub _getListOfGroups {
     my $this = shift;
     ASSERT( ref($this) eq 'Foswiki::Users::PhpBB3UserMapping' ) if DEBUG;
 
-=pod
-
     unless ( $this->{groupsList} ) {
         $this->{groupsList} = [];
-        my $dataset = $this->dbSelect('select name from jos_core_acl_aro_groups');
+        my $dataset = $this->dbSelect('SELECT group_name FROM phpbb_groups ORDER BY group_name ASC');
         for my $row (@$dataset) {
-            my $groupID = $$row{name};
+            my $groupID = $$row{group_name};
             push @{ $this->{groupsList} }, $groupID;
         }
     }
-
-=cut
 
     return $this->{groupsList};
 }
@@ -859,19 +849,6 @@ sub lookupLoginName {
 
     return login2canonical( $this, $login );
 }
-
-#sub encrypt {
-#    my ( $this, $user, $passwd, $fresh ) = @_;
-#
-#    ASSERT($this->isa( 'Foswiki::Users::PhpBB3UserMapping')) if DEBUG;
-#
-#	my $toEncode= "$passwd";
-#	my $ret = Digest::MD5::md5_hex( $toEncode );
-#
-#print STDERR "encrypt($user, $passwd) => $ret\n";
-#
-#	return $ret;
-#}
 
 sub fetchPass {
     my ( $this, $user ) = @_;
@@ -914,7 +891,7 @@ sub deleteUser {
 
 ################################################################################
 
-sub phpbb_hash
+sub _phpbb_hash
 {
   use bytes;
   my ($password, $setting) = @_;
@@ -948,14 +925,14 @@ sub phpbb_hash
     $hash = Digest::MD5::md5($hash . $password);
   } while (--$count);
 
-  $output = substr($setting, 0, 12) . hash_encode64($hash, 16, $itoa64);
+  $output = substr($setting, 0, 12) . _hash_encode64($hash, 16, $itoa64);
 
   return $output;
 }  # sub phpbb_hash
 
 ################################################################################
 
-sub hash_encode64
+sub _hash_encode64
 {
   my ($input, $count, $itoa64) = @_;
 
