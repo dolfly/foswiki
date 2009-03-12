@@ -3,8 +3,8 @@ lib/Foswiki/Contrib/PhpBB3UsersContrib.pm  Plugin Perl module
 lib/Foswiki/LoginManager/PhpBB3Login.pm use PhpBB3 cookie for session initilaisation
 lib/Foswiki/Users/PhpBB3UserMapping.pm get User and Group information from PhpBB3 Database
 lib/Foswiki/Contrib/PhpBB3UsersContrib/Config.spec
-pub/System/PhpBB3UsersContrib/PhpBB3.png
+pub/System/PhpBB3UsersContrib/PhpBB3.gif
+pub/System/PhpBB3UsersContrib/PhpBB3Icon.gif
 pub/System/PhpBB3UsersContrib/wikiring.png
-pub/System/PhpBB3UsersContrib/PhpBB3Icon.png
 templates/login.phpbb3.tmpl
 

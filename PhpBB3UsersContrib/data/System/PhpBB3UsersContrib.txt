@@ -1,5 +1,5 @@
 
-<a href="http://www.phpbb.com/" ><img src="%ATTACHURL%/PhpBB3.png" style="float: right; padding:30px;" /></a>
+<a href="http://www.phpbb.com/" ><img src="%ATTACHURL%/PhpBB3.gif" style="float: right; padding:30px;" /></a>
 
 ---+!! PhpBB3UsersContrib Contrib Package
 
