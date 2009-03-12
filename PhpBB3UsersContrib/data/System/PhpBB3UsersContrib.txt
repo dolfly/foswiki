@@ -37,18 +37,19 @@ Settings are in =lib/LocalSite.cfg=. the Foswiki configure script does not curre
 ---++ Installation Instructions
 	* Download the ZIP file from the Plugin web (see below)
 	* Unzip ==%TOPIC%.zip== in your foswiki installation directory. Content:
+<!--
 	| *File:* | *Description:* |
+-->
 
 	* Run ==%TOPIC%_installer.pl== to automatically check and install other modules that this module depends on. You can also do this step manually. Dependencies:
 	<table border="1"><tr><th>Name</th><th>Version</th><th>Description</th></tr><tr><td align="left">DBIx::SQLEngine</td><td align="left"> &gt;=0.93</td><td align="left">(and its pre-requisites) Extends DBI with High-Level Operations</td></tr><tr><td align="left">DBD::mysql</td><td align="left"> &gt;=3.0000</td><td align="left">(and its pre-requisites) MySQL driver for the Perl5 Database Interface (DBI)</td></tr></table>
-   * set Foswiki::Users::PhpBB3UserMapping as your UserMapping in configure's Security section
-   * set Foswiki::LoginManager::PhpBB3Login as your LoginManager in configure's Security section
-   * set none as your PasswordManager in configure's Security section
-   * set the ={AdminGroup}= in the configure security section to one of the phpBB3 groups (such as =admin=)
+   * set =Foswiki::Users::PhpBB3UserMapping= as your =UserMapping= in configure's Security section
+   * set =Foswiki::LoginManager::PhpBB3Login= as your =LoginManager= in configure's Security section
+   * set =none= as your =PasswordManager= in configure's Security section
+   * set the ={AdminGroup}= in the configure security section to one of the phpBB3 groups (such as =ADMINISTRATORS=)
    * configure PhpBB3UsersContrib from the *User Managers* / *phpBB3 User Manager* section in configure
-      * this needs a dbi connection string to your phpBB3 database, and a valid username and password for it.
+      * this needs a DBI connection string to your phpBB3 database, and a valid username and password for it.
    * Test if the installation was successful:
-      * __enter sample here__
       * see also [[Sandbox.PluginTest%TOPIC%]]
 
 ---++ Contrib Info
