@@ -23,7 +23,7 @@
 
 ---+ package Foswiki::Users::PhpBB3UserMapping
 
-canonical user_id == id number of jos_users table
+canonical user_id == id number of phpbb_users table
 login == username column
 
 
@@ -632,6 +632,9 @@ sub checkPassword {
     if (length($pw) == 34) {
 	# phpBB3-style is 34 bytes long
 	$pwhash = _phpbb_hash($password, $pw);
+    } else {
+	# phpBB2 password entry
+	$pwhash = Digest::MD5::md5_hex($password);
     }
 
     $this->{error} = undef;
