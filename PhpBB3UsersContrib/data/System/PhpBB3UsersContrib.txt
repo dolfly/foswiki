@@ -35,9 +35,9 @@ Settings are in =lib/LocalSite.cfg=. the Foswiki configure script does not curre
       * Set STUB = authenticate using the phpBB3 users - disable registration.
 
 ---++ Installation Instructions
+<!--
 	* Download the ZIP file from the Plugin web (see below)
 	* Unzip ==%TOPIC%.zip== in your foswiki installation directory. Content:
-<!--
 	| *File:* | *Description:* |
 -->
 
@@ -60,6 +60,8 @@ Settings are in =lib/LocalSite.cfg=. the Foswiki configure script does not curre
 |  Dependencies: | <table border="1"><tr><th>Name</th><th>Version</th><th>Description</th></tr><tr><td align="left">DBIx::SQLEngine</td><td align="left"> &gt;=0.93</td><td align="left">(and its pre-requisites) Extends DBI with High-Level Operations</td></tr><tr><td align="left">DBD::mysql</td><td align="left"> &gt;=3.0000</td><td align="left">(and its pre-requisites) MySQL driver for the Perl5 Database Interface (DBI)</td></tr></table> |
 |  Version: | $Rev$ |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  13 Mar 2009 | support for phpBB2 passwords |
 |  12 Mar 2009 | group and admin support |
 |  11 Mar 2009 | convert from Foswiki:Extensions.JoomlaUsersContrib |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
