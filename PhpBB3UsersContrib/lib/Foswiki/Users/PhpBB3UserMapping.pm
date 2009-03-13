@@ -639,7 +639,7 @@ sub checkPassword {
 
     $this->{error} = undef;
 
-    print STDERR "checkPassword( $pw && ($pwhash eq $pw) )\n";
+    #print STDERR "checkPassword( $pw && ($pwhash eq $pw) )\n";
 
     return 1 if ( $pwhash && ( $pwhash eq $pw ) );
 
