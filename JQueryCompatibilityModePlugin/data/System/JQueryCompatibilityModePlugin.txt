@@ -41,10 +41,10 @@ function myGloablFunc () { $("#foo").show() }
 </verbatim> You can use any shortcut variable you like in this code, so =;(function($foo) {..}= would let you use $foo in for access JQuery
 
 ---++ Included JQuery libraries
-   * JQuery 1.3.1
+   * JQuery 1.3.2
    * JQuery 1.2 ( deprecated but available. Not used by default )
    * JQuery URL ( [[http://plugins.jquery.com/project/url_parser]] )
-   * all current UI libs ( effects, dialogs, tabs, slider...)
+   * JQuery UI 1.7 ( effects, dialogs, tabs, slider...) 
    * jquery-ajax-upload 1.0 ( [[http://valums.com/ajax-upload/]] )
    * jquery-mbMenu 1.0 ( [[http://plugins.jquery.com/project/mbMenu]] )
    * jquery-jdMenue 1.4.1 ( [[http://jdsharp.us/jQuery/plugins/jdMenu/]] )
@@ -111,8 +111,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | © Collaborganize ( [[www.collaborganize.com]] ) |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 04 Feb 2009 (V1.4) |
+|  Plugin Version: | 15 FMar 2009 (V1.5) |
 |  Change History: | <!-- versions below in reverse order --> |
+|  15 Mar 2009: | Reorganizing dialog-api a bit, upgrading JQuery to 1.3.2, upgrading Jquery-UI to 1.7 |
 |  08 Feb 2009: | Introducing Foswiki.Func which should work as or perl counterpart Foswiki::Func |
 |  07 Feb 2009: | Changed the dialogAPI to use hash-arguments, updating docs |
 |  05 Feb 2009: | Fixing bug in jdMenug which does not recognise Jquery bounded onclick-events, fixing ajax_upload plugin to use ui-themes |
