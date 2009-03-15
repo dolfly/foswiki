@@ -27,22 +27,17 @@ window.generalDialogActionHandler = function (selector,data,scriptname,uri) {
 window.generalActionHandler = function (selector,data,scriptname,uri) {
 	document.location = uri;	
 }	
-	
-function bootupDialog(selector, dialogArguments) {
-	// remove the main window scrollbars, so users dont get confused by scrolling the outer window
-	 
-	if(dialogArguments.modal) {
-		setupScrollock();
-	}
+
+window.createDialog = function (selector, dialogArguments) {
 	if ( dialogArguments.buttons == undefined )
 		arguments.buttons = {};
 	
 	if(dialogArguments.stack == undefined) {
 		arguments.stack = true;
 	}
-	showWaitingLayer(selector);
+
 	// show this while we are waiting for the content
-    $j(selector).dialog("position", "center");
+        $j(selector).dialog("position", "center");
 	// initialize the dialog
 	$j(selector).dialog({
 											dialogClass: Foswiki.jquery.themeName,
@@ -52,14 +47,23 @@ function bootupDialog(selector, dialogArguments) {
 											height: dialogArguments.height,
 											shadow:false,
 											modal: dialogArguments.modal, 
-								    		overlay: { 
-								        		opacity: 0.4, 
-								        		background: "black"
+								    			overlay: { 
+								        			opacity: 0.4, 
+								        			background: "black"
 											},
 											buttons:dialogArguments.buttons,
 											stack: dialogArguments.stack,
 											close: function() { uninstallScrollock(); }
 	}); 	
+}
+
+function bootupDialog(selector, dialogArguments) {
+	// remove the main window scrollbars, so users dont get confused by scrolling the outer window
+	closeDialog(selector);
+	if(dialogArguments.modal) {
+		setupScrollock();
+	} 
+	showWaitingLayer(selector);
 }
 /* makes it possible to show a dialog without knowing the jquery.dialog api.
  * selector: The div ID which should be used as the dialog-destination. Generally its a display:hidden 
@@ -74,7 +78,7 @@ function bootupDialog(selector, dialogArguments) {
  * buttons:  buttons to show in the dialog. 
  */
 window.fetchAndShowDialog = function(selector, aurl, dialogArguments ) {	
-	fetchAndSetupDialog(selector, aurl, dialogArguments);	
+	fetchAndSetupDialog(selector, aurl, dialogArguments, true);	
 	showDialog(selector);
 }
 /* makes it possible to sertup a dialog without knowing the jquery.dialog api.
@@ -87,18 +91,23 @@ window.fetchAndShowDialog = function(selector, aurl, dialogArguments ) {
 
 window.setupDialog = function (selector, data, dialogArguments ) {
 	bootupDialog(selector, dialogArguments );
+	$j(selector).dialog("destroy");
+	createDialog(selector,dialogArguments);
 	$j(selector).html(data);
 }
 
-window.fetchAndSetupDialog = function(selector, aurl, dialogArguments ) {	
-	// need to use dialogArguments because arguemnts are used in the ajax request internally and gets overwritten, 
-
+window.fetchAndSetupDialog = function(selector, aurl, dialogArguments, show ) {	
+	if(show == undefined) {
+		show = false;
+	}
 	bootupDialog(selector, dialogArguments);
+
 	// adding the skin as parameter, so the fetched data is without layout
 	aurl = addSkinParameter(aurl,window.SKIN.ajaxreqskin);	
 	// adding this to avoid the hardcore IE caching breaks up the header. Thank you MS
 	var timestamp = new Date();
 	aurl += "&t="+timestamp.getTime();
+
 	// now fetch the content	
 	$j.ajax({			
 					 url : aurl,	
@@ -106,7 +115,11 @@ window.fetchAndSetupDialog = function(selector, aurl, dialogArguments ) {
 		  			 scriptCharset: "iso-8859-1",
 		  			 dataType:"html",	
 		  			 complete: function(xmlHttp, status) { 
+							$j(selector).dialog("destroy");
+							createDialog(selector,dialogArguments);
 							onFetchComplete(xmlHttp, status, selector, dialogArguments.resHandlers);
+							if(show)
+								showDialog(selector);
 					 }				 
 	});
 }
@@ -252,20 +265,27 @@ window.addSkinParameter = function (url,skin) {
 
 window.showWaitingLayer= function (dialogselector, message) {
 	if(message == undefined) {
-		message = "loading...";
+		message = "Lade...";
 	}
+    	var buttons = {};
 
-	var wait = '<table width="350px" height="350px"><tr><td width="100%" align="center" valign="center" style="font-weight:bolder">'+message+'<br><br><img src="'+Foswiki.pubUrlPath+'/System/JQueryCompatibilityModePlugin/themes/loader.gif"></td></tr></table>';
-    $j(dialogselector).html(wait);
+    	createDialog(dialogselector, { 
+    		title: "Lade",
+    		modal: true,
+    		width: 'auto',
+    		height:'auto',
+    		stack:true,
+    		buttons:buttons } );		   
+
+	var wait = '<table width="300px" height="300px"><tr><td width="100%" align="center" valign="center" style="font-weight:bolder">'+message+'<br><br><img src="'+Foswiki.pubUrlPath+'/System/JQueryCompatibilityModePlugin/themes/loader.gif"></td></tr></table>';
+        $j(dialogselector).html(wait);
+	showDialog(dialogselector);
 }
 
-window.generalRestResponseHandler = function (xmlHttp, status,selector) {
-	var data = xmlHttp.responseText;
-	
+window.generalRestResponseHandler = function ( selector, data, action, uri,xmlHttp, status, statusmsg) {	
 	switch(status) {
 		case 200:
 			$j(selector).html(data);
-			$j(selector+" > p").remove();
 		break;
 		case 401:			
 		case 403:
@@ -275,6 +295,9 @@ window.generalRestResponseHandler = function (xmlHttp, status,selector) {
 			window[Foswiki.UI.showOops](selector);
 		break;
 	}
+	$j("button[type=button]").removeClass("ui-state-hover");
+	$j("button[type=button]").removeClass("ui-state-focus");
+
 }
 
 window.showLoginForm = function (dialogselector) {
