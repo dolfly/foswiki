@@ -38,9 +38,14 @@ window.init_webs = function () {
     var url = window.Foswiki.scriptUrl+"/rest/TopicListPlugin/weblist?topic=System.WebHome&excludewebs=Trash,_default,_empty";
     $j.getJSON(url, 
           function(data){
+	      var sets = tinyMCE.getParam("foswiki_vars", "");
+	      var foswikiVars = eval(sets);	
               var output='<select name="web_name" id="web_name">';
               $j.each(data, function(i,item){
-                 output += '<option value="'+item+'">'+item+'</option>';
+		 var selected= "";
+	 	 if(foswikiVars['WEB'] == item)
+			selected = "selected";
+                 output += '<option value="'+item+'" '+selected+'>'+item+'</option>';
               });
               output += '</select>';          
               $j("#webcontainer").html(output);

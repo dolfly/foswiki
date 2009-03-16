@@ -18,17 +18,17 @@ function initPage() {
 	var pubSystemWebPath = window.Foswiki.pubUrlPath+"/"+Foswiki.systemWeb;
 	
 	var jqpath = pubSystemWebPath+"/JQueryCompatibilityModePlugin/jquery.js";
-	var autocompl = pubSystemWebPath+"/AutoCompletitionLibPlugin/js/jquery.autocomplete.pack.js";
+	var autocompl = pubSystemWebPath+"/AutoCompletionLibPlugin/js/jquery.autocomplete.pack.js";
 	var jqbigframe = pubSystemWebPath+"/JQueryCompatibilityModePlugin/js/lib/jquery.bgiframe.min.js";
-	var thickbox = pubSystemWebPath+"/AutoCompletitionLibPlugin/js/lib/thickbox-compressed.js";
-	var jqueryq = pubSystemWebPath+"/AutoCompletitionLibPlugin/js/lib/jquery.ajaxQueue.js";
+	var thickbox = pubSystemWebPath+"/AutoCompletionLibPlugin/js/lib/thickbox-compressed.js";
+	var jqueryq = pubSystemWebPath+"/AutoCompletionLibPlugin/js/lib/jquery.ajaxQueue.js";
 	
 	var foswikilink = "jscripts/foswikilink.js";
 	IncludeJS( [["",jqpath] ] );
 	IncludeJS( [["",autocompl],["",jqueryq],["",thickbox],["",jqbigframe]] );
 	IncludeJS( [["",foswikilink]] );
-	var thickboxcss = pubSystemWebPath+"/AutoCompletitionLibPlugin/css/thickbox.css";
-    var autocomplcss = pubSystemWebPath+"/AutoCompletitionLibPlugin/css/jquery.autocomplete.css";
+	var thickboxcss = pubSystemWebPath+"/AutoCompletionLibPlugin/css/thickbox.css";
+	var autocomplcss = pubSystemWebPath+"/AutoCompletionLibPlugin/css/jquery.autocomplete.css";
 	IncludeCSS([["",thickboxcss],["",autocomplcss]]);
 }
 </script>

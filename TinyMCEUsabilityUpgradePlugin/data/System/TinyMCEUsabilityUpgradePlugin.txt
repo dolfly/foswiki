@@ -21,9 +21,9 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Foswiki:Main.EugenMayer |
 |  Copyright: | &copy; 2009, Collaborganize [[www.collaborganize.com]] |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 15 Mar 2009 (V0.6) |
+|  Plugin Version: | 16 Mar 2009 (V0.6) |
 |  Change History: | <!-- versions below in reverse order --> |
-|  15 Mar 2009: | Fixing dependencies to use the renamed AutoCompletionLibPlugin |
+|  16 Mar 2009: | Fixing dependencies to use the renamed AutoCompletionLibPlugin, the current web is no preselected, when creating links |
 |  22 Jan 2009: | Link dialog is activated automatically, when plugin is enabled. Fixed several bugs in including javascript and CSS files and not using the correct pub path and SystemWEB %BR% which makes problems on system with pub not being under pub/ %BR% also fixed similar problem on rest-handler calls  |
 |  17 Jan 2009: | Back to JQueryCompatibilityModePlugin |
 |  13 Jan 2009: | Now using the JQueryPlugin, no longer using JQueryCompatibiltyPlugin |
