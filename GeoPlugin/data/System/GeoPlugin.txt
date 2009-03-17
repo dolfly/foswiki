@@ -49,11 +49,6 @@ the =format= string can reference these defined variables
 %$INSTALL_INSTRUCTIONS%
 
 
----+++ Dependencies
-
-%$DEPENDENCIES%
-
-
 ---++ Info
 
 |  Author(s): | Foswiki:Main.WillNorris |
