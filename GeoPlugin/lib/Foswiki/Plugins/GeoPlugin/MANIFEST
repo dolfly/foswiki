@@ -1,0 +1,8 @@
+# Release manifest for GeoPlugin
+data/System/GeoPlugin.txt 0644 Documentation
+data/System/VarGEO.txt 0644 Documentation
+data/System/VarREMOTE_IP_ADDRESS.txt 0644 Documentation
+data/System/WidgetMetroAreaToTheme.txt 0644 Documentation
+data/Sandbox/GeoPluginExamples.txt 0644 Documentation
+lib/Foswiki/Plugins/GeoPlugin.pm 0644 Perl module
+

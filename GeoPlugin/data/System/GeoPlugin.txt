@@ -1,0 +1,70 @@
+---+!! !GeoPlugin
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Geo location services
+-->
+%SHORTDESCRIPTION%
+
+GeoPlugin provides geo-location services, implementing a lookup feature from IP address, domain name, or physical address.
+It is a wrapper around the CPAN:Geo::IP and CPAN:Geo::GeoNames libraries.
+
+%TOC%
+
+---++ Usage
+
+=%<nop>GEO{ "address" format="$country_code ($lat,$lng)" }%=
+
+=address= can be one of:
+   * IP address
+   * Domain name
+   * Physical address
+
+the =format= string can reference these defined variables
+   * =$country=
+   * =$country_name=
+   * =$latitude=
+   * =$longitude=
+   * =$region= (state or province, typically)
+   * =$city=
+   * =$postal_code= (for USA addresses only (maybe Canadian, too))
+   * =$area_code=
+   * =$metro_code= (for USA addresses only)
+
+   * =$query= the original query
+   * =$method= =Geo::IP= or =Geo::GeoNames=   
+
+
+---++ Examples
+   * [[Sandbox.%TOPIC%Examples]]
+   * WidgetMetroAreaToTheme
+   * =%<nop>GEO{ "%<nop>REMOTE_IP_ADDRESS%" }%=
+<div style="font-size:75%;">
+| *query* | *country* | *latitude* | *longtitude* | *region* | *city* | *postal_code* | *area_code* | *metro_code* | *country_name* | *continent* | *method* |
+%GEO{ "%REMOTE_IP_ADDRESS%" }%
+</div>
+
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+
+---+++ Dependencies
+
+%$DEPENDENCIES%
+
+
+---++ Info
+
+|  Author(s): | Foswiki:Main.WillNorris |
+|  Copyright: | &copy; 2009 Will Norris. |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  17 Mar 2009 | Initial release |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/GeoPlugin |
+|  Support: | http://foswiki.org/bin/view/Support/GeoPlugin |
+|  Demo: | http://myhome.cocomint.org/Sandbox/GeoPluginExamples |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->

@@ -1,0 +1,11 @@
+%META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.1" version="$Rev: 1841 $"}%
+%META:TOPICPARENT{name="Macros"}%
+<a name="VarREMOTE_IP_ADDRESS" />
+---+++ REMOTE_IP_ADDRESS -- IP address of incoming HTTP request
+   * Retrieved from the HTTP headers
+   * Syntax: =%<nop>REMOTE_IP_ADDRESS%=
+   * Examples:
+| *<code>%<nop>REMOTE_IP_ADDRESS%</code>* | %REMOTE_IP_ADDRESS% |
+| *<code>%<nop>GEO{"%<nop>REMOTE_IP_ADDRESS%" format="$country_code ($lat,$lng)" }%</code>* | %GEO{"%REMOTE_IP_ADDRESS%" format="$country_code&nbsp;($lat,$lng) "}% |
+   * Related: [[%SYSTEMWEB%.GeoPlugin]], [[Sandbox.GeoPluginExamples]], [[%IF{"'%INCLUDINGTOPIC%'='Macros'" then="#"}%VarGEO][GEO]]
+

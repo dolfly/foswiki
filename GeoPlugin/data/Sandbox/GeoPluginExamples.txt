@@ -1,0 +1,54 @@
+---+!! <nop>GeoPlugin Examples
+
+<!--
+   * Set WIDGETSSKIN_COLUMNS = w
+   * Set ADDRESS = %URLPARAM{"address" default="%REMOTE_IP_ADDRESS%" }%
+-->
+
+---++ =%<nop>REMOTE_IP_ADDRESS%=
+Your IP Address <br/>
+| *REMOTE_IP_ADDRESS* | %REMOTE_IP_ADDRESS% |
+
+
+---++ =%<nop>GEO%=
+
+<form>
+| *Location:* | <input name="address" type="text" size="40" value="%ADDRESS%" /> <input type="submit" value="Update" /> |
+| <span style="font-size:80%; font-color:#eeeeee;">IP Address, Website address, or Physical address</span> ||
+</form>
+
+<div style="font-size:75%;">
+| *query* | *country* | *latitude* | *longtitude* | *region* | *city* | *postal_code* | *area_code* | *metro_code* | *country_name* | *continent* | *method* |
+%GEO{ "%ADDRESS%" }%
+%GEO{ "%REMOTE_IP_ADDRESS%" }%
+%GEO{ "66.92.19.99" }%
+%GEO{ "example.com" }%
+%GEO{ "foswiki.org" }%
+%GEO{ "200.56.177.33" }%
+%GEO{ "Guadalajara, Jalisco, Mexico" }%
+%GEO{ "Paris" }%
+%GEO{ "Paris, France" }%
+%GEO{ "Paris, Texas" }%
+%GEO{ "San Francisco, California, USA" }%
+</div>
+
+---+++ Sample queries that do _not_ return results
+
+Unfortunately
+
+| =Cuidad de Mexico= |
+| =Mexico, D.F.= |
+| =Mexico D.F.= |
+| =205 Dorado Terrace, San Francisco= |
+| =205 Dorado Terrace, San Francisco, CA= |
+| =205 Dorado Terrace, San Francisco, CA, 94112= |
+| =205 Dorado Terrace, San Francisco, CA, 94112, USA= |
+| =94112= |
+| =San Francisco, 94112= |
+| =San Francisco, CA, 94112= |
+| =94112, USA= |
+| =USA, 94112= |
+| =San Francisco, 94112= |
+
+
+Related topics: [[%SYSTEMWEB%.GeoPlugin]]

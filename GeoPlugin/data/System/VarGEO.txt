@@ -1,0 +1,14 @@
+%META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.1" version="$Rev: 1841 $"}%
+%META:TOPICPARENT{name="Macros"}%
+#VarGEO
+---+++ GEO -- geo-location lookup
+   * =%<nop>GEO%= provides geo-location services, providing lookup features from IP address, domain name, or physical address.
+   * Syntax: =%<nop>GEO{"%REMOTE_IP_ADDRESS" format="$country_code ($lat,$lng)"}%=
+   * Examples:
+      * =%<nop>GEO{"82.94.245.62" format="$metro_code"}%=
+      * =%<nop>GEO{"foswiki.org" format="$country_code ($lat,$lng)"}%=
+      * =%<nop>GEO{"Amsterdam"} format="$city, $country_code"}%=
+      * =%<nop>GEO{"%<nop>REMOTE_IP_ADDRESS%"}%=
+      
+   * Related: [[%SYSTEMWEB%.GeoPlugin]], [[Sandbox.GeoPluginExamples]], [[%IF{"'%INCLUDINGTOPIC%'='Macros'" then="#"}%VarREMOTE_IP_ADDRESS][REMOTE_IP_ADDRESS]]
+
