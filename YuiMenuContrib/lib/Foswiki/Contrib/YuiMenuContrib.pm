@@ -18,6 +18,6 @@ use strict;
 use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION );
 
 $VERSION = '$Rev$';
-$RELEASE = '08 March 2009';
+$RELEASE = '18 March 2009';
 $SHORTDESCRIPTION = 'add a Menu (with popup sub menus) to your Foswiki';
 

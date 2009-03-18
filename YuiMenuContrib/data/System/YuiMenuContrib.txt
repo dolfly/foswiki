@@ -9,6 +9,8 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
+This Contrib allows you to add the dynamic Javascript menu from YahooUserInterfaceContrib - see http://developer.yahoo.com/yui/menu/
+
 In WidgetsSkin, add a new widget to yout %SYSTEMWEB%.DefaultWidgets
 topic and then add that to the Design topic you are using.
 
@@ -142,41 +144,36 @@ YAHOO.util.Event.onContentReady('yui-navigation-menu', function () {
 </script>
 <style>
 .yui-skin-sam .yuimenu .bd {
-   border: 0px;
-   padding: 0px;
+border: 0px;
+padding: 0px;
 }
 /* hide foswiki tml created p's */
 .bd p {
-	display:none;
+display:none;
+}
+.yui-skin-sam .yuimenuitem-selected {
+background-color: #f5f5f5;
 }
 .yui-skin-sam .yuimenuitemlabel {
-   color:#000000;
-   cursor:default;
-   padding:10px;
-   text-decoration:none;
+color:#000000;
+cursor:default;
+padding:10px;
+text-decoration:none;
 }
 .yui-skin-sam .foswikiNewLink {
    border: 0px;
-}
-NO.yui-skin-sam  :link:hover,
-NO.yui-skin-sam  :visited:hover{
-background-color:transparent;
 }
 /* need to over-ride the overflow in Pattern Skin */
 #patternSideBar {
 overflow:visible;
 }
-.yui-skin-sam { 
-       NOposition: static;
-}
 .yui-skin-sam .menu-edit-link .yuimenuitemlabel {
-NObackground-color:gainsboro;
 padding-bottom:0;
 padding-top:0;
 text-align:right;
 }
 .yui-skin-sam .menu-edit-link .yuimenuitemlabel  :link:hover {
-   color: darkblue;
+color: darkblue;
 }
 /* so that JS off displays all menu elements */
 .yuimenu .yuimenu, .yuimenubar .yuimenu {
@@ -217,7 +214,8 @@ position:inherit;
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL 3 (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|   M9arch 2009: | change the WebMenu topic format to be a table to simplify editing |
+|  18 March 2009: | add css element for parent nodes of currently selected node - and make grey |
+|  9 March 2009: | change the WebMenu topic format to be a table to simplify editing |
 |  4 March 2009: | fix IE6 rollover |
 |  12 Jan 2009: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
