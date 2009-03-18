@@ -17,8 +17,8 @@ Your IP Address <br/>
 | <span style="font-size:80%; font-color:#eeeeee;">IP Address, Website address, or Physical address</span> ||
 </form>
 
-<div style="font-size:75%;">
-| *query* | *country* | *latitude* | *longtitude* | *region* | *city* | *postal_code* | *area_code* | *metro_code* | *country_name* | *continent* | *method* |
+<div style="font-size:70%;">
+| *query* | *country* | *latitude* | *longtitude* | *time_zone* | *region* | *city* | *postal_code* | *area_code* | *metro_code* | *country_name* | *continent* | *method* |
 %GEO{ "%ADDRESS%" }%
 %GEO{ "%REMOTE_IP_ADDRESS%" }%
 %GEO{ "66.92.19.99" }%

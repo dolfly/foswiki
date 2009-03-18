@@ -56,6 +56,7 @@ the =format= string can reference these defined variables
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  17 Mar 2009 | Added =time_zone= support |
 |  17 Mar 2009 | Initial release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/bin/view/Extensions/GeoPlugin |

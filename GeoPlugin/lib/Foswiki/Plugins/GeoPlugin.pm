@@ -63,6 +63,7 @@ sub _REMOTE_IP_ADDRESS {
 
 # TODO: time_zone
 my @mirror_fields = qw( country_code latitude longitude
+			time_zone
 		 region city postal_code 
 		 area_code 
 		 metro_code 
@@ -159,6 +160,7 @@ my $geo_map = {
 		# TODO: remove '?' when done debugging/development
 		$result->{ $field } = defined $key ? $record->{ $key } : ''; #'?';
 	    }
+	    $result->{time_zone} = $record->{timezone}->{content};
 	}
 	$result->{method} = 'Geo::GeoNames';
     }
