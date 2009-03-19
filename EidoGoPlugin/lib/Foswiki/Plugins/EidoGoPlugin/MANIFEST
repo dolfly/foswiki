@@ -1,0 +1,4 @@
+# Release manifest for EidoGoPlugin
+data/System/EidoGoPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/EidoGoPlugin.pm 0644 Perl module
+
