@@ -55,7 +55,7 @@ our $RELEASE = '$Date: 2009-03-10 19:21:06 +0100 (Tue, 10 Mar 2009) $';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-our $SHORTDESCRIPTION = 'viwer tfor the game of GO';
+our $SHORTDESCRIPTION = 'Plugin to enable the Eidogo Javascript viewer in FosWiki';
 
 # You must set $NO_PREFS_IN_TOPIC to 0 if you want your plugin to use
 # preferences set in the plugin topic. This is required for compatibility
@@ -67,6 +67,12 @@ our $SHORTDESCRIPTION = 'viwer tfor the game of GO';
 # and topic level.
 our $NO_PREFS_IN_TOPIC = 1;
 
+our $INSTALL_INSTRUCTIONS = 'instructions...';
+
+
+use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN_TOPIC );
+
+$pluginName = 'EidoGoPlugin';
 =begin TML
 
 ---++ initPlugin($topic, $web, $user) -> $boolean
@@ -117,14 +123,15 @@ sub initPlugin {
     # configuration to the =configure= interface.
     # my $setting = $Foswiki::cfg{Plugins}{EidoGoPlugin}{ExampleSetting} || 0;
 
-    # Register the _EXAMPLETAG function to handle %EXAMPLETAG{...}%
-    # This will be called whenever %EXAMPLETAG% or %EXAMPLETAG{...}% is
-    # seen in the topic text.
-    Foswiki::Func::registerTagHandler( 'EXAMPLETAG', \&_EXAMPLETAG );
-
     # Allow a sub to be called from the REST interface
     # using the provided alias
-    Foswiki::Func::registerRESTHandler( 'example', \&restExample );
+    #Foswiki::Func::registerRESTHandler( 'example', \&restExample );
+    
+    $debug = $TWiki::cfg{Plugins}{EidoGoPlugin}{Debug} || 0;
+    $debug = TWiki::Func::getPreferencesValue('Debug');
+
+    TWiki::Func::registerTagHandler( 'EIDOGO', \&_EIDOGO);
+    TWiki::Func::registerTagHandler( 'FILELIST', \&_FILELIST);
 
     # Plugin correctly initialized
     return 1;
@@ -237,20 +244,25 @@ handler. Use the =$meta= object.
 
 =cut
 
-#sub commonTagsHandler {
-#    my ( $text, $topic, $web, $included, $meta ) = @_;
-#
-#    # If you don't want to be called from nested includes...
-#    #   if( $included ) {
-#    #         # bail out, handler called from an %INCLUDE{}%
-#    #         return;
-#    #   }
-#
-#    # You can work on $text in place by using the special perl
-#    # variable $_[0]. These allow you to operate on $text
-#    # as if it was passed by reference; for example:
-#    # $_[0] =~ s/SpecialString/my alternative/ge;
-#}
+sub commonTagsHandler {
+    my ( $text, $topic, $web, $included, $meta ) = @_;
+
+    # If you don't want to be called from nested includes...
+    #   if( $included ) {
+    #         # bail out, handler called from an %INCLUDE{}%
+    #         return;
+    #   }
+
+    # You can work on $text in place by using the special perl
+    # variable $_[0]. These allow you to operate on $text
+    # as if it was passed by reference; for example:
+    # $_[0] =~ s/SpecialString/my alternative/ge;
+    my $EIDOGOROOT = TWiki::Func::getPreferencesValue('ROOTDIR') ||
+      TWiki::Func::getPreferencesValue('EIDOGOPLUGIN_ROOTDIR');
+    my $EIDOGOCFG  = TWiki::Func::getPreferencesValue('CONFIG') ||
+      TWiki::Func::getPreferencesValue('EIDOGOPLUGIN_CONFIG');
+    $_[0] =~ s|(<base.*)|$1\n<script type=\"text/javascript\"> eidogoConfig = {${EIDOGOCFG}};</script>\n<script type="text/javascript" src="${EIDOGOROOT}/player/js/all.compressed.js"></script>|;
+}
 
 =begin TML
 
@@ -769,6 +781,54 @@ Foswiki::Support.Faq1
 #   return "This is an example of a REST invocation\n\n";
 #}
 
+=begin TML
+---++ private handlers
+=cut
+sub _EIDOGO {
+  my($session, $params, $theTopic, $theWeb) = @_;
+  my $mode = TWiki::Func::getPreferencesValue('DEFAULT_MODE') ||
+    TWiki::Func::getPreferencesValue('EIDOGOPLUGIN_DEFAULT_MODE');
+  $mode = $params->{mode} if ($params->{mode} =~ /\S+/);
+
+  my $game = $params->{_DEFAULT};
+  $game = $params->{game} if ($params->{game} =~ /\S+/); 
+
+  TWiki::Func::writeDebug( "- ${pluginName}::_EIDOGO( ) $params->{mode}" ) if $debug;
+
+  return "<div class=\"${mode}\" sgf=\"${game}\"></div>";
+}
+
+sub _FILELIST {
+  my($session, $params, $theTopic, $theWeb) = @_;
+# %SVNTICKETREF{ ticketprefix="DataVizTicket" ticketnum="%CALC{$EVAL(%TOPIC%)}%" svnpath="sv://intranet/subversion/DataViz/"
+#                webviewPath="" format= "| $rev | $author | $time $date | $comment"|}%
+  TWiki::Func::writeDebug( "- ${pluginName}::filelist( ) for $params->{path} " ) if $debug;
+
+  open (FILE, "cd " . $params->{path} . " && /usr/bin/find . -type f |" );
+  my $formattedlist;
+
+  while (my $buffer = <FILE>) {
+    TWiki::Func::writeDebug( "- ${pluginName}::filelist( ) read line $buffer" ) if $debug;
+    my $line = $params->{format};
+    TWiki::Func::writeDebug( "- ${pluginName}::filelist( ) read parameter $line" ) if $debug;
+    $buffer = trim($buffer);
+    $buffer =~ s/^\.\///g;
+    $line =~ s/\$file/$buffer/g;
+    TWiki::Func::writeDebug( "- ${pluginName}::filelist( ) read sub line $buffer" ) if $debug;
+    $formattedlist .= "\n" . $line ;
+    TWiki::Func::writeDebug( "- ${pluginName}::filelist( ) new list $formattedlist" ) if $debug;
+  }
+
+  return $formattedlist;
+}
+
+sub trim($)
+{
+  my $string = shift;
+  $string =~ s/^\s+//;
+  $string =~ s/\s+$//;
+  return $string;
+}
 1;
 __END__
 This copyright information applies to the EidoGoPlugin:

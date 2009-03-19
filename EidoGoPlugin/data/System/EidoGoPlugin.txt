@@ -1,31 +1,59 @@
----+!! !EidoGoPlugin
-<!--
-One line description, required for extensions repository catalog.
-   * Set SHORTDESCRIPTION = viwer tfor the game of GO
--->
-%SHORTDESCRIPTION%
+%META:TOPICINFO{author="NicolasWrobel" date="1236953917" format="1.1" reprev="1.5" version="1.5"}%
+%META:TOPICPARENT{name="AdminToolsCategory"}%
+---+ Eidogo TWiki Plugin
+Visit http://eidogo.com for eidogo itself.
 
-%TOC%
+   1 install http://eidogo.com on twiki webserver (=svn co !http://eidogo.googlecode.com/svn/trunk/ eidogo=)
+      * eg. local /var/www/myserver.com/htdocs/eidogo and !http://www.myserver.com/eidogo
+   1 [[%TOPIC%#Plugin_Installation_Instructions][Install this Plugin]] 
+   1 Upload your sgf files
+      * eg. local /var/www/myserver.com/htdocs/sgf/test.sgf
+   1 Add the Eidogo tags =%<nop>EIDOGO{game="/sgf/test.sgf" mode="eidogo-player-auto" title="testtitle"}%= or =%<nop>EIDOGO{"%ATTACHURL%/test.sgf"}%=
 
----++ Usage
+eventually change layout in !EidoGo in %ROOTDIR%/player/css/player.css in section =.eidogo-player.theme-compact=
+  
+---++ Testing Installation
+%EIDOGO{game="%ATTACHURL%/test.sgf" mode="eidogo-player-auto" title="testtitle"}%
 
----++ Examples
+---++ Syntax Rules
 
----++ Installation Instructions
 
-%$INSTALL_INSTRUCTIONS%
+   * Set DEBUG to 1 to get debug messages in =data/debug.txt=.  Default: =0=
+      * Set DEBUG = 0
 
----++ Info
+   * Default root directory for eidogo installation: =/eidogo/=
+      * Set ROOTDIR = /eidogo/
 
-Many thanks to the following sponsors for supporting this work:
-   * Acknowledge any sponsors here
+   * Default mode for display: =eidogo-player-auto=, =eidogo-player-problem=
+      * Set DEFAULT_MODE = eidogo-player-auto
 
-|  Author(s): | |
-|  Copyright: | &copy; |
-|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-|  Version: | %$VERSION% |
+   * Default mode for display: =eidogo-player-auto=, =eidogo-player-problem=
+      * Set CONFIG = theme: "compact", showComments: true, showPlayerInfo: true, showGameInfo: true, showTools: false, showOptions: false, markCurrent: true, markVariations: true, markNext: false, problemMode: false, enableShortcuts: true
+
+---++ Plugin Installation Instructions
+
+   1 Unpack files in TWiki installation dir =lib/TWiki/Plugins/EidoGoPlugin.pm= and =data/TWiki/EidoGoPlugin.txt= =data/TWiki/EidoGoPlugin.txt,v= =%ATTACHURL%/test.sgf=
+
+---++ Plugin Info
+
+|  Plugin Author: | [[http://wrobel.ch][NicolasWrobel]] |
+|  Copyright: | none |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 01.01.2009 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  Dependencies: | %$DEPENDENCIES% |
-|  Home page: | http://foswiki.org/bin/view/Extensions/EidoGoPlugin |
+|  01 Jan 2009: | Dakar changes |
+|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.1 |
+|  CPAN Dependencies: | none |
+|  Other Dependencies: | none |
+|  Perl Version: | 5.005 |
+|  TWiki:Plugins/Benchmark: | none |
+|  Plugin Home: | http://TWiki.org/cgi-bin/view/Plugins/%TOPIC% |
+|  Feedback: | http://TWiki.org/cgi-bin/view/Plugins/%TOPIC%Dev |
+|  Appraisal: | http://TWiki.org/cgi-bin/view/Plugins/%TOPIC%Appraisal |
 
-<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
+__Related Topics:__ %TWIKIWEB%.TWikiPlugins, %TWIKIWEB%.DeveloperDocumentationCategory, %TWIKIWEB%.AdminDocumentationCategory, %TWIKIWEB%.TWikiPreferences
+
+
+-- Main.NicolasWrobel - 24 Feb 2008
+
+%META:FILEATTACHMENT{name="test.sgf" attr="" autoattached="1" comment="" date="1203869326" path="test.sgf" size="424" user="Main.NicolasWrobel" version="1"}%
