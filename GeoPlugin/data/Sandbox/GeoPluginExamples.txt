@@ -9,6 +9,11 @@
 Your IP Address <br/>
 | *REMOTE_IP_ADDRESS* | %REMOTE_IP_ADDRESS% |
 
+<div style="font-size:65%;">
+| *query* | *country* | *latitude* | *longtitude* | *time_zone* | *region* | *city* | *postal_code* | *area_code* | *metro_code* | *country_name* | *continent* | *method* |
+%GEO{ "%REMOTE_IP_ADDRESS%" }%
+</div>
+
 
 ---++ =%<nop>GEO%=
 
@@ -17,7 +22,7 @@ Your IP Address <br/>
 | <span style="font-size:80%; font-color:#eeeeee;">IP Address, Website address, or Physical address</span> ||
 </form>
 
-<div style="font-size:70%;">
+<div style="font-size:65%;">
 | *query* | *country* | *latitude* | *longtitude* | *time_zone* | *region* | *city* | *postal_code* | *area_code* | *metro_code* | *country_name* | *continent* | *method* |
 %GEO{ "%ADDRESS%" }%
 %GEO{ "%REMOTE_IP_ADDRESS%" }%

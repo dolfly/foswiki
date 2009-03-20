@@ -24,6 +24,7 @@ the =format= string can reference these defined variables
    * =$country_name=
    * =$latitude=
    * =$longitude=
+   * =$time_zone=
    * =$region= (state or province, typically)
    * =$city=
    * =$postal_code= (for USA addresses only (maybe Canadian, too))
@@ -47,6 +48,12 @@ the =format= string can reference these defined variables
 ---++ Installation Instructions
 
 %$INSTALL_INSTRUCTIONS%
+
+To install the database(s) used by CPAN:Geo::IP,
+   * http://www.maxmind.com/app/geoip_country (install as =/usr/local/share/GeoIP/GeoIP.dat=)
+   * http://www.maxmind.com/app/geolitecity (install as =/usr/local/share/GeoIP/GeoIPCity.dat=)
+
+CPAN:Geo::GeoNames uses a webservice (I believe).  I think there is a way to download a database, but I have not persued that yet.
 
 
 ---++ Info
