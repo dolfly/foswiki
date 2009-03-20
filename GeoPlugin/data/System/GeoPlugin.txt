@@ -8,6 +8,8 @@ One line description, required for extensions repository catalog.
 GeoPlugin provides geo-location services, implementing a lookup feature from IP address, domain name, or physical address.
 It is a wrapper around the CPAN:Geo::IP and CPAN:Geo::GeoNames libraries.
 
+Note that GeoPlugin caches each request, so multiple instances on the same page do not slow things down.
+
 %TOC%
 
 ---++ Usage
