@@ -1,0 +1,16 @@
+%META:TOPICINFO{author="NicolasWrobel" date="1237819871" format="1.1" reprev="1.0" version="1.0"}%
+%META:TOPICPARENT{name="Macros"}%
+#VarEIDOGO
+---+++ EIDOGO{ _attributes_ } -- add Eidogo viewer to the page
+   * The =%<nop>EIDOGO{}%= variable is handled by the EidoGoPlugin
+   * Syntax: =%<nop>EidoGo{ _attributes_ }%=
+%STARTSECTION{"eidogo_attributes"}%
+   * Supported attributes:
+     | *Attribute* | *Comment* | *Default* |
+     | =game= | the default parameter is the relative URL path to the sgf file. | (no default) |
+     | =mode= | the supported modes from eido-go =eidogo-player-problem= and =eidogo-player-auto= | =eidogo-player-auto= (what you've defined in [[%SCRIPTURLPATH{"configure"}%][configure]]) |
+     | =config= | the style which renders the eidogo interface. see documentation of eidogo for details... | =theme: "compact", showComments: true, showPlayerInfo: true, showGameInfo: true, showTools: false, showOptions: false, markCurrent: true, markVariations: true, markNext: true, problemMode: false, enableShortcuts: true= (what you've defined in [[%SCRIPTURLPATH{"configure"}%][configure]]) |
+%ENDSECTION{"eidogo_attributes"}%
+   * Example:%BR%
+     =%<nop>EIDOGO{game="/sgf/test.sgf" mode="eidogo-player-auto" config="theme: \"compact\", showComments: true, showPlayerInfo: true, showGameInfo: true, showTools: false, showOptions: false, markCurrent: true, markVariations: true, markNext: true, problemMode: false, enableShortcuts: true"}%= %BR% =%<nop>EIDOGO{"%ATTACHURL%/test.sgf"}%=
+   * Related: See EidoGoPlugin for more details

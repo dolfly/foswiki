@@ -1,47 +1,28 @@
-%META:TOPICINFO{author="NicolasWrobel" date="1236953917" format="1.1" reprev="1.5" version="1.5"}%
+%META:TOPICINFO{author="[[Foswiki:Main/NicolasWrobel]]" date="1236953917" format="1.1" reprev="1.0" version="1.0"}%
 %META:TOPICPARENT{name="AdminToolsCategory"}%
 ---+ Eidogo TWiki Plugin
 Visit http://eidogo.com for eidogo itself.
 
    1 install http://eidogo.com on twiki webserver (=svn co !http://eidogo.googlecode.com/svn/trunk/ eidogo=)
-      * eg. local /var/www/myserver.com/htdocs/eidogo and !http://www.myserver.com/eidogo
-   1 [[%TOPIC%#Plugin_Installation_Instructions][Install this Plugin]] 
-   1 Upload your sgf files
-      * eg. local /var/www/myserver.com/htdocs/sgf/test.sgf
-   1 Add the Eidogo tags =%<nop>EIDOGO{game="/sgf/test.sgf" mode="eidogo-player-auto" title="testtitle"}%= or =%<nop>EIDOGO{"%ATTACHURL%/test.sgf"}%=
-
-eventually change layout in !EidoGo in %ROOTDIR%/player/css/player.css in section =.eidogo-player.theme-compact=
+      * eg. local /var/www/myserver.com/htdocs/eidogo and make it accessible from !http://www.myserver.com/eidogo
+   1 install this plugin by opening the [[%SCRIPTURLPATH{"configure"}%][configure]] script and use =Find More Extensions= and install EidoGoPlugin
+   1 use [[%SCRIPTURLPATH{"configure"}%][configure]] again to set default configuration in the corresponding section
+   1 eventually change layout in !EidoGo in <eidogo-rootdir>/player/css/player.css in section =.eidogo-player.theme-compact=
+   1 Upload your sgf files 
+ 
+%INCLUDE{"System.VarEIDOGO"}%
   
 ---++ Testing Installation
-%EIDOGO{game="%ATTACHURL%/test.sgf" mode="eidogo-player-auto" title="testtitle"}%
-
----++ Syntax Rules
-
-
-   * Set DEBUG to 1 to get debug messages in =data/debug.txt=.  Default: =0=
-      * Set DEBUG = 0
-
-   * Default root directory for eidogo installation: =/eidogo/=
-      * Set ROOTDIR = /eidogo/
-
-   * Default mode for display: =eidogo-player-auto=, =eidogo-player-problem=
-      * Set DEFAULT_MODE = eidogo-player-auto
-
-   * Default mode for display: =eidogo-player-auto=, =eidogo-player-problem=
-      * Set CONFIG = theme: "compact", showComments: true, showPlayerInfo: true, showGameInfo: true, showTools: false, showOptions: false, markCurrent: true, markVariations: true, markNext: false, problemMode: false, enableShortcuts: true
-
----++ Plugin Installation Instructions
-
-   1 Unpack files in TWiki installation dir =lib/TWiki/Plugins/EidoGoPlugin.pm= and =data/TWiki/EidoGoPlugin.txt= =data/TWiki/EidoGoPlugin.txt,v= =%ATTACHURL%/test.sgf=
+%EIDOGO{game="%ATTACHURL%/test.sgf" mode="eidogo-player-auto" title="testtitle" config="test"}%
 
 ---++ Plugin Info
 
-|  Plugin Author: | [[http://wrobel.ch][NicolasWrobel]] |
+|  Plugin Author: | Foswiki:Main/NicolasWrobel |
 |  Copyright: | none |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | 01.01.2009 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  01 Jan 2009: | Dakar changes |
+|  Foswiki:Main/NicolasWrobel - 24 Feb 2008: | Foswiki changes |
 |  TWiki Dependency: | $TWiki::Plugins::VERSION 1.1 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
@@ -51,9 +32,7 @@ eventually change layout in !EidoGo in %ROOTDIR%/player/css/player.css in sectio
 |  Feedback: | http://TWiki.org/cgi-bin/view/Plugins/%TOPIC%Dev |
 |  Appraisal: | http://TWiki.org/cgi-bin/view/Plugins/%TOPIC%Appraisal |
 
-__Related Topics:__ %TWIKIWEB%.TWikiPlugins, %TWIKIWEB%.DeveloperDocumentationCategory, %TWIKIWEB%.AdminDocumentationCategory, %TWIKIWEB%.TWikiPreferences
+__Related Topics:__ %SYSTEMWEB%.VarEIDOGO, [[%SYSTEMWEB%.Plugins]], %SYSTEMWEB%.InstalledPlugins 
 
-
--- Main.NicolasWrobel - 24 Feb 2008
 
 %META:FILEATTACHMENT{name="test.sgf" attr="" autoattached="1" comment="" date="1203869326" path="test.sgf" size="424" user="Main.NicolasWrobel" version="1"}%

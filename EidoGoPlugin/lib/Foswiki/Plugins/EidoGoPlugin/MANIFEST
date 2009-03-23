@@ -1,4 +1,6 @@
 # Release manifest for EidoGoPlugin
 data/System/EidoGoPlugin.txt 0644 Documentation
+data/System/VarEIDOGO.txt 0644 Documentation
 lib/Foswiki/Plugins/EidoGoPlugin.pm 0644 Perl module
+lib/Foswiki/Plugins/EidoGoPlugin/Config.spec 0644 Perl module
 pub/System/EidoGoPlugin/test.sgf 0644 example SGF file
