@@ -1,0 +1,2 @@
+# Dependencies for AutoCompletePlugin
+Foswiki::Contrib::YahooUserInterfaceContrib, >=0, perl, Optional. If not found, will use files served from Yahoo! servers. See http://developer.yahoo.com/yui/articles/hosting/.

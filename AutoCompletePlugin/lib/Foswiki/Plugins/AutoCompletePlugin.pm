@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2007 - 2008 Andrew Jones, andrewjones86@googlemail.com
+# Copyright (C) 2007 - 2009 Andrew Jones, andrewjones86@googlemail.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -12,31 +12,27 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
-# For licensing info read LICENSE file in the TWiki root.
+# For licensing info read LICENSE file in the Foswiki root.
 
-package TWiki::Plugins::AutoCompletePlugin;
+package Foswiki::Plugins::AutoCompletePlugin;
 
 use strict;
 
+require Foswiki::Func;
+require Foswiki::Plugins;
+
+require CGI;
+
 use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN_TOPIC $id $doneYui $doneStyle @loadedData);
 
-$VERSION = '$Rev: 14277 (24 Jun 2007) $';
-$RELEASE = 'TWiki-4.2';
-$SHORTDESCRIPTION = 'Provides an Autocomplete input field based on Yahoo\'s User Interface Library';
-
-$NO_PREFS_IN_TOPIC = 1;
-
-# Name of this Plugin, only used in this module
-$pluginName = 'AutoCompletePlugin';
+our $VERSION = '$Rev$';
+our $RELEASE = '1.0';
+our $SHORTDESCRIPTION = 'Provides an Autocomplete input field based on Yahoo\'s User Interface Library';
+our $NO_PREFS_IN_TOPIC = 1;
+our $pluginName = 'AutoCompletePlugin';
 
 sub initPlugin {
     my( $topic, $web, $user, $installWeb ) = @_;
-
-    # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1.026 ) {
-        TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
-        return 0;
-    }
 
     # global variables
     $id = 0;
@@ -44,7 +40,7 @@ sub initPlugin {
     $doneStyle = 0;
     @loadedData = ();
 
-    TWiki::Func::registerTagHandler( 'AUTOCOMPLETE', \&_handleTag );
+    Foswiki::Func::registerTagHandler( 'AUTOCOMPLETE', \&_handleTag );
 
     _Debug( 'init OK' );
 
@@ -69,14 +65,14 @@ sub renderFormFieldForEditHandler {
 
     _Debug( 'Found in form' );
 
-    my %params = TWiki::Func::extractParameters($possibleValues);
+    my %params = Foswiki::Func::extractParameters($possibleValues);
     
     $params{name} = $name;
     $params{size} = $size;
     unless( $value eq $possibleValues ){
 	$params{value} = $value;
     }
-    $params{class} = 'twikiInputField';
+    $params{class} = 'foswikiInputField';
 
     return _createTextfield(\%params);
 
@@ -90,7 +86,7 @@ sub _createTextfield {
     unless( $params->{name} ){
         return _returnError( "The 'name' parameter is required." );
     }
-    unless( TWiki::Func::topicExists( undef, $params->{datatopic} ) ){
+    unless( Foswiki::Func::topicExists( undef, $params->{datatopic} ) ){
         return _returnError( "$params->{datatopic} does not exist." );
     }
     unless( $params->{datasection} ){
@@ -182,7 +178,7 @@ sub _addData {
 
         push( @loadedData, $dataVar );
 
-        my $data = TWiki::Func::expandCommonVariables(
+        my $data = Foswiki::Func::expandCommonVariables(
             "%INCLUDE{\"$datatopic\" section=\"$datasection\"}%"
         );
 
@@ -190,7 +186,7 @@ sub _addData {
                 . "var $dataVar = [$data]; \n"
                 . '</script>';
 
-        TWiki::Func::addToHEAD( $pluginName . '_data' . $id, $out );
+        Foswiki::Func::addToHEAD( $pluginName . '_data' . $id, $out );
     }
 
     return $dataVar;
@@ -242,18 +238,20 @@ sub _addYUI {
 
     my $yui;
         
-    eval 'use TWiki::Contrib::YahooUserInterfaceContrib';
+    eval 'use Foswiki::Contrib::YahooUserInterfaceContrib';
     if (! $@ ) {
         _Debug( 'YahooUserInterfaceContrib is installed, using local files' );
         $yui = '<script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/YahooUserInterfaceContrib/build/yahoo-dom-event/yahoo-dom-event.js"></script>'
+             . '<script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/YahooUserInterfaceContrib/build/datasource/datasource-min.js"></script>'
              . '<script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/YahooUserInterfaceContrib/build/autocomplete/autocomplete-min.js"></script>'
     } else {
         _Debug( 'YahooUserInterfaceContrib is not installed, using Yahoo servers' );
-        $yui = '<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>'
-             . '<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/autocomplete/autocomplete-min.js"></script>';
+        $yui = '<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/yahoo-dom-event/yahoo-dom-event.js"></script>'
+             . '<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/datasource/datasource-min.js"></script>'
+             . '<script type="text/javascript" src="http://yui.yahooapis.com/2.7.0/build/autocomplete/autocomplete-min.js"></script>';
     }
 
-    TWiki::Func::addToHEAD($pluginName . '_yui', $yui);    
+    Foswiki::Func::addToHEAD($pluginName . '_yui', $yui);    
 }
 
 # adds style sheet
@@ -285,8 +283,8 @@ $Results {
 $Results .yui-ac-content {
     position:absolute;
     width:100%;
-    font-size:94%; /* mimic twikiInputField */
-    padding:0 .2em; /* mimic twikiInputField */
+    font-size:94%; /* mimic foswikiInputField */
+    padding:0 .2em; /* mimic foswikiInputField */
     border-width:1px;
     border-style:solid;
     border-color:#ddd #888 #888 #ddd;
@@ -311,7 +309,7 @@ $Results li {
     cursor:default;
     white-space:nowrap;
     margin:0 -.2em;
-    padding:.1em .2em; /* mimic twikiInputField */
+    padding:.1em .2em; /* mimic foswikiInputField */
 }
 $Results li.yui-ac-highlight,
 $Results li.yui-ac-prehighlight {
@@ -321,16 +319,16 @@ $Results li.yui-ac-prehighlight {
 </style>
 EOT
     
-    TWiki::Func::addToHEAD($pluginName . '_style', $style);
+    Foswiki::Func::addToHEAD($pluginName . '_style', $style);
 }
 
 # =========================
 sub _Debug {
     my $text = shift;
 
-    my $debug = $TWiki::cfg{Plugins}{$pluginName}{Debug} || 0;
+    my $debug = $Foswiki::cfg{Plugins}{$pluginName}{Debug} || 0;
 
-    TWiki::Func::writeDebug( "- TWiki::Plugins::${pluginName}: $text" ) if $debug;
+    Foswiki::Func::writeDebug( "- Foswiki::Plugins::${pluginName}: $text" ) if $debug;
 }
 
 sub _returnError {
@@ -338,7 +336,7 @@ sub _returnError {
 
     _Debug( $text );
 
-    return "<span class='twikiAlert'>${pluginName} error: $text</span>";
+    return "<span class='foswikiAlert'>${pluginName} error: $text</span>";
 }
 
 1;

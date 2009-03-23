@@ -5,7 +5,7 @@ One line description, required for extensions repository catalog.
 -->
 This plugin allows you to create an autocomplete input field based on Yahoo's User Interface Library.
 
-All this plugin does is implement Arthur Clemens' Foswiki:Extensions/AutoCompleteAddOn as a plugin, which allows users to provide an autocomplete text box using the =%<nop>AUTOCOMPLETE%= syntax, and also in %SYSTEMWEB%.DataForms (shown below).
+This plugin originally implemented Arthur Clemens' Foswiki:Extensions/AutoCompleteAddOn as a extension, which allows users to provide an autocomplete text box using the =%<nop>AUTOCOMPLETE%= syntax, and also in %SYSTEMWEB%.DataForms (shown below), but has since grown in its own right.
 
 <img src="%ATTACHURLPATH%/AutoCompletePluginScreenshot.png" alt="screenshot.png" />
 
@@ -21,7 +21,7 @@ This plugin expands the =%<nop>AUTOCOMPLETE{...}%= variable, which takes the par
 
 ---+++ In !DataForms
 
-To use this plugin in %SYSTEMWEB%.DataForms, create a form template as descibed in %SYSTEMWEB%.DataForms#Defining_a_Form. This plugin adds the =autocomplete= type of field. To pass the parameters required by the plugin, place them in the =Values= column. An example is shown below:
+To use this plugin in %SYSTEMWEB%.DataForms, create a form template as descibed in %SYSTEMWEB%.DataForms#Defining_a_form. This plugin adds the =autocomplete= type of field. To pass the parameters required by the plugin, place them in the =Values= column. An example is shown below:
 
 | *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | Username | autocomplete | 25em | datatopic="Sandbox.AutoCompletePluginTestData" datasection="usernames" delimchar="," itemformat="item[0] + ' (' + item[1] + ')'" | |  | 
@@ -42,7 +42,7 @@ You can use many of same attributes as you would in topics, except the following
 | =size= | The width of the input field in em or px. | =20em= | =size="20em" or size="200px"= |
 | =value= | Default value of the input field | none | =value="%TOPIC%"= |
 | =tabindex= | The tabindex of the textfield | none | =tabindex="2"= |
-| =class= | Name of css class to add to the input field | none | =class="twikiInputField"= |
+| =class= | Name of css class to add to the input field | none | =class="foswikiInputField"= |
 | =formname= | Name of the form which the input field is part of | none | =form="userlist"= |
 | =itemformat= | The format of an item string in the autocomplete list. Use if the autocomplete list should display different names than the input field - for instance with full person names. The javascript input argument is =item=. | =item= | =itemformat="item[0] + ' (' + item[1] + ')'"= |
 | =delimchar= | Used to accept multiple delimeted queries. | none | =delimchar=","= |
@@ -51,7 +51,7 @@ You can use many of same attributes as you would in topics, except the following
 
 ---+++ Example
 
-If installed, the following should create an jump box (TWiki 4.2):
+If installed, the following should create an jump box:
 
 __Source:__
 <verbatim>
@@ -60,7 +60,7 @@ var SubmitJump = function(sType, aArgs) {
     document.myJumpForm.submit();
 }
 </script>
-<form name="myJumpForm" action="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%">%AUTOCOMPLETE{name="topic" datatopic="Sandbox.AutoCompletePluginTestData" onfocus="foswiki.Form.clearBeforeFocusText(this);" onblur="foswiki.Form.restoreBeforeFocusText(this);" datasection="topiclist" value="Jump" formname="myJumpForm" class="twikiInputField twikiInputFieldBeforeFocus"  itemselecthandler="SubmitJump" size="128px" }%</form>
+<form name="myJumpForm" action="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%">%AUTOCOMPLETE{name="topic" datatopic="Sandbox.AutoCompletePluginTestData" onfocus="foswiki.Form.clearBeforeFocusText(this);" onblur="foswiki.Form.restoreBeforeFocusText(this);" datasection="topiclist" value="Jump" formname="myJumpForm" class="foswikiInputField foswikiInputFieldBeforeFocus"  itemselecthandler="SubmitJump" size="128px" }%</form>
 </verbatim>
 
 __Rendered:__
@@ -69,7 +69,7 @@ var SubmitJump = function(sType, aArgs) {
     document.myJumpForm.submit();
 }
 </script>
-<form name="myJumpForm" action="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%">%AUTOCOMPLETE{name="topic" datatopic="Sandbox.AutoCompletePluginTestData" onfocus="foswiki.Form.clearBeforeFocusText(this);" onblur="foswiki.Form.restoreBeforeFocusText(this);" datasection="topiclist" value="Jump" formname="myJumpForm" class="twikiInputField twikiInputFieldBeforeFocus"  itemselecthandler="SubmitJump" size="128px" }%</form>
+<form name="myJumpForm" action="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%">%AUTOCOMPLETE{name="topic" datatopic="Sandbox.AutoCompletePluginTestData" onfocus="foswiki.Form.clearBeforeFocusText(this);" onblur="foswiki.Form.restoreBeforeFocusText(this);" datasection="topiclist" value="Jump" formname="myJumpForm" class="foswikiInputField foswikiInputFieldBeforeFocus"  itemselecthandler="SubmitJump" size="128px" }%</form>
 
 ---++ Installation Instructions
 
@@ -82,24 +82,28 @@ var SubmitJump = function(sType, aArgs) {
 
 ---++ Plugin Info
 
-|  Plugin Author(s): | TWiki:Main.AndrewRJones |
-|  Copyright: | &copy; 2007 - 2008, TWiki:Main.AndrewRJones |
+|  Plugin Author(s): | Foswiki:Main.AndrewJones |
+|  Copyright: | &copy; 2007 - 2009, Foswiki:Main.AndrewJones |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Plugin Release: | %$RELEASE% |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  12 Sept 2008 | Bugs:Item5745 - Updated to use latest YUI (2.5.2); Fixed forms for 4.2; Fixed Jump Form example for 4.2 |
-|  14585 | Bugs:Item4469 - Removed extra self-closing div-tag tail; Fixed Jump Form example |
-|  14413 | Bugs:Item4369 - Allow users to define their own item select handler |
-|  14391 | Bugs:Item4356 - Class names not being added |
-|  14382 | Bugs:Item4346 - Added Javascript parameters (=onblur=, =onfocus=, etc) |
-|  14381 | Bugs:Item4345 - Was adding 'null' after input if =delimchar= not set |
-|  14379 | Bugs:Item4342 - Only sets correct size for one texfield in topic |
-|  14290 | Bugs:Item4304 - Various bug fixes and enhancements |
-|  14277 | Bugs:Item4301 - Initial release |
+|  23 Mar 2009 | Foswikitask:Item1249 - Port to Foswiki as 1.0; Use latest YUI (2.7.0) |
+|  12 Sept 2008 | TWikibug:Item5745 - Updated to use latest YUI (2.5.2); Fixed forms for 4.2; Fixed Jump Form example for 4.2 |
+|  14585 | TWikibug:Item4469 - Removed extra self-closing div-tag tail; Fixed Jump Form example |
+|  14413 | TWikibug:Item4369 - Allow users to define their own item select handler |
+|  14391 | TWikibug:Item4356 - Class names not being added |
+|  14382 | TWikibug:Item4346 - Added Javascript parameters (=onblur=, =onfocus=, etc) |
+|  14381 | TWikibug:Item4345 - Was adding 'null' after input if =delimchar= not set |
+|  14379 | TWikibug:Item4342 - Only sets correct size for one texfield in topic |
+|  14290 | TWikibug:Item4304 - Various bug fixes and enhancements |
+|  14277 | TWikibug:Item4301 - Initial release |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Plugin Home: | http://twiki.org/cgi-bin/view/Plugins/AutoCompletePlugin |
-|  Feedback: | http://twiki.org/cgi-bin/view/Plugins/AutoCompletePluginDev |
+|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], %SYSTEMWEB%.DeveloperDocumentationCategory, %SYSTEMWEB%.AdminDocumentationCategory, %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
 
-<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on twiki.org instead. -->
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on foswiki.org instead. -->
+
+%META:FILEATTACHMENT{name="AutoCompletePluginScreenshot.png" comment="Screenshot" date="1021945424" path="AutoCompletePluginScreenshot.gif" user="ProjectContributor" version="1.1"}%
