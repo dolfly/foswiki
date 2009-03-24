@@ -1,19 +1,10 @@
 %META:TOPICINFO{author="ProjectContributor" date="1208389508" format="1.1" version="$Rev$"}%
-<!--
-This topic is part of the documentation for SearchEngineKinoSearchAddOn and is
-automatically generated from Subversion. Do not edit it! Your edits
-will be lost the next time the topic is uploaded!
-
-If you want to report an error in the topic, please raise a report at
-http://develop.twiki.org/~twiki4/cgi-bin/view/Bugs/SearchEngineKinoSearchAddOn
--->
-
 ---+ Kino Search Engine Add-On
 %TOC%
 
 [[http://www.rectangular.com/kinosearch/][KinoSearch]] is a Perl implementation of Lucene search engine (implemented
-in Java). This is the base of this indexed search engine for TWiki. With <nop>KinoSearch you create an index over all webs including attachments like Word, Excel and PDF. Based on that you get a really fast search over all topics and the attachments. You need this add-on
-   * if your TWiki has grown so big, that normal search is too slow or
+in Java). This is the base of this indexed search engine for Foswiki. With <nop>KinoSearch you create an index over all webs including attachments like Word, Excel and PDF. Based on that you get a really fast search over all topics and the attachments. You need this add-on
+   * if your wiki has grown so big, that normal search is too slow or
    * if you want to do search not only on the topics but also the attachments.
 
 
@@ -28,9 +19,9 @@ See the KinoSearch topic for a quick Usage and setup.
 
 The ==kinosearch== script uses a template ==kinosearch.pattern.tmpl== (if you use the pattern skin). There is also a *KinoSearch* topic with a form ready to use with the *kinosearch* script.
 
-If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller TWiki), or the command line. The syntax is identical to the =kinosearch= script.
+If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller wiki), or the command line. The syntax is identical to the =kinosearch= script.
    * =%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search=
-   * =cd twiki/bin ; ./rest SearchEngineKinoSearchPlugin.search=
+   * =cd foswiki/bin ; ./rest SearchEngineKinoSearchPlugin.search=
    
 The following form submits text to the ==kinosearch== script. The installation instructions are detailed below.
 
@@ -40,17 +31,17 @@ The following form submits text to the ==kinosearch== script. The installation i
 
 %INCLUDE{"VarKINOSEARCH"}%
 
----+++ (experimental) Integrating KinoSearch into TWiki's internal =SEARCH= 
+---+++ (experimental) Integrating KinoSearch into Foswiki's internals =SEARCH= 
 
 <div style="float:right"><a href="%ATTACHURLPATH%/KinoSEARCH.jpg"><img src="%ATTACHURLPATH%/KinoSEARCH.jpg" alt="integrated SEARCH results" width='400' /></a></div>
 
 
-By setting =$TWiki::cfg{RCS}{SearchAlgorithm} = 'TWiki::Store::SearchAlgorithms::Kino';= (a setting in the _Store settings_ section in =configure=), 
-TWiki will use the KinoSearch index for any inbuilt search (including WebSearch) that it can (for regex searches it will fall back to the =Forking= search algorithm).
+By setting =$Foswiki::cfg{RCS}{SearchAlgorithm} = 'Foswiki::Store::SearchAlgorithms::Kino';= (a setting in the _Store settings_ section in =configure=), 
+Foswiki will use the KinoSearch index for any inbuilt search (including WebSearch) that it can (for regex searches it will fall back to the =Forking= search algorithm).
 
-If you want TWiki's WebSearch to also show you attachment results (when you select the 'Both body and title' option), you need to also set ={SearchEngineKinoSearchAddOn}{showAttachments}=1=, and add =kino= to the front of your =SKIN= setting.
+If you want Foswiki's WebSearch to also show you attachment results (when you select the 'Both body and title' option), you need to also set ={SearchEngineKinoSearchAddOn}{showAttachments}=1=, and add =kino= to the front of your =SKIN= setting.
 
-The reason this feature is experimental, is that kinosearch does not do partial matching, so searching for =TAG= will not match text like =%TAG{"something"}%=, only instances where the word TAG is seperated by whitespace. TWiki's SEARCH expects total partial matching.
+The reason this feature is experimental, is that kinosearch does not do partial matching, so searching for =TAG= will not match text like =%TAG{"something"}%=, only instances where the word TAG is seperated by whitespace. Foswiki's SEARCH expects total partial matching.
 
 ---++++ Query syntax
 
@@ -75,7 +66,7 @@ are sure, that the three words are in that order one after the other.
 
    * ==text:kino== or just ==kino==
    * ==text:"search engine"== or just =="search engine"==
-   * ==author:MarkusHesse== &mdash; note that to search for a TWiki author, use their login name
+   * ==author:MarkusHesse== &mdash; note that to search for an author, use their login name
    * ==form:WebFormName== to get all topics with that form attached.
    * ==CONTACTINFO:MarkusHesse== if you have declared ==CONTACTINFO== as a variable to be indexed
    * ==type:doc== to get all attachments of given type
@@ -90,18 +81,18 @@ _Note:_ The current version of !KinoSearch does not support wildcards.
 RSS 2.0 feeds can be set up for any search results. To access the feed append =&rss=on;skin=none= to the end of the search url. There is a link to the feed from the results page in the default templates.
 
 ---++ Indexing
-__Note:__ The =kinoindex=, =kinoupdate= and =kinosearch= scripts will be deprecated over time in favour of the restHandlers, both for security reasons, and to make compatibility with TWiki 5.0 easier.
+__Note:__ The =kinoindex=, =kinoupdate= and =kinosearch= scripts will be deprecated over time in favour of the restHandlers, both for security reasons, and to make compatibility with Foswiki 1.0 easier.
 ---+++ Creating a new Index
 
 Each topic's text body, title, form fields and attached documents are indexed.
 
 You should run this script manually after installation to create the index files used by <nop>KinoSearch. 
 You can also schedule a weekly or monthly crontab job to create the index files again, or execute it manually when you take down your server for maintenance tasks. To prevent browser access, it has been placed out of the public bin folder.
-   * =cd twiki/kinosearch/bin ; ./kinoindex=
+   * =cd foswiki/kinosearch/bin ; ./kinoindex=
 
-If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller TWiki), or the command line
+If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller wiki), or the command line
    * =%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/index=
-   * =cd twiki/bin ; ./rest SearchEngineKinoSearchPlugin.index=
+   * =cd foswiki/bin ; ./rest SearchEngineKinoSearchPlugin.index=
 
 ---+++ Updating your Index
 
@@ -109,23 +100,23 @@ The ==kinoupdate== script uses the web's ==.changes== files to know about topic 
 Also, a ==.kinoupdate== file is used on each web directory storing the last timestamp the script was run on it. 
 So when this script is executed, it first checks if there are any topic updates since last execution. 
 The most recent topic updates are removed from the index and then reindexed again.
-   * =cd twiki/kinosearch/bin ; ./kinoupdate=
+   * =cd foswiki/kinosearch/bin ; ./kinoupdate=
 
-If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller TWiki), or the command line
+If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller wiki), or the command line
    * =%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/update=
-   * =cd twiki/bin ; ./rest SearchEngineKinoSearchPlugin.update=
+   * =cd foswiki/bin ; ./rest SearchEngineKinoSearchPlugin.update=
 
 This script should be executed by an hourly crontab. As before, this script has been placed out of the public bin folder.
 <verbatim>
 # m h  dom mon dow   command
-35  *  *   *   *     cd /path/to/you/twiki/bin ; ./rest SearchEngineKinoSearchPlugin.update
+35  *  *   *   *     cd /path/to/you/foswiki/bin ; ./rest SearchEngineKinoSearchPlugin.update
 </verbatim>
 
 You can also optionally use SearchEngineKinoSearchPlugin's updateHandlers to automatically update the index whenever a topic is modified (or an attachment uploaded) by setting ={SearchEngineKinoSearchPlugin}{EnableOnSaveUpdates}= to true in the _Extensions_ section of configure. __Warning__ this can cause topic saves and attachments to become unacceptably slow, as the index update happens before the browser operation has completed.
 
 ---+++ Attachment file types to be indexed
 
-All the PDF, HTML, DOC, XLS and text attachments are indexed by default. If you want to override this setting you can use a TWiki preference ==KINOSEARCHINDEXEXTENSIONS==. You can copy & paste the next lines in your [[%USERSWEB%.SitePreferences]] topic
+All the PDF, HTML, DOC, XLS and text attachments are indexed by default. If you want to override this setting you can use a Foswiki preference ==KINOSEARCHINDEXEXTENSIONS==. You can copy & paste the next lines in your [[%USERSWEB%.SitePreferences]] topic
 <verbatim>
    * KinoSearch settings
       * Set KINOSEARCHINDEXEXTENSIONS = .pdf, .html, .txt, .doc, .xls
@@ -156,7 +147,7 @@ existing code. All stringifier plugins are stored in the directory
 =lib/Foswiki/Contrib/KinoSearch/StringifierPlugins=.  
 
 You can add new stringifier plugins by just adding new files here. The minimum things to be implemented are:
-   * The plugin must inherit from =TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase=
+   * The plugin must inherit from =Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase=
    * The plugin must register itself by =__PACKAGE__->register_handler($application, $file_extension)=;
    * The plugin must implement the method =$text = stringForFile ($filename)=
 
@@ -172,7 +163,7 @@ long indexing times and potential indexing break downs).
 
 __Note:__ You do not need to install anything on the browser to use
 this add-on. The following instructions are for the administrator who
-installs the add-on on the server where TWiki is running.  
+installs the add-on on the server where Foswiki is running.  
 
 ---+++ Backend for indexing Word documents
 
@@ -226,32 +217,16 @@ _Note for Windows_: For Windows, make sure you have a C-compiler in place. This 
 
 ---+++ Installation of the add on itself
 
-Like many other TWiki extensions, this module is shipped with a automatic installer script written using the BuildContrib.
+Like many other Foswiki extensions, this module is shipped with a automatic installer script written using the BuildContrib.
 
-   * If you have TWiki 4.1 or later, you can install from the configure interface (Go to Plugins->Find More Extensions)
-      * The webserver user has to have permission to write to all areas of your installation for this to work.
-   * If you have a permanent connection to the internet, you are recommended to use the automatic installer script
-      * Just download the BuildContrib_installer perl script and run it. 
-   * Notes:
-      * The installer script will
-         * copy files into the right places in your local install (even if you have renamed data directories),
-         * check in new versions of any installed files that have existing RCS histories files in your existing install (such as topics).
-         * If the $TWIKI_PACKAGES environment variable is set to point to a directory, the installer will try to get archives from there. Otherwise it will try to download from twiki.org or cpan.org, as appropriate.
-         * (Developers only: the script will look for twikiplugins/BuildContrib/BuildContrib.tgz before downloading from TWiki.org) 
-      * If you don't have a permanent connection, you can still use the automatic installer, by downloading all required TWiki archives to a local directory.
-         * Point the environment variable $TWIKI_PACKAGES to this directory, and the installer script will look there first for required TWiki packages.
-                      # $TWIKI_PACKAGES is actually a path; you can list several directories separated by : 
-         * If you are behind a firewall that blocks access to CPAN, you can pre-install the required CPAN libraries, as described at http://twiki.org/cgi-bin/view/TWiki/HowToInstallCpanModules 
-   * If you don't want to use the installer script, or have problems on your platform (e.g. you don't have Perl 5.8), then you can still install manually:
-      1. Download and unpack one of the .zip or .tgz archives to a temporary directory.
-      1. Manually copy the contents across to the relevant places in your TWiki installation.
-      1. Repeat from step 1 for any missing dependencies. 
+%$INSTALLER_INSTRUCTIONS%
+
    * use =configure= to configure the advanced features 
       * enable SearchEngineKinoSearchPlugin
       * ={SearchEngineKinoSearchAddOn}{showAttachments}=
       * ={SearchEngineKinoSearchPlugin}{EnableOnSaveUpdates}=
       * ={SearchEngineKinoSearchAddOn}{WordIndexer}=
-      * =$TWiki::cfg{RCS}{SearchAlgorithm} = 'TWiki::Store::SearchAlgorithms::Kino';= 
+      * =$Foswiki::cfg{RCS}{SearchAlgorithm} = 'Foswiki::Store::SearchAlgorithms::Kino';= 
       * <nop>Set <nop>SKIN=kino,%SKIN%
 
 
@@ -277,11 +252,11 @@ This add-on uses several preferences which should be set at [[%USERSWEB%.SitePre
 You can also =configure= (The Extensions:SearchEngineKinoSearchAddOn section) where the index and log files are created. 
 *Note*: The directories must exist. 
 <verbatim>
-$TWiki::cfg{KinoSearchLogDir} = '/home/httpd/twiki/kinosearch/logs';
-$TWiki::cfg{KinoSearchIndexDir} = '/home/httpd/twiki/kinosearch/index';
+$Foswiki::cfg{KinoSearchLogDir} = '/home/httpd/foswiki/kinosearch/logs';
+$Foswiki::cfg{KinoSearchIndexDir} = '/home/httpd/foswiki/kinosearch/index';
 </verbatim>
 
-Remember to edit the file ==kinosearch/bin/LocalLib.cfg== and modify ==twikiLibPath== accordingly to your configuration
+Remember to edit the file ==kinosearch/bin/LocalLib.cfg== and modify ==foswikiLibPath== accordingly to your configuration
 
 ---+++ Test of the installation
 
@@ -289,9 +264,9 @@ Remember to edit the file ==kinosearch/bin/LocalLib.cfg== and modify ==twikiLibP
       * Check that =antiword=, =abiword= or =wvHtml= is in place: Type =antiword=,  =abiword= or =wvHtml= on the prompt and check that the command exists.
       * Check that =pdftotext= is in place: Type =pdftotext= on the prompt and check that the command exists.
       * Check that =ppthtml= is in place: Type =ppthtml= on the prompt and check that the command exists.
-      * Change the working directory to the ==kinosearch/bin== twiki installation directory.
+      * Change the working directory to the ==kinosearch/bin== Foswiki installation directory.
       * Run =./kinoindex=
-      * Once finished, open a browser window and point it to the ==TWiki/KinoSearch== topic.
+      * Once finished, open a browser window and point it to the ==System/KinoSearch== topic.
       * Just type a query and check the results.
 
 ---+++ Test of stringification with =ks_test=
@@ -315,9 +290,9 @@ stringification.
 Example:
 
 <verbatim>
-/home/httpd/twiki/kinosearch/bin$ ./ks_test stringify /home/httpd/twiki_svn/SearchEngineKinoSearchAddOn/test/unit/SearchEngineKinoSearchAddOn/attachement_examples/Simple_example.doc
+/home/httpd/foswiki/kinosearch/bin$ ./ks_test stringify /home/httpd/foswiki_svn/SearchEngineKinoSearchAddOn/test/unit/SearchEngineKinoSearchAddOn/attachement_examples/Simple_example.doc
 
-Used stringifier: TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_antiword
+Used stringifier: Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_antiword
 
 Stringified text:
 
@@ -331,10 +306,11 @@ text seems to be O.K.
 
    * Set SHORTDESCRIPTION = Fast indexed SEARCH of topics and attachments (eg Word, Excel, PDF and PPT)
 
-|  Add-on Author: | TWiki:Main/MarkusHesse and TWiki:Main.SvenDowideit |
+|  Add-on Author: | TWiki:Main/MarkusHesse and Foswiki:Main.SvenDowideit |
 |  Add-on Version: | %$VERSION% |
 |  Update note | If you update from an older version to v1.15 or higher, remove the old index and create a complete new one with kinoindex|
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  24 Mar 2009:  | port to Foswiki -- Foswiki:Main.WillNorris |
 |  06 Nov 2008:  | v 1.20, minor revert to stop crash |
 |  05 Nov 2008:  | v 1.19, fixes for (nex)twiki/trunk |
 |  20 Aug 2008:  | v 1.18, added Integrated SEARCH, SearchEngineKinoSearchPlugin, restHandlers, updated code and tests -- TWiki:Main.SvenDowideit |
