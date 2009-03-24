@@ -3,7 +3,7 @@
 # Example build class. Copy this file to the equivalent place in your
 # plugin or contrib and edit.
 #
-# Read the comments at the top of lib/TWiki/Contrib/Build.pm for
+# Read the comments at the top of lib/Foswiki/Contrib/Build.pm for
 # details of how the build process works, and what files you
 # have to provide and where.
 #

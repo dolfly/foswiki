@@ -38,7 +38,7 @@ exactly the same as the normal search field there. If you want, you
 can also replace the existing search field with this one.
 <verbatim>
    * <form name="kinosearch" form action="%SCRIPTURLPATH%/kinosearch%SCRIPTSUFFIX%/%INTURLENCODE{"%INCLUDINGWEB%"}%/">
-  %IF{" '%URLPARAM{"search" encode="entity" scope="topic"}%' = '' " then="<input type=\"text\" class=\"twikiInputField patternFormFieldDefaultColor\" name=\"search\" value=\"%MAKETEXT{"Search Index"}%\" size=\"14\" onfocus=\"clearDefaultandCSS(this);\" onblur=\"setDefaultText(this);\" />" else="<input type=\"text\" class=\"twikiInputField\" name=\"search\" value=\"%URLPARAM{ "search" encode="entity" scope="topic" }%\" size=\"14\" />"}%</form>
+  %IF{" '%URLPARAM{"search" encode="entity" scope="topic"}%' = '' " then="<input type=\"text\" class=\"foswikiInputField patternFormFieldDefaultColor\" name=\"search\" value=\"%MAKETEXT{"Search Index"}%\" size=\"14\" onfocus=\"clearDefaultandCSS(this);\" onblur=\"setDefaultText(this);\" />" else="<input type=\"text\" class=\"foswikiInputField\" name=\"search\" value=\"%URLPARAM{ "search" encode="entity" scope="topic" }%\" size=\"14\" />"}%</form>
 </verbatim>
 
 ---++ Query syntax

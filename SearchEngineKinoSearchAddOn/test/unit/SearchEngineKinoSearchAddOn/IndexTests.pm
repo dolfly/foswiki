@@ -5,15 +5,15 @@ use base qw( FoswikiFnTestCase! );
 use strict;
 
 
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::Index;
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::Search;
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
 
 sub new {
     my $self = shift()->SUPER::new('Index', @_);
     
     $self->{attachmentDir} = 'attachement_examples/';
     if (! -e $self->{attachmentDir}) {
-        #running from twiki/test/unit
+        #running from foswiki/test/unit
         $self->{attachmentDir} = 'SearchEngineKinoSearchAddOn/attachement_examples/';
     }
     
@@ -26,7 +26,7 @@ sub set_up {
     $this->SUPER::set_up();
 
     # Use RcsLite so we can manually gen topic revs
-    #$TWiki::cfg{StoreImpl} = 'RcsLite';
+    #$Foswiki::cfg{StoreImpl} = 'RcsLite';
 
     #$this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
 }
@@ -38,14 +38,14 @@ sub tear_down {
 
 sub test_newCreateIndex {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     $this->assert(defined($ind), "Index exemplar not created.")
 }
 
 sub test_newUpdateIndex {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
 
     $this->assert(defined($ind), "Index exemplar not created.")
 }
@@ -55,7 +55,7 @@ sub test_createIndex {
     $this->_createTopicWithoutAttachment();
     $this->_createTopicWithWordAttachment();
 
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     $ind->createIndex();
 
@@ -70,11 +70,11 @@ sub test_createIndexWithAccessControl {
     $this->_createTopicWithoutAttachment();
     $this->_createTopicWithWordAttachment();
 
-    my $currUser = $TWiki::cfg{DefaultUserLogin};
+    my $currUser = $Foswiki::cfg{DefaultUserLogin};
 
     # No I set the ALLOWWEBVIEW stuff
-    $this->{twiki}->{store}->saveTopic(
-        $currUser, $this->{test_web}, $TWiki::cfg{WebPrefsTopicName},
+    $this->{foswiki}->{store}->saveTopic(
+        $currUser, $this->{test_web}, $Foswiki::cfg{WebPrefsTopicName},
         <<THIS
 If ALLOWWEB is set to a list of wikinames
     * people in the list will be PERMITTED
@@ -84,7 +84,7 @@ If ALLOWWEB is set to a list of wikinames
 THIS
                                 , undef);
     # Now the Form topic
-    $this->{twiki}->{store}->saveTopic(
+    $this->{foswiki}->{store}->saveTopic(
         $currUser, $this->{test_web}, "TestForm",
         <<THIS
 | *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* | 
@@ -94,7 +94,7 @@ THIS
                                 , undef);
 
     # Let's try to do the index
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
 
     # I check the succuessful created index by doing some searches.
@@ -103,22 +103,22 @@ THIS
 
 sub test_updateIndex {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
 
     # First I create the index of the current state
     $ind->createIndex();
 
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
     my $docs = $search->docsForQuery( "updatedpoint");
     my $hit  = $docs->fetch_hit_hashref;
     $this->assert(!defined($hit), "Hit for updatepoint found. Should be undefined!");
 
     # Now I do some changes
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "NewOrChangedTopicUpdate", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "NewOrChangedTopicUpdate", <<'HERE');
 Just an example topic
 Keyword: updatedpoint
 HERE
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "NewOrChangedTopicUpdate2", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "NewOrChangedTopicUpdate2", <<'HERE');
 Just an example topic
 Keyword: secondupdatedpoint
 HERE
@@ -143,9 +143,9 @@ HERE
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for update2 topic.");
 
     # Lets delete a topic
-    $this->{twiki}->{store}->moveTopic($this->{users_web}, "NewOrChangedTopicUpdate",
+    $this->{foswiki}->{store}->moveTopic($this->{users_web}, "NewOrChangedTopicUpdate",
 				       "Trash", "NewOrChangedTopicUpdate",
-				       $this->{twiki}->{user});
+				       $this->{foswiki}->{user});
 
     # Now I update the index. 
     $ind->updateIndex();
@@ -154,8 +154,8 @@ HERE
     $this->assert(!defined($hit), "Hit for deleted topic found. Should be undefined!");
 
     # Now let's add an attachment
-    $this->{twiki}->{store}->saveAttachment($this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
-					    $this->{twiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"});
+    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
+					    $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"});
     
     $ind->updateIndex();
     $docs = $search->docsForQuery( "dummy");
@@ -164,8 +164,8 @@ HERE
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for attach.");
 
     # Now let't change the attachment
-    $this->{twiki}->{store}->saveAttachment($this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
-					    $this->{twiki}->{user}, {file => $this->{attachmentDir}."Simple_example2.doc"});
+    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
+					    $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example2.doc"});
     $ind->updateIndex();
     $docs = $search->docsForQuery( "additions");
     $hit  = $docs->fetch_hit_hashref;
@@ -175,7 +175,7 @@ HERE
 
 sub test_indexer {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     my $analyser = $ind->analyser('de');
     my $indexer  = $ind->indexer($analyser, 0, $ind->readFieldNames());
@@ -186,7 +186,7 @@ sub test_indexer {
 sub test_attachmentsOfTopic {
     my $this = shift;
     $this->_createTopicWithWordAttachment();
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     my @atts;
 
@@ -201,7 +201,7 @@ sub test_attachmentsOfTopic {
 sub test_changedTopics {
     my $this = shift;
     $this->_createTopicWithoutAttachment();  
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     # The "+1" is a littel trick: The Topics created in set_up may have the same 
     # timestamp as time(). Wiht time()+1 I ensure, that the timestamp is bigger.
@@ -216,7 +216,7 @@ sub test_changedTopics {
     $this->assert(!@changes, "Changes found even if there are non.");
     
     # Now I do a change
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
@@ -235,9 +235,9 @@ HERE
     $ind->saveUpdateMarker($this->{users_web}, $start_time);
 
     # Lets delete a topic
-    $this->{twiki}->{store}->moveTopic($this->{users_web}, "TopicWithoutAttachment",
+    $this->{foswiki}->{store}->moveTopic($this->{users_web}, "TopicWithoutAttachment",
 				       "Trash", "NewOrChangedTopic",
-				       $this->{twiki}->{user});
+				       $this->{foswiki}->{user});
 
     @changes = $ind->changedTopics($this->{users_web});
 
@@ -253,13 +253,13 @@ HERE
 sub test_removeTopics {
     my $this = shift;
     $this->_createTopicWithoutAttachment();  
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     # First I create the index
     $ind->createIndex();
 
     # Let's check, that a certain topic exists.
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
     my $docs = $search->docsForQuery( "startpoint");
     my $hit  = $docs->fetch_hit_hashref;
     $this->assert(defined($hit), "Hit for startpoint not found.");
@@ -278,18 +278,18 @@ sub test_removeTopics {
 
 sub test_addTopics {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     # First I create the index
     $ind->createIndex();
 
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
     my $docs = $search->docsForQuery( "creatededpoint");
     my $hit  = $docs->fetch_hit_hashref;
     $this->assert(!defined($hit), "Hit for updatepoint found. Should be undefined!");
 
     # Now I create the topic
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "NewTopic", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "NewTopic", <<'HERE');
 Just an example topic
 Keyword: creatededpoint
 HERE
@@ -309,7 +309,7 @@ HERE
 
 sub test_websToIndex {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     my @webs = $ind->websToIndex();
     $this->assert(@webs, "No webs given.");
@@ -318,7 +318,7 @@ sub test_websToIndex {
 
 sub test_formsFieldNames {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     my %fieldNames = $ind->formsFieldNames();
     $this->assert(%fieldNames, "No field names given.");
@@ -326,7 +326,7 @@ sub test_formsFieldNames {
 
 sub test_fieldNamesFileName {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     my $fileName = $ind->fieldNamesFileName();
     
@@ -335,14 +335,14 @@ sub test_fieldNamesFileName {
 
 sub test_writeFieldNames {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     $ind->writeFieldNames();
 }
 
 sub test_readFieldNames {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     # I fist write a file, to ensure that it exists
     $ind->writeFieldNames();
@@ -353,21 +353,21 @@ sub test_readFieldNames {
 
 sub test_indexTopic {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     # I check the succuessful created index by doing some searches.
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # First I create the index of the current situation.
     $ind->createIndex();
 
     # Now I create a topic with all elements.
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicWithExcelAttachment", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithExcelAttachment", <<'HERE');
 Just an example topic with MS Excel
 Keyword: spreadsheet
 HERE
-    $this->{twiki}->{store}->saveAttachment($this->{users_web}, "TopicWithExcelAttachment", "Simple_example.xls",
-                                            $this->{twiki}->{user}, {file => $this->{attachmentDir}."Simple_example.xls"});
+    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "TopicWithExcelAttachment", "Simple_example.xls",
+                                            $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example.xls"});
     # FIXME: How can I add a Form?
 
     # Let's index the topic
@@ -408,21 +408,21 @@ HERE
 
 sub test_indexAttachment {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     # I check the succuessful created index by doing some searches.
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # First I create the index of the current situation.
     $ind->createIndex();
 
     # Now I create a topic with an attachment.
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicWithPdfAttachment", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithPdfAttachment", <<'HERE');
 Just an example topic with PDF
 Keyword: spreadsheet
 HERE
-    $this->{twiki}->{store}->saveAttachment($this->{users_web}, "TopicWithPdfAttachment", "Simple_example.pdf",
-                                            $this->{twiki}->{user}, {file => $this->{attachmentDir}."Simple_example.pdf"});
+    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "TopicWithPdfAttachment", "Simple_example.pdf",
+                                            $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example.pdf"});
 
     # Let's index the atachment
     # Preparations
@@ -454,16 +454,16 @@ HERE
 
 sub test_updateMarkerFile {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
     my $file = $ind->updateMarkerFile('Main');
-    my $expected_file = $TWiki::cfg{DataDir}."/Main/.kinoupdate";
+    my $expected_file = $Foswiki::cfg{DataDir}."/Main/.kinoupdate";
     $this->assert_str_equals($expected_file, $file, "File not O.K.")
 }
 
 sub test_saveUpdateMarker{
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     my $start_time = time();
     $ind->saveUpdateMarker($this->{users_web}, $start_time);
 
@@ -473,13 +473,13 @@ sub test_saveUpdateMarker{
 
 sub test_readChanges {
     my $this = shift;
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic: Updated
 Keyword: startpoint
 HERE
@@ -500,33 +500,33 @@ HERE
 sub test_tripFirstchar {
     my $this = shift;
 
-    my $result = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index::tripFirstchar("TTTTheTopic");
+    my $result = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index::tripFirstchar("TTTTheTopic");
     $this->assert_str_equals($result, "TheTopic");
 
-    $result = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index::tripFirstchar("Überschrift");
+    $result = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index::tripFirstchar("Überschrift");
     $this->assert_str_equals($result, "Überschrift");
 
-    $result = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index::tripFirstchar("Ècole");
+    $result = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index::tripFirstchar("Ècole");
     $this->assert_str_equals($result, "Ècole");
 }
 
 sub test_splitTheTopicName {
     my $this = shift;
 
-    my $result = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTheTopicName("TheTopic--NNNName");
+    my $result = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTheTopicName("TheTopic--NNNName");
     $this->assert_str_equals("The Topic Name ", $result);
 
-    $result = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTheTopicName("Ècole_ÜTheTopic--NNNName");
+    $result = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTheTopicName("Ècole_ÜTheTopic--NNNName");
     $this->assert_str_equals("Ècole ÜThe Topic Name ", $result);
 }
 
 sub test_splitTopicName {
     my $this = shift;
 
-    my $result = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTopicName("TheTopicName   IsKnown");
+    my $result = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTopicName("TheTopicName   IsKnown");
     $this->assert_str_equals("The Topic Name   Is Known", $result);
 
-    $result = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTopicName("GroßeÄnderungsÜbergänge");
+    $result = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index::splitTopicName("GroßeÄnderungsÜbergänge");
     $this->assert_str_equals("Große Änderungs Übergänge", $result);
 }
 
@@ -576,19 +576,19 @@ sub test_UmlauteInPDF {
 sub _testForWordInAttachment {
     my ($this, $file, $word) = (@_);
 
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicWithSpecialFile", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithSpecialFile", <<'HERE');
 Just an example topic.
 Keyword: Superspecific
 HERE
-    $this->{twiki}->{store}->saveAttachment($this->{users_web}, "TopicWithSpecialFile", $file,
-                                            $this->{twiki}->{user}, {file => $this->{attachmentDir}.$file});
+    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "TopicWithSpecialFile", $file,
+                                            $this->{foswiki}->{user}, {file => $this->{attachmentDir}.$file});
 
-    TWiki::Func::setPreferencesValue( "KINOSEARCHINDEXSKIPWEBS", "Main, Sandbox, TWiki, TestCases, Trash");
+    Foswiki::Func::setPreferencesValue( "KINOSEARCHINDEXSKIPWEBS", "Main, Sandbox, System, TestCases, Trash");
     $ind->createIndex();
 
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Now search for the word
     my $docs = $search->docsForQuery( $word );
@@ -602,7 +602,7 @@ HERE
 sub _createTopicWithoutAttachment {
     my $this = shift;
 
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicWithoutAttachment", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithoutAttachment", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
@@ -611,20 +611,20 @@ HERE
 sub _createTopicWithWordAttachment {
     my $this = shift;
 
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicWithWordAttachment", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithWordAttachment", <<'HERE');
 Just an example topic with MS Word
 Keyword: redmond
 HERE
 
-    $this->{twiki}->{store}->saveAttachment($this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
-                                            $this->{twiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"})
+    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
+                                            $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"})
 }
 
 sub _indexOK {
     my $this = shift;
     # I check, that the index is created correctly.
     # I check the succuessful created index by doing some searches.
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Now I search for something.
     my $docs = $search->docsForQuery( "startpoint");

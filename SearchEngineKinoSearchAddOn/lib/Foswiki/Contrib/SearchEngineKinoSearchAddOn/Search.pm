@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2007 Markus Hesse
 #
-# For licensing info read LICENSE file in the TWiki root.
+# For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
@@ -35,7 +35,7 @@ sub searchCgi {
   
     if (! defined $session) {
         my $query   = new CGI;    
-        $session = new TWiki( undef, $query);
+        $session = new Foswiki( undef, $query);
     }
 
     $Foswiki::Plugins::SESSION = $session;
@@ -113,7 +113,7 @@ sub search {
     # do we have all the SPLIT parts?
     if( ! $tmplTail ) {
         $result .= "<html><body>";
-        $result .= "<h1>TWiki Installation Error</h1>";
+        $result .= "<h1>Foswiki Installation Error</h1>";
         $result .= "Incorrect format of kinosearch.tmpl (missing %SPLIT% parts)";
         $result .= "</body></html>";
         return;
@@ -284,7 +284,7 @@ sub searchStringForWebs {
     my $searchAllFlag = ( $websStr =~ /(^|[\,\s])(all|on)([\,\s]|$)/i );
 			  
     # ok, if we have web parameters, just make them part of the Kino query
-    # i.e. 'search=x&web=TWiki&web=Main', then query becomes 'x and (web:TWiki web:Main)'
+    # i.e. 'search=x&web=System&web=Main', then query becomes 'x and (web:System web:Main)'
     if ((! $searchAllFlag ) && ($websStr)) {
 	 my $searchStr = join ' web:',
 		         split(/[ ]+/, $websStr);

@@ -5,14 +5,14 @@ use base qw( FoswikiFnTestCase );
 use strict;
 use File::Temp qw/tmpnam/;
 
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase;
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase;
 
 sub set_up {
     my $this = shift;
     
     $this->{attachmentDir} = 'tree_example/';
     if (! -e $this->{attachmentDir}) {
-        #running from twiki/test/unit
+        #running from foswiki/test/unit
         $this->{attachmentDir} = 'SearchEngineKinoSearchAddOn/tree_example/';
     }
 
@@ -26,7 +26,7 @@ sub tear_down {
 
 sub test_rmtree {
     my $this = shift;
-    my $stringifier = TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase->new();
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase->new();
 
     # Lets create a test directory that I will delete afterwards.
     # Note: Here I use unix commands and don't care on windows compatibility.
@@ -49,15 +49,15 @@ sub test_rmtree {
 
 sub test_handler_for {
     my $this = shift;
-    my $stringifier = TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase->new();
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase->new();
 
     my $handler = $stringifier->handler_for("test.pdf", "dummy");
-    $this->assert($handler->isa("TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PDF"), 
+    $this->assert($handler->isa("Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PDF"), 
 		  "Bad handler for test.pdf");
 
     # I check that capital letters in the file name don't confuse the stringifier
     $handler = $stringifier->handler_for("TEST.PDF", "dummy");
-    $this->assert($handler->isa("TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PDF"), 
+    $this->assert($handler->isa("Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PDF"), 
 		  "Bad handler for TEST.PDF");
 }
 

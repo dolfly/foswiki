@@ -6,7 +6,7 @@ If SearchEngineKinoSearchPlugin is enabled, you will be able to use the KINOSEAR
    
 format takes the following variables to place content.
    * $icon - An icon to display filetype when showing attachments
-   * $match - The Twiki Name of the page being displayed
+   * $match - The name of the page being displayed
    * $locked - Show if a page is locked
    * $texthead - Summary text
    

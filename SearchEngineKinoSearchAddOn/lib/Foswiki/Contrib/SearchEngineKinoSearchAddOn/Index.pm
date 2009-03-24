@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2007 Markus Hesse
 #
-# For licensing info read LICENSE file in the TWiki root.
+# For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
@@ -376,11 +376,11 @@ sub formsFieldNames {
 
         foreach my $formName (@forms) {
 
-# NOTE: I use a new TWiki session with the admin user so that I can access any topic
+# NOTE: I use a new session with the admin user so that I can access any topic
 # even when an access control is defined
-#TODO: SMELL: this is a horrible waste of resources, creating _ONE_ TWiki object may be justified
+#TODO: SMELL: this is a horrible waste of resources, creating _ONE_ Foswiki object may be justified
             my $form =
-              Foswiki::Form->new( new TWiki( $Foswiki::cfg{AdminUserLogin} ),
+              Foswiki::Form->new( new Foswiki( $Foswiki::cfg{AdminUserLogin} ),
                 $web, $formName );
             foreach my $fieldDef ( @{ $form->{fields} } ) {
                 my $fldName = $fieldDef->{name};
@@ -445,7 +445,7 @@ sub indexTopic {
 
     my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic, undef );
 
-    # Eliminate TWiki Makup Language elements and newlines.
+    # Eliminate Topic Makup Language elements and newlines.
     # This is a trick to geht the renderer in 4.0/4.1 as well as in 4.2:
     #  In 4.0/4.1 I can use TWiki->{renderer}. In 4.2 this can give undef.
     #  Thus I have to use TWiki->renderer.

@@ -5,15 +5,15 @@ use base qw( FoswikiFnTestCase );
 use strict;
 use CGI;
 
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::Search;
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::Index;
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
 
 sub new {
     my $self = shift()->SUPER::new('Search', @_);
     
     $self->{attachmentDir} = 'attachement_examples/';
     if (! -e $self->{attachmentDir}) {
-        #running from twiki/test/unit
+        #running from foswiki/test/unit
         $self->{attachmentDir} = 'SearchEngineKinoSearchAddOn/attachement_examples/';
     }
     return $self;
@@ -24,19 +24,19 @@ sub set_up {
 
     $this->SUPER::set_up();
     # Use RcsLite so we can manually gen topic revs
-    $TWiki::cfg{StoreImpl} = 'RcsLite';
+    $Foswiki::cfg{StoreImpl} = 'RcsLite';
 
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicWithoutAttachment", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithoutAttachment", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicWithWordAttachment", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithWordAttachment", <<'HERE');
 Just an example topic wird MS Word
 Keyword: redmond
 HERE
-    #$this->{twiki}->{store}->saveAttachment($this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
-    #                                        $this->{twiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"})
+    #$this->{foswiki}->{store}->saveAttachment($this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
+    #                                        $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"})
 }
 
 sub tear_down {
@@ -46,17 +46,17 @@ sub tear_down {
 
 sub test_newSearch {
     my $this = shift;
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     $this->assert(defined($search), "Search exemplar not created.")
 }
 
 sub test_docsForQuery {
     my $this = shift;
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Create an index of the current situation.
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
 
     # Now I search for something that does not exist.
@@ -65,7 +65,7 @@ sub test_docsForQuery {
     $this->assert(!defined($hit), "Bad hit found.");
 
     # Let's create something
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicTitleToSearch", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicTitleToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
@@ -91,15 +91,15 @@ HERE
 
 sub test_renderHtmlStringFor {
     my $this = shift;
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Let's create something
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicTitleToSearch", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicTitleToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
 
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
 
     # Now I search for the title
@@ -107,7 +107,7 @@ HERE
     my $hit  = $docs->fetch_hit_hashref;
 
     # load the template
-    my $tmpl = TWiki::Func::readTemplate( "kinosearch" );
+    my $tmpl = Foswiki::Func::readTemplate( "kinosearch" );
     $tmpl =~ s/\%META{.*?}\%//go;  # remove %META{"parent"}%;
     # split the template into sections
     my( $tmplHead, $tmplSearch,
@@ -134,7 +134,7 @@ sub test_search {
     my $this = shift;
     my $result;
 
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
 
     $result = $this->_search($this->{test_web},
@@ -147,18 +147,18 @@ sub test_search {
 
 sub test_searchAttachments {
     my $this = shift;
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Let's create something
-    $this->{twiki}->{store}->saveTopic($this->{twiki}->{user},$this->{users_web}, "TopicToSearch", <<'HERE');
+    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
 
-    $this->{twiki}->{store}->saveAttachment($this->{users_web}, "TopicToSearch", "Simple_example.doc",
-                                            $this->{twiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"});
+    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "TopicToSearch", "Simple_example.doc",
+                                            $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"});
 
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
 
     my $result = $this->_search($this->{test_web},
@@ -185,13 +185,13 @@ sub test_search_with_users {
     $this->registerUser("TestUser2", "User", "TestUser2", 'testuser@an-address.net');
 
     # Now I create a topic that only "TestUser2" can read
-    $this->{twiki}->{store}->saveTopic("TestUser2", $this->{users_web}, "TopicWithAccesControl", << 'HERE');
+    $this->{foswiki}->{store}->saveTopic("TestUser2", $this->{users_web}, "TopicWithAccesControl", << 'HERE');
 Just an example topic
 Keyword: KeepOutHere
       * Set ALLOWTOPICVIEW = UserTestUser2
 HERE
 
-    my $ind = TWiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
 
     # Let's see if TestUser2 can find his topic
@@ -223,16 +223,16 @@ sub _search {
 
     $query->path_info( "$web/$topic" );
 
-    #my $twiki  = new TWiki( $this->{test_user_login}, $query );
-    my $twiki  = new TWiki( $user, $query );
+    #my $foswiki  = new Foswiki( $this->{test_user_login}, $query );
+    my $foswiki  = new Foswiki( $user, $query );
 
-    my $search = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
-    # Note: With $twiki I hand over the just defined session. Thus I have full 
+    # Note: With $foswiki I hand over the just defined session. Thus I have full 
     # control over query etc.
-    my ($text, $result) = $this->capture( \&TWiki::Contrib::SearchEngineKinoSearchAddOn::Search::search, $search, undef, $twiki);
+    my ($text, $result) = $this->capture( \&Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search::search, $search, undef, $foswiki);
 
-    $twiki->finish();
+    $foswiki->finish();
     $text =~ s/\r//g;
     $text =~ s/^.*?\n\n+//s; # remove CGI header
     return $text;
