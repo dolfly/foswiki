@@ -1,0 +1,59 @@
+---+ Exit Plugin
+
+This plugin redirects links to external sites via a page of your choice.
+You might want to do that to display a disclaimer
+("You are leaving %WIKITOOLNAME%, come back soon.")
+or to remove topic names from HTTP referer headers.
+
+%TOC%
+
+------
+
+---++ Syntax Rules
+
+This plugin does not extend Foswiki markup syntax.
+
+---++ Examples
+
+If Exit Plugin is installed, the following link should take you to =<nop>%SCRIPTURL%/rest/%TOPIC%/exit?url=//www.google.com/=
+
+http://www.google.com/
+
+Note that these links will not be affected if the =NOEXIT= setting lists =foswiki.org=.
+
+http://foswiki.org/Home/WebHome
+
+http://svn.foswiki.org/
+
+---+++ Known Issues
+
+---++++ Cross linked images
+
+Cross linked images (like the following) are not handled by this plugin and can still leak page names via HTTP referer headers.
+
+<verbatim>
+<img src="http://www.example.com/logo.png" alt="Someone else's logo"/>
+</verbatim>
+
+As images are loaded with the page (unlike links) no user action is needed to leak page names.
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+Plugin configuration is done through =configure=, in the "Plugins" section. You must run and save configure at least once to complete installation.
+
+---++ Plugin Info
+
+|  Author: | Foswiki:Main.IanByrave |
+|  Copyright: | &copy; 2009, Ian Bygrave |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Version: | %$VERSION% |
+|  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
