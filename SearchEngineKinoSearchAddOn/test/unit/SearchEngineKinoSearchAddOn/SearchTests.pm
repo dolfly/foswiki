@@ -27,8 +27,8 @@ sub set_up {
     $Foswiki::cfg{StoreImpl} = 'RcsLite';
 
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
-    use Data::Dumper qw( Dumper );
-    print STDERR Dumper( $this );
+#    use Data::Dumper qw( Dumper );
+#    print STDERR Dumper( $this );
     $this->assert( defined $this->{session}, "no session??" );
     $this->assert( defined $this->{session}->{user}, "no {user}" );
     $this->assert( defined $this->{session}->{store}, "no {store}" );
