@@ -22,12 +22,12 @@ sub set_up {
 
      $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
 
-    $this->{foswiki}->{store}->saveTopic($this->{foswiki}->{user},$this->{users_web}, "TopicWithHtmlAttachment", <<'HERE');
+    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithHtmlAttachment", <<'HERE');
 Just an example topic with HTML
 Keyword: Cern
 HERE
-    $this->{foswiki}->{store}->saveAttachment($this->{users_web}, "TopicWithHtmlAttachment", "Simple_example.html",
-                                            $this->{foswiki}->{user}, {file => $this->{attachmentDir}."Simple_example.html"})
+    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithHtmlAttachment", "Simple_example.html",
+                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.html"})
 }
 
 sub tear_down {
