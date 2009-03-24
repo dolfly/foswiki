@@ -10,8 +10,8 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::Text;
-use base 'TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::Text;
+use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use Encode;
 use CharsetDetector;
 

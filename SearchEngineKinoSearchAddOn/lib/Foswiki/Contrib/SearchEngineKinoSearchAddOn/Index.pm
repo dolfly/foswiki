@@ -15,16 +15,16 @@
 # http://www.gnu.org/copyleft/gpl.html
 # Set library paths in @INC, at compile time
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::Index;
-use base TWiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch;
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
+use base Foswiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch;
 
 use KinoSearch::InvIndexer;
 use KinoSearch::Analysis::PolyAnalyzer;
 
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 use strict;
 
-use TWiki::Form;
+use Foswiki::Form;
 
 # New instance to create the index
 # QS
@@ -64,7 +64,7 @@ sub createIndex {
 
         my $start_time = time();
 
-        foreach my $topic ( TWiki::Func::getTopicList($web) ) {
+        foreach my $topic ( Foswiki::Func::getTopicList($web) ) {
             $self->log("Indexing topic | $web.$topic");
             $self->indexTopic( $invindexer, $web, $topic, %fldNames );
         }
@@ -184,7 +184,7 @@ sub indexer {
 sub attachmentsOfTopic {
     my ( $self, $web, $topic ) = @_;
 
-    my ( $meta, $text ) = TWiki::Func::readTopic( $web, $topic, undef );
+    my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic, undef );
 
     my @attachments;
     if ($meta) {
@@ -337,7 +337,7 @@ sub addTopics {
 sub websToIndex {
     my $self = shift;
 
-    my @userWebList = TWiki::Func::getListOfWebs("user");
+    my @userWebList = Foswiki::Func::getListOfWebs("user");
     my %skipwebs    = $self->skipWebs();
     my @webList;
 
@@ -365,7 +365,7 @@ sub formsFieldNames {
     my %fieldNames;
     my @webs = $self->websToIndex();
 
-    my $prefs = $TWiki::Plugins::SESSION->{prefs};
+    my $prefs = $Foswiki::Plugins::SESSION->{prefs};
 
     foreach my $web (@webs) {
         my $legalForms = $prefs->getWebPreferencesValue( 'WEBFORMS', $web );
@@ -380,7 +380,7 @@ sub formsFieldNames {
 # even when an access control is defined
 #TODO: SMELL: this is a horrible waste of resources, creating _ONE_ TWiki object may be justified
             my $form =
-              TWiki::Form->new( new TWiki( $TWiki::cfg{AdminUserLogin} ),
+              Foswiki::Form->new( new TWiki( $Foswiki::cfg{AdminUserLogin} ),
                 $web, $formName );
             foreach my $fieldDef ( @{ $form->{fields} } ) {
                 my $fldName = $fieldDef->{name};
@@ -443,7 +443,7 @@ sub readFieldNames {
 sub indexTopic {
     my ( $self, $invindexer, $web, $topic, %fldNames ) = @_;
 
-    my ( $meta, $text ) = TWiki::Func::readTopic( $web, $topic, undef );
+    my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic, undef );
 
     # Eliminate TWiki Makup Language elements and newlines.
     # This is a trick to geht the renderer in 4.0/4.1 as well as in 4.2:
@@ -452,8 +452,8 @@ sub indexTopic {
     #  NOTE: In 4.0/4.1 the method TWiki->renderer does not exist, but I
     # should never come there.
     my $renderer;
-    if ( !defined( $renderer = $TWiki::Plugins::SESSION->{renderer} ) ) {
-        $renderer = $TWiki::Plugins::SESSION->renderer;
+    if ( !defined( $renderer = $Foswiki::Plugins::SESSION->{renderer} ) ) {
+        $renderer = $Foswiki::Plugins::SESSION->renderer;
     }
     $text = $renderer->TML2PlainText( $text, $web, $topic, "" );
     $text =~ s/\n/ /g;
@@ -474,9 +474,9 @@ sub indexTopic {
     $doc->set_value( bodytext => $text );
 
     # processing the topic meta info
-    my ( $date, $author, $rev ) = TWiki::Func::getRevisionInfo( $web, $topic );
+    my ( $date, $author, $rev ) = Foswiki::Func::getRevisionInfo( $web, $topic );
 
-    $date = TWiki::Func::formatTime($date);
+    $date = Foswiki::Func::formatTime($date);
 
     # the author can be used as a search criteria
     $doc->set_value( author => $author );
@@ -555,7 +555,7 @@ sub indexAttachment {
 
     #my $date = $attachment->{'date'};
     #print "#2######## $date ###########\n";
-    #my $date    = TWiki::Func::formatTime( $attachment->{'date'} );
+    #my $date    = Foswiki::Func::formatTime( $attachment->{'date'} );
     my $comment = $attachment->{'comment'};
 
     my $pubpath  = $self->pubPath();
@@ -564,7 +564,7 @@ sub indexAttachment {
     $filename =~ /(.*)/;
     $filename = $1;
     my $attText =
-      TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor(
+      Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor(
         $filename);
         
     return if (!defined($attText)); #attachment may not be there.
@@ -692,7 +692,7 @@ sub splitTheTopicName {
 sub updateMarkerFile {
     my ( $self, $web ) = @_;
 
-    my $file = $TWiki::cfg{DataDir} . "/$web/.kinoupdate";
+    my $file = $Foswiki::cfg{DataDir} . "/$web/.kinoupdate";
 
     return $file;
 }
@@ -731,7 +731,7 @@ sub readUpdateMarker {
 sub readChanges {
     my ( $self, $web ) = @_;
 
-    my $changes_file = $TWiki::cfg{DataDir} . "/$web/.changes";
+    my $changes_file = $Foswiki::cfg{DataDir} . "/$web/.changes";
 
     if ( -e $changes_file ) {
         my $FILE;

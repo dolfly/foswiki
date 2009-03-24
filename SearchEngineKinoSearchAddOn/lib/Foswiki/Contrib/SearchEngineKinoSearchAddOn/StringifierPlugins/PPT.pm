@@ -11,9 +11,9 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PPT;
-use base 'TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PPT;
+use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 use File::Temp qw/tmpnam/;
 
 # Only if ppthtml exists, I register myself.
@@ -30,7 +30,7 @@ sub stringForFile {
     return "" unless ((system($cmd) == 0) && (-f $tmp_file));
 
     # Then I use the HTML stringifier to convert HTML to TXT
-    my $text = TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
+    my $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
 
     unlink($tmp_file);
 

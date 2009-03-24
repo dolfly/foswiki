@@ -11,8 +11,8 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::HTML;
-use base 'TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::HTML;
+use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use HTML::TreeBuilder;
 use Encode;
 use CharsetDetector;

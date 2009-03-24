@@ -15,8 +15,8 @@
 # http://www.gnu.org/copyleft/gpl.html
 # Set library paths in @INC, at compile time
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::Search;
-use base TWiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch;
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
+use base Foswiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch;
 
 use KinoSearch::Searcher;
 use KinoSearch::Analysis::PolyAnalyzer;
@@ -38,8 +38,8 @@ sub searchCgi {
         $session = new TWiki( undef, $query);
     }
 
-    $TWiki::Plugins::SESSION = $session;
-    my $searcher = TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    $Foswiki::Plugins::SESSION = $session;
+    my $searcher = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
     my $text = $searcher->search(0, $session);
   
     $session->writeCompletePage($text, 'view');
@@ -52,11 +52,11 @@ sub search {
     my ($self, $debug, $session) = (@_);
     
     $self->{Debug}   = $debug;
-    $session ||= $TWiki::Plugins::SESSION;
+    $session ||= $Foswiki::Plugins::SESSION;
     
     # write log entry - should be used throughout this script
-    $debug && TWiki::Func::writeDebug( "kinosearch starting..." );
-    my $query = TWiki::Func::getCgiQuery();
+    $debug && Foswiki::Func::writeDebug( "kinosearch starting..." );
+    my $query = Foswiki::Func::getCgiQuery();
 
     # getting the web, the topic and the user from the SESSION object
     my $webName    = $session->{webName};
@@ -65,7 +65,7 @@ sub search {
     my $websStr = $query->param('web') || '';
     my $limit   = $self->limit($query);
 
-    $remoteUser = TWiki::Func::userToWikiName($remoteUser);
+    $remoteUser = Foswiki::Func::userToWikiName($remoteUser);
 
     # getting some params - all params should be documented in KinoSearch topic
     my $search        = $query->param( "search" )    || "";
@@ -96,19 +96,19 @@ sub search {
 
     # load the template
     if( $rss ){
-        $tmpl = TWiki::Func::readTemplate( "kinosearchrss" );
+        $tmpl = Foswiki::Func::readTemplate( "kinosearchrss" );
     } else {
-        $tmpl = TWiki::Func::readTemplate( "kinosearch" );
+        $tmpl = Foswiki::Func::readTemplate( "kinosearch" );
     }
     $tmpl =~ s/\%META{.*?}\%//go;  # remove %META{"parent"}%
 
     # split the template into sections
     my( $tmplHead, $tmplSearch,
         $tmplTable, $tmplNumber, $tmplTail ) = split( /%SPLIT%/, $tmpl );
-    $tmplHead   = TWiki::Func::expandCommonVariables( $tmplHead,   $topicName, $webName);
-    $tmplSearch = TWiki::Func::expandCommonVariables( $tmplSearch, $topicName, $webName);
-    $tmplNumber = TWiki::Func::expandCommonVariables( $tmplNumber, $topicName, $webName);
-    $tmplTail   = TWiki::Func::expandCommonVariables( $tmplTail,   $topicName, $webName);
+    $tmplHead   = Foswiki::Func::expandCommonVariables( $tmplHead,   $topicName, $webName);
+    $tmplSearch = Foswiki::Func::expandCommonVariables( $tmplSearch, $topicName, $webName);
+    $tmplNumber = Foswiki::Func::expandCommonVariables( $tmplNumber, $topicName, $webName);
+    $tmplTail   = Foswiki::Func::expandCommonVariables( $tmplTail,   $topicName, $webName);
 
     # do we have all the SPLIT parts?
     if( ! $tmplTail ) {
@@ -120,7 +120,7 @@ sub search {
     }
 
     # print page heading
-    $tmplHead = TWiki::Func::renderText( $tmplHead );
+    $tmplHead = Foswiki::Func::renderText( $tmplHead );
     $tmplHead =~ s|</*nop/*>||goi;   # remove <nop> tags (PTh 06 Nov 2000)
     if( $rss ){
        $tmplHead =~ s|<p />||goi;   # remove <p /> tag
@@ -128,20 +128,20 @@ sub search {
     $result .= $tmplHead;
 
     # if configured, show only attachments option
-    my $searchAttachmentsOnly = TWiki::Func::getPreferencesValue( "KINOSEARCHSEARCHATTACHMENTSONLY" ) || 0;
+    my $searchAttachmentsOnly = Foswiki::Func::getPreferencesValue( "KINOSEARCHSEARCHATTACHMENTSONLY" ) || 0;
     # if only attachments are displayed, even if configured, then the message is not shown
     if (($searchAttachmentsOnly)&&($usersearch !~ "attachment:yes")) {
 	$tempVal = $usersearch;
 	$tempVal =~ s/\+/\%2B/go; # just for the above URL
 	$tempVal =~ s/\"/\%22/go; # just for the above URL
-	my $attachmentsOnlyLabel = TWiki::Func::getPreferencesValue( "KINOSEARCHATTACHMENTSONLYLABEL" ) || "Show only attachments";
+	my $attachmentsOnlyLabel = Foswiki::Func::getPreferencesValue( "KINOSEARCHATTACHMENTSONLYLABEL" ) || "Show only attachments";
 	$tmplSearch =~ s/%SEARCHATTACHMENTSONLY%/<a href="%SCRIPTURLPATH%\/kinosearch\/$webName\/?search=$tempVal\%20\%2Battachment:yes">$attachmentsOnlyLabel<\/a>/go;
-	$tmplSearch = TWiki::Func::expandCommonVariables ( $tmplSearch, $topicName, $webName );
+	$tmplSearch = Foswiki::Func::expandCommonVariables ( $tmplSearch, $topicName, $webName );
     }
     # just for cleaning if the preference isn't set, or already displaying only attachments
     $tmplSearch =~ s/%SEARCHATTACHMENTSONLY%/ /go;
 
-    # TWiki::Func::writeDebug( "tmp: $tmplSearch\n");
+    # Foswiki::Func::writeDebug( "tmp: $tmplSearch\n");
 
     $result .= $self->renderSearchHeader($usersearch, $tmplSearch );
 
@@ -149,14 +149,14 @@ sub search {
     my( $beforeText, $repeatText, $afterText ) = split( /%REPEAT%/, $tmplTable );
 
     if( ! $noheader ) {
-       my $bgcolor = TWiki::Func::getPreferencesValue( "WEBBGCOLOR", $webName ) || "#FFFFFF";
+       my $bgcolor = Foswiki::Func::getPreferencesValue( "WEBBGCOLOR", $webName ) || "#FFFFFF";
        $beforeText =~ s/%WEBBGCOLOR%/$bgcolor/go;
        if ( $webName eq $websStr) {
 	   $beforeText =~ s/%WEB%/$webName/go;
        }
        $beforeText =~ s/%WEB%/ /go;
-       $beforeText = TWiki::Func::expandCommonVariables( $beforeText, $topicName,  $webName );
-       $beforeText = TWiki::Func::renderText( $beforeText, $webName );            
+       $beforeText = Foswiki::Func::expandCommonVariables( $beforeText, $topicName,  $webName );
+       $beforeText = Foswiki::Func::renderText( $beforeText, $webName );            
        $beforeText =~ s|</*nop/*>||goi;   # remove <nop> tag                      
        if( $rss ){
        $beforeText =~ s|<p />||goi;   # remove <p /> tag
@@ -177,10 +177,10 @@ sub search {
 	if($restopic =~ m/(\w+)/) { $restopic =~ s/ .*//; }
 	
 	# topics moved away maybe are still indexed on old web
-	next unless &TWiki::Func::topicExists( $resweb, $restopic );
+	next unless &Foswiki::Func::topicExists( $resweb, $restopic );
 
 	# read topic
-	#my( $meta, $text ) = TWiki::Func::readTopic( $resweb, $restopic );
+	#my( $meta, $text ) = Foswiki::Func::readTopic( $resweb, $restopic );
 	# Why these changes to the text?
 	#$text =~ s/%WEB%/$resweb/gos;
 	#$text =~ s/%TOPIC%/$restopic/gos;
@@ -206,8 +206,8 @@ sub search {
     }
 
     # print footer
-    $afterText  = TWiki::Func::expandCommonVariables( $afterText, $topicName, $webName );
-    $afterText = TWiki::Func::renderText( $afterText, $webName );
+    $afterText  = Foswiki::Func::expandCommonVariables( $afterText, $topicName, $webName );
+    $afterText = Foswiki::Func::renderText( $afterText, $webName );
     $afterText =~ s|</*nop/*>||goi;   # remove <nop> tag
     if( $rss ){
         $afterText =~ s|<p />||goi;   # remove <p /> tag
@@ -218,7 +218,7 @@ sub search {
     if( ! $nototal ) {
 	my $thisNumber = $tmplNumber;
 	$thisNumber =~ s/%NTOPICS%/$ntopics/go;
-	$thisNumber = TWiki::Func::renderText( $thisNumber, $webName );
+	$thisNumber = Foswiki::Func::renderText( $thisNumber, $webName );
 	$thisNumber =~ s|</*nop/*>||goi;   # remove <nop> tag
 	$result .= $thisNumber;
     if( $rss ){
@@ -227,7 +227,7 @@ sub search {
     }
 
     # print last part of the HTML page
-    $tmplTail = TWiki::Func::renderText( $tmplTail );
+    $tmplTail = Foswiki::Func::renderText( $tmplTail );
     $tmplTail =~ s|</*nop/*>||goi;   # remove <nop> tag
     if( $rss ){
         $tmplTail =~ s|<p />||goi;   # remove <p /> tag
@@ -266,7 +266,7 @@ sub limit {
     }
 
     # Defines an absolute limit
-    my $maxlimit = TWiki::Func::getPreferencesValue("KINOSEARCHMAXLIMIT") || 2000;
+    my $maxlimit = Foswiki::Func::getPreferencesValue("KINOSEARCHMAXLIMIT") || 2000;
     if ($maxlimit < $limit) {
         $limit = $maxlimit;
     }
@@ -336,7 +336,7 @@ sub docsForQuery {
 sub renderHtmlStringFor {
     my ($self, $hit, $repeatText, $nosummary, $showlock) = (@_);
 
-    my $mainWebname = TWiki::Func::getMainWebname();
+    my $mainWebname = Foswiki::Func::getMainWebname();
 
     my $tempVal = $repeatText;
     my $resweb = $hit->{web};
@@ -370,14 +370,14 @@ sub renderHtmlStringFor {
     }
 
     # read topic
-    #my( $meta, $text ) = TWiki::Func::readTopic( $resweb, $restopic );
+    #my( $meta, $text ) = Foswiki::Func::readTopic( $resweb, $restopic );
     #$text =~ s/%WEB%/$resweb/gos;
     #$text =~ s/%TOPIC%/$restopic/gos;
 
     # recover data from the hit so it can be displayed
     if ( $hit->{author} ) {
 	$revUser = $hit->{author};
-	$revUser = TWiki::Func::userToWikiName($revUser);
+	$revUser = Foswiki::Func::userToWikiName($revUser);
 
 	if ($revUser !~ "$mainWebname.") { $revUser = "$mainWebname.$revUser"; }
 	$revNum = $hit->{version};
@@ -390,7 +390,7 @@ sub renderHtmlStringFor {
     # field $name only is present if the hit is an attachment
     if ($name) {
 	# icon for attachment based on filename
-	$icon = $TWiki::Plugins::SESSION->mapToIconFileName($name);
+	$icon = $Foswiki::Plugins::SESSION->mapToIconFileName($name);
 	$icon = "%ICON{\"$icon\"}%";
 	# URL for the file
 	$tempVal =~ s/%MATCH%/<a href="%PUBURLPATH%\/$resweb\/$restopic\/$name">$name<\/a>/go;
@@ -403,8 +403,8 @@ sub renderHtmlStringFor {
 	$tempVal =~ s/%MATCH%/\[\[$resweb\.$restopic\]\]/go;
 	# if locks are to be displayed, then find it out for each hit
 	if ($showlock) {
-	    ($url, $lockinguser, $locked) = TWiki::Func::checkTopicEditLock($resweb, $restopic);
-	    if ($lockinguser) { $lockinguser = TWiki::Func::userToWikiName( $lockinguser, "0" ); }
+	    ($url, $lockinguser, $locked) = Foswiki::Func::checkTopicEditLock($resweb, $restopic);
+	    if ($lockinguser) { $lockinguser = Foswiki::Func::userToWikiName( $lockinguser, "0" ); }
 	}
     }
     # NEW icon for new topics and revision number for old ones
@@ -424,8 +424,8 @@ sub renderHtmlStringFor {
     $tempVal =~ s/%TOPICNAME%/$restopic/go;
     $tempVal =~ s/%REVISION%/$revNum/go;
     $tempVal =~ s/%AUTHOR%/$revUser/go;
-    $tempVal = TWiki::Func::expandCommonVariables( $tempVal, $restopic, $resweb );
-    $tempVal = TWiki::Func::renderText( $tempVal, $resweb );
+    $tempVal = Foswiki::Func::expandCommonVariables( $tempVal, $restopic, $resweb );
+    $tempVal = Foswiki::Func::renderText( $tempVal, $resweb );
     
     if( $nosummary ) {
 	# no summaries
@@ -440,7 +440,7 @@ sub renderHtmlStringFor {
 	    $tempVal =~ s/%TEXTHEAD%/$hit->{excerpt}/go;
 	}
     }
-    $tempVal = TWiki::Func::renderText( $tempVal, $resweb );
+    $tempVal = Foswiki::Func::renderText( $tempVal, $resweb );
     $tempVal =~ s|</*nop/*>||goi;   # remove <nop> tag
     
     return $tempVal;
@@ -451,7 +451,7 @@ sub renderHtmlStringFor {
 sub renderRssStringFor {
     my ($self, $hit, $repeatText, $nosummary, $showlock) = (@_);
 
-    my $mainWebname = TWiki::Func::getMainWebname();
+    my $mainWebname = Foswiki::Func::getMainWebname();
 
     my $tempVal = $repeatText;
     my $resweb = $hit->{web};
@@ -484,14 +484,14 @@ sub renderRssStringFor {
     }
 
     # read topic
-    #my( $meta, $text ) = TWiki::Func::readTopic( $resweb, $restopic );
+    #my( $meta, $text ) = Foswiki::Func::readTopic( $resweb, $restopic );
     #$text =~ s/%WEB%/$resweb/gos;
     #$text =~ s/%TOPIC%/$restopic/gos;
 
     # recover data from the hit so it can be displayed
     if ( $hit->{author} ) {
 	$revUser = $hit->{author};
-	$revUser = TWiki::Func::userToWikiName($revUser);
+	$revUser = Foswiki::Func::userToWikiName($revUser);
 
 	if ($revUser !~ "$mainWebname.") { $revUser = "$mainWebname.$revUser"; }
 	$revNum = $hit->{version};
@@ -517,8 +517,8 @@ sub renderRssStringFor {
     
 	# if locks are to be displayed, then find it out for each hit
 	if ($showlock) {
-	    ($url, $lockinguser, $locked) = TWiki::Func::checkTopicEditLock($resweb, $restopic);
-	    if ($lockinguser) { $lockinguser = TWiki::Func::userToWikiName( $lockinguser, "0" ); }
+	    ($url, $lockinguser, $locked) = Foswiki::Func::checkTopicEditLock($resweb, $restopic);
+	    if ($lockinguser) { $lockinguser = Foswiki::Func::userToWikiName( $lockinguser, "0" ); }
 	}
     }
 
@@ -534,8 +534,8 @@ sub renderRssStringFor {
     $tempVal =~ s/%TOPICNAME%/$restopic/go;
     $tempVal =~ s/%REVISION%/$revNum/go;
     $tempVal =~ s/%AUTHOR%/$revUser/go;
-    $tempVal = TWiki::Func::expandCommonVariables( $tempVal, $restopic, $resweb );
-    $tempVal = TWiki::Func::renderText( $tempVal, $resweb );
+    $tempVal = Foswiki::Func::expandCommonVariables( $tempVal, $restopic, $resweb );
+    $tempVal = Foswiki::Func::renderText( $tempVal, $resweb );
     
     if( $nosummary ) {
 	# no summaries
@@ -550,7 +550,7 @@ sub renderRssStringFor {
 	    $tempVal =~ s/%TEXTHEAD%/$hit->{excerpt}/go;
 	}
     }
-    $tempVal = TWiki::Func::renderText( $tempVal, $resweb );
+    $tempVal = Foswiki::Func::renderText( $tempVal, $resweb );
     $tempVal =~ s|</*nop/*>||goi;   # remove <nop> tag
     $tempVal =~ s|<p />||goi;   # remove <p /> tag
     
@@ -571,7 +571,7 @@ sub renderSearchHeader {
     $tmplSearch =~ s/%SEARCHSTRING%/$tempVal/go;
 
     # This made some troble. I removed it and it seems to be not needed!?
-    #$tmplSearch = &TWiki::Func::renderText( $tmplSearch );
+    #$tmplSearch = &Foswiki::Func::renderText( $tmplSearch );
 
     $tmplSearch =~ s|</*nop/*>||goi;   # remove <nop> tag
     $result .= $tmplSearch;    
@@ -586,14 +586,14 @@ sub topicAllowed {
 
     # security check - default mapping for user guest is WikiGuest, so if web/topic
     # does not allow this user to view the hit, it will be discarded
-    #my $allowView = TWiki::Func::checkAccessPermission( "view", TWiki::Func::userToWikiName($remoteUser) , $text, $restopic, $resweb );
+    #my $allowView = Foswiki::Func::checkAccessPermission( "view", Foswiki::Func::userToWikiName($remoteUser) , $text, $restopic, $resweb );
     #print "remoteUser = $remoteUser\n";
-    my $allowView = TWiki::Func::checkAccessPermission( "view", $remoteUser , $text, $restopic, $resweb );
+    my $allowView = Foswiki::Func::checkAccessPermission( "view", $remoteUser , $text, $restopic, $resweb );
     if( ! $allowView ) {
 	return 0;
     }
     # another security check - is the web of the current result hidden ?
-    $allowView = TWiki::Func::getPreferencesValue( "NOSEARCHALL", $resweb ) || "";
+    $allowView = Foswiki::Func::getPreferencesValue( "NOSEARCHALL", $resweb ) || "";
     if( $allowView eq "on" ) {
 	return 0;
     }

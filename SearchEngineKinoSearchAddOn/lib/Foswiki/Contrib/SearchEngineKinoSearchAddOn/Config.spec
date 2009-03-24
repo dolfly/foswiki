@@ -2,13 +2,13 @@
 # ---++ SearchEngineKinoSearchAddOn
 # **BOOLEAN**
 #If using Wiki::Store::SearchAlgorithms::Kino, enable this for SEARCH to also show attachments (Default is false)
-$TWiki::cfg{SearchEngineKinoSearchAddOn}{showAttachments} = 0;
+$Foswiki::cfg{SearchEngineKinoSearchAddOn}{showAttachments} = 0;
 
 
 # **BOOLEAN**
 #Enable Automatic index updating when topics are modified (Default is false)
 # warning: this will slow down save, rename and attach operations.
-$TWiki::cfg{SearchEngineKinoSearchPlugin}{EnableOnSaveUpdates} = 0;
+$Foswiki::cfg{SearchEngineKinoSearchPlugin}{EnableOnSaveUpdates} = 0;
 
 
 # **SELECT antiword,wv,abiword**
@@ -18,14 +18,14 @@ $TWiki::cfg{SearchEngineKinoSearchPlugin}{EnableOnSaveUpdates} = 0;
 # <dt>wvHtml</dt><dd> is recommended for use on Windows.</dd>
 # <dt>abiword</dt><dd></dd>
 # </dl>
-$TWiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} = 'antiword';
+$Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} = 'antiword';
 
 # **PATH**
 # Where KinoSearh logs are stored
-$TWiki::cfg{KinoSearchLogDir} = '$TWiki::cfg{PubDir}/../kinosearch/logs';
+$Foswiki::cfg{KinoSearchLogDir} = '$Foswiki::cfg{PubDir}/../kinosearch/logs';
 
 
 # **PATH**
 # Where KinoSearh index is stored
-$TWiki::cfg{KinoSearchIndexDir} = '$TWiki::cfg{PubDir}/../kinosearch/index';
+$Foswiki::cfg{KinoSearchIndexDir} = '$Foswiki::cfg{PubDir}/../kinosearch/index';
 

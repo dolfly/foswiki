@@ -10,15 +10,15 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_abiword;
-use base 'TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_abiword;
+use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use File::Temp qw/tmpnam/;
 use Encode;
-use TWiki;
+use Foswiki;
 
 #only load abiword if the user has selected it in configure - Sven has had no success with it
-if (defined($TWiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) && 
-    ($TWiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'abiword')) {
+if (defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) && 
+    ($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'abiword')) {
 # Only if abiword exists, I register myself.
     if (__PACKAGE__->_programExists('abiword')){
         __PACKAGE__->register_handler("application/word", ".doc");
@@ -36,7 +36,7 @@ sub stringForFile {
     system($cmd);
 
     # The I use the HTML stringifier to convert HTML to TXT
-    my $text = TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
+    my $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
 
     unlink($tmp_file);
     $cmd = "rm -rf " . $tmp_file . "_files";

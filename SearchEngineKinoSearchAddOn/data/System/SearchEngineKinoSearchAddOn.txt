@@ -153,7 +153,7 @@ specialised stringifiers, i.e. classes to extract the ASCII text out
 of the document.  In this add-on, a plug-in mechanism is implemented,
 so that additional stringifiers can be added without changing the
 existing code. All stringifier plugins are stored in the directory
-=lib/TWiki/Contrib/KinoSearch/StringifierPlugins=.  
+=lib/Foswiki/Contrib/KinoSearch/StringifierPlugins=.  
 
 You can add new stringifier plugins by just adding new files here. The minimum things to be implemented are:
    * The plugin must inherit from =TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase=

@@ -11,9 +11,9 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 use strict;
-use base "TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase";
+use base "Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase";
 use Carp;
 use File::MMagic;
 use File::Spec::Functions qw(rel2abs);

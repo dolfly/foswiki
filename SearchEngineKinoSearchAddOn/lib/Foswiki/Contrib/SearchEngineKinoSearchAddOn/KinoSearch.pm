@@ -15,10 +15,10 @@
 # http://www.gnu.org/copyleft/gpl.html
 # Set library paths in @INC, at compile time
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch;
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch;
 
-use TWiki;
-use TWiki::Func;
+use Foswiki;
+use Foswiki::Func;
 use Error qw( :try );
 use Time::Local;
 use IO::File;
@@ -26,7 +26,7 @@ use IO::File;
 use KinoSearch::InvIndexer;
 use KinoSearch::Analysis::PolyAnalyzer;
 
-#use TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
+#use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 use strict;
 
 # Create a new instance of self.
@@ -37,7 +37,7 @@ sub new {
     my $type    = shift;
     my $self = bless {}, $handler;
 
-    $self->{Session} = $TWiki::Plugins::SESSION;
+    $self->{Session} = $Foswiki::Plugins::SESSION;
 
     if (!($type eq "search") ) {$self->{Log} = $self->openLog($type)};
     $self->{Debug}   = $self->debugPref();
@@ -60,7 +60,7 @@ sub log {
     my ($self, $logString, $force) = (@_);
  
     if ($self->{Debug} || $force || 0) {
-	my $logtime = TWiki::Func::formatTime( time(), '$rcs', 'servertime' ); 
+	my $logtime = Foswiki::Func::formatTime( time(), '$rcs', 'servertime' ); 
 	$self->{Log}->print( "| $logtime | $logString\n");
 
 	print STDERR "$logString\n";
@@ -68,14 +68,14 @@ sub log {
 }
 
 # Yields the directory, I want to do logs
-# I take $TWiki::cfg{KinoSearchLogDir} or if not given 
-# TWiki::Func::getPubDir()/../kinosearch/logs
+# I take $Foswiki::cfg{KinoSearchLogDir} or if not given 
+# Foswiki::Func::getPubDir()/../kinosearch/logs
 # QS
 sub logDirName {
-    my $log = $TWiki::cfg{KinoSearchLogDir};
+    my $log = $Foswiki::cfg{KinoSearchLogDir};
 
     if (!$log) {
-	$log = TWiki::Func::getPubDir();
+	$log = Foswiki::Func::getPubDir();
 	$log .="/../kinosearch/logs";
     }
 
@@ -85,7 +85,7 @@ sub logDirName {
 sub logFileName {
     my ($self, $prefix) = (@_);
     my $logdir = logDirName();
-    my $time = TWiki::Func::formatTime( time(), '$year$mo$day', 'servertime');
+    my $time = Foswiki::Func::formatTime( time(), '$year$mo$day', 'servertime');
 
     return "$logdir/$prefix-$time.log";
 }
@@ -94,10 +94,10 @@ sub logFileName {
 # Path where the index is stored
 # QS
 sub indexPath {
-    my $idx = $TWiki::cfg{KinoSearchIndexDir};
+    my $idx = $Foswiki::cfg{KinoSearchIndexDir};
 
     if (!$idx) {
-	$idx = TWiki::Func::getPubDir();
+	$idx = Foswiki::Func::getPubDir();
 	$idx .="/../kinosearch/index";
     }
 
@@ -107,7 +107,7 @@ sub indexPath {
 # Path where the attachments are stored.
 # QS
 sub pubPath {
-    return TWiki::Func::getPubDir(); 
+    return Foswiki::Func::getPubDir(); 
 }
 
 # List of webs that shall not be indexed
@@ -115,7 +115,7 @@ sub pubPath {
 sub skipWebs {
     #TODO: the defaults should not be here in code
     #the settings should be added to the Config.spec file.
-    my $to_skip = TWiki::Func::getPreferencesValue( "KINOSEARCHINDEXSKIPWEBS" ) || "Trash, Sandbox";
+    my $to_skip = Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXSKIPWEBS" ) || "Trash, Sandbox";
     my %skipwebs;
 
     foreach my $tmpweb ( split( /\,\s+|\,|\s+/, $to_skip ) ) {
@@ -127,7 +127,7 @@ sub skipWebs {
 # List of attachments to be skipped.
 # QS
 sub skipAttachments {
-    my $to_skip = TWiki::Func::getPreferencesValue( "KINOSEARCHINDEXSKIPATTACHMENTS" ) || "";
+    my $to_skip = Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXSKIPATTACHMENTS" ) || "";
     my %skipattachments;
 
     foreach my $tmpattachment ( split( /\,\s+/, $to_skip ) ) {
@@ -140,7 +140,7 @@ sub skipAttachments {
 # List of file extensions to be indexed
 # QS
 sub indexExtensions {
-    my $extensions = TWiki::Func::getPreferencesValue( "KINOSEARCHINDEXEXTENSIONS" ) || ".pdf, .doc, .xml, .html, .txt, .xls, .ppt";
+    my $extensions = Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXEXTENSIONS" ) || ".pdf, .doc, .xml, .html, .txt, .xls, .ppt";
     my %indexextensions;
 
     foreach my $tmpextension ( split( /\,\s+/, $extensions ) ) {
@@ -153,22 +153,22 @@ sub indexExtensions {
 # Variables to be indexed.
 # Obsolet?
 sub indexeVariables {
-    return TWiki::Func::getPreferencesValue( "KINOSEARCHINDEXVARIABLES" );
+    return Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXVARIABLES" );
 }
 
 # QS
 sub analyserLanguage {
-    return TWiki::Func::getPreferencesValue( "KINOSEARCHANALYSERLANGUAGE") || 'en';
+    return Foswiki::Func::getPreferencesValue( "KINOSEARCHANALYSERLANGUAGE") || 'en';
 }
 
 sub summaryLength {
-    return TWiki::Func::getPreferencesValue( "KINOSEARCHSUMMARYLENGTH") || 300;
+    return Foswiki::Func::getPreferencesValue( "KINOSEARCHSUMMARYLENGTH") || 300;
 }
 
 # Returns, if debug statements etc shall be shown
 # QS
 sub debugPref {
-    return TWiki::Func::getPreferencesValue( "KINOSEARCHDEBUG" ) || 0;
+    return Foswiki::Func::getPreferencesValue( "KINOSEARCHDEBUG" ) || 0;
 }
 
 # Returns an analyser

@@ -17,15 +17,15 @@
 #
 # As per the GPL, removal of this notice is prohibited.
 
-package TWiki::Store::SearchAlgorithms::Kino;
+package Foswiki::Store::SearchAlgorithms::Kino;
 
 use strict;
 
-use TWiki::Contrib::SearchEngineKinoSearchAddOn::Search;
+use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
 
 =pod
 
----+ package TWiki::Store::SearchAlgorithms::Kino
+---+ package Foswiki::Store::SearchAlgorithms::Kino
 
 use KinoSearch to speed up SEARCH
 
@@ -42,14 +42,14 @@ sub search {
 # be used for partial matches on anything.
 
     #just a bit experimental
-    my $showAttachments = $TWiki::cfg{SearchEngineKinoSearchAddOn}{showAttachments} || 0;
+    my $showAttachments = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{showAttachments} || 0;
 
 
     my $scope = $options->{scope} || 'text';
 #print STDERR "search : type=$options->{type}, scope=$scope ($searchString) (".scalar(@$topics).")\n";
 
     my $searcher =
-      TWiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+      Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     if ( $options->{type} eq 'regex' ) {
 
@@ -75,7 +75,7 @@ sub search {
     if ( $scope eq 'all' ) {
 	$scopePrefix = '';
     } elsif ( $scope eq 'attachments' ) {
-	#damnit, TWiki::Search excludes this
+	#damnit, Foswiki::Search excludes this
 	#$searchAttachments = " AND (attachment:yes)"
 	$showAttachments = 1;
     } elsif ( $scope eq 'topic' ) {
@@ -94,7 +94,7 @@ sub search {
     }
     elsif ( $options->{type} eq 'all' ) {
 	#'all' can't really work well with pluggable search options from this point in the code
-	#the 'agregation needs to happen in TWiki::Search
+	#the 'agregation needs to happen in Foswiki::Search
 	#TODO: need to separate out free form strings and other terms - the terms (including web: don't work so well inside topic:
     }
     else {
@@ -105,8 +105,8 @@ sub search {
         #TODO: make configurable so that we use Forking if selected..
 
         #wimp out, and use what works.
-        use TWiki::Store::SearchAlgorithms::Forking;
-        return TWiki::Store::SearchAlgorithms::Forking::search( $searchString,
+        use Foswiki::Store::SearchAlgorithms::Forking;
+        return Foswiki::Store::SearchAlgorithms::Forking::search( $searchString,
             $topics, $options, $sDir, $sandbox, $web );
     }
 
@@ -131,16 +131,16 @@ sub search {
         if ( $restopic =~ m/(\w+)/ ) { $restopic =~ s/ .*//; }
 
         # topics moved away maybe are still indexed on old web
-        #next unless &TWiki::Func::topicExists( $resweb, $restopic );
+        #next unless &Foswiki::Func::topicExists( $resweb, $restopic );
 
         # read topic
-        #my( $meta, $text ) = TWiki::Func::readTopic( $resweb, $restopic );
+        #my( $meta, $text ) = Foswiki::Func::readTopic( $resweb, $restopic );
         # Why these changes to the text?
         #$text =~ s/%WEB%/$resweb/gos;
         #$text =~ s/%TOPIC%/$restopic/gos;
         #my $text;
 
-     # Check that the topic can be viewed. (iirc this is done in TWiki::Search.)
+     # Check that the topic can be viewed. (iirc this is done in Foswiki::Search.)
      #	    if (! $self->topicAllowed($restopic, $resweb,  $text, $remoteUser)) {
      #	        next;
      #	    }

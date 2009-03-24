@@ -10,13 +10,13 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase;
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase;
 use strict;
-use Module::Pluggable (require => 1, search_path => [qw/TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifierPlugins/]);
+use Module::Pluggable (require => 1, search_path => [qw/Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifierPlugins/]);
 
 __PACKAGE__->plugins;
 
-use constant DEFAULT_HANDLER => "TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::Text";
+use constant DEFAULT_HANDLER => "Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::Text";
 {
     my %mime_handlers;
     my %extension_handlers;

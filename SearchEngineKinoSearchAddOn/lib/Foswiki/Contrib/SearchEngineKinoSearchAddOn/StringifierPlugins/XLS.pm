@@ -10,8 +10,8 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::XLS;
-use base 'TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::XLS;
+use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 __PACKAGE__->register_handler("application/excel", ".xls");
 
 use Spreadsheet::ParseExcel;

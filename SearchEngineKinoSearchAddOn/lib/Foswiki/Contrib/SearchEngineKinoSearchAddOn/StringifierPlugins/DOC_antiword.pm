@@ -10,12 +10,12 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_antiword;
-use base 'TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_antiword;
+use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use File::Temp qw/tmpnam/;
 
-if (!defined($TWiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) || 
-    ($TWiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'antiword')) {
+if (!defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) || 
+    ($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'antiword')) {
     # Only if antiword exists, I register myself.
     if (__PACKAGE__->_programExists("antiword")){
         __PACKAGE__->register_handler("application/word", ".doc");
@@ -34,7 +34,7 @@ sub stringForFile {
     ###########
     # Note: This way, the encoding of the text is reworked in the text stringifier.
     # Note2: May be this is not necessary: My UnitTest says NO...
-    $text = TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
+    $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
 
     #open $in, $tmp_file;
     #$text = join(" ", <$in>); 

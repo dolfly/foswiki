@@ -10,12 +10,12 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_wv;
-use base 'TWiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
+package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_wv;
+use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use File::Temp qw/tmpnam/;
 
-if (!defined($TWiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) || 
-    ($TWiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'wvHtml')) {
+if (!defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) || 
+    ($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'wvHtml')) {
     # Only if wv exists, I register myself.
     if (__PACKAGE__->_programExists("wvHtml")){
         __PACKAGE__->register_handler("application/word", ".doc");
@@ -41,7 +41,7 @@ sub stringForFile {
     $tmp_file = "$tmp_dir/$tmp_file";
     return "" if (((system($cmd)) != 0) || (!(-f $tmp_file)) || (-z $tmp_file));
 
-    $text = TWiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
+    $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
 
     # Deletes temp files (main html and images)
     $self->rmtree($tmp_file);
