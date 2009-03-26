@@ -178,25 +178,34 @@ sub postRenderingHandler {
 # =========================
 
 sub _restExit {
-#  my ($session) = @_;
+    my ( $session, $plugin, $verb, $response ) = @_;
 
     Foswiki::Func::writeDebug( __PACKAGE__, "::_restExit()" ) if $debug;
 
     my $query = Foswiki::Func::getRequestObject();
 
     unless ( defined ($query->param('url')) ) {
-        print "Content-type: text/plain\n\n\nBad call to ${pluginName}";
-        return;
+        $response->header(
+            -type   => 'text/html',
+            -status => 400
+        );
+        $response->print("ERROR: (400) Bad Request");
+        return undef;
     }
 
     my $url = URI::Escape::uri_unescape($query->param('url'));
-    print "Content-type: text/html\n\n";
-    print "<html><head><title>You Are Exiting The Foswiki Web Server</title>";
-    print "<meta http-equiv=\"refresh\" content=\"0; URL=${url}\"></head>";
-    print "<body><b>Thank you for visiting.";
-    print "Click on the following link to go to:</b>";
-    print "<a href=\"${url}\">${url}</a>";
-    print "<b>(or you will be taken there immediately)<hr></b></body></html>";
+    $response->header(
+        -type   => 'text/html',
+        -status => 200
+    );
+
+    $response->print("<html><head><title>You Are Exiting The Foswiki Web Server</title>\n");
+    $response->print("<meta http-equiv=\"refresh\" content=\"0; URL=${url}\"></head>\n");
+    $response->print("<body><b>Thank you for visiting.\n");
+    $response->print("Click on the following link to go to:</b>\n");
+    $response->print("<a href=\"${url}\">${url}</a>\n");
+    $response->print("<b>(or you will be taken there immediately)<hr></b></body></html>\n");
+    return undef;
 }
 
 # =========================
