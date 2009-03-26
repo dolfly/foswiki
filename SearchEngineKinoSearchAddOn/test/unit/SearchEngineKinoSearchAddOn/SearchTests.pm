@@ -5,6 +5,7 @@ use base qw( FoswikiFnTestCase );
 use strict;
 use CGI;
 
+use Foswiki::Func;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
 
@@ -27,22 +28,17 @@ sub set_up {
     $Foswiki::cfg{StoreImpl} = 'RcsLite';
 
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
-#    use Data::Dumper qw( Dumper );
-#    print STDERR Dumper( $this );
-    $this->assert( defined $this->{session}, "no session??" );
-    $this->assert( defined $this->{session}->{user}, "no {user}" );
-    $this->assert( defined $this->{session}->{store}, "no {store}" );
     $this->assert( defined $this->{users_web}, "no {users_web}" );
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithoutAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, 'TopicWithoutAttachment', <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithWordAttachment", <<'HERE');
+	Foswiki::Func::saveTopicText( $this->{users_web}, 'TopicWithWordAttachment', <<'HERE');
 Just an example topic wird MS Word
 Keyword: redmond
 HERE
-    #$this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
-    #                                        $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"})
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
+				       {file => $this->{attachmentDir}."Simple_example.doc"});
 }
 
 sub tear_down {
@@ -71,7 +67,7 @@ sub test_docsForQuery {
     $this->assert(!defined($hit), "Bad hit found.");
 
     # Let's create something
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicTitleToSearch", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicTitleToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
@@ -100,7 +96,7 @@ sub test_renderHtmlStringFor {
     my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Let's create something
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicTitleToSearch", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicTitleToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
@@ -156,13 +152,13 @@ sub test_searchAttachments {
     my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Let's create something
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicToSearch", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
 
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicToSearch", "Simple_example.doc",
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"});
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicToSearch", "Simple_example.doc",
+				       {file => $this->{attachmentDir}."Simple_example.doc"});
 
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
@@ -191,7 +187,7 @@ sub test_search_with_users {
     $this->registerUser("TestUser2", "User", "TestUser2", 'testuser@an-address.net');
 
     # Now I create a topic that only "TestUser2" can read
-    $this->{session}->{store}->saveTopic("TestUser2", $this->{users_web}, "TopicWithAccesControl", << 'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithAccesControl", << 'HERE');
 Just an example topic
 Keyword: KeepOutHere
       * Set ALLOWTOPICVIEW = UserTestUser2

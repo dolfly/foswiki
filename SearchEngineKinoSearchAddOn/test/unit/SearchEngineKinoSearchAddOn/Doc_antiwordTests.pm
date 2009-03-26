@@ -4,6 +4,7 @@ use base qw( FoswikiFnTestCase! );
 
 use strict;
 
+use Foswiki::Func;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 
@@ -24,12 +25,12 @@ sub set_up {
 
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
 
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithWordAttachment", <<'HERE');
+	Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithWordAttachment", <<'HERE');
 Just an example topic wird MS Word
 Keyword: redmond
 HERE
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"})
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
+				       {file => $this->{attachmentDir}."Simple_example.doc"});
 }
 
 sub tear_down {

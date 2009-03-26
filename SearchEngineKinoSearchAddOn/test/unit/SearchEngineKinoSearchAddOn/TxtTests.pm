@@ -4,6 +4,7 @@ use base qw( FoswikiFnTestCase! );
 
 use strict;
 
+use Foswiki::Func;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 
@@ -22,12 +23,12 @@ sub set_up {
 
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
 
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithTxtAttachment", <<'HERE');
+	Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithTxtAttachment", <<'HERE');
 Just an example topic with TXT
 Keyword: ASCII
 HERE
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithTxtAttachment", "Simple_example.txt",
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.txt"})
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithTxtAttachment", "Simple_example.txt",
+				       {file => $this->{attachmentDir}."Simple_example.txt"});
 }
 
 sub tear_down {

@@ -4,7 +4,7 @@ use base qw( FoswikiFnTestCase! );
 
 use strict;
 
-
+use Foswiki::Func;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
 
@@ -73,8 +73,7 @@ sub test_createIndexWithAccessControl {
     my $currUser = $Foswiki::cfg{DefaultUserLogin};
 
     # No I set the ALLOWWEBVIEW stuff
-    $this->{session}->{store}->saveTopic(
-        $currUser, $this->{test_web}, $Foswiki::cfg{WebPrefsTopicName},
+  Foswiki::Func::saveTopicText( $this->{test_web}, $Foswiki::cfg{WebPrefsTopicName},
         <<THIS
 If ALLOWWEB is set to a list of wikinames
     * people in the list will be PERMITTED
@@ -82,16 +81,16 @@ If ALLOWWEB is set to a list of wikinames
 \t* Set ALLOWWEBVIEW = MrGreen MrYellow MrWhite
 \t* Set WEBFORMS = TestForm
 THIS
-                                , undef);
+                                );
     # Now the Form topic
-    $this->{session}->{store}->saveTopic(
-        $currUser, $this->{test_web}, "TestForm",
+				
+    Foswiki::Func::saveTopicText( $this->{test_web}, 'TestForm',
         <<THIS
 | *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* | 
 | TipoAttivita | select | 1 |  | Selezionare il tipo di attivita effettuata | |
 | Autore | label | 40 | | |				       
 THIS
-                                , undef);
+                                );
 
     # Let's try to do the index
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
@@ -114,11 +113,11 @@ sub test_updateIndex {
     $this->assert(!defined($hit), "Hit for updatepoint found. Should be undefined!");
 
     # Now I do some changes
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "NewOrChangedTopicUpdate", <<'HERE');
+  Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopicUpdate", <<'HERE');
 Just an example topic
 Keyword: updatedpoint
 HERE
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "NewOrChangedTopicUpdate2", <<'HERE');
+ Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopicUpdate2", <<'HERE');
 Just an example topic
 Keyword: secondupdatedpoint
 HERE
@@ -143,9 +142,8 @@ HERE
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for update2 topic.");
 
     # Lets delete a topic
-    $this->{session}->{store}->moveTopic($this->{users_web}, "NewOrChangedTopicUpdate",
-				       "Trash", "NewOrChangedTopicUpdate",
-				       $this->{session}->{user});
+    Foswiki::Func::moveTopic( $this->{users_web}, "NewOrChangedTopicUpdate",
+			      "Trash", "NewOrChangedTopicUpdate" );
 
     # Now I update the index. 
     $ind->updateIndex();
@@ -154,8 +152,8 @@ HERE
     $this->assert(!defined($hit), "Hit for deleted topic found. Should be undefined!");
 
     # Now let's add an attachment
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
-					    $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"});
+    Foswiki::Func::saveAttachment( $this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
+				   {file => $this->{attachmentDir}."Simple_example.doc"});
     
     $ind->updateIndex();
     $docs = $search->docsForQuery( "dummy");
@@ -164,8 +162,8 @@ HERE
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for attach.");
 
     # Now let't change the attachment
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
-					    $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example2.doc"});
+    Foswiki::Func::saveAttachment( $this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
+				   {file => $this->{attachmentDir}."Simple_example2.doc"});
     $ind->updateIndex();
     $docs = $search->docsForQuery( "additions");
     $hit  = $docs->fetch_hit_hashref;
@@ -216,7 +214,7 @@ sub test_changedTopics {
     $this->assert(!@changes, "Changes found even if there are non.");
     
     # Now I do a change
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
@@ -235,9 +233,8 @@ HERE
     $ind->saveUpdateMarker($this->{users_web}, $start_time);
 
     # Lets delete a topic
-    $this->{session}->{store}->moveTopic($this->{users_web}, "TopicWithoutAttachment",
-				       "Trash", "NewOrChangedTopic",
-				       $this->{session}->{user});
+    Foswiki::Func::moveTopic( $this->{users_web}, "TopicWithoutAttachment",
+			      "Trash", "NewOrChangedTopic" );
 
     @changes = $ind->changedTopics($this->{users_web});
 
@@ -289,7 +286,7 @@ sub test_addTopics {
     $this->assert(!defined($hit), "Hit for updatepoint found. Should be undefined!");
 
     # Now I create the topic
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "NewTopic", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "NewTopic", <<'HERE');
 Just an example topic
 Keyword: creatededpoint
 HERE
@@ -362,12 +359,12 @@ sub test_indexTopic {
     $ind->createIndex();
 
     # Now I create a topic with all elements.
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithExcelAttachment", <<'HERE');
+    Foswiki::Func::saveTopic( $this->{users_web}, "TopicWithExcelAttachment", <<'HERE');
 Just an example topic with MS Excel
 Keyword: spreadsheet
 HERE
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithExcelAttachment", "Simple_example.xls",
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.xls"});
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithExcelAttachment", "Simple_example.xls",
+				       {file => $this->{attachmentDir}."Simple_example.xls"});
     # FIXME: How can I add a Form?
 
     # Let's index the topic
@@ -417,12 +414,12 @@ sub test_indexAttachment {
     $ind->createIndex();
 
     # Now I create a topic with an attachment.
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithPdfAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithPdfAttachment", <<'HERE');
 Just an example topic with PDF
 Keyword: spreadsheet
 HERE
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithPdfAttachment", "Simple_example.pdf",
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.pdf"});
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithPdfAttachment", "Simple_example.pdf",
+				       {file => $this->{attachmentDir}."Simple_example.pdf"});
 
     # Let's index the atachment
     # Preparations
@@ -475,11 +472,11 @@ sub test_readChanges {
     my $this = shift;
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "NewOrChangedTopic", <<'HERE');
+	Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic: Updated
 Keyword: startpoint
 HERE
@@ -578,12 +575,12 @@ sub _testForWordInAttachment {
 
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithSpecialFile", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithSpecialFile", <<'HERE');
 Just an example topic.
 Keyword: Superspecific
 HERE
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithSpecialFile", $file,
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}.$file});
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithSpecialFile", $file,
+				       {file => $this->{attachmentDir}.$file});
 
     Foswiki::Func::setPreferencesValue( "KINOSEARCHINDEXSKIPWEBS", "Main, Sandbox, System, TestCases, Trash");
     $ind->createIndex();
@@ -602,7 +599,7 @@ HERE
 sub _createTopicWithoutAttachment {
     my $this = shift;
 
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithoutAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithoutAttachment", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
@@ -611,13 +608,13 @@ HERE
 sub _createTopicWithWordAttachment {
     my $this = shift;
 
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithWordAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithWordAttachment", <<'HERE');
 Just an example topic with MS Word
 Keyword: redmond
 HERE
 
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.doc"})
+	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
+				       {file => $this->{attachmentDir}."Simple_example.doc"});
 }
 
 sub _indexOK {

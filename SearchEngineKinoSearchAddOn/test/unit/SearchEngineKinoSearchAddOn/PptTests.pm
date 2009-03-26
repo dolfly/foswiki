@@ -4,6 +4,7 @@ use base qw( FoswikiFnTestCase );
 
 use strict;
 
+use Foswiki::Func;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 
@@ -22,12 +23,12 @@ sub set_up {
     
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
 
-    $this->{session}->{store}->saveTopic($this->{session}->{user},$this->{users_web}, "TopicWithPptAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithPptAttachment", <<'HERE');
 Just an example topic with Ppt
 Keyword: Pointpower
 HERE
-    $this->{session}->{store}->saveAttachment($this->{users_web}, "TopicWithPptAttachment", "Simple_example.ppt",
-                                            $this->{session}->{user}, {file => $this->{attachmentDir}."Simple_example.ppt"})
+	Foswiki::Func::saveAttachment( $this->{users_web}, 'TopicWithPptAttachment', 'Simple_example.ppt',
+				       {file => $this->{attachmentDir}."Simple_example.ppt"});
 }
 
 sub tear_down {
