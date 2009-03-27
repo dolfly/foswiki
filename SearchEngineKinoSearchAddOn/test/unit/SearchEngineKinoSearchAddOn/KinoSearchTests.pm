@@ -68,6 +68,7 @@ sub test_skipWebs {
     my @config_webs  = ("web1", "web2");
     my $a_web;
 
+    # SMELL: and what if someone overrites KINOSEARCHINDEXSKIPWEBS and it doesn't return Trash, Sandbox, System in its list?
     my %webs = $ks->skipWebs();
     foreach $a_web (@default_webs) {
 	$this->assert($webs{$a_web}, "Web $a_web not skipped in default.")
