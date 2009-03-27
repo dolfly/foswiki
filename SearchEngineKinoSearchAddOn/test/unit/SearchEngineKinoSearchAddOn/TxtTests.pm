@@ -1,6 +1,6 @@
 # Test for Text.pm
 package TxtTests;
-use base qw( FoswikiFnTestCase! );
+use base qw( FoswikiFnTestCase );
 
 use strict;
 
