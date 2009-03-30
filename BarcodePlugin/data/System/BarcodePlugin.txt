@@ -10,7 +10,7 @@ The original inspiration for this was so I could generate barcodes that can be r
 
 One useful application is to print out a page with the Topic name encoded in the barcode. Then use the scanner to quickly jump to the Wiki page for editing. eg,. =%<nop>BARCODE{text="%<nop>TOPIC%"}%=
 
-%>BARCODE{text="%TOPIC%"}%
+%BARCODE{text="%TOPIC%"}%
 
 ---+++ Syntax Rules
 
