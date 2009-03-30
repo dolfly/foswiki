@@ -88,9 +88,9 @@ __Note:__ You do not need to install anything on your browser to use this plugin
 |  CPAN Dependencies: | Barcode::Code128 |
 |  | GD v1.20 or later |
 |  Other Dependencies: | none |
-|  Perl Version: | 5.0 |
+|  Perl Version: | 5.8 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev &amp; TWiki:Main/StevenSprouse |
+|  Feedback: | http://foswiki.org/Support/%TOPIC% |
 
 __Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]], EmptyPlugin
 
