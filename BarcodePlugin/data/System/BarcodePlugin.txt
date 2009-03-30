@@ -1,14 +1,16 @@
-%META:TOPICINFO{author="ProjectContributor" date="1100553250" format="1.1" version="1.1"}%
+<%META:TOPICINFO{author="ProjectContributor" date="1100553250" format="1.1" version="1.1"}%
 ---+ <nop>%TOPIC%
 
 
-This plugin is used to create embedded barcodes in topics. Currently only Code128 codes are supported.
+This plugin is used to create embedded barcodes in topics. Currently only [[http://en.wikipedia.org/wiki/Code_128][Code128]] codes are supported.
 Support for other standard codes could easily be added for any standard supported by Perl Barcode
-or GD::Barcode modules. 
+or CPAN:GD::Barcode modules. 
 
 The original inspiration for this was so I could generate barcodes that can be read by a [[http://www.beau.lib.la.us/~jmorris/linux/cuecat/][CueCat]]
 
-One useful application is to print out a page with the Topic name encoded in the barcode. Then use the scanner to quickly jump to the Wiki page for editing. ie. =%<nop>BARCODE{text="%<nop>TOPIC%"}%=
+One useful application is to print out a page with the Topic name encoded in the barcode. Then use the scanner to quickly jump to the Wiki page for editing. eg,. =%<nop>BARCODE{text="%<nop>TOPIC%"}%=
+
+%>BARCODE{text="%TOPIC%"}%
 
 ---+++ Syntax Rules
 
@@ -60,7 +62,7 @@ headercolor="#FFFFCC" databg="#CCCCCC, #EFEFEF" headerrows="1" footerrows="1" }%
 
 __Note:__ You do not need to install anything on your browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where Foswiki is running. 
 
-   * Make sure your Perl administrator has installed the Barcode::Code128 module. (perl -MCPAN -e "install Barcode::Code128")
+   * Make sure your Perl administrator has installed the Barcode::Code128 module. (=perl -MCPAN -e "install Barcode::Code128"=)
    * Make sure you have GD 1.20 or later installed. 
    * Download the ZIP file from the Plugin web (see below)
    * Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
@@ -76,7 +78,7 @@ __Note:__ You do not need to install anything on your browser to use this plugin
 
 ---+++ Plugin Info
 
-|  Plugin Author: | Original: TWiki:Main/StevenSprouse / Ported to Foswiki by Foswiki:Main.WillNorris/Foswiki:Main.KennethLavrsen |
+|  Plugin Author: | Original: TWiki:Main/StevenSprouse / Ported to Foswiki by Foswiki:Main.WillNorris and Foswiki:Main.KennethLavrsen |
 |  Plugin Version: | 1.004 (30 Mar 2009) |
 |  Change History: | |
 |  30 Mar 2009| v1.004 - Directory paths fixed and extention released on foswiki.org |
@@ -85,8 +87,8 @@ __Note:__ You do not need to install anything on your browser to use this plugin
 |  5 Nov 2004| v1.001 - Added cue_cat flag |
 |  4 Nov 2004| v1.000 - Initial release |
 |  Foswiki Dependency: | $Foswiki::Plugins::VERSION 1.024 |
-|  CPAN Dependencies: | Barcode::Code128 |
-|  | GD v1.20 or later |
+|  CPAN Dependencies: | CPAN:Barcode::Code128 |
+|  | CPAN:GD v1.20 or later |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.8 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
