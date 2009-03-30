@@ -3,6 +3,7 @@
 # Copyright (C) 2004 Steven Sprouse, steve04@meitek.com
 # Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
 # Copyright (C) 2001-2003 Peter Thoeny, peter@thoeny.com
+# copyright (C) 2009 Foswiki Contributors
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -51,7 +52,7 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Dakar';
+$RELEASE = '30 Mar 2009';
 
 $pluginName = 'BarcodePlugin';  # Name of this Plugin
 

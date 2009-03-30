@@ -1,4 +1,4 @@
-data/Foswiki/BarcodePlugin.txt NEW
+data/System/BarcodePlugin.txt NEW
 lib/Foswiki/Plugins/BarcodePlugin.pm NEW
-pub/Foswiki/BarcodePlugin/example_0.png NEW
-pub/Foswiki/BarcodePlugin/example_1.png NEW
+pub/System/BarcodePlugin/example_0.png NEW
+pub/System/BarcodePlugin/example_1.png NEW

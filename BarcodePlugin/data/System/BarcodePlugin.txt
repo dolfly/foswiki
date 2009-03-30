@@ -1,6 +1,4 @@
-
-%META:TOPICINFO{author="StevenSprouse" date="1100553250" format="1.0" version="1.5"}%
-%META:TOPICPARENT{name="SearchResult"}%
+%META:TOPICINFO{author="ProjectContributor" date="1100553250" format="1.1" version="1.1"}%
 ---+ <nop>%TOPIC%
 
 
@@ -33,12 +31,12 @@ The =%<nop>BARCODE{parm="value" ...}%= variable gets expanded to an image repres
 Plugin settings are stored as preferences variables. To reference
 a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, for example, ==%<nop>DEFAULTPLUGIN_SHORTDESCRIPTION%==
 
-	* One line description, shown in the %SYSTEMWEB%.TextFormattingRules topic:
-		* Set SHORTDESCRIPTION = This plugin creates embedded Code128 barcodes in a page.
+   * One line description, shown in the %SYSTEMWEB%.TextFormattingRules topic:
+      * Set SHORTDESCRIPTION = This plugin creates embedded Code128 barcodes in a page.
 
 
-	* Debug plugin: (See output in =data/debug.txt=)
-		* Set DEBUG = 0
+   * Debug plugin: (See output in =data/debug.txt=)
+      * Set DEBUG = 0
 
 ---+++ Examples
 | *You type ...* |  *Expect output*  |  *If Installed*  |
@@ -62,28 +60,26 @@ headercolor="#FFFFCC" databg="#CCCCCC, #EFEFEF" headerrows="1" footerrows="1" }%
 
 __Note:__ You do not need to install anything on your browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where Foswiki is running. 
 
-	* Make sure your Perl administrator has installed the Barcode::Code128 module. (perl -MCPAN -e "install Barcode::Code128")
-	* Make sure you have GD 1.20 or later installed. 
-	* Download the ZIP file from the Plugin web (see below)
-	* Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
-	  | *File:* | *Description:* |
-	  | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
-	  | ==data/System/%TOPIC%.txt== | Plugin topic |
-	  | ==data/System/%TOPIC%.txt,v== | Plugin topic repository |
-	  | ==pub/Foswiki/BarcodePlugin/example_0.png== | Sample =barcode= image |
-	  | ==pub/Foswiki/BarcodePlugin/example_1.png== | Sample =barcode= image|
-	  | ==pub/Foswiki/BarcodePlugin/example_0.png,v== | Sample =barcode= repository |
-	  | ==pub/Foswiki/BarcodePlugin/example_1.png,v== | Sample =barcode= repository |
-	* (Dakar) Visit =configure= in your Foswiki installation, and enable the plugin in the {Plugins} section.
-	* Test if the plugin is correctly installed:
-		* Check above examples if the "if installed" column shows images instead of variables.
+   * Make sure your Perl administrator has installed the Barcode::Code128 module. (perl -MCPAN -e "install Barcode::Code128")
+   * Make sure you have GD 1.20 or later installed. 
+   * Download the ZIP file from the Plugin web (see below)
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
+     | *File:* | *Description:* |
+     | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
+     | ==data/System/%TOPIC%.txt== | Plugin topic |
+     | ==pub/System/BarcodePlugin/example_0.png== | Sample =barcode= image |
+     | ==pub/System/BarcodePlugin/example_1.png== | Sample =barcode= image|
+   * Visit =configure= in your Foswiki installation, and enable the plugin in the {Plugins} section.
+   * Test if the plugin is correctly installed:
+      * Check above examples if the "if installed" column shows images instead of variables.
 
 
 ---+++ Plugin Info
 
-|  Plugin Author: | TWiki:Main/StevenSprouse |
-|  Plugin Version: | 15 Dec 2008 |
+|  Plugin Author: | Original: TWiki:Main/StevenSprouse / Ported to Foswiki by Foswiki:Main.WillNorris/Foswiki:Main.KennethLavrsen |
+|  Plugin Version: | 1.004 (30 Mar 2009) |
 |  Change History: | |
+|  30 Mar 2009| v1.004 - Directory paths fixed and extention released on foswiki.org |
 |  15 Dec 2008| v1.003 - Rebranded to Foswiki |
 |  11 Nov 2004| v1.002 - Improved benchmarks by changing Perl module load timing. |
 |  5 Nov 2004| v1.001 - Added cue_cat flag |
@@ -99,5 +95,5 @@ __Note:__ You do not need to install anything on your browser to use this plugin
 __Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]], EmptyPlugin
 
 
-%META:FILEATTACHMENT{name="example_1.png" attr="" comment="" date="1099600975" path="example_1.png" size="270" user="StevenSprouse" version="1.1"}%
-%META:FILEATTACHMENT{name="example_0.png" attr="" comment="" date="1099600987" path="example_0.png" size="198" user="StevenSprouse" version="1.1"}%
+%META:FILEATTACHMENT{name="example_1.png" attr="h" comment="" date="1099600975" path="example_1.png" size="270" user="ProjectContributor" version="1.1"}%
+%META:FILEATTACHMENT{name="example_0.png" attr="h" comment="" date="1099600987" path="example_0.png" size="198" user="ProjectContributor" version="1.1"}%
