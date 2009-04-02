@@ -115,7 +115,7 @@ fall back to the default in this topic
                             SUBMENUWEB=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*([^\|\s]*)\.[^.]*\s*\|.*)$quot
                             SUBMENUTOPIC=$quot$pattern(\|\s*[^\|]*\s*\|\s*[^\|]*\s*\|\s*[^\|\s]*\s*\|\s*[^.]*\.([^\|\s]*)\s*\|.*)$quot
                         }$percnt"
-}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li class='menu-edit-link'>[[%SCRIPTURL{save}%/%MENUWEB%/%MENUTOPIC%?topictemplate=%IF{"istopic '%MAINWEB%.DefaultWebMenu'" then="%MAINWEB%" else="%SYSTEMWEB%"}%.DefaultWebMenu][create menu]]</li>"}%
+}% %IF{"'%MENUWEB%.%MENUTOPIC%' allows 'EDIT'" then="<li class='menu-edit-link'>[[%SCRIPTURL{save}%/%MENUWEB%/%MENUTOPIC%?templatetopic=%IF{"istopic '%MAINWEB%.DefaultWebMenu'" then="%MAINWEB%" else="%SYSTEMWEB%"}%.DefaultWebMenu][create menu]]</li>"}%
 </ul>%ENDSECTION{"webmenu-builder-default"}%
 </verbatim>
 
@@ -214,6 +214,7 @@ position:inherit;
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL 3 (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  2 April 2009: | fix spelling mistake in create menu link |
 |  18 March 2009: | add css element for parent nodes of currently selected node - and make grey |
 |  9 March 2009: | change the WebMenu topic format to be a table to simplify editing |
 |  4 March 2009: | fix IE6 rollover |
