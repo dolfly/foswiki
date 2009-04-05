@@ -53,7 +53,7 @@ our $VERSION = '$Rev: 17659 $';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '$Date: 2009-03-19 12:32:09 -0400 (Thu, 19 Mar 2009) $';
+our $RELEASE = '1.4';
 
 #
 # # Short description of this plugin
