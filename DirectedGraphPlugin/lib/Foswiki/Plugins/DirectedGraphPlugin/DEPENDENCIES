@@ -1,3 +1,4 @@
+Cwd,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
 Digest::MD5,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
 File::Copy,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
 File::Path,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm

@@ -15,13 +15,6 @@
 #
 # =========================
 #
-# Each plugin is a package that may contain these functions:        VERSION:
-#
-#   initPlugin              ( $topic, $web, $user, $installWeb )    1.000
-#   commonTagsHandler       ( $text, $topic, $web )                 1.000
-#
-# =========================
-#
 # This plugin creates a png file by using the graphviz dot command.
 # See http://www.graphviz.org/ for more information.
 # Note that png files created with this plugin can only be deleted manually;
@@ -33,12 +26,11 @@ package Foswiki::Plugins::DirectedGraphPlugin;
 use strict;
 
 use vars qw(
-  $web $usWeb $topic $user $installWeb $VERSION $RELEASE $pluginName
+  $web $usWeb $topic $user $installWeb 
   $debugDefault $antialiasDefault $densityDefault $sizeDefault
   $vectorFormatsDefault $hideAttachDefault $inlineAttachDefault $linkFilesDefault
   $engineDefault $libraryDefault $deleteAttachDefault $forceAttachAPI $forceAttachAPIDefault
-  $enginePath $magickPath $toolsPath $attachPath $attachUrlPath $perlCmd $engineCmd $dotHelper
-  $HASH_CODE_LENGTH
+  $enginePath $magickPath $toolsPath $attachPath $attachUrlPath $perlCmd
   $antialiasCmd
 );
 
@@ -50,21 +42,36 @@ use File::Temp;
 use File::Spec;
 use File::Copy;    # Used for Foswiki attach API bypass
 
-#use vars qw( %TWikiCompatibility );
+# $VERSION is referred to by Foswiki, and is the only global variable that
+# # *must* exist in this package.
+# # This should always be $Rev: 3193 $ so that Foswiki can determine the checked-in
+# # status of the plugin. It is used by the build automation tools, so
+# # you should leave it alone.
+our $VERSION = '$Rev: 17659 $';
+#
+# # This is a free-form string you can use to "name" your own plugin version.
+# # It is *not* used by the build automation tools, but is reported as part
+# # of the version number in PLUGINDESCRIPTIONS.
+our $RELEASE = '$Date: 2009-03-19 12:32:09 -0400 (Thu, 19 Mar 2009) $';
+#
+# # Short description of this plugin
+# # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
+our $SHORTDESCRIPTION = 'Draw graphs using the !GraphViz utility';
+#
+# # You must set $NO_PREFS_IN_TOPIC to 0 if you want your plugin to use
+# # preferences set in the plugin topic. This is required for compatibility
+# # with older plugins, but imposes a significant performance penalty, and
+# # is not recommended. Instead, leave $NO_PREFS_IN_TOPIC at 1 and use
+# # =$Foswiki::cfg= entries set in =LocalSite.cfg=, or if you want the users
+# # to be able to change settings, then use standard Foswiki preferences that
+# # can be defined in your %USERSWEB%.SitePreferences and overridden at the web
+# # and topic level.
+our $NO_PREFS_IN_TOPIC = 1;
+#
 
-# This should always be $Rev: 17659 $ so that Foswiki can determine the checked-in
-# status of the plugin. It is used by the build automation tools, so
-# you should leave it alone.
-$VERSION = '$Rev: 17659 $';
+my $pluginName = 'DirectedGraphPlugin';
 
-# This is a free-form string you can use to "name" your own plugin version.
-# It is *not* used by the build automation tools, but is reported as part
-# of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Dakar';
-
-$pluginName = 'DirectedGraphPlugin';
-
-$HASH_CODE_LENGTH = 32;
+my $HASH_CODE_LENGTH = 32;
 
 #
 # Documentation on the sandbox command options taken from Foswiki/Sandbox.pm
@@ -77,10 +84,10 @@ $HASH_CODE_LENGTH = 32;
 #   * S simple, short string,
 #   * D rcs format date
 
-$dotHelper = "DirectedGraphPlugin.pl";
-$engineCmd =
+my $dotHelper = "DirectedGraphPlugin.pl";
+my $engineCmd =
 " %HELPERSCRIPT|F% %DOT|F% %WORKDIR|F% %INFILE|F% %IOSTRING|U% %ERRFILE|F% %DEBUGFILE|F%";
-$antialiasCmd =
+my $antialiasCmd =
   "convert -density %DENSITY|N% -geometry %GEOMETRY|S% %INFILE|F% %OUTFILE|F%";
 
 # The session variables are used to store the file names and md5hash of the input to the dot command
@@ -111,72 +118,88 @@ sub initPlugin {
     }
 
     # path to dot, neato, twopi, circo and fdp (including trailing /)
-    $enginePath = $Foswiki::cfg{DirectedGraphPlugin}{enginePath};
+    $enginePath = $Foswiki::cfg{DirectedGraphPlugin}{enginePath} || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{enginePath};
 
     # path to imagemagick convert routine
-    $magickPath = $Foswiki::cfg{DirectedGraphPlugin}{magickPath};
+    $magickPath = $Foswiki::cfg{DirectedGraphPlugin}{magickPath} || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{magickPath};
 
-    # path to imagemagick convert routine
-    $toolsPath = $Foswiki::cfg{DirectedGraphPlugin}{toolsPath};
+    # path to Plugin helper script
+    $toolsPath = $Foswiki::cfg{DirectedGraphPlugin}{toolsPath} || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{toolsPath};
+
+    # If toolsPath is not set, guess the current directory.
+    if (!$toolsPath) {
+       use Cwd;
+       $toolsPath = getcwd;
+       $toolsPath =~ s/\/[^\/]+$/\/tools/;
+       }
+
+    # Fix the various paths - trim whitespace and add a trailing slash if none is provided.
+
+    $toolsPath  =~ s/\s+$//;
+    $toolsPath .= '/' unless (substr($toolsPath,-1) eq '/');
+    if ($enginePath) {
+       $enginePath  =~ s/\s+$//;
+       $enginePath .= '/' unless (substr($enginePath,-1) eq '/');
+    }
+    if ($magickPath) {
+        $magickPath  =~ s/\s+$//;
+        $magickPath .= '/' unless (substr($magickPath,-1) eq '/');
+    }
 
 # path to store attachments - optional.  If not provided, Foswiki attachment API is used
-    $attachPath = $Foswiki::cfg{DirectedGraphPlugin}{attachPath};
+    $attachPath = $Foswiki::cfg{DirectedGraphPlugin}{attachPath} || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachPath};
 
 # URL to retrieve attachments - optional.  If not provided, Foswiki pub path is used.
-    $attachUrlPath = $Foswiki::cfg{DirectedGraphPlugin}{attachUrlPath};
+    $attachUrlPath = $Foswiki::cfg{DirectedGraphPlugin}{attachUrlPath} || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachUrlPath};
 
-    # path to imagemagick convert routine
-    $perlCmd = $Foswiki::cfg{DirectedGraphPlugin}{perlCmd};
-
-    die
-"Path to GraphViz commands not defined. Use bin/configure and set the enginePath "
-      unless $enginePath;
+    # path to perl interpreter 
+    $perlCmd = $Foswiki::cfg{DirectedGraphPlugin}{perlCmd} || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{perlCmd} || 'perl';
 
     # Get plugin debug flag
     $debugDefault = Foswiki::Func::getPreferencesFlag("\U$pluginName\E_DEBUG");
 
     # Get plugin antialias default
     $antialiasDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_ANTIALIAS");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_ANTIALIAS") || 'off';
 
     # Get plugin density default
     $densityDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_DENSITY");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_DENSITY") || '300';
 
     # Get plugin size default
-    $sizeDefault = Foswiki::Func::getPreferencesValue("\U$pluginName\E_SIZE");
+    $sizeDefault = Foswiki::Func::getPreferencesValue("\U$pluginName\E_SIZE") || '800x600';
 
     # Get plugin vectorFormats default
     $vectorFormatsDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_VECTORFORMATS");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_VECTORFORMATS") || 'none';
 
     # Get plugin engine default
     $engineDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_ENGINE");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_ENGINE") || 'dot';
 
     # Get plugin library default
     $libraryDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_LIBRARY");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_LIBRARY") || 'System.DirectedGraphPlugin';
 
     # Get plugin hideattachments default
     $hideAttachDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_HIDEATTACHMENTS");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_HIDEATTACHMENTS") || 'on';
 
     # Get the default inline  attachment default
     $inlineAttachDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_INLINEATTACHMENT");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_INLINEATTACHMENT") || 'png';
 
     # Get the default link file attachment default
     $linkFilesDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_LINKATTACHMENTS");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_LINKATTACHMENTS") || 'on';
 
     # Get plugin deleteattachments default
     $deleteAttachDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_DELETEATTACHMENTS");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_DELETEATTACHMENTS") || 'off';
 
-    # Get plugin deleteattachments default
+    # Get plugin force API default
     $forceAttachAPIDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_FORCEATTACHAPI");
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_FORCEATTACHAPI") || 'off';
 
     # Read in the attachment information from previous runs
     #  and save it into a session variable for use by the tag handlers
@@ -654,6 +677,7 @@ sub _showError {
           . join( "", @errLines )
           . "</verbatim>";
         $errFile =~ tr!\\!/!;
+        ( $errFile )=( $errFile =~ /(.*)/ );  # untaint $errFile for unlink
         unlink $errFile unless $debugDefault;
     }
 
@@ -933,7 +957,7 @@ sub _make_path {
     my ( $topic, $web ) = @_;
 
     my @webs = split( '/', $web );    # Split web in case subwebs are present
-    my $dir = Foswiki::Func::getPubDir();
+    my $dir = $attachPath || Foswiki::Func::getPubDir();
 
     foreach my $val (@webs) {         # Process each subweb in the web path
         $dir .= '/' . $val;
