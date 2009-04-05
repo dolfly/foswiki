@@ -1,25 +1,30 @@
-%META:TOPICINFO{author="Main.ProjectContributor" date="1237950808" format="1.1" reprev="1.6" version="1.6"}%
+%META:TOPICINFO{author="ProjectContributor" date="1238965436" format="1.1" reprev="1.7" version="1.7"}%
 ---+!! Directed Graph Plugin
 
-
-
-
 %TOC%
-
 ---++ Introduction
 
 Graph visualization is a way of representing structural information as diagrams of abstract graphs and networks. Automatic graph drawing has many important applications in software engineering, database and web design, networking, and in visual interfaces for many other domains.
 
 This plugin uses [[http://www.graphviz.org/][Graphviz's]] applications to create an image of a directed graph. The directed graph is described using a simple text markup called "The DOT Language". This markup is written between =&lt;dot&gt;= and =&lt;/dot&gt;= tags. By default, a png image attachment is created and displayed inline, replacing the =&lt;dot&gt;= markup. Any other requested formats are saved as attachments.
 
-| %X% By default, this version of the plugin uses the Foswiki API to manipulate the attached graphs. The first user to view a topic containing a directed graph will be denied access if they do not have update permission. If defaults or DOT parameters have changed, viewing the topic may modify attachments, which will require update permission. |
+Visit the [[http://www.graphviz.org/Gallery.php][Graphviz gallery]] to see some examples on what can be achieved with this plugin and Graphviz. Full documentation is available at http://graphviz.org/Documentation.php.
+
+| %X% *Caution* =&lt;dot&gt;= syntax is not currently compatible with the WYSIWYG editor. Raw editing is recommended, or use &lt;sticky&gt; tags to protect the dot tags. |
+---+++ Attachment Handling
+| %X% *By default, this version of the plugin uses the Foswiki API to manipulate the attached graphs. The first user to view a topic containing a directed graph will be denied access if they do not have update permission. If defaults or DOT parameters have changed, viewing the topic may modify attachments, which will require update permission.* |
+
+Each generated file is attached to the topic using the Foswiki attachment API. This results in revision control of the attached files, and updates to the topic for each generated file. If Foswiki is configured to increment a new revision for each update (See <a target="_top" href="http://foswiki.org/System/ForceNewRevision">http://foswiki.org/System/ForceNewRevision</a> and config parameter =$Foswiki::cfg{ReplaceIfEditedAgainWithin} = 0= ), then every updated attachment will result in a new topic revision. The alternative to this behavior is to use the expert parameter attachPath - set in bin/configure - to configure the plugin to do direct file I/O and bypass the attach API.
+
+Direct file I/O results in a considerable performance improvement.  Initial rendering of this topic on a test system resulted in a reduction of time to generate the attachments and initially display from 60 seconds down to approximately 8 seconds.
 
 | %X% *Caution* The plugin will also update attached files during __Preview__. if the edit is subsequently canceled, the attachments will be regenerated again. |
 
-A MD5 hash is calculated for each dot command input and the results saved in the Foswiki work_area directory. The hash file is named with the Web name, the Topic name, and the suffix ==-filehash== If the calculated hash matches on subsequent page visits, the attached graphics files are used without rerunning Graphviz. If the hash doesn't match, the attachments are regenerated.
+The output of the &lt;dot&gt; command is cached as attachments to the topic. Any change to the &lt;dot&gt; input will result in the attachments being updated.
+
+A MD5 hash is calculated for each dot command input and the hash is saved in the Foswiki work_area directory. The hash file is named with the Web name, the Topic name, and the suffix ==-filehash== If the calculated hash matches on subsequent page visits, the attached graphics files are used without rerunning Graphviz. If the hash doesn't match, the attachments are regenerated.
 
 Default behavior is to leave any previously generated attachments even if the =&lt;dot&gt;= tags are removed from the file. If the configuration setting DELETEATTACHMENTS is enabled, then the plugin will remove any old attachments that are not needed. However if the final =&lt;dot&gt;= tag is removed, the plugin is not invoked, and the attachments will not be deleted.
-
 <blockquote>
 
 | %X% *Caution!* If a topic has not previously been processed by this version of the plugin, attachments named using the original "Graph[32 character hex checksum].jpg will *all* be deleted from the topic when this parameter is enabled! Once the new ==-filehash== file has been created, old style attachments will not be deleted. If you want to go back and clean up the old atachment filenames, you can remove the =Web_Topic-filehash= file from the workare directory. |
@@ -27,11 +32,8 @@ Default behavior is to leave any previously generated attachments even if the =&
 
 If a topic is renamed, the ==-filehash== file in the workarea directory will be renamed as well and regeneration of attachment files will be avoided.
 
-| %X% *Caution* =&lt;dot&gt;= syntax is not currently compatible with the WYSIWYG editor. Raw editing is recommended, or use &lt;sticky&gt; tags to protect the dot tags. |
-
 Also note that after changes that modify the order of generated image names, it may be necessary to refresh the browser cache with shift-reload.
-
-Visit the [[http://www.graphviz.org/Gallery.php][Graphviz gallery]] to see some examples on what can be achieved with this plugin and Graphviz. Full documentation is available at http://graphviz.org/Documentation.php.
+---+++ The !GraphViz Engine
 
 <nop>DirectedGraphPlugin supports the following engines:
 
@@ -39,7 +41,7 @@ Visit the [[http://www.graphviz.org/Gallery.php][Graphviz gallery]] to see some 
    * =neato= and =fdp= - make "spring model" layouts. neato uses the Kamada-Kawai algorithm, which is equivalent to statistical multi-dimensional scaling. fdp implements the Fruchterman-Reingold heuristic including a multigrid solver that handles larger graphs and clustered undirected graphs.
    * =twopi= - radial layout, after Graham Wills 97.
    * =circo= - circular layout, after Six and Tollis 99, Kauffman and Wiese 02. Suitable for certain diagrams of multiple cyclic structures.
-
+The markup is always entered between &lt;dot&gt; tags however regardless of the chosen engine.
 ---++ Syntax Rules
 
 Enclose the description for your directed graph within =&lt;dot&gt; ... &lt;/dot&gt;= tags.
@@ -65,7 +67,6 @@ You can use the following parameters in the =dot= tag to control the rendering o
 ---++ Howto
 
 HowtoDirectedGraphs has a basic howto on creating directed graphs using dot.
-
 ---++ Examples
 
 ---+++ Cole's example
@@ -474,6 +475,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
+|  5 Apr 2009: | Foswikitask:Item8102 - Improve defaults, configure settings now optional --Foswiki:Main.GeorgeClar |
 |  25 Mar 2009: | Foswikitask:Item1201, Foswikitask:Item1360 - Configure script fails on perl 5.10. %BR% Foswikitask:Item8086 - Direct File I/O failis. -- Foswiki:Main.GeorgeClark |
 |  8 Jan 2009: | Foswikitask:Item8035: Uninitialized variables reported in server Error log.-- Foswiki:Main.GeorgeClark |
 |  14 Dec 2008: | Foswikitask:Item8031: Port to Foswiki -- Foswiki:Main.GeorgeClark |
@@ -502,7 +504,7 @@ __Related Topics:__ System.DefaultPreferences, %USERSWEB%.SitePreferences, [[Sys
 %META:FORM{name="PackageForm"}%
 %META:FIELD{name="ExtensionClassification" attributes="" title="ExtensionClassification" value=""}%
 %META:FIELD{name="ExtensionType" attributes="" title="ExtensionType" value="PluginPackage"}%
-%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value="Tested on Linux and Windows.  Windows version tested with !ActiveState perl and Strawberry perl, versions 5.8 and 5.10."}%
 %META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
 %META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
 %META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
