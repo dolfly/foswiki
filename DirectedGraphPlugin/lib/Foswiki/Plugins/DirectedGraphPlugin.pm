@@ -223,9 +223,11 @@ sub initPlugin {
 sub commonTagsHandler {
 ### my ( $text, $topic, $web ) = @_;   # do not uncomment, use $_[0], $_[1]... instead
     #
-    if ( ( $_[1] ne $topic ) || ( $_[2] ne $web ) ) {
+    if ( ( ! defined($_[1]) ) || ( ! defined($_[2]) ) || ( $_[1] ne $topic ) || ( $_[2] ne $web ) ) {
         &_writeDebug(
-" SKIPPING commonTagsHandler  web = |$web|  topic = |$topic|  $_[2] $_[1] "
+" SKIPPING commonTagsHandler  web = |$web|  topic = |$topic|  "
+            .(defined($_[2]) ? "$_[2] " : "(undef) ")
+            .(defined($_[1]) ? "$_[1] " : "(undef) ")
         );
         return;
     }
@@ -829,9 +831,11 @@ sub _loadHashCodes {
 #
 sub afterCommonTagsHandler {
 
-    if ( ( $_[1] ne $topic ) || ( $_[2] ne $web ) ) {
+    if ( ( ! defined($_[1]) ) || ( ! defined($_[2]) ) || ( $_[1] ne $topic ) || ( $_[2] ne $web ) ) {
         &_writeDebug(
-" SKIPPING afterCommonTagsHandler  web = |$web|  topic = |$topic|  $_[2] $_[1] "
+" SKIPPING afterCommonTagsHandler  web = |$web|  topic = |$topic|  "
+            .(defined($_[2]) ? "$_[2] " : "(undef) ")
+            .(defined($_[1]) ? "$_[1] " : "(undef) ")
         );
         return;
     }
