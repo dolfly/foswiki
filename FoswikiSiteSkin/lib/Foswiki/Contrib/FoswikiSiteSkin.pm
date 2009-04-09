@@ -1,4 +1,4 @@
-package TWiki::Contrib::FoswikiSiteSkin;
+package Foswiki::Contrib::FoswikiSiteSkin;
 
 use vars qw( $VERSION $RELEASE );
 # This should always be $Rev: 1340 $ so that Foswiki can determine the 
