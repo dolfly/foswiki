@@ -55,12 +55,13 @@ To set Foswiki Site skin as default (site wide) skin, use these settings in [[%M
 |  Screenshot: | <a href="%ATTACHURL%/screenshot_full.png"><img src="%ATTACHURL%/screenshot.jpg" style="border:1px solid #eee;" alt="Click for full screen image" width="600" /></a> |
 |  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=foswikisite,pattern][Preview with this skin]] |
 |  Base Name: | foswikisite,pattern |
-|  Skin Version: | 15 Feb 2009 (v1.1.4) | 
+|  Skin Version: | 10 Apr 2009 (v1.1.5) | 
 |  History: | <!-- specify latest version first -->&nbsp; |
+|  10 Apr 2009: | Foswikitask:Item783: fixed "Create new topic" button to create topic in current web; Foswikitask:Item1432: provide button to return to normal view from raw view mode; Foswikitask:Item1436: rel="nofollow" on button action links |
 |  15 Feb 2009: | Main menu buttons are no longer hidden when viewed on a small screen; improvements to preview screen. |
 |  31 Jan 2009: | Renamed <nop>FoswikiDotOrgPatternSkinContrib to <nop>FoswikiSiteSkin; visual update, made CSS independent of PatternSkin. |
 |  07 Jan 2009: | Initial version (v1.0.0) |
-|  Dependencies: | Foswiki:Extensions/PatternSkin (automatically supported by Dakar) |
+|  Dependencies: | Foswiki:Extensions/PatternSkin |
 |  Skin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% | %STOPINCLUDE%
 |  Download: | http://foswiki.org/Extensions/%TOPIC% |
