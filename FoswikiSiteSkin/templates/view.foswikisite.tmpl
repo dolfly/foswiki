@@ -8,13 +8,16 @@
 
 %TMPL:DEF{"top:toolbarbutton_raw"}%<span><a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?raw=on&rev=%REVINFO{"$rev"}%" title="View raw topic text"><img src="%PUBURL%/%SYSTEMWEB%/FoswikiSiteSkin/text_align_left.gif" width="16" height="16" /></a></span>%TMPL:END%
 
+%TMPL:DEF{"top:toolbarbutton_view"}%<span><a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%" title="View topic"><img src="%PUBURL%/%SYSTEMWEB%/DocumentGraphics/viewtopic.gif" width="16" height="16" /></a></span>%TMPL:END%
+
 %TMPL:DEF{"top:toolbarbutton_create"}%<span><a href="%SCRIPTURL{"view"}%/%WEB%/WebCreateNewTopic?topicparent=%TOPIC%" title="Create new topic"><img src="%PUBURL%/%SYSTEMWEB%/FoswikiSiteSkin/page_white_add.gif" width="16" height="16" /></a></span>%TMPL:END%
 
 %TMPL:DEF{"top:toolbarbutton_print"}%<span><a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?cover=print" title="Print this topic"><img src="%PUBURL%/%SYSTEMWEB%/FoswikiSiteSkin/printer.gif" width="16" height="16" /></a></span>%TMPL:END%
 
 %TMPL:DEF{"top:toolbarbutton_more"}%<span><a href="%SCRIPTURL{"oops"}%/%WEB%/%TOPIC%?template=oopsmore" title="More actions"><img src="%PUBURL%/%SYSTEMWEB%/FoswikiSiteSkin/wrench.gif" width="16" height="16" /></a></span>%TMPL:END%
 
-%TMPL:DEF{"top:toolbarbuttons"}%%TMPL:P{"top:toolbarbutton_edit"}%%TMPL:P{"top:toolbarbutton_attach"}%%TMPL:P{"top:toolbarbutton_rdiff"}%%TMPL:P{"top:toolbarbutton_raw"}%%TMPL:P{"top:toolbarbutton_create"}%%TMPL:P{"top:toolbarbutton_print"}%%TMPL:P{"top:toolbarbutton_more"}%%TMPL:END%
+%TMPL:DEF{"top:toolbarbuttons"}%%TMPL:P{"top:toolbarbutton_edit"}%%TMPL:P{"top:toolbarbutton_attach"}%%TMPL:P{"top:toolbarbutton_rdiff"}%
+%IF{"defined raw" then='%TMPL:P{"top:toolbarbutton_view"}%' else='%TMPL:P{"top:toolbarbutton_raw"}'}%%TMPL:P{"top:toolbarbutton_create"}%%TMPL:P{"top:toolbarbutton_print"}%%TMPL:P{"top:toolbarbutton_more"}%%TMPL:END%
 
 %TMPL:DEF{"breadcrumb"}%%TMPL:P{"breadcrumb:title"}%%TMPL:P{"breadcrumb:currentweb"}%%TMPL:P{"breadcrumb:parents"}%%TMPL:P{"breadcrumb:currenttopic"}%%TMPL:END%
 
