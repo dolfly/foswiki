@@ -16,7 +16,9 @@
 
 %TMPL:DEF{"top:toolbarbutton_more"}%<span><a href="%SCRIPTURL{"oops"}%/%WEB%/%TOPIC%?template=oopsmore" title="More actions" rel="nofollow" ><img src="%PUBURL%/%SYSTEMWEB%/FoswikiSiteSkin/wrench.gif" width="16" height="16" /></a></span>%TMPL:END%
 
-%TMPL:DEF{"top:toolbarbuttons"}%%TMPL:P{"top:toolbarbutton_edit"}%%TMPL:P{"top:toolbarbutton_attach"}%%TMPL:P{"top:toolbarbutton_rdiff"}%%IF{"defined raw" then='%TMPL:P{"top:toolbarbutton_view"}%' else='%TMPL:P{"top:toolbarbutton_raw"}'}%%TMPL:P{"top:toolbarbutton_create"}%%TMPL:P{"top:toolbarbutton_print"}%%TMPL:P{"top:toolbarbutton_more"}%%TMPL:END%
+%TMPL:DEF{"top:toolbarbuttons"}%%TMPL:P{"top:toolbarbutton_edit"}%%TMPL:P{"top:toolbarbutton_attach"}%%TMPL:P{"top:toolbarbutton_rdiff"}%
+%TMPL:P{"top:toolbarbutton_raw"}%%TMPL:P{"top:toolbarbutton_create"}%%TMPL:P{"top:toolbarbutton_print"}%%TMPL:P{"top:toolbarbutton_more"}
+%%TMPL:END%
 
 %TMPL:DEF{"breadcrumb"}%%TMPL:P{"breadcrumb:title"}%%TMPL:P{"breadcrumb:currentweb"}%%TMPL:P{"breadcrumb:parents"}%%TMPL:P{"breadcrumb:currenttopic"}%%TMPL:END%
 
