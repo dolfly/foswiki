@@ -3,14 +3,12 @@
 =begin TML
 
 ---+ package Foswiki::ListIterator
-*implements* Foswiki::Iterator
 
-Iterator over a perl list
+Iterator over a list
 
 =cut
 
 package Foswiki::ListIterator;
-use base 'Foswiki::Iterator';
 
 use strict;
 

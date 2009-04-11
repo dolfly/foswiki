@@ -65,24 +65,24 @@ sub inputTest {
             $anchor = '#'.$anchor;
             $sattrs .= $anchor;
         }
-        $sattrs .= '" ';
+        $sattrs .= '"';
     }
 
     my $url = "$Foswiki::cfg{DefaultUrlHost}$Foswiki::cfg{ScriptUrlPath}/save$Foswiki::cfg{ScriptSuffix}/$web/$topic";
 
     if ( $location ) {
-        $sattrs .= ' location="'.$location.'" ';
+        $sattrs .= ' location="'.$location.'"';
     }
 
     $type = "bottom" unless ($type);
     $sattrs .= 'type="'.$type.'" ';
 
-    my $commentref = '%COMMENT{'.$sattrs.' refmark="here"}%';
+    my $commentref = '%COMMENT{type="'.$type.'" refmark="here"}%';
 
     # Build the target topic
     my $sample = <<HERE;
 TopOfTopic
-%COMMENT{$sattrs}%
+%COMMENT{type="$type"}%
 HERE
     if ($anchor ) {
         $sample .= <<HERE;
@@ -204,27 +204,24 @@ HERE
     $text = Foswiki::Func::readTopicText($web, $topic);
     $this->assert_matches(qr/$comm/, $text, "$web.$topic: $text");
 
-#uncomment this to debug what the actual output looks like.
-#$this->assert_str_equals($sample, $text);
-
     my $refexpr;
     if ($anchor) {
         $refexpr = $anchor;
     } elsif ($location) {
-        $refexpr = $location;
+        $refexpr = "HereIsTheLocation";
     } else {
         $refexpr = $commentref;
     }
 
     if( $topic eq $this->{test_topic} && $web eq $this->{test_web} ) {
         if ( $type eq "top") {
-            $this->assert_matches(qr/^$comm.*^TopOfTopic/ms, $text);
+            $this->assert_matches(qr/$comm.*TopOfTopic/s, $text);
         } elsif ( $type eq "bottom" ) {
-            $this->assert_matches(qr/^BottomOfTopic.*^$comm/ms, $text);
+            $this->assert_matches(qr/BottomOfTopic.*$comm/s, $text);
         } elsif ( $type eq "above" ) {
-            $this->assert_matches(qr/^TopOfTopic.*^$comm.*$refexpr/ms, $text);
+            $this->assert_matches(qr/TopOfTopic.*$comm.*$refexpr/s, $text);
         } elsif ( $type eq "below" ) {
-            $this->assert_matches(qr/$refexpr.*$comm.*^BottomOfTopic/ms, $text);
+            $this->assert_matches(qr/$refexpr.*$comm.*BottomOfTopic/s, $text);
         }
     }
 }
@@ -422,115 +419,6 @@ HERE
           "",
           "bottom");
     $this->assert_matches(qr#>wibble</textarea>#, $html);
-}
-
-
-sub test_targetWebTopicAboveAnchor_Missing_Item727 {
-    my $this = shift;
-
-    my $sample = <<HERE;
-before
-%COMMENT{type="above" cols="100" target="%INCLUDINGTOPIC%#LatestComment"}%
-after
-HERE
-    $this->writeTopic($this->{test_web}, $this->{test_topic}, $sample);
-    my $pidx = 99;
-    my $html =
-      Foswiki::Plugins::CommentPlugin::Comment::_handleInput(
-          'remove="on"',
-          $this->{test_web},
-          $this->{test_topic},
-          \$pidx,
-          "The Message",
-          "",
-          "bottom");
-    $this->assert_matches(qr/<input type="hidden" name="comment_remove" value="99"/, $html);
-
-    # Compose the query
-    my $comm = "This is the comment";
-    my $query = new Unit::Request(
-                        {
-                         'comment_action' => 'save',
-                         'comment_type' => 'above',
-                         'comment' => $comm,
-			 'comment_anchor' => '#LatestComment',
-                        });
-    $query->path_info("/$this->{test_web}/$this->{test_topic}");
-
-    my $session = new Foswiki( $Foswiki::cfg{DefaultUserLoginName}, $query);
-    my $text = "Ignore this text";
-
-    # invoke the save handler
-    $this->capture(\&Foswiki::UI::Save::save, $session );
-
-    $text = Foswiki::Func::readTopicText($this->{test_web}, $this->{test_topic});
-    # make sure it hasn't changed
-    $text =~ s/^%META.*?\n//gm;
-    my $date = Foswiki::Time::formatTime(time(), '$day $mon $year');
-    $this->assert_str_equals(<<HERE,
-before
-
-
-This is the comment
-
--- TemporaryCommentPluginTestsUsersWeb.WikiGuest - $date
-%COMMENT{type="above" cols="100" target="%INCLUDINGTOPIC%#LatestComment"}%
-after
-HERE
-                             $text);
-}
-
-
-sub test_targetWebTopicBelowAnchor_Missing_Item727 {
-    my $this = shift;
-
-    my $sample = <<HERE;
-before
-%COMMENT{type="below" target="%INCLUDINGTOPIC%#LatestComment"}%
-after
-HERE
-    $this->writeTopic($this->{test_web}, $this->{test_topic}, $sample);
-    my $pidx = 99;
-    my $html =
-      Foswiki::Plugins::CommentPlugin::Comment::_handleInput(
-          'remove="on"',
-          $this->{test_web},
-          $this->{test_topic},
-          \$pidx,
-          "The Message",
-          "",
-          "bottom");
-    $this->assert_matches(qr/<input type="hidden" name="comment_remove" value="99"/, $html);
-
-    # Compose the query
-    my $comm = "This is the comment";
-    my $query = new Unit::Request(
-                        {
-                         'comment_action' => 'save',
-                         'comment_type' => 'below',
-                         'comment' => $comm,
-			 'comment_anchor' => '#LatestComment',
-
-                        });
-    $query->path_info("/$this->{test_web}/$this->{test_topic}");
-
-    my $session = new Foswiki( $Foswiki::cfg{DefaultUserLoginName}, $query);
-    my $text = "Ignore this text";
-
-    # invoke the save handler
-    $this->capture(\&Foswiki::UI::Save::save, $session );
-
-    $text = Foswiki::Func::readTopicText($this->{test_web}, $this->{test_topic});
-    # make sure it hasn't changed
-    $text =~ s/^%META.*?\n//gm;
-    my $date = Foswiki::Time::formatTime(time(), '$day $mon $year');
-    $this->assert_str_equals(<<HERE,
-before
-%COMMENT{type="below" target="%INCLUDINGTOPIC%#LatestComment"}%
-   * This is the comment -- TemporaryCommentPluginTestsUsersWeb.WikiGuest - $date
-after
-HERE
-                             $text);
 }
 
 1;

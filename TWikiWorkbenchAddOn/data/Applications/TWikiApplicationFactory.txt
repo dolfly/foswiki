@@ -1,0 +1,51 @@
+%META:TOPICINFO{author="ProjectContributor" date="1228421645" format="1.1" version="$Rev$"}%
+%META:TOPICPARENT{name="ApplicationFactory"}%
+---+ %TOPIC%
+%FORMFIELD{"Summary"}%
+
+---+++!! Create a new TWikiApplication
+%STARTINCLUDE%<!-- twikiapplicationfactory -->
+%TWISTY{link="%BUTTON{"New <nop>WikiApplication" icon="add"}%%CLEAR%"}%
+
+<form name="admin" action="%SCRIPTURLPATH{manage}%/%WEB%/%TOPIC%" method="post" onsubmit="fixAppName();">
+<input name="action" type="hidden" value="createweb" />
+<input type="hidden" name="baseweb" value="_TWikiApplicationTemplate" />
+<input type="hidden" name="webbgcolor" value="#D0D0D0" size="16" /> 
+<input type="hidden" name="WEBBGCOLOR" value="#D0D0D0" size="16" /> <!-- cope with different twiki versions -->
+<input name="newtopic" type="hidden" value="" />
+<div class="twikiFormSteps">
+<div class="twikiFormStep">
+  <h3>Name:</h3>
+  <input class="twikiInputField" id="newweb" name="newweb" type="text" value="" size="50" />
+</div>
+<div class="twikiFormStep">
+  <h3>Description:</h3>
+  <input class="twikiInputField" type="text" name="sitemapwhat" value="" size="50" />
+</div>
+<div class="twikiFormStep twikiFormButtons twikiFormLast">
+  %BUTTON{"%MAKETEXT{"Submit"}%" type="submit" icon="tick"}%
+  %CLEAR%
+</div>
+</div>
+</form>
+%ENDTWISTY%
+<literal>
+<script type="text/javascript">
+function fixAppName() {
+  var newweb = $("#newweb").val();
+  if (!newweb.match(/Applications\./)) {
+    newweb = "Applications."+newweb;
+    $("#newweb").val(newweb);
+  }
+}
+</script>
+</literal>
+<!-- //twikiapplicationfactory-->%STOPINCLUDE%
+
+See also: [[_TWikiApplicationTemplate.WebHome]]
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="ApplicationFactory"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Tool to create a new TWikiWorkbench"}%
+%META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="TWikiWorkbench"}%

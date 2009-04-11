@@ -1,0 +1,10 @@
+%TMPL:INCLUDE{"viewtopbar"}%
+%TMPL:DEF{"topbar"}%<div id="patternTopBar"><div id="patternTopBarLeft"></div><div id="patternTopBarRight"><div id="patternTopBarContentsWrapper"><div id="patternTopBarContents">%IF{"istopic '%SYSTEMWEB%.WebTopBar'" then="$percntINCLUDE{$quot%SYSTEMWEB%.WebTopBar$quot}$percnt" else="$percntINCLUDE{$quot%SYSTEMWEB%.WebTopBarExample$quot}$percnt"}%</div></div></div>
+<div id="patternTopBarButtons">%TMPL:P{"topbarbuttons"}%</div>
+</div><!-- /patternTopBar-->%TMPL:END%
+
+%TMPL:DEF{"topbarbuttons"}%<ul>%TMPL:P{"topbarbutton" DESTWEB="Home" LABEL="About"}%%TMPL:P{"topbarbutton" DESTWEB="Download" LABEL="Download"}%%TMPL:P{"topbarbutton" DESTWEB="System" LABEL="Documentation"}%%TMPL:P{"topbarbutton" DESTWEB="Community" LABEL="Community"}%%TMPL:P{"topbarbutton" DESTWEB="Extensions" LABEL="Extensions"}%%TMPL:P{"topbarbutton" DESTWEB="Support" LABEL="Support"}%%TMPL:P{"topbarbutton" DESTWEB="Development" LABEL="Development"}%</ul>%TMPL:END%
+
+%TMPL:DEF{"topbarbutton"}%<li><a href="%SCRIPTURL{"view"}%/%DESTWEB%/WebHome" class="%IF{"'%DESTWEB%'='%WEB%'" then="active" else="inactive"}%">%LABEL%</a></li>%TMPL:END%
+
+%TMPL:DEF{"userbar"}%<div id="userbar">[[Main.YourAccount][Your account]] <span class="userbarsep"> | </span> [[Main.WebHome][Users]] <span class="userbarsep"> | </span> [[System.UserRegistration][Register]]</div>%TMPL:END%

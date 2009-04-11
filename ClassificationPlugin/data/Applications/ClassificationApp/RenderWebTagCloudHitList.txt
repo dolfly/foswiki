@@ -1,0 +1,63 @@
+%META:TOPICINFO{author="ProjectContributor" date="1213786209" format="1.1" version="$Rev$"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+---+!! Function: %TOPIC%
+%FORMFIELD{"Summary"}%
+
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{name="documentation" type="section"}%
+%RED%TODO%ENDCOLOR%
+
+---+++++ Parameters
+   * QUERY
+   * SKIP
+   * LIMIT
+
+---+++++ Css
+   * 
+%ENDSECTION{name="documentation" type="section"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<!-- rendertagcloudhitlist -->
+*~~ <noautolink>
+%~~ MAKEINDEX{"
+%~~   DBQUERY{"TopicType=~'\b(Tagged|Classified)Topic\b' %QUERY%"
+~~~    web="%BASEWEB%"
+~~~    limit="%IFDEFINED{"%LIMIT%" then="$test"}%" 
+~~~    format="$expand(topictitle);$topic;$web"
+~~~    separator="$n"
+~~~   }%"
+~~~   cols="%IFDEFINED{"%CLASSIFICATIONPLUGIN_NRCOLS%" then="$test" else="3"}%"
+~~~   header="<span class='twikiAlert'>$count</span> topic(s) found"
+~~~   split="\n"
+~~~   pattern="(.*);(.*);(.*)"
+~~~   format="$percntDBCALL{\"$3.$2->RenderIndexItem\"}$percnt"
+~~~ "
+~~~ }%
+~~~ </noautolink>
+<!-- //rendertagcloudhitlist-->%STOPINCLUDE%
+</verbatim>
+
+---++ Test
+<div class="alt">
+%DBCALL{"%TOPIC%" LIMIT="%URLPARAM{"limit" default="2"}%" SKIP="%URLPARAM{"skip"}%"}%
+</div>
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+---++ Copyright
+<div style="text-align:justify;margin:1em;">
+&copy; 2007 Michael Daum http://wikiring.de
+
+%DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
+</div>
+
+
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" attributes="" title="TopicType" value="DocuTopic, TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderWebTagCloudHitList"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Renders the hit list in a WebTagCloud selection"}%
+%META:FIELD{name="TWikiApplication" attributes="" title="TWikiApplication" value="ClassificationApp"}%

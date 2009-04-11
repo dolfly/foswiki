@@ -123,7 +123,6 @@ sub view {
         $rev = 1;
         $viewTemplate = 'TopicDoesNotExistView';
         $logEntry .= ' (not exist)';
-        $raw = ''; # There is no raw view of a topic that doesn't exist
     }
 
     if ($raw) {
@@ -135,7 +134,7 @@ sub view {
     }
 
     if ( $Foswiki::cfg{Log}{view} ) {
-        $session->logEvent('view', $webName . '.' . $topicName, $logEntry );
+        $session->writeLog( 'view', $webName . '.' . $topicName, $logEntry );
     }
 
     # Note; must enter all contexts before the template is read, as

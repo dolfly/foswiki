@@ -19,14 +19,11 @@ sub set_up {
     $this->SUPER::set_up();
     $ENV{TZ} = 'GMT'; # GMT
     POSIX::tzset();
-    undef $Foswiki::Time::TZSTRING;
 }
 
 sub tear_down {
     my $this = shift;
-    $this->SUPER::tear_down(); # should restore $ENV{TZ}
-    POSIX::tzset();
-    undef $Foswiki::Time::TZSTRING;
+    $this->SUPER::tear_down();
 }
 
 sub showTime {
@@ -86,7 +83,6 @@ sub test_parseTimeISO8601 {
 
     $ENV{TZ} = 'Europe/Paris'; # GMT + 1
     POSIX::tzset();
-    # Generate server time string
     $this->checkTime(7, 59, 5, 2, 4, 1995, "1995-04-02T06:59:07", 1);
     $this->checkTime(7, 59, 6, 2, 4, 1995, "1995-04-02T06:59:07Z", 1);
 
@@ -96,39 +92,17 @@ sub test_parseTimeLocal {
     my $this = shift;
     $ENV{TZ} = 'Australia/Lindeman';
     POSIX::tzset();
-    undef $Foswiki::Time::TZSTRING;
     $this->checkTime(13, 9, 16, 7, 11, 2006, "2006-11-08T02:09:13", 1);
     # Ensure TZ specifier in string overrides parameter
     $this->checkTime(46, 25, 14, 7, 11, 2006, "2006-11-07T14:25:46Z", 1);
 }
 
-sub test_generateIsoOffset {
-    my $this = shift;
-    # South Australia has a half-hour TZ difference; handy
-    $ENV{TZ} = 'Australia/South'; # +10.30
-    POSIX::tzset();
-    undef $Foswiki::Time::TZSTRING;
-    my $tt = Foswiki::Time::parseTime('2009-02-07T10:22+10:30');
-    # Generate server time string
-    $this->assert_str_equals(
-        '2009-02-07T10:22:00+10:30',
-        Foswiki::Time::formatTime($tt, 'iso', 'servertime'));
-    $tt = Foswiki::Time::parseTime('2009-02-07T10:22Z');
-    $this->assert_str_equals(
-        '2009-02-07T20:52:00+10:30',
-        Foswiki::Time::formatTime($tt, 'iso', 'servertime'));
-}
-
 sub test_checkInterval {
     my $this = shift;
 
-    $ENV{TZ} = 'GMT';
-    POSIX::tzset();
-    undef $Foswiki::Time::TZSTRING;
-
     my $basetime = 1000000000;
-    my $start = Foswiki::Time::formatTime($basetime, 'iso', 'gmtime');
-    my $end = Foswiki::Time::formatTime($basetime+500000, 'iso', 'gmtime');
+    my $start = Foswiki::Time::formatTime($basetime, 'iso');
+    my $end = Foswiki::Time::formatTime($basetime+500000, 'iso');
     my $gap = 31556925+2592000+604800+86400+3600+60+1;
     my $gap2 = 2*31556925+2*2592000+2*604800+2*86400+2*3600+2*60+2;
 
@@ -164,99 +138,15 @@ sub test_checkInterval {
     $interval = "2006/2007";
     ($s, $e) = Foswiki::Time::parseInterval($interval);
     $this->assert_str_equals("2006-01-01T00:00:00Z",
-                             Foswiki::Time::formatTime($s, 'iso', 'gmtime'));
+                             Foswiki::Time::formatTime($s, 'iso'));
     $this->assert_str_equals("2007-12-31T23:59:59Z",
-                             Foswiki::Time::formatTime($e, 'iso', 'gmtime'));
+                             Foswiki::Time::formatTime($e, 'iso'));
     $interval = "2006/2007-02";
     ($s, $e) = Foswiki::Time::parseInterval($interval);
     $this->assert_str_equals("2006-01-01T00:00:00Z",
-                             Foswiki::Time::formatTime($s, 'iso', 'gmtime'));
+                             Foswiki::Time::formatTime($s, 'iso'));
     $this->assert_str_equals("2007-02-28T23:59:59Z",
-                             Foswiki::Time::formatTime($e, 'iso', 'gmtime'));
-}
-
-sub test_parseTimeRobustness {
-    my $this = shift;
-
-    $this->checkTime(0, 0, 0, 4, 2, 1995, "1995-02-04");
-    $this->checkTime(0, 0, 0, 1, 2, 1995, "1995-02");
-    $this->checkTime(0, 0, 0, 1, 1, 1995, "1995");
-
-    $this->checkTime(0, 0, 0, 4, 2, 1995, "1995/02/04");
-    $this->checkTime(0, 0, 0, 1, 2, 1995, "1995/02");
-    $this->checkTime(0, 0, 0, 1, 1, 1995, "1995");
-
-    $this->checkTime(0, 0, 0, 4, 2, 1995, "1995.02.04");
-    $this->checkTime(0, 0, 0, 1, 2, 1995, "1995.02");
-    $this->checkTime(0, 0, 0, 1, 1, 1995, "1995");
-
-    $this->checkTime(0, 0, 0, 4, 2, 1995, "1995 - 02 -04");
-    $this->checkTime(0, 0, 0, 1, 2, 1995, "1995- 02");
-    $this->checkTime(0, 0, 0, 1, 1, 1995, "1995");
-
-    $this->checkTime(0, 0, 0, 4, 2, 1995, "1995 / 02/04");
-    $this->checkTime(0, 0, 0, 1, 2, 1995, "1995 /02");
-    $this->checkTime(0, 0, 0, 1, 1, 1995, "1995");
-
-    $this->checkTime(0, 0, 0, 4, 2, 1995, "1995. 02 .04");
-    $this->checkTime(0, 0, 0, 1, 2, 1995, "1995.02 ");
-
-    $this->checkTime(0, 0, 0, 4, 2, 1995, "      1995-02-04");
-    $this->checkTime(0, 0, 0, 1, 1, 1995, " 1995 ");
-
-}
-
-sub test_parseErrors {
-    my $this = shift;
-
-    $this->assert_equals(0, Foswiki::Time::parseTime('wibble'));
-    $this->assert_equals(0, Foswiki::Time::parseTime('1234-qwer-3'));
-    $this->assert_equals(0, Foswiki::Time::parseTime('1234-1234-1234'));
-    $this->assert_equals(0, Foswiki::Time::parseTime('2008^12^12'));
-    $this->assert_equals(0, Foswiki::Time::parseTime('2008--12-23'));
-
-    $this->assert_equals(0, Foswiki::Time::parseTime('2008-13-23'));
-    $this->assert_equals(0, Foswiki::Time::parseTime('2008-10-32'));
-}
-
-sub test_week {
-    my $this = shift;
-
-    # 2004 started on a thursday, so 1st Jan is in week 1
-    my $time = Time::Local::timegm(1, 0, 0, 1, 0, 104);
-    my $week = Foswiki::Time::formatTime($time, '$week', 'gmtime');
-    $this->assert_equals(1, $week);
-
-    # 4th was the sunday of the first week, so also week 1
-    $time = Time::Local::timegm(1, 0, 0, 4, 0, 104);
-    $week = Foswiki::Time::formatTime($time, '$week', 'gmtime');
-    $this->assert_equals(1, $week);
-
-    # 5th was monday of second week, so week 2
-    $time = Time::Local::timegm(1, 0, 0, 5, 0, 104);
-    $week = Foswiki::Time::formatTime($time, '$week', 'gmtime');
-    $this->assert_equals(2, $week);
-
-    # poke back into 2003; 31st is in week 1 of 2004
-    $time = Time::Local::timegm(1, 0, 0, 31, 11, 103);
-    $week = Foswiki::Time::formatTime($time, '$week', 'gmtime');
-    $this->assert_equals(1, $week);
-
-    # and 28th in week 52
-    $time = Time::Local::timegm(1, 0, 0, 28, 11, 103);
-    $week = Foswiki::Time::formatTime($time, '$week', 'gmtime');
-    $this->assert_equals(52, $week);
-
-    # 1999 started on a friday, so 1st is week 53 of 1998
-    # (week 0 of 1999)
-    $time = Time::Local::timegm(1, 0, 0, 1, 0, 99);
-    $week = Foswiki::Time::formatTime($time, '$week', 'gmtime');
-    $this->assert_equals(53, $week);
-
-    # And 4th is week 1
-    $time = Time::Local::timegm(1, 0, 0, 4, 0, 99);
-    $week = Foswiki::Time::formatTime($time, '$week', 'gmtime');
-    $this->assert_equals(1, $week);
+                             Foswiki::Time::formatTime($e, 'iso'));
 }
 
 1;

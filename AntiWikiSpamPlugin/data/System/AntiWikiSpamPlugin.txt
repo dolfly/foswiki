@@ -1,0 +1,47 @@
+---+!! !AntiWikiSpamPlugin
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = lightweight wiki spam prevention
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Stop your wiki getting spammed
+This plugin attempts to reduce the instance of Wiki Spam by using the
+[[http://moinmoin.wikiwikiweb.de/][MoinMoin]]
+[[http://moinmoin.wikiwikiweb.de/AntiSpamGlobalSolution][AntiSpamGlobalSolution]]
+regex's.  Anytime it detects that a saved page contains a string in the regex
+list, it _only_ refuses to save it.
+
+*Major premise is not to create any unnecessary load on the server and not to use excess server resources by holding connections open.*
+
+All its processing is _only_ done on save, or on attach.
+(Foswiki:Extensions/BlackListPlugin does alot of processing on _every_ topic operation,
+including view)
+
+It uses a timeout on save to check if the list has changed, so if there are no
+saves, there is no un-needed network traffic.
+
+To manually update the list, click [[%SCRIPTURLPATH{"rest"}%/%TOPIC%/forceUpdate][here]]
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+
+|  Author(s): | Foswiki:Main.SvenDowideit - http://fosiki.com |
+|  Copyright: | &copy; 2005-2009 SvenDowideit@fosiki.com |
+|  License: | [[http://www.gnu.org/licenses/gpl3.html][GPL 3 (Gnu General Public License)]] |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  4 Jan 2009: | updated for Foswiki v1.0 |
+|  4 Sep 2007: | updated to 4.2 |
+|  22 Jul 2006: | resurected it for TWiki 4.0 due to demand for a low resource AntiSpam solution |
+|  22 Aug 2005: | Initial version |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/AntiWikiSpamPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->

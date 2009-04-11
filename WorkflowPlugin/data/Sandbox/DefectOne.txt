@@ -1,0 +1,18 @@
+%WORKFLOWNOTICE%
+
+%WORKFLOWSTATEMESSAGE%
+
+Some defect.
+
+
+   * Set WORKFLOW = DefectWorkflow
+
+Example history formats:
+   * #Set WORKFLOWHISTORYFORMAT = $n   * $state -- $wikiusername, $date
+   * #Set WORKFLOWHISTORYFORMAT = $n| $state | $wikiusername | $date |
+   * Set WORKFLOWHISTORYFORMAT = $n $state, $wikiusername, $date
+
+%WORKFLOWTRANSITION% 
+
+%WORKFLOWHISTORY%
+

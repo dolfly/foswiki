@@ -1,0 +1,12 @@
+%TMPL:INCLUDE{"page"}%<!-- template: edit.nat.tmpl -->
+%TMPL:INCLUDE{"editbody"}%<!-- editbody// -->
+%TMPL:INCLUDE{"edittopicactions"}%<!-- edittopicactions// -->
+%TMPL:INCLUDE{"editjavascript"}%<!-- editjavascript// -->
+%TMPL:INCLUDE{"editstyles"}%<!-- editstyles// -->
+%TMPL:INCLUDE{"edithelp"}%<!-- edithelp// -->
+%TMPL:INCLUDE{"edittoolbar"}%<!-- edittoolbar// -->
+%TMPL:DEF{"bodyclass"}%natEditBody%TMPL:END%
+%TMPL:DEF{"meta"}% %HTTP_EQUIV_ON_EDIT% %TMPL:END%
+%TMPL:DEF{"title"}%%TOPIC% - %WEBLINK{format="$web"}% - (%IF{"defined 'rev'" then="%MAKETEXT{"restore"}%" else="%MAKETEXT{"edit"}%"}%) - %WIKITOOLNAME%%TMPL:END%
+%TMPL:DEF{"contentheader"}%%TMPL:END%
+<!-- //pagetitle -->%TMPL:END%

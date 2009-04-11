@@ -37,9 +37,6 @@ my $SUMMARYLINES = 6;
 my $STARTWW = qr/^|(?<=[\s\(])/m;
 my $ENDWW   = qr/$|(?=[\s,.;:!?)])/m;
 
-# General purpose marker
-my $MARKER = "\02\03";
-
 # marker used to tage the start of a table
 my $TABLEMARKER = "\0\1\2TABLE\2\1\0";
 
@@ -568,7 +565,7 @@ sub _linkToolTipInfo {
 
 ---++ ObjectMethod internalLink ( $theWeb, $theTopic, $theLinkText, $theAnchor, $doLink, $doKeepWeb, $hasExplicitLinkLabel ) -> $html
 
-Generate a link.
+Generate a link. 
 
 Note: Topic names may be spaced out. Spaced out names are converted to <nop>WikWords,
 for example, "spaced topic name" points to "SpacedTopicName".
@@ -578,11 +575,11 @@ for example, "spaced topic name" points to "SpacedTopicName".
    * =$theAnchor= - the link anchor, if any
    * =$doLinkToMissingPages= - boolean: false means suppress link for non-existing pages
    * =$doKeepWeb= - boolean: true to keep web prefix (for non existing Web.TOPIC)
-   * =$hasExplicitLinkLabel= - boolean: true in case of [[TopicName][explicit link label]]
+   * =$hasExplicitLinkLabel= - boolean: true in case of [[TopicName][explicit link label]] 
 
 Called by _handleWikiWord and _handleSquareBracketedLink and by Func::internalLink
 
-Calls _renderWikiWord, which in turn will use Plurals.pm to match fold plurals to equivalency with their singular form
+Calls _renderWikiWord, which in turn will use Plurals.pm to match fold plurals to equivalency with their singular form 
 
 SMELL: why is this available to Func?
 
@@ -977,7 +974,7 @@ sub renderFORMFIELD {
 
             # Ignore access exceptions; just don't read the data.
             my $e = shift;
-            $this->{session}->logger->log('warning',
+            $this->{session}->writeWarning(
                 "Attempt to read form data failed: " . $e->stringify() );
         };
     }
@@ -1309,7 +1306,7 @@ s/${STARTWW}__(\S+?|\S[^\n]*?\S)__$ENDWW/<strong><em>$1<\/em><\/strong>/gm;
 
     # Normal mailto:foo@example.com ('mailto:' part optional)
     $text =~
-s/$STARTWW((mailto\:)?$Foswiki::regex{emailAddrRegex})$ENDWW/_mailLink( $this, $1 )/gem;
+s/$STARTWW((mailto\:)?[a-zA-Z0-9-_.+]+@[a-zA-Z0-9-_.]+\.[a-zA-Z0-9-_]+)$ENDWW/_mailLink( $this, $1 )/gem;
 
 # Handle [[][] and [[]] links
 # Escape rendering: Change ' ![[...' to ' [<nop>[...', for final unrendered ' [[...' output
@@ -1447,16 +1444,9 @@ s/$STARTWW((mailto\:)?[a-zA-Z0-9-_.+]+@[a-zA-Z0-9-_.]+\.[a-zA-Z0-9-_]+)$ENDWW/_m
         while ( $text =~ s/^\s*\-\-\-+\+[^\n\r]*// ) { };    # remove heading
     }
 
-    # keep only link text of legacy [[prot://uri.tld/ link text]]
-    $text =~ s/
-            \[
-                \[$Foswiki::regex{linkProtocolPattern}\:
-                    ([^\s<>"\]]+[^\s*.,!?;:)<|\]])
-                        \s+([^\[\]]*?)
-                \]
-            \]/$3/gx;
-
-    #keep only test portion of [[][]] links
+    # keep only link text of [[prot://uri.tld/ link text]] or [[][]]
+    $text =~
+s/\[\[$Foswiki::regex{linkProtocolPattern}\:([^\s<>"]+[^\s*.,!?;:)<|])\s+(.*?)\]\]/$3/g;
     $text =~ s/\[\[([^\]]*\]\[)(.*?)\]\]/$2/g;
 
     # remove "Web." prefix from "Web.TopicName" link
@@ -2234,13 +2224,11 @@ sub replaceWebReferences {
 
     my $re = getReferenceRE( $oldWeb, undef );
 
-    $text =~ s/$re/$MARKER$1/g;
+    $text =~ s/$re/$newWeb$1/g;
 
     $re = getReferenceRE( $oldWeb, undef, url => 1 );
 
     $text =~ s#$re#/$newWeb/#g;
-
-    $text =~ s/$MARKER/$newWeb/g;
 
     return $text;
 }

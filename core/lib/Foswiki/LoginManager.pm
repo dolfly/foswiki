@@ -270,8 +270,7 @@ sub loadSession {
         return $authUser;
     }
 
-    return $session->{request}->{remote_user} || $authUser
-      if $session->inContext('command_line');
+    return $authUser if $session->inContext('command_line');
 
     my $query = $session->{request};
 
@@ -375,31 +374,19 @@ sub loadSession {
 
         if ($sudoUser) {
             _trace( $this, "User is logging out to $sudoUser" );
-            $session->logEvent('sudo logout', '',
+            $session->writeLog( 'sudo logout', '',
                 'from ' . ( $authUser || '' ), $sudoUser );
             $this->{_cgisession}->clear('SUDOFROMAUTHUSER');
             $authUser = $sudoUser;
         }
         else {
             _trace( $this, "User is logging out" );
+            my $origurl = $query->referer()
+              || $query->url() . $query->path_info();
 
-            #TODO: consider if we should risk passing on the urlparams on logout
-            my $path_info = $query->path_info();
-            if (my $topic = $query->param('topic')) {   #we should at least respect the ?topic= request
-                my $topicRequest = Foswiki::Sandbox::untaintUnchecked($query->param('topic'));
-                my ($web, $topic) = $this->{session}->normalizeWebTopicName(undef, $topicRequest);
-                $path_info = '/'.$web.'/'.$topic;
-            }
-
-            my $redirectUrl;
-            if ($path_info) {
-                $redirectUrl = $query->url() . $path_info;
-            } else {
-                $redirectUrl = $query->referer();
-            }
-
+            #TODO:
             $query->delete('logout');    #lets avoid infinite loops
-            $this->redirectCgiQuery( $query, $redirectUrl );
+            $this->redirectCgiQuery( $query, $origurl );
             $authUser = undef;
         }
     }
@@ -504,7 +491,7 @@ sub expireDeadSessions {
         # mtime. As a fallback we also check ctime. Files are deleted when
         # they expire.
         my $lat = $stat[9] || $stat[10] || 0;
-        unlink "$Foswiki::cfg{WorkingDir}/tmp/$file" if ( $time - $lat >= $exp );
+        unlink $file if ( $time - $lat >= $exp );
         next;
     }
     closedir D;
@@ -557,7 +544,7 @@ sub userLoggedIn {
             if ( defined( $session->{remoteUser} )
                 && $session->inContext('sudo_login') )
             {
-                $session->logEvent('sudo login', '',
+                $session->writeLog( 'sudo login', '',
                     'from ' . ( $session->{remoteUser} || '' ), $authUser );
                 $this->{_cgisession}
                   ->param( 'SUDOFROMAUTHUSER', $session->{remoteUser} );
@@ -763,7 +750,7 @@ sub _pushCookie {
         require Foswiki::Time;
         my $exp = Foswiki::Time::formatTime(
             time() + $Foswiki::cfg{Sessions}{ExpireCookiesAfter},
-            '$wday, $day-$month-$ye $hours:$minutes:$seconds GMT'
+            '$dow, $day-$month-$ye $hours:$minutes:$seconds GMT'
         );
 
         $cookie->expires($exp);

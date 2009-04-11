@@ -271,8 +271,8 @@ sub buildNewTopic {
 
     my $merged;
 
-    # If the topic exists, see if we need to merge
-    if ( $topicExists && $originalrev ) {
+    # assumes rev numbers start at 1
+    if ($originalrev) {
         my ( $orev, $odate );
         if ( $originalrev =~ /^(\d+)_(\d+)$/ ) {
             ( $orev, $odate ) = ( $1, $2 );
@@ -293,8 +293,7 @@ sub buildNewTopic {
             require Foswiki::Merge;
 
             my $pti = $prevMeta->get('TOPICINFO');
-            if (   $pti
-                && $pti->{reprev}
+            if (   $pti->{reprev}
                 && $pti->{version}
                 && $pti->{reprev} == $pti->{version} )
             {
@@ -422,7 +421,7 @@ sub save {
       # for compatibility with old templates.
       if ( !$saveaction && $query->param('action') ) {
         $saveaction = lc( $query->param('action') );
-        $session->logger->log('warning',<<WARN);
+        $session->writeWarning(<<WARN);
 Use of deprecated "action" parameter to "save". Correct your templates!
 WARN
 
@@ -495,8 +494,6 @@ WARN
           if $query->param('cover');
         $redirecturl .= '&nowysiwyg=' . $query->param('nowysiwyg')
           if $query->param('nowysiwyg');
-        $redirecturl .= '&action=' . $query->param('action')
-          if $query->param('action');
         $redirecturl .= $editparams
           if $editparams;    # May contain anchor
         my $lease = $store->getLease( $web, $topic );

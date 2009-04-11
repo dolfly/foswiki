@@ -1,0 +1,4 @@
+# Dependencies for NativeSearchContrib
+# Example:
+# Time::ParseDate,>=2003.0211,cpan,Required.
+ExtUtils::MakeMaker,>=0,cpan,Required for building makefiles

@@ -1,0 +1,40 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1217709200" format="1.1" version="1.2"}%
+%INCLUDE{"%IF{"context can_login" then="%SYSTEMWEB%.WebLeftBarLogin" else="<nop>"}%" warn="off"}%
+
+   * <b>[[%INCLUDINGWEB%.%HOMETOPIC%][ %ICON{"home"}% <nop>%MAKETEXT{"[_1] Web" args="%INCLUDINGWEB%"}%]]</b>
+   * %IF{"istopic '%MAINWEB%.%WIKIUSERSTOPIC%'" else=" $percntICON{\"person\"}$percnt $percntMAKETEXT{\"Users\"}$percnt" then="[[$percntMAINWEB$percnt.$percntWIKIUSERSTOPIC$percnt][ $percntICON{\"person\"}$percnt $percntMAKETEXT{\"Users\"}$percnt]]"}%
+   * [[%MAINWEB%.WikiGroups][ %ICON{"group"}% %MAKETEXT{"Groups"}%]]
+   * [[WebTopicList][ %ICON{"index"}% %MAKETEXT{"Index"}%]]
+   * [[%INCLUDINGWEB%.WebSearch][ %ICON{"searchtopic"}% %MAKETEXT{"Search"}%]]
+   * [[WebChanges][ %ICON{"changes"}% %MAKETEXT{"Changes"}%]]
+   * [[WebNotify][ %ICON{"notify"}% %MAKETEXT{"Notifications"}%]]
+   * [[WebRss][ %ICON{"feed"}% %MAKETEXT{"RSS Feed"}%]]
+   * [[WebStatistics][ %ICON{"statistics"}% %MAKETEXT{"Statistics"}%]]
+   * [[WebPreferences][ %ICON{"wrench"}% %MAKETEXT{"Preferences"}%]]
+
+   * <b>%MAKETEXT{"User Reference"}%</b>
+   * UnPocoSobreTWiki
+   * ComoFormatearTexto
+   * [[%SYSTEMWEB%.Macros][Macros]] %FLAGGB%
+   * %SYSTEMWEB%.FormattedSearch %FLAGGB%
+   * %SYSTEMWEB%.DocumentGraphics %FLAGGB%
+   * %SYSTEMWEB%.SkinBrowser %FLAGGB%
+   * %SYSTEMWEB%.InstalledPlugins %FLAGGB%
+
+   * <b>%MAKETEXT{"Admin Maintenance"}%</b>
+   * [[%SYSTEMWEB%.ReferenceManual][Reference Manual]] %FLAGGB%
+   * %SYSTEMWEB%.AdminToolsCategory %FLAGGB%
+   * %SYSTEMWEB%.InterWikis %FLAGGB%
+   * %SYSTEMWEB%.ManagingWebs %FLAGGB%
+   * %SYSTEMWEB%.TWikiSiteTools %FLAGGB%
+   * %SYSTEMWEB%.%WIKIPREFSTOPIC% %FLAGGB%
+   * %WEBPREFSTOPIC%
+
+   * <b>%MAKETEXT{"Categories"}%</b>
+   * [[%SYSTEMWEB%.AdminDocumentationCategory][Admin Documentation]] %FLAGGB%
+   * [[%SYSTEMWEB%.AdminToolsCategory][Admin Tools]] %FLAGGB%
+   * [[%SYSTEMWEB%.DeveloperDocumentationCategory][Developer Doc]] %FLAGGB%
+   * [[%SYSTEMWEB%.UserDocumentationCategory][User Documentation]] %FLAGGB%
+   * [[%SYSTEMWEB%.UserToolsCategory][User Tools]] %FLAGGB%
+
+%INCLUDE{ "%SYSTEMWEB%.WebLeftBarWebsList" }%

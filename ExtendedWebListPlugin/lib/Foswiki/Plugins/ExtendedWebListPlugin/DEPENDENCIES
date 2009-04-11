@@ -1,0 +1,5 @@
+# Dependencies for MeetingBingoPlugin
+# Example:
+# Time::ParseDate,>=2003.0211,cpan,Required.
+# Foswiki::Plugins,>=1.15,perl,TWiki 4.1 release.
+

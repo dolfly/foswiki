@@ -147,9 +147,8 @@ sub upgradeCategoryTable {
         $defaultFormTemplate = $formTemplates[0] if (@formTemplates);
 
         if ( !$defaultFormTemplate ) {
-            $session->logger->log(
-                'warning',
-                "Form: can't get form definition to convert category table "
+            $session->writeWarning(
+                    "Form: can't get form definition to convert category table "
                   . " for topic $web.$topic" );
             foreach my $oldCat (@items) {
                 my $name  = $oldCat->[0];
@@ -194,7 +193,7 @@ sub upgradeCategoryTable {
 
     }
     else {
-        $session->logger->log('warning',
+        $session->writeWarning(
             "Form: get find category template twikicatitems for Web $web");
     }
     return $text;

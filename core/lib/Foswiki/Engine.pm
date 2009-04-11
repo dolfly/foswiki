@@ -149,16 +149,14 @@ sub prepareQueryParameters {
     foreach my $pair (@pairs) {
         ( $param, $value ) = split('=', $pair, 2);
         # url decode
-        if ( defined $value ) {
+        $param =~ tr/+/ /;
+        $param =~ s/%([0-9A-F]{2})/chr(hex($1))/gei;
+        if (defined $value) {
             $value =~ tr/+/ /;
             $value =~ s/%([0-9A-F]{2})/chr(hex($1))/gei;
         }
-        if ( defined $param ) {
-            $param =~ tr/+/ /;
-            $param =~ s/%([0-9A-F]{2})/chr(hex($1))/gei;
-            push @{ $params{$param} }, $value;
-            push @plist, $param;
-        }
+        push @{ $params{$param} }, $value;
+        push @plist, $param;
     }
     foreach my $param (@plist) {
         $req->queryParam( $param, $params{$param} );
@@ -317,7 +315,7 @@ sub finalizeHeaders {
     my ( $this, $res, $req ) = @_;
     $this->finalizeCookies($res);
     if ( $req && $req->method() eq 'HEAD' ) {
-        $res->body('');
+        $res->print('');
         $res->deleteHeader('Content-Length');
     }
 }

@@ -63,16 +63,12 @@ sub _rvalue {
 
 sub string2value {
     my ( $this, $val ) = @_;
-    
-    $val =~ s/^[[:space:]]+(.*?)$/$1/s; # strip at start
-    $val =~ s/^(.*?)[[:space:]]+$/$1/s; # strip at end
-    
     my $s;
     if ( $s = _rvalue($val) ) {
 
         # Parse failed, return as a string.
         die
-"Could not parse text to a data structure (at: $s)\nPlease go back and check if the text has the correct syntax.";
+"Parse of structured value failed at: $s\nPlease go back and check it.";
     }
     $val =~ /(.*)/s;    # parsed, so safe to untaint
     return eval $1;

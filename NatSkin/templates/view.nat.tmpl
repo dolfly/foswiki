@@ -1,0 +1,44 @@
+%TMPL:INCLUDE{"page"}%<!-- template: view.nat.tmpl -->
+%TMPL:INCLUDE{"viewbody"}%<!-- viewbody// -->
+%TMPL:INCLUDE{"viewtopicactions"}%<!-- viewtopicactions// -->
+%TMPL:INCLUDE{"viewsidebar"}%<!-- viewsidebar// -->
+%TMPL:INCLUDE{"viewjavascript"}%<!-- viewjavascript// -->
+%TMPL:INCLUDE{"viewstyles"}%<!-- viewstyles// -->
+%TMPL:INCLUDE{"searchbox"}%<!-- searchbox// -->
+%TMPL:DEF{"bodyclass"}%natViewBody%IFSKINSTATE{history="1" then=" natViewHistoryBody"}%%TMPL:END%
+%TMPL:DEF{"title"}%%HTMLTITLE%%TMPL:END%
+%TMPL:DEF{"meta"}%%HTTP_EQUIV_ON_VIEW%
+%IFACCESS{"%WEB%.%TOPIC%" type="change" as="1" then="<link rel=\"alternate\" type=\"application/x-wiki\" title=\"Edit this page!\" href=\"%SCRIPTURL{"edit"}%/%WEB%/%TOPIC%?t=%GMTIME{"$epoch"}%\" />" glue="off" else=""}%
+%IFDEFINED{"$percntMETAKEYWORDS$percnt" then="<meta name=\"keywords\" content=\"$test\" />$n<meta http-equiv=\"keywords\" content=\"$test\" />"}%
+%IFDEFINED{"$percntMETAAUTHOR$percnt" glue="off" then="<meta name=\"author\" content=\"$test\" />"}%
+%IFDEFINED{"$percntMETADESCRIPTION$percnt" then="<meta name=\"description\" content=\"$test\" />"}%%TMPL:END%
+%TMPL:DEF{"content"}%<!-- content -->
+%TMPL:P{"beforetext"}%<!-- beforetext// -->
+%TMPL:P{"text"}%<!-- text// -->
+%TMPL:P{"rawbutton"}%<!-- rawbutton // -->
+%TMPL:P{"aftertext"}%<!-- aftertext// -->
+%IF{"$'DISPLAYFORM'='off'" else="$percntTMPL:P{\"form\"}$percnt"}%<!-- meta:form // -->
+%IF{"$'DISPLAYATTACHMENTS'='off'" else="$percntMETA{\"attachments\"}$percnt"}%<!-- meta:attachments// -->
+<!-- //content -->%TMPL:END%
+%TMPL:DEF{"rawbutton"}%%IFDEFINED{"%URLPARAM{"raw"}%" then="<div class='natButtonBox' style='text-align:right'><input type='button' class='natOkButton' onclick=\"window.location.href='%SCRIPTURL{view}%/%WEB%/%TOPIC%';\" value='Back' /></div>" else="<!-- -->" glue="off"}%%TMPL:END%
+%TMPL:DEF{"text"}%%TEXT%%TMPL:END%
+%TMPL:DEF{"form"}%%META{"form"}%%TMPL:END%
+%TMPL:DEF{"breadcrumbs"}%<!-- breadcrumbs -->
+<div class="natBreadCrumbs">
+  %MAKETEXT{"You are here:"}%<span class='natSep'>&nbsp; </span>%IFDEFINED{"$percntTHISBREADCRUMBS$percnt" then="$test" else="$percntBREADCRUMBS{separator=\"<span class='natSep'>&nbsp;&#187; </span>\"}$percnt"}%
+</div>
+<!-- //breadcrumbs -->%TMPL:END%
+%TMPL:DEF{"contentheader"}%<!-- contentheader -->
+%TMPL:P{"topicactions"}%<!-- topicactions// -->
+%TMPL:P{"breadcrumbs"}%<!-- breadcrumbs //-->
+<!-- // contentheader -->%TMPL:END%
+%TMPL:DEF{"revinfo"}%<div class="natRevision">%MAKETEXT{"Changed by [_1] on [_2]" args="<span class='natRevisionAuthor'> %REVINFO{"$wikiusername" rev="%CURREV%"}% </span>, <a class='natRevisionDate' href='%TMPL:P{context="CompareRevisionsAddonPluginEnabled" then="compare" else="rdiff"}%' title='%MAKETEXT{"show last change"}%'>%REVINFO{"$date - $hour:$min - r$rev" rev="%CURREV%"}%</a>"}%</div>%TMPL:END%
+%TMPL:DEF{"rdiff"}%%SCRIPTURLPATH{"rdiff"}%/%WEB%/%TOPIC%?type=last;render=sequential%TMPL:END%
+%TMPL:DEF{"compare"}%%SCRIPTURLPATH{"compare"}%/%WEB%/%TOPIC%?type=last;render=interweave%TMPL:END%
+
+%TMPL:DEF{"contentfooter"}%<!-- content footer -->
+%TMPL:P{"revinfo"}%<!-- revinfo //-->
+<!-- //content footer -->%TMPL:END%
+%TMPL:DEF{"broadcast"}%<!-- broadcast -->
+%IFDEFINED{"$percntBROADCASTMESSAGE$percnt" then="<div class='twikiBroadcastMessage'> $test </div>"}%
+<!-- //broadcast -->%TMPL:END%

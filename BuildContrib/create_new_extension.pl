@@ -277,10 +277,8 @@ use strict;
 
 use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION );
 
-$VERSION = '$Rev$'; # version of *this file*.
-# This is *not* the version of the package, which should be set in the
-# | Version: | line in the extension topic.
-
+$VERSION = '$Rev$';
+$RELEASE = '';
 $SHORTDESCRIPTION = '%$SHORTDESCRIPTION%';
 
 <<<< TXT >>>>

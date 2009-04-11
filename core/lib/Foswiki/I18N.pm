@@ -140,7 +140,7 @@ sub new {
 
     unless ($initialised) {
         foreach my $error (@initErrors) {
-            $session->logger->log('warning', $error);
+            $session->writeWarning($error);
         }
     }
 
@@ -167,7 +167,7 @@ sub new {
 
         # we couldn't initialise 'optional' I18N infrastructure, warn that we
         # can only use English if I18N has been requested with configure
-        $session->logger->log('warning',
+        $session->writeWarning(
             'Could not load I18N infrastructure; falling back to English')
           if $Foswiki::cfg{UserInterfaceInternationalisation};
     }
@@ -359,8 +359,8 @@ sub fromSiteCharSet {
             );
         }
         else {
-            $this->{session}->logger->log(
-                'warning', 'Conversion from $encoding no supported, '
+            $this->{session}
+              ->writeWarning( 'Conversion from $encoding no supported, '
                   . 'or name not recognised - check perldoc Unicode::MapUTF8' );
             return $text;
         }
@@ -372,7 +372,7 @@ sub fromSiteCharSet {
         import Encode;
         my $encoding = Encode::resolve_alias( $Foswiki::cfg{Site}{CharSet} );
         if ( not $encoding ) {
-            $this->{session}->logger->log('warning', 'Conversion to "'
+            $this->{session}->writeWarning( 'Conversion to "'
                   . $Foswiki::cfg{Site}{CharSet}
                   . '" not supported, or name not recognised - check '
                   . '"perldoc Encode::Supported"' );
@@ -425,8 +425,8 @@ sub toSiteCharSet {
             );
         }
         else {
-            $this->{session}->logger->log(
-                'warning', 'Conversion to $encoding no supported, '
+            $this->{session}
+              ->writeWarning( 'Conversion to $encoding no supported, '
                   . 'or name not recognised - check perldoc Unicode::MapUTF8' );
             return $encoded;
         }
@@ -436,8 +436,7 @@ sub toSiteCharSet {
         import Encode;
         my $encoding = Encode::resolve_alias( $Foswiki::cfg{Site}{CharSet} );
         if ( not $encoding ) {
-            $this->{session}->logger->log(
-                'warning', 'Conversion from "'
+            $this->{session}->writeWarning( 'Conversion from "'
                   . $Foswiki::cfg{Site}{CharSet}
                   . '" not supported, or name not recognised - check '
                   . '"perldoc Encode::Supported"' );

@@ -1,14 +1,13 @@
+
 #!/usr/bin/perl -w
-
 BEGIN {
-  foreach my $pc (split(/:/, $ENV{FOSWIKI_LIBS})) {
-    unshift @INC, $pc;
-  }
+    unshift @INC, split( /:/, $ENV{FOSWIKI_LIBS} );
 }
-
 use Foswiki::Contrib::Build;
 
-$build = new Foswiki::Contrib::Build( "TinyMCEPlugin" );
-$build->build($build->{target});
+# Create the build object
+$build = new Foswiki::Contrib::Build('TinyMCEPlugin');
 
+# Build the target on the command line, or the default target
+$build->build($build->{target});
 

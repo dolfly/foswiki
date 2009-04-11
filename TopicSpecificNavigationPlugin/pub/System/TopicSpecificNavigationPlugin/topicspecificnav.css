@@ -1,0 +1,68 @@
+#contentContainer {
+    overflow:hidden;
+}
+
+#contentContainer .foswikiTopicText {
+	float:left;
+	width:80%;
+}
+
+#topicSpecificSubnavigation {
+    float:right;
+    width:18%;
+    border:1px solid #E8F3F7;
+}
+
+#topicSpecificSubnavigation .topicSpecifciSubnavigationLinks {
+	margin-left:30px;
+}
+
+#topicSpecificSubnavigation .topicSpecifciSubnavigationLinks ul {
+    list-style-type: square;
+}
+
+
+#topicSpecificSubnavigation ul {
+	padding:0px;    
+    margin:0px;
+    width:100%;
+    
+}
+#topicSpecificSubnavigation li.listTop, #topicSpecificSubnavigation li.listBottom{
+    background-color:#E8F3F7; 
+    background: url(book.png) 0 9px no-repeat;
+    background-position:4px center;   
+    color:white;    
+    font-weight:bold;    
+    font-size:17px;
+    vertical-align: middle;
+    margin:0px;
+    margin-bottom:10px;    
+    padding-left:23px;
+    overflow:hidden;
+}
+
+#topicSpecificSubnavigation li.listBottom {
+	background: none;
+	}
+
+#topicSpecificSubnavigation .listTop p{
+    display:inline;
+    float:left;
+    margin:0px;
+    padding:0px;
+    padding-left:10px;	
+    color:black;
+}
+
+#topicSpecificSubnavigation .editLink{
+    background: url(plus.png) 0 9px no-repeat;
+    background-position:left center; 
+    width:25px;
+    height:16px;
+    display:inline;
+    float:right;    
+    padding-right:5px;
+}
+
+

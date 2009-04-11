@@ -78,13 +78,8 @@ sub prepareHeaders {
 
 sub preparePath {
     my ( $this, $req ) = @_;
-    if ( $ENV{FOSWIKI_ACTION} ) {
-        $req->action( $ENV{FOSWIKI_ACTION} );
-    }
-    else {
-        require File::Spec;
-        $req->action( ( File::Spec->splitpath($0) )[2] );
-    }
+    $req->action( $ENV{FOSWIKI_ACTION} );
+    delete $ENV{FOSWIKI_ACTION};
     if ( exists $this->{path_info} ) {
         $req->pathInfo( $this->{path_info} );
         delete $this->{path_info};

@@ -89,7 +89,7 @@ sub changes {
     if ( $Foswiki::cfg{Log}{changes} ) {
 
         # write log entry
-        $session->logEvent('changes', $webName, '' );
+        $session->writeLog( 'changes', $webName, '' );
     }
     $page .= $after;
 

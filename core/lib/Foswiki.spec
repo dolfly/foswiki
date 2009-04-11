@@ -87,21 +87,6 @@ my $OS = $Foswiki::cfg{OS} || '';
 #  This is the root of all Foswiki URLs e.g. http://myhost.com:123.
 # $Foswiki::cfg{DefaultUrlHost} = 'http://your.domain.com';
 
-# **STRING**
-# If your host has aliases (such as both www.foswiki.org and foswiki.org
-# and some IP addresses) you need to tell Foswiki that redirecting to them
-# is OK. Foswiki uses redirection as part of its normal mode of operation
-# when it changes between editing and viewing.
-# To prevent Foswiki from being used in phishing attacks and to protect it
-# from middleman exploits, the security setting {AllowRedirectUrl} is by
-# default disabled, restricting redirection to other domains. If a redirection
-# to a different host is attempted, the target URL is compared against this
-# list of additional trusted sites, and only if it matches is the redirect
-# permitted.<br />
-# Enter as a comma separated list of URLs (protocol, hostname and (optional)
-# port) e.g. <code>http://your.domain.com:8080,https://other.domain.com</code>
-$Foswiki::cfg{PermittedRedirectHostUrls} = '';
-
 # **PATH M**
 # This is the 'cgi-bin' part of URLs used to access the Foswiki bin
 # directory e.g. <code>/foswiki/bin</code><br />
@@ -177,54 +162,26 @@ $Foswiki::cfg{Password} = '';
 # By restricting this path to just a few key
 # directories, you increase the security of your Foswiki.
 # <ol>
-# 	<li>
-# 		Unix or Linux 
-# 		<ul>
-# 			<li>
-# 				Path separator is : 
-# 			</li>
-# 			<li>
-# 				Make sure diff and shell (Bourne or bash type) are found on path. 
-# 			</li>
-# 			<li>
-# 				Typical setting is /bin:/usr/bin 
-# 			</li>
-# 		</ul>
-# 	</li>
-# 	<li>
-# 		Windows <span class="foswikiNewLink"> ActiveState<a href="/~arthur/foswiki/core/bin/edit/Sandbox/ActiveState?topicparent=Sandbox.HtmlCreator" rel="nofollow" title="Create this topic">?</a> </span> Perl, using DOS shell 
-# 		<ul>
-# 			<li>
-# 				path separator is ; 
-# 			</li>
-# 			<li>
-# 				The Windows system directory is required. 
-# 			</li>
-# 			<li>
-# 				Use '\' not '/' in pathnames. 
-# 			</li>
-# 			<li>
-# 				Typical setting is C:\windows\system32 
-# 			</li>
-# 		</ul>
-# 	</li>
-# 	<li>
-# 		Windows Cygwin Perl 
-# 		<ul>
-# 			<li>
-# 				path separator is : 
-# 			</li>
-# 			<li>
-# 				The Windows system directory is required. 
-# 			</li>
-# 			<li>
-# 				Use '/' not '\' in pathnames. 
-# 			</li>
-# 			<li>
-# 				Typical setting is /cygdrive/c/windows/system32 
-# 			</li>
-# 		</ul>
-# 	</li>
+# <li>Unix or Linux
+#  <ul>
+#   <li>Path separator is :</li>
+#   <li>Make sure diff and shell (Bourne or bash type) are found on path.</li>
+#   <li>Typical setting is <tt>/bin:/usr/bin</tt></li>
+#  </ul>
+# <li>Windows ActiveState Perl, using DOS shell</li>
+#  <ul>
+#   <li>path separator is ;</li>
+#   <li>The Windows system directory is required.</li>
+#   <li>Use '\' not '/' in pathnames.</li>
+#   <li>Typical setting is <tt>C:\windows\system32</tt></li>
+#  </ul>
+# <li>Windows Cygwin Perl</li>
+#  <ul>
+#   <li>path separator is :</li>
+#   <li>The Windows system directory is required.</li>
+#   <li>Use '/' not '\' in pathnames.</li>
+#   <li>Typical setting is <tt>/cygdrive/c/windows/system32</tt></li>
+#  </ul>
 # </ol>
 $Foswiki::cfg{SafeEnvPath} = '';
 
@@ -236,7 +193,7 @@ $Foswiki::cfg{SafeEnvPath} = '';
 # Client sessions are not required for logins to work, but Foswiki will not
 # be able to remember logged-in users consistently.
 #
-# See UserAuthentication for a full discussion of the pros and
+# See System.UserAuthentication for a full discussion of the pros and
 # cons of using persistent sessions. Session files are stored in the
 # <tt>{WorkingDir}/tmp</tt> directory.
 $Foswiki::cfg{UseClientSessions} = 1;
@@ -283,18 +240,13 @@ $Foswiki::cfg{Sessions}{ExpireCookiesAfter} = 0;
 $Foswiki::cfg{Sessions}{IDsInURLs} = 0;
 
 # **BOOLEAN EXPERT**
-# It is possible to enable a check that the user trying to use a session
-# is on the same IP address that was used when the session was created.
-# This gives a small increase in security. Public web sites can easily be
-# accessed by different users from the same IP address when they access
-# through the same proxy gateway, meaning that the protection is limited.
-# Additionally people get more and more mobile using a mix of LAN, WLAN, 
-# and 3G modems and they will often change IP address several times per day.
-# For these users IP matching causes the need to re-authenticate all the time.
-# IP matching is therefore disabled by default and should only be enabled if
-# you are sure the users IP address never changes during the lifetime of a
-# session.
-$Foswiki::cfg{Sessions}{UseIPMatching} = 0;
+# It's important to check that the user trying to use a session is the
+# same user who originally created the session. Foswiki does this by making
+# sure, before initializing a previously stored session, that the IP
+# address stored in the session matches the IP address of the user asking
+# for that session. Turn this off if a client IP address may change during
+# the lifetime of a session (unlikely)
+$Foswiki::cfg{Sessions}{UseIPMatching} = 1;
 
 # **BOOLEAN EXPERT**
 # For compatibility with older versions, Foswiki supports the mapping of the
@@ -397,7 +349,7 @@ $Foswiki::cfg{AuthScripts} = 'attach,edit,manage,rename,save,upload,viewauth,rdi
 # Authentication realm. This is
 # normally only used in md5 password encoding. You may need to change it
 # if you are sharing a password file with another application.
-$Foswiki::cfg{AuthRealm} = 'Enter your $Foswiki::cfg{SystemWebName}.LoginName. (Typically First name and last name, no space, no dots, capitalized, e.g. !JohnSmith, unless you chose otherwise). Visit $Foswiki::cfg{SystemWebName}.UserRegistration if you do not have one.';
+$Foswiki::cfg{AuthRealm} = 'Enter your System.LoginName. (Typically First name and last name, no space, no dots, capitalized, e.g. !JohnSmith, unless you chose otherwise). Visit System.UserRegistration if you do not have one.';
 
 #---++ User Mapping
 # **SELECTCLASS Foswiki::Users::*UserMapping**
@@ -575,11 +527,26 @@ $Foswiki::cfg{RemovePortNumber}  = $FALSE;
 # disabled and set the {PermittedRedirectHostUrls}.
 $Foswiki::cfg{AllowRedirectUrl}  = $FALSE;
 
+# **STRING EXPERT**
+# If your host has aliases (such as both www.foswiki.org and foswiki.org
+# and some IP addresses) you need to tell Foswiki that redirecting to them
+# is OK. Foswiki uses redirection as part of its normal mode of operation
+# when it changes between editing and viewing.
+# To prevent Foswiki from being used in phishing attacks and to protect it
+# from middleman exploits, the security setting {AllowRedirectUrl} is by
+# default disabled, restricting redirection to other domains. If a redirection
+# to a different host is attempted, the target URL is compared against this
+# list of additional trusted sites, and only if it matches is the redirect
+# permitted.<br />
+# Enter as a comma separated list of URLs (protocol, hostname and (optional)
+# port) e.g. <code>http://your.domain.com:8080,https://other.domain.com</code>
+$Foswiki::cfg{PermittedRedirectHostUrls} = '';
+
 # **REGEX EXPERT**
 # Defines the filter-in regexp that must match the names of environment
 # variables that can be seen using the %ENV{}% Foswiki variable. Set it to
 # '^.*$' to allow all environment variables to be seen (not recommended).
-$Foswiki::cfg{AccessibleENV} = '^(HTTP_\w+|REMOTE_\w+|SERVER_\w+|REQUEST_\w+|MOD_PERL|FOSWIKI_ACTION)$';
+$Foswiki::cfg{AccessibleENV} = '^(HTTP_\w+|REMOTE_\w+|SERVER_\w+|REQUEST_\w+|MOD_PERL|TWIKI_ACTION)$';
 
 #---+ Anti-spam measures
 
@@ -621,14 +588,6 @@ $Foswiki::cfg{AntiSpam}{RobotsAreWelcome} = $TRUE;
 
 #---+ Log files
 
-# **SELECTCLASS none,Foswiki::Logger::* EXPERT **
-# Foswiki supports different implementations of log files. It can be
-# useful to be able to plug in a database implementation, for example,
-# for a large site, or even provide your own custom logger. Select the
-# implementation to be used here. Most sites should be OK with the
-# PlainFile logger, which automatically rotates the logs every month.
-$Foswiki::cfg{Log}{Implementation} = 'Foswiki::Logger::PlainFile';
-
 # **BOOLEAN EXPERT**
 # Whether or not to to log different actions in the Access log
 # (in order of how frequently they occur in a typical installation).
@@ -665,22 +624,18 @@ $Foswiki::cfg{Log}{register} = $TRUE; # rare, when a new user registers
 $Foswiki::cfg{ConfigurationLogName} = '$Foswiki::cfg{DataDir}/configurationlog.txt';
 
 # **PATH**
-# Log file for debug messages when using the PlainFile logger (the default).
-# Usually very low volume. %DATE% gets expanded
+# File for debug messages (usually very low volume). %DATE% gets expanded
 # to YYYYMM (year, month), allowing you to rotate logs.
 $Foswiki::cfg{DebugFileName} = '$Foswiki::cfg{DataDir}/debug.txt';
 
 # **PATH**
-# Log file for Warnings when using the PlainFile logger (the default).
-# Low volume, hopefully! %DATE% gets expanded
+# Warnings - low volume, hopefully! %DATE% gets expanded
 # to YYYYMM (year, month), allowing you to rotate logs.
 $Foswiki::cfg{WarningFileName} = '$Foswiki::cfg{DataDir}/warn%DATE%.txt';
 
 # **PATH**
-# Log file for logging script runs when using the PlainFile logger (the
-# default). High volume. %DATE% gets expanded to YYYYMM (year, month),
-# allowing you to rotate logs. You can control what script runs are logged
-# using EXPERT options.
+# Access log - high volume, depending on what you enabled in {Log} above.
+# %DATE% gets expanded to YYYYMM (year, month), allowing you to rotate logs.
 $Foswiki::cfg{LogFileName} = '$Foswiki::cfg{DataDir}/log%DATE%.txt';
 
 #---+ Localisation
@@ -1048,8 +1003,7 @@ $Foswiki::cfg{MailProgram} = '/usr/sbin/sendmail -t -oi -oeq';
 # in SitePreferences. Make sure you delete that setting if you are using a
 # SitePreferences topic from a previous release of Foswiki. To disable all
 # outgoing mail from Foswiki leave both this field and the MailProgram field
-# above blank. If the smtp server uses a different port than the default 25
-# use the syntax mail.your.company:portnumber.
+# above blank.
 $Foswiki::cfg{SMTP}{MAILHOST} = '';
 
 # **STRING 30**
@@ -1294,9 +1248,9 @@ $Foswiki::cfg{PluginsOrder} = 'TWikiCompatibilityPlugin,SpreadSheetPlugin';
 # For Extensions with the same name in both repositories, the one in the last repository will be chosen, so foswiki should be last for maximum compatibility.
 # where:
 # <ul>
-# <li><em>name</em> is the symbolic name of the repository e.g. Foswiki.org</li>
-# <li><em>listurl</em> is the root of a view URL</li>
-# <li><em>puburl</em> is the root of a download URL</li>
+# <li><i>name</i> is the symbolic name of the repository e.g. Foswiki.org</li>
+# <li><i>listurl</i> is the root of a view URL
+# <li><i>puburl</i> is the root of a download URL
 # </ul>
 # For example,<code>
 # twiki.org=(http://twiki.org/cgi-bin/view/Plugins/,http://twiki.org/p/pub/Plugins/);

@@ -24,21 +24,19 @@ sub preview {
 
     # Note: param(formtemplate) has already been decoded by buildNewTopic
     # so the $meta entry reflects if it was used.
-    # get form fields to pass on
     my $formFields = '';
     my $form = $meta->get('FORM') || '';
-    my $formName;
     if ($form) {
-        $formName = $form->{name};    # used later on as well
+        $form = $form->{name};    # used later on as well
         require Foswiki::Form;
-        my $formDef = new Foswiki::Form( $session, $web, $formName );
+        my $formDef = new Foswiki::Form( $session, $web, $form );
         unless ($formDef) {
             throw Foswiki::OopsException(
                 'attention',
                 def    => 'no_form_def',
                 web    => $session->{webName},
                 topic  => $session->{topicName},
-                params => [ $web, $formName ]
+                params => [ $web, $form ]
             );
         }
         $formFields = $formDef->renderHidden( $meta, 0 );
@@ -46,8 +44,9 @@ sub preview {
 
     $session->{plugins}->dispatch( 'afterEditHandler', $text, $topic, $web );
 
-    my $skin     = $session->getSkin();
-    my $template = $session->{prefs}->getPreferencesValue('VIEW_TEMPLATE')
+    my $skin = $session->getSkin();
+    my $template =
+      $session->{prefs}->getPreferencesValue('VIEW_TEMPLATE')
       || 'preview';
     my $tmpl = $session->templates->readTemplate( $template, $skin );
 
@@ -56,24 +55,6 @@ sub preview {
     if ( !$tmpl && $template ne 'preview' ) {
         $tmpl = $session->templates->readTemplate( 'preview', $skin );
     }
-
-    my $content = '';
-    if ( $template eq 'preview' ) {
-        $content = $text;
-    }
-    else {
-
-        # only get the contents of TMPL:DEF{"content"}
-        $content = $session->templates->expandTemplate('content');
-
-        # put the text we have inside this template's content
-        $content =~ s/%TEXT%/$text/go;
-        
-        # now we are ready to put the expanded and styled topic content in the
-        # 'normal' preview template
-    }
-
-    $tmpl = $session->templates->readTemplate( 'preview', $skin );
 
     if ( $saveOpts->{minor} ) {
         $tmpl =~ s/%DONTNOTIFYCHECKBOX%/checked="checked"/go;
@@ -93,8 +74,7 @@ sub preview {
     my $redirectTo = $query->param('redirectto') || '';
     $tmpl =~ s/%REDIRECTTO%/$redirectTo/go;
 
-    $formName ||= '';
-    $tmpl =~ s/%FORMTEMPLATE%/$formName/g;
+    $tmpl =~ s/%FORMTEMPLATE%/$form/g;
 
     my $parent = $meta->get('TOPICPARENT');
     $parent = $parent->{name} if ($parent);
@@ -103,30 +83,21 @@ sub preview {
 
     $session->enterContext( 'can_render_meta', $meta );
 
-    my $displayText = $content;
-    $displayText =
-      $session->handleCommonTags( $displayText, $web, $topic, $meta );
-    $displayText =
-      $session->renderer->getRenderedVersion( $displayText, $web, $topic );
+    my $dispText = $text;
+    $dispText = $session->handleCommonTags( $dispText, $web, $topic, $meta );
+    $dispText =
+      $session->renderer->getRenderedVersion( $dispText, $web, $topic );
 
     # Disable links and inputs in the text
-    $displayText =~
+    $dispText =~
       s#<a\s[^>]*>(.*?)</a>#<span class="foswikiEmulatedLink">$1</span>#gis;
-    $displayText =~ s/<(input|button|textarea) /<$1 disabled="disabled" /gis;
-    $displayText =~ s(</?form(|\s.*?)>)()gis;
-    $displayText =~ s/(<[^>]*\bon[A-Za-z]+=)('[^']*'|"[^"]*")/$1''/gis;
-
-    # let templates know the context so they can act on it
-    $session->enterContext( 'preview', 1 );
-
-    # note: preventing linkage in rendered form can only happen in templates
-    # see formtables.tmpl
+    $dispText =~ s/<(input|button|textarea) /<$1 disabled="disabled" /gis;
+    $dispText =~ s(</?form(|\s.*?)>)()gis;
+    $dispText =~ s/(<[^>]*\bon[A-Za-z]+=)('[^']*'|"[^"]*")/$1''/gis;
 
     $tmpl = $session->handleCommonTags( $tmpl, $web, $topic, $meta );
     $tmpl = $session->renderer->getRenderedVersion( $tmpl, $web, $topic );
-    $tmpl =~ s/%TEXT%/$displayText/go;
-
-    # write the hidden form fields
+    $tmpl =~ s/%TEXT%/$dispText/go;
     $tmpl =~ s/%FORMFIELDS%/$formFields/go;
 
     # SMELL: this should be done using CGI::hidden
@@ -136,8 +107,7 @@ sub preview {
 
     $tmpl =~ s/<\/?(nop|noautolink)\/?>//gis;
 
-    # I don't know _where_ these should be done,
-    # so I'll do them as late as possible
+ #I don't know _where_ these should be done, so I'll do them as late as possible
     my $originalrev = $query->param('originalrev');    # rev edit started on
          #ASSERT($originalrev ne '%ORIGINALREV%') if DEBUG;
     $tmpl =~ s/%ORIGINALREV%/$originalrev/go;

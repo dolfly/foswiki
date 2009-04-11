@@ -111,7 +111,7 @@ database, that can then be displayed by referring to
 
 sub login {
     my ( $this, $query, $session ) = @_;
-    my $users = $session->{users};
+    my $users   = $session->{users};
 
     my $origurl   = $query->param('origurl');
     my $loginName = $query->param('username');
@@ -150,7 +150,6 @@ sub login {
         $error = $users->passwordError();
 
         if ($validation) {
-
             # SUCCESS our user is authenticated..
             $this->userLoggedIn($loginName);
 
@@ -164,13 +163,16 @@ sub login {
             }
             else {
 
+                # origurl passed as parameter, encoded
+                $origurl = Foswiki::urlDecode($origurl);
+
                 # Unpack params encoded in the origurl and restore them
                 # to the query. If they were left in the query string they
                 # would be lost when we redirect with passthrough
-                if ( $origurl =~ s/\?(.*)// ) {
-                    foreach my $pair ( split( /[&;]/, $1 ) ) {
-                        if ( $pair =~ /(.*?)=(.*)/ ) {
-                            $query->param( $1, TAINT($2) );
+                if ($origurl =~ s/\?(.*)//) {
+                    foreach my $pair (split(/[&;]/, $1)) {
+                        if ($pair =~ /(.*?)=(.*)/) {
+                            $query->param($1, TAINT($2));
                         }
                     }
                 }
@@ -181,12 +183,8 @@ sub login {
             return;
         }
         else {
-            $session->{response}->status(403);
             $banner = $session->templates->expandTemplate('UNRECOGNISED_USER');
         }
-    }
-    else {
-        $session->{response}->status(400);
     }
 
     # TODO: add JavaScript password encryption in the template
@@ -195,7 +193,7 @@ sub login {
     $session->{prefs}->pushPreferenceValues(
         'SESSION',
         {
-            ORIGURL => Foswiki::_encode( 'entity', $origurl ),
+            ORIGURL => Foswiki::urlEncode($origurl),
             BANNER  => $banner,
             NOTE    => $note,
             ERROR   => $error

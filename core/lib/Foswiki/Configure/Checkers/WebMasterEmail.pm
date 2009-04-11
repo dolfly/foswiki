@@ -15,9 +15,8 @@ sub check {
 'Please make sure you enter the e-mail address of the webmaster. This is required for registration to work.'
         );
     }
-    #    $regex{emailAddrRegex} ...
     if ( $Foswiki::cfg{WebMasterEmail} !~
-        /^([a-z0-9!+$%&'*+-\/=?^_`{|}~.]+\@[a-z0-9\.\-]+)$/i )
+        /^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i )
     {
         return $this->WARN('I don\'t recognise this as a valid email address.');
     }

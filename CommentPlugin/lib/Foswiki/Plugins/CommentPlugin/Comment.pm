@@ -300,13 +300,6 @@ sub _buildNewTopic {
             $inpost = 1;
         }
     }
-    #make sure the anchor or location exits
-    if (defined($location) and not($text =~ /(?<!location\=\")($location)/)) {
-        undef $location;
-    }
-    if (defined($anchor) and not($text =~ /^($anchor\s)/)) {
-        undef $anchor;
-    }
 
     unless( $nopost ) {
         if( $position eq 'TOP' ) {

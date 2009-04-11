@@ -1,0 +1,4 @@
+# Release manifest for MeetingBingoPlugin
+data/System/MeetingBingoPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/MeetingBingoPlugin.pm 0644 Perl module
+

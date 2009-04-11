@@ -76,7 +76,7 @@ sub attach {
     if ( $Foswiki::cfg{Log}{attach} ) {
 
         # write log entry
-        $session->logEvent('attach', $webName . '.' . $topic, $fileName );
+        $session->writeLog( 'attach', $webName . '.' . $topic, $fileName );
     }
 
     my $fileWikiUser = '';

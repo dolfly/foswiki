@@ -5,13 +5,13 @@
 use strict;
 
 # force the use from the root
--d 'core' or die("You may only run this utility from the root directory of Foswiki SVN checkout!");
+-d 'bin' and -d "lib" and -d 'tools' and -d 'templates' or die("You may only run this utility from the root directory of Foswiki sources!");
 
 use File::Spec;
 
 my $cwd = `pwd` ;
 chomp($cwd);
-unshift(@INC, File::Spec->catfile($cwd, 'core/lib')); 
+unshift(@INC, File::Spec->catfile($cwd, 'lib')); 
 eval "use Foswiki::I18N::Extract";
 die($@) if $@;
 eval "use Locale::Maketext::Lexicon";
@@ -23,7 +23,7 @@ die('The msgmerge command is required, it must be in your path. Try installing G
 
 
 # config
-my $localesDir = "core/locale";
+my $localesDir = "locale";
 my $potfile = "${localesDir}/Foswiki.pot";
 my $newpotfile = $potfile . '.new';
 
@@ -40,12 +40,12 @@ sub read_MANIFEST {
     foreach my $source (<R>) {
         chomp($source);
 
-        if ($source =~ m#^!include ../((\w+)/.*)$#) { 
+        if ($source =~ m#^!include (twikiplugins/(\w+)/.*)$#) { 
             my $included = $2;
             my $included_manifest = $1 . '/MANIFEST';
             print "I: including: $included, from $included_manifest \n";
 
-            push(@files, read_MANIFEST($included_manifest, "$included/"));
+            push(@files, read_MANIFEST($included_manifest, "twikiplugins/$included/"));
         }
 
         my @fields = split(/\s/, $source);
@@ -100,7 +100,7 @@ sub merge {
 
 
 # read the top-level MANIFEST, and any other included by it
-my @sources = read_MANIFEST('core/lib/MANIFEST', '');
+my @sources = read_MANIFEST('lib/MANIFEST', '');
 
 # handle --list: only list files to be scanned
 if ($ARGV[0] eq '--list') {

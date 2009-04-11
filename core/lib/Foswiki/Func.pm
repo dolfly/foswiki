@@ -132,8 +132,7 @@ sub getViewUrl {
     my ( $web, $topic ) = @_;
     ASSERT($Foswiki::Plugins::SESSION) if DEBUG;
 
-    $web ||= $Foswiki::Plugins::SESSION->{webName}
-      || $Foswiki::cfg{UsersWebName};
+    $web ||= $Foswiki::Plugins::SESSION->{webName} || $Foswiki::cfg{UsersWebName};
     return getScriptUrl( $web, $topic, 'view' );
 }
 
@@ -416,20 +415,20 @@ sub popTopicContext {
 
 ---+++ getPreferencesValue( $key, $web ) -> $value
 
-Get a preferences value for the currently requested context, from the currently request topic, its web and the site.
-   * =$key= - Preference name
-   * =$web= - Name of web, optional. if defined, we shortcircuit to the WebPreferences (and its Sitewide defaults)
+Get a preferences value from Foswiki or from a Plugin
+   * =$key= - Preferences key
+   * =$web= - Name of web, optional. Current web if not specified; does not apply to settings of Plugin topics
 Return: =$value=  Preferences value; empty string if not set
+
+   * Example for Plugin setting:
+      * MyPlugin topic has: =* Set COLOR = red=
+      * Use ="MYPLUGIN_COLOR"= for =$key=
+      * =my $color = Foswiki::Func::getPreferencesValue( "MYPLUGIN_COLOR" );=
 
    * Example for preferences setting:
       * WebPreferences topic has: =* Set WEBBGCOLOR = #FFFFC0=
       * =my $webColor = Foswiki::Func::getPreferencesValue( 'WEBBGCOLOR', 'Sandbox' );=
 
-   * Example for MyPlugin setting:
-      * if the %SYSTEMWEB%.MyPlugin topic has: =* Set COLOR = red=
-      * Use ="MYPLUGIN_COLOR"= for =$key=
-      * =my $color = Foswiki::Func::getPreferencesValue( "MYPLUGIN_COLOR" );=
-      
 *NOTE:* If =$NO_PREFS_IN_TOPIC= is enabled in the plugin, then
 preferences set in the plugin topic will be ignored.
 
@@ -744,7 +743,7 @@ sub emailToWikiNames {
 Returns the registered email addresses of the named user. If $user is
 undef, returns the registered email addresses for the logged-in user.
 
-$user may also be a group.
+$user may also be a login name, or the name of a group.
 
 =cut
 
@@ -756,8 +755,7 @@ sub wikinameToEmails {
         }
         else {
             my $uids =
-              $Foswiki::Plugins::SESSION->{users}
-              ->findUserByWikiName($wikiname);
+              $Foswiki::Plugins::SESSION->{users}->findUserByWikiName($wikiname);
             my @em = ();
             foreach my $user (@$uids) {
                 push( @em,
@@ -782,8 +780,7 @@ Test if logged in user is a guest (WikiGuest)
 
 sub isGuest {
     ASSERT($Foswiki::Plugins::SESSION) if DEBUG;
-    return $Foswiki::Plugins::SESSION->{user} eq
-      $Foswiki::Plugins::SESSION->{users}
+    return $Foswiki::Plugins::SESSION->{user} eq $Foswiki::Plugins::SESSION->{users}
       ->getCanonicalUserID( $Foswiki::cfg{DefaultUserLogin} );
 }
 
@@ -1157,8 +1154,7 @@ sub eachChangeSince {
     ASSERT($Foswiki::Plugins::SESSION) if DEBUG;
     ASSERT( $Foswiki::Plugins::SESSION->{store}->webExists($web) ) if DEBUG;
 
-    my $iterator =
-      $Foswiki::Plugins::SESSION->{store}->eachChange( $web, $time );
+    my $iterator = $Foswiki::Plugins::SESSION->{store}->eachChange( $web, $time );
     return $iterator;
 }
 
@@ -1446,25 +1442,9 @@ sub moveTopic {
 
     return if ( $newWeb eq $web && $newTopic eq $topic );
 
-    my $session = $Foswiki::Plugins::SESSION;
-    my $store   = $session->{store};
-    $store->moveTopic( $web, $topic, $newWeb, $newTopic,
+    $Foswiki::Plugins::SESSION->{store}
+      ->moveTopic( $web, $topic, $newWeb, $newTopic,
         $Foswiki::Plugins::SESSION->{user} );
-    my ( $meta, $text ) = $store->readTopic( undef, $newWeb, $newTopic );
-
-    $meta->put(
-        'TOPICMOVED',
-        {
-            from => $web . '.' . $topic,
-            to   => $newWeb . '.' . $newTopic,
-            date => time(),
-            by   => $session->{user},
-        }
-    );
-
-    $store->saveTopic( $session->{user}, $newWeb, $newTopic, $text, $meta,
-        { minor => 1, comment => 'rename' } );
-
 }
 
 =begin TML
@@ -1476,11 +1456,11 @@ Get revision info of a topic or attachment
    * =$topic=   - Topic name, required, e.g. ='TokyoOffice'=
    * =$rev=     - revsion number, or tag name (can be in the format 1.2, or just the minor number)
    * =$attachment=                 -attachment filename
-Return: =( $date, $user, $rev, $comment )= List with: ( last update date, login name of last user, minor part of top revision number, comment of attachment if attachment ), e.g. =( 1234561, 'phoeny', "5",  )=
+Return: =( $date, $user, $rev, $comment )= List with: ( last update date, login name of last user, minor part of top revision number ), e.g. =( 1234561, 'phoeny', "5" )=
 | $date | in epochSec |
 | $user | Wiki name of the author (*not* login name) |
 | $rev | actual rev number |
-| $comment | comment given for uploaded attachment |
+| $comment | WHAT COMMENT? |
 
 NOTE: if you are trying to get revision info for a topic, use
 =$meta->getRevisionInfo= instead if you can - it is significantly
@@ -1694,8 +1674,7 @@ sub saveAttachment {
     my $result = undef;
 
     try {
-        $Foswiki::Plugins::SESSION->{store}
-          ->saveAttachment( $web, $topic, $name,
+        $Foswiki::Plugins::SESSION->{store}->saveAttachment( $web, $topic, $name,
             $Foswiki::Plugins::SESSION->{user}, $data );
     }
     catch Error::Simple with {
@@ -1896,7 +1875,7 @@ Note that this is _not_ the same as the HTTP header, which is modified through t
 
 Example:
 <verbatim>
-Foswiki::Func::addToHEAD('PATTERN_STYLE','<link id="foswikiLayoutCss" rel="stylesheet" type="text/css" href="%PUBURL%/Foswiki/PatternSkin/layout.css" media="all" />');
+Foswiki::Func::addToHEAD('PATTERN_STYLE','<link id="twikiLayoutCss" rel="stylesheet" type="text/css" href="%PUBURL%/Foswiki/PatternSkin/layout.css" media="all" />');
 </verbatim>
 
 =cut=
@@ -1904,19 +1883,7 @@ Foswiki::Func::addToHEAD('PATTERN_STYLE','<link id="foswikiLayoutCss" rel="style
 sub addToHEAD {
     my ( $tag, $header, $requires ) = @_;
     ASSERT($Foswiki::Plugins::SESSION) if DEBUG;
-
-# addToHEAD may be called from a xxxTagsHandler of a plugin and addToHEAD
-# again calls xxxTagsHandlers via handleCommonTags causing deep recursion
-# we use $session->{_InsideFuncAddToHEAD} to block re-entry (Foswikitask:Item913)
-
-    my $session = $Foswiki::Plugins::SESSION;
-    return 0
-      if ( defined $session->{_InsideFuncAddToHEAD}
-        && $session->{_InsideFuncAddToHEAD} );
-
-    $session->{_InsideFuncAddToHEAD} = 1;
-    $session->addToHEAD(@_);
-    $session->{_InsideFuncAddToHEAD} = 0;
+    $Foswiki::Plugins::SESSION->addToHEAD(@_);
 }
 
 =begin TML
@@ -2426,6 +2393,7 @@ sub spaceOutWikiWord {
 
 Log Warning that may require admin intervention to data/warning.txt
    * =$text= - Text to write; timestamp gets added
+Return:            none
 
 =cut
 
@@ -2433,8 +2401,9 @@ sub writeWarning {
 
     #   my( $text ) = @_;
     ASSERT($Foswiki::Plugins::SESSION) if DEBUG;
-    return $Foswiki::Plugins::SESSION->logger->log(
-        'warning', scalar(caller()), @_ );
+    my ($message) = @_;
+    return $Foswiki::Plugins::SESSION->writeWarning(
+        "(" . caller() . ") " . $message );
 }
 
 =begin TML
@@ -2443,6 +2412,7 @@ sub writeWarning {
 
 Log debug message to data/debug.txt
    * =$text= - Text to write; timestamp gets added
+Return:            none
 
 =cut
 
@@ -2450,7 +2420,7 @@ sub writeDebug {
 
     #   my( $text ) = @_;
     ASSERT($Foswiki::Plugins::SESSION) if DEBUG;
-    return $Foswiki::Plugins::SESSION->logger->log('debug', @_);
+    return $Foswiki::Plugins::SESSION->writeDebug(@_);
 }
 
 =begin TML
@@ -2631,6 +2601,7 @@ sub getScriptUrlPath {
     ASSERT($Foswiki::Plugins::SESSION) if DEBUG;
     return $Foswiki::Plugins::SESSION->getScriptUrl( 0, '' );
 }
+
 
 =begin TML
 
@@ -2855,8 +2826,7 @@ sub getPubDir { return $Foswiki::cfg{PubDir}; }
 
 # Removed; it was never used
 sub checkDependencies {
-    die
-"checkDependencies removed; contact plugin author or maintainer and tell them to use BuildContrib DEPENDENCIES instead";
+    die "checkDependencies removed; contact plugin author or maintainer and tell them to use BuildContrib DEPENDENCIES instead";
 }
 
 1;

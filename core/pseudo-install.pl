@@ -80,7 +80,7 @@ sub usage {
     
     check out a new trunk, create a default LocalSite.cfg, install and enable
     all the plugins for the default distribution (and then run the unit tests)
-        svn co http://svn.foswiki.org/trunk
+        svn co http://svn.fosiki.org/trunk
         cd trunk/core
         ./pseudo-install -A developer
         cd test/unit
@@ -105,7 +105,6 @@ sub findRelativeTo {
 
 sub installModule {
     my $module = shift;
-    $module =~ s#/+$##; #remove trailing slash's
     print "Processing $module\n";
     my $subdir = 'Plugins';
     $subdir = 'Contrib' if $module =~ /(Contrib|Skin|AddOn)$/;
@@ -118,6 +117,7 @@ sub installModule {
             last;
         }
     }
+    $moduleDir =~ s#/+$##;
 
     unless ( -d $moduleDir ) {
         print STDERR "--> Could not find $module\n";
@@ -395,7 +395,7 @@ while ( scalar(@ARGV) && $ARGV[0] =~ /^-/ ) {
 
 if ($autoconf) {
     Autoconf();
-    exit 0 unless ( scalar(@ARGV) );
+    exit 1 unless ( scalar(@ARGV) );
 }
 
 unless ( scalar(@ARGV) ) {
@@ -404,28 +404,36 @@ unless ( scalar(@ARGV) ) {
 }
 
 my @modules;
-for my $arg ( @ARGV ) {
-	if ( $arg eq "all" ) {
-	    foreach my $dir (@extensions_path) {
-    		opendir D, $dir or next;
-	    	push @modules,
-		      grep { /(?:Tag|Plugin|Contrib|Skin|AddOn)$/ && -d "$dir/$_" } readdir D;
-            closedir D;
-        }
+
+if ( $ARGV[0] eq "all" ) {
+    foreach my $dir (@extensions_path) {
+        opendir( D, $dir ) || next;
+        push( @modules,
+            grep( /(Tag|Plugin|Contrib|Skin|AddOn)$/, readdir(D) ) );
+        closedir(D);
     }
-    elsif ( $arg eq 'default' || $arg eq 'developer' ) {
-        open F, "<", "lib/MANIFEST" or die "Could not open MANIFEST: $!";
-        local $/ = "\n";
-        @modules =
-            map { /(\w+)$/; $1 }
-            grep { /^!include/ } <F>;
-        close F;
-        push @modules, 'BuildContrib', 'TestFixturePlugin', 'UnitTestContrib'
-            if $arg eq 'developer';
-    }
-    else {
-        push @modules, $arg;
-    }
+}
+elsif ( $ARGV[0] eq "default" ) {
+    open( F, "<", "lib/MANIFEST" ) || die "Could not open MANIFEST: $!";
+    local $/ = "\n";
+    @modules =
+      map { /(\w+)$/; $1 }
+      grep { /^!include/ } <F>;
+    close(F);
+}
+elsif ( $ARGV[0] eq "developer" ) {
+    open( F, "<", "lib/MANIFEST" ) || die "Could not open MANIFEST: $!";
+    local $/ = "\n";
+    @modules =
+      map { /(\w+)$/; $1 }
+      grep { /^!include/ } <F>;
+    close(F);
+    push( @modules, 'BuildContrib' );
+    push( @modules, 'TestFixturePlugin' );
+    push( @modules, 'UnitTestContrib' );
+}
+else {
+    @modules = @ARGV;
 }
 
 print(
@@ -436,7 +444,7 @@ print(
 
 foreach my $module (@modules) {
     my $libDir = installModule($module);
-    if ( ( !$installing || $autoenable ) && $libDir && $module =~ /Plugin$/ ) {
+    if ( ( !$installing || $autoenable ) && $module =~ /Plugin$/ ) {
         enablePlugin( $module, $installing, $libDir );
     }
 }

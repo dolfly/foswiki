@@ -589,7 +589,7 @@ sub searchWeb {
     # FIXME: Move log entry further down to log actual webs searched
     if ( ( $Foswiki::cfg{Log}{search} ) && ( !$inline ) ) {
         my $t = join( ' ', @webs );
-        $session->logEvent('search', $t, $searchString );
+        $session->writeLog( 'search', $t, $searchString );
     }
 
     my $query;
@@ -681,6 +681,7 @@ sub searchWeb {
         # sort the topic list by date, author or topic name, and cache the
         # info extracted to do the sorting
         if ( $sortOrder eq 'modified' ) {
+
             # For performance:
             #   * sort by approx time (to get a rough list)
             #   * shorten list to the limit + some slack
@@ -756,18 +757,13 @@ sub searchWeb {
         if ( defined $header ) {
             $beforeText = Foswiki::expandStandardEscapes($header);
             $beforeText =~ s/\$web/$web/gos;    # expand name of web
-            
-            # It cannot be correct to append the separator to the header,
-            # removing this  -- AC
-            #if ( defined($separator) ) {
-            #     $beforeText .= $separator;
-            #}
-            
-            #else {
+            if ( defined($separator) ) {
+                $beforeText .= $separator;
+            }
+            else {
                 $beforeText =~
                   s/([^\n])$/$1\n/os;           # add new line at end if needed
-            #}
-            # / end removing separator from header
+            }
         }
 
         # output the list of topics in $web

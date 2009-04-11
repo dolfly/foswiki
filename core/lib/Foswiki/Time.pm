@@ -39,17 +39,19 @@ require Foswiki;
 our $VERSION = '$Rev$'; # Subversion rev number
 
 # Constants
-our @ISOMONTH = (
+use vars qw( @ISOMONTH @WEEKDAY @MONTHLENS %MON2NUM );
+
+@ISOMONTH = (
     'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
 );
 
 # SMELL: does not account for leap years
-our @MONTHLENS = ( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
+@MONTHLENS = ( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
-our @WEEKDAY = ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
+@WEEKDAY = ( 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun' );
 
-our %MON2NUM = (
+%MON2NUM = (
     jan => 0,
     feb => 1,
     mar => 2,
@@ -63,8 +65,6 @@ our %MON2NUM = (
     nov => 10,
     dec => 11
 );
-
-our $TZSTRING; # timezone string for servertime; "Z" or "+01:00" etc.
 
 =begin TML
 
@@ -89,14 +89,9 @@ Date and time separated by ' ', '.' and/or '-'
    * 2001.12.31.23.59
    * 2001-12-31 23:59
    * 2001-12-31 - 23:59
-   * 2009-1-12
-   * 2009-1
-   * 2009
 
 ISO format
    * 2001-12-31T23:59:59
-   * 2001-12-31T
-
 ISO dates may have a timezone specifier, either Z or a signed difference
 in hh:mm format. For example:
    * 2001-12-31T23:59:59+01:00
@@ -110,9 +105,6 @@ If the date format was not recognised, will return 0.
 
 sub parseTime {
     my ( $date, $defaultLocal ) = @_;
-
-    $date =~ s/^\s*//;  #remove leading spaces without de-tainting.
-    $date =~ s/\s*$//;
 
     require Time::Local;
 
@@ -128,21 +120,35 @@ sub parseTime {
 
     # try "31 Dec 2001 - 23:59"  (Foswiki date)
     # or "31 Dec 2001"
-    #TODO: allow /.: too
     if ( $date =~ /(\d+)\s+([a-z]{3})\s+(\d+)(?:[-\s]+(\d+):(\d+))?/i ) {
         my $year = $3;
         $year -= 1900 if ( $year > 1900 );
-        #TODO: %MON2NUM needs to be updated to use i8n
-        #TODO: and should really work for long form of the month name too.
         return Time::Local::timegm( 0, $5 || 0, $4 || 0, $1, $MON2NUM{ lc($2) },
             $year ) - $tzadj;
     }
 
-    # ISO date 2001-12-31T23:59:59+01:00
-    # Sven is going to presume that _all_ ISO dated must have a 'T' in them.
-    if (($date =~ /T/) && ( $date =~
+    # try "2001/12/31 23:59:59" or "2001.12.31.23.59.59" (RCS date)
+    # or "2001-12-31 23:59:59" or "2001-12-31 - 23:59:59"
+    if (
+        $date =~ m!(\d+)[./\-](\d+)[./\-](\d+)[.\s\-]+(\d+)[.:](\d+)[.:](\d+)! )
+    {
+        my $year = $1;
+        $year -= 1900 if ( $year > 1900 );
+        return Time::Local::timegm( $6, $5, $4, $3, $2 - 1, $year ) - $tzadj;
+    }
+
+    # try "2001/12/31 23:59" or "2001.12.31.23.59" (RCS short date)
+    # or "2001-12-31 23:59" or "2001-12-31 - 23:59"
+    if ( $date =~ m!(\d+)[./\-](\d+)[./\-](\d+)[.\s\-]+(\d+)[.:](\d+)! ) {
+        my $year = $1;
+        $year -= 1900 if ( $year > 1900 );
+        return Time::Local::timegm( 0, $5, $4, $3, $2 - 1, $year ) - $tzadj;
+    }
+
+    # ISO date
+    if ( $date =~
 /(\d\d\d\d)(?:-(\d\d)(?:-(\d\d))?)?(?:T(\d\d)(?::(\d\d)(?::(\d\d(?:\.\d+)?))?)?)?(Z|[-+]\d\d(?::\d\d)?)?/
-      ) )
+      )
     {
         my ( $Y, $M, $D, $h, $m, $s, $tz ) =
           ( $1, $2 || 1, $3 || 1, $4 || 0, $5 || 0, $6 || 0, $7 || '' );
@@ -158,53 +164,6 @@ sub parseTime {
         return Time::Local::timegm( $s, $m, $h, $D, $M, $Y ) - $tzadj;
     }
 
-    #any date that leads with a year (2 digit years too)
-    if ($date =~ m|^
-                    (\d\d+)                                 #year
-                    (?:\s*[/\s.-]\s*                        #datesep
-                        (\d\d?)                             #month
-                        (?:\s*[/\s.-]\s*                    #datesep
-                            (\d\d?)                         #day
-                            (?:\s*[/\s.-]\s*                #datetimesep
-                                (\d\d?)                     #hour
-                                (?:\s*[:.]\s*               #timesep
-                                    (\d\d?)                 #min
-                                    (?:\s*[:.]\s*           #timesep
-                                        (\d\d?)
-                                    )?
-                                )?
-                            )?
-                        )?
-                    )?
-                    $|x) {
-        #no defaulting yet so we can detect the 2009--12 error
-        my ( $year, $M, $D, $h, $m, $s ) =
-          ( $1, $2 , $3, $4, $5, $6 );
-
-        #without range checking on the 12 Jan 2009 case above, there is abmiguity - what is 14 Jan 12 ?
-        #similarly, how would you decide what Jan 02 and 02 Jan are?
-        #$month_p = $MON2NUM{ lc($month_p) } if (defined($MON2NUM{ lc($month_p) }));
-
-        #range checks
-        return 0 if (defined($M) && ($M < 1 || $M > 12));
-        my $month = ($M || 1)-1;
-        return 0 if (defined($D) && ($D < 0 || $D > $MONTHLENS[$month]));
-        return 0 if (defined($h) && ($h < 0 || $h > 24));
-        return 0 if (defined($m) && ($m < 0 || $m > 60));
-        return 0 if (defined($s) && ($s < 0 || $s > 60));
-
-        my $day = $D || 1;
-        my $hour = $h || 0;
-        my $min = $m || 0;
-        my $sec = $s || 0;
-
-        #TODO: unhappily, this means 09 == 1909 not 2009
-        $year -= 1900 if ( $year > 1900 );
-
-        return Time::Local::timegm( $sec, $min, $hour, $day, $month, $year ) - $tzadj;
-    }
-
-    #TODO: returning  0 makes it very hard to detect parse errors :(
     # give up, return start of epoch (01 Jan 1970 GMT)
     return 0;
 }
@@ -216,7 +175,6 @@ sub parseTime {
    * =$epochSeconds= epochSecs GMT
    * =$formatString= twiki time date format, default =$day $month $year - $hour:$min=
    * =$outputTimeZone= timezone to display, =gmtime= or =servertime=, default is whatever is set in $Foswiki::cfg{DisplayTimeValues}
-
 =$formatString= supports:
    | $seconds | secs |
    | $minutes | mins |
@@ -224,7 +182,7 @@ sub parseTime {
    | $day | date |
    | $wday | weekday name |
    | $dow | day number (0 = Sunday) |
-   | $week | week number (ISO 8601) |
+   | $week | week number |
    | $month | month name |
    | $mo | month number |
    | $year | 4-digit year |
@@ -233,8 +191,6 @@ sub parseTime {
    | $email | full email format date/time |
    | $rcs | full RCS format date/time |
    | $epoch | seconds since 1st January 1970 |
-   | $tz | Timezone name (GMT or Local) |
-   | $isotz | ISO 8601 timezone specifier e.g. 'Z, '+07:15' |
 
 =cut
 
@@ -252,14 +208,15 @@ sub formatTime {
         $outputTimeZone = 'gmtime';
     }
 
-    my ( $sec, $min, $hour, $day, $mon, $year, $wday, $yday );
+    my ( $sec, $min, $hour, $day, $mon, $year, $wday, $tz_str );
     if ( $outputTimeZone eq 'servertime' ) {
-        ( $sec, $min, $hour, $day, $mon, $year, $wday, $yday ) =
+        ( $sec, $min, $hour, $day, $mon, $year, $wday ) =
           localtime($epochSeconds);
+        $tz_str = 'Local';
     }
     else {
-        ( $sec, $min, $hour, $day, $mon, $year, $wday, $yday ) =
-          gmtime($epochSeconds);
+        ( $sec, $min, $hour, $day, $mon, $year, $wday ) = gmtime($epochSeconds);
+        $tz_str = 'GMT';
     }
 
     #standard twiki date time formats
@@ -278,7 +235,15 @@ sub formatTime {
 
         # ISO Format, see spec at http://www.w3.org/TR/NOTE-datetime
         # e.g. "2002-12-31T19:30:12Z"
-        $formatString = '$year-$mo-$dayT$hour:$min:$sec$isotz';
+        $formatString = '$year-$mo-$dayT$hour:$min:$sec';
+        if ( $outputTimeZone eq 'gmtime' ) {
+            $formatString = $formatString . 'Z';
+        }
+        else {
+
+            #TODO:            $formatString = $formatString.
+            # TZD  = time zone designator (Z or +hh:mm or -hh:mm)
+        }
     }
 
     $value = $formatString;
@@ -288,131 +253,33 @@ sub formatTime {
     $value =~ s/\$day/sprintf('%.2u',$day)/gei;
     $value =~ s/\$wday/$WEEKDAY[$wday]/gi;
     $value =~ s/\$dow/$wday/gi;
-    $value =~ s/\$week/_weekNumber($wday, $yday, $year + 1900)/egi;
+    $value =~ s/\$week/_weekNumber($day,$mon,$year,$wday)/egi;
     $value =~ s/\$mont?h?/$ISOMONTH[$mon]/gi;
     $value =~ s/\$mo/sprintf('%.2u',$mon+1)/gei;
-    $value =~ s/\$year?/sprintf('%.4u',$year + 1900)/gei;
+    $value =~ s/\$year?/sprintf('%.4u',$year+1900)/gei;
     $value =~ s/\$ye/sprintf('%.2u',$year%100)/gei;
     $value =~ s/\$epoch/$epochSeconds/gi;
 
-    if ($value =~ /\$tz/) {
-        my $tz_str;
-        if ( $outputTimeZone eq 'servertime' ) {
-            ( $sec, $min, $hour, $day, $mon, $year, $wday ) =
-              localtime($epochSeconds);
-            # SMELL: how do we get the different timezone strings (and when
-            # we add usertime, then what?)
-            $tz_str = 'Local';
-        }
-        else {
-            ( $sec, $min, $hour, $day, $mon, $year, $wday ) =
-              gmtime($epochSeconds);
-            $tz_str = 'GMT';
-        }
-        $value =~ s/\$tz/$tz_str/gei;
-    }
-    if ($value =~ /\$isotz/) {
-        my $tz_str = 'Z';
-        if ( $outputTimeZone ne 'gmtime' ) {
-            # servertime
-            # time zone designator (+hh:mm or -hh:mm)
-            # cached.
-            unless (defined $TZSTRING) {
-                my $offset = _tzOffset();
-                my $sign = ($offset < 0) ? '-' : '+';
-                $offset = abs($offset);
-                my $hours = int($offset / 3600);
-                my $mins = int(($offset - $hours * 3600) / 60);
-                if ($hours || $mins) {
-                    $TZSTRING = sprintf("$sign%02d:%02d", $hours, $mins);
-                } else {
-                    $TZSTRING = 'Z';
-                }
-            }
-            $tz_str = $TZSTRING;
-        }
-        $value =~ s/\$isotz/$tz_str/gei;
-    }
+    # SMELL: how do we get the different timezone strings (and when
+    # we add usertime, then what?)
+    $value =~ s/\$tz/$tz_str/geoi;
 
     return $value;
 }
 
-# Get timezone offset from GMT in seconds
-# Code taken from CPAN module 'Time' - "David Muir Sharnoff disclaims
-# any copyright and puts his contribution to this module in the public
-# domain."
-# Note that unit tests rely on this function being here.
-sub _tzOffset {
-	my $time = time();
-	my @l = localtime($time);
-	my @g = gmtime($time);
-
-	my $off =
-      $l[0] - $g[0]
-        + ($l[1] - $g[1]) * 60
-          + ($l[2] - $g[2]) * 3600;
-
-	# subscript 7 is yday.
-
-	if ($l[7] == $g[7]) {
-		# done
-	} elsif ($l[7] == $g[7] + 1) {
-		$off += 86400;
-	} elsif ($l[7] == $g[7] - 1) {
-		$off -= 86400;
-	} elsif ($l[7] < $g[7]) {
-		# crossed over a year boundary.
-		# localtime is beginning of year, gmt is end
-		# therefore local is ahead
-		$off += 86400;
-	} else {
-		$off -= 86400;
-	}
-
-	return $off;
-}
-
-# Returns the ISO8601 week number for a date.
-# Year is the real year
-# Day of week is 0..6 where 0==Sunday
-# Day of year is 0..364 (or 365) where 0==Jan1
-# From http://www.perlmonks.org/?node_id=710571
 sub _weekNumber {
-    my( $dayOfWeek, $dayOfYear, $year ) = @_;
-    # rebase dow to Monday==0
-    $dayOfWeek = ($dayOfWeek + 6) % 7;
+    my ( $day, $mon, $year, $wday ) = @_;
 
-    # Locate the nearest Thursday, by locating the Monday at
-    # or before and going forwards 3 days)
-    my $dayOfNearestThurs = $dayOfYear - $dayOfWeek + 3;
+    require Time::Local;
 
-    my $daysInThisYear = _daysInYear($year);
-    #print STDERR "dow:$dayOfWeek, doy:$dayOfYear, $year = thu:$dayOfNearestThurs ($daysInThisYear)\n";
-
-    # Is nearest thursday in last year or next year?
-    if ($dayOfNearestThurs < 0) {
-        # Nearest Thurs is last year
-        # We are at the start of the year
-        # Adjust by the number of days in LAST year
-        $dayOfNearestThurs += _daysInYear($year - 1);
-    }
-    if ($dayOfNearestThurs >= $daysInThisYear) {
-        # Nearest Thurs is next year
-        # We are at the end of the year
-        # Adjust by the number of days in THIS year
-        $dayOfNearestThurs -= $daysInThisYear;
-    }
-
-    # Which week does the Thurs fall into?
-    return int ($dayOfNearestThurs / 7) + 1;
-}
-
-# Returns the number of...
-sub _daysInYear {
-    return 366 unless $_[0] % 400;
-    return 365 unless $_[0] % 100;
-    return 366 unless $_[0] % 4;
-    return 365;
+    # calculate the calendar week (ISO 8601)
+    my $nextThursday =
+      Time::Local::timegm( 0, 0, 0, $day, $mon, $year ) +
+      ( 3 - ( $wday + 6 ) % 7 ) * 24 * 60 * 60;    # nearest thursday
+    my $firstFourth =
+      Time::Local::timegm( 0, 0, 0, 4, 0, $year );    # january, 4th
+    return
+      sprintf( '%.0f', ( $nextThursday - $firstFourth ) / ( 7 * 86400 ) ) + 1;
 }
 
 =begin TML
@@ -598,9 +465,9 @@ __DATA__
 # file as follows:
 #
 # Copyright (C) 2002 John Talintyre, john.talintyre@btinternet.com
-# Copyright (C) 2002-2007  TWiki Contributors. All Rights Reserved.
-# TWiki Contributors are listed in the AUTHORS file in the root of
-# this distribution.
+# Copyright (C) 2002-2007 Peter Thoeny, peter@thoeny.org
+# and TWiki Contributors. All Rights Reserved. TWiki Contributors
+# are listed in the AUTHORS file in the root of this distribution.
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License

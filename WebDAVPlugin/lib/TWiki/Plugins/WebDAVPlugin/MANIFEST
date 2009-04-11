@@ -1,0 +1,7 @@
+data/TWiki/WebDAVPlugin.txt						0660 Plugin topic
+lib/TWiki/Plugins/WebDAVPlugin.pm				0440 Main plugin module
+lib/TWiki/Plugins/WebDAVPlugin/Permissions.pm	0440 Perl module
+tools/WebDAVPlugin_mod_perl_startup.pl          0550
+lib/Apache/NextWikiDAVHandler.pm 0777
+lib/Apache/WebDAV.pm 0777
+lib/Filesys/Virtual/NextWiki.pm 0644

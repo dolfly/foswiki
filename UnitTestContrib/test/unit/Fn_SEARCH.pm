@@ -19,9 +19,7 @@ sub set_up {
     my $this = shift;
 
     $this->SUPER::set_up();
-    # Turn UseLocale off; otherwise the Ok+Topic Ok-Topic lexical sort
-    # order gets reversed
-    $Foswiki::cfg{UseLocale} = 0;
+
     $this->{twiki}->{store}->saveTopic( $this->{twiki}->{user},
         $this->{test_web}, 'OkTopic', "BLEEGLE blah/matchme.blah" );
     $this->{twiki}->{store}->saveTopic( $this->{twiki}->{user},
@@ -81,7 +79,7 @@ sub verify_simple {
     my $this = shift;
 
     my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"BLEEGLE" topic="Ok+Topic,Ok-Topic,OkTopic" nonoise="on" format="$topic"}%',
+'%SEARCH{"BLEEGLE" topic="Ok-Topic,Ok+Topic,OkTopic" nonoise="on" format="$topic"}%',
         $this->{test_web}, $this->{test_topic}
     );
 
@@ -106,7 +104,7 @@ sub verify_angleb {
 
     # Test regex with \< and \>, used in rename searches
     my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"\<matc[h]me\>" type="regex" topic="Ok+Topic,Ok-Topic,OkTopic" nonoise="on" format="$topic"}%',
+'%SEARCH{"\<matc[h]me\>" type="regex" topic="Ok-Topic,Ok+Topic,OkTopic" nonoise="on" format="$topic"}%',
         $this->{test_web}, $this->{test_topic}
     );
 
@@ -181,33 +179,6 @@ sub verify_word {
     $this->assert_matches( qr/OkTopic/,  $result );
     $this->assert_matches( qr/Ok-Topic/, $result );
     $this->assert_does_not_match( qr/Ok\+Topic/, $result );
-}
-
-sub verify_separator {
-    my $this = shift;
-
-    # word
-    my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"name~\'*Topic\'" type="query" nonoise="on" format="$topic" separator=","}%',
-        $this->{test_web}, $this->{test_topic}
-    );
-
-    $this->assert_str_equals( "Ok+Topic,Ok-Topic,OkTopic", $result );
-}
-
-sub verify_separator_with_header {
-    my $this = shift;
-
-    # word
-    my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"name~\'*Topic\'" type="query" header="RESULT:" nonoise="on" format="$topic" separator=","}%',
-        $this->{test_web}, $this->{test_topic}
-    );
-
-    # FIXME: The first , shouldn't be there, but Arthur knows why
-    # waiting for him to fix, and as I can't put this test into TODO...
-    $this->assert_str_equals( "RESULT:
-Ok+Topic,Ok-Topic,OkTopic", $result );
 }
 
 sub verify_regex_match {
@@ -828,11 +799,6 @@ sub verify_formQuery3 {
 sub verify_formQuery4 {
     my $this = shift;
 
-    if ($Foswiki::cfg{OS} eq 'WINDOWS'
-          && $Foswiki::cfg{DetailedOS} ne 'cygwin') {
-        $this->expect_failure();
-        $this->annotate("THIS IS WINDOWS; Test will fail because of Item1072");
-    }
     $this->set_up_for_queries();
     my $result =
       $this->{twiki}
@@ -843,12 +809,6 @@ sub verify_formQuery4 {
 
 sub verify_formQuery5 {
     my $this = shift;
-
-    if ($Foswiki::cfg{OS} eq 'WINDOWS'
-          && $Foswiki::cfg{DetailedOS} ne 'cygwin') {
-        $this->expect_failure();
-        $this->annotate("THIS IS WINDOWS; Test will fail because of Item1072");
-    }
 
     $this->set_up_for_queries();
     my $result =
@@ -1054,7 +1014,7 @@ sub test_pattern {
     my $this = shift;
 
     my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"BLEEGLE" topic="Ok+Topic,Ok-Topic,OkTopic" nonoise="on" format="X$pattern(.*?BLEEGLE (.*?)blah.*)Y"}%',
+'%SEARCH{"BLEEGLE" topic="Ok-Topic,Ok+Topic,OkTopic" nonoise="on" format="X$pattern(.*?BLEEGLE (.*?)blah.*)Y"}%',
         $this->{test_web}, $this->{test_topic}
     );
     $this->assert_matches( qr/Xdontmatchme\.Y/, $result );
@@ -1067,7 +1027,7 @@ sub test_badpattern {
 
     # The (??{ pragma cannot be run at runtime since perl 5.5
     my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"BLEEGLE" topic="Ok+Topic,Ok-Topic,OkTopic" nonoise="on" format="X$pattern(.*?BL(??{\'E\' x 2})GLE( .*?)blah.*)Y"}%',
+'%SEARCH{"BLEEGLE" topic="Ok-Topic,Ok+Topic,OkTopic" nonoise="on" format="X$pattern(.*?BL(??{\'E\' x 2})GLE( .*?)blah.*)Y"}%',
         $this->{test_web}, $this->{test_topic}
     );
 
@@ -1114,43 +1074,6 @@ sub test_validatepattern {
     # Test independent sub-expression
     $pattern = Foswiki::validatePattern('foo(?>blue)bar');
     $this->assert_matches( qr/$pattern/, 'foobluebar' );
-
-}
-
-#Item977
-sub verify_formatOfLinks {
-    my $this = shift;
-
-    $this->{twiki}->{store}->saveTopic( $this->{twiki}->{user},
-        $this->{test_web}, 'Item977', "---+ Apache
-
-Apache is the [[http://www.apache.org/httpd/][well known web server]].
-" );
-
-    my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"Item977" scope="topic" nonoise="on" format="$summary"}%',
-        $this->{test_web}, $this->{test_topic}
-    );
-
-    $this->assert_str_equals( 'Apache Apache is the well known web server.',   $result );
-
-    #TODO: these test should move to a proper testing of Render.pm - will happen during
-    #extractFormat feature
-    $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[http://www.apache.org/httpd/][well known web server]].'));
-
-    #test a few others to try to not break things
-    $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[http://www.apache.org/httpd/ well known web server]].'));
-    $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[ApacheServer][well known web server]].'));
-
-    #SMELL: an unexpected result :/
-    $this->assert_str_equals( 'Apache is the   well known web server  .',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[well known web server]].'));
-    $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the well known web server.'));
-
 
 }
 

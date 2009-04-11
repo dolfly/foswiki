@@ -1,0 +1,8 @@
+/* thin variant for base */
+.natBodyContents {
+  width:75em;
+  margin:1px auto 120px auto;
+}
+.natEditBody .natBodyContents {
+  margin-bottom:0px;
+}

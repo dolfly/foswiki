@@ -1,0 +1,73 @@
+%META:TOPICINFO{author="mayer" date="1230330081" format="1.1" reprev="1.2" version="1.2"}%
+---+ !TopicListPlugin
+ Gives you the possibility to generate a list of topics by macro or rest handler. Should be also optimized for a great number of topics
+
+%TOC%
+
+---++ Introduction
+ Yet it is not able to use a rest function to recieve a list of all topics of a web, picking them up e.g. by the starting character "S" or similar. A use case is e.g. the TinyMCE editor, when you like to be able to pick the topics out of list when you try to link.
+
+The goal is, to make this plugin efficient even if you have a great number of topics. Mostly this can be done, by excluding topics by a starting character, to shorten/filter the result.
+
+---++ Usage
+---+++ Macro !%GETTOPICLIST%
+
+| *Parameter* | *Default* | *Description* |
+| _searchwebs_  | Current web | which web should be used to get the topic-list. User *-all-* for getting all topics of all webs. %BR% you can also use a comma-separated list of webs |
+| _pattern_ | * ( all ) | regular expression for matching topic-names |
+| _casesens_ | 1 | be case sensitive |
+| _negate_ | 0 | negate the pattern. So all topics which do match the pattern, are *not* shown |
+| _max_ | 50 | maximum number of results. Use 0 for infinite |
+| _order_ | &lt; | literal order, _&lt;_ for increasing, _&gt;_ for decreasing |
+| _format_ | " * ![[%WEB.%TOPIC][%TOPIC]]" | format for each resulting row, %WEB gets replaced by the web, %TOPIC by the topic name |
+| _delimiter | "\n" | what delimiter should be used to seperated the topics |
+| _globalformat | "%TOPICS" | the whole topic list will replace the %TOPICS varibale in this string. This string will be return as the result of the rest handler |
+*Examples:*
+   * List maximum 20 topics of this web starting with "S", decreasing order: !%GETTOPICLIST{pattern="^S.*$" max="40" order=">"}%
+%GETTOPICLIST{searchwebs="-all-" pattern="^S.*$" max="40" order=">"}% 
+   * List all topics of this Main web *not* starting with "S", increasing order: !%GETTOPICLIST{searchwebs="Main" pattern="^S.*$" negate="1" max="20"}%
+
+---++ Rest Methods
+---+++ topicList
+| *Parameter* | *Default* | *Description* |
+| _searchwebs_  | Current web | which web should be used to get the topic-list. User *-all-* for getting all topics of all webs. %BR% you can also use a comma-separated list of webs |
+| _pattern_ | * ( all ) | regular expression for matching topic-names |
+| _casesens_ | 1 | be case sensitive |
+| _negate_ | 0 | negate the pattern. So all topics which do match the pattern, are *not* shown |
+| _max_ | 50 | maximum number of results. Use 0 for infinite |
+| _order_ | &lt; | literal order, _&lt;_ for increasing, _&gt;_ for decreasing |
+| _format_ | "'%TOPIC'" | format for each resulting row, %WEB gets replaced by the web, %TOPIC by the topic name. The result is by default formated as JSON array item|
+| _delimiter | "," | what delimiter should be used to seperated the topics |
+| _globalformat | "[%TOPICS]" | the whole topic list will replace the %TOPICS varibale in this string. This string will be return as the result of the rest handler, by default a JSON array |
+
+---++ Installation instructions
+   * just use the installer attached to the topic or even easier, use the configure-system/Extension to easy install it through an user-interface
+__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the Plugin on the server where Foswiki is running.
+
+   * Set SHORTDESCRIPTION = Gives you the possibility to generate a list of topics by macro or rest handler. Should be also optimized for a great number of topics
+
+|  Plugin Author: | Foswiki:Main.EugenMayer |
+|  Copyright: | &copy; Impressive.media |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 28 Dez 2008 (V0.3) |
+|  Change History: | <!-- versions below in reverse order --> |
+|  28 Dez 2008: | fixed minor bugs, added delimiter / globalformat, cosmetic things, new defaults |
+|  26 Dez 2008: | implemented all methods. Yet no index or cache is implemented, so maybe not working to good on many topics |
+|  22 Dez 2008: | initial release |
+|  Foswiki Dependency: | |
+|  CPAN Dependencies: | |
+|  Other Dependencies: | |
+|  Perl Version: | 5.005 |
+|  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
+ __Related Topic:__
+
+-- Foswiki:Main/EugenMayer - 28 Dez 2008
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%

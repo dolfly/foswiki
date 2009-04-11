@@ -77,7 +77,6 @@ Construct a new, empty object to contain meta-data for the given topic.
 
 sub new {
     my ( $class, $session, $web, $topic, $text ) = @_;
-
     # $text - optional raw text to convert to meta-data form
     my $this = bless( { _session => $session }, $class );
 
@@ -140,7 +139,7 @@ Get/set the web name associated with the object.
 =cut
 
 sub web {
-    my ( $this, $web ) = @_;
+    my ($this, $web) = @_;
     $this->{_web} = $web if defined $web;
     return $_[0]->{_web};
 }
@@ -155,7 +154,7 @@ Get/set the topic name associated with the object.
 =cut
 
 sub topic {
-    my ( $this, $topic ) = @_;
+    my ($this, $topic) = @_;
     $this->{_topic} = $topic if defined $topic;
     return $this->{_topic};
 }
@@ -230,8 +229,7 @@ sub putKeyed {
         ASSERT($keyName) if DEBUG;
         my $i = scalar(@$data);
         while ( $keyName && $i-- ) {
-            if ( defined $data->[$i]->{name}
-                   && $data->[$i]->{name} eq $keyName ) {
+            if ( $data->[$i]->{name} eq $keyName ) {
                 $data->[$i] = $args;
                 return;
             }
@@ -293,7 +291,7 @@ sub get {
     if ($data) {
         if ( defined $keyValue ) {
             foreach my $item (@$data) {
-                return $item if ($item->{name} and ( $item->{name} eq $keyValue ));
+                return $item if ( $item->{name} eq $keyValue );
             }
         }
         else {
@@ -636,16 +634,14 @@ sub getFormName {
 
 =begin TML
 
----++ ObjectMethod renderFormForDisplay( $templates ) -> $html
+---++ ObjectMethod renderFormForDisplay() -> $html
 
 Render the form contained in the meta for display.
 
 =cut
 
 sub renderFormForDisplay {
-    my ( $this, $templates ) = @_;
-
-    # NOTE: param $templates is not used
+    my $this = shift;
 
     my $fname = $this->getFormName();
 
@@ -698,8 +694,7 @@ sub renderFormFieldForDisplay {
     my $fname = $this->getFormName();
     if ($fname) {
         require Foswiki::Form;
-        my $form =
-          new Foswiki::Form( $this->{_session}, $this->{_web}, $fname );
+        my $form = new Foswiki::Form( $this->{_session}, $this->{_web}, $fname );
         if ($form) {
             my $field = $form->getField($name);
             if ($field) {

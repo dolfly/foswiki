@@ -54,11 +54,6 @@ the =$query= are added as hiddens into the expanded template.
 sub oops {
     my ( $session, $web, $topic, $query, $keep ) = @_;
 
-    # Foswikitask:Item885: web and topic are required to have values for
-    # handleCommonTags.
-    $web ||= $session->{webName};
-    $topic ||= $session->{topicName};
-
     my $tmplName;
     my $def;
     my @params;
@@ -126,8 +121,8 @@ sub oops {
             $tmplData =~ s/%PARAM$n%/$param/g;
             $n++;
         }
-        # Suppress missing params
-        $tmplData =~ s/%PARAM\d+%//g;
+        $tmplData =~ s/%(PARAM\d+)%/
+          CGI::span({class=>'foswikiAlert'},"MISSING $1 ")/ge if DEBUG;
         $tmplData = $session->handleCommonTags( $tmplData, $web, $topic );
         $tmplData =
           $session->renderer->getRenderedVersion( $tmplData, $web, $topic );

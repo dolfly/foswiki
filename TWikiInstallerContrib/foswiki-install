@@ -1,0 +1,1040 @@
+#!/usr/bin/perl
+<<________________________________________________________________________________;
+
+IF YOU SEE THIS NOTICE INSTEAD OF THE INSTALLATION WEB PAGE, YOUR APACHE FAILS YOU
+
+* CREATE A .htaccess FILE IN THE *SAME DIRECTORY* THAT THIS SCRIPT IS LOCATED:
+
+Shell access
+============
+$ echo "SetHandler cgi-script" >.htaccess
+
+FTP-only access
+===============
+Create a new .htaccess file locally and FTP it.  The file should consist of the single line:
+SetHandler cgi-script
+
+* AND THEN REFRESH THIS PAGE
+________________________________________________________________________________
+# Copyright 2004,2005,2007,2009 Will Norris.  All Rights Reserved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# $Id: install_twiki.cgi 7202 2005-10-28 20:36:14Z WillNorris $
+# License: GPL
+use strict;
+use warnings;
+#use Data::Dumper qw( Dumper );
+++$|;
+
+################################################################################
+# CGI parameters:
+# force: force (re)installation, even if foswiki/ directory is already present
+# perl: name of perl executable (autodetected, but can be manually overridden)
+# kernel: name of kernel to install (eg, FoswikiKernelDEVELOP7684)
+# extension: name of extensions to install (BlogPlugin, ImageGalleryPlugin, PublishContrib)
+# FoswikiFor: 
+#
+# TODO parameters:
+# from http://twiki.org/cgi-bin/view/Sandbox/WillNorrisSandbox?DOMAIN=admin.langalot.com&TWIKI_URL_PATH_DIR=twiki&USER=wn&DEFAULT_WEB=&ADMIN=webmaster&install_type=svn_main
+# * DOMAIN
+# * URL PATH
+# * DREAMHOST USER
+# * DEFAULT WEB
+# * ADMINISTRATOR
+#
+# make sure installs relative to script directory
+# configure admin user and password (twice)
+# create useres 'properly'
+# directions to create .htaccess: "SetHandler cgi-script"
+# add repositories
+# add feedback (unzip progress meter or something)
+# installation from local copies (in progress tmp/downloads/distros/)
+#
+# administrator ($foswikiAdmin)
+#	(and update Main.AdminGroup)
+# wikiwebmaster (for email about this wiki site) - 
+#	(and update System.MainPreferences) - $wikiWebMaster
+#
+# other TODO?
+# 	could create a FoswikiInstallationReport topic...
+#
+# DONE
+# move 'configure & select individual components' checkbox to after we even know if there are any
+# clicking repository updates url field
+# 
+################################################################################
+
+# References
+# http://trunk.foswiki.org/System/InstallationGuide
+# http://www.askthecssguy.com/2007/03/form_field_hints_with_css_and.html
+
+
+use File::Path qw( mkpath rmtree );
+use CGI qw( :standard );
+use FindBin;
+use File::Basename qw( basename );
+use Cwd qw( abs_path );
+use English;
+#use Error qw( :try );
+use CGI::Ajax;
+
+my $q = CGI::new() or die $!;
+my $LocalSiteCfg;
+my $foswikiAdmin = $q->param('FoswikiAdmin') || '';
+my $WebMasterEmail = $q->param('WebMasterEmail') || $ENV{SERVER_ADMIN} || "webmaster\@$ENV{HTTP_HOST}";
+my $FoswikiFor = $q->param('FoswikiFor');
+#my $FoswikiFor = $q->param('FoswikiFor') || 'http://localhost/~twikibuilder/twiki.org.zip';
+my $perl = $q->param( 'perl' ) || $EXECUTABLE_NAME;
+my $jsInstallButton = jsInstallButton();
+
+################################################################################
+
+print $q->header(),
+    $q->start_html( -title => 'Foswiki Installer',
+		    -BGCOLOR => '#f4c000',
+		    -head => [ map { 
+			       Link({-rel => $_,
+				     -href => 'http://foswiki.biohack.net/pub/FoswikiWebBasedInstaller/favicon.ico',
+				     -type => "image/x-icon"}) } ( 'icon', 'shortcut icon' )
+			       ],
+		    -style => {
+			-src => [ map { "http://foswiki.biohack.net/pub/FoswikiWebBasedInstaller/$_.css" } qw( reset styles ) ],
+		     },
+		    -onload => "expand_collapse_repositories('foswiki.org'); checkEnableInstallButton(event);",
+		    -onkeyup => "checkEnableInstallButton(event)",
+		    -onclick => "checkEnableInstallButton(event)",
+		    -script => $jsInstallButton,
+		    );
+
+################################################################################
+
+my %installedPlugins;	# which plugins get installed/are encountered
+my $foswikiDir = $FindBin::Bin;
+
+my ( $foswikiPath ) = $ENV{SCRIPT_NAME} =~ m|(.*)/.*|;		# remove the script name from the path
+#print STDERR "foswikiPath=[$foswikiPath]\n";
+
+# automatically detect required script suffix from this script's filename
+my ( $scriptSuffix ) = $ENV{SCRIPT_NAME} =~ m|.*/.*(\..*)$|;
+$scriptSuffix ||= '';
+
+my $localDirConfig = {
+    # SMELL: doesn't handle httpS --- what happened to $ENV{SCRIPT_URI} ???
+	DefaultUrlHost   => "http://$ENV{HTTP_HOST}" . ( $ENV{SERVER_PORT} != 80 && ":$ENV{SERVER_PORT}" || '' ),
+	ScriptUrlPath    => "$foswikiPath/bin",
+	ScriptSuffix     => $scriptSuffix,
+	PubUrlPath       => "$foswikiPath/pub",
+	PubDir           => "$foswikiDir/pub",
+	TemplateDir      => "$foswikiDir/templates",
+	DataDir          => "$foswikiDir/data",
+	LocalesDir       => "$foswikiDir/locale",
+	LogsDir          => "$foswikiDir/logs",
+	WorkingDir       => "$foswikiDir/working",
+#	ToolsDir         => "$foswiki/tools",
+    };
+
+# inversion duplication from above (mostly)
+my $mapFoswikiDirs = {
+    lib       => { perms => 0440, dest => "$foswikiDir/lib", },
+    pub       => { perms => 0664, dest => $localDirConfig->{PubDir}, },
+    data      => { perms => 0660, dest => $localDirConfig->{DataDir}, },
+    templates => { perms => 0440, dest => $localDirConfig->{TemplateDir}, },
+    bin       => { perms => 0550, dest => "$foswikiDir/bin", },
+    locale    => { perms => 0440, dest => $localDirConfig->{LocalesDir}, },
+    logs      => { perms => 0660, dest => "$foswikiDir/logs", },
+    working   => { perms => 0440, dest => "$foswikiDir/working", },
+#    tools     => { perms => 0, dest => "$foswikiDir/tools", }
+#test
+#twikiplugins
+};
+
+unless ( $FoswikiFor )
+{
+    print foswikiForMenu( $q ), $q->end_html;
+    exit 0;
+}
+
+################################################################################
+# INSTALL
+################################################################################
+my $tmpInstall = "$FindBin::Bin/tmp/install/";
+warn "tmpInstall=[$tmpInstall]\n";
+mkpath $tmpInstall or die $!;
+
+print qq{<div id="container"><a id="topofpage"></a><div class="section">\n};
+print qq{<div id="header"><!-- header image --></div>\n};
+
+install();
+
+print $q->p( $q->a( { -href => continueToWikiUrl() }, "Proceed to the wiki" ) );
+print $q->p( $q->a( { -href => continueToConfigureUrl() }, "Configure the wiki" ) );
+
+print qq{</div></div>\n};
+print $q->end_html;
+
+exit 0;
+
+################################################################################
+################################################################################
+################################################################################
+# do the INSTALLATION
+
+sub install {
+
+print "<h1>Installing...</h1>\n";
+
+my $archive_file = 'install.zip';
+unless ( -e $archive_file ) {
+    print STDERR "downloading $FoswikiFor\n";
+    my ( $tar, $error ) = getUrl({ url => $FoswikiFor, outfile => $archive_file });
+    die "$error: $FoswikiFor\n" if $error;
+
+    open( TAR, '>', $archive_file ) or die $!;
+    binmode( TAR );
+    print TAR $tar;
+    close TAR;
+}
+
+$q->param( kernel => $archive_file );
+
+################################################################################
+# do the INSTALLATION
+
+-d $foswikiDir || mkpath $foswikiDir or die qq{Couldn't create "$foswikiDir" to install into!};
+# chmod g+w $foswikiDir (?)
+
+InstallFoswikiExtension( $archive_file );
+
+################################################################################
+# LocalLib.cfg
+my $fnLocalLibCfg = "$mapFoswikiDirs->{bin}->{dest}/LocalLib.cfg";
+open( FH, '>', $fnLocalLibCfg ) or die "Can't open $fnLocalLibCfg: $!";
+print FH <<'__LOCALLIB_CFG__';
+use vars qw( $foswikiLibPath );
+use Cwd qw( abs_path );
+( $foswikiLibPath ) = ($foswikiLibPath = Cwd::abs_path( 'lib' )) =~ /(.*)/;
+1;
+__LOCALLIB_CFG__
+close( FH ) or die "Can't close $fnLocalLibCfg: $! ???";
+
+################################################################################
+# LocalSite.cfg
+
+foreach my $plugin ( sort { lc $a cmp lc $b } keys %installedPlugins ) {
+#    $LocalSiteCfg .= "\$Foswiki::cfg{Plugins}{$plugin}{Module} = 'Foswiki::Plugins::$plugin';\n";
+    $LocalSiteCfg .= "\$Foswiki::cfg{Plugins}{$plugin}{Enabled} = 1;\n";
+}
+
+$LocalSiteCfg .= <<__LOCALSITE_CFG__;
+#===============================================================================
+\$Foswiki::cfg{WebMasterEmail} = '$WebMasterEmail';
+\$Foswiki::cfg{AutoAttachPubFiles} = 1;
+\$Foswiki::cfg{EnableHierarchicalWebs} = 1;
+\$Foswiki::cfg{LoginManager} = 'Foswiki::LoginManager::TemplateLogin';
+\$Foswiki::cfg{UserInterfaceInternationalisation} = 1;
+\$Foswiki::cfg{INCLUDE}{AllowURLs} = 1;
+\$Foswiki::cfg{UserMappingManager} = 'Foswiki::Users::TopicUserMapping';
+# SMELL: blech, temp hack
+\$Foswiki::cfg{Site}{CharSet} = 'iso-8859-15';
+\$Foswiki::cfg{Site}{Locale} = 'en_US.ISO-8859-15';
+\$Foswiki::cfg{Register}{EnableNewUserRegistration} = 1;
+#\$Foswiki::cfg{WarningsAreErrors} = 1;
+#===============================================================================
+__LOCALSITE_CFG__
+
+# generate LocalSite.cfg entries for variable entries (url/path,...)
+foreach my $localSiteEntry ( qw( DefaultUrlHost ScriptUrlPath ScriptSuffix PubUrlPath PubDir TemplateDir DataDir LogsDir LocalesDir WorkingDir ) ) {
+    # normalise pathnames (entries ending in ...Dir) (Sandbox.pm doesn't like .. in pathnames!)
+    $localDirConfig->{ $localSiteEntry } = abs_path( $localDirConfig->{ $localSiteEntry } ) 
+	if $localSiteEntry =~ /Dir$/;
+
+    $LocalSiteCfg .= qq{\$Foswiki::cfg{$localSiteEntry} = "$localDirConfig->{$localSiteEntry}";\n};
+}
+
+# write out LocalSite.cfg
+my $fnLocalSiteCfg = "$mapFoswikiDirs->{lib}->{dest}/LocalSite.cfg";
+open( FH, '>', $fnLocalSiteCfg ) or die "Can't open $fnLocalSiteCfg: $!";
+print FH $LocalSiteCfg;
+close( FH ) or die "Can't close $fnLocalSiteCfg: $! ???";
+
+
+################################################################################
+# setup configure
+if ( $q->param( 'configure_username' ) ) {
+    my $htpasswd_file = $localDirConfig->{DataDir}.'/.htpasswd';
+    print STDERR "configure_password: [", $q->param('configure_password'), "]\n";
+    my $htpasswd_params = ( -e $htpasswd_file ? '' : '-c ' ) . "-b $htpasswd_file " . $q->param('configure_username') . ' ' . $q->param('configure_password');
+    print STDERR "running htpasswd: [$htpasswd_params]\n";
+    `htpasswd $htpasswd_params`;
+}
+
+################################################################################
+
+my $BinHtAccess = <<'EOT';
+#Block access from badly behaving robots and site sucking type programs.
+BrowserMatchNoCase ^Accoona blockAccess
+BrowserMatchNoCase ^ActiveAgent blockAccess
+BrowserMatchNoCase ^Attache blockAccess
+BrowserMatchNoCase BecomeBot blockAccess
+BrowserMatchNoCase ^bot blockAccess
+BrowserMatchNoCase Charlotte/ blockAccess
+BrowserMatchNoCase ^ConveraCrawler blockAccess
+BrowserMatchNoCase ^CrownPeak-HttpAgent blockAccess
+BrowserMatchNoCase ^EmailCollector blockAccess
+BrowserMatchNoCase ^EmailSiphon blockAccess
+BrowserMatchNoCase ^e-SocietyRobot blockAccess
+BrowserMatchNoCase ^Exabot blockAccess
+BrowserMatchNoCase ^FAST blockAccess
+BrowserMatchNoCase ^FDM blockAccess
+BrowserMatchNoCase ^GetRight/6.0a blockAccess
+BrowserMatchNoCase ^GetWebPics blockAccess
+BrowserMatchNoCase ^Gigabot blockAccess
+BrowserMatchNoCase ^gonzo1 blockAccess
+BrowserMatchNoCase ^Google\sSpider blockAccess
+BrowserMatchNoCase ^ichiro blockAccess
+BrowserMatchNoCase ^ie_crawler blockAccess
+BrowserMatchNoCase ^iGetter blockAccess
+BrowserMatchNoCase ^IRLbot blockAccess
+BrowserMatchNoCase Jakarta blockAccess
+BrowserMatchNoCase ^Java blockAccess
+BrowserMatchNoCase ^KrakSpider blockAccess
+BrowserMatchNoCase ^larbin blockAccess
+BrowserMatchNoCase ^LeechGet blockAccess
+BrowserMatchNoCase ^LinkWalker blockAccess
+BrowserMatchNoCase ^Lsearch blockAccess
+BrowserMatchNoCase ^Microsoft blockAccess
+BrowserMatchNoCase ^MJ12bot blockAccess
+BrowserMatchNoCase MSIECrawler blockAccess
+BrowserMatchNoCase ^MSRBOT blockAccess
+BrowserMatchNoCase ^noxtrumbot blockAccess
+BrowserMatchNoCase ^NutchCVS blockAccess
+BrowserMatchNoCase ^RealDownload blockAccess
+BrowserMatchNoCase ^Rome blockAccess
+BrowserMatchNoCase ^Roverbot blockAccess
+BrowserMatchNoCase ^schibstedsokbot blockAccess
+BrowserMatchNoCase ^Seekbot blockAccess
+BrowserMatchNoCase ^SiteSnagger blockAccess
+BrowserMatchNoCase ^SiteSucker blockAccess
+BrowserMatchNoCase ^Snapbot blockAccess
+BrowserMatchNoCase ^sogou blockAccess
+BrowserMatchNoCase ^SpiderKU blockAccess
+BrowserMatchNoCase ^SpiderMan blockAccess
+BrowserMatchNoCase ^Squid blockAccess
+BrowserMatchNoCase ^Teleport blockAccess
+BrowserMatchNoCase ^User-Agent\: blockAccess
+BrowserMatchNoCase VoilaBot blockAccess
+BrowserMatchNoCase ^voyager blockAccess
+BrowserMatchNoCase ^W3C blockAccess
+BrowserMatchNoCase ^w3search blockAccess
+BrowserMatchNoCase ^Web\sDownloader blockAccess
+BrowserMatchNoCase ^WebCopier blockAccess
+BrowserMatchNoCase ^WebDevil blockAccess
+BrowserMatchNoCase ^WebSec blockAccess
+BrowserMatchNoCase ^WebVac blockAccess
+BrowserMatchNoCase ^Webwhacker blockAccess
+BrowserMatchNoCase ^Webzip blockAccess
+BrowserMatchNoCase ^Wells blockAccess
+BrowserMatchNoCase ^WhoWhere blockAccess
+BrowserMatchNoCase www\.netforex\.org blockAccess
+BrowserMatchNoCase ^WX_mail blockAccess
+BrowserMatchNoCase ^yacybot blockAccess
+BrowserMatchNoCase ^ZIBB blockAccess
+BrowserMatchNoCase ^$ blockAccess
+Order Allow,Deny
+Allow from all
+Deny from env=blockAccess
+SetHandler cgi-script
+Options ExecCGI FollowSymLinks
+<FilesMatch "[^/]*\.html$">
+       SetHandler denied
+       allow from all
+</FilesMatch>
+
+# Limit access to configure to specific IP addresses and or users.
+# Make sure configure is not open to the general public.
+# It exposes system details that can help attackers.
+<FilesMatch "^configure">
+    SetHandler cgi-script
+    Order Deny,Allow
+    Deny from all
+    Satisfy Any
+EOT
+
+$BinHtAccess .= "    Require user " . $q->param( 'configure_username' ) . "\n";
+$BinHtAccess .= "    AuthUserFile $localDirConfig->{DataDir}/.htpasswd\n";
+$BinHtAccess .= <<EOT;
+    AuthName 'Enter your WikiName: (First name and last name, no space, no dots, capitalized, e.g. JohnSmith). Cancel to register if you do not have one.'
+    AuthType Basic
+    ErrorDocument 401 /foswiki/bin/view$scriptSuffix/System/UserRegistration
+</FilesMatch>
+EOT
+
+# SMELL: calculate ErrorDocument URL
+
+#print STDERR "mtw/b: ", $mapFoswikiDirs->{bin}->{dest}, "\n";
+open( HTACCESS, '>', $mapFoswikiDirs->{bin}->{dest} . '/.htaccess' ) or warn $!;
+print HTACCESS $BinHtAccess, "\n";
+print HTACCESS "ErrorDocument 401 bin/view$scriptSuffix/System/UserRegistration\n";
+close HTACCESS;
+
+#print STDERR ".htaccess for [$abs_dir]\n";
+my $pub_dir = $mapFoswikiDirs->{pub}->{dest};
+open( HTACCESS, '>', "$pub_dir/.htaccess" ) or warn $!;
+print HTACCESS "SetHandler none\n";
+close HTACCESS;
+
+#foreach my $dir qw( pub/Trash data lib locale logs templates test tools foswikiplugins ) {
+foreach my $dir ( my @dist = qw( data lib locale logs templates working ), my @devel = qw( test tools foswikiplugins ) ) {
+    my $abs_dir = $mapFoswikiDirs->{$dir}->{dest} || "$foswikiDir/$dir";
+    print STDERR ".htaccess for [$abs_dir]\n";
+    if ( open( HTACCESS, '>', "$abs_dir/.htaccess" ) ) {
+	print HTACCESS "Deny from all\n";
+	close HTACCESS;
+    } else {
+	warn "$dir: $!";
+    }
+}
+
+################################################################################
+# finish/cleanup
+
+rmtree 'tmp/';
+#unlink $0;			# remove this installation program (security!)
+#chmod 0440, $0;		# doesn't seem to be working??? ah, probably an ownership issue (but why does rm work?)
+}
+
+################################################################################
+################################################################################
+
+# parameters
+# module: module filename relative to components (eg, kernels/TWikiDEVELOP6666.zip or extension/BlogPlugin.zip)
+sub InstallFoswikiExtension {
+    my ( $module ) = @_;
+
+    my ( $text, $success, $plugins ) = Foswiki::Contrib::FoswikiInstallerContrib::_InstallFoswikiExtension({ 
+	module => $module,
+	tmpInstall => $tmpInstall,
+	mapFoswikiDirs => $mapFoswikiDirs,
+	localDirConfig => $localDirConfig,
+    });
+#    print $q->li( @$text );
+    foreach my $plugin ( sort keys %$plugins )
+    {
+	++$installedPlugins{ $plugin };
+    }
+#    $installedPlugins{ keys %$plugins } = values %$plugins;
+
+    return 1;
+}
+
+################################################################################
+
+sub _display_repositories {
+    my ( $q, $repository ) = @_;
+
+    my $text = '';
+
+    $text .= <<'__JAVASCRIPT__';
+<script type="text/javascript" >
+function expand_collapse_repositories( rep ) {
+    var repositories = document.getElementsByName('repository_files');
+    for ( i=0; i<repositories.length; ++i ) {
+	var r = repositories[i];
+	var files = document.getElementById( r.id );
+	r.style.display = r.id === rep ? '' : 'none';
+    }
+}
+</script>
+__JAVASCRIPT__
+
+    foreach my $rep ( sort { lc $a cmp lc $b } keys %$repository ) {
+	next unless scalar @{$repository->{$rep}};	# don't print empty repositories
+	my $favicon = $repository->{$rep}->[0]->{favicon} || "http://$rep/favicon.ico";
+#	my $favicon = "http://$rep/favicon.ico";
+	$text .= qq{<div class=repository>
+<div class=repositoryName onclick="expand_collapse_repositories('$rep')" ><img src="$favicon" width="16" height="16" /> $rep</div>
+<div name="repository_files" id="$rep"><ul>};
+	foreach my $foswikifor ( @{$repository->{$rep}} ) {
+	    $text .= q{<li class="distro"><a href="#" onclick="document.getElementById('FoswikiFor').value = } . qq{'$foswikifor->{url}'" >$foswikifor->{url}</a></li>};
+	}
+	$text .= "</div></ul></div>";
+    }
+
+    return $text;
+}
+
+################################################################################
+
+# parameters
+# cgi: 
+sub foswikiForMenu {
+    my $q = shift or die "no cgi?";
+    my $text = '';
+
+my $repository = {
+    'foswiki.org' => [
+		      { url => 'http://foswiki.org/pub/Download/FoswikiRelease01x00x00Beta3/Foswiki-1.0.0-beta3.zip' },
+		      { url => 'http://foswiki.org/pub/Download/FoswikiRelease01x00x00Beta3/Foswiki-1.0.0-notwiki-beta3.zip' },
+		      { url => 'http://foswiki.org/pub/Download/FoswikiRelease01x00x00Beta2/Foswiki-1.0.0-beta2.zip' },
+		      { url => 'http://foswiki.org/pub/Download/FoswikiRelease01x00x00Beta2/Foswiki-1.0.0-compat-beta2.zip' },
+		      { url => 'http://foswiki.org/pub/Download/FoswikiRelease01x00x00Beta1/Foswiki-1.0.0-beta1.zip' },
+		      { url => 'http://foswiki.org/pub/Download/FoswikiRelease01x00x00Beta1/Foswiki-1.0.0-compat-beta1.zip' },
+		      ],
+    'Nightly Builds' => [
+			 { url => 'http://fosiki.com/Foswiki_trunk/Foswiki-1.0.0-beta2-auto1678.zip',
+			   favicon => 'http://fosiki.com/favicon.ico',
+		       },
+			 ],
+    'Tinderbox' => [
+		    { url => 'http://fosiki.com/Foswiki_trunk/Foswiki-0.9.0-auto1384.zip',
+		      favicon => 'http://biohack.net/favicon.ico',
+		       },
+		    ],
+    'twiki.org' => [
+#		    { url => 'http://twiki.org/p/pub/Codev/Release/TWiki-4.2.4.zip', },
+    ],
+    'foswiki.biohack.net' => [
+#		      { url => 'http://foswiki.biohack.net/pub/twiki/TWiki-SVN-MAIN.zip', },
+		      ],
+    'wikiring.com.mx' => [
+    		      ],
+    'wikiring.de' => [
+		       ],
+    'wikiring.com' => [
+		       ],
+    'distributedinformation.com' => [
+				     ],
+    'local' => eval { [ 
+			map { { url => "$_" } } ( <tmp/downloads/distros/*.zip> ) 
+			]  },
+};
+
+#    system( 'htpasswd -V' );
+#    my $htpasswd_avail = $? == -1 ? ' disabled=disabled ' : '';
+    my $htpasswd_avail = '';
+
+    my ( $foswikiUrl ) = $ENV{SCRIPT_URI} =~ m|^(.*/)|;
+
+    my $strHtmlForceInstallation = isFoswikiAlreadyInstalled() ?
+	'<input type=checkbox name=force_installation id=force_installation> <b><a href="bin/view' . $scriptSuffix . '/System/InstalledPlugins">Existing Foswiki installation</a> detected.</b> Allow forced installation by overwriting files.<br/>' : '';
+
+    $text .= qq{
+<div id="container"><a id="topofpage"></a><div class="section">
+<!--==========================================================================================-->
+<div id="header"><!-- header image --></div>
+<h1>Foswiki Installer</h1>
+You are about to install Foswiki to<br /> 
+<div id=foswikiUrl><big>$foswikiUrl</big></div>
+<div class=note>If this is not the desired URL, move this script to the correct directory and load the page in the browser from the new location.</div>
+<!--
+<ol>
+<li>Select a Foswiki release from the list of available repositories below.</li>
+<li>Fill in the fields below; <strong>all fields are required</strong>. Many have been automatically determined or already filled in with reasonable defaults.
+</li>
+<li>Click the <strong>Install</strong> button. That's all! </li>
+</ol>
+-->
+<form method="post" action="" enctype="application/x-www-form-urlencoded" />
+<!--==========================================================================================-->
+<fieldset><legend>1. Choose a Foswiki Release</legend>
+
+Foswiki release to install <input type="text" name="FoswikiFor" id="FoswikiFor" value="http://foswiki.org/pub/Download/FoswikiRelease01x00x00Beta2/Foswiki-1.0.0-beta2.zip" size="50" />
+<div class=help id="FoswikiFor_help" >Select a Foswiki release from the list below <i>or</i> enter a URL manually
+<!-- By the way, this should also be able to install Foswiki extensions -->
+</div>
+}
+
+. _display_repositories( $q, $repository ) .
+
+qq{</fieldset>
+
+<!--==========================================================================================-->
+<fieldset><legend>2. Set Foswiki Settings</legend>
+<div id=configure><fieldset id=configure><legend>configure</legend>
+username <input $htpasswd_avail type=text name=configure_username id=configure_username value='admin' /><br />
+<div class=help id=configure_username_help>This is the account name to allow access to Foswiki's system configuration<br/></div>
+password <input $htpasswd_avail type=password name=configure_password id=configure_password /><br />
+<div class=help id=configure_password_help>Be sure to pick a secure password!<br/></div>
+password (again) $htpasswd_avail <input type=password name=configure_password2 id=configure_password2 /> <span id=password_mismatch></span><br/>
+<div class=help id=configure_password2_help>Verify your password<br/></div></fieldset></div>
+
+<b>FoswikiAdmin</b> <input type="text" name="FoswikiAdmin" id="FoswikiAdmin" size="35" value="$foswikiAdmin" /><br />
+<div class=help id=FoswikiAdmin_help>This Foswiki account will be created and added to the <a target="_new" href=http://trunk.foswiki.org/System/AccessControl#The_Super_Admin_Group">AdminGroup</a>. 
+A password will be automatically generated and sent to the email specified by WebMasterEmail below<br/></div>
+
+<b>WebMasterEmail</b> <input type="text" name="WebMasterEmail" id=WebMasterEmail value="$WebMasterEmail" size="35" /><br />
+<div class=help id=WebMasterEmail_help>This will automatically set the Foswiki webmaster email address <a target="_new" href="http://trunk.foswiki.org/System/DefaultPreferences#Email_and_Proxy_Server_Settings">WebMasterEmail</a> <!-- in Main.SitePreferences --><br/></div>
+
+<!--
+<b>WebMasterEmailNAME</b> <input type="text" name="WebMasterEmailNAME" value="Foswiki Administrator" size="35" /><br />
+<br/>
+-->
+
+<b>perl</b> (full path) <input type="text" name="perl" id="perl" value="$perl" size="30" /> (automatically detected)<br/>
+<div class=help id=perl_help>You may also change it to a perl accelerator, e.g,. <a target="_new" href="http://www.daemoninc.com/SpeedyCGI/">SpeedyCGI</a><br/></div>
+</fieldset>
+<!--==========================================================================================-->
+<fieldset><legend>3. Install Foswiki!</legend>
+$strHtmlForceInstallation
+<input type="submit" name="install" id="install" value="Install" /> to $foswikiDir <br />
+</fieldset>
+<!--==========================================================================================-->
+After the installation, you can start using the wiki right away or configure it in more detail.
+</div></div>
+</form>
+
+</div>
+<!--==========================================================================================-->
+<!-- <div class="footer">Copyright &copy; 2007,2009 Will Norris. All Rights Reserved.</div> -->
+<!--==========================================================================================-->
+	</div>
+</div>
+<input type=button name=ajax value="ajax" onclick="alert('test')" />
+};
+
+
+#my $cgi  = CGI->new();
+#my $ajax = CGI::Ajax->new( check_username => \&check_username );
+#$text .= $ajax->build_html( $cgi, \&ajax_main );
+
+################################################################################
+
+    $text .= $q->hidden( -name => 'FoswikiFor', -value => $q->param('FoswikiFor') );
+
+################################################################################
+
+    return $text;
+}
+
+################################################################################
+
+sub check_username { }
+
+#sub ajax_main {
+#
+#    my $html = <<HTML;
+#<html><head>
+#<title>Ordinary CGI demo</title>
+#</head><body>
+#<h1>Signup!</h1>
+#HTML
+#if ( my $user = $cgi->param('user') ) {
+#    my $err = check_username( $user );
+#    if ( $err ) {
+#	$html .= "<p class='problem'>$err</p>";
+#    } else {
+#	save_username( $user );
+#	$html .= "<p>Account <em>$user</em> created!</p>\n";
+#    }
+#}
+#    my $url = $cgi->url(-relative => 1);
+#    $html .= <<HTML;
+#<form action="$url" method="post">
+#<p>Please fill in the details to create a new Account.</p>
+#<p>Username: <input type="text" name="user" id="user"/></p>
+#<p>Password: <input type="password" name="pass" id="pass"/></p>
+#<p><input type="submit" name="submit" value="SIGNUP"/></p>
+#</form></body></html>
+#HTML
+#
+#    return $html;
+#}
+
+# parameters
+# cgi: 
+sub installationMenu {
+    my $q = shift or die "no cgi?";
+    my $text = '';
+
+    $text .= $q->start_form
+	. $q->hidden( -name => 'FoswikiFor', -value => $q->param('FoswikiFor') )
+	. $q->hidden( -name => 'force', -value => $q->param('force') )
+	. $q->submit( -name => 'install', -value => 'Install' );
+
+    my @kernels = sort map { basename /(.*)\./ } <$tmpInstall/components/kernel/*>;
+    $text .= $q->div( { -class => 'kernel', },
+		      $q->checkbox_group( -name => 'kernel',
+					  -values => \@kernels,
+#					  -values => [ grep { m|\.| } @kernels ],
+#					  -labels => { @kernels },
+					  -linebreak => 'true',
+					  )
+		      );
+    
+    $text .= $q->div( { -class => 'configuration' },
+		      $q->b( 'perl' ) . ' (full path): ' 
+		      . $q->textfield( -name => 'perl', -default => $perl, -size => 40 )
+		      . $q->br
+		      . $q->small( '(may also be the name of a perl accelerator, e.g,. '
+				   . $q->a( { -href => "http://www.daemoninc.com/SpeedyCGI/" }, 'SpeedyCGI' ) . ')'
+				   )
+		      . $q->br
+		      . $q->b( 'FoswikiAdmin' ) . ': '
+		      . $q->textfield( -name => 'FoswikiAdmin', -default => $foswikiAdmin, -size => 25 )
+		      . $q->br
+		      . $q->b( 'WebMasterEmail' ) . ': '
+		      . $q->textfield( -name => 'WebMasterEmail', -default => $WebMasterEmail, -size => 25 )
+		      . $q->br
+		      );
+			    
+    my @extensions = sort map { basename /(.*)\./ } <$tmpInstall/components/extension/*>;
+
+    # do defaults creation/manipulation here, because CGI ...
+    if ( grep( /^all$/i, ( $q->param('extension') ) ) ) {
+	$q->param( -name => 'extension', -value => \@extensions );
+    }
+
+    $text .= $q->div( { -class => 'extension', },
+		      $q->checkbox_group( -name => 'extension',
+					  -values => \@extensions,
+#					  -values => [ grep { m|\.| } @extensions ],
+#					  -labels => { @extensions },
+					  -linebreak => 'true',
+					  -columns => 3,
+					  )
+		      );
+
+    $text .= $q->end_form;
+
+    return $text;
+}
+
+################################################################################
+# already installed?
+################################################################################
+sub isFoswikiAlreadyInstalled
+{
+    return -e "$FindBin::Bin/bin/LocalLib.cfg";
+}
+
+################################################################################
+
+sub continueToWikiUrl
+{
+    # TODO: need URI for "view"
+    do "lib/Foswiki.cfg";
+    do "lib/LocalSite.cfg";
+    my $url = $Foswiki::cfg{DefaultUrlHost} . $Foswiki::cfg{ScriptUrlPath} 
+    . '/view'.$Foswiki::cfg{ScriptSuffix}
+    . '/System/InstalledPlugins';
+
+    return $url;
+}
+
+################################################################################
+
+sub continueToConfigureUrl
+{
+    # TODO: need URI for "view"
+    do "lib/Foswiki.cfg";
+    do "lib/LocalSite.cfg";
+    my $url = $Foswiki::cfg{DefaultUrlHost} . $Foswiki::cfg{ScriptUrlPath} . '/configure';
+
+    return $url;
+}
+
+################################################################################
+
+sub jsInstallButton { return q{
+function isEmpty(str) {
+	return str === '';
+}
+function checkEnableInstallButton(e) {
+	if (!e) { e = window.event }		// i don't think this works?!!! :(
+	
+	var disabled = false;
+	
+	var required_fields = [ 'FoswikiFor', 'configure_username', 'configure_password', 'configure_password2', 'WebMasterEmail', 'FoswikiAdmin', 'perl', 'force_installation' ];
+	for ( i=0; i<required_fields.length; ++i ) {
+		var field = required_fields[i];
+		var el = document.getElementById( field );
+		if ( el ) {
+//			alert( field + ': ' + el );
+			if ( isEmpty(el.value) ) { disabled = true }
+			if ( el.type === 'checkbox' && !el.checked ) { disabled = true }
+		
+			// show/hide help elements
+			var elHelp = document.getElementById(field+'_help');
+			if ( elHelp ) {
+				elHelp.style.display = ( e.target === el ? '' : 'none' );
+			}
+		}
+	}
+
+	// see if the passwords match
+	var elPasswordMismatch = document.getElementById('password_mismatch');
+	var elConfigurePassword = document.getElementById('configure_password');
+	var elConfigurePassword2 = document.getElementById('configure_password2');
+	if ( isEmpty(elConfigurePassword2.value) || elConfigurePassword.value === elConfigurePassword2.value ) {
+		elPasswordMismatch.innerHTML = '';
+	} else {
+		elPasswordMismatch.innerHTML = 'Passwords do not match';
+		disabled = true;
+	}
+
+	var btnInstall = document.getElementById('install');
+	if ( btnInstall ) { btnInstall.disabled = disabled }
+	
+	return false;
+}
+}
+}
+
+################################################################################
+
+if ( 0 ) {
+use Socket;
+sub getUrl
+{
+    my $p = shift;
+
+    my $error = 0;
+    my ( $theHost, $theUrl ) = $p->{url} =~ m|http://(.*?)(/.*)|;
+    my $thePort = 80;
+    my $theHeader = '';
+
+    my $result = '';
+    my $req = "GET $theUrl HTTP/1.0\r\n$theHeader\r\n\r\n";
+    warn "req=[$req]";
+    my ( $iaddr, $paddr, $proto );
+    $iaddr   = inet_aton( $theHost );
+    $paddr   = sockaddr_in( $thePort, $iaddr );
+    $proto   = getprotobyname( 'tcp' );
+    socket( SOCK, PF_INET, SOCK_STREAM, $proto )  or die "socket: $!";
+    connect( SOCK, $paddr ) or die "connect: $!";
+    select SOCK; $| = 1;
+    print SOCK $req;
+    while( <SOCK> ) { $result .= $_; }
+    close( SOCK )  or die "close: $!";
+    select STDOUT;
+    print STDERR "result=[$result]\n";
+    if ( $result =~ m{^HTTP/\d.\d (\d{3})} ) {
+	$error = $1;
+    }
+
+    return ( $result, $error );
+}
+}
+
+################################################################################
+
+# url: 
+use LWP::UserAgent;
+use HTTP::Request;
+use HTTP::Response;
+sub getUrl {
+    my ( $p ) = @_;
+    my $url = $p->{url} or die qq{required parameter "url" not specified};
+
+    my $ua = LWP::UserAgent->new() or die $!;
+    $ua->agent( "Foswiki remote installer v0.0.1" );
+    my $req = HTTP::Request->new( GET => $url );
+    # TODO: what about http vs. https ?
+    die unless $req;
+    $req->referer( "$ENV{SERVER_NAME}:$ENV{SERVER_PORT}$ENV{SCRIPT_NAME}" );
+    my $response = $ua->request($req);
+    die if $response->is_error();
+
+    return $response->is_error() ? ( undef, $response->status_line ) : ( $response->content(), '' );
+}
+
+################################################################################
+################################################################################
+# WARNING: ../TWikiInstallerContrib.pm gets appended to the end of this file,
+#          so don't do anything silly like __DATA__ or __END__ blocks :)
+################################################################################
+################################################################################
+#!/usr/bin/perl -w
+# $Id: install_twiki.cgi 7202 2005-10-28 20:36:14Z WillNorris $
+# Copyright 2004,2005,2009 Will Norris.  All Rights Reserved.
+# License: GPL
+use strict;
+++$|;
+
+package Foswiki::Contrib::FoswikiInstallerContrib;
+
+use vars qw( $VERSION );
+$VERSION = '$Rev$';
+
+################################################################################
+use File::Path qw( mkpath rmtree );
+use CGI qw( :standard );
+use FindBin;
+use CGI::Carp qw( fatalsToBrowser );
+use File::Copy qw( cp mv );
+use File::Basename qw( basename );
+use English;
+use Scalar::Util qw( tainted );
+use Data::Dumper qw( Dumper );
+#use Archive::Zip;
+################################################################################
+
+# parameters
+# module: module filename relative to components (eg, kernels/TWikiDEVELOP6666.zip or extension/BlogPlugin.zip)
+sub _InstallFoswikiExtension {
+    my ( $p ) = @_;
+    my $tmpInstall = $p->{tmpInstall} or die "tmpInstall";
+    my $module = $p->{module} or die "module";
+    my $mapFoswikiDirs = $p->{mapFoswikiDirs} or die "mapFoswikiDirs";
+    my $localDirConfig = $p->{localDirConfig} or die "localDirConfig";
+    my $perl = $p->{perl} || $EXECUTABLE_NAME;
+
+    my $plugins = {};
+    my @text;
+
+    my $INSTALL = "$tmpInstall/INSTALL/";
+    $INSTALL =~ /(.*)/;
+    $INSTALL = $1;
+    die "INSTALL still tainted" if tainted $INSTALL;
+    -d $INSTALL && rmtree $INSTALL;
+    mkpath $INSTALL;
+
+    die "module tainted" if tainted $module;
+
+    my ( $name ) = ( basename $module ) =~ /(.*)\./;
+    die "name is tainted" if tainted $name;
+
+    print STDERR "FoswikiWebBasedInstaller: Installing $name\n";
+    my $q = CGI->new() or die $!;
+    push @text, $q->b( $name );
+
+#    $ENV{TMPDIR} =~ /(.*)/;
+#    $ENV{TMPDIR} = $1;
+
+    my $archive = Archive::Zip::CommandLine->new( $module ) 
+	or warn qq{Archive::Zip::CommandLine new failed [$module] - can't install "$name"}, return 0;
+    $archive->extractTree( '', $INSTALL );
+
+    foreach my $file ( $archive->memberNames ) {
+	# TODO: rename $base to something more descriptive (like ...?)
+	next unless my ($path,$base) = $file =~ m|^([^/]+)(/.*)$|;
+
+	my $map = $mapFoswikiDirs->{$path} or warn "no mapping for [$path]", next;
+	my $dirDest = $map->{dest} or die "no destination directory for [$path] " . Dumper( $map );
+
+	# handle directories (path ends with /?, if so, mirror directory structure)
+	mkpath( "$dirDest/$base" ), next if $base =~ m|/$|;
+
+	push @text, $file;
+
+	# install the file by moving it from the staging area
+	my $destFile = "$dirDest/$base";
+	mv( "$INSTALL/$file", $destFile ) or warn "$INSTALL/$file -> $destFile: $!";
+	chmod $map->{perms}, $destFile if $map->{perms};
+
+	# only Plugins have to be enabled (i.e., Contribs and Skins are "always on")
+	if ( my ( $plugin ) = $file =~ m|^lib/Foswiki/Plugins/(.+Plugin).pm$| ) {
+	    ++$plugins->{$plugin};
+	}
+
+	# semi-KLUDGEy implementation to support ScriptSuffix
+	if ( $path eq 'bin' && $base !~ /\./ ) {		# process extension-less files
+	    my $origFile = $destFile;
+	    $destFile .= $localDirConfig->{ScriptSuffix};
+	    mv( $origFile, $destFile ) or die "$origFile -> $destFile: $!";
+
+	    # TODO: use an exception here!!!
+	    # patch perl path for local installation
+	    local $/ = undef;
+	    open( BIN, '<', $destFile ) or warn "unable to change perl path for $destFile: $!", next;
+	    my $bin = <BIN>;
+	    close BIN;
+	    $bin =~ s|/usr/bin/perl|$perl|;
+
+	    open( BIN, '>', $destFile ) or warn "unable to change perl path for $destFile: $!", next;
+	    print BIN $bin;
+	    close BIN;
+	}
+    }
+
+    rmtree $INSTALL;
+
+    return ( \@text, 1, $plugins );
+}
+
+################################################################################
+################################################################################
+package Archive::Zip::CommandLine;
+
+use constant AZ_OK           => 0;
+use constant AZ_ERROR        => 2;
+
+sub new
+{
+    my $class = shift;
+    my $self = bless( {
+	'fileName'                    => ''
+	},
+		      $class
+		      );
+#    $self->{'members'} = [];
+    if (@_)
+    {
+	my $status = $self->read(@_);
+	return $status == AZ_OK ? $self : undef;
+    }
+    return $self;
+}
+
+sub read
+{
+    my ( $self, $filename ) = @_;
+    $self->{fileName} = Cwd::abs_path( $filename );
+    return
+	-e $filename
+	? AZ_OK
+	: AZ_ERROR;
+}
+
+sub extractTree
+{
+    my ( $self, undef, $tmpInstall ) = @_;
+
+    $self->{extractedDir} = $tmpInstall;
+    system( 'unzip', '-qq', $self->{fileName}, '-d' => $self->{extractedDir} );
+}
+
+sub memberNames
+{
+    my ( $self ) = @_;
+    chomp( my @a = grep { !/^\.$/ } `cd $self->{extractedDir}; find .` );
+    @a = map { $_ .= '/' if -d "$self->{extractedDir}/$_"; $_ } @a;
+    @a = map { s|^(\./)||; $_ } @a;
+    return @a;
+}
+
+################################################################################
+
+1;

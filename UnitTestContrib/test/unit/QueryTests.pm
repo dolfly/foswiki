@@ -180,8 +180,6 @@ sub test_num_uops {
     $this->check("d2n '".Foswiki::Time::formatTime(0,'$iso')."'", 0);
     $this->check("length attachments", 2);
     $this->check("length META:PREFERENCE", 5);
-    $this->check("length 'five'", 4);
-    $this->check("length info", 4);
 }
 
 sub test_num_bops {
