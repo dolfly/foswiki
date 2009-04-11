@@ -112,7 +112,6 @@ Render parent meta-data
 sub renderParent {
     my ( $this, $web, $topic, $meta, $ah ) = @_;
     my $dontRecurse = $ah->{dontrecurse} || 0;
-    my $depth       = $ah->{depth}       || 0;
     my $noWebHome   = $ah->{nowebhome}   || 0;
     my $prefix      = $ah->{prefix}      || '';
     my $suffix      = $ah->{suffix}      || '';
@@ -134,11 +133,8 @@ sub renderParent {
     $parent = $parentMeta->{name} if $parentMeta;
 
     my @stack;
-    my $currentDepth = 0;
-    $depth = 1 if $dontRecurse;
 
     while ($parent) {
-        $currentDepth++;
         ( $pWeb, $pTopic ) =
           $this->{session}->normalizeWebTopicName( $pWeb, $parent );
         $parent = $pWeb . '.' . $pTopic;
@@ -149,10 +145,8 @@ sub renderParent {
         $text = $format;
         $text =~ s/\$web/$pWeb/g;
         $text =~ s/\$topic/$pTopic/g;
-        if( ! $depth or $currentDepth == $depth ) {
-            unshift( @stack, $text );
-        }
-        last if $currentDepth == $depth;
+        unshift( @stack, $text );
+        last if $dontRecurse;
         $parent = $store->getTopicParent( $pWeb, $pTopic );
     }
     $text = join( $usesep, @stack );

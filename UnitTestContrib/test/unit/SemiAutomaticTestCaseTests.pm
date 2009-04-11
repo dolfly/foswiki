@@ -40,7 +40,7 @@ sub run_testcase {
     my ( $this, $testcase ) = @_;
     my $query = new Unit::Request({
         test=>'compare',
-        debugenableplugins=>'TestFixturePlugin,SpreadSheetPlugin,InterwikiPlugin',
+        debugenableplugins=>'TestFixturePlugin,InterwikiPlugin',
         skin=>'pattern'});
     $query->path_info( "/TestCases/$testcase" );
     $Foswiki::cfg{Plugins}{TestFixturePlugin}{Enabled} = 1;
