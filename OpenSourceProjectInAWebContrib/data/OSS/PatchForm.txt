@@ -1,0 +1,11 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---+ Form Definition Patch Topics
+
+| *Name:*| *Type:* | *Size:* | *Values:* | *Tooltip message:* | *Attributes* |
+| PatchStatus | select | 1 | | Set status of patch | |
+| PatchVersion | text | 32 | | Version of the patch (optional) | |
+| PatchSubmittedBy | text | 32 | | Who submitted patch | |
+| PatchHandledBy | text | 32 | | Who included the patch in mainline code | |
+| PatchForVersion | select | 1 | | The version of %PROJECTNAME% the patch is made for | |
+| PatchDependencies | text | 32 | None | Other patches that this patch depends on | |
+| ScheduledForVersion | select | 1 | | The version of %PROJECTNAME% the patch will be included in | |

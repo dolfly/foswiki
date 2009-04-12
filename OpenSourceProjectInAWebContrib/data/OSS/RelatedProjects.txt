@@ -1,0 +1,15 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---+ Projects Related to %PROJECTNAME%
+
+This topic lists all the projects that are somehow related to %PROJECTNAME%.
+
+   * Web frontends, Projects that includes %PROJECTNAME%, Scripts that can be executed from %PROJECTNAME%, etc, etc.
+
+You can submit new projects using the form at the bottom. This pages searches and lists all related projects.
+
+---++ %PROJECTNAME% Related Project List
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Project* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "form.name = 'RelatedProjectsForm'" excludetopic="RelatedProjectsTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]* <br />$formfield(ProjectSummary) | $formfield(ProjectSubmitter) |$date<br /> $wikiusername |"}%
+
+%INCLUDE{CreateRelatedProjectTopic}%

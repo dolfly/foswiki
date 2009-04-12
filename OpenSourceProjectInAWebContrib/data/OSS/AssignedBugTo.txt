@@ -1,0 +1,8 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="BugReportForm"}%
+---++ Assigned Bug To
+
+Name of person the bug resolution is assigned to. Use Wiki Name. e.g. <nop>Main.KennethLavrsen
+
+If the bug resolution is being done by a specific person the name is added in this field. Anyone else is still welcome to come with a resolution. And you know who to contact to discuss solutions.
+

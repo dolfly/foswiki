@@ -1,0 +1,14 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="BugReportForm"}%
+---++ Bug Status
+There are only few status fields in the %PROJECTNAME% bug reports to keep things simple.
+
+| *Name* | *Type* | *Tooltip message* |
+| New | option | New bugs, bugs not yet resolved are in this state. |
+| Assigned | option | Bug resolution has been assigned to a specific developer. |
+| Resolved | option | Bugs that are resolved but not yet implemented in a released version. |
+| Released | option | Bug is resolved and fix is implemented in a released version of the program. |
+| Duplicate | option | Duplicate of already reported bug. |
+| Monitored | option | Bugs that cannot be reproduced or may turn out not to be bugs later. |
+| Rejected | option | Rejected. The most controversal state and should always be justified to respect the users. Bugs can be rejected because:<br>- Behavour is as designed and not regarded as a bug.<br>- Feature request - not a bug.<br>- The bug cannot be reproduced by anyone and has been in monitor state for a long time.<br>- Bug is related to using old version of the program or old version of shared libraries or non-compatible hardware and we will not implement the compatibility |
+

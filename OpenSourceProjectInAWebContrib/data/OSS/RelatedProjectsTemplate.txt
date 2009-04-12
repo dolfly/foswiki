@@ -1,0 +1,38 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%STARTSECTION{type="templateonly"}%
+   * __Note:__ Do not edit this topic. Go to FeatureRequests
+   * Set ALLOWTOPICCHANGE = Main.AdminGroup
+%ENDSECTION{type="templateonly"}%
+---+ %FORMFIELD{"ProjectSummary"}%
+
+---++ Introduction
+Please introduce your project.
+
+What does it do?
+
+---++ Detailed Description
+
+Give more details as required
+
+---++ Attached Files
+Describe attached files if any
+
+---++ Installation
+
+What do you need to install before?
+
+How do you install the program? (assume talking to a newbie)
+
+---++ Users Guide
+
+How do you use the project?
+
+---++ Comments and Bug Reports
+---
+%COMMENT{type="abovewithline"}%
+
+%META:FORM{name="RelatedProjectsForm"}%
+%META:FIELD{name="ProjectSummary" title="ProjectSummary" value=""}%
+%META:FIELD{name="ProjectStatus" title="ProjectStatus" value="Planning"}%
+%META:FIELD{name="ReleaseVersion" title="ReleaseVersion" value=""}%
+%META:FIELD{name="ProjectSubmitter" title="ProjectSubmitter" value=""}%

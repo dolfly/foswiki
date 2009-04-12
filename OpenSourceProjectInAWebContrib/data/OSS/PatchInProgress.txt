@@ -1,0 +1,6 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="PatchStatus"}%
+---++ Patch In Progress
+Patch is being coded but no files released yet.
+
+Topic is open for discussion of the feature

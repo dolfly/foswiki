@@ -1,0 +1,39 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---+ Patches for %PROJECTNAME%
+
+---++ Patches Planned
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Patch Summary* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "PatchStatus='PlannedPatch'" excludetopic="PatchEditTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]*: $summary | $formfield(PatchSubmittedBy) | $date<br /> $wikiusername |"}%
+
+---++ Patches in Progress
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Patch Summary* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "PatchStatus='PatchInProgress'" excludetopic="PatchEditTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]*: $summary | $formfield(PatchSubmittedBy) |$date<br /> $wikiusername |"}%
+
+---++ Patches being Tested
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Patch Summary* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "PatchStatus='PatchTesting'" excludetopic="PatchEditTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]*: $summary | $formfield(PatchSubmittedBy) |$date<br /> $wikiusername |"}%
+
+---++ Patches Released / Not Included in %PROJECTNAME%
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Patch Summary* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "PatchStatus='ReleasedNotIncluded'" excludetopic="PatchEditTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]*: $summary | $formfield(PatchSubmittedBy) |$date<br /> $wikiusername |"}%
+
+---++ Patches Released and Included in %PROJECTNAME% Snapshot
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Patch Summary* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "PatchStatus='ReleasedSnapshot'" excludetopic="PatchEditTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]*: $summary | $formfield(PatchSubmittedBy) |$date<br /> $wikiusername |"}%
+
+---++ Patched Released and Included in %PROJECTNAME%
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Patch Summary* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "PatchStatus='ReleasedIncluded'" excludetopic="PatchEditTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]*: $summary | $formfield(PatchSubmittedBy) |$date<br /> $wikiusername |"}%
+
+---++ Patches That are Cancelled
+%TABLE{columnwidths="70%, 15%, 15%"}%
+| *Patch Summary* | *Submitted By* | *Topic Last Updated* |
+%SEARCH{ "PatchStatus='PatchCancelled'" excludetopic="PatchEditTemplate" casesensitive="on" type="query" nosearch="on" format="| *[[$topic]]*: $summary | $formfield(PatchSubmittedBy) |$date<br /> $wikiusername |"}%
+
+%INCLUDE{CreatePatchTopic}%

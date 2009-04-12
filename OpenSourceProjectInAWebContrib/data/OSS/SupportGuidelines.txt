@@ -1,0 +1,60 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="CreateSupportQuestion"}%
+---+ %PROJECTNAME% Support Guidelines
+
+%PROJECTNAME% support is provided by users and developers _in their spare time_ - nobody is paid to do this.  So it's important that you provide enough information in your support question to resolve your problem in an efficient way - hence these guidelines.
+
+---++ Do not email developers or project maintainer directly
+Supporting %PROJECTNAME% takes hours every week for the maintainers. It takes around 15-30 minutes to answer a support question.
+
+Answers given on the [[Support Requests]] pages or on the [[Mailing List]] can benefit 1000s of people in the future. And many experienced %PROJECTNAME% users help answering questions every day.
+
+Private emails only help one person.
+
+Project maintainers and developers likes to help and support questions are normally answered within a few days.
+
+---++ 'How do I do this?' questions
+
+Questions about whether %PROJECTNAME% can do something are fine and don't need all the installation specifics (operating system, libraries etc.). However, please supply the *%PROJECTNAME% version* you are using.
+
+And if you are not using the latest version (currently %LATESTVERSION%) you should probably try that first.
+
+---++ 'Something is not working' questions 
+
+For all other questions, which are *where something is not working*, please read the rest of this page and supply full details.
+
+---++ Check for Known Issues
+See the [[Frequently Asked Questions]] and [[Bug Reports]].
+
+---++ Asking yourself the right questions
+
+Any support request that just says "it's not working" is __basically useless__ - it doesn't help anyone understand exactly what is going on, which is an essential step to fixing your problem.  
+
+Some key questions to ask yourself are:
+
+   * *What* happens?  Symptoms are good, but what are the exact error messages, in console *and* the system error logs?
+   * *When* does the problem happen?  What were you doing?  Does it happen on all the time?  
+   * Did you just change your %PROJECTNAME% setup, e.g. activating new feature, adding new hardware, upgrading your kernel or changing the %PROJECTNAME% config file?
+
+---++ What's needed
+
+Please provide *at least* the following information - additional detail is welcome where relevant.
+
+---+++ %PROJECTNAME% version info
+   * %PROJECTNAME% Version. And if your version is not the latest - please try this first! Your problem may have been solved. It can also be that a newer version does not work but an older does. Then it is important to know also the old version number.
+
+---+++ Kernel version
+   * Version of your kernel and if you customized it.
+
+---+++ Shared Libraries Info
+   * Version of all relevant libraries
+
+---+++ Error info
+   * Any output in the syslog (typically /var/log/messages)
+   * Any output to the console. Try in non-daemon mode to get more output
+   * The entire output from running =make=
+
+---+++ Config info
+   * Your config file(s)
+You can attach files to the question.
+

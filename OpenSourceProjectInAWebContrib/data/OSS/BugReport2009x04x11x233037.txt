@@ -1,0 +1,31 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="BugReports"}%
+---+ BUG: %FORMFIELD{"TopicTitle"}%
+
+Nothing is really wrong
+
+<verbatim>
+One
+Two
+Three
+</verbatim>
+
+---++ Environment
+
+|     %PROJECTNAME% version: | 1.10 |
+|          Shared libraries: | hellolib |
+|                 Server OS: | Ubuntu 6 |
+
+-- Main.KennethLavrsen - 11 Apr 2009
+
+---++ Follow up
+
+
+---++ Fix record
+
+%META:FORM{name="BugReportForm"}%
+%META:FIELD{name="TopicTitle" attributes="" title="TopicTitle" value="Test report that can be deleted 2"}%
+%META:FIELD{name="BugStatus" attributes="" title="BugStatus" value="Assigned"}%
+%META:FIELD{name="AssignedBugTo" attributes="" title="AssignedBugTo" value="Main.KennethLavrsen"}%
+%META:FIELD{name="SubmittedBy" attributes="" title="SubmittedBy" value="Main.KennethLavrsen"}%
+%META:REVCOMMENT{ncomments="0"}%

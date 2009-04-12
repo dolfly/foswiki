@@ -1,0 +1,9 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="RelatedProjects"}%
+---+ Form Definition Related Projects
+
+| *Name:*| *Type:* | *Size:* | *Values:* | *Tooltip message:* | *Attributes* |
+| ProjectSummary | text | 100 | | One line summary of project | |
+| ProjectStatus | select | 1 | | Set status of project | |
+| ReleaseVersion | text | 32 | | Version of released file (optional) | |
+| ProjectSubmitter | text | 60 | | Who submitted the project | |

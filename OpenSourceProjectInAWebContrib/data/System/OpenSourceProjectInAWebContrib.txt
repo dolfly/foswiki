@@ -1,0 +1,64 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---+!! Open Source Project In A Web Contrib
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = A complete Foswiki application for an open source project incl structure, bug reporting, feature requests etc. It is also a toolbox of good examples of applications consisting of data forms, templates and formatted searches.
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+This Contrib contains a web called OSS (Open Source Software). It is a generic version of all the applications used for the open source projects [[http://www.lavrsen.dk/foswiki/bin/view/Motion/WebHome][Motion]] and [[http://www.lavrsen.dk/foswiki/bin/view/Open2300/WebHome][Open2300]]. This web is a complete Foswiki application for an open source project.
+
+But it is also a resource of ideas and inspiration for anyone that wants to build applications similar to the ones this project contains. It is always difficult to start from scratch. This Contrib enables a Foswiki application builder to take something that works and modify it to the needs of his/her organisation.
+
+This contrib contains the following applications
+
+   * Bug Reports - People can raise bug reports and the developers can take it through a normal bug report life cycle.
+   * Support Requests - People can ask for help and the community and developers can follow up with possible solutions.
+   * Program Patches - An application where project developers as well as casual contributors can describe planned project enhancements and provide code for them (patches). 
+   * Feature Requests - People can ask for new features and developers can discuss, accept and implement or reject.
+   * Related Projects - Often open source projects spin off sub projects or small tools. This application allows a community member to share these with the other members.
+
+The contrib also contains the structure for a User Guide, Installation Guide, Frequently Asked Questions, and development Roadmap.
+
+The idea is that you can setup a website for an open source project simply by installing Foswiki on a server and install this contrib. And after having setup the name of your project in the !WebPreferences topic in the OSS web and renamed the OSS web to the name of your project, you are ready to put it in production.
+
+For those of you that do not need to setup an open source project but just want to pick parts of the web, the easiest way is to install the Contrib and look at the !WebHome of the OSS web. It describes which topics are used for which applications and then it is a simple matter of picking what you need.
+
+The applications contains the following elements
+
+   * %SYSTEMWEB%.DataForms definitions where you can see how to define a dataform
+   * Topics showing the data like a database lookup and presenting the result in neat tables - using formatted query searches based on data in forms
+   * Topics containing HTML forms from which you can create new bug reports, feature requests etc in a way that guides the user and ensures the right data is submitted
+   * Examples how to implement an application which by simple means adds life cycle management
+   * The use of multiple topic templates to define how a new topic looks like when submitted from different topic creation forms.
+   * An example of how to define a simple basic structure in a wiki so both new and old members of a community can collaborate in a wiki environment and still feel guided to maintain a formal structure that ensures people can find the information.
+
+---++ Installation Instructions
+
+The contrib contains two directories =data/OSS= which contains all the topics, and =data/System= which contains only this topic you are reading now.
+
+You can install the Contrib these ways.
+   * Download and install the tgz or zip manually by unpacking the files so you get an OSS directory in the data directory. You can rename the OSS directory to the name of your project at file level. Nothing in the Contrib depends on the name of the web. (Requires file access to the server)
+   * Install the contrib using configure (requires admin rights to configure= 
+   * Download and unpack the topics to any computer. And then create the web and the topics manually on the server through the web interface and copy/paste the text from the unpacked text files and paste them into the new topics. Remember to use Edit Raw when you paste in the text in the new topics. (Requires only normal user access to the server via your webbrowser)
+   
+---++ Demo Site
+
+http://www.lavrsen.dk/foswiki/bin/view/Application/OSS/WebHome contains a live running version of the Contrib. Here you can also see the list of the provided files without having to download the contrib first.
+
+---++ Info
+
+|  Author(s): | Foswiki:Main.KennethLavrsen |
+|  Copyright: | &copy; 2005-2009 Main.KennethLavrsen |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Version: | 2.0 (12 Apr 2009) |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  2.0 (12 Apr 2009) | All topics rewritten to <br />- Topic format 1.1 <br />- Name space change to Foswiki<br />- Regex searches replaced by query searches<br />- Improvements to the templates and submit forms<br />- Packaged as a Contrib and uploaded to foswiki.org |
+|  1.0 (04 Sep 2005) | Original release - published on the Kenneth Lavrsen's Motion and Open2300 Wiki |
+|  Dependencies: | None. Only default extensins are used. |
+|  Home page: | http://foswiki.org/Extensions/OpenSourceProjectInAWebContrib |
+|  Support: | http://foswiki.org/Support/OpenSourceProjectInAWebContrib |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->

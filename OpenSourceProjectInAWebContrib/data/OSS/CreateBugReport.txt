@@ -1,0 +1,24 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+#SubmitNewBug
+---++ Submit New Bug Report
+
+This form starts a new topic for each bug.
+
+   * Consider filing a [[SupportRequests][Support Request]] unless you are very sure you have found a bug.
+   * %X% Note that you can attach your motion config files and other supporting files to the bug report once it has been created.
+   * %X% Also note that if you want to copy/paste error logs and error messages and similar into a bug report you should put the entire text within &lt;verbatim&gt; and &lt;/verbatim&gt; tags. Otherwise you do not get any line breaks. Text pasted into the "Verbatim Text" field are automatically placed between VERBATIM tags.
+
+<form name="newbug" action="%SCRIPTURL{"edit"}%/%WEB%/" method="post">
+%TABLE{ headeralign="left" }%
+| *Topic name:* | !BugReport%GMTIME{"$yearx$mox$dayx$hour$min$sec"}%||
+| *Title* | <input type="text" name="TopicTitle" size="70" class="foswikiInputField" /> Short Title ||
+| *Description:* | <textarea name="Description" wrap="virtual" rows="8" cols="80" class="foswikiInputField" style="width: 99%"></textarea>||
+| *Verbatim Text:* | <textarea name="verbatimtext" wrap="off" rows="12" cols="80" class="foswikiInputField" style="width: 99%">Paste in your error messages, config settings, terminal window output etc in this text field.</textarea> ||
+|__Note:__ Be descriptive; the SupportGuidelines tell you what to include. You can expand on it in the next screen if necessary |||
+| *%PROJECTNAME% version:*  | <input type="text" name="version" size="20" value="%LATESTVERSION%" class="foswikiInputField" /> | __Example:__ <nop>%LATESTVERSION% |
+| *Libraries installed:*  | <input type="text" name="libraries" value="replace with library names" size="40" class="foswikiInputField" /> | mysql, postgresql |
+| *Server OS:*  | <input type="text" name="os" size="40" class="foswikiInputField" /> | <nop>Fedora Core 4, kernel 2.6.12, Win XP |
+| *Submitted By* | <input type="text" name="SubmittedBy" size="40" value="%WIKIUSERNAME%" class="foswikiInputField" /> | Use the prefix *Main.* in front of your Wiki name. |
+| &nbsp; <input type="hidden" name="topic" size="40" value="BugReport%GMTIME{"$yearx$mox$dayx$hour$min$sec"}%" /> <input type="hidden" name="onlywikiname" value="on" /> <input type="hidden" name="templatetopic" value="BugReportTemplate" /> <input type="hidden" value="New" name="BugStatus" /> <input type="hidden" name="topicparent" value="%INCLUDINGTOPIC%" /> | <input type="submit" value="Create Bug Report" class="foswikiButton" /> | __Note:__ Report is submitted after you *Create* and *Save* the following page |
+</form>
+

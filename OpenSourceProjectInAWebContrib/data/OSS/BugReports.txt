@@ -1,0 +1,56 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---+ Bug Reports
+
+The %PROJECTNAME% Bug Reporting is here for you if wish to report a bug in %PROJECTNAME%. 
+
+%INCLUDE{"CreateBugReport"}%
+
+
+---++ New Bugs
+Not yet assigned to anyone.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "BugStatus = 'New'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="BugReportTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Assigned Bugs
+Assigned to someone - feel free to help resolving it anyway.
+
+%TABLE{columnwidths="50%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* | *Assigned To* |
+%SEARCH{ "BugStatus = 'Assigned'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="BugReportTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername | $formfield(AssignedBugTo) |"}%
+
+---++ Resolved Bugs
+Bugs with a fix. The fix is not yet in a released version of %PROJECTNAME%. See also ProgramPatches which contains patches for both new features, enhancements and bug fixes.
+
+%TABLE{columnwidths="55%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* | *Assigned To* |
+%SEARCH{ "BugStatus = 'Resolved'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="BugReportTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername | $formfield(AssignedBugTo) |"}%
+
+---++ Released Bug Fixes
+Bugs that have been fixed and the fix is in a released version of %PROJECTNAME%.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "BugStatus = 'Released'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="BugReportTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Monitored Bugs
+Bugs either cannot be reproduced, waiting for additional info or we believe it has been fixed in a new version.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "BugStatus = 'Monitored'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="BugReportTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Rejected Bugs
+Bugs that have been rejected (most often because it turned out to be something else than a bug in %PROJECTNAME%).
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "BugStatus = 'Rejected'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="BugReportTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Duplicate Bugs
+Bugs that are duplicates of others.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "BugStatus = 'Duplicate'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="BugReportTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%

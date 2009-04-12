@@ -1,0 +1,11 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---++ Mailing List
+
+%PROJECTNAME% has a mailing list.
+
+   * http://replace.this.with.real.url.of/mailinglist
+The mails address is
+
+   * replace.with@real.mailinglist.address
+
+%X% Posting is only allowed by members of the mailing list.

@@ -1,0 +1,36 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="SupportRequests"}%
+---++ Ask a Support Question:
+
+Before you ask a question, please check:
+
+   * *[[User Guide]]* - Describes how to use the programs.
+
+   * *[[Installation Guide]]* - Describes how to install %PROJECTNAME% programs
+
+   * *[[Frequently Asked Questions]]*
+
+   * *Questions already answered*
+      * AnsweredQuestions lists questions that are already answered. %BR% (Use WebSearch to find answers to your question that are already written - faster than waiting for a new answer!)
+
+   * *How to ask a new question*
+      * Each question is a wiki topic - _please ask a new question in a new topic_, rather than adding to a current one where it can get lost. 
+      * *%RED%Please read* the SupportGuidelines *now* so that you know what information to include, helping you get a quick and useful answer - filling in this form is not enough for installation problems%ENDCOLOR%
+      * You need username and password to edit pages - please create your own account in System.UserRegistration.
+      * %X% Once you submit the form below you are taken to the new support topic in *edit* mode where you have the chance to write more information. You need to *save* this page to really create the support topic.
+      * After the topic is created you can edit it again as often as you want and you can attach files (e.g. your config files) to the topic.
+      * In case you find the answer by yourself after submitting a question: We would appreciate if you could document this here in your question and set the SupportStatus to AnsweredQuestions. That way you help making the Support web self-organized and more useful.
+      * %X% Foswiki will not make line breaks unless there is an empty line. If you copy and paste config file text or error text into the support question topic it looks awful and unreadable. To fix this put your text between a line that says &lt;verbatim&gt; and one that says &lt;/verbatim&gt;. The default text already have these tags. Paste in your text between these verbatim tags.%BR%%BR%
+      <form name="newbug" action="%SCRIPTURL{"edit"}%/%WEB%/" method="post">
+      %TABLE{ headeralign="left" }%
+      | *Topic name:* | !SupportQuestion%GMTIME{"$yearx$mox$dayx$hour$min$sec"}%||
+      | *Title* | <input type="text" name="TopicTitle" size="70" class="foswikiInputField" /> Short Title ||
+      | *Question:* | <textarea name="question" wrap="virtual" rows="12" cols="80" class="foswikiInputField" style="width: 99%"></textarea>||
+      | *Verbatim Text:* | <textarea name="verbatimtext" wrap="off" rows="12" cols="80" class="foswikiInputField" style="width: 99%">Paste in your error messages, config settings, terminal window output etc in this text field.</textarea> ||
+      |__Note:__ Be descriptive; the SupportGuidelines tell you what to include. You can expand on it in the next screen if necessary |||
+      | *%PROJECTNAME% version:*  | <input type="text" name="version" size="20" value="%LATESTVERSION%" class="foswikiInputField" /> | __Example:__ <nop>%LATESTVERSION% |
+      | *Libraries installed:*  | <input type="text" name="libraries" size="40" class="foswikiInputField" /> | Names of essential libraries |
+      | *Server OS:*  | <input type="text" name="os" size="40" class="foswikiInputField" /> | <nop>Fedora Core 9, kernel 2.6.12, Windows XP |
+      | *Submitted By* | <input type="text" name="SubmittedBy" size="40" value="%WIKIUSERNAME%" class="foswikiInputField" /> | Write your !WikiName prefixed by 'Main.' |
+      | &nbsp; <input type="hidden" name="topic" size="40" value="SupportQuestion%GMTIME{"$yearx$mox$dayx$hour$min$sec"}%" /> <input type="hidden" name="onlywikiname" value="on" /> <input type="hidden" name="templatetopic" value="SupportEditTemplate" /> <input type="hidden" value="AskedQuestions" name="SupportStatus" /> <input type="hidden" name="topicparent" value="%INCLUDINGTOPIC%" /> | <input type="submit" value="Create question page" class="foswikiButton" /> | __Note:__ Question is submitted after you *Create* and *Save* the following page |
+      </form>

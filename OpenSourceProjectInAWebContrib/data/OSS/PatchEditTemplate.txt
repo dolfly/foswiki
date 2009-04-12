@@ -1,0 +1,27 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---+ %URLPARAM{"PatchTitle"}%
+
+---++ Description of Patch
+
+%URLPARAM{"Description"}%
+
+---++ Installation of Patch
+
+---++ Change History of Patch
+<!--
+Please version your patch files and help project maintainer by making short description (1-2 lines) for the CHANGELOG file.
+-->
+
+---++ Discussion and Comments
+
+---
+%COMMENT%
+
+%META:FORM{name="PatchForm"}%
+%META:FIELD{name="PatchStatus" attributes="" title="PatchStatus" value="PlannedPatch"}%
+%META:FIELD{name="PatchVersion" attributes="" title="PatchVersion" value=""}%
+%META:FIELD{name="PatchSubmittedBy" attributes="" title="PatchSubmittedBy" value=""}%
+%META:FIELD{name="PatchHandledBy" attributes="" title="PatchHandledBy" value=""}%
+%META:FIELD{name="PatchForVersion" attributes="" title="PatchForVersion" value="Select one..."}%
+%META:FIELD{name="PatchDependencies" attributes="" title="PatchDependencies" value=""}%
+%META:FIELD{name="ScheduledForVersion" attributes="" title="ScheduledForVersion" value="NotScheduled"}%

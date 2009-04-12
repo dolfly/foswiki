@@ -1,0 +1,31 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="CreateSupportQuestion"}%
+---+ %FORMFIELD{"TopicTitle"}%
+ <!-- Do not edit title above. Edit the TopicTitle field in the form at the bottom -->
+
+---++ Question
+
+I want to create a support question but I do not know how to write so we know it is a test?
+
+<verbatim>
+My typewriter writes like this
+And like this
+And this is really a test
+</verbatim>
+
+---++ Environment
+
+| %PROJECTNAME% version: | 1.10  |
+|  Libraries: | |
+|  Server OS: | |
+
+-- Main.KennethLavrsen - 12 Apr 2009
+
+---++ Answer
+
+%META:FORM{name="SupportForm"}%
+%META:FIELD{name="TopicTitle" attributes="" title="TopicTitle" value="How do I create a test support question?"}%
+%META:FIELD{name="SupportStatus" attributes="" title="SupportStatus" value="AssignedQuestions"}%
+%META:FIELD{name="AssignedQuestionTo" attributes="" title="AssignedQuestionTo" value="Main.KennethLavrsen"}%
+%META:FIELD{name="SubmittedBy" attributes="" title="SubmittedBy" value="Main.KennethLavrsen"}%
+%META:REVCOMMENT{ncomments="0"}%

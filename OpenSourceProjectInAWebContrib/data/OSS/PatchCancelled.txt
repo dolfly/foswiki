@@ -1,0 +1,11 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="PatchStatus"}%
+---++ Patch Cancelled
+
+Patch is cancelled.
+
+There can be many reasons.
+   * no time to do it
+   * does not work
+   * alternative patch is better
+   * another good reason

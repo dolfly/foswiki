@@ -1,0 +1,18 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---++ Create New Related Project Topic
+
+To post a new project related to %PROJECTNAME% all you have to do is to fill out the form below and submit it.
+
+You do not have to use the topic to store your project. You can use the topic to present a short description of your project and link to an external web site if you wish (for example a Sourceforge project or your own web server)
+
+Note that the topic name must be a System.WikiWord.
+
+<form name="newpatch" action="%SCRIPTURL{"edit"}%/%WEB%/" method="post">
+%TABLE{ headeralign="left" }%
+| *Topic name:* | <input type="text" name="topic" size="50" class="foswikiInputField" /> | __Example:__ <nop>CoffeeMakingScript (use a System.WikiWord) |
+| *Project Summary* | <input type="text" name="ProjectSummary" size="80" class="foswikiInputField" /> ||
+| *Project Status* | <select name="ProjectStatus" class="foswikiSelect"> <option>Select one...</option><option>Planning</option><option>Alpha</option><option>Beta</option><option>Stable</option><option>Inactive</option> | Set status of project |
+| *Project Submitter* | <input type="text" name="ProjectSubmitter" value="%WIKIUSERNAME%" size="50" class="foswikiInputField" /> | Name of Submitter - Format !Main.WikiName |
+| &nbsp;<input type="hidden" name="onlywikiname" value="on" /> <input type="hidden" name="templatetopic" value="RelatedProjectsTemplate" /> | <input type="submit" value="Create Project Topic" class="foswikiButton" /> | __Note:__ Project topic is created after you complete and *Save* the next page |
+   * You need username and password to edit pages - please create your own account in System.UserRegistration.
+</form>

@@ -1,0 +1,7 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%META:TOPICPARENT{name="SupportRequests"}%
+---++ Assigned Questions 
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Age* | *Last Change* | * Assigned To * |
+%SEARCH{ "SupportStatus ='AssignedQuestions'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="SupportEditTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername | $formfield(AssignedQuestionTo) |"}%

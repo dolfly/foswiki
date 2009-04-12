@@ -1,0 +1,24 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+%STARTSECTION{type="templateonly"}%
+   * __Note:__ Do not edit this topic. Go to FeatureRequests
+   * Set ALLOWTOPICCHANGE = Main.AdminGroup
+%ENDSECTION{type="templateonly"}%
+---+ Feature Request: %FORMFIELD{"TopicTitle"}%
+
+---++ Description
+
+%URLPARAM{"Description"}%
+
+-- %WIKIUSERNAME% - %DATE%
+
+---++ Follow up
+
+
+---++ Comments
+
+%COMMENT{type="above"}%
+
+%META:FORM{name="FeatureRequestForm"}%
+%META:FIELD{name="TopicTitle" attributes="" title="TopicTitle" value=""}%
+%META:FIELD{name="FeatureRequestStatus" attributes="" title="FeatureRequestStatus" value="New"}%
+%META:FIELD{name="SubmittedBy" attributes="" title="SubmittedBy" value=""}%

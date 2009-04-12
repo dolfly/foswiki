@@ -1,0 +1,17 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---++ Create New Patch Topic
+
+To post a new patch all you have to do is to fill out the form below and submit it.
+
+Note that the topic name must be a System.WikiWord.
+
+<form name="newpatch" action="%SCRIPTURLPATH%/edit%SCRIPTSUFFIX%/%WEB%/" method="get">
+%TABLE{ headeralign="left" }%
+| *Topic name:* | <input type="text" name="topic" size="40" class="foswikiInputField" /> | __Example:__ <nop>CoffeeMakingPatch (use a System.WikiWord) |
+| *Patch Title* | <input type="text" name="PatchTitle" size="80" class="foswikiInputField" /> | Short title becomes header of topic |
+| *Description:* | <textarea name="Description" wrap="virtual" rows="8" cols="80" class="foswikiInputField" style="width: 99%"></textarea>||
+| *Patch Status* | <select name="Patch%NOP%Status" class="foswikiSelect"> <option>Select one...</option><option>PlannedPatch</option><option>PatchInProgress</option><option>PatchTesting</option><option>ReleasedNotIncluded</option><option>ReleasedSnapshot</option><option>ReleasedIncluded</option><option>PatchCancelled</option> | Set status of patch |
+| *Patch Submitted By* | <input type="text" name="PatchSubmittedBy" size="32" value="%WIKIUSERNAME%" class="foswikiInputField" /> | Who submitted patch - Format !Main.WikiName |
+| &nbsp;<input type="hidden" name="onlywikiname" value="on" /> <input type="hidden" name="templatetopic" value="PatchEditTemplate" /> | <input type="submit" value="Create Patch Topic" class="foswikiButton" /> | __Note:__ Patch topic is created after you complete and *Save* the next page |
+   * You need username and password to edit pages - please create your own account in System.UserRegistration
+</form>

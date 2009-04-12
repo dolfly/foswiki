@@ -1,0 +1,48 @@
+%META:TOPICINFO{author="ProjectContributor" date="1239540489" format="1.1" version="1.1"}%
+---+!! Feature Requests from Users
+
+%TOC%
+
+%INCLUDE{CreateFeatureRequest}%
+
+---++ New Feature Requests
+Submitted and not yet followed up on.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "FeatureRequestStatus='New'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="FeatureRequestTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Feature Requests Being Discussed
+Feature is being discussed. Participate by editing the topic. You can simply use the comment field at the bottom.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "FeatureRequestStatus='Discussion'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="FeatureRequestTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Accepted Feature Requests
+Feature is accepted. Maybe in a modified form after the discussion. We do not yet know who codes it or who when it will be included.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "FeatureRequestStatus='Accepted'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="FeatureRequestTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Feature Requests on the %PROJECTNAME% Roadmap
+There is a plan for when it will be implemented and someone has volunteered to do it.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "FeatureRequestStatus='Roadmap'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="FeatureRequestTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Implemented Feature Requests
+The feature is implemented and available at least in a snap release.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "FeatureRequestStatus='Implemented'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="FeatureRequestTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
+
+---++ Rejected Feature Requests
+The request is rejected. This state is also used if the feature is already in %PROJECTNAME% or it is a duplicate of existing request. Discussion can continue even if request is rejected. We may change our minds.
+
+%TABLE{columnwidths="65%"}%
+| *Headline* | *Submitted By* | *Age* | *Last Change* |
+%SEARCH{ "FeatureRequestStatus='Rejected'" casesensitive="on" type="query" nosearch="on" order="modified" reverse="on" excludetopic="FeatureRequestTemplate" format="| [[$topic][$formfield(TopicTitle)]]| $formfield(SubmittedBy) | $percntCALC{$ROUND($TIMEDIFF($TIME($createdate), $TODAY(), days)+1,0)}$percnt | $date<br /> $wikiusername |"}%
