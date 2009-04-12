@@ -3,6 +3,6 @@
 Who is in charge to find more information on the Question, for AssignedQuestions.
 
 His duty is to then change the Question status to either:
-	* AnsweredQuestions if he found the answer
-	* ClosedUnanswered if he found there could be no relevant answer
-	* AskedQuestions back to drawing board, if he couldn't find a solution, but there still may be one
+   * AnsweredQuestions if he found the answer
+   * ClosedUnanswered if he found there could be no relevant answer
+   * AskedQuestions back to drawing board, if he couldn't find a solution, but there still may be one

@@ -17,9 +17,9 @@
 
 ---++ Environment
 
-| %PROJECTNAME% version: | %URLPARAM{"version"}%	|
-|             Libraries: | %URLPARAM{"libraries"}%	|
-|             Server OS: | %URLPARAM{"os"}%	|
+| %PROJECTNAME% version: | %URLPARAM{"version"}% |
+|             Libraries: | %URLPARAM{"libraries"}% |
+|             Server OS: | %URLPARAM{"os"}% |
 
 -- %WIKIUSERNAME% - %DATE%
 
