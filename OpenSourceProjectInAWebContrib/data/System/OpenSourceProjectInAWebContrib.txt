@@ -41,7 +41,7 @@ The contrib contains two directories =data/OSS= which contains all the topics, a
 
 You can install the Contrib these ways.
    * Download and install the tgz or zip manually by unpacking the files so you get an OSS directory in the data directory. You can rename the OSS directory to the name of your project at file level. Nothing in the Contrib depends on the name of the web. (Requires file access to the server)
-   * Install the contrib using configure (requires admin rights to configure= 
+   * Install the contrib using configure (requires admin rights to configure)
    * Download and unpack the topics to any computer. And then create the web and the topics manually on the server through the web interface and copy/paste the text from the unpacked text files and paste them into the new topics. Remember to use Edit Raw when you paste in the text in the new topics. (Requires only normal user access to the server via your webbrowser)
    
 ---++ Demo Site
