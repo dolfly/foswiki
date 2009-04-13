@@ -96,7 +96,7 @@ sub _partInit
         } elsif ( $initStage == 2 ) {
 
             # Get redirect page
-            $redirectVia = $Foswiki::cfg{Plugins}{$pluginName}{RedirectVia} || "%SCRIPTURL%/rest/$pluginName/exit?url=";
+            $redirectVia = $Foswiki::cfg{Plugins}{$pluginName}{RedirectVia} || "%SCRIPTURL%/exit?url=";
             $redirectVia = Foswiki::Func::expandCommonVariables( $redirectVia, $topic, $web );
             Foswiki::Func::writeDebug( __PACKAGE__, "redirectVia = ${redirectVia}" ) if $debug;
 
@@ -132,7 +132,8 @@ sub initPlugin
     }
 
     # Register REST handler for exit redirector
-    Foswiki::Func::registerRESTHandler('exit', \&_restExit);
+    # Disabled until unauthorised REST handlers are possible.
+    #Foswiki::Func::registerRESTHandler('exit', \&_restExit);
 
     $initStage = 0;
     _partInit(1);
@@ -209,5 +210,16 @@ sub _restExit {
 }
 
 # =========================
+
+# Invoked via bin/exit
+
+sub exitRedirect {
+
+    my $session = shift;
+
+    Foswiki::Func::writeDebug( __PACKAGE__, "::exitRedirect()" ) if $debug;
+
+    _restExit( $session, "ExitPlugin", "exit", $session->{response} );
+}
 
 1;

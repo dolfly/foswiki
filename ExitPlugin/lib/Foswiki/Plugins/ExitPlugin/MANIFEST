@@ -1,2 +1,3 @@
+bin/exit 0755 CGI script
 data/System/ExitPlugin.txt 0644 Plugin doc page
 lib/Foswiki/Plugins/ExitPlugin.pm 0444 Plugin Perl module
