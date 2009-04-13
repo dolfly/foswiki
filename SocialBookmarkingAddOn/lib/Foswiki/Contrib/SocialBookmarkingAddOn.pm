@@ -20,6 +20,8 @@ use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION );
 $VERSION = '$Rev$'; # version of *this file*.
 # This is *not* the version of the package, which should be set in the
 # | Version: | line in the extension topic.
+$RELEASE = "1.0";
 
 $SHORTDESCRIPTION = 'Add social bookmarking links to a topic';
 
+1;

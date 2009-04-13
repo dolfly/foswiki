@@ -9,24 +9,91 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
----++ Examples
+To insert these onto a page you can use the =%<nop>INCLUDE%= macro with the appropiate section name for the site. For example, to add a button to Digg you can use the following:
+
+<verbatim>
+%INCLUDE{"System.SocialBookmarkingAddOn" section="digg" }%
+</verbatim>
+
+For more information about the =%<nop>INCLUDE%= macro, see VarINCLUDE.
+
+To save you needing to write a bunch of includes on each topic you want the bookmarks to appear on, you can create your own macro in [[%LOCALSITEPREFS%]] with the code below ([[%TOPICURL%?raw=on][see raw text]]):
+
+   * Set SOCIALBOOKMARKS = %INCLUDE{"System.SocialBookmarkingAddOn" section="delicious" }% %INCLUDE{"System.SocialBookmarkingAddOn" section="digg" }% %INCLUDE{"System.SocialBookmarkingAddOn" section="reddit" }% %INCLUDE{"System.SocialBookmarkingAddOn" section="facebook" }% %INCLUDE{"System.SocialBookmarkingAddOn" section="stumbleupon" }%
+
+Then in any topic the =%<nop>SOCIALBOOKMARKS%= macro will render as:
+
+%SOCIALBOOKMARKS%
+
+This can also be done in the [[%WEBPREFSTOPIC%]] topic, for a specific web, or in a topic.
+
+---++ Sites
+
+Here is a list of supported sites, along with the verbatim code you would use to include them.
+
+---+++ Delicious
+
+%STARTSECTION{"delicious"}% <a href="http://del.icio.us/post?url=%TOPICURL%&title=%BASETOPIC%"><img src="%ATTACHURLPATH%/delicious.gif" title="Post to Delicious" /></a> %ENDSECTION{"delicious"}%
+
+<verbatim>
+%INCLUDE{"System.SocialBookmarkingAddOn" section="delicious" }%
+</verbatim>
+
+---+++ Digg
+
+%STARTSECTION{"digg"}% <a href="http://digg.com/submit?url=%TOPICURL%&title=%BASETOPIC%"><img src="%ATTACHURLPATH%/digg.gif" title="Post to Digg" /></a> %ENDSECTION{"digg"}%
+
+<verbatim>
+%INCLUDE{"System.SocialBookmarkingAddOn" section="digg" }%
+</verbatim>
+
+---+++ Reddit
+
+%STARTSECTION{"reddit"}% <a href="http://reddit.com/submit?url=%TOPICURL%&title=%BASETOPIC%"><img src="%ATTACHURLPATH%/reddit.gif" title="Post to Reddit" /></a> %ENDSECTION{"reddit"}%
+
+<verbatim>
+%INCLUDE{"System.SocialBookmarkingAddOn" section="reddit" }%
+</verbatim>
+
+---+++ Facebook
+
+%STARTSECTION{"facebook"}% <a href="http://www.facebook.com/sharer.php?u=%TOPICURL%"><img src="%ATTACHURLPATH%/facebook.gif" title="Post to Facebook" /></a> %ENDSECTION{"facebook"}%
+
+<verbatim>
+%INCLUDE{"System.SocialBookmarkingAddOn" section="facebook" }%
+</verbatim>
+
+---+++ !StumbleUpon
+
+%STARTSECTION{"stumbleupon"}% <a href="http://www.stumbleupon.com/submit?url=%TOPICURL%&title=%BASETOPIC%"><img src="%ATTACHURLPATH%/stumbleupon.gif" title="Post to !StumbleUpon" /></a> %ENDSECTION{"stumbleupon"}%
+
+<verbatim>
+%INCLUDE{"System.SocialBookmarkingAddOn" section="stumbleupon" }%
+</verbatim>
+
+---++ Adding Other Sites
+
+Please feel free to modify this extension and add other sites. If you don't have access to the Foswiki SVN repository, please create a task at http://foswiki.org/Tasks/SocialBookmarkingAddOn and someone may check it in on your behalf.
 
 ---++ Installation Instructions
 
 %$INSTALL_INSTRUCTIONS%
 
----++ Info
-
-Many thanks to the following sponsors for supporting this work:
-   * Acknowledge any sponsors here
-
-|  Author(s): | |
-|  Copyright: | &copy; |
+|  Author(s): | Foswiki:Main.AndrewJones |
+|  Copyright: | &copy; 2009, Andrew Jones |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-|  Version: | %$VERSION% |
+|  Plugin Release: | 1.0 |
+|  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  13 April 2009: | Foswikitask:Item1446 - Initial version, with support for Delisious, Digg, Reddit, Facebook and !StumbleUpon - Foswiki:Main.AndrewJones |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Home page: | http://foswiki.org/bin/view/Extensions/SocialBookmarkingAddOn |
-|  Support: | http://foswiki.org/bin/view/Support/SocialBookmarkingAddOn |
+|  Home page: | http://foswiki.org/Extensions/SocialBookmarkingAddOn |
+|  Support: | http://foswiki.org/Support/SocialBookmarkingAddOn |
 
 <!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
+
+%META:FILEATTACHMENT{name="digg.gif" autoattached="1" comment="Digg Logo" date="1239655972" path="digg.gif" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="delicious.gif" autoattached="1" comment="Delicious Logo" date="1239655972" path="delicious.gif" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="reddit.gif" autoattached="1" comment="Reddit Logo" date="1239655972" path="reddit.gif" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="facebook.gif" autoattached="1" comment="Facebook Logo" date="1239655972" path="facebook.gif" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="stumbleupon.gif" autoattached="1" comment="!StumbleUpon Logo" date="1239655972" path="stumbleupon.gif" user="ProjectContributor" version="1"}%
