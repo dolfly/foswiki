@@ -9,7 +9,7 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
-To insert these onto a page you can use the =%<nop>INCLUDE%= macro with the appropiate section name for the site. For example, to add a button to Digg you can use the following:
+To insert these onto a page you can use the =%<nop>INCLUDE%= macro with the appropriate section name for the site. For example, to add a button to Digg you can use the following:
 
 <verbatim>
 %INCLUDE{"System.SocialBookmarkingAddOn" section="digg" }%
@@ -85,7 +85,7 @@ Please feel free to modify this extension and add other sites. If you don't have
 |  Plugin Release: | 1.0 |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  13 April 2009: | Foswikitask:Item1446 - Initial version, with support for Delisious, Digg, Reddit, Facebook and !StumbleUpon - Foswiki:Main.AndrewJones |
+|  13 April 2009: | Foswikitask:Item1446 - Initial version, with support for Delicious, Digg, Reddit, Facebook and !StumbleUpon - Foswiki:Main.AndrewJones |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/Extensions/SocialBookmarkingAddOn |
 |  Support: | http://foswiki.org/Support/SocialBookmarkingAddOn |

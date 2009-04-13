@@ -1,4 +1,8 @@
 # Release manifest for SocialBookmarkingAddOn
 data/System/SocialBookmarkingAddOn.txt 0644 Documentation
 lib/Foswiki/Contrib/SocialBookmarkingAddOn.pm 0644 Perl module
-pub/System/SocialBookmarkingAddOn/digg.gif Digg Image
+pub/System/SocialBookmarkingAddOn/digg.gif Digg Logo
+pub/System/SocialBookmarkingAddOn/delicious.gif Delicious Logo
+pub/System/SocialBookmarkingAddOn/reddit.gif Reddit Logo
+pub/System/SocialBookmarkingAddOn/facebook.gif Facebook Logo
+pub/System/SocialBookmarkingAddOn/stumbleupon.gif !StumbleUpon Logo
