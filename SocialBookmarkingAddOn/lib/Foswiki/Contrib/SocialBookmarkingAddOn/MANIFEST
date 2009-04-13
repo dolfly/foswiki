@@ -1,0 +1,4 @@
+# Release manifest for SocialBookmarkingAddOn
+data/System/SocialBookmarkingAddOn.txt 0644 Documentation
+lib/Foswiki/Contrib/SocialBookmarkingAddOn.pm 0644 Perl module
+
