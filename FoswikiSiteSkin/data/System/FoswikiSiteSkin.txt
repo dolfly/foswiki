@@ -57,6 +57,7 @@ To set Foswiki Site skin as default (site wide) skin, use these settings in [[%M
 |  Base Name: | foswikisite,pattern |
 |  Skin Version: | 10 Apr 2009 (v1.1.5) | 
 |  History: | <!-- specify latest version first -->&nbsp; |
+|  16 Apr 2009: | Foswikitask:Item1455: added SubscribePlugin support to FoswikiSiteSkin |
 |  10 Apr 2009: | Foswikitask:Item783: fixed "Create new topic" button to create topic in current web; Foswikitask:Item1432: provide button to return to normal view from raw view mode; Foswikitask:Item1436: rel="nofollow" on button action links |
 |  15 Feb 2009: | Main menu buttons are no longer hidden when viewed on a small screen; improvements to preview screen. |
 |  31 Jan 2009: | Renamed <nop>FoswikiDotOrgPatternSkinContrib to <nop>FoswikiSiteSkin; visual update, made CSS independent of PatternSkin. |
