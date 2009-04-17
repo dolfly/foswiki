@@ -15,7 +15,7 @@
 #
 ###############################################################################
 
-package TWiki::Plugins::FilterPlugin::Core;
+package Foswiki::Plugins::FilterPlugin::Core;
 use strict;
 
 use vars qw($currentTopic $currentWeb $mixedAlphaNum %seenAnchorNames $makeIndexCounter);
@@ -27,7 +27,7 @@ use constant DEBUG => 0; # toggle me
 sub init {
   ($currentWeb, $currentTopic) = @_;
 
-  $mixedAlphaNum = TWiki::Func::getRegularExpression('mixedAlphaNum');
+  $mixedAlphaNum = $Foswiki::regex{'mixedAlphaNum'};
   %seenAnchorNames = ();
   $makeIndexCounter = 0;
 }
@@ -45,7 +45,7 @@ sub handleFilterArea {
   $theAttributes ||= '';
   #writeDebug("called handleFilterArea($theAttributes)");
 
-  my %params = TWiki::Func::extractParameters($theAttributes);
+  my %params = Foswiki::Func::extractParameters($theAttributes);
   return handleFilter(\%params, $theMode, $theText);
 }
 
@@ -95,15 +95,15 @@ sub handleFilter {
   if ($theText) { # direct text
     $text = $theText;
   } else { # topic text
-    $text = &TWiki::Func::readTopicText($theWeb, $theTopic);
+    $text = &Foswiki::Func::readTopicText($theWeb, $theTopic);
     if ($text =~ /^No permission to read topic/) {
       return showError("$text");
     }
     if ($text =~ /%STARTINCLUDE%(.*)%STOPINCLUDE%/gs) {
       $text = $1;
       if ($theExpand eq 'on') {
-	$text = &TWiki::Func::expandCommonVariables($text, $currentTopic, $currentWeb);
-	$text = &TWiki::Func::renderText($text, $currentWeb);
+	$text = &Foswiki::Func::expandCommonVariables($text, $currentTopic, $currentWeb);
+	$text = &Foswiki::Func::renderText($text, $currentWeb);
       }
     }
   }
@@ -213,7 +213,7 @@ sub handleFilter {
   }
   $result = $theNullFormat unless $result;
   $result = $theHeader.$result.$theFooter;
-  $result = &TWiki::Func::expandCommonVariables($result, $currentTopic, $currentWeb)
+  $result = &Foswiki::Func::expandCommonVariables($result, $currentTopic, $currentWeb)
     if expandVariables($result);
 
   #writeDebug("result='$result'");
@@ -263,7 +263,7 @@ sub handleMakeIndex {
   $maxCols = 1 if $maxCols < 1;
 
   # compute the list
-  $theList = &TWiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
+  $theList = &Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
     if expandVariables($theList);
 
   #writeDebug("theList=$theList");
@@ -471,7 +471,7 @@ sub handleMakeIndex {
   expandVariables($theHeader, count=>$listSize, anchors=>$anchors);
   expandVariables($theFooter, count=>$listSize, anchors=>$anchors);
 
-  $result = &TWiki::Func::expandCommonVariables(
+  $result = &Foswiki::Func::expandCommonVariables(
     "<div class='fltMakeIndexWrapper'>".
       $theHeader.$result.$theFooter .
     "</div>",$theTopic, $theWeb);
@@ -509,7 +509,7 @@ sub handleFormatList {
 
   $theSeparator = ', ' unless defined $theSeparator;
 
-  $theList = &TWiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
+  $theList = &Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
     if expandVariables($theList);
 
   #writeDebug("theList='$theList'");
@@ -593,7 +593,7 @@ sub handleFormatList {
 
   my $result = $theHeader.join($theSeparator, @result).$theFooter;
   $result =~ s/\$count/$count/g;
-  $result = &TWiki::Func::expandCommonVariables($result, $theTopic, $theWeb)
+  $result = &Foswiki::Func::expandCommonVariables($result, $theTopic, $theWeb)
     if expandVariables($result);
 
   #writeDebug("result=$result");

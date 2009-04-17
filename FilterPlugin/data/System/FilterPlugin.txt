@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1223455374" format="1.1" reprev="1.2" version="$Rev$"}%
+%META:TOPICINFO{author="ProjectContributor" date="1223455374" format="1.1"  version="$Rev$"}%
 <!--
 
    PLEASE DO NOT EDIT THIS TOPIC
@@ -119,7 +119,7 @@ parameters:
    * pattern="...": pattern applied to each item (default "(.*)")
    * cols="...": maximum number of cols to split the list into
    * format="...": format of each list item (default "$item")
-   * sort="on/off": sort the list (default "on")
+   * sort="on,off,alpha,num,nocase": sort the list (default "on")
    * unique="on/off": removed duplicates (default "off")
    * exclude="...": pattern to check against items in the list to be excluded
    * reverse="on/off": reverse the list (default "off")
@@ -166,11 +166,8 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 }%
 
 ---++ Plugin Installation Instructions
-   * Download the ZIP file from the Plugin Home (see below)
-   * Unzip it in your twiki installation directory. Content: 
-     | *File:* | *Description:* |
-%$MANIFEST%
-   * Visit =configure= in your installation, and enable the plugin in the {Plugins} section.
+%$INSTALL_INSTRUCTIONS%
+
 
 ---++ Plugin Info
 <!-- 
@@ -180,8 +177,9 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2005-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v1.70 |
+|  Plugin Version: | v1.80 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  17 Apr 2009: | converted to foswiki, added numerical sorting to MAKETEXT |
 |  08 Oct 2008: | added =$anchors= to MAKEINDEX (by Dirk Zimoch); \
                   added =nocase= option to FORMATLIST (by Dirk Zimoch); \
                   fixed null/empty string match in FORMATLIST |
@@ -211,6 +209,6 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Other Dependencies: | none |
 |  Perl Version: | 5.005 |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
-|  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
+|  Support: | Foswiki:Support/%TOPIC% |
 
 %META:FILEATTACHMENT{name="wikiringlogo40x40.png" attr="h" autoattached="1" comment="" date="1189788323" path="wikiringlogo40x40.png" size="2571" user="ProjectContributor" version="1"}%

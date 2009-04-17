@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2005-2008 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2005-2009 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -14,7 +14,7 @@
 # http://www.gnu.org/copyleft/gpl.html
 #
 ###############################################################################
-package TWiki::Plugins::FilterPlugin;
+package Foswiki::Plugins::FilterPlugin;
 use strict;
 
 ###############################################################################
@@ -25,7 +25,7 @@ use vars qw(
     );
 
 $VERSION = '$Rev$';
-$RELEASE = '1.70';
+$RELEASE = '1.80';
 $NO_PREFS_IN_TOPIC = 1;
 $SHORTDESCRIPTION = 'Substitute and extract information from content by using regular expressions';
 
@@ -33,10 +33,10 @@ $SHORTDESCRIPTION = 'Substitute and extract information from content by using re
 sub initPlugin {
   ($currentTopic, $currentWeb) = @_;
 
-  TWiki::Func::registerTagHandler('FORMATLIST', \&handleFormatList);
-  TWiki::Func::registerTagHandler('MAKEINDEX', \&handleMakeIndex);
-  TWiki::Func::registerTagHandler('SUBST', \&handleSubst);
-  TWiki::Func::registerTagHandler('EXTRACT', \&handleExtract);
+  Foswiki::Func::registerTagHandler('FORMATLIST', \&handleFormatList);
+  Foswiki::Func::registerTagHandler('MAKEINDEX', \&handleMakeIndex);
+  Foswiki::Func::registerTagHandler('SUBST', \&handleSubst);
+  Foswiki::Func::registerTagHandler('EXTRACT', \&handleExtract);
 
   $doneInitCore = 0;
   return 1;
@@ -58,40 +58,38 @@ sub initCore {
   return if $doneInitCore;
   $doneInitCore = 1;
 
-  eval 'use TWiki::Plugins::FilterPlugin::Core;';
-  die $@ if $@;
-
-  TWiki::Plugins::FilterPlugin::Core::init($currentWeb, $currentTopic);
+  require Foswiki::Plugins::FilterPlugin::Core;
+  Foswiki::Plugins::FilterPlugin::Core::init($currentWeb, $currentTopic);
 }
 
 ###############################################################################
 sub handleFilterArea {
   initCore();
-  return TWiki::Plugins::FilterPlugin::Core::handleFilterArea(@_);
+  return Foswiki::Plugins::FilterPlugin::Core::handleFilterArea(@_);
 }
 
 ###############################################################################
 sub handleFormatList {
   initCore();
-  return TWiki::Plugins::FilterPlugin::Core::handleFormatList(@_);
+  return Foswiki::Plugins::FilterPlugin::Core::handleFormatList(@_);
 }
 
 ###############################################################################
 sub handleMakeIndex {
   initCore();
-  return TWiki::Plugins::FilterPlugin::Core::handleMakeIndex(@_);
+  return Foswiki::Plugins::FilterPlugin::Core::handleMakeIndex(@_);
 }
 
 ###############################################################################
 sub handleSubst {
   initCore();
-  return TWiki::Plugins::FilterPlugin::Core::handleSubst(@_);
+  return Foswiki::Plugins::FilterPlugin::Core::handleSubst(@_);
 }
 
 ###############################################################################
 sub handleExtract {
   initCore();
-  return TWiki::Plugins::FilterPlugin::Core::handleExtract(@_);
+  return Foswiki::Plugins::FilterPlugin::Core::handleExtract(@_);
 }
 
 1;
