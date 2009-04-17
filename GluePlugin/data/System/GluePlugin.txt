@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1195829708" format="1.1" reprev="1.2" version="$Rev$"}%
+%META:TOPICINFO{author="ProjectContributor" date="1195829708" format="1.1"  version="$Rev$"}%
 <!--
 
    PLEASE DO NOT EDIT THIS TOPIC
@@ -26,7 +26,7 @@ beginning of a line and recombine consecutive lines again.  Basically, there
 are two ways of glueing and recombining lines by either removing all whitespaces
 between two lines using =%*~~= or 
 by removing all whitespaces and separateing lines with a
-single space using =%~~~=.  
+single space using =~~~=.  
 There's a helper character sequence =%~~= that prevents the engine to
 interprete tags before the GluePlugin could reformat the text.
 In addition there's a glue sequence =#~~= to insert comments within a <nop>TopicMarkup
@@ -116,7 +116,7 @@ which will be recombined to
 </verbatim>
 
 ---++ Examples
-<table class="twikiTable">
+<table class="foswikiTable">
 <tr><th> You type: </th></tr>
 <tr><td>
 <verbatim>
@@ -139,7 +139,7 @@ This is a line
 </td></tr>
 </table>
 
-<table class="twikiTable">
+<table class="foswikiTable">
 <tr><th>You type:</th></tr>
 <tr><td>
 <verbatim>
@@ -156,7 +156,7 @@ Glue
 </td></tr>
 </table>
 
-<table class="twikiTable">
+<table class="foswikiTable">
 <tr><th>You type:</th></tr>
 <tr><td>
 <verbatim>
@@ -187,7 +187,7 @@ Oranges
 </td></tr>
 </table>
 
-<table class="twikiTable">
+<table class="foswikiTable">
 <tr><th>You type:</th></tr>
 <tr><td>
 <verbatim>
@@ -214,24 +214,20 @@ Oranges
 </td></tr>
 </table>
 <style type="text/css">
-.twikiTable {
+.foswikiTable {
    width:100%;
 }
-.twikiTable th {
+.foswikiTable th {
    text-align:left;
 }
-.twikiTable pre {
+.foswikiTable pre {
   margin:0px;
 }
 </style>
 
 ---++ Plugin Installation Instructions
+%$INSTALL_INSTRUCTIONS%
 
-   * [[%ATTACHURL%/%TOPIC%.zip][Download]] the ZIP file
-   * Unzip it in your twiki installation directory. Content: 
-     | *File:* | *Description:* |
-%$MANIFEST%
-   * Visit =configure= in your installation, and enable the plugin in the {Plugins} section.
    * Set the plugins evaluation order to put the GluePlugin in first position, e.g. 
      <verbatim>$Foswiki::cfg{PluginsOrder} = 'GluePlugin,IfDefinedPlugin,SpreadSheetPlugin';</verbatim>
    * If the plugin is installed correctly then the following two fruits
@@ -248,8 +244,9 @@ Oranges
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2005-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.10 |
+|  Plugin Version: | v2.20 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  17 Apr 2009: | converted to foswiki |
 |  07 Jan 2009: | certified for foswiki/compat |
 |  23 Nov 2007: | added way to add comments in the middle of a <nop>TopicMarkup expression |
 |  31 Aug 2006: | added NO_PREFS_IN_TOPIC |
@@ -268,7 +265,7 @@ Oranges
 |  Other Dependencies: | none |
 |  Perl Version: | 5.005 |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
-|  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
+|  Support: | Foswiki:Support/%TOPIC% |
 
 
 %META:FILEATTACHMENT{name="wikiringlogo40x40.png" attr="h" autoattached="0" comment="" date="1190996093" path="wikiringlogo40x40.png" size="2571" user="ProjectContributor" version="1"}%

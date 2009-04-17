@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2005-2007 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2005-2009 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -14,7 +14,7 @@
 # http://www.gnu.org/copyleft/gpl.html
 #
 # =========================
-package TWiki::Plugins::GluePlugin;
+package Foswiki::Plugins::GluePlugin;
 use strict;
 
 # =========================
@@ -24,7 +24,7 @@ use vars qw(
     );
 
 $VERSION = '$Rev$';
-$RELEASE = '2.10';
+$RELEASE = '2.20';
 $NO_PREFS_IN_TOPIC = 1;
 $SHORTDESCRIPTION = 'Enable markup to span multiple lines';
 
