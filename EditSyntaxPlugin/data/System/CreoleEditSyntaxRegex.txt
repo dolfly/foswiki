@@ -6,7 +6,7 @@ This topic contains the syntax rules to convert TML to/from Wiki Creole syntax. 
 
 __Note:__ Do not update this topic unless you are familiar with %SYSTEMWEB%.RegularExpression syntax. Make sure to create proper pairs, so that an edit roundtrip results in the same text, including whitespace.
 
----++ TWiki to Creole
+---++ Foswiki TML to Creole
 
 <verbatim>
    * Direction: /from/to/ # optional comment
@@ -49,7 +49,7 @@ __Note:__ Do not update this topic unless you are familiar with %SYSTEMWEB%.Regu
 
 FIXME: Tables conversion
 
----++ Creole to TWiki
+---++ Creole to Foswiki TML
 
 FIXME: Tables conversion
 

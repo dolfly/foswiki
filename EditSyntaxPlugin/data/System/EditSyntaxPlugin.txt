@@ -69,7 +69,7 @@ Plugin settings are stored as preferences variables. To reference a plugin setti
 __Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the Foswiki server. 
 
    * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your twiki installation directory. Content:
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
      | *File:* | *Description:* |
      | ==data/System/%TOPIC%.txt== | Plugin topic |
      | ==data/System/MediawikiEditSyntaxRegex.txt== | Mediawiki edit syntax converter topic |
@@ -89,8 +89,8 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
          * View raw should show you the content in Foswiki syntax
    * Show proper edit syntax summary in edit screen:
       * Create an =EDITSYNTAX= setting in your =%USERSWEB%.SitePreferences= and set it to an empty value
-      * Edit =twiki/templates/edit.pattern.tmpl= and change ="%<nop>SYSTEMWEB%.WikiSyntaxSummary"= to ="%<nop>SYSTEMWEB%.%EDITSYNTAX%WikiSyntaxSummary"=
-      * Change other =twiki/templates/edit.*.tmpl= template files as needed
+      * Edit =foswiki/templates/edit.pattern.tmpl= and change ="%<nop>SYSTEMWEB%.WikiSyntaxSummary"= to ="%<nop>SYSTEMWEB%.%EDITSYNTAX%WikiSyntaxSummary"=
+      * Change other =foswiki/templates/edit.*.tmpl= template files as needed
    * Secure the =*EditSyntaxRegex= converter topics so that only %MAINWEB%.AdminGroup members can edit the topics.
 
 
@@ -106,14 +106,15 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | 09 Jul 2006 (V1.000) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  17 Apr 2009: | Ported to Foswiki  -- Foswiki:Main.WillNorris |
 |  09 Jul 2006: | Initial version |
-|  TWiki Dependency: | $TWiki::Plugins::VERSION 1.1 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.005 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], %SYSTEMWEB%.DeveloperDocumentationCategory, %SYSTEMWEB%.AdminDocumentationCategory, %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences
 
--- TWiki:Main.PeterThoeny - 09 Jul 2006
+-- TWiki:Main.PeterThoeny - 09 Jul 2006, <br/>
+-- Foswiki:Main.WillNorris - 17 Apr 2009
