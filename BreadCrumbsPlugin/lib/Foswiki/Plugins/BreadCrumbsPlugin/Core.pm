@@ -306,8 +306,8 @@ sub getTopicTitle {
 
   # use DBCachePlugin if installed
   if (Foswiki::Func::getContext()->{'DBCachePluginEnabled'}) {
-    require Foswiki::Plugins::DBCachePlugin;
-    return Foswiki::Plugins::DBCachePlugin::getTopicTitle($theWeb, $theTopic);
+    require TWiki::Plugins::DBCachePlugin;
+    return TWiki::Plugins::DBCachePlugin::getTopicTitle($theWeb, $theTopic);
   }
 
   # use core means otherwise
