@@ -14,7 +14,7 @@
 #
 # For licensing info read LICENSE file in the TWiki root.
 
-package TWiki::Plugins::EditSyntaxPlugin;
+package Foswiki::Plugins::EditSyntaxPlugin;
 
 use strict;
 use vars qw( $VERSION $RELEASE $debug $pluginName $installWeb );
@@ -38,8 +38,8 @@ sub initPlugin
     my( $topic, $web, $user, $installweb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1.026 ) {
-        TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+    if( $Foswiki::Plugins::VERSION < 1.026 ) {
+        Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
         return 0;
     }
 
@@ -47,10 +47,10 @@ sub initPlugin
     # and register a RESTHandler. (remove code you do not need)
 
     # Get plugin preferences variables
-    #my $example = TWiki::Func::getPreferencesValue( "\U$pluginName\E_EXAMPLE" );
+    #my $example = Foswiki::Func::getPreferencesValue( "\U$pluginName\E_EXAMPLE" );
 
     # get debug flag
-    $debug = TWiki::Func::getPreferencesFlag( "\U$pluginName\E_DEBUG" );
+    $debug = Foswiki::Func::getPreferencesFlag( "\U$pluginName\E_DEBUG" );
 
     $installWeb = $installweb;
 
@@ -64,7 +64,7 @@ sub DISABLE_commonTagsHandler
     # do not uncomment, use $_[0], $_[1]... instead
     ### my ( $text, $topic, $web ) = @_;
 
-    TWiki::Func::writeDebug( "- ${pluginName}::commonTagsHandler( $_[2].$_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::commonTagsHandler( $_[2].$_[1] )" ) if $debug;
 
     # do custom extension rule, like for example:
     # $_[0] =~ s/%XYZ%/&handleXyz()/ge;
@@ -76,9 +76,9 @@ sub beforeEditHandler
 {
     # do not uncomment, use $_[0], $_[1]... instead
     ### my ( $text, $topic, $web ) = @_;
-    TWiki::Func::writeDebug( "- ${pluginName}::beforeEditHandler( $_[2].$_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::beforeEditHandler( $_[2].$_[1] )" ) if $debug;
 
-    my $editSyntax = TWiki::Func::getPreferencesValue( 'EDITSYNTAX' ) || '';
+    my $editSyntax = Foswiki::Func::getPreferencesValue( 'EDITSYNTAX' ) || '';
     $_[0] = _translateText( $_[0], $editSyntax, 'T2X' ) if( $editSyntax );
 }
 
@@ -87,9 +87,9 @@ sub afterEditHandler
 {
     # do not uncomment, use $_[0], $_[1]... instead
     ### my ( $text, $topic, $web ) = @_;
-    TWiki::Func::writeDebug( "- ${pluginName}::afterEditHandler( $_[2].$_[1] )" ) if $debug;
+    Foswiki::Func::writeDebug( "- ${pluginName}::afterEditHandler( $_[2].$_[1] )" ) if $debug;
 
-    my $editSyntax = TWiki::Func::getPreferencesValue( 'EDITSYNTAX' ) || '';
+    my $editSyntax = Foswiki::Func::getPreferencesValue( 'EDITSYNTAX' ) || '';
     $_[0] = _translateText( $_[0], $editSyntax, 'X2T' ) if( $editSyntax );
 }
 
@@ -112,7 +112,7 @@ sub _translateText
 # ================================================================
 sub _readRegexRules {
     my ( $editSyntax, $type ) = @_;
-    my $text = TWiki::Func::readTopicText( $installWeb, "${editSyntax}EditSyntaxRegex", '', 1 );
+    my $text = Foswiki::Func::readTopicText( $installWeb, "${editSyntax}EditSyntaxRegex", '', 1 );
     my $regex = '(\/.*?\/.*?\/)( +\#| *$)';
     my @rules =
       map{ s/.*?\* $type\: *$regex.*/s${1}g/; $_ }

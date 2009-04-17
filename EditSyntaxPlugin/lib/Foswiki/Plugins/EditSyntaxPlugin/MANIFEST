@@ -1,0 +1,10 @@
+data/System/CreoleEditSyntaxRegex.txt 0664
+data/System/CreoleEditTest.txt 0664
+data/System/CreoleTextFormattingRules.txt 0664
+data/System/CreoleWikiSyntaxSummary.txt 0664
+data/System/EditSyntaxPlugin.txt 0664
+data/System/MediawikiEditSyntaxRegex.txt 0664
+data/System/MediawikiEditTest.txt 0664
+data/System/MediawikiTextFormattingRules.txt 0664
+data/System/MediawikiWikiSyntaxSummary.txt 0664
+lib/Foswiki/Plugins/EditSyntaxPlugin.pm 0444

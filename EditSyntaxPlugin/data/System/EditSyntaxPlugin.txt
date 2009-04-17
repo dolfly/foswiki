@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="PeterThoeny" date="1152440301" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1152440301" format="1.1"  version="1.1"}%
 ---+!! Edit Syntax Plugin (Alpha version - unsafe for public websites)
 
 This Plugin allows users to edit Foswiki content with their favorite wiki syntax. Users can set their preferred syntax as a user preferences setting in their user homepage. Edit syntax converters convert the Topic markup language (TML) into another syntax when a user edits a topic, and converts it back after edit. The content is always saved in the Foswiki format, that is, users can edit the same content using different edit syntax.
