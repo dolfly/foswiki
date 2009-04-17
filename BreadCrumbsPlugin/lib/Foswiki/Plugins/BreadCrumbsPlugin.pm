@@ -12,7 +12,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package TWiki::Plugins::BreadCrumbsPlugin;
+package Foswiki::Plugins::BreadCrumbsPlugin;
 
 use strict;
 use vars qw(
@@ -20,21 +20,21 @@ use vars qw(
 );
 
 $VERSION = '$Rev$';
-$RELEASE = 'v2.20';
+$RELEASE = 'v2.30';
 $NO_PREFS_IN_TOPIC = 1;
 $SHORTDESCRIPTION = 'A flexible way to display breadcrumbs navigation';
 
 ###############################################################################
 sub initPlugin {
 
-  TWiki::Func::registerTagHandler('BREADCRUMBS', \&renderBreadCrumbs);
+  Foswiki::Func::registerTagHandler('BREADCRUMBS', \&renderBreadCrumbs);
 
-  my $doRecordTrail = TWiki::Func::getPreferencesValue('BREADCRUMBSPLUGIN_RECORDTRAIL') || '';
+  my $doRecordTrail = Foswiki::Func::getPreferencesValue('BREADCRUMBSPLUGIN_RECORDTRAIL') || '';
   $doRecordTrail = ($doRecordTrail eq 'on')?1:0;
 
   if ($doRecordTrail) {
     init();
-    TWiki::Plugins::BreadCrumbsPlugin::Core::recordTrail($_[1], $_[0]);
+    Foswiki::Plugins::BreadCrumbsPlugin::Core::recordTrail($_[1], $_[0]);
   } else {
     #print STDERR "not recording the click path trail\n";
   }
@@ -46,14 +46,14 @@ sub initPlugin {
 sub init {
   return if $doneInit;
   $doneInit = 1;
-  require TWiki::Plugins::BreadCrumbsPlugin::Core;
-  TWiki::Plugins::BreadCrumbsPlugin::Core::init(@_);
+  require Foswiki::Plugins::BreadCrumbsPlugin::Core;
+  Foswiki::Plugins::BreadCrumbsPlugin::Core::init(@_);
 }
 
 ###############################################################################
 sub renderBreadCrumbs {
   init();
-  return TWiki::Plugins::BreadCrumbsPlugin::Core::renderBreadCrumbs(@_);
+  return Foswiki::Plugins::BreadCrumbsPlugin::Core::renderBreadCrumbs(@_);
 }
 
 1;

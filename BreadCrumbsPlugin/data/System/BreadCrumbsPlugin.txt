@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1209401597" format="1.1" reprev="1.2" version="$Rev$"}%
+%META:TOPICINFO{author="ProjectContributor" date="1209401597" format="1.1"  version="$Rev$"}%
 <!--
 
    PLEASE DO NOT EDIT THIS TOPIC
@@ -83,7 +83,7 @@ Each of the above format strings (format, header, footer,
 separator) may contain special variables:
    * =$name=: the name of the breadcrumb, this is the topic name or the web name having its
      parent web part being stripped off (that is =Bar= instead of =Sandbox/Foo/Bar=)
-   * =$webtopic=: the full =web.topic= of the breadcrumb (twiki syntax)
+   * =$webtopic=: the full =web.topic= of the breadcrumb (wiki syntax)
    * =$target=: the full =web/topic= of the breadcrumb (url syntax)
    * =$name=: name of the breadcrumbs item this is the !TopicTitle, spaced out or normal topic name
      topic
@@ -163,8 +163,9 @@ separator) may contain special variables:
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.21 (%$VERSION%) |
+|  Plugin Version: | v2.30 (%$VERSION%) |
 |  Change History: | &nbsp; |
+|  17 Apr 2009: | converted to Foswiki |
 |  07 Jan 2009: | fixed breadcrumbs breadcrumbs title for pattern skin |
 |  11 Nov 2008: | hide <nop>WebHome in location breadcrumbs |
 |  15 Sep 2008: | switching off current topic in =topicoff= mode |
@@ -183,6 +184,6 @@ separator) may contain special variables:
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.8 |
-|  Plugin Home: | http://nextwiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://nextwiki.org/Extensions/%TOPIC%Dev |
+|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC%Dev |
 

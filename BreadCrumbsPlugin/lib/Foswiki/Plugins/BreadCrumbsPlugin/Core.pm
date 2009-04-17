@@ -12,11 +12,11 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package TWiki::Plugins::BreadCrumbsPlugin::Core;
+package Foswiki::Plugins::BreadCrumbsPlugin::Core;
 
 use strict;
 use vars qw($homeTopic $lowerAlphaRegex $upperAlphaRegex $numericRegex);
-use TWiki::Plugins;
+use Foswiki::Plugins;
 
 use constant DEBUG => 0; # toggle me
 
@@ -24,20 +24,20 @@ use constant DEBUG => 0; # toggle me
 sub writeDebug {
   return unless DEBUG;
 
-  #&TWiki::Func::writeDebug('- BreadCrumbPlugin - '.$_[0]);
+  #&Foswiki::Func::writeDebug('- BreadCrumbPlugin - '.$_[0]);
   print STDERR '- BreadCrumbPlugin - '.$_[0]."\n";
 }
 
 ###############################################################################
 sub init {
 
-  $homeTopic = TWiki::Func::getPreferencesValue('HOMETOPIC') 
-    || $TWiki::cfg{HomeTopicName} || 'WebHome';
+  $homeTopic = Foswiki::Func::getPreferencesValue('HOMETOPIC') 
+    || $Foswiki::cfg{HomeTopicName} || 'WebHome';
 
-  if ($TWiki::Plugins::VERSION < 1.1) {
-    $lowerAlphaRegex = TWiki::Func::getRegularExpression('lowerAlpha');
-    $upperAlphaRegex = TWiki::Func::getRegularExpression('upperAlpha');
-    $numericRegex = TWiki::Func::getRegularExpression('numeric');
+  if ($Foswiki::Plugins::VERSION < 1.1) {
+    $lowerAlphaRegex = Foswiki::Func::getRegularExpression('lowerAlpha');
+    $upperAlphaRegex = Foswiki::Func::getRegularExpression('upperAlpha');
+    $numericRegex = Foswiki::Func::getRegularExpression('numeric');
   }
 }
 
@@ -47,9 +47,9 @@ sub recordTrail {
 
   writeDebug("called recordTrail($web, $topic)");
 
-  ($web, $topic) = TWiki::Func::normalizeWebTopicName($web, $topic);
+  ($web, $topic) = Foswiki::Func::normalizeWebTopicName($web, $topic);
   my $here = "$web.$topic";
-  my $trail = TWiki::Func::getSessionValue('BREADCRUMB_TRAIL') || '';
+  my $trail = Foswiki::Func::getSessionValue('BREADCRUMB_TRAIL') || '';
   my @trail = split(',', $trail);
 
   # Detect cycles by scanning back along the trail to see if we've been here
@@ -63,7 +63,7 @@ sub recordTrail {
   }
   push(@trail, $here);
 
-  TWiki::Func::setSessionValue('BREADCRUMB_TRAIL', join(',', @trail));
+  Foswiki::Func::setSessionValue('BREADCRUMB_TRAIL', join(',', @trail));
 }
 
 ###############################################################################
@@ -148,7 +148,7 @@ sub renderBreadCrumbs {
 
   # expand common variables
   escapeParameter($result);
-  $result = TWiki::Func::expandCommonVariables($result, $topic, $web);
+  $result = Foswiki::Func::expandCommonVariables($result, $topic, $web);
 
   return $result;
 }
@@ -156,7 +156,7 @@ sub renderBreadCrumbs {
 ###############################################################################
 sub getPathBreadCrumbs {
   
-  my $trail = TWiki::Func::getSessionValue('BREADCRUMB_TRAIL') || '';
+  my $trail = Foswiki::Func::getSessionValue('BREADCRUMB_TRAIL') || '';
   my @trail = 
     map {
       /^(.*)\.(.*?)$/; 
@@ -230,7 +230,7 @@ sub getLocationBreadCrumbs {
 
     while (1) {
       # get parent
-      my ($meta, $dumy) = &TWiki::Func::readTopic($web, $topic);
+      my ($meta, $dumy) = &Foswiki::Func::readTopic($web, $topic);
       my $parentMeta = $meta->get('TOPICPARENT'); 
       last unless $parentMeta;
       my $parentName = $parentMeta->{name};
@@ -241,7 +241,7 @@ sub getLocationBreadCrumbs {
       last if 
         $topic eq $homeTopic ||
 	$seen{"$web.$topic"} ||
-	!TWiki::Func::topicExists($web,$topic);
+	!Foswiki::Func::topicExists($web,$topic);
 
       # add breadcrumb
       #writeDebug("adding breadcrumb: target=$web/$topic, name=$topic");
@@ -288,7 +288,7 @@ sub escapeParameter {
 }
 
 ###############################################################################
-# local version to run on legacy twiki releases
+# local version to run on legacy wiki releases
 sub normalizeWebTopicName {
   my ($web, $topic) = @_;
 
@@ -305,16 +305,16 @@ sub getTopicTitle {
   my ($theWeb, $theTopic) = @_;
 
   # use DBCachePlugin if installed
-  if (TWiki::Func::getContext()->{'DBCachePluginEnabled'}) {
-    require TWiki::Plugins::DBCachePlugin;
-    return TWiki::Plugins::DBCachePlugin::getTopicTitle($theWeb, $theTopic);
+  if (Foswiki::Func::getContext()->{'DBCachePluginEnabled'}) {
+    require Foswiki::Plugins::DBCachePlugin;
+    return Foswiki::Plugins::DBCachePlugin::getTopicTitle($theWeb, $theTopic);
   }
 
   # use core means otherwise
-  my $topicTitle = TWiki::Func::getPreferencesValue("TOPICTITLE");
+  my $topicTitle = Foswiki::Func::getPreferencesValue("TOPICTITLE");
   return $topicTitle if $topicTitle;
 
-  my ($meta, $text) = TWiki::Func::readTopic($theWeb, $theTopic);
+  my ($meta, $text) = Foswiki::Func::readTopic($theWeb, $theTopic);
   my $field = $meta->get('FIELD', 'TopicTitle');
   if ($field) {
     $topicTitle = $field->{value};
@@ -328,8 +328,8 @@ sub getTopicTitle {
 sub spaceOutWikiWord {
   my ($wikiWord, $separator) = @_;
 
-  return TWiki::Func::spaceOutWikiWord($wikiWord, $separator)
-    if $TWiki::Plugins::VERSION >= 1.13;
+  return Foswiki::Func::spaceOutWikiWord($wikiWord, $separator)
+    if $Foswiki::Plugins::VERSION >= 1.13;
 
   $wikiWord =~ s/([$lowerAlphaRegex])([$upperAlphaRegex$numericRegex]+)/$1$separator$2/go;
   $wikiWord =~ s/([$numericRegex])([$upperAlphaRegex])/$1$separator$2/go;
