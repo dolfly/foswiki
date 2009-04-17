@@ -294,7 +294,9 @@ sub handleMakeIndex {
       $crit = uc($crit);
     }
     $crit =~ s/[^$mixedAlphaNum]//go;
-    my $group = substr($crit, 0, 1);
+
+    my $group = $crit;
+    $group = substr($crit, 0, 1) unless $theSort eq 'num';
 
     my $itemFormat = $theFormat;
     if ($thePattern && $item =~ m/$thePattern/) {
@@ -347,10 +349,11 @@ sub handleMakeIndex {
   return '' unless $listSize;
 
   # sort it
-  @theList = sort {$a->{crit} cmp $b->{crit}} @theList if $theSort ne 'off';
+  @theList = sort {$a->{crit} cmp $b->{crit}} @theList if $theSort =~ /nocase|on/;
+  @theList = sort {$a->{crit} <=> $b->{crit}} @theList if $theSort eq 'num';
   @theList = reverse @theList if $theReverse eq 'on';
 
-  my $result = "<table>\n<tr>\n";
+  my $result = "<table class='fltLayoutTable' cellspacing='0' cellpadding='0'>\n<tr>\n";
 
   # - a col should at least contain a single group letter and one additional row 
   my $colSize = ceil($listSize / $maxCols);
@@ -391,13 +394,16 @@ sub handleMakeIndex {
         }
 
         # create an anchor to this group
-        my $anchor = getAnchorName($session, $group);
-        if ($anchor)  {
-          push @anchors, {
-            name=>$anchor,
-            title=>$group,
-          };
-          $anchor = "<a class='fltAnchor' name='$anchor'></a>";
+        my $anchor = '';
+        if ($theGroup =~ /\$anchor/) {
+          $anchor = getAnchorName($session, $group);
+          if ($anchor)  {
+            push @anchors, {
+              name=>$anchor,
+              title=>$group,
+            };
+            $anchor = "<a class='fltAnchor' name='$anchor'></a>";
+          }
         }
 
         my $groupFormat = $theGroup;
@@ -602,7 +608,12 @@ sub getAnchorName {
   $anchorName = $anchorName.'_'.$makeIndexCounter;
   return '' if $seenAnchorNames{$anchorName};
   $seenAnchorNames{$anchorName} = 1;
-  return $session->{renderer}->makeAnchorName($anchorName);
+
+  if ($Foswiki::Plugins::VERSION > 2.0) {
+    return $session->{renderer}->_makeAnchorName($anchorName);
+  } else {
+    return $session->{renderer}->makeAnchorName($anchorName);
+  }
 }
 
 ###############################################################################
