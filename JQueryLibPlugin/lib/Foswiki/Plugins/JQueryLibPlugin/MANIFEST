@@ -120,7 +120,7 @@ pub/System/JQueryLibPlugin/themes/1.5/lightness/images/ffffff_40x100_textures_02
 #
 # i8n for UI 1.7
 #
-pub/System/JQueryLibPlugin/i18n/jquery.ui.i18n.js
+pub/System/JQueryLibPlugin/i18n/jquery-ui-i18n.js
 pub/System/JQueryLibPlugin/i18n/ui.datepicker-ar.js
 pub/System/JQueryLibPlugin/i18n/ui.datepicker-bg.js
 pub/System/JQueryLibPlugin/i18n/ui.datepicker-ca.js
