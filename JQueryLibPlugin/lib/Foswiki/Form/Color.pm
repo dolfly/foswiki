@@ -40,11 +40,62 @@ sub renderForEdit {
 	if ($firstField)
 		{
 		$firstField=0;
+		
+		addScriptToHead("plugins/farbtastic/farbtastic.js");
+		addStyleToHead("plugins/farbtastic/farbtastic.css");
 		$field='<div id="colorpicker" class="ui-component-content ui-widget-content ui-hidden ui-helper-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>'.$field;	
 		}            
          
     return ('',$field);
 }
+
+
+############ We duplicated a whole bunch of code from JQueryLibPlugin.pm so that we could include farbtastic.js and farbtastic.css from here.
+	
+sub addStyleToHead
+	{
+	my $style=shift;
+	$style = trim($style);
+	my $styleid="JQueryLibPlugin_$style";	
+    Foswiki::Func::addToHEAD($styleid,JQueryStyle($style));
+	} 	
+	
+############			
+	
+sub addScriptToHead	
+	{
+	my $script=shift;	
+    $script = trim($script);
+    my $scriptid="JQueryLibPlugin_$script";
+    Foswiki::Func::addToHEAD($scriptid,JQueryScript($script));
+	}	
+	
+############
+		
+sub JQueryScript
+	{
+  	my ($scriptFileName) = @_;   
+  	return "<script type=\"text/javascript\" src=\"%PUBURLPATH%/%SYSTEMWEB%/JQueryLibPlugin/$scriptFileName\"></script>";
+	}
+
+############
+	
+sub JQueryStyle
+	{
+  	my ($styleFileName) = @_;   
+  	return "<style type='text/css'>\@import url('%PUBURLPATH%/%SYSTEMWEB%/JQueryLibPlugin/$styleFileName');</style>";
+	}
+
+############	
+	
+sub trim
+	{    
+    my $string = shift;
+    $string =~ s/^\s+//;
+    $string =~ s/\s+$//;
+    return $string;
+	}	
+
 
 
 # Note to developers; please undef *all* fields in the object explicitly,
