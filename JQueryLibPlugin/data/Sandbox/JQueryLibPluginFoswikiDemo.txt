@@ -1,9 +1,10 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1235912134" format="1.1" version="1.5"}%
-%JQSCRIPT{"jquery-ui-1.6rc6.min.js"}%
+%META:TOPICINFO{author="BaseUserMapping_333" date="1240109164" format="1.1" reprev="1.2" version="1.2"}%
+%JQSCRIPT{"jquery-1.3.2.min.js"}%
+%JQSCRIPT{"jquery-ui-1.7.1.min.js"}%
+%JQSCRIPT{"plugins/foswiki/foswiki.js"}%
 %JQSCRIPT{"plugins/spinner/jquery.spinner.js"}%
 %JQSCRIPT{"plugins/farbtastic/farbtastic.js"}%
 %JQSTYLE{"plugins/farbtastic/farbtastic.css"}%
-%JQSCRIPT{"plugins/foswiki/foswiki.js"}%
 %JQSTYLE{"plugins/foswiki/foswiki.css"}%
 
 <pre class="ui-helper-hidden">
@@ -457,6 +458,18 @@
 
 <br /><br />
 
+---++ Color picker
+
+<div id="colorpicker" class="ui-component-content ui-widget-content ui-hidden ui-helper-hidden" style="  z-index: 1000; position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
+
+My color: <input type="text" name="mycolor" value="#123456" size="11" onclick="$.farbtastic('#colorpicker').linkTo('#mycolor'); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" id="mycolor" class="foswikiInputField" onblur="$('#colorpicker').farbtastic().fadeOut(250);" />
+
+<script type="text/javascript">  $(document).ready(function() {$.farbtastic('#colorpicker').linkTo('#mycolor');});</script>
+
+My other color: <input type="text" name="myothercolor" value="#880044" size="11" onclick="$.farbtastic('#colorpicker').linkTo('#myothercolor'); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" id="myothercolor" class="foswikiInputField" onblur="$('#colorpicker').farbtastic().fadeOut(250);" />
+
+<script type="text/javascript">  $(document).ready(function() {$.farbtastic('#colorpicker').linkTo('#myothercolor');});</script>
+
 ---++ Spinner
 
 <button class="fw-button ui-state-default ui-corner-all" onclick="$('#spinner').spinner({image: '%PUBURLPATH%/System/JQueryLibPlugin/plugins/spinner/spinner.png'});$('#spinner').show();">Start spinner</button>
@@ -480,17 +493,6 @@
 
 <div id="spinnerbigfast"></div>
 		
-
----++ Color picker
-
-<div id="colorpicker" class="ui-widget-content ui-helper-hidden" style="position: absolute;" ondblclick="$(this).farbtastic().fadeOut(250);"></div>
-
-<script type="text/javascript">  $(document).ready(function() {$('#colorpicker').farbtastic('#mycolor');});</script>
-<script type="text/javascript">  $(document).ready(function() {$.farbtastic('#colorpicker').linkTo('#myothercolor');});</script>
-
-<input  id="mycolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#123456"/>
-
-<input  id="myothercolor" type="text" onblur="$('#colorpicker').farbtastic().fadeOut(250);" onclick="$.farbtastic('#colorpicker').linkTo('#' + $(this).attr('id')); var pos=$(this).position(); pos.top+=$(this).outerHeight(); $('#colorpicker').farbtastic().offset(pos).fadeIn(250);" value="#654321"/>
 
 
 %META:TOPICMOVED{by="BaseUserMapping_333" date="1235488861" from="Sandbox.JQueryLibPluginFoswikiUIDemo" to="Sandbox.JQueryLibPluginFoswikiDemo"}%
