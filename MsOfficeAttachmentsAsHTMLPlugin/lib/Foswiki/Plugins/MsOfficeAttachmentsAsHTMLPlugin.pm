@@ -22,7 +22,7 @@ use strict;
 use Foswiki::Sandbox;
 
 our $VERSION = '$Rev$';
-our $RELEASE = '3 Feb 2009';
+our $RELEASE = '20 Apr 2009';
 
 my $pluginName = 'MsOfficeAttachmentsAsHTMLPlugin';
 our $afterSaveHandlerSemaphore;
@@ -37,7 +37,7 @@ sub afterAttachmentSaveHandler {
     my ( $attachmentAttr, $topic, $web ) = @_;
 
     my $attachmentName = $attachmentAttr->{"attachment"};
-    return unless ( $attachmentName =~ s/(.doc)$//i );
+    return unless ( $attachmentName =~ s/(.docx?)$//i );
     my $ext = $1;
 
     # Convert to HTML
@@ -51,9 +51,28 @@ sub afterAttachmentSaveHandler {
         undef, $cmd,
         ATTACHDIR => Foswiki::Func::getPubDir() . "/$web/$topic",
         SRC => Foswiki::Func::getPubDir() . "/$web/$topic/$attachmentName$ext",
-        DEST => "$attachmentName.html");
+        DEST => $htmlName);
 
     die "$cmd failed with exit code $exit: $data" if $exit;
+
+    # Process the attachment
+    if (defined $Foswiki::cfg{Plugins}{$pluginName}{filters} &&
+          scalar(@{$Foswiki::cfg{Plugins}{$pluginName}{filters}})) {
+        my $text = Foswiki::Func::readAttachment(
+            $web, $topic, "$attachmentName.html");
+        foreach my $rule (@{$Foswiki::cfg{Plugins}{$pluginName}{filters}}) {
+            $rule = Foswiki::Func::expandCommonVariables($rule, $topic, $web);
+            eval '$text=~'.$rule;
+        }
+        my $tmp = Foswiki::Func::getWorkArea($pluginName).'/'.$htmlName;
+        my $fh;
+        open($fh, '>', $tmp) || die $!;
+        print $fh $text;
+        close($fh);
+        Foswiki::Func::saveAttachment(
+            $web, $topic, $htmlName, { file => $tmp } );
+        unlink($tmp);
+    }
 
     # Replace the topic text with an include of the attachment
 

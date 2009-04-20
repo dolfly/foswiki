@@ -27,6 +27,10 @@ This package requires a convertor that can convert from Word documents to HTML. 
 
 Run =configure= and if necessary adjust the pathname to the convertor program.
 
+There is one other important setting accessible through =configure=; =$Foswiki::cfg{Plugins}{MsOfficeAttachmentsAsHTMLPlugin}{filters}=. This is an array of (perl) regular expression substitutions that the generated HTML document is processed through. This allows you to rewrite sections of the HTML to remove Microsoft Word features. By default there is a single expression, which rewrites image links in the HTML to refer to the topic attachment directory.
+
+Note that any Foswiki macros in the rewriting rules are expanded *before* the rule is applied. Be careful that the expansion of any such macros doesn't add new regular-expression meta-characters.
+
 ---++ Info
 
 |  Author(s): | Martin Cleaver Martin@Cleaver.org |
@@ -34,7 +38,8 @@ Run =configure= and if necessary adjust the pathname to the convertor program.
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  3 Feb 2009 | Foswikitask:Item891: Ported to Foswiki, vastly simplified and enhanced, back-ported to TWiki |
+|  20 Apr 2009 | Foswikitask:Item8123: added URL rewriting |
+|  3 Feb 2009 | Foswikitask:Item891: Ported to Foswiki, vastly simplified and enhanced, back-ported to TWiki (Crawford Currie) |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | %$UPLOADTARGETSCRIPT%/view%$UPLOADTARGETSUFFIX%/%$UPLOADTARGETWEB%/%$MODULE% |
 
