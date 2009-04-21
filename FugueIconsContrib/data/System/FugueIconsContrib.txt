@@ -28,19 +28,34 @@ I'm unavailable for custom icon design work. But your suggestions are always wel
 
 ---++ Examples
 
-| *file* | *example* |
-| balloon-twitter-left.png | %ATTACHURL%/icon/balloon-twitter-left.png | 
-| balloons--pencil.png | %ATTACHURL%/icon/balloons--pencil.png | 
-| blogs--exclamation.png | %ATTACHURL%/icon/blogs--exclamation.png | 
-| calendar-select-days.png | %ATTACHURL%/icon/calendar-select-days.png | 
-| document--plus.png | %ATTACHURL%/icon/document--plus.png | 
-| balloons.png | %ATTACHURL%/icon/balloons.png | 
-| balloons.png | %ATTACHURL%/icon/balloons.png | 
-| balloons.png | %ATTACHURL%/icon/balloons.png | 
-| balloons.png | %ATTACHURL%/icon/balloons.png | 
-| balloons.png | %ATTACHURL%/icon/balloons.png | 
-| balloons.png | %ATTACHURL%/icon/balloons.png | 
-| balloons.png | %ATTACHURL%/icon/balloons.png | 
+[[%ATTACHURL%/all.png][icon preview]] and [[%ATTACHURL%/all-shadowless.png][icon-shadowless preview]]
+
+| *file* | *icon* | *icon-shadowless* |
+| balloon-twitter-left.png | %ATTACHURL%/icon/balloon-twitter-left.png |  %ATTACHURL%/icon-shadowless/balloon-twitter-left.png | 
+| balloons--pencil.png | %ATTACHURL%/icon/balloons--pencil.png |  %ATTACHURL%/icon-shadowless/balloons--pencil.png | 
+| blogs--exclamation.png | %ATTACHURL%/icon/blogs--exclamation.png |  %ATTACHURL%/icon-shadowless/blogs--exclamation.png | 
+| calendar-select-days.png | %ATTACHURL%/icon/calendar-select-days.png |  %ATTACHURL%/icon-shadowless/calendar-select-days.png | 
+| document--plus.png | %ATTACHURL%/icon/document--plus.png |  %ATTACHURL%/icon-shadowless/document--plus.png | 
+| drill--exclamation.png | %ATTACHURL%/icon/drill--exclamation.png |  %ATTACHURL%/icon-shadowless/drill--exclamation.png | 
+| envelope-label.png | %ATTACHURL%/icon/envelope-label.png |  %ATTACHURL%/icon-shadowless/envelope-label.png | 
+| feed-document.png | %ATTACHURL%/icon/feed-document.png |  %ATTACHURL%/icon-shadowless/feed-document.png | 
+| folders-stack.png | %ATTACHURL%/icon/folders-stack.png |  %ATTACHURL%/icon-shadowless/folders-stack.png | 
+| globe-green.png | %ATTACHURL%/icon/globe-green.png |  %ATTACHURL%/icon-shadowless/globe-green.png | 
+| highlighter-text.png | %ATTACHURL%/icon/highlighter-text.png |  %ATTACHURL%/icon-shadowless/highlighter-text.png | 
+| key--pencild.png | %ATTACHURL%/icon/key--pencil.png |  %ATTACHURL%/icon-shadowless/key--pencil.png | 
+| map-pin.png | %ATTACHURL%/icon/map-pin.png |  %ATTACHURL%/icon-shadowless/map-pin.png | 
+| pencil-color.png | %ATTACHURL%/icon/pencil-color.png |  %ATTACHURL%/icon-shadowless/pencil-color.png | 
+| pictures.png | %ATTACHURL%/icon/pictures.png |  %ATTACHURL%/icon-shadowless/pictures.png | 
+| projection-screen-presentation.png | %ATTACHURL%/icon/projection-screen-presentation.png |  %ATTACHURL%/icon-shadowless/projection-screen-presentation.png | 
+| servers--exclamation.png | %ATTACHURL%/icon/servers--exclamation.png |  %ATTACHURL%/icon-shadowless/servers--exclamation.png | 
+| sort-alphabet.png | %ATTACHURL%/icon/sort-alphabet.png |  %ATTACHURL%/icon-shadowless/sort-alphabet.png | 
+| sticky-note-shred.png | %ATTACHURL%/icon/sticky-note-shred.png |  %ATTACHURL%/icon-shadowless/sticky-note-shred.png | 
+| table-insert.png | %ATTACHURL%/icon/table-insert.png |  %ATTACHURL%/icon-shadowless/table-insert.png | 
+| tags-label.png | %ATTACHURL%/icon/tags-label.png |  %ATTACHURL%/icon-shadowless/tags-label.png | 
+| tick-circle-frame.png | %ATTACHURL%/icon/tick-circle-frame.png |  %ATTACHURL%/icon-shadowless/tick-circle-frame.png | 
+| users--arrow.png | %ATTACHURL%/icon/users--arrow.png |  %ATTACHURL%/icon-shadowless/users--arrow.png | 
+| wand.png | %ATTACHURL%/icon/wand.png |  %ATTACHURL%/icon-shadowless/wand.png | 
+
 
 ---++ Installation Instructions
 
@@ -48,8 +63,6 @@ I'm unavailable for custom icon design work. But your suggestions are always wel
 
 ---++ Info
 
-Many thanks to the following sponsors for supporting this work:
-   * Acknowledge any sponsors here
 
 |  Author(s): | Foswiki:Main.SvenDowideit - SvenDowideit@fosiki.com |
 |  Copyright: | &copy;  2009 Yusuke Kamiyamane|
