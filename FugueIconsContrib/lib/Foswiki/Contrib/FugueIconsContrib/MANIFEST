@@ -2,6 +2,7 @@
 data/System/FugueIconsContrib.txt 0644 Documentation
 lib/Foswiki/Contrib/FugueIconsContrib.pm 0644 Perl module
 
+pub/System/FugueIconsContrib/tick.png
 pub/System/FugueIconsContrib/all-shadowless.png
 pub/System/FugueIconsContrib/all.png
 pub/System/FugueIconsContrib/combination.png

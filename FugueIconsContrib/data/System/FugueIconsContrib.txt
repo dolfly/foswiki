@@ -1,8 +1,10 @@
 ---+!! !FugueIconsContrib
 <!--
 One line description, required for extensions repository catalog.
-   * Set SHORTDESCRIPTION = Fugue Icons from http://pinvoke.com
+   * Set SHORTDESCRIPTION = 1,755 Fugue Icons from http://pinvoke.com
 -->
+<img class="foswikiRight" src="%ATTACHURL%/tick.png" alt="tick icon preview" />
+
 %SHORTDESCRIPTION%
 
 %TOC%
@@ -64,8 +66,8 @@ I'm unavailable for custom icon design work. But your suggestions are always wel
 ---++ Info
 
 
-|  Author(s): | Foswiki:Main.SvenDowideit - SvenDowideit@fosiki.com |
-|  Copyright: | &copy;  2009 Yusuke Kamiyamane|
+|  Author(s): | Yusuke Kamiyamane - http://www.pinvoke.com/ & Foswiki:Main.SvenDowideit - http://fosiki.com |
+|  Copyright: | icons &copy;  2009 Yusuke Kamiyamane |
 |  License: | [[http://creativecommons.org/licenses/by/3.0/][Creative Commons Attribution 3.0 license.]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
