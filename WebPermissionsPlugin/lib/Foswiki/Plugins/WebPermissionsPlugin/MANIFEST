@@ -1,0 +1,17 @@
+lib/Foswiki/Plugins/WebPermissionsPlugin.pm
+lib/Foswiki/Plugins/WebPermissionsPlugin/Core.pm
+data/Foswiki/WebPermissionsPlugin.txt
+pub/Foswiki/WebPermissionsPlugin/CHANGE.gif
+pub/Foswiki/WebPermissionsPlugin/VIEW.gif
+pub/Foswiki/WebPermissionsPlugin/uparrow.png
+pub/Foswiki/WebPermissionsPlugin/downarrow.png
+pub/Foswiki/WebPermissionsPlugin/leftarrow.png
+pub/Foswiki/WebPermissionsPlugin/rightarrow.png
+pub/Foswiki/WebPermissionsPlugin/logo.gif
+pub/Foswiki/WebPermissionsPlugin/wikiringlogo20x20.png 0660
+pub/Foswiki/WebPermissionsPlugin/WebPermissionsPlugin.js
+templates/webpermissionsplugin.topichtml.tmpl
+templates/webpermissionsplugin.topicjavascript.tmpl
+templates/oopsmore.webpermissions.tmpl
+templates/oopsmoretopicacls.tmpl
+templates/topicacls.tmpl

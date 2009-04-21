@@ -2,7 +2,7 @@
 #
 # Copyright (C) Evolved Media Network 2005
 # Copyright (C) Spanlink Communications 2006
-# and TWiki Contributors. All Rights Reserved. TWiki Contributors
+# and Foswiki Contributors. All Rights Reserved. Foswiki Contributors
 # are listed in the AUTHORS file in the root of this distribution.
 # NOTE: Please extend that file, not this notice.
 #
@@ -24,13 +24,13 @@
 # permissions in a big table that can easily be edited. It updates WebPreferences
 # in each affected web.
 
-package TWiki::Plugins::WebPermissionsPlugin;
+package Foswiki::Plugins::WebPermissionsPlugin;
 
 use strict;
 
 use vars qw( $VERSION $RELEASE $pluginName $antiBeforeSaveRecursion);
 
-use TWiki::Func;
+use Foswiki::Func;
 use CGI qw( :all );
 use Error;
 
@@ -44,17 +44,17 @@ sub initPlugin {
     my( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1.10 ) {
-        TWiki::Func::writeWarning(
-            'Version mismatch between WebPermissionsPlugin and TWiki::Plugins' );
+    if( $Foswiki::Plugins::VERSION < 1.10 ) {
+        Foswiki::Func::writeWarning(
+            'Version mismatch between WebPermissionsPlugin and Foswiki::Plugins' );
         return 0;
     }
 
-    TWiki::Func::registerTagHandler( 'WEBPERMISSIONS', \&_WEBPERMISSIONS );
-    TWiki::Func::registerTagHandler( 'TOPICPERMISSIONS', \&_TOPICPERMISSIONS );
+    Foswiki::Func::registerTagHandler( 'WEBPERMISSIONS', \&_WEBPERMISSIONS );
+    Foswiki::Func::registerTagHandler( 'TOPICPERMISSIONS', \&_TOPICPERMISSIONS );
     # SMELL: need to disable this if the USERSLIST code is ever moved into the
     # core.
-    TWiki::Func::registerTagHandler( 'USERSLIST', \&_USERSLIST );
+    Foswiki::Func::registerTagHandler( 'USERSLIST', \&_USERSLIST );
     $antiBeforeSaveRecursion = 0;
 
     return 1;
@@ -63,28 +63,28 @@ sub initPlugin {
 sub _WEBPERMISSIONS {
     my( $session, $params, $topic, $web ) = @_;
 
-    #return undef unless TWiki::Func::isAdmin();
+    #return undef unless Foswiki::Func::isAdmin();
 
-    require TWiki::Plugins::WebPermissionsPlugin::Core;
-    TWiki::Plugins::WebPermissionsPlugin::Core::WEBPERMISSIONS(@_);
+    require Foswiki::Plugins::WebPermissionsPlugin::Core;
+    Foswiki::Plugins::WebPermissionsPlugin::Core::WEBPERMISSIONS(@_);
 }
 
 
 #TODO: add param topic= and show= specify to list only groups / only users / both
 sub _TOPICPERMISSIONS {
-    require TWiki::Plugins::WebPermissionsPlugin::Core;
-    return TWiki::Plugins::WebPermissionsPlugin::Core::TOPICPERMISSIONS(@_);
+    require Foswiki::Plugins::WebPermissionsPlugin::Core;
+    return Foswiki::Plugins::WebPermissionsPlugin::Core::TOPICPERMISSIONS(@_);
 }
 
 sub _USERSLIST {
-    require TWiki::Plugins::WebPermissionsPlugin::Core;
-    return TWiki::Plugins::WebPermissionsPlugin::Core::USERSLIST(@_);
+    require Foswiki::Plugins::WebPermissionsPlugin::Core;
+    return Foswiki::Plugins::WebPermissionsPlugin::Core::USERSLIST(@_);
 }
 
 #TODO: rejig this so it works for the WEBPERMS too
 sub beforeSaveHandler {
-    require TWiki::Plugins::WebPermissionsPlugin::Core;
-    return TWiki::Plugins::WebPermissionsPlugin::Core::beforeSaveHandler(@_);
+    require Foswiki::Plugins::WebPermissionsPlugin::Core;
+    return Foswiki::Plugins::WebPermissionsPlugin::Core::beforeSaveHandler(@_);
 }
 
 1;

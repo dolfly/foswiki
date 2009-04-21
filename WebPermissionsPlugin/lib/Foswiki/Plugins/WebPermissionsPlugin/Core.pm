@@ -2,7 +2,7 @@
 #
 # Copyright (C) Evolved Media Network 2005
 # Copyright (C) Spanlink Communications 2006
-# and TWiki Contributors. All Rights Reserved. TWiki Contributors
+# and Foswiki Contributors. All Rights Reserved. Foswiki Contributors
 # are listed in the AUTHORS file in the root of this distribution.
 # NOTE: Please extend that file, not this notice.
 #
@@ -24,7 +24,7 @@
 # This plugin helps with permissions management by displaying the web
 # permissions in a big table that can easily be edited. It updates
 # WebPreferences in each affected web.
-package TWiki::Plugins::WebPermissionsPlugin::Core;
+package Foswiki::Plugins::WebPermissionsPlugin::Core;
 
 use strict;
 
@@ -45,10 +45,10 @@ sub WEBPERMISSIONS {
     my $saving =  $action && $action eq 'Save';
 
     my @modes = split(/[\s,]+/,
-                      $TWiki::cfg{Plugins}{WebPermissionsPlugin}{modes} ||
+                      $Foswiki::cfg{Plugins}{WebPermissionsPlugin}{modes} ||
                         'VIEW,CHANGE' );
 
-    my @webs = TWiki::Func::getListOfWebs( 'user' );
+    my @webs = Foswiki::Func::getListOfWebs( 'user' );
     my $chosenWebs = $params->{webs} || $query->param('webs');
     if( $chosenWebs ) {
         @webs = _filterList($chosenWebs, @webs);
@@ -59,7 +59,7 @@ sub WEBPERMISSIONS {
 
     my %table;
     foreach $web ( @webs ) {
-        #TODO: use TWiki::Func::getRegularExpression(webNameRegex)
+        #TODO: use Foswiki::Func::getRegularExpression(webNameRegex)
         next unless ($web=~/^(\w*)$/); #untaint before we do anything
         $web = $1;
 
@@ -97,10 +97,10 @@ sub WEBPERMISSIONS {
 
     my %images;
     foreach my $op ( @modes ) {
-        if( -f TWiki::Func::getPubDir().'/TWiki/WebPermissionsPlugin/'.$op.'.gif' ) {
+        if( -f Foswiki::Func::getPubDir().'/Foswiki/WebPermissionsPlugin/'.$op.'.gif' ) {
               $images{$op} =
-                CGI::img( { src => TWiki::Func::getPubUrlPath().
-                              '/TWiki/WebPermissionsPlugin/'.$op.'.gif' } );
+                CGI::img( { src => Foswiki::Func::getPubUrlPath().
+                              '/Foswiki/WebPermissionsPlugin/'.$op.'.gif' } );
               $tab .= $images{$op}.' '.$op;
         } else {
             $images{$op} = $op;
@@ -149,7 +149,7 @@ sub WEBPERMISSIONS {
     }
     my $page = CGI::start_form(
         -method => 'POST',
-        -action => TWiki::Func::getScriptUrl( $web, $topic, 'view').
+        -action => Foswiki::Func::getScriptUrl( $web, $topic, 'view').
           '#webpermissions_matrix' );
     $page .= CGI::a({ name => 'webpermissions_matrix'});
     if( defined $chosenWebs ) {
@@ -166,25 +166,25 @@ sub TOPICPERMISSIONS {
     my( $session, $params, $topic, $web ) = @_;
 
     #this is to redirect to the "no access" page if this tag is used in a non-view template.
-    TWiki::UI::checkAccess( $session, $web, $topic,
+    Foswiki::UI::checkAccess( $session, $web, $topic,
                                 'view', $session->{user} );
 
    my $disableSave = 'Disabled';
-   $disableSave = '' if TWiki::Func::checkAccessPermission( 'CHANGE', 
-                    TWiki::Func::getWikiUserName(), undef, $topic, $web );
+   $disableSave = '' if Foswiki::Func::checkAccessPermission( 'CHANGE', 
+                    Foswiki::Func::getWikiUserName(), undef, $topic, $web );
 
-   my $pluginPubUrl = TWiki::Func::getPubUrlPath().'/'.
-            TWiki::Func::getTwikiWebname().'/WebPermissionsPlugin';
+   my $pluginPubUrl = Foswiki::Func::getPubUrlPath().'/'.
+            Foswiki::Func::getTwikiWebname().'/WebPermissionsPlugin';
 
     #add the JavaScript
-    my $jscript = TWiki::Func::readTemplate ( 'webpermissionsplugin', 'topicjavascript' );
+    my $jscript = Foswiki::Func::readTemplate ( 'webpermissionsplugin', 'topicjavascript' );
     $jscript =~ s/%PLUGINPUBURL%/$pluginPubUrl/g;
-    TWiki::Func::addToHEAD('WebPermissionsPlugin', $jscript);
+    Foswiki::Func::addToHEAD('WebPermissionsPlugin', $jscript);
 
-    my $templateText = TWiki::Func::readTemplate ( 'webpermissionsplugin', 'topichtml' );
+    my $templateText = Foswiki::Func::readTemplate ( 'webpermissionsplugin', 'topichtml' );
     $templateText =~ s/%SCRIPT%/%SCRIPTURL{save}%/g if ($disableSave eq '');
     $templateText =~ s/%SCRIPT%/%SCRIPTURL{view}%/g unless ($disableSave eq '');
-    $templateText = TWiki::Func::expandCommonVariables( $templateText, $topic, $web );
+    $templateText = Foswiki::Func::expandCommonVariables( $templateText, $topic, $web );
 
     my $topicViewerGroups = '';
     my $topicViewers = '';
@@ -196,8 +196,8 @@ sub TOPICPERMISSIONS {
     my $acls = _getACLs( [ 'VIEW', 'CHANGE' ], $web, $topic);
     foreach my $user ( sort (keys %$acls) ) {
         my $isGroup;
-        if (defined &TWiki::Func::isGroup) {
-            $isGroup = TWiki::Func::isGroup( $user );
+        if (defined &Foswiki::Func::isGroup) {
+            $isGroup = Foswiki::Func::isGroup( $user );
         } else {
             $isGroup = ($user =~ /Group$/);
         }
@@ -232,18 +232,18 @@ sub TOPICPERMISSIONS {
 
 sub beforeSaveHandler {
     my ( $text, $topic, $web, $meta ) = @_;
-    my $query = TWiki::Func::getCgiQuery();
+    my $query = Foswiki::Func::getCgiQuery();
     my $action = $query->param('topic_permissions_action');
     return unless (defined($action));#nothing to do with this plugin
 
     if ($action ne 'Save') {
         #SMELL: canceling out from, or just stoping a save seems to be quite difficult
-        TWiki::Func::redirectCgiQuery( $query, &TWiki::Func::getViewUrl( $web, $topic ) );
+        Foswiki::Func::redirectCgiQuery( $query, &Foswiki::Func::getViewUrl( $web, $topic ) );
         throw Error::Simple( 'cancel permissions action' );
     }
 
-    return if ($TWiki::Plugins::WebPermissionsPlugin::antiBeforeSaveRecursion == 1);
-    $TWiki::Plugins::WebPermissionsPlugin::antiBeforeSaveRecursion = 1;
+    return if ($Foswiki::Plugins::WebPermissionsPlugin::antiBeforeSaveRecursion == 1);
+    $Foswiki::Plugins::WebPermissionsPlugin::antiBeforeSaveRecursion = 1;
 
     #these lists only contain seelcted users (by using javascript to select the changed ones in save onclick)
     my @topicEditors = $query->param('topiceditors');
@@ -252,7 +252,7 @@ sub beforeSaveHandler {
 
    if ((@topicEditors || @topicViewers || @disallowedUsers)) {
         #TODO: change this to get modes from params
-        my @modes = split(/[\s,]+/,$TWiki::cfg{Plugins}{WebPermissionsPlugin}{modes} ||
+        my @modes = split(/[\s,]+/,$Foswiki::cfg{Plugins}{WebPermissionsPlugin}{modes} ||
                            'VIEW,CHANGE' );
         my $acls = _getACLs( \@modes, $web, $topic);
         my ($userName, $userObj);
@@ -273,11 +273,11 @@ sub beforeSaveHandler {
         _setACLs( \@modes, $acls, $web, $topic );
 
         #read in what setACLs just saved, (don't grok why redirect looses the save)
-        ($_[3], $_[0]) = TWiki::Func::readTopic($_[2],$_[1]);
+        ($_[3], $_[0]) = Foswiki::Func::readTopic($_[2],$_[1]);
 
         #SMELL: canceling out from, or just stoping a save seems to be quite difficult
         #return a redirect to view..
-        TWiki::Func::redirectCgiQuery( $query, &TWiki::Func::getViewUrl( $web, $topic ) );
+        Foswiki::Func::redirectCgiQuery( $query, &Foswiki::Func::getViewUrl( $web, $topic ) );
         throw Error::Simple( 'permissions action saved' );
 
    }
@@ -322,11 +322,11 @@ sub USERSLIST {
         $line =~ s/\$wikiname\b/$item/ge;
         my $mark = ( $selection =~ / \Q$item\E / ) ? $marker : '';
         $line =~ s/\$marker/$mark/g;
-        if (defined(&TWiki::Func::decodeFormatTokens)) {
-            $line = TWiki::Func::decodeFormatTokens( $line );
+        if (defined(&Foswiki::Func::decodeFormatTokens)) {
+            $line = Foswiki::Func::decodeFormatTokens( $line );
         } else {
             $line =~ s/\$n\(\)/\n/gs;
-            $line =~ s/\$n([^$TWiki::regex{mixedAlpha}]|$)/\n$1/gs;
+            $line =~ s/\$n([^$Foswiki::regex{mixedAlpha}]|$)/\n$1/gs;
             $line =~ s/\$nop(\(\))?//gs;
             $line =~ s/\$quot(\(\))?/\"/gs;
             $line =~ s/\$percnt(\(\))?/\%/gs;
@@ -340,27 +340,27 @@ sub USERSLIST {
 # Get a list of all registered users
 sub _getListOfUsers {
     my @list;
-    if (defined(&TWiki::Func::eachUser)) {
-        my $it = TWiki::Func::eachUser();
+    if (defined(&Foswiki::Func::eachUser)) {
+        my $it = Foswiki::Func::eachUser();
         while ($it->hasNext()) {
             my $user = $it->next();
             push(@list, $user);
         }
     } else {
         # Compatibility; pre 4.2
-        my $session = $TWiki::Plugins::SESSION;
+        my $session = $Foswiki::Plugins::SESSION;
         my $users = $session->{users};
 
         #if we have the UserMapping changes (post 4.0.2)
-        if (defined (&TWiki::Users::getAllUsers)) {
+        if (defined (&Foswiki::Users::getAllUsers)) {
             @list = @{$users->getAllUsers()};
         } else {
             $users->lookupLoginName('guest'); # load the cache
 
             @list =
               map {
-                  my( $w, $t ) = TWiki::Func::normalizeWebTopicName(
-                      $TWiki::cfg{UsersWebName}, $_);
+                  my( $w, $t ) = Foswiki::Func::normalizeWebTopicName(
+                      $Foswiki::cfg{UsersWebName}, $_);
                   $users->findUser( $t, "$w.$t");
               } values %{$users->{U2W}};
         }
@@ -373,19 +373,19 @@ sub _getListOfUsers {
 # Get a list of all groups
 sub _getListOfGroups {
     my @list;
-    if (defined(&TWiki::Func::eachGroup)) {
-        my $it = TWiki::Func::eachGroup();
+    if (defined(&Foswiki::Func::eachGroup)) {
+        my $it = Foswiki::Func::eachGroup();
         while ($it->hasNext()) {
             my $user = $it->next();
             push(@list, $user);
         }
     } else {
         # Compatibility; pre 4.2
-        my $session = $TWiki::Plugins::SESSION;
+        my $session = $Foswiki::Plugins::SESSION;
         my $users = $session->{users};
 
         # if we have the UserMapping changes (post 4.0.2)
-        if (defined (&TWiki::Users::getAllGroups)) {
+        if (defined (&Foswiki::Users::getAllGroups)) {
             @list = map { $_->wikiName() }
               @{$session->{users}->getAllGroups()};
         } else {
@@ -422,12 +422,12 @@ sub _getListOfGroups {
 # if a web does not set any access permissions
 sub getUsersByWebPreferenceValue {
     my( $mode, $web, $topic, $perm ) = @_;
-    if($TWiki::cfg{EnableHierarchicalWebs}) {
+    if($Foswiki::cfg{EnableHierarchicalWebs}) {
        $_ = $web;
         my @webs = split("/");
        while(scalar(@webs) > 0) {
                my $curWeb = pop(@webs);
-               my $users =  $TWiki::Plugins::SESSION->{prefs}->getWebPreferencesValue($perm."WEB".$mode, $curWeb, $topic );
+               my $users =  $Foswiki::Plugins::SESSION->{prefs}->getWebPreferencesValue($perm."WEB".$mode, $curWeb, $topic );
 
                # we found users, so there have been settings to define acces. No need to check parent webs, as these settings are overriding
                return $users if(defined($users));
@@ -437,7 +437,7 @@ sub getUsersByWebPreferenceValue {
     }
     else {
        # no hierchical webs, so just return the users of the current web
-        return $TWiki::Plugins::SESSION->{prefs}->getWebPreferencesValue($perm."WEB".$mode, $web, $topic );
+        return $Foswiki::Plugins::SESSION->{prefs}->getWebPreferencesValue($perm."WEB".$mode, $web, $topic );
     }
 
     return undef;
@@ -453,7 +453,7 @@ sub getUsersByWebPreferenceValue {
 # 
 # =\%acls= is a hash indexed by *user name* (web.wikiname). This maps to a hash indexed by *access mode* e.g. =VIEW=, =CHANGE= etc. This in turn maps to a boolean; 0 for access denied, non-zero for access permitted.
 # <verbatim>
-# my $acls = TWiki::Func::getACLs( [ 'VIEW', 'CHANGE', 'RENAME' ], $web, $topic );
+# my $acls = Foswiki::Func::getACLs( [ 'VIEW', 'CHANGE', 'RENAME' ], $web, $topic );
 # foreach my $user ( keys %$acls ) {
 #     if( $acls->{$user}->{VIEW} ) {
 #         print STDERR "$user can view $web.$topic\n";
@@ -473,7 +473,7 @@ sub _getACLs {
     my $context = 'TOPIC';
     unless( $topic ) {
         $context = 'WEB';
-        $topic = $TWiki::cfg{WebPrefsTopicName};
+        $topic = $Foswiki::cfg{WebPrefsTopicName};
     }
     my @knownusers = _getListOfUsers();
     push(@knownusers, _getListOfGroups());
@@ -496,7 +496,7 @@ sub _getACLs {
                $users = getUsersByWebPreferenceValue($mode, $web, $topic, $perm);
                 #print STDERR "$perm$context$mode ($web) is not defined\n" unless defined($users);
             } else {
-                $users = $TWiki::Plugins::SESSION->{prefs}->getTopicPreferencesValue(
+                $users = $Foswiki::Plugins::SESSION->{prefs}->getTopicPreferencesValue(
                     $perm.$context.$mode, $web, $topic );
                unless(defined($users)) { #as we did not find any settings in the topic, we have to look in the web prefs
 
@@ -511,8 +511,8 @@ sub _getACLs {
             my @lusers =
               grep { $_ }
                 map {
-                    my( $w, $t ) = TWiki::Func::normalizeWebTopicName(
-                        $TWiki::cfg{UsersWebName}, $_);
+                    my( $w, $t ) = Foswiki::Func::normalizeWebTopicName(
+                        $Foswiki::cfg{UsersWebName}, $_);
                     $t;
                 } split( /[ ,]+/, $users || '' );
 
@@ -521,21 +521,21 @@ sub _getACLs {
             while( scalar( @lusers )) {
                 my $user = pop( @lusers );
                 my $isGroup;
-                if (defined &TWiki::Func::isGroup) {
-                    $isGroup = TWiki::Func::isGroup( $user );
+                if (defined &Foswiki::Func::isGroup) {
+                    $isGroup = Foswiki::Func::isGroup( $user );
                 } else {
                     $isGroup = $user =~ /Group$/;
                 }
                 if( $isGroup) {
-                    if (defined &TWiki::Func::eachGroupMember) {
+                    if (defined &Foswiki::Func::eachGroupMember) {
                         # expand groups and add individual users
-                        my $it = TWiki::Func::eachGroupMember($user);
+                        my $it = Foswiki::Func::eachGroupMember($user);
                         while ($it && $it->hasNext()) {
                             push( @lusers, $it->next() );
                         }
                     } else {
                         # Compatibility - pre 4.2
-                        my $session = $TWiki::Plugins::SESSION;
+                        my $session = $Foswiki::Plugins::SESSION;
                         my $users = $session->{users};
                         my $uo = $users->findUser($user);
                         # expand groups and add individual users
@@ -589,10 +589,10 @@ sub _setACLs {
     my $context = 'TOPIC';
     unless( $topic ) {
         $context = 'WEB';
-        $topic = $TWiki::cfg{WebPrefsTopicName};
+        $topic = $Foswiki::cfg{WebPrefsTopicName};
     }
 
-    my( $meta, $text ) = TWiki::Func::readTopic( $web, $topic );
+    my( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic );
 
     my @knownusers = _getListOfUsers();
     push(@knownusers, _getListOfGroups() );
@@ -636,7 +636,7 @@ sub _setACLs {
     }
 
     # If there is an access control violation this will throw.
-    TWiki::Func::saveTopic( $web, $topic,
+    Foswiki::Func::saveTopic( $web, $topic,
                             $meta, $text, { minor => 1 } );
 }
 

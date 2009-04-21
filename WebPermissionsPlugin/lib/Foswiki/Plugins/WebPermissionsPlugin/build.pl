@@ -10,9 +10,9 @@ BEGIN {
   }
 }
 
-use TWiki::Contrib::Build;
+use Foswiki::Contrib::Build;
 
-@WebPermissionsPluginBuild::ISA = ( "TWiki::Contrib::Build" );
+@WebPermissionsPluginBuild::ISA = ( "Foswiki::Contrib::Build" );
 
 sub new {
     my $class = shift;
