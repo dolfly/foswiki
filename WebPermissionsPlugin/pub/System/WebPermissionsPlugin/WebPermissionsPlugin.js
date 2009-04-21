@@ -16,20 +16,20 @@
 #
 */
 
-//create the TWiki namespace if needed
-if ( typeof( TWiki ) == "undefined" ) {
-    TWiki = {};
+//create the Fowsiki namespace if needed
+if ( typeof(  ) == "undefined" ) {
+     = {};
 }
 
 /**********************************************************************************/
-//create the TWiki.WebPermissionsPlugin namespace if needed
-if ( typeof( TWiki.WebPermissionsPlugin ) == "undefined" ) {
-    TWiki.WebPermissionsPlugin = {};
+//create the Foswiki.WebPermissionsPlugin namespace if needed
+if ( typeof( Foswiki.WebPermissionsPlugin ) == "undefined" ) {
+    Foswiki.WebPermissionsPlugin = {};
 }
 
 
 //moveSelectionTo(event, 'topiceditors', 'allusersandgroups')
-TWiki.WebPermissionsPlugin.moveSelectionTo = function(event, fromSelectName, toSelectName) {
+Foswiki.WebPermissionsPlugin.moveSelectionTo = function(event, fromSelectName, toSelectName) {
     var buttonTarget = (event.target) ? event.target : event.srcElement;
 
     var fromSelect = buttonTarget.form.elements.namedItem(fromSelectName);
@@ -54,20 +54,20 @@ TWiki.WebPermissionsPlugin.moveSelectionTo = function(event, fromSelectName, toS
     }
 }
 
-//the namespace makes TWiki decide its a web.topic to be rendered as a url
+//the namespace makes Foswiki decide its a web.topic to be rendered as a url
 prepareForSave = function(event) {
-    return TWiki.WebPermissionsPlugin.prepareForSave(event);
+    return Foswiki.WebPermissionsPlugin.prepareForSave(event);
 }
 
 //return false cancels the submit
-TWiki.WebPermissionsPlugin.prepareForSave = function(event) {
+Foswiki.WebPermissionsPlugin.prepareForSave = function(event) {
 //, 'topiceditors', 'topicviewers', 'disallowedusers'
     var buttonTarget = (event.target) ? event.target : event.srcElement;
     
     var userInEditorsList = false;
     var selectObj = buttonTarget.form.elements.namedItem('topiceditors');
     for (i=0; i< selectObj.options.length; i++) {
-        if (selectObj.options[i].value == TWiki.UsersWikiName) {
+        if (selectObj.options[i].value == Foswiki.UsersWikiName) {
             userInEditorsList = true;
         }
         if (selectObj.options[i].changed == 'changed') {

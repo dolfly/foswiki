@@ -16,10 +16,10 @@
             </SELECT>
         </td>
         <td align="center" width="100px">
-            <button type="button" style="width:100%;" onclick="TWiki.WebPermissionsPlugin.moveSelectionTo(event, 'topiceditors', 'disallowedusers');" class="twikiSubmit" >
+            <button type="button" style="width:100%;" onclick="Foswiki.WebPermissionsPlugin.moveSelectionTo(event, 'topiceditors', 'disallowedusers');" class="foswikiSubmit" >
                 <IMG src="%PUBURL%/%SYSTEMWEB%/%PLUGINNAME%/leftarrow.png" alt="<-"> Remove
             </button>
-            <button type="button"  style="width: 100%;" onclick="TWiki.WebPermissionsPlugin.moveSelectionTo(event, 'disallowedusers', 'topiceditors');" class="twikiSubmit" >
+            <button type="button"  style="width: 100%;" onclick="Foswiki.WebPermissionsPlugin.moveSelectionTo(event, 'disallowedusers', 'topiceditors');" class="foswikiSubmit" >
                 Add <IMG src="%PUBURL%/%SYSTEMWEB%/%PLUGINNAME%/rightarrow.png" alt="->">
             </button>
         </td>
@@ -39,20 +39,20 @@
         <td>
         </td>
         <td align="center" valign="center">
-            <button type="button" style="height: 20px;width:30%;" onclick="TWiki.WebPermissionsPlugin.moveSelectionTo(event, 'topiceditors', 'topicviewers');" class="twikiSubmit" >
+            <button type="button" style="height: 20px;width:30%;" onclick="Foswiki.WebPermissionsPlugin.moveSelectionTo(event, 'topiceditors', 'topicviewers');" class="foswikiSubmit" >
                 <IMG src="%PUBURL%/%SYSTEMWEB%/%PLUGINNAME%/downarrow.png" alt="V">
             </button>
-            <button type="button" style="height: 20px;width:30%;" onclick="TWiki.WebPermissionsPlugin.moveSelectionTo(event, 'topicviewers', 'topiceditors');" class="twikiSubmit" >
+            <button type="button" style="height: 20px;width:30%;" onclick="Foswiki.WebPermissionsPlugin.moveSelectionTo(event, 'topicviewers', 'topiceditors');" class="foswikiSubmit" >
                 <IMG src="%PUBURL%/%SYSTEMWEB%/%PLUGINNAME%/uparrow.png" alt="^">
             </button>
         </td>
     </tr>
     <tr>
         <td align="center">
-            <button type="button" style="width: 100%;" onclick="TWiki.WebPermissionsPlugin.moveSelectionTo(event, 'topicviewers', 'disallowedusers');" class="twikiSubmit" >
+            <button type="button" style="width: 100%;" onclick="Foswiki.WebPermissionsPlugin.moveSelectionTo(event, 'topicviewers', 'disallowedusers');" class="foswikiSubmit" >
                 <IMG src="%PUBURL%/%SYSTEMWEB%/%PLUGINNAME%/leftarrow.png" alt="<-"> Remove
             </button>
-            <button type="button" style="width: 100%;" onclick="TWiki.WebPermissionsPlugin.moveSelectionTo(event, 'disallowedusers', 'topicviewers');" class="twikiSubmit" >
+            <button type="button" style="width: 100%;" onclick="Foswiki.WebPermissionsPlugin.moveSelectionTo(event, 'disallowedusers', 'topicviewers');" class="foswikiSubmit" >
                 Add <IMG src="%PUBURL%/%SYSTEMWEB%/%PLUGINNAME%/rightarrow.png" alt="->">
             </button>
         </td>
@@ -72,8 +72,8 @@
     </tr>
     <tr>
         <td align="right" colspan="3">
-            <input type="submit" %DISABLESAVE% class="twikiSubmit%DISABLESAVE%" name="topic_permissions_action" id="save" value='Save' onclick="return prepareForSave(event);" />
-            <input type="submit" class="twikiSubmit" name="topic_permissions_action" id="cancel" value='Cancel' accesskey='c' /> &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="submit" %DISABLESAVE% class="foswikiSubmit%DISABLESAVE%" name="topic_permissions_action" id="save" value='Save' onclick="return prepareForSave(event);" />
+            <input type="submit" class="foswikiSubmit" name="topic_permissions_action" id="cancel" value='Cancel' accesskey='c' /> &nbsp; &nbsp; &nbsp; &nbsp;
          </td>
     </tr>
 </table>

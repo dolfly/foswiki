@@ -16,9 +16,10 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
-# For licensing info read LICENSE file in the TWiki root.
+# For licensing info read LICENSE file in the Foswiki root.
 #
 # Author: Crawford Currie http://c-dot.co.uk
+# Author: Sven Dowideit http://fosiki.com
 # Author: Eugen Mayer http://impressimpressive-media.de
 #
 # This plugin helps with permissions management by displaying the web
@@ -30,7 +31,7 @@ use strict;
 
 # BUGO: because WEBPERMISSIONS is using the same view to change and display,
 # updated ACL's do not apply to this view.
-# TWiki has already loaded the permissions that it is using, and some
+# Foswiki has already loaded the permissions that it is using, and some
 # random plugins have already processed things based on the ACLs prior to
 # the users change. THIS IS HORRIGIBILE
 # IMO it needs to be either rest or save, though i'm going to lean to rest
@@ -107,7 +108,7 @@ sub WEBPERMISSIONS {
         }
     }
 
-    $tab .= CGI::start_table( { border => 1, class => 'twikiTable' } );
+    $tab .= CGI::start_table( { border => 1, class => 'foswikiTable' } );
 
     my $repeat_heads = $params->{repeatheads} || 0;
     my $repeater = 0;
@@ -142,10 +143,10 @@ sub WEBPERMISSIONS {
     $tab .= CGI::end_table();
 
     if( $editing ) {
-        $tab .= CGI::submit( -name => 'web_permissions_action', -value => 'Save',  -class => 'twikiSubmit');
-        $tab .= CGI::submit( -name => 'web_permissions_action', -value => 'Cancel',  -class => 'twikiSubmit' );
+        $tab .= CGI::submit( -name => 'web_permissions_action', -value => 'Save',  -class => 'foswikiSubmit');
+        $tab .= CGI::submit( -name => 'web_permissions_action', -value => 'Cancel',  -class => 'foswikiSubmit' );
     } else {
-        $tab .= CGI::submit( -name => 'web_permissions_action', -value => 'Edit',  -class => 'twikiSubmit' );
+        $tab .= CGI::submit( -name => 'web_permissions_action', -value => 'Edit',  -class => 'foswikiSubmit' );
     }
     my $page = CGI::start_form(
         -method => 'POST',
@@ -389,7 +390,7 @@ sub _getListOfGroups {
             @list = map { $_->wikiName() }
               @{$session->{users}->getAllGroups()};
         } else {
-            # This code assumes we are using TWiki topic based Group mapping
+            # This code assumes we are using Foswiki topic based Group mapping
             $session->{search}->searchWeb(
                 _callback     => sub {
                     my $ref = shift;
