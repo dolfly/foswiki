@@ -3,7 +3,7 @@
 One line description, required for extensions repository catalog.
    * Set SHORTDESCRIPTION = 1,755 Fugue Icons from http://pinvoke.com
 -->
-<img class="foswikiRight" src="%ATTACHURL%/tick.png" alt="tick icon preview" />
+<img class="foswikiRight" src="%ATTACHURL%/all-preview.png" alt="icon preview" />
 
 %SHORTDESCRIPTION%
 
@@ -77,3 +77,6 @@ I'm unavailable for custom icon design work. But your suggestions are always wel
 |  Support: | http://foswiki.org/bin/view/Support/FugueIconsContrib |
 
 <!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
+
+%META:FILEATTACHMENT{name="all-preview.png" attr="" comment="" path="all-preview.png" user="ProjectContributor" version=""}%
+
