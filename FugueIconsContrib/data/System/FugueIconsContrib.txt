@@ -1,0 +1,64 @@
+---+!! !FugueIconsContrib
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Fugue Icons from http://pinvoke.com
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+
+This contrib contains a rather wonderful work of 1,755 icons made by Yusuke Kamiyamane taht can be found at http://www.pinvoke.com/.
+
+It contains not only 16x16 png icons, but also 48x48 source =.psd= files that can be used to extend, combine and customise.
+<verbatim>
+Fugue Icons
+================================================================================
+Copyright (C) 2009 Yusuke Kamiyamane. All rights reserved.
+The icons are licensed under a Creative Commons Attribution 3.0 license.
+<http://creativecommons.org/licenses/by/3.0/>
+--------------------------------------------------------------------------------
+If you can't or don't want to place link back, please purchase a royalty-free license.
+<http://www.pinvoke.com/>
+--------------------------------------------------------------------------------
+I'm unavailable for custom icon design work. But your suggestions are always welcome!
+<mailto:yusuke.kamiyamane@gmail.com>
+</verbatim>
+
+---++ Examples
+
+| *file* | *example* |
+| balloon-twitter-left.png | %ATTACHURL%/icon/balloon-twitter-left.png | 
+| balloons--pencil.png | %ATTACHURL%/icon/balloons--pencil.png | 
+| blogs--exclamation.png | %ATTACHURL%/icon/blogs--exclamation.png | 
+| calendar-select-days.png | %ATTACHURL%/icon/calendar-select-days.png | 
+| document--plus.png | %ATTACHURL%/icon/document--plus.png | 
+| balloons.png | %ATTACHURL%/icon/balloons.png | 
+| balloons.png | %ATTACHURL%/icon/balloons.png | 
+| balloons.png | %ATTACHURL%/icon/balloons.png | 
+| balloons.png | %ATTACHURL%/icon/balloons.png | 
+| balloons.png | %ATTACHURL%/icon/balloons.png | 
+| balloons.png | %ATTACHURL%/icon/balloons.png | 
+| balloons.png | %ATTACHURL%/icon/balloons.png | 
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+Many thanks to the following sponsors for supporting this work:
+   * Acknowledge any sponsors here
+
+|  Author(s): | Foswiki:Main.SvenDowideit - SvenDowideit@fosiki.com |
+|  Copyright: | &copy;  2009 Yusuke Kamiyamane|
+|  License: | [[http://creativecommons.org/licenses/by/3.0/][Creative Commons Attribution 3.0 license.]] |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+| march 2009 | initial version using 1.7.2 | 
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/FugueIconsContrib |
+|  Support: | http://foswiki.org/bin/view/Support/FugueIconsContrib |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
