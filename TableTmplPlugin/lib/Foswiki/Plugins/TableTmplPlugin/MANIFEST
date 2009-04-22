@@ -1,0 +1,5 @@
+# Release manifest for TableTmplPlugin
+data/System/TableTmplPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/TableTmplPlugin.pm 0644 Perl module
+lib/Foswiki/Plugins/TableTmplPlugin/Core.pm 0644 Perl module
+

@@ -1,0 +1,35 @@
+---+!! !TableTmplPlugin
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = TablePlugin clone using CssPlugin to enable skinning
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+
+See Foswiki:Extensions.TablePlugin.
+
+---++ Motivations 
+
+This is a clone of Foswiki:Extensions.TablePlugin enabling skinning through abstraction of CSS class name using Foswiki:Extensions.CssPlugin.
+The original idea was to make the table format totally skinnable using skin template thus the plug-in name. However skin template usage would require dramatic changes to the plug-in logic and possibly loss of funtionality.
+We eventually decided to make minial changes to simply enable variable CSS class name in the hope that those changes get integrated in Foswiki:Extensions.TablePlugin at some point.
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author(s): | Foswiki:Main.StephaneLenclud |
+|  Copyright: | &copy; |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/TableTmplPlugin |
+|  Support: | http://foswiki.org/bin/view/Support/TableTmplPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
