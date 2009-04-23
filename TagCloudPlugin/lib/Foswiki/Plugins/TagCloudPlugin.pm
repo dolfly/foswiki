@@ -15,7 +15,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package TWiki::Plugins::TagCloudPlugin;
+package Foswiki::Plugins::TagCloudPlugin;
 
 use strict;
 use vars qw(
@@ -24,7 +24,7 @@ use vars qw(
 );
 
 $VERSION = '$Rev$';
-$RELEASE = 'v1.01';
+$RELEASE = 'v2.00';
 $NO_PREFS_IN_TOPIC = 1;
 $SHORTDESCRIPTION = 'Renders a tag cloud given a list of terms';
 
@@ -33,11 +33,11 @@ sub initPlugin {
   #my ($topic, $web, $user, $installWeb) = @_;
 
   # check for Plugins.pm versions
-  if ($TWiki::Plugins::VERSION < 1.1) {
+  if ($Foswiki::Plugins::VERSION < 1.1) {
     return 0;
   }
 
-  TWiki::Func::registerTagHandler('TAGCLOUD', \&_TAGCLOUD);
+  Foswiki::Func::registerTagHandler('TAGCLOUD', \&_TAGCLOUD);
   $isInitialized = 0;
 
   return 1;
@@ -48,10 +48,10 @@ sub _TAGCLOUD {
   #my($session, $params, $theTopic, $theWeb) = @_;
 
   unless ($isInitialized) {
-    require TWiki::Plugins::TagCloudPlugin::Core;
+    require Foswiki::Plugins::TagCloudPlugin::Core;
     $isInitialized = 1;
   }
-  return TWiki::Plugins::TagCloudPlugin::Core::handleTagCloud(@_);
+  return Foswiki::Plugins::TagCloudPlugin::Core::handleTagCloud(@_);
 }
 
 ###############################################################################

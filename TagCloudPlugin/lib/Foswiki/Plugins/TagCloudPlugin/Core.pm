@@ -14,7 +14,7 @@
 # http://www.gnu.org/copyleft/gpl.html
 #
 ###############################################################################
-package TWiki::Plugins::TagCloudPlugin::Core;
+package Foswiki::Plugins::TagCloudPlugin::Core;
 
 use strict;
 use vars qw($englishStopWords);
@@ -89,16 +89,16 @@ sub handleTagCloud {
   # generate term list
 
   if (&expandVariables($theTerms)) {
-    writeDebug("initially theTerms=$theTerms\n");
-    $theTerms = TWiki::Func::expandCommonVariables($theTerms, $theTopic, $theWeb);
+    #writeDebug("initially theTerms=$theTerms\n");
+    $theTerms = Foswiki::Func::expandCommonVariables($theTerms, $theTopic, $theWeb);
   }
 
   # count terms
   my %termCount;
 
   # remove special chars
-  writeDebug("theFilter=$theFilter");
-  writeDebug("before theTerms=$theTerms\n");
+  #writeDebug("theFilter=$theFilter");
+  #writeDebug("before theTerms=$theTerms\n");
   if ($theFilter eq 'off') {
     # nop
   } elsif ($theFilter eq 'on') {
@@ -113,10 +113,10 @@ sub handleTagCloud {
   } else {
     $theTerms =~ s/$theFilter/ /g;
   }
-  writeDebug("after theTerms=$theTerms\n");
+  #writeDebug("after theTerms=$theTerms\n");
   foreach my $term (split(/$theSplit/, $theTerms)) {
     $term =~ s/^\s*(.*?)\s*$/$1/o;
-    writeDebug("term=$term");
+    #writeDebug("term=$term");
     my $weight = 1;
     if ($term =~ /^(.*):(\d+)$/) {
       $term = $1;
@@ -159,7 +159,7 @@ sub handleTagCloud {
       if $termCount{$term} < $floor || $floor < 0;
   }
   unless (scalar(keys %termCount)) {
-    return '<span class="twikiAlert">nothing found</span>' if $theWarn eq 'on';
+    return '<span class="foswikiAlert">nothing found</span>' if $theWarn eq 'on';
     return '';
   }
 
@@ -230,7 +230,7 @@ sub handleTagCloud {
   }
   &expandVariables($theHeader);
   &expandVariables($theFooter);
-  $result = TWiki::Func::expandCommonVariables($theHeader.$result.$theFooter, $theTopic, $theWeb);
+  $result = Foswiki::Func::expandCommonVariables($theHeader.$result.$theFooter, $theTopic, $theWeb);
 
   return $result;
 }
@@ -270,7 +270,7 @@ sub handleFadeRGB {
 }
 
 ###############################################################################
-# from TWiki::Plurals
+# from Foswiki::Plurals
 sub singularForm {
   my $singularForm = shift;
   

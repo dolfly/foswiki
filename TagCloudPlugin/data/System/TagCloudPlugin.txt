@@ -39,7 +39,7 @@ First, the input data has to be tokenized and normalized to match each word in
 the input to a term by 
    1 splitting up the data, removing special characters,
    1 mapping different terms on one term, like handling synonyms
-    (e.g. twikiapps=<nop>WikiApplication)
+    (e.g. wikiapps=<nop>WikiApplication)
     (optional)
    1 filtering unwanted words; there's a predefined list of (english) stop
      words that can applied
@@ -174,20 +174,7 @@ Cloud for the above text:
 </div>
 
 ---++ Plugin Installation Instructions
-
-   * Download the ZIP file
-   * Unzip it in your twiki installation directory. Content: 
-     | *File:* | *Description:* |
-%$MANIFEST%
-
-<!--
-   * Optionally, run ==%TOPIC%_installer.pl== to automatically check and
-     install other modules that this module depends on. You can also do
-     this step manually.
-   * Alternatively, manually make sure the dependencies listed in the table
-     below are resolved.
-     %$DEPENDENCIES%
--->
+%$INSTALL_INSTRUCTIONS%
 
 
 ---++ Plugin Info
@@ -199,8 +186,9 @@ Cloud for the above text:
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v1.20|
+|  Plugin Version: | v2.00 |
 |  Change History: | &nbsp; |
+|  24 Apr 2009: | converted to foswiki plugin |
 |  07 Jan 2009: | fixed parsing of parameters (tststs); \
                   certified for foswiki/compat | 
 |  03 Jan 2008: | added limit parameter; \
@@ -224,6 +212,6 @@ Cloud for the above text:
 |  24 Feb 2006: | Initial version |
 |  Perl Version: | 5.8 |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
-|  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
+|  Support: | Foswiki:Support/%TOPIC% |
 
 %META:FILEATTACHMENT{name="TagCloud.jpg" attachment="TagCloud.jpg" attr="" comment="" date="1141219293" path="TagCloud.jpg" size="22049" stream="TagCloud.jpg" user="ProjectContributor" version="1"}%
