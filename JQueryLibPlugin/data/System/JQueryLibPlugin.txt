@@ -59,7 +59,7 @@ However for a foswiki installation using a jQuery themed skin we recommend the f
 
 <verbatim>
 {Plugins}{JQueryLibPlugin}{Scripts}=jquery-1.3.2.min.js, plugins/foswiki/foswiki.js
-{Plugins}{JQueryLibPlugin}{Styles}=themes/1.7/smoothness/ui.all.css, plugins/foswiki/foswiki.css
+{Plugins}{JQueryLibPlugin}{Styles}=themes/1.7/smoothness/jquery-ui.css, plugins/foswiki/foswiki.css
 </verbatim>
 
 
@@ -83,6 +83,7 @@ Many thanks to the following sponsors for supporting this work:
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+| 24 Apr 2009 | 0.9 - Changing default configuration to work well with JQuery UI 1.7.1.  |
 | 19 Apr 2009 | 0.8 - Adding jquery-ui 1.7.1 stable with themes.  |
 | 1 Mar 2009 | 0.7 - Adding cupertino, humanity, lightness, mintchoc, redmond and vader themes for UI 1.7.  |
 | 1 Mar 2009 | 0.6 - Minor behavior fix for error and highlight buttons. Removing blank lines from demo topic.  |
