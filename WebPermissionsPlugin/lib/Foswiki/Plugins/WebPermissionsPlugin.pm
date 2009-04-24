@@ -28,47 +28,50 @@ package Foswiki::Plugins::WebPermissionsPlugin;
 
 use strict;
 
-use vars qw( $VERSION $RELEASE $pluginName $antiBeforeSaveRecursion);
+use Foswiki::Func ();
 
-use Foswiki::Func;
-use CGI qw( :all );
-use Error;
-
-$pluginName = 'WebPermissionsPlugin';
-
-$VERSION = '$Rev: 160$';
-
-$RELEASE = '1.120';
+our $pluginName = 'WebPermissionsPlugin';
+our $VERSION    = '$Rev: 160$';
+our $RELEASE    = '21 Apr 2009';
 
 sub initPlugin {
-    my( $topic, $web, $user, $installWeb ) = @_;
+    my ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $Foswiki::Plugins::VERSION < 1.10 ) {
+    if ( $Foswiki::Plugins::VERSION < 1.10 ) {
         Foswiki::Func::writeWarning(
-            'Version mismatch between WebPermissionsPlugin and Foswiki::Plugins' );
+            'Version mismatch between WebPermissionsPlugin and Foswiki::Plugins'
+        );
         return 0;
     }
 
     Foswiki::Func::registerTagHandler( 'WEBPERMISSIONS', \&_WEBPERMISSIONS );
-    Foswiki::Func::registerTagHandler( 'TOPICPERMISSIONS', \&_TOPICPERMISSIONS );
+    Foswiki::Func::registerTagHandler( 'TOPICPERMISSIONS',
+        \&_TOPICPERMISSIONS );
+
     # SMELL: need to disable this if the USERSLIST code is ever moved into the
     # core.
     Foswiki::Func::registerTagHandler( 'USERSLIST', \&_USERSLIST );
-    $antiBeforeSaveRecursion = 0;
+
+    Foswiki::Func::registerRESTHandler( 'change', \&_changeHandler );
 
     return 1;
 }
 
+sub _changeHandler {
+    my $session = shift;
+    require Foswiki::Plugins::WebPermissionsPlugin::Core;
+    Foswiki::Plugins::WebPermissionsPlugin::Core::changeHandler($session);
+}
+
 sub _WEBPERMISSIONS {
-    my( $session, $params, $topic, $web ) = @_;
+    my ( $session, $params, $topic, $web ) = @_;
 
     #return undef unless Foswiki::Func::isAdmin();
 
     require Foswiki::Plugins::WebPermissionsPlugin::Core;
     Foswiki::Plugins::WebPermissionsPlugin::Core::WEBPERMISSIONS(@_);
 }
-
 
 #TODO: add param topic= and show= specify to list only groups / only users / both
 sub _TOPICPERMISSIONS {

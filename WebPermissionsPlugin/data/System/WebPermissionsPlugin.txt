@@ -123,7 +123,7 @@ Use the following form to select the subset of webs and users you want to displa
 <!-- Copy from HERE -->
 #PermissionsMatrix
 <div style="background-color: #ffffdf; padding: 10px">
-Select the webs, users and groups you want to change permissions for from the list below. Ctrl+click and Shift+click work as normal.<br />
+Select the webs, users, and groups you want to change permissions for from the list below. Ctrl+click and Shift+click work as normal.<br />
 <form action="%SCRIPTURL{view}%/%WEB%/%TOPIC%#PermissionsMatrix" method="POST">
 <select size="7" name="webs" multiple="multiple">
 %WEBLIST{format="<option $marker>$name</option>" selection="%URLPARAM{"webs" multiple="on" separator=", "}%"}%
@@ -175,7 +175,7 @@ Many thanks to the following sponsors for supporting this work:
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | |
-| March 2009 | ported to Foswiki |
+|  21 Apr 2009 | Foswikitask:Item1484: Sven Dowideit, Crawford Currie, ported to Foswiki |
 |  4 Dec 2007 | TWikibug:Item4901 fixed templates TWikibug:Item5072 added users parameter to select a subset of users/groups in the web permissions interface |
 |  8 Sep 2007 | Updated for TWiki-4.2.0 |
 |  July 2006 | add Topic ACLs user interface via More topic actions - SvenDowideit@WikiRing.com |
