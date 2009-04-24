@@ -138,7 +138,7 @@ sub _setDefaults {
     $vAlign         = '';
     $headerVAlign   = '';
     $dataVAlign     = '';
-    $headerBg       = '#6b7f93';
+    $headerBg       = '';
     $headerBgSorted = '';
     $headerColor    = '';
     $tableId        = '';
@@ -147,7 +147,7 @@ sub _setDefaults {
     @columnWidths   = ();
     @headerAlign    = ();
     @dataAlign      = ();
-    @dataBg         = ( '#ecf2f8', '#ffffff' );
+    @dataBg         = ( '', '' );
     @dataBgSorted   = ();
     @dataColor      = ();
 
@@ -1677,15 +1677,30 @@ sub emitTable {
             use strict 'refs';
         }    # foreach my $fcell ( @$row )
 
+		#Determine where we are in the rows: header rows, body rows or footer
+        my $isHeaderRow = ( $headerCellCount == $colCount );
+        my $isFooterRow = ( ( $numberOfRows - $rowCount ) <= $footerRows );
+		my $isBodyRow = 0;
+
+        if ( !$isHeaderRow && !$isFooterRow ) {
+
+        # don't include non-adjacent header rows to the top block of header rows
+            $isPastHeaderRows = 1;
+			$isBodyRow = 1;
+        }
+		
         # assign css class names to tr
         # based on settings: dataBg, dataBgSorted
         my $trClassName = $cssClasses{'tr'};
 
         # just 2 css names is too limited, but we will keep it for compatibility
-        # with existing style sheets
-        my $rowTypeName =
-          ( $rowCount % 2 ) ? $cssClasses{'even'} : $cssClasses{'odd'};
-        $trClassName = _appendToClassList( $trClassName, $rowTypeName );
+        # with existing style sheets		
+		#SL: Header and footer rows are not even nor odd
+		if ($isBodyRow)
+			{
+			my $rowTypeName = ( $rowCount % 2 ) ? $cssClasses{'even'} : $cssClasses{'odd'};
+			$trClassName = _appendToClassList( $trClassName, $rowTypeName );
+			}
 
         if ( scalar @dataBgSorted ) {
             my $modRowNum = $dataColorCount % ( $#dataBgSorted + 1 );
@@ -1706,15 +1721,6 @@ sub emitTable {
         $rowtext .= $doubleIndent;
         my $rowHTML =
           $doubleIndent . CGI::Tr( { class => $trClassName }, $rowtext );
-
-        my $isHeaderRow = ( $headerCellCount == $colCount );
-        my $isFooterRow = ( ( $numberOfRows - $rowCount ) <= $footerRows );
-
-        if ( !$isHeaderRow && !$isFooterRow ) {
-
-        # don't include non-adjacent header rows to the top block of header rows
-            $isPastHeaderRows = 1;
-        }
 
         if ($isFooterRow) {
             push @footerRowList, $rowHTML;
@@ -1806,7 +1812,7 @@ sub handler {
 
         $pluginAttrs =
           Foswiki::Func::getPreferencesValue('TABLEPLUGIN_TABLEATTRIBUTES')
-		      || 'cellpadding="0" cellspacing="0" valign="top" headerbg="#687684" headerbgsorted="#334455" databg="#ffffff,#edf4f9" databgsorted="#f1f7fc,#ddebf6"';
+		      || 'cellpadding="0" cellspacing="0" valign="top"';
               #|| 'tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#ffffff" headerbg="#687684" headerbgsorted="#334455" databg="#ffffff,#edf4f9" databgsorted="#f1f7fc,#ddebf6" tablerules="rows"';
         $prefsAttrs = Foswiki::Func::getPreferencesValue('TABLEATTRIBUTES');
         _setDefaults();
