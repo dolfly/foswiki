@@ -84,7 +84,7 @@ BEGIN {
 		my $conf=$Foswiki::cfg{Plugins}{CssPlugin};
 		%cssClasses = (
 			'table', (defined $conf->{'table'}?$conf->{'table'}:'foswikiTable'),
-			'primary', (defined $conf->{'primary'}?$conf->{'primary'}:'foswikiSortedCol'),
+			'sorted', (defined $conf->{'sorted'}?$conf->{'sorted'}:'foswikiSortedCol'),
 			'tr', (defined $conf->{'tr'}?$conf->{'tr'}:''),		
 			'th', (defined $conf->{'th'}?$conf->{'th'}:''),
 			'td', (defined $conf->{'td'}?$conf->{'td'}:''),
@@ -105,7 +105,7 @@ BEGIN {
 		#Original table plugin style
 		%cssClasses = (
 			'table', 'foswikiTable',
-			'primary', 'foswikiSortedCol',
+			'sorted', 'foswikiSortedCol',
 			'tr', '',		
 			'th', '',
 			'td', '',
@@ -891,7 +891,7 @@ sub _appendToClassList {
 sub _appendSortedCssClass {
     my ($classList) = @_;
 
-    return _appendToClassList( $classList, $cssClasses{'primary'} );
+    return _appendToClassList( $classList, $cssClasses{'sorted'} );
 }
 
 sub _appendRowNumberCssClass {
@@ -1102,7 +1102,7 @@ sub _addStylesToHead {
     if ( defined $cssAttrs{headerBgSorted} ) {
         unless ( $cssAttrs{headerBgSorted} =~ /none/i ) {
             my $attr = 'background-color:' . $cssAttrs{headerBgSorted} . ';';
-            push( @styles, "$selector th.$cssClasses{primary} {$attr}" );
+            push( @styles, "$selector th.$cssClasses{sorted} {$attr}" );
         }
     }
 
@@ -1152,7 +1152,7 @@ sub _addStylesToHead {
                 $rowSelector .= $count;
                 my $attr = 'background-color:' . $color . ';';
                 push( @styles,
-                    "$selector tr.$rowSelector td.$cssClasses{primary} {$attr}" );
+                    "$selector tr.$rowSelector td.$cssClasses{sorted} {$attr}" );
                 $count++;
             }
         }
