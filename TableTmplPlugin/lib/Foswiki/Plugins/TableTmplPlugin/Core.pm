@@ -81,7 +81,9 @@ BEGIN {
 	if (defined $Foswiki::cfg{Plugins}{CssPlugin}{Enabled} && defined $Foswiki::cfg{Plugins}{CssPlugin}{Enabled})
 	#if (0)
 		{
-		my $conf=$Foswiki::cfg{Plugins}{CssPlugin};
+		#my $conf=$Foswiki::cfg{Plugins}{CssPlugin};
+		my $conf=\%Foswiki::Plugins::CssPlugin::classMap;
+		
 		%cssClasses = (
 			'table', (defined $conf->{'table'}?$conf->{'table'}:'foswikiTable'),
 			'sorted', (defined $conf->{'sorted'}?$conf->{'sorted'}:'foswikiSortedCol'),
