@@ -16,9 +16,9 @@
 #
 */
 
-//create the Fowsiki namespace if needed
-if ( typeof(  ) == "undefined" ) {
-     = {};
+//create the Foswiki namespace if needed
+if ( typeof( Foswiki ) == "undefined" ) {
+    Foswiki = {};
 }
 
 /**********************************************************************************/
