@@ -1,0 +1,276 @@
+%META:TOPICINFO{author="micha" date="1240582108" format="1.1" reprev="1.2" version="1.2"}%
+<!--
+
+   PLEASE DO NOT EDIT THIS TOPIC
+
+   It is automatically generated from the subversion repository, and any
+   changes you make will simply be overwritten the next time a release is
+   generated.
+
+   Instead, you could check your fix in, raise a bug in the Bugs web, or mail
+   the authors.
+-->
+---+!! <nop>%TOPIC%
+%TOC%
+
+Use this plugin to control the display and alignment of images using an easy
+syntax and support for server-side resizing and thumbnailing. There are a set
+of pre-defined layout formats for images as well as a free layout configurability.
+
+Short example:
+
+*You type:*
+
+<verbatim>
+%IMAGE{"Sandbox/ImagePluginTest/Westminstpalace.jpg"
+  type="frame" 
+  align="none" 
+  caption="caption text"
+}%
+</verbatim>
+
+*You get:*
+
+<div style="margin:7px;_width:418px;max-width:418px;">
+<a href='%PUBURLPATH%/Sandbox/ImagePluginTest/Westminstpalace.jpg' class='imageHref' title='caption text'>
+<img src="%ATTACHURLPATH%/WestminstpalaceSample.png" alt="WestminstpalaceSample.png" width='416' height='339' />
+</a>
+</div>
+
+*If installed:*
+
+%IMAGE{"Sandbox/ImagePluginTest/Westminstpalace.jpg"
+  type="frame" 
+  align="none" 
+  caption="caption text"
+}%
+
+Images to be displayed can be located
+   * at the =topic= as specified,
+   * at the location specified in the IMAGEALBUM preference variable,
+   * at the current topic or
+   * at a remote URL.
+
+If you specify a remote url using =http://...= the image is downloaded (using CPAN:LWP::Simple)
+into a local cache and then processed as usual. WARNING: please be aware of any copyrights of
+the images you mirror this way.
+
+The =topic= and IMAGEALBUM parameters can be of the for =[&lt;web>.]&lt;topic>= .
+For example putting
+<verbatim>
+   * Set IMAGEALBUM = %SYSTEMWEB%.ImagePlugin
+</verbatim>
+into the current topic will search all images at the given topic.
+
+---++ Syntax 
+=%<nop>IMAGE{"foo.gif" ...}%=
+
+There are four predefined format types (plain, simple, link, thumbnail, frame, float)
+that can be used by setting the =type= paramenter (see below).  In addition
+there is a free-form =format= parameter to specify any other possible html
+layout.  The Wikipedia format is also supported. See
+Wikipedia:Wikipedia:Extended_image_syntax.
+
+(hidden feature: =%<nop>IMAGE{"clear"}%= will create a proper clear for your floats ;)  )
+
+---+++ Arguments
+The image name is mandatory.  Further arguments are optional.
+
+| *Name* |  *Values*  |  *Default*  |
+| =align=  | left&#124;center&#124;right&#124;none  | right |
+| =alt= | alt text | image filename |
+| =caption=  | caption text  | empty  |
+| =class= | (see html specs) | imageFrame, imageFloat, ... depending on the type |
+| =desc= | description text | title text |
+| =footer= | text to be appended to the html output | empty |
+| =format= | image layout format string | set by type argument |
+| =header= | text to be prepended to the html output | empty |
+| =height= | integer value | image width |
+| =href= | hyperlink when clicking on the image | url of the source image |
+| =id= | (see html specs) | empty |
+| =mousein= | javascript executed if moving the mouse over the image | empty |
+| =mouseout= | javascript executed if moving the mouse off the image | empty |
+| =refresh= | on/off/img to trigger recomputing images | off |
+| =size=  | geometry specification | image geometry  |
+| =style= | (see html specs) | empty |
+| =title= | title text | *alt* value |
+| =tooltip= | on/off | off |
+| =tooltipwidth= | width of tooltip image | 300 |
+| =tooltipheight= | height of tooltip image | 300 |
+| =topic= | valid topic name | topic part of IMGALBUM value or current topic |
+| =type=  | simple, plain, link, thumb[nail], frame, float | plain  |
+| =warn= | on/off, surpress error warnings | on |
+| =web= | valid web name | web part of IMGALBUM value or current topic |
+| =width= | integer value | image width |
+
+---+++ Tooltip preview
+The =tooltip= argument allows rendering image previews in a tooltip. This option
+only has effect if Foswiki:Extensions.JQueryPlugin is installed that comes with
+the jquery.tooltip plugin used to render the image tooltip here.
+
+---+++ Image geometry
+The image geometry in the =size= parameter can be specified in a format 
+=&lt;width>[px][x&lt;height>[px]]=,
+that is width and height can be given as integers with an optional =px=, where
+the height is optional, separated with a 'x' in between. Note, that the given
+width and height values are the _maximum width_ and _maximum height_ that the
+image will have keeping its aspect ratio. If you want to deform it to an extact
+measure use the =width= and =height= arguments.
+
+
+---+++ Format specification
+Format strings given in =header=, =footer= and =format= may contain the following
+pseudo variables:
+
+| *Name* | *Value* |
+| =$align= | value of =align= argumet |
+| =$alt= | value of =alt= argumet |
+| =$caption= | caption text |
+| =$class= | value of =class= argumet |
+| =$desc= | value of =desc= argument |
+| =$dollar= | replaced with dollar sign ($) |
+| =$height= | image height |
+| =$href= | hyperlink url when clicking on an image |
+| =$id= | value of =id= argumet |
+| =$magnifyIcon= | enlage-icon |
+| =$mousein= | value of =mousein= argument |
+| =$mouseout= | value of =mouseout= argument |
+| =$n= | replaced with a linefeed (\n) |
+| =$nop= | replaced with empty string |
+| =$origheight= | image height of the original image|
+| =$origsrc= | url of the original image (not the resized one) |
+| =$origwidth= | image width of the original image |
+| =$percnt= | replaced with percent sign (%) |
+| =$src= | image source url |
+| =$style= | value of =style= argumet |
+| =$text= | link text to be displayed in the "link" layout type |
+| =$title= | value of =title= argument |
+| =$width= | image width |
+
+After the layout has been formatted any further <nop>TopicMarkup that might be
+contained is expanded afterwards. Note, that using =$percnt= and =$dollar=
+evaluation order of <nop>TopicMarkup can be changed so that arguments are expanded
+_after_ the IMAGE tag has been computed, whereas the default evaluation
+order is left-to-right-inside-out.
+
+---++ REST image service
+The <nop>ImagePlugin implements a REST handler =resize= to generate thumbnails for image attachments
+on the fly.  This handler is then called in an =img= tag like this:
+
+<verbatim>
+<img src='%PUBURLPATH%/rest/ImagePlugin/resize?
+  topic=web.topic;
+  file=attachment;
+  width=300;
+  height=300'
+  ...
+/>
+</verbatim>
+
+Arguments to the =resize= handlers are:
+
+| *Name* |  *Values*  |  *Default*  |
+| =topic= | specifies the topic where the image is attached | BASEWEB.BASETOPIC |
+| =file= | specifies the image filename | | 
+| =width= | width of thumbnail  | |
+| =height= | height of thumbnail  | |
+| =size= | geometry of thumbnail  | |
+| =refresh= | on/off/img to trigger recomputing images | off |
+
+---++ Examples
+   * See also [[Sandbox.ImagePluginTest]] for an exhaustive sample and test page
+   * Resize to 100 pixels, text flows right, with caption 
+     <verbatim>%IMAGE{"Westminstpalace.jpg" size="100" align="left" caption="This is my caption"}%</verbatim>
+   * Resize to %<nop>THUMBNAIL_SIZE% size, and center image
+     <verbatim>%IMAGE{"Westminstpalace.jpg" type="thumb" align="center"}%</verbatim>
+
+---++ Configuration
+
+---+++ Links to external images
+You can turn on downloading and mirroring of images that link to external sites, 
+Example: http://www.google.com/intl/en_ALL/images/logo.gif
+
+<verbatim>
+$Foswiki::cfg{ImagePlugin}{RenderExternalImageLinks} = 1;
+</verbatim>
+
+This will download the image and mirror it on the local site. Use the =refresh= url parameter
+to check if the external images has updated.
+
+If you also turn on attaching a mirrored image to the current topic,
+an additional attachment-record is generated for the downloaded external image.
+Attachments will be marked as hidden. Note, that any
+auto-attached image will update the topic and with it its timestamp.
+
+<verbatim>
+$Foswiki::cfg{ImagePlugin}{AutoAttachExternalImages} = 1;
+</verbatim>
+
+---+++ Attaching auto-generated thumbnails
+Automatically generated thumbnails are  attached to the current topic when you switch on
+
+<verbatim>
+$Foswiki::cfg{ImagePlugin}{AutoAttachThumbnails} = 1;
+</verbatim>
+
+This might be of interest when you'd like to access these thumbnails using other plugins.
+
+---+++ Image processing backend
+The plugin makes use of either CPAN:Image::Magick or [[http://www.graphicsmagick.org/][Graphics::Magick]],
+a fork of the former. Both are compatible as far as they are used here. Graphics::Magick does seem
+to perform faster than Image::Magick; some Image::Magick might be broken on your server distribution.
+By default Image::Magick is used as it is the more common extension for perlbased image processing.
+
+<verbatim>
+$Foswiki::cfg{ImagePlugin}{Mode} = 'Image::Magick';
+</verbatim>
+
+---++ Plugin Installation Instructions
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+<!--
+   * Set SHORTDESCRIPTION = Control the display and alignment of images using an easy syntax
+-->
+
+|  Plugin Author: | Craig Meyer, Foswiki:Main.MichaelDaum |
+|  Copyright: | &copy; 2006, Craig Meyer, %BR% &copy; 2006-2009 Michael Daum http://michaeldaumconsulting.com |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 2.00 |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  24 Apr 2009: | converted to foswiki plugin; \
+                  added thumbnail REST handler; \
+                  added tooltip preview using jquery; \
+                  added mirroring of external images; \
+                  moved image type definitions into a template |
+|  11 Feb 2009: | updated documentation examples (Foswiki:Main.WillNorris) |
+|  07 Jan 2009: | certified for foswiki/compat |
+|  03 Jul 2008: | fixed parsing the type parameter; \
+                  fixing docu about the default THUMBNAIL_SIZE; \
+                  added new default format =plain=; \
+                  plainify text to be used in a html attribute position, e.g. titles; \
+                  default to no img alignment; \
+                  refresh images on a =?refresh=on= url param; \
+                  using LWP::UserAgent instead of LWP::Simple to mirror images; \
+                  using =Resize= instead of =Scale= for higher quality thumbnails; \
+                  don't encrypt the href param |
+|  03 Mar 2008: | make implementation of image mage configurable, \
+                 defaulting to Graphics::Magick as Image::Magick has got issues \
+                 using perl accellerators like mod_perl, speedy-cgi |
+|  03 Jan 2008: | added processing of remote images |
+|  18 Dec 2006: | fixed image lookup order; fixed html formats; added <nop>I18N workaround |
+|  18 Aug 2006: | fixed html errors; \
+                  removed references to <nop>ImgPlugin thus not showing the magnify-clip; \
+		  some html and css fixes to resemble closer to the <nop>MediaWiki examples |
+|  17 Aug 2006: | width and height arguments had no effect; floating images not clearing proberly on IE |
+|  16 June 2006: | released into the public |
+|  10 May 2006: | Initial version by forking <nop>ImgPlugin |
+|  Dependency: | $Foswiki::Plugins::VERSION 1.1 |
+|  CPAN Dependencies: | %$DEPENDENCIES% |
+|  Other Dependencies: |  |
+|  Perl Version: | 5.8 |
+|  Plugin Home: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Extensions/%TOPIC% |
+
+
+%META:FILEATTACHMENT{name="WestminstpalaceSample.png" attr="h" autoattached="1" comment="" date="1185796830" path="WestminstpalaceSample.png" size="107728" user="ProjectContributor" version="1"}%

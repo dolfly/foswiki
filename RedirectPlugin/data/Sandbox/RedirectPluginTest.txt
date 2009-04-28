@@ -1,0 +1,8 @@
+%META:TOPICINFO{author="ProjectContributor" date="1182547552" format="1.1" version="$Rev$"}%
+---+ %SYSTEMWEB%.RedirectPlugin Test Topic: origin
+
+%REDIRECT{"RedirectPluginDestination"}%
+
+=noredirect= is set to =%URLPARAM{"noredirect" default="nothing"}%=
+
+[[%TOPIC%][Test again]]
