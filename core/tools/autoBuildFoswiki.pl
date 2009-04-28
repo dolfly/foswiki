@@ -20,11 +20,11 @@ if ( grep('-sven', @ARGV) ) {
 
 
 
-my $foswikiBranch = 'trunk';
+my $foswikiBranch = 'Release01x00';
 
 unless ( -e $foswikiBranch ) {
    print STDERR "doing a fresh checkout\n";
-   `svn co http://svn.foswiki.org/$foswikiBranch > Foswiki-svn.log`;
+   `svn co http://svn.foswiki.org/branches/$foswikiBranch > Foswiki-svn.log`;
    chdir($foswikiBranch.'/core');
 } else {
 #TODO: should really do an svn revert..
@@ -44,19 +44,12 @@ chomp($foswikihome);
 #TODO: add a trivial and correct LocalSite.cfg
 `chmod -R 777 data pub`;
 
-#TODO: replace this code with 'configure' from comandline
-my $localsite = getLocalSite($foswikihome);
-open(LS, ">$foswikihome/lib/LocalSite.cfg");
-print LS $localsite;
-close(LS);
-
-
-`perl pseudo-install.pl developer`;
+`perl pseudo-install.pl -A developer`;
 
 #run unit tests
 #TODO: testrunner should exit == 0 if no errors?
 chdir('test/unit');
-my $unitTests = "export FOSWIKI_LIBS=; export FOSWIKI_HOME=$foswikihome;perl ../bin/TestRunner.pl -clean FoswikiSuite.pm 2>&1 > $foswikihome/Foswiki-UnitTests.log";
+my $unitTests = "export FOSWIKI_LIBS=$foswikihome/lib; export FOSWIKI_HOME=$foswikihome; perl ../bin/TestRunner.pl -clean FoswikiSuite.pm 2>&1 > $foswikihome/Foswiki-UnitTests.log";
 my $return = `$unitTests`;
 my $errorcode = $? >> 8;
 unless ($errorcode == 0) {
@@ -100,16 +93,25 @@ print "\n\n ready to build release\n";
 #   4. perl build.pl release
 #      * Note: if you specify a release name the script will attempt to commit to svn 
 chdir('lib');
-`perl ../tools/build.pl release -auto > $foswikihome/Foswiki-build.log 2>&1`;
+`export FOSWIKI_LIBS=$foswikihome/lib; export FOSWIKI_HOME=$foswikihome; perl ../tools/build.pl release -auto > $foswikihome/Foswiki-build.log 2>&1`;
 
 chdir($foswikihome);
 if ($SvensAutomatedBuilds) {
 	#push the files to my server - http://fosiki.com/
+	`scp ../*/*.zip distributedinformation\@fosiki.com:~/www/Foswiki_$foswikiBranch/` ;
+	`scp ../*/*.tgz distributedinformation\@fosiki.com:~/www/Foswiki_$foswikiBranch/` ;
+	`scp ../*/*.md5 distributedinformation\@fosiki.com:~/www/Foswiki_$foswikiBranch/` ;
 	`scp Foswiki* distributedinformation\@fosiki.com:~/www/Foswiki_$foswikiBranch/` ;
 	my $buildOutput = `ls -alh *auto*`;
+	my $emailDestination = 'Builds@fosiki.com';
+	if ($buildOutput eq '') {
+	   #Raise the alarm, no files actually built
+	   $buildOutput .= "\nERROR: Unit test did not fail, but no output files found, please consult build log.\n";
+	   $emailDestination = 'foswiki-svn@lists.sourceforge.net';
+	}
 	$buildOutput .= "\n";
 	$buildOutput .= `grep 'All tests passed' $foswikihome/Foswiki-UnitTests.log`;
-	sendEmail('Builds@fosiki.com', "Subject: Foswiki $foswikiBranch built OK\n\n see http://fosiki.com/Foswiki_$foswikiBranch/ for output files.\n".$buildOutput);
+	sendEmail($emailDestination, "Subject: Foswiki $foswikiBranch built OK\n\n see http://fosiki.com/Foswiki_$foswikiBranch/ for output files.\n".$buildOutput);
 }
 
 

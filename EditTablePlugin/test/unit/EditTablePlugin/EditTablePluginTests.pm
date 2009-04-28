@@ -22,47 +22,68 @@ sub set_up {
 
     $this->SUPER::set_up();
 
-    #    $this->{sup} = $this->{twiki}->getScriptUrl(0, 'view');
+    #    $this->{sup} = $this->{session}->getScriptUrl(0, 'view');
     $Foswiki::cfg{AntiSpam}{RobotsAreWelcome} = 1;
     $Foswiki::cfg{AllowInlineScript} = 0;
-    $Foswiki::cfg{TablePlugin}{Attributes} = 'tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#252b37" headerbg="#d8dde4" headerbgsorted="#ced4dd" headercolor="#252b37" databg="#ffffff,#f2f3f6" databgsorted="#f3f5f7,#e7e9ee" tablerules="cols"';
+    $Foswiki::cfg{TablePlugin}{Attributes} =
+'tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#252b37" headerbg="#d8dde4" headerbgsorted="#ced4dd" headercolor="#252b37" databg="#ffffff,#f2f3f6" databgsorted="#f3f5f7,#e7e9ee" tablerules="cols"';
 
     $ENV{SCRIPT_NAME} = '';    #  required by fake sort URLs in expected text
 }
 
-# This formats the text up to immediately before <nop>s are removed, so we
-# can see the nops.
+=pod
+
+trimSpaces( $text ) -> $text
+
+Removes spaces from both sides of the text.
+
+=cut
+
+sub trimSpaces {
+
+    #my $text = $_[0]
+
+    $_[0] =~ s/^[[:space:]]+//s;    # trim at start
+    $_[0] =~ s/[[:space:]]+$//s;    # trim at end
+}
+
+=pod
+
+This formats the text up to immediately before <nop>s are removed, so we
+can see the nops.
+
+=cut
+
 sub do_testHtmlOutput {
     my ( $this, $expected, $actual, $doRender ) = @_;
-    my $session   = $this->{twiki};
+    my $session   = $this->{session};
     my $webName   = $this->{test_web};
     my $topicName = $this->{test_topic};
 
     if ($doRender) {
         $actual =
           Foswiki::Func::expandCommonVariables( $actual, $webName, $topicName );
-        $actual =
-          $session->renderer->getRenderedVersion( $actual, $webName,
-            $topicName );
+        $actual = Foswiki::Func::renderText( $actual, $webName, $topicName );
     }
-
 
     # remove ever changing bgcolors from table cells
     # as well as the rules property
     # these are not important for these tests now
     $expected =~ s/bgcolor\=\"*\#[a-z0-9]{6}\"*//go;
-    $actual =~ s/bgcolor\=\"*\#[a-z0-9]{6}\"*//go;
+    $actual   =~ s/bgcolor\=\"*\#[a-z0-9]{6}\"*//go;
     $expected =~ s/rules\=\"*(cols|rows|all)\"*//go;
-    $actual =~ s/rules\=\"*(cols|rows|all)\"*//go;
+    $actual   =~ s/rules\=\"*(cols|rows|all)\"*//go;
 
     $this->assert_html_equals( $expected, $actual );
 }
 
 =pod
 
+A simple edit table in view mode, with 'before' and 'after' text.
+
 =cut
 
-sub test_viewSimple {
+sub test_render_simple_before_after {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -70,14 +91,13 @@ sub test_viewSimple {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
-    $this->{twiki}->{store}
-      ->saveTopic( $this->{twiki}->{user}, $webName, $topicName, "XXX" );
-
-    my $raw_tag  = 'SOMETHING %EDITTABLE{}%';
+    my $input    = 'BEFORE %EDITTABLE{}% AFTER';
     my $expected = <<END;
-SOMETHING <a name="edittable1"></a>
+BEFORE AFTER<a name="edittable1"></a>
 <div class="editTable">
 <form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
 <input type="hidden" name="ettablenr" value="1" />
@@ -88,15 +108,56 @@ SOMETHING <a name="edittable1"></a>
 </div><!-- /editTable -->
 END
     my $result =
-      $this->{twiki}->handleCommonTags( $raw_tag, $webName, $topicName );
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
     $this->do_testHtmlOutput( $expected, $result, 0 );
 }
 
 =pod
 
+A simple edit table in view mode, with spaces before table lines.
+
 =cut
 
-sub test_viewEditButton {
+sub test_render_simple_pre {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewAuthUrl =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = '%EDITTABLE{}%
+   | ABCDEF |
+   | QWERTY |';
+    my $expected = <<END;
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="$viewAuthUrl#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+   | ABCDEF |
+   | QWERTY |
+<input type="hidden" name="etrows" value="2" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" />
+</form>
+</div><!-- /editTable -->
+END
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
+    $this->do_testHtmlOutput( $expected, $result, 0 );
+}
+
+=pod
+
+A simple rendered edit table.
+
+=cut
+
+sub test_render_simple {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -104,12 +165,124 @@ sub test_viewEditButton {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
-    $this->{twiki}->{store}
-      ->saveTopic( $this->{twiki}->{user}, $webName, $topicName, "XXX" );
+    my $input    = '%EDITTABLE{}%';
+    my $expected = <<END;
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+<input type="hidden" name="etrows" value="0" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" />
+</form>
+</div><!-- /editTable -->
+END
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
+    $this->do_testHtmlOutput( $expected, $result, 0 );
+}
 
-    my $raw_tag  = '%EDITTABLE{editbutton="Edit me"}%';
+=pod
+
+Test if saving does not add newlines after the table.
+
+=cut
+
+sub test_do_not_add_newline {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = <<INPUT;
+%EDITTABLE{}%
+| *text* |
+
+LINE
+INPUT
+    my $query = new Unit::Request(
+        {
+            etedit    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    $query = new Unit::Request(
+        {
+            etsave    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+    $query->method('POST');
+
+    Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
+        $input );
+
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    my ( $saveResult, $ecode ) = $this->capture(
+        sub {
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
+        }
+    );
+
+    my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
+
+    my $expected = <<NEWEXPECTED;
+%EDITTABLE{}%
+| *text* |
+
+LINE
+NEWEXPECTED
+    $this->assert_str_equals( $expected, $newtext, 0 );
+
+    $fatwilly->finish();
+}
+
+=pod
+
+param editbutton.
+
+=cut
+
+sub test_param_editbutton {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    Foswiki::Func::saveTopic( $webName, $topicName, undef, "XXX" );
+
+    my $input    = '%EDITTABLE{editbutton="Edit me"}%';
     my $expected = <<END;
 <a name="edittable1"></a>
 <div class="editTable">
@@ -122,12 +295,14 @@ sub test_viewEditButton {
 </div><!-- /editTable -->
 END
     my $result =
-      $this->{twiki}->handleCommonTags( $raw_tag, $webName, $topicName );
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
 
     $this->do_testHtmlOutput( $expected, $result, 0 );
 }
 
 =pod
+
+Editing a simple table.
 
 =cut
 
@@ -139,7 +314,9 @@ sub test_editSimple {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $query = new Unit::Request(
         {
@@ -149,14 +326,15 @@ sub test_editSimple {
     );
 
     my $text = <<INPUT;
-SOMETHING %EDITTABLE{}%
+%EDITTABLE{}%
 INPUT
 
     my $result =
-      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName, undef );
+      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName,
+        undef );
 
     my $expected = <<EXPECTED;
-SOMETHING <a name="edittable1"></a>
+<a name="edittable1"></a>
 <div class="editTable">
 <form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
 <input type="hidden" name="ettablenr" value="1" />
@@ -172,19 +350,22 @@ EXPECTED
 
 =pod
 
+Pass param 'format' and edit the table.
+
 =cut
 
-sub test_editFormat {
+sub test_param_format_edit {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
-    my $pubUrlSystemWeb = Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+    my $pubUrlSystemWeb =
+      Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
 
     my $input = <<INPUT;
-SOMETHING %EDITTABLE{format="| row, -1 | text, 10, init | textarea, 3x10, init | select, 3, option 1, option 2, option 3 | radio, 3, A, B, C, D, E | checkbox, 3, A, B, C, D, E | label, 0, LABEL | date,11,,%d %b %Y |"}%
+%EDITTABLE{format="| row, -1 | text, 10, init | textarea, 3x10, init | select, 3, option 1, option 2, option 3 | radio, 3, A, B, C, D, E | checkbox, 3, A, B, C, D, E | label, 0, LABEL | date,11,,%d %b %Y |"}%
 INPUT
 
     my $query = new Unit::Request(
@@ -196,20 +377,20 @@ INPUT
 
     $query->path_info("/$webName/$topicName");
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     my $result =
       Foswiki::Func::expandCommonVariables( $input, $this->{test_topic},
         $this->{test_web}, undef );
 
     my $expected = <<EXPECTED;
-SOMETHING <noautolink>
+<noautolink>
 <a name="edittable1"></a>
 <div class="editTable editTableEdit">
 <form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
 <input type="hidden" name="ettablenr" value="1" />
-|<span class="et_rowlabel">0<input type="hidden" name="etcell1x1" value="0" /></span> |<input class="foswikiInputField editTableInput" type="text" name="etcell1x2" size="10" value="--EditTableEncodeStart--.i.n.i.t--EditTableEncodeEnd--" /> |<textarea class="foswikiTextarea editTableTextarea" rows="3" cols="10" name="etcell1x3">--EditTableEncodeStart--.i.n.i.t--EditTableEncodeEnd--</textarea> |<select class="foswikiSelect" name="etcell1x4" size="3"> <option selected="selected">option 1</option> <option>option 2</option> <option>option 3</option></select> |<table class="editTableInnerTable"><tr><td valign="top"> <input type="radio" name="etcell1x5" value="A" /> A <br /> <input type="radio" name="etcell1x5" value="B" /> B </td><td valign="top"> <input type="radio" name="etcell1x5" value="C" /> C <br /> <input type="radio" name="etcell1x5" value="D" /> D </td><td valign="top"> <input type="radio" name="etcell1x5" value="E" /> E <br /></td></tr></table> |<table class="editTableInnerTable"><tr><td valign="top"> <input type="checkbox" name="etcell1x6x2" value="A" checked="checked" /> A <br /> <input type="checkbox" name="etcell1x6x3" value="B" checked="checked" /> B </td><td valign="top"> <input type="checkbox" name="etcell1x6x4" value="C" checked="checked" /> C <br /> <input type="checkbox" name="etcell1x6x5" value="D" checked="checked" /> D </td><td valign="top"> <input type="checkbox" name="etcell1x6x6" value="E" checked="checked" /> E <br /></td></tr></table> <input type="hidden" name="etcell1x6" value="Chkbx: etcell1x6x2 etcell1x6x3 etcell1x6x4 etcell1x6x5 etcell1x6x6" /> |LABEL<input type="hidden" name="etcell1x7" value="--EditTableEncodeStart--.L.A.B.E.L--EditTableEncodeEnd--" /> |<input type="text" name="etcell1x8"  size="11" class="foswikiInputField editTableInput" id="idetcell1x8" /><span class="foswikiMakeVisible"><input type="image" name="calendar" src="$pubUrlSystemWeb/JSCalendarContrib/img.gif" align="middle" alt="Calendar" onclick="return showCalendar('idetcell1x8','%d %b %Y')" class="editTableCalendarButton" /></span> |
+|<span class="et_rowlabel">0<input type="hidden" name="etcell1x1" value="0" /></span> |<input class="foswikiInputField editTableInput" type="text" name="etcell1x2" size="10" value="--EditTableEncodeStart--.i.n.i.t--EditTableEncodeEnd--" /> |<textarea class="foswikiTextarea editTableTextarea" rows="3" cols="10" name="etcell1x3">--EditTableEncodeStart--.i.n.i.t--EditTableEncodeEnd--</textarea> |<select class="foswikiSelect" name="etcell1x4" size="3"> <option selected="selected">option 1</option> <option>option 2</option> <option>option 3</option></select> |<table class="editTableInnerTable"><tr><td valign="top"> <input type="radio" name="etcell1x5" value="A" /> A <br /> <input type="radio" name="etcell1x5" value="B" /> B </td><td valign="top"> <input type="radio" name="etcell1x5" value="C" /> C <br /> <input type="radio" name="etcell1x5" value="D" /> D </td><td valign="top"> <input type="radio" name="etcell1x5" value="E" /> E <br /></td></tr></table> |<table class="editTableInnerTable"><tr><td valign="top"> <input type="checkbox" name="etcell1x6x2" value="A" checked="checked" /> A <br /> <input type="checkbox" name="etcell1x6x3" value="B" checked="checked" /> B </td><td valign="top"> <input type="checkbox" name="etcell1x6x4" value="C" checked="checked" /> C <br /> <input type="checkbox" name="etcell1x6x5" value="D" checked="checked" /> D </td><td valign="top"> <input type="checkbox" name="etcell1x6x6" value="E" checked="checked" /> E <br /></td></tr></table> <input type="hidden" name="etcell1x6" value="Chkbx: etcell1x6x2 etcell1x6x3 etcell1x6x4 etcell1x6x5 etcell1x6x6" /> |LABEL<input type="hidden" name="etcell1x7" value="--EditTableEncodeStart--.L.A.B.E.L--EditTableEncodeEnd--" /> |<nobr><input type="text" name="etcell1x8"  size="11" class="foswikiInputField editTableInput" id="idetcell1x8" /><span class="foswikiMakeVisible"><input type="image" name="calendar" src="$pubUrlSystemWeb/JSCalendarContrib/img.gif" align="middle" alt="Calendar" onclick="return showCalendar('idetcell1x8','%d %b %Y')" class="editTableCalendarButton" /></span></nobr> |
 <input type="hidden" name="etrows" value="1" />
 <input type="submit" name="etsave" id="etsave" value="Save table" class="foswikiSubmit" />
 <input type="submit" name="etqsave" id="etqsave" value="Quiet save" class="foswikiButton" />
@@ -220,8 +401,14 @@ SOMETHING <noautolink>
 </div><!-- /editTable --></noautolink>
 EXPECTED
     $this->do_testHtmlOutput( lc $expected, lc $result, 0 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
+
+=pod
+
+Adding a row and saving the table.
+
+=cut
 
 sub test_editAddRow {
     my $this = shift;
@@ -231,7 +418,9 @@ sub test_editAddRow {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $input = <<INPUT;
 %EDITTABLE{format="| row, -1 | text, 10, init|"}%
@@ -247,8 +436,8 @@ INPUT
 
     $query->path_info("/$webName/$topicName");
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     my $result =
       Foswiki::Func::expandCommonVariables( $input, $this->{test_topic},
@@ -270,7 +459,7 @@ INPUT
 </form>
 </div><!-- /editTable --></noautolink>
 EXPECTED
-    
+
     $this->do_testHtmlOutput( $expected, $result, 0 );
 
     # Add 2 rows
@@ -288,8 +477,8 @@ EXPECTED
 
     $query->path_info("/$webName/$topicName");
 
-    $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     $result =
       Foswiki::Func::expandCommonVariables( $input, $this->{test_topic},
@@ -348,25 +537,27 @@ EXPECTED
         }
     );
     $query->path_info("/$webName/$topicName");
-    $query->method('GET');
+    $query->method('POST');
 
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
 
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print(Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
-            $Foswiki::engine->finalize(
-                $twiki->{response},
-                $twiki->{request});
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
+            $Foswiki::engine->finalize( $fatwilly->{response},
+                $fatwilly->{request} );
         }
     );
-    $this->assert( $saveResult =~ /Status: 302/ );
+    $this->assert_matches( qr/Status: 302/, $saveResult );
 
     my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
 
@@ -379,7 +570,7 @@ NEWEXPECTED
 
     $this->assert_str_equals( $expected, $newtext, 0 );
 
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
@@ -388,7 +579,7 @@ Test select dropdown box
 
 =cut
 
-sub test_SelectBox {
+sub test_param_format_selectbox {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -396,7 +587,9 @@ sub test_SelectBox {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $query = new Unit::Request(
         {
@@ -411,10 +604,11 @@ sub test_SelectBox {
 | c | c | c | c |
 INPUT
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my $result =
-      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName, undef );
+      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName,
+        undef );
 
     my $expected = <<END;
 <noautolink>
@@ -444,23 +638,24 @@ INPUT
 END
 
     $this->do_testHtmlOutput( $expected, $result, 1 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
 
-Test select dropdown box
+Test variables inside checkboxes and radio buttons
 
 =cut
 
-sub test_VariableExpansionInCheckboxAndRadioButtons {
+sub test_param_format_variable_expansion_in_checkbox_and_radio_buttons {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
-    my $pubPathSystemWeb = Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+    my $pubPathSystemWeb =
+      Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
 
     my $query = new Unit::Request(
         {
@@ -474,10 +669,11 @@ sub test_VariableExpansionInCheckboxAndRadioButtons {
 %EDITTABLE{format="| radio, 1, :skull:, :cool: | checkbox, 1, :skull:, :cool: |"}%
 INPUT
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my $result =
-      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName, undef );
+      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName,
+        undef );
 
     my $expected = <<END;
 <noautolink>
@@ -506,27 +702,32 @@ INPUT
 END
 
     $this->do_testHtmlOutput( $expected, $result, 1 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
 
-Test variable placeholders like $percnt and $nop
-
 =cut
 
-sub test_VariablePlaceholdersView {
+sub test_param_format_with_variables {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
-    my $viewUrl = Foswiki::Func::getScriptUrlPath()
-      . "/view/$webName/$topicName"
-      ;    # heck, how can I do this otherwise? I need the relative path
+
+    # SMELL: the following variable is needed cause the test simulate the
+    # rendering of %TOPIC%. Core generates a relative URL for that, but the
+    # interface provided to plugins only generates absolute URLs, so it's
+    # needed to take out the urlHost from the beginning of the got URL.
+    my $viewUrl = Foswiki::Func::getScriptUrl( $webName, $topicName, 'view' );
+    my $urlHost = Foswiki::Func::getUrlHost();
+    $viewUrl =~ s/^$urlHost//;
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $text = <<INPUT;
 %EDITTABLE{format="| text, 30, %Y% | text, 30, %TOPIC% |"}%
@@ -534,7 +735,8 @@ sub test_VariablePlaceholdersView {
 INPUT
 
     my $result =
-      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName, undef );
+      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName,
+        undef );
 
     my $expected = <<END;
 <a name="edittable1"></a>
@@ -562,7 +764,13 @@ END
     $this->do_testHtmlOutput( $expected, $result, 1 );
 }
 
-sub test_VariablePlaceholdersEdit {
+=pod
+
+Format parameter with $percntY$percnt macros. Edit the table.
+
+=cut
+
+sub test_param_format_with_macro_placeholders_edit {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -570,7 +778,9 @@ sub test_VariablePlaceholdersEdit {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
     my $userName = $this->{users_web} . '.' . 'WikiGuest';
 
     my $text = <<INPUT;
@@ -585,10 +795,11 @@ INPUT
     );
     $query->path_info("/$webName/$topicName");
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my $result =
-      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName, undef );
+      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName,
+        undef );
 
     my $expected = <<END;
 <noautolink>
@@ -617,10 +828,16 @@ END
 
     $this->do_testHtmlOutput( $expected, $result, 1 );
 
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
-sub test_saveNoFormat {
+=pod
+
+Saving a simple table.
+
+=cut
+
+sub test_save {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -628,12 +845,14 @@ sub test_saveNoFormat {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $input = <<INPUT;
 %EDITTABLE{}%
 | *URL* | *Name* | *By* | *Comment* |
-| http://twiki.org | Foswiki | me | dodo |
+| http://foswiki.org | Foswiki | me | dodo |
 INPUT
     my $query = new Unit::Request(
         {
@@ -644,8 +863,8 @@ INPUT
 
     $query->path_info("/$webName/$topicName");
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     $query = new Unit::Request(
         {
@@ -655,18 +874,22 @@ INPUT
     );
 
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
 
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
 
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print( Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
 
@@ -675,14 +898,20 @@ INPUT
     my $expected = <<NEWEXPECTED;
 %EDITTABLE{}%
 | *URL* | *Name* | *By* | *Comment* |
-| http://twiki.org | Foswiki | me | dodo |
+| http://foswiki.org | Foswiki | me | dodo |
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
 
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
-sub test_saveWithHeaderAndFooter {
+=pod
+
+Saving a table with params headerrows and footerrows.
+
+=cut
+
+sub test_param_headerrows_and_footerrows_save {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -690,7 +919,9 @@ sub test_saveWithHeaderAndFooter {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $input = <<INPUT;
 %TABLE{columnwidths="80,80,50,110,150,50,50,50,50,50,70,70,50" dataalign="left,left,center,left,left,center,center,center,center,center,center,right,right,center" headeralign="center" headerrows="1" footerrows="1" headerislabel="on"}%%EDITTABLE{format="|text,10|text,10|text,3|text,15|text,15|text,3|text,3|text,3|text,3|text,3|text,3|text,10|label,0|text,5|" }%
@@ -710,8 +941,8 @@ INPUT
 
     $query->path_info("/$webName/$topicName");
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     $query = new Unit::Request(
         {
@@ -722,18 +953,22 @@ INPUT
     );
 
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
 
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
 
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print( Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
 
@@ -751,7 +986,93 @@ INPUT
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
 
-    $twiki->finish();
+    $fatwilly->finish();
+}
+
+=pod
+
+Saving a table with params headerrows and footerrows, with TABLE above EDITTABLE
+
+=cut
+
+sub test_param_headerrows_and_footerrows_save_table_above {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = <<INPUT;
+BEFORE_TABLE %TABLE{columnwidths="80,80,50,110,150,50,50,50,50,50,70,70,50" dataalign="left,left,center,left,left,center,center,center,center,center,center,right,right,center" headeralign="center" headerrows="1" footerrows="1" headerislabel="on"}%
+BEFORE_EDITTABLE %EDITTABLE{format="|text,10|text,10|text,3|text,15|text,15|text,3|text,3|text,3|text,3|text,3|text,3|text,10|label,0|text,5|" }%
+| *Project* | *Customer* | *Pass* | *Type* | *Purpose* | *Qty* | *Radios* | *Controllers* | *Hubs* | *Tuners* | *Hybrid* | *Unit Cost (USD)* | *Total Cost (USD)* | *When (Q)* |
+| Project A | Engineering | A | PK2 | Eng Test | 2 | 4 || 2 | 2 || 6214 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q1 |
+| Project B | Factory | A | PC2 | Fact Test | 1 | 4 || 2 | 2 || 6214 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q2 |
+| Project C | Eng | P1 | CT5 | Eng Test | 1 | 2 | 1 ||| 1 | 3502 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q3 |
+| Project D | SW | P1 | CT5 | SW Dev | 2 | 4 | 2 || 2 || 6345 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q4 |
+| Total ||||| *%CALC{"\$SUM(\$ABOVE())"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* || *%CALC{"\$SUM(\$ABOVE())"}%* ||
+INPUT
+    my $query = new Unit::Request(
+        {
+            etedit    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    $query = new Unit::Request(
+        {
+            etsave    => ['on'],
+            etrows    => ['5'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+    $query->method('POST');
+
+    Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
+        $input );
+
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    my ( $saveResult, $ecode ) = $this->capture(
+        sub {
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
+        }
+    );
+
+    my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
+
+    my $expected = <<NEWEXPECTED;
+BEFORE_TABLE %TABLE{columnwidths="80,80,50,110,150,50,50,50,50,50,70,70,50" dataalign="left,left,center,left,left,center,center,center,center,center,center,right,right,center" headeralign="center" headerrows="1" footerrows="1" headerislabel="on"}%
+BEFORE_EDITTABLE %EDITTABLE{format="|text,10|text,10|text,3|text,15|text,15|text,3|text,3|text,3|text,3|text,3|text,3|text,10|label,0|text,5|" }%
+| *Project* | *Customer* | *Pass* | *Type* | *Purpose* | *Qty* | *Radios* | *Controllers* | *Hubs* | *Tuners* | *Hybrid* | *Unit Cost (USD)* | *Total Cost (USD)* | *When (Q)* |
+| Project A | Engineering | A | PK2 | Eng Test | 2 | 4 | | 2 | 2 | | 6214 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q1 |
+| Project B | Factory | A | PC2 | Fact Test | 1 | 4 | | 2 | 2 | | 6214 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q2 |
+| Project C | Eng | P1 | CT5 | Eng Test | 1 | 2 | 1 | | | 1 | 3502 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q3 |
+| Project D | SW | P1 | CT5 | SW Dev | 2 | 4 | 2 | | 2 | | 6345 | %CALC{"\$EVAL(\$T(R\$ROW():C6) * \$T(R\$ROW():C\$COLUMN(-1)))"}% | Q4 |
+| | | | | | | | | | | | | | |
+| Total | | | | | *%CALC{"\$SUM(\$ABOVE())"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | *%CALC{"\$SUMPRODUCT(R2:C6..R\$ROW(-1):C6, R2:C\$COLUMN(0)..R\$ROW(-1):C\$COLUMN(0))"}%* | | *%CALC{"\$SUM(\$ABOVE())"}%* | |
+NEWEXPECTED
+    $this->assert_str_equals( $expected, $newtext, 0 );
+
+    $fatwilly->finish();
 }
 
 =pod
@@ -761,13 +1082,15 @@ Test if cells with a space do not voided (and rendered with a colspan): text fie
 =cut
 
 sub test_keepSpacesInEmptyCellsWithTexts {
-    my $this = shift;
+    my $this      = shift;
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
     my $input = <<INPUT;
 %EDITTABLE{format="|text,40|text,10|"}% 
 | *Milestone* | *Plan* |
@@ -781,24 +1104,28 @@ INPUT
         }
     );
     $query->path_info("/$webName/$topicName");
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
-    $query = new Unit::Request(
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+    $query                     = new Unit::Request(
         {
             etsave    => ['on'],
             ettablenr => ['1'],
         }
     );
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print(Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
     my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
@@ -809,7 +1136,7 @@ INPUT
 | DEF | |
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
@@ -819,13 +1146,15 @@ Test if cells with a space do not voided (and rendered with a colspan): date fie
 =cut
 
 sub test_keepSpacesInEmptyCellsWithDates {
-    my $this = shift;
+    my $this      = shift;
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
     my $input = <<INPUT;
 %EDITTABLE{format="|text,40|date,10,,%d %b %Y|date,10,,%d %b %Y|date,10,,%d %b %Y|"}% 
 %TABLE{columnwidths="300,130,130,130" dataalign="left,center,center,center" tablerules="all"}%
@@ -840,24 +1169,28 @@ INPUT
         }
     );
     $query->path_info("/$webName/$topicName");
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
-    $query = new Unit::Request(
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+    $query                     = new Unit::Request(
         {
             etsave    => ['on'],
             ettablenr => ['1'],
         }
     );
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print(Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
     my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
@@ -869,7 +1202,7 @@ INPUT
 | Blabla 5 | 16 Nov 2007 | 21 Nov 2007 | |
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
@@ -882,13 +1215,15 @@ If a merge feature is added please pay attention to Item5217
 =cut
 
 sub test_addSpacesToEmptyCells {
-    my $this = shift;
+    my $this      = shift;
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
     my $input = <<INPUT;
 %EDITTABLE{format="|text,40|text,10|"}% 
 || X |
@@ -901,24 +1236,28 @@ INPUT
         }
     );
     $query->path_info("/$webName/$topicName");
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
-    $query = new Unit::Request(
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+    $query                     = new Unit::Request(
         {
             etsave    => ['on'],
             ettablenr => ['1'],
         }
     );
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print(Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
     my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
@@ -928,15 +1267,16 @@ INPUT
 | DEF | |
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
 
 Test if TML formatting is rendered.
+
 =cut
 
-sub test_TMLFormattingInsideCell {
+sub test_TMLFormattingInsideCell_BR {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -944,7 +1284,9 @@ sub test_TMLFormattingInsideCell {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $input = <<INPUT;
 %EDITTABLE{}%
@@ -952,9 +1294,9 @@ sub test_TMLFormattingInsideCell {
 INPUT
 
     my $result =
-      Foswiki::Func::expandCommonVariables( $input, $topicName,
-        $webName, undef );
-        
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName,
+        undef );
+
     my $expected = <<NEWEXPECTED;
 <a name="edittable1"></a>
 <div class="editTable">
@@ -976,14 +1318,70 @@ NEWEXPECTED
     $this->do_testHtmlOutput( $expected, $result, 1 );
 }
 
-sub test_keepStars {
+=pod
+
+Test if TML formatting is rendered with <br /> tags.
+
+=cut
+
+sub test_TMLFormattingInsideCell_tag_br {
     my $this = shift;
+
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = <<INPUT;
+%EDITTABLE{}%
+| blablabla<br />there's still a bug<br />lurking around<br />_italic_<br />*bold* %EDITCELL{textarea,6x40,}% |
+INPUT
+
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName,
+        undef );
+
+    my $expected = <<NEWEXPECTED;
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+<nop>
+<table cellspacing="0" id="table1" cellpadding="0" class="foswikiTable" rules="cols" border="1">
+	<tbody>
+		<tr class="foswikiTableOdd foswikiTableRowdataBgSorted0 foswikiTableRowdataBg0">
+			<td bgcolor="#ffffff" valign="top" class="foswikiTableCol0 foswikiFirstCol foswikiLastCol foswikiLast"> blablabla <br /> there's still a bug <br /> lurking around <br /> <em>italic</em> <br /> <strong>bold</strong> </td>
+		</tr>
+	</tbody></table>
+<input type="hidden" name="etrows" value="1" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" /> </form>
+</div><!-- /editTable -->
+NEWEXPECTED
+
+    $this->do_testHtmlOutput( $expected, $result, 1 );
+}
+
+=pod
+
+Test if stars are preserved after saving.
+
+=cut
+
+sub test_keepStars {
+    my $this      = shift;
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
     my $input = <<INPUT;
 %EDITTABLE{}%
 | * <small>Name of the client (prefilled)</small> |
@@ -995,24 +1393,28 @@ INPUT
         }
     );
     $query->path_info("/$webName/$topicName");
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
-    $query = new Unit::Request(
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+    $query                     = new Unit::Request(
         {
             etsave    => ['on'],
             ettablenr => ['1'],
         }
     );
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print(Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
     my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
@@ -1021,7 +1423,7 @@ INPUT
 | * <small>Name of the client (prefilled)</small> |
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
@@ -1031,13 +1433,15 @@ Test if linebreaks inside input fields are kept.
 =cut
 
 sub test_lineBreaksInsideInputField {
-    my $this = shift;
+    my $this      = shift;
     my $topicName = $this->{test_topic};
     my $webName   = $this->{test_web};
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
     my $input = <<INPUT;
 %EDITTABLE{ changerows="off" quietsave="off"  }%
 | <small><table><tr><td>TD...Technical Documentation <br />TM...Translation Management <br />PC...Product Catalogs </td><td>PS...Processes and Systems <br />FM...Feedback Management <br />KL...Knowledge Logistics</td></tr></table></small> |
@@ -1049,24 +1453,28 @@ INPUT
         }
     );
     $query->path_info("/$webName/$topicName");
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
-    $query = new Unit::Request(
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+    $query                     = new Unit::Request(
         {
             etsave    => ['on'],
             ettablenr => ['1'],
         }
     );
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print(Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
     my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
@@ -1075,14 +1483,14 @@ INPUT
 | <small><table><tr><td>TD...Technical Documentation <br />TM...Translation Management <br />PC...Product Catalogs </td><td>PS...Processes and Systems <br />FM...Feedback Management <br />KL...Knowledge Logistics</td></tr></table></small> |
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
-    $twiki->finish();
+    $fatwilly->finish();
 }
 
 =pod
 
 =cut
 
-sub test_buttonRowAtTop {
+sub test_param_buttonrow_top {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -1090,12 +1498,13 @@ sub test_buttonRowAtTop {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
-    $this->{twiki}->{store}
-      ->saveTopic( $this->{twiki}->{user}, $webName, $topicName, "XXX" );
+    Foswiki::Func::saveTopic( $webName, $topicName, undef, "XXX" );
 
-    my $raw_tag  = '%EDITTABLE{buttonrow="top"}%';
+    my $input    = '%EDITTABLE{buttonrow="top"}%';
     my $expected = <<END;
 <a name="edittable1"></a>
 <div class="editTable">
@@ -1108,11 +1517,11 @@ sub test_buttonRowAtTop {
 </div><!-- /editTable -->
 END
     my $result =
-      $this->{twiki}->handleCommonTags( $raw_tag, $webName, $topicName );
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
     $this->do_testHtmlOutput( $expected, $result, 0 );
 }
 
-sub test_buttonRowAtTop_edit {
+sub test_param_buttonrow_top_edit {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -1120,7 +1529,9 @@ sub test_buttonRowAtTop_edit {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $query = new Unit::Request(
         {
@@ -1130,18 +1541,18 @@ sub test_buttonRowAtTop_edit {
     );
 
     my $text = <<INPUT;
-SOMETHING %EDITTABLE{buttonrow="top"}%
+%EDITTABLE{buttonrow="top"}%
 INPUT
 
-	$query->path_info("/$webName/$topicName");
+    $query->path_info("/$webName/$topicName");
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
     my $result =
-      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName, undef );
+      Foswiki::Func::expandCommonVariables( $text, $topicName, $webName,
+        undef );
 
     my $expected = <<EXPECTED;
-SOMETHING 
 <noautolink>
 <a name="edittable1"></a>
 <div class="editTable editTableEdit">
@@ -1161,7 +1572,13 @@ EXPECTED
     $this->do_testHtmlOutput( $expected, $result, 0 );
 }
 
-sub test_save_with_verbatim {
+=pod
+
+Test if saving is keeping <verbatim> tags inside table.
+
+=cut
+
+sub test_save_with_verbatim_inside_table {
     my $this = shift;
 
     my $topicName = $this->{test_topic};
@@ -1169,12 +1586,14 @@ sub test_save_with_verbatim {
     my $viewUrlAuth =
       Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
     my $pubUrlSystemWeb =
-      Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
 
     my $input = <<INPUT;
 %EDITTABLE{}%
 | *text* |
-| <verbatim>inside verbatim</verbatim> |
+| <verbatim class="foswikiAlert">inside verbatim</verbatim> |
 INPUT
     my $query = new Unit::Request(
         {
@@ -1185,8 +1604,8 @@ INPUT
 
     $query->path_info("/$webName/$topicName");
 
-    my $twiki = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $twiki;
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     $query = new Unit::Request(
         {
@@ -1196,18 +1615,22 @@ INPUT
     );
 
     $query->path_info("/$webName/$topicName");
+    $query->method('POST');
 
     Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
         $input );
 
-    $twiki = new Foswiki( undef, $query );
-	my $response = new Unit::Response;
-    $Foswiki::Plugins::SESSION = $twiki;
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
 
     my ( $saveResult, $ecode ) = $this->capture(
         sub {
-            $response->print( Foswiki::Func::expandCommonVariables( $input,
-                $this->{test_topic}, $this->{test_web}, undef ) );
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
         }
     );
 
@@ -1216,11 +1639,706 @@ INPUT
     my $expected = <<NEWEXPECTED;
 %EDITTABLE{}%
 | *text* |
-| <verbatim>inside verbatim</verbatim> |
+| <verbatim class="foswikiAlert">inside verbatim</verbatim> |
 NEWEXPECTED
     $this->assert_str_equals( $expected, $newtext, 0 );
 
-    $twiki->finish();
+    $fatwilly->finish();
 }
+
+=pod
+
+Test if saving is keeping <verbatim> tags outside of tables.
+
+=cut
+
+sub test_save_with_verbatim_in_topic {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = <<INPUT;
+%EDITTABLE{}%
+| *text* |
+
+<verbatim>
+INSIDE VERBATIM
+</verbatim>
+INPUT
+    my $query = new Unit::Request(
+        {
+            etedit    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    $query = new Unit::Request(
+        {
+            etsave    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+    $query->method('POST');
+
+    Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
+        $input );
+
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    my ( $saveResult, $ecode ) = $this->capture(
+        sub {
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
+        }
+    );
+
+    my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
+
+    my $expected = <<NEWEXPECTED;
+%EDITTABLE{}%
+| *text* |
+
+<verbatim>
+INSIDE VERBATIM
+</verbatim>
+NEWEXPECTED
+    $this->assert_str_equals( $expected, $newtext, 0 );
+
+    $fatwilly->finish();
+}
+
+=pod
+
+Test if an included table from a different topic is displayed.
+
+=cut
+
+sub test_INCLUDE_view {
+    my $this = shift;
+
+    # Create topic to include
+    my $includedTopic = "TopicToInclude";
+    Foswiki::Func::saveTopic( $this->{test_web}, $includedTopic, undef, <<THIS);
+%EDITTABLE{ format="| row, -1 | text, 20, init | select, 1, not started, starting, ongoing, completed | checkbox, 3,:-),:-I,:-( | date, 20 |" changerows="on" quietsave="on"}%
+| *URL* | *Name* | *By* | *Comment* | *Timestamp* |
+| 1 | Unified field theory | not started | :-) , :-I , :-( | 1 Apr 2012 |
+| 2 | *Sliced* yoghourt | not started | :-) , :-I , :-( | 1 Jun 2002 |
+| 3 | Cubical turkeys | not started | :-I | 1 Oct 2007 |
+| 4 | Self-eating burritos | completed | :-I | 1 Apr 2008 |
+THIS
+
+    # include this in our test topic
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuthTestTopic =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $viewUrlAuthOtherTopic =
+      Foswiki::Func::getScriptUrl( $webName, $includedTopic, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = '%EDITTABLE{}%
+
+%INCLUDE{"TopicToInclude"}%
+
+%EDITTABLE{}%';
+
+    my $expected = <<END;
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="$viewUrlAuthTestTopic#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+<input type="hidden" name="etrows" value="0" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" /> </form>
+</div><!-- /editTable -->
+
+
+<div class="editTable">
+<form name="edittable1_TemporaryEditTableFunctionsTestWebEditTableFunctions_TestTopicEditTableFunctions" action="$viewUrlAuthOtherTopic#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+| *URL* | *Name* | *By* | *Comment* | *Timestamp* |
+| 1 | Unified field theory | not started | :-) , :-I , :-( | 1 Apr 2012 |
+| 2 | *Sliced* yoghourt | not started | :-) , :-I , :-( | 1 Jun 2002 |
+| 3 | Cubical turkeys | not started | :-I | 1 Oct 2007 |
+| 4 | Self-eating burritos | completed | :-I | 1 Apr 2008 |
+<input type="hidden" name="etrows" value="5" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" /> </form>
+</div><!-- /editTable -->
+
+
+<a name="edittable2"></a>
+<div class="editTable">
+<form name="edittable2" action="$viewUrlAuthTestTopic#edittable2" method="post">
+<input type="hidden" name="ettablenr" value="2" />
+<input type="hidden" name="etedit" value="on" />
+<input type="hidden" name="etrows" value="0" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" /> </form>
+</div><!-- /editTable -->
+END
+
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
+    $this->do_testHtmlOutput( $expected, $result, 0 );
+}
+
+=pod
+
+Includes a topic that has an EDITTABLE with param 'include' set: the table definition is in a third topic.
+
+=cut
+
+sub test_INCLUDE_include {
+    my $this = shift;
+
+    # Create topic with talbe definition
+    my $tableDefTopic = "QmsCommentTable";
+    Foswiki::Func::saveTopic( $this->{test_web}, $tableDefTopic, undef, <<THIS);
+%EDITTABLE{ header="|* Section *|* Description *|* Severity *|*  Status *|* Originator & Date *|" format="| text, 10 | textarea, 10x60  | select, 1, Major, Minor, Note | select, 1, Originated, Assessed, Performed, Rejected | text, 20 |" changerows="on" }%
+THIS
+
+    my $includeTopic = "ProcedureSysarch000Comments";
+    Foswiki::Func::saveTopic( $this->{test_web}, $includeTopic, undef, <<THIS);
+%EDITTABLE{ include="QmsCommentTable" }%
+|*Section*|*Description*|*Severity*|*Status*|*Originator & Date*|
+THIS
+
+    # include this in our test topic
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuthTestTopic =
+      Foswiki::Func::getScriptUrl( $webName, $includeTopic, 'viewauth' );
+
+    my $viewUrlAuthOtherTopic =
+      Foswiki::Func::getScriptUrl( $webName, $includeTopic, 'viewauth' );
+
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = '%INCLUDE{"ProcedureSysarch000Comments"}%';
+
+    my $expected = <<END;
+<div class="editTable">
+<form name="edittable1_TemporaryEditTableFunctionsTestWebEditTableFunctions_TestTopicEditTableFunctions" action="$viewUrlAuthTestTopic#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+|*Section*|*Description*|*Severity*|*Status*|*Originator & Date*|
+<input type="hidden" name="etrows" value="1" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" /> </form>
+</div><!-- /editTable -->
+END
+
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
+    $this->do_testHtmlOutput( $expected, $result, 0 );
+}
+
+=pod
+
+Test if macro EDITCELL is preserved after saving
+
+=cut
+
+sub test_macro_EDITCELL_save {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = <<INPUT;
+%EDITTABLE{}% 
+| a | Some text |
+| b | More text |
+
+%EDITTABLE{ format="| label | text, 40 |" changerows="off" }%
+| *Key* | *Value* |
+| Gender: | F %EDITCELL{select, 1, , F, M}% |
+| DOB: | 8 February 2009 %EDITCELL{date, 10}% |
+INPUT
+    my $query = new Unit::Request(
+        {
+            etedit    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    $query = new Unit::Request(
+        {
+            etsave    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+    $query->method('POST');
+
+    Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
+        $input );
+
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    my ( $saveResult, $ecode ) = $this->capture(
+        sub {
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
+        }
+    );
+
+    my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
+
+    my $expected = <<NEWEXPECTED;
+%EDITTABLE{}% 
+| a | Some text |
+| b | More text |
+
+%EDITTABLE{ format="| label | text, 40 |" changerows="off" }%
+| *Key* | *Value* |
+| Gender: | F %EDITCELL{select, 1, , F, M}% |
+| DOB: | 8 February 2009 %EDITCELL{date, 10}% |
+NEWEXPECTED
+    $this->assert_str_equals( $expected, $newtext, 0 );
+
+    $fatwilly->finish();
+}
+
+=pod
+
+Tests if CALC is rendered in view mode, if CALC is outside an EditTable
+
+=cut
+
+sub test_CALC_in_table_other_than_EDITTABLE {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = '
+| *Item Description* | *Qty* | *Reason* | *Unit Price* | *Total Price* |
+| Hej Ho | 4 | Hello | 50000 | %CALC{"$PRODUCT(R$ROW():C$COLUMN(-3)..R$ROW():C$COLUMN(-1))"}% |
+| Jah No | 2 | Hello | 150000 | %CALC{"$PRODUCT(R$ROW():C$COLUMN(-3)..R$ROW():C$COLUMN(-1))"}% |
+| | | | 0 | %CALC{"$PRODUCT(R$ROW():C$COLUMN(-3)..R$ROW():C$COLUMN(-1))"}% |
+| *Total* | | | | *%CALC{"$SUM($ABOVE())"}%* |
+
+%EDITTABLE{ format="| label | text, 40 |" changerows="off" }%
+| *Key* | *Value* |
+| Gender: | F %EDITCELL{select, 1, , F, M}% |
+| DOB: | 8 February 2009 %EDITCELL{date, 10}% |
+';
+
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $this->{test_topic},
+        $this->{test_web}, undef );
+    my $expected = '
+| *Item Description* | *Qty* | *Reason* | *Unit Price* | *Total Price* |
+| Hej Ho | 4 | Hello | 50000 | 200000 |
+| Jah No | 2 | Hello | 150000 | 300000 |
+| | | | 0 | 0 |
+| *Total* | | | | *500000* |
+
+
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="' . $viewUrlAuth . '#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+| *Key* | *Value* |
+| Gender: | F  |
+| DOB: | 8 February 2009  |
+<input type="hidden" name="etrows" value="3" />
+<input class="editTableEditImageButton" type="image" src="'
+      . $pubUrlSystemWeb
+      . '/EditTablePlugin/edittable.gif" alt="Edit this table" /> </form>
+</div><!-- /editTable -->
+';
+
+    trimSpaces($expected);
+    trimSpaces($result);
+
+    $this->assert_str_equals( $expected, $result, 0 );
+}
+
+=pod
+
+Test if TablePlugin parameters are read if the tag is on the same line as EDITTABLE: TABLE after EDITTABLE
+
+=cut
+
+sub test_TABLE_on_same_line_as_EDITTABLE_TABLE_last {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $cgi       = $this->{request};
+    my $url       = $cgi->url( -absolute => 1 );
+
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubPathSystemWeb =
+      Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+
+    my $input = '   * Set MYNAMES = Ed, Kenneth,Benny 
+   * Set EXTRACT = %CALC{ $LISTJOIN( - , $LISTIF($NOT($EXACT($item,)),$LEFT())) }% 
+
+%EDITTABLE{ quietsave="off" editbutton="Update table" format="| date,,%SERVERTIME{"$day $mon $year"}%,%e %b %Y | date,,,%e %b %Y | select,4,%MYNAMES% | text,20 | radio, 7, , :-), :cool:, :-I, :D, :mad:, :( | label,1,$percntEXTRACT$percnt |" }%%TABLE{initsort="1"}%
+| *Startdate* | *Stopdate* | *Who* | *What/Where* | *Icon* | *Details* |
+| 3 Jan 2008 | 22 Jan 2008 | Benny | Vacation | :-) | %EXTRACT% |';
+
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
+
+    my $expected = <<EXPECTED;
+ <ul>
+<li> Set MYNAMES = Ed, Kenneth,Benny 
+</li> <li> Set EXTRACT =  R0:C0..R0:C-1  
+</li></ul> 
+<p />
+<nop>
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+<nop>
+<nop>
+<table cellspacing="0" id="table1" cellpadding="0" class="foswikiTable"  border="1">
+	<thead>
+		<tr class="foswikiTableOdd foswikiTableRowdataBgSorted0 foswikiTableRowdataBg0">
+			<th  valign="top" class="foswikiTableCol0 foswikiSortedAscendingCol foswikiSortedCol foswikiFirstCol"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=0;table=1;up=1#sorted_table" title="Sort by this column"><font color="#ffffff">Startdate</font></a><span class="tableSortIcon tableSortUp"><img width="11" alt="Sorted ascending" src="$pubPathSystemWeb/DocumentGraphics/tablesortup.gif" title="Sorted ascending" height="13" border="0" /></span> </th>
+			<th  valign="top" class="foswikiTableCol1"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=1;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Stopdate</font></a> </th>
+			<th  valign="top" class="foswikiTableCol2"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=2;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Who</font></a> </th>
+			<th  valign="top" class="foswikiTableCol3"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=3;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">What/Where</font></a> </th>
+			<th  valign="top" class="foswikiTableCol4"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=4;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Icon</font></a> </th>
+			<th  valign="top" class="foswikiTableCol5 foswikiLastCol"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=5;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Details</font></a> </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="foswikiTableEven foswikiTableRowdataBgSorted0 foswikiTableRowdataBg0">
+			<td  rowspan="1" valign="top" class="foswikiTableCol0 foswikiSortedAscendingCol foswikiSortedCol foswikiFirstCol foswikiLast"> 3 Jan 2008 </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol1 foswikiLast"> 22 Jan 2008 </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol2 foswikiLast"> Benny </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol3 foswikiLast"> Vacation </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol4 foswikiLast"> <img src="$pubPathSystemWeb/SmiliesPlugin/smile.gif" alt="smile" title="smile" border="0" /> </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol5 foswikiLastCol foswikiLast"> %EXTRACT% </td>
+		</tr>
+	</tbody></table>
+<input type="hidden" name="etrows" value="2" />
+<input class="foswikiButton editTableEditButton" type="submit" value="Update table" /> </form>
+</div><!-- /editTable -->
+EXPECTED
+
+    $this->do_testHtmlOutput( $expected, $result, 1 );
+}
+
+=pod
+
+Test if TablePlugin parameters are read if the tag is on the same line as EDITTABLE: TABLE before EDITTABLE
+
+=cut
+
+sub test_TABLE_on_same_line_as_EDITTABLE_TABLE_first {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $cgi       = $this->{request};
+    my $url       = $cgi->url( -absolute => 1 );
+
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubPathSystemWeb =
+      Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+
+    my $input = '   * Set MYNAMES = Ed, Kenneth,Benny 
+   * Set EXTRACT = %CALC{ $LISTJOIN( - , $LISTIF($NOT($EXACT($item,)),$LEFT())) }% 
+
+%TABLE{initsort="1"}%%EDITTABLE{ quietsave="off" editbutton="Update table" format="| date,,%SERVERTIME{"$day $mon $year"}%,%e %b %Y | date,,,%e %b %Y | select,4,%MYNAMES% | text,20 | radio, 7, , :-), :cool:, :-I, :D, :mad:, :( | label,1,$percntEXTRACT$percnt |" }%
+| *Startdate* | *Stopdate* | *Who* | *What/Where* | *Icon* | *Details* |
+| 3 Jan 2008 | 22 Jan 2008 | Benny | Vacation | :-) | %EXTRACT% |';
+
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
+
+    my $expected = <<EXPECTED;
+ <ul>
+<li> Set MYNAMES = Ed, Kenneth,Benny 
+</li> <li> Set EXTRACT =  R0:C0..R0:C-1  
+</li></ul> 
+<p />
+<nop>
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+<nop>
+<nop>
+<table cellspacing="0" id="table1" cellpadding="0" class="foswikiTable"  border="1">
+	<thead>
+		<tr class="foswikiTableOdd foswikiTableRowdataBgSorted0 foswikiTableRowdataBg0">
+			<th  valign="top" class="foswikiTableCol0 foswikiSortedAscendingCol foswikiSortedCol foswikiFirstCol"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=0;table=1;up=1#sorted_table" title="Sort by this column"><font color="#ffffff">Startdate</font></a><span class="tableSortIcon tableSortUp"><img width="11" alt="Sorted ascending" src="$pubPathSystemWeb/DocumentGraphics/tablesortup.gif" title="Sorted ascending" height="13" border="0" /></span> </th>
+			<th  valign="top" class="foswikiTableCol1"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=1;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Stopdate</font></a> </th>
+			<th  valign="top" class="foswikiTableCol2"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=2;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Who</font></a> </th>
+			<th  valign="top" class="foswikiTableCol3"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=3;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">What/Where</font></a> </th>
+			<th  valign="top" class="foswikiTableCol4"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=4;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Icon</font></a> </th>
+			<th  valign="top" class="foswikiTableCol5 foswikiLastCol"> <a rel="nofollow" href="$url/$webName/$topicName?sortcol=5;table=1;up=0#sorted_table" title="Sort by this column"><font color="#ffffff">Details</font></a> </th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr class="foswikiTableEven foswikiTableRowdataBgSorted0 foswikiTableRowdataBg0">
+			<td  rowspan="1" valign="top" class="foswikiTableCol0 foswikiSortedAscendingCol foswikiSortedCol foswikiFirstCol foswikiLast"> 3 Jan 2008 </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol1 foswikiLast"> 22 Jan 2008 </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol2 foswikiLast"> Benny </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol3 foswikiLast"> Vacation </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol4 foswikiLast"> <img src="$pubPathSystemWeb/SmiliesPlugin/smile.gif" alt="smile" title="smile" border="0" /> </td>
+			<td  rowspan="1" valign="top" class="foswikiTableCol5 foswikiLastCol foswikiLast"> %EXTRACT% </td>
+		</tr>
+	</tbody></table>
+<input type="hidden" name="etrows" value="2" />
+<input class="foswikiButton editTableEditButton" type="submit" value="Update table" /> </form>
+</div><!-- /editTable -->
+EXPECTED
+
+    $this->do_testHtmlOutput( $expected, $result, 1 );
+}
+
+=pod
+
+Parameter changerows
+
+=cut
+
+sub test_param_changerows_off {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+      Foswiki::Func::getPubUrlPath() . '/' . $Foswiki::cfg{SystemWebName};
+
+    my $input = <<INPUT;
+%EDITTABLE{changerows="off"}%
+INPUT
+
+    my $query = new Unit::Request(
+        {
+            etedit    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $this->{test_topic},
+        $this->{test_web}, undef );
+
+    my $expected = <<EXPECTED;
+<noautolink>
+<a name="edittable1"></a>
+<div class="editTable editTableEdit">
+<form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+| <input class="foswikiinputfield edittableinput" type="text" name="etcell1x1" size="16" value="" /> |
+<input type="hidden" name="etrows" value="1" />
+<input type="submit" name="etsave" id="etsave" value="save table" class="foswikisubmit" />
+<input type="submit" name="etqsave" id="etqsave" value="quiet save" class="foswikibutton" />
+<input type="submit" name="etcancel" id="etcancel" value="cancel" class="foswikibuttoncancel" />
+</form>
+</div><!-- /editTable --></noautolink>
+EXPECTED
+    $this->do_testHtmlOutput( lc $expected, lc $result, 0 );
+    $fatwilly->finish();
+}
+
+=pod
+
+Test if saving is keeping <verbatim> tags outside of tables.
+
+=cut
+
+sub test_save_with_encode_param_and_footerrows {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = <<INPUT;
+%TABLE{columnwidths="%ENCODE{"80"}%,80" dataalign="left,center" headeralign="left,center" headerrows="1" footerrows="1"}%
+%EDITTABLE{}%
+| *Customer* | *Pass* |
+| A | B |
+| *Customer* | *Pass* |
+INPUT
+    my $query = new Unit::Request(
+        {
+            etedit    => ['on'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+
+    my $fatwilly = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    $query = new Unit::Request(
+        {
+            etsave    => ['on'],
+            etrows    => ['2'],
+            ettablenr => ['1'],
+        }
+    );
+
+    $query->path_info("/$webName/$topicName");
+    $query->method('POST');
+
+    Foswiki::Func::saveTopic( $this->{test_web}, $this->{test_topic}, undef,
+        $input );
+
+    $fatwilly = new Foswiki( undef, $query );
+    my $response = new Unit::Response;
+    $Foswiki::Plugins::SESSION = $fatwilly;
+
+    my ( $saveResult, $ecode ) = $this->capture(
+        sub {
+            $response->print(
+                Foswiki::Func::expandCommonVariables(
+                    $input, $this->{test_topic}, $this->{test_web}, undef
+                )
+            );
+        }
+    );
+
+    my ( $meta, $newtext ) = Foswiki::Func::readTopic( $webName, $topicName );
+
+    my $expected = <<NEWEXPECTED;
+%TABLE{columnwidths="%ENCODE{"80"}%,80" dataalign="left,center" headeralign="left,center" headerrows="1" footerrows="1"}%
+%EDITTABLE{}%
+| *Customer* | *Pass* |
+| A | B |
+| | |
+| *Customer* | *Pass* |
+NEWEXPECTED
+    $this->assert_str_equals( $expected, $newtext, 0 );
+
+    $fatwilly->finish();
+}
+
+=pod
+
+This TML has caused infinite recursion in Foswiki 1.0.4.
+
+=cut
+
+sub test_render_simple_with_verbatim_and_unfinished_table_rows {
+    my $this = shift;
+
+    my $topicName = $this->{test_topic};
+    my $webName   = $this->{test_web};
+    my $viewUrlAuth =
+      Foswiki::Func::getScriptUrl( $webName, $topicName, 'viewauth' );
+    my $pubUrlSystemWeb =
+        Foswiki::Func::getUrlHost()
+      . Foswiki::Func::getPubUrlPath() . '/'
+      . $Foswiki::cfg{SystemWebName};
+
+    my $input = '%EDITTABLE{format="textarea, 4x20"}%
+| x | <verbatim> y
+z </verbatim> |';
+
+    my $expected = <<END;
+<a name="edittable1"></a>
+<div class="editTable">
+<form name="edittable1" action="$viewUrlAuth#edittable1" method="post">
+<input type="hidden" name="ettablenr" value="1" />
+<input type="hidden" name="etedit" value="on" />
+<input type="hidden" name="etrows" value="0" />
+<input class="editTableEditImageButton" type="image" src="$pubUrlSystemWeb/EditTablePlugin/edittable.gif" alt="Edit this table" />
+</form>
+</div><!-- /editTable -->
+| x | <verbatim> y
+z </verbatim> |
+END
+    my $result =
+      Foswiki::Func::expandCommonVariables( $input, $topicName, $webName );
+    $this->do_testHtmlOutput( $expected, $result, 0 );
+}
+
+=pod
+
+Tests to add:
+
+test_SETTING_CHANGEROWS
+test_SETTING_QUIETSAVE
+test_SETTING_EDIT_BUTTON
+test_SETTING_SAVE_BUTTON
+test_SETTING_QUIET_SAVE_BUTTON
+test_SETTING_ADD_ROW_BUTTON
+test_SETTING_DELETE_LAST_ROW_BUTTON
+test_SETTING_CANCEL_BUTTON
+test_SETTING_INCLUDED_TOPIC_DOES_NOT_EXIST
+
+test_param_javascriptinterface_off
+test_spreadsheet_formula_in_label (code not yet complete)
+
+=cut
 
 1;
