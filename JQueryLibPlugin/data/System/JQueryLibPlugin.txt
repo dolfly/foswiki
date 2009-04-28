@@ -83,6 +83,7 @@ Many thanks to the following sponsors for supporting this work:
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+| 28 Apr 2009 | 1.0 - Fixing broken =JQSCRIPT=and =JQSTYLE= under mod_perl.  |
 | 24 Apr 2009 | 0.9 - Changing default configuration to work well with JQuery UI 1.7.1.  |
 | 19 Apr 2009 | 0.8 - Adding jquery-ui 1.7.1 stable with themes.  |
 | 1 Mar 2009 | 0.7 - Adding cupertino, humanity, lightness, mintchoc, redmond and vader themes for UI 1.7.  |

@@ -51,7 +51,7 @@ our $VERSION = '$Rev: 1340 $';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = 'v0.9';
+our $RELEASE = 'v1.0';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
@@ -131,6 +131,10 @@ sub initPlugin {
     # Allow a sub to be called from the REST interface 
     # using the provided alias
     #Foswiki::Func::registerRESTHandler('example', \&restExample);
+	
+	#Rest my globals for mod_perl support
+	$scriptDependencies='';
+	$styleDependencies='';
 
     addStylesToHead();
     addScriptsToHead();
