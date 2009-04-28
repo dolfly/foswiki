@@ -1,5 +1,0 @@
-pub/System/JQueryCompatibilityModePlugin/jquery.js
-pub/System/JQueryCompatibilityModePlugin/jquery_init.js
-lib/Foswiki/Plugins/JQueryCompatibilityModePlugin/Config.spec
-lib/Foswiki/Plugins/JQueryCompatibilityModePlugin.pm Perl module
-data/System/JQueryCompatibilityModePlugin.txt Plugin topic

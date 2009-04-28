@@ -1,4 +1,0 @@
-# Release manifest for PodPlugin
-data/TWiki/PodPlugin.txt 0644 Plugin topic documentation
-lib/TWiki/Plugins/PodPlugin.pm 0644 Plugin Perl module
-lib/TWiki/Plugins/PodPlugin/Pod2Html.pm 0644 Pod to Html translation module

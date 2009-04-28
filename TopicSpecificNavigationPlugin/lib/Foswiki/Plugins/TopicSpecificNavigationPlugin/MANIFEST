@@ -1,9 +1,0 @@
-lib/Foswiki/Plugins/TopicSpecificNavigationPlugin.pm Plugin Perl module
-data/System/TopicSpecificNavigationPlugin.txt Plugin topic
-data/System/TopicSpecificNavigationPluginTableCreation.txt
-pub/System/TopicSpecificNavigationPlugin/topicspecificnav.css
-templates/editdbfield_subnavigation.tmpl
-templates/view.topicspecificnav.tmpl
-templates/topicspecificnavigationbox.topicspecificnav.tmpl
-
-

@@ -1,8 +1,0 @@
-%META:TOPICINFO{author="ProjectContributor" date="1164910116" format="1.1" reprev="1.1" version="$Rev$"}%
----+ %SPACEOUT{"%WIKINAME%"}% @ <nop>%WIKITOOLNAME%
-
-%$nopINCLUDE{"%SYSTEMWEB%.RenderLdapUser" KEY="%USERNAME%"}%
-
-<!--
-   * Set ALLOWTOPICCHANGE = %WIKIUSERNAME%
--->

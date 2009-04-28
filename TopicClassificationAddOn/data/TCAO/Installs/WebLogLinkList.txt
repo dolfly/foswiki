@@ -1,8 +1,0 @@
-%META:TOPICINFO{author="ProjectContributor" date="1127948959" format="1.1" version="$Rev$"}%
-
-%INCLUDE{%TCAOWEB%.%TOPIC%}%
-
-<!-- Topic permissions
-   * Set ALLOWTOPICCHANGE = %USERWEB%.ModeratorGroup
--->
-
