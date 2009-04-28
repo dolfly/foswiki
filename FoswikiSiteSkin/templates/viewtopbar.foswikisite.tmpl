@@ -1,0 +1,4 @@
+%TMPL:INCLUDE{"viewtopbar"}%
+%TMPL:INCLUDE{"%SYSTEMWEB%.FoswikiSiteSkinNavigation"}% %{ loads System.FoswikiSiteSkinNavigationTemplate }%
+
+%TMPL:DEF{"topbar"}%<div id="patternTopBar"><div id="patternTopBarContentsWrapper"><div id="patternTopBarContents">%IF{"istopic '%SYSTEMWEB%.WebTopBar'" then="$percntINCLUDE{$quot%SYSTEMWEB%.WebTopBar$quot}$percnt" else="$percntINCLUDE{$quot%SYSTEMWEB%.WebTopBarExample$quot}$percnt"}%</div><!--/patternTopBarContents--></div><!--/patternTopBarContentsWrapper--></div><!-- /patternTopBar-->%TMPL:END%

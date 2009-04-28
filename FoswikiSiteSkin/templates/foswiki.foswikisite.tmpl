@@ -1,0 +1,16 @@
+%TMPL:INCLUDE{"foswiki"}%
+
+%TMPL:DEF{"main"}%<div id="patternScreen">%TMPL:P{"userbar"}%<div id="patternPageShadow">
+<div id="patternPage">
+%TMPL:P{"startsidebarwrapper"}%<div id="patternOuter">
+<div id="patternFloatWrap">
+<div id="patternMain">%TMPL:P{"topbarspacer"}%%TMPL:P{"topbarbuttons"}%
+<div id="patternMainContents">%TMPL:P{"logo"}%%TMPL:P{"patterntopiccontents"}%
+</div><!-- /patternMainContents-->
+</div><!-- /patternMain-->%TMPL:P{"sidebar"}%
+</div><!-- /patternFloatWrap-->
+<div class="clear">&nbsp;</div>
+</div><!-- /patternOuter-->%TMPL:P{"endsidebarwrapper"}%%TMPL:P{"topbar"}%%TMPL:P{"bottombar"}%
+</div><!-- /patternPage-->
+</div><!-- /patternPageShadow-->
+</div><!-- /patternScreen-->%TMPL:END%

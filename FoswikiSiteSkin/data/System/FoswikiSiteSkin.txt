@@ -1,0 +1,68 @@
+%META:TOPICINFO{author="ProjectContributor" date="1231290136" format="1.1" version="1.1"}%
+%STARTINCLUDE%
+<!--
+   * Set SHORTDESCRIPTION = Skin used on foswiki.org.
+-->
+---+ Foswiki.org skin
+%SHORTDESCRIPTION%
+
+%TOC{title="Page contents"}%
+
+---++ Screenshot
+
+Click to enlarge:%BR%
+%SEARCH{ "%TOPIC%" scope="topic" nosearch="on" nototal="on" format="<div class='foswikiImage'>$pattern(.*\| *Screenshot\:[^\|]*\|([^\|]*).*)</div>" }%
+
+
+---++ Main navigation
+
+The main horizontal navigation is defined in topic template FoswikiSiteSkinNavigationTemplate and can be edited like any other topic.
+
+---++ Installation
+
+*Note:* You do not need to install anything on the browser to use this skin. The following instructions are for the administrator who installs the skin on the server where Foswiki is running.
+
+   * Download the ZIP file from the Skin Home page (see below)
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory
+   * [[%SCRIPTURLPATH{"view"}%/%WEB%/%TOPIC%?skin=foswikisite,pattern ][Test if installed]]
+   
+---+++ Activation
+To set Foswiki Site skin as default (site wide) skin, use these settings in [[%MAINWEB%.SitePreferences]]:
+<verbatim>
+
+   * Set SKIN = foswikisite,pattern
+   
+   * Global skin styles. To change the look of the site, point these variables to custom CSS attachments.
+      * Set FOSWIKI_LAYOUT_URL = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/layout.css
+      * Set FOSWIKI_STYLE_URL = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/style.css
+      * Set FOSWIKI_COLORS_URL = %PUBURLPATH%/%SYSTEMWEB%/FoswikiSiteSkin/colors.css
+
+   * Overriding styles that add upon the global and theme styles. Enabled by default but empty to prevent browsers from fetching %<nop>USERLAYOUTURL%-style URLs.
+      * Set USERLAYOUTURL =
+      * Set USERSTYLEURL =
+      * Set USERCOLORSURL =
+      * Set WEBHEADERART =
+      * Set WEBHEADERBGCOLOR =
+      * Set PATTERNSKIN_THEME =
+      * Set PATTERNSKIN_COLUMNS =
+      
+   * Set TABLEPLUGIN_TABLEATTRIBUTES = tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#444444" headerbg="#e0e0e4" headerbgsorted="#c5c5cc" databg="#ffffff,#edf4f9" databgsorted="#f1f7fc,#ddebf6" tablerules="rows"
+</verbatim>
+
+---++ Skin Info
+
+|  Copyright: | &copy; Koen Martens, Arthur Clemens |
+|  Screenshot: | <a href="%ATTACHURL%/screenshot_full.png"><img src="%ATTACHURL%/screenshot.jpg" style="border:1px solid #eee;" alt="Click for full screen image" width="600" /></a> |
+|  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=foswikisite,pattern][Preview with this skin]] |
+|  Base Name: | foswikisite,pattern |
+|  Skin Version: | 10 Apr 2009 (v1.1.5) | 
+|  History: | <!-- specify latest version first -->&nbsp; |
+|  16 Apr 2009: | Foswikitask:Item1455: added SubscribePlugin support to FoswikiSiteSkin |
+|  10 Apr 2009: | Foswikitask:Item783: fixed "Create new topic" button to create topic in current web; Foswikitask:Item1432: provide button to return to normal view from raw view mode; Foswikitask:Item1436: rel="nofollow" on button action links |
+|  15 Feb 2009: | Main menu buttons are no longer hidden when viewed on a small screen; improvements to preview screen. |
+|  31 Jan 2009: | Renamed <nop>FoswikiDotOrgPatternSkinContrib to <nop>FoswikiSiteSkin; visual update, made CSS independent of PatternSkin. |
+|  07 Jan 2009: | Initial version (v1.0.0) |
+|  Dependencies: | Foswiki:Extensions/PatternSkin |
+|  Skin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% | %STOPINCLUDE%
+|  Download: | http://foswiki.org/Extensions/%TOPIC% |
