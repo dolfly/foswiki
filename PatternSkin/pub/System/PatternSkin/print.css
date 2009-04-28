@@ -7,7 +7,7 @@ body.patternPrintPage,
 	background-color:#fff;
 }
 .patternPrintPage #patternScreen,
-.patternPrintPage #patternPageShadow,
+.patternPrintPage #patternPageShadow, 
 .patternPrintPage #patternPage,
 .patternPrintPage #patternOuter {
 	margin:0;
@@ -61,6 +61,7 @@ body.patternPrintPage,
 }
 .patternPrintPage #patternBottomBar {
 	border:none;
+	padding:1em 0;
 }
 .patternPrintPage .patternTopicFooter {
 	margin:1em 0 0 0;
@@ -115,7 +116,7 @@ html>body .patternPrintPage pre {
 		padding:0;
 	}
 	#patternScreen,
-	#patternPageShadow,
+	#patternPageShadow, 
 	#patternPage,
 	#patternOuter {
 		margin:0;
@@ -130,7 +131,7 @@ html>body .patternPrintPage pre {
 		display:inline;
 		overflow:visible;
 	}
-
+	
 	/* no left bar */
 	#patternSideBar {
 		display:none;
@@ -138,7 +139,7 @@ html>body .patternPrintPage pre {
 	#patternWrapper {
 		height:1%;
 	}
-
+	
 	/* no top bar */
 	#patternTopBar,
 	#patternClearHeaderCenter,
@@ -147,7 +148,7 @@ html>body .patternPrintPage pre {
 	#patternTopBarContentsOuter {
 		display:none;
 	}
-
+	
 	/* hide bits of the gui */
 	.patternTopicAction,
 	.patternToolBar,
@@ -157,7 +158,7 @@ html>body .patternPrintPage pre {
 	.foswikiActionFormStepSign {
 		display:none;
 	}
-
+	
 	#patternMainContents {
 		margin:0;
 		padding:1em 2em;
@@ -173,13 +174,13 @@ html>body .patternPrintPage pre {
 	.patternTopicFooter {
 		margin:1em 0 0 0;
 	}
-
+	
 	/* hide attachment twisty controls */
 	#attachmentsshow,
 	#attachmentshide {
 		display:none;
 	}
-
+	
 	/* make sure that overflowing content is visible */
 	pre,
 	html>body pre {
@@ -201,7 +202,7 @@ html>body .patternPrintPage pre {
 	ul, ol, dl {
 		page-break-before:avoid;
 	}
-
+	
 	/* hide plugins */
 	.commentPlugin {
 		display:none;
@@ -212,7 +213,7 @@ html>body .patternPrintPage pre {
 	.editTableEditImageButton {
 		display:none;
 	}
-
+	
 	/* Colors */
 	html body {
 		background-color:#fff;
@@ -223,7 +224,7 @@ html>body .patternPrintPage pre {
 	#patternBottomBar {
 		background-color:transparent;
 	}
-
+	
 	pre, code, tt {
 		color:#5b4221;
 	}
@@ -264,7 +265,7 @@ html>body .patternPrintPage pre {
 		color:#666; /*T7*/
 	}
 
+	
 	/* define custom print styles here */
-
 
 }

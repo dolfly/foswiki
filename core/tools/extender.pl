@@ -50,6 +50,7 @@ my $MANIFEST;
 
 BEGIN {
     $installationRoot = Cwd::getcwd();
+
     # getcwd is often a simple `pwd` thus it's tainted, untaint it
     $installationRoot =~ /^(.*)$/;
     $installationRoot = $1;
@@ -77,10 +78,9 @@ BEGIN {
                 return $available{$module} = 0;
             }
         }
-        eval "use $module;";
-        if ($@) {
-            print
-"Warning: $module is not available, some installer functions have been disabled\n";
+        unless ( $module->use ) {
+            print "Warning: $module is not available,"
+              . " some installer functions have been disabled\n";
             $available{$module} = 0;
         }
         else {
@@ -93,13 +93,17 @@ BEGIN {
         && -d 'bin'
         && -e 'bin/setlib.cfg' )
     {
-        die
-'This installer must be run from the root directory of a Foswiki installation';
+        die 'This installer must be run from the root directory'
+          . ' of a Foswiki installation';
     }
 
     # read setlib.cfg
     chdir('bin');
     require 'setlib.cfg';
+
+    # This has to be read after setlib.cfg, as it might not exist in the system
+    # so we will use the one we ship
+    require UNIVERSAL::require;
 
     # See if we can make a Foswiki. If we can, then we can save topic
     # and attachment histories. Key off Foswiki::Merge because it is
@@ -164,58 +168,113 @@ sub remap {
       } return $file;
 }
 
+# Handles warnings when the VERSION string of a module
+# isn't numeric, like perl wants it to be
+my $moduleVersion;    # Global so that this handler can set it
+
+sub check_non_perl_versions {
+    my ($msg) = @_;
+    if ( $msg !~ /Version string '(.+)' contains invalid data; ignoring: '/ ) {
+        print STDERR $msg;
+    }
+    elsif ( $1 eq '$Rev$' ) {
+
+        # Setting version to an arbitary high number
+        # if it's supposed to be some subversion revision
+        $moduleVersion = 999999;
+    }
+    elsif ( $1 =~ /(\d+)/ ) {
+
+        # If the text contains a number, use the first one
+        $moduleVersion = $1;
+    }
+}
+
 sub check_dep {
-    my $dep = shift;
-    my ( $ok, $msg ) = ( 1, '' );
+    my ($dep) = @_;
+    my ( $ok, $msg ) = ( 1, "" );
 
-    if ( $dep->{type} =~ /^(perl|cpan)$/i ) {
+    # reject non-Perl dependencies
+    if ( $dep->{type} !~ /^(?:perl|cpan)$/i ) {
+        $ok = 0;
+        $msg =
+          "Module is type $dep->{type}, and cannot be automatically checked.\n"
+          . "Please check it manually and install if necessary.\n";
+        return ( $ok, $msg );
+    }
 
-        # Try to 'use' the perl module
-        eval 'use ' . $dep->{name};
-        if ($@) {
-            $msg = $@;
-            $msg =~ s/ in .*$/\n/s;
-            $ok = 0;
-        }
-        else {
+    # try to load the module, using CPAN:UNIVERSAL::require
+    # This is roughly equivalent to eval { require $module }
+    # but should be way more readable
+    my $module = $dep->{name};
+    if ( not $module->require ) {
+        $ok = 0;
+        ( $msg = $@ ) =~ s/ in .*$/\n/s;
+        return ( $ok, $msg );
+    }
 
-            # OK, it was loaded. See if a version constraint is specified
-            if ( defined( $dep->{version} ) ) {
-                my $ver;
+    # if the VERSION string isn't perl compatible (\d+\.\d+(\.\d+)?)
+    # perl will print out some message and test will fail
+    # Try to catch those until all VERSION are correct
+    $moduleVersion = 0;
+    {
+        local $SIG{__WARN__} = \&check_non_perl_versions;
 
-                # check the $VERSION variable in the loaded module
-                eval '$ver = $' . $dep->{name} . '::VERSION;';
-                if ( $@ || !defined($ver) ) {
-                    $msg .=
-                      'The VERSION of the package could not be found: ' . $@;
-                    $ok = 0;
-                }
-                else {
+        # Providing 0 as version number as version checking is done below
+        # and without it, perl < 5.10 won't trigger the warning
+        my $version = $module->VERSION(0);
+        $moduleVersion ||= $version;
+    }
 
-                    # The version variable exists. Clean it up
-                    $ver =~ s/^.*\$Rev: (\d+)\$.*$/$1/;
-                    $ver =~ s/[^\d]//g;
-                    $ver ||= 0;
-                    eval '$ok = ( $ver ' . $dep->{version} . ' )';
-                    if ( $@ || !$ok ) {
+    # check if the version satisfies the prerequisite
+    if ( defined $dep->{version} ) {
 
-                        # The version variable fails the constraint
-                        $msg .= ' ' . $ver . ' is currently installed: ' . $@;
-                        $ok = 0;
-                    }
-                }
+        # the version field is in fact a condition
+        if ( $dep->{version} =~ /^\s*(?:>=?)?\s*([0-9.]+)/ ) {
+
+            # Condition is >0 or >= 1.3
+            my $requiredVersion = $1;
+
+            # SMELL: Once all modules have proper version, this should be:
+            # if ( not eval { $module->VERSION( $requiredVersion ) } )
+            if ( $moduleVersion < $requiredVersion ) {
+
+                # But module doesn't meet this condition
+                $msg = "$module version $requiredVersion required"
+                  . "--this is only version $moduleVersion";
+                $ok = 0;
+                return ( $ok, $msg );
             }
         }
-    }
-    else {
+        elsif ( $dep->{version} =~ /<\s*([0-9.]+)/ ) {
 
-        # This module has no perl interface, and can't be checked
-        $ok  = 0;
-        $msg = <<END;
-Module is type $dep->{type}, and cannot be automatically checked.
-Please check it manually and install if necessary.
-END
+            # Condition is < 2.7
+            if ( $moduleVersion >= $1 ) {
+
+                # But module doesn't meet this condition
+                $ok = 0;
+                $msg =
+                    "Module $module is version v"
+                  . $moduleVersion
+                  . " and the dependency wants "
+                  . $dep->{version};
+                return ( $ok, $msg );
+            }
+        }
+        else {
+            $ok = 0;
+            $msg =
+                "Module $module is version v"
+              . $moduleVersion
+              . " and the dependency wants "
+              . $dep->{version};
+            return ( $ok, $msg );
+        }
+
     }
+
+    $msg = "$module v$moduleVersion loaded\n";
+
     return ( $ok, $msg );
 }
 
@@ -241,6 +300,7 @@ DONE
     my ( $ok, $msg ) = check_dep($dep);
 
     if ($ok) {
+        print $msg;
         return 1;
     }
 
@@ -258,8 +318,9 @@ DONE
         my $packname = $3;
         $packname .= $pack if ( $pack eq 'Contrib' && $packname !~ /Contrib$/ );
         if ( !$noconfirm || ( $noconfirm && $downloadOK ) ) {
-            my $reply = ask(
-'Would you like me to try to download and install the latest version of '
+            my $reply =
+              ask(  'Would you like me to try to download '
+                  . 'and install the latest version of '
                   . $packname
                   . ' from foswiki.org?' );
             if ($reply) {
@@ -276,8 +337,9 @@ can download and install it from here. The module will be installed
 to wherever you configured CPAN to install to.
 
 DONE
-        my $reply = ask(
-'Would you like me to try to download and install the latest version of '
+        my $reply =
+          ask(  'Would you like me to try to download '
+              . 'and install the latest version of '
               . $dep->{name}
               . ' from cpan.org?' );
         return 0 unless $reply;
@@ -442,6 +504,7 @@ HERE
         if ( $response->is_success() ) {
             $f = $downloadDir . '/' . $module . $type;
             open( F, ">$f" ) || die "Failed to open $f for write: $!";
+            binmode F;
             print F $response->content();
             close(F);
             last;
@@ -482,6 +545,8 @@ sub installPackage {
     if ( $script && -e $script ) {
         my $cmd = "perl $script";
         $cmd .= ' -a' if $noconfirm;
+        $cmd .= ' -d' if $downloadOK;
+        $cmd .= ' -r' if $reuseOK;
         $cmd .= ' -n' if $inactive;
         $cmd .= ' install';
         local $| = 0;
@@ -554,11 +619,12 @@ sub unpackArchive {
 sub unzip {
     my $archive = shift;
 
-    eval 'use Archive::Zip';
-    unless ($@) {
-        my $zip = new Archive::Zip($archive);
-        unless ($zip) {
-            print STDERR "Could not open zip file $archive\n";
+    if ( 'Archive::Zip'->use ) {
+        my $zip           = Archive::Zip->new();
+        my $err = $zip->read($archive);
+        if ( $err ) {
+            print STDERR "Could not openzip file $archive ("
+              . $err . "\n";
             return 0;
         }
 
@@ -595,11 +661,12 @@ sub untar {
 
     my $compressed = ( $archive =~ /z$/i ) ? 'z' : '';
 
-    eval 'use Archive::Tar';
-    unless ($@) {
-        my $tar = Archive::Tar->new( $archive, $compressed );
-        unless ($tar) {
-            print STDERR "Could not open tar file $archive\n";
+    if ( 'Archive::Tar'->use ) {
+        my $tar = Archive::Tar->new();
+        my $numberOfFiles = $tar->read( $archive, $compressed );
+        unless ( $numberOfFiles > 0 ) {
+            print STDERR "Could not open tar file $archive ("
+              . $tar->error() . "\n";
             return 0;
         }
 
@@ -607,8 +674,8 @@ sub untar {
         foreach my $file (@members) {
             my $target = $file;
 
-            my $err = $tar->extract_file( $file, $target );
-            unless ($err) {
+            my $ok = $tar->extract_file( $file, $target );
+            unless ($ok) {
                 print STDERR 'Failed to extract ', $file, ' from tar file ',
                   $tar, ". Archive may be corrupt.\n";
                 return 0;
@@ -631,69 +698,65 @@ sub untar {
     return 1;
 }
 
-# Check in. On Cairo, do nothing because the apache user
-# has everything checked out :-(
+# Check in.
 sub checkin {
     my ( $web, $topic, $file ) = @_;
 
-    # If this is Dakar, we have a good chance of completing the
-    # install.
+    return 0 unless ($session);
+
     my $err = 1;
 
-    if ($session) {
-        if ($file) {
-            my $origfile =
-              $Foswiki::cfg{PubDir} . '/' . $web . '/' . $topic . '/' . $file;
-            print "Add attachment $origfile\n";
-            return 1 if ($inactive);
-            print <<DONE;
+    if ($file) {
+        my $origfile =
+          $Foswiki::cfg{PubDir} . '/' . $web . '/' . $topic . '/' . $file;
+        print "Add attachment $origfile\n";
+        return 1 if ($inactive);
+        print <<DONE;
 ##########################################################
 Adding file: $file to installation ....
 (attaching it to $web.$topic)
 DONE
 
-            # Need copy of file to upload it, use temporary location
-            # Use non object version of File::Temp for Perl 5.6.1 compatibility
-            my @stats    = stat $origfile;
-            my $fileSize = $stats[7];
-            my $fileDate = $stats[9];
+        # Need copy of file to upload it, use temporary location
+        # Use non object version of File::Temp for Perl 5.6.1 compatibility
+        my @stats    = stat $origfile;
+        my $fileSize = $stats[7];
+        my $fileDate = $stats[9];
 
-            # make sure it's readable and writable by the current user
-            chmod( ( $stats[2] & 07777 ) | 0600, $origfile );
+        # make sure it's readable and writable by the current user
+        chmod( ( $stats[2] & 07777 ) | 0600, $origfile );
 
-            my ( $tmp, $tmpfilename ) = File::Temp::tempfile( unlink => 1 );
-            File::Copy::copy( $origfile, $tmpfilename )
-              || die
-              "$origfile could not be copied to tmp dir ($tmpfilename): $!";
-            eval {
-                Foswiki::Func::saveAttachment(
-                    $web, $topic, $file,
-                    {
-                        comment  => 'Saved by install script',
-                        file     => $tmpfilename,
-                        filesize => $fileSize,
-                        filedate => $fileDate
-                    }
-                );
-            };
-            $err = $@;
-        }
-        else {
-            print "Add topic $web.$topic\n";
-            return 1 if ($inactive);
-            print <<DONE;
+        my ( $tmp, $tmpfilename ) = File::Temp::tempfile( unlink => 1 );
+        File::Copy::copy( $origfile, $tmpfilename )
+          || die "$origfile could not be copied to tmp dir ($tmpfilename): $!";
+        eval {
+            Foswiki::Func::saveAttachment(
+                $web, $topic, $file,
+                {
+                    comment  => 'Saved by install script',
+                    file     => $tmpfilename,
+                    filesize => $fileSize,
+                    filedate => $fileDate
+                }
+            );
+        };
+        $err = $@;
+    }
+    else {
+        print "Add topic $web.$topic\n";
+        return 1 if ($inactive);
+        print <<DONE;
 ##########################################################
 Adding topic: $web.$topic to installation ....
 DONE
 
-            # read the topic to recover meta-data
-            eval {
-                my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic );
-                Foswiki::Func::saveTopic( $web, $topic, $meta, $text,
-                    { comment => 'Saved by install script' } );
-            };
-            $err = $@;
-        }
+        # read the topic to recover meta-data
+        eval {
+            my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic );
+            Foswiki::Func::saveTopic( $web, $topic, $meta, $text,
+                { comment => 'Saved by install script' } );
+        };
+        $err = $@;
     }
     return ( !$err );
 }
@@ -715,13 +778,17 @@ sub _uninstall {
     return 1 if $inactive;
     my $reply = ask("Are you SURE you want to uninstall $MODULE?");
     if ($reply) {
-        defined &Foswiki::preuninstall ? &Foswiki::preuninstall : &TWiki::preuninstall;
+        defined &Foswiki::preuninstall
+          ? &Foswiki::preuninstall
+          : &TWiki::preuninstall;
         foreach $file ( keys %$MANIFEST ) {
             if ( -e $file ) {
                 unlink($file);
             }
         }
-        defined &Foswiki::preinstall ? &Foswiki::preinstall : &TWiki::preinstall;
+        defined &Foswiki::preinstall
+          ? &Foswiki::preinstall
+          : &TWiki::preinstall;
         print "### $MODULE uninstalled ###\n";
     }
     return 1;
@@ -737,14 +804,13 @@ sub _emplace {
     # For each file in the MANIFEST, move the file into the installation,
     # set the permissions, and check if it is a data or pub file. If it is,
     # then check it in.
-    my @topic;
-    my @pub;
-    my @bads;
+    my @ci_topic;         # topics to checkin
+    my @ci_attachment;    # topics to checkin
     my $file;
     foreach $file ( keys %$MANIFEST ) {
         my $source = "$source/$file";
         my $target = remap($file);
-        print "Install $target, permissions $MANIFEST->{$file}\n";
+        print "Install $target, permissions $MANIFEST->{$file}->{perms}\n";
         unless ($inactive) {
             if ( -e $target ) {
                 # Save current permissions, remove write protect for Windows sake,  
@@ -766,25 +832,29 @@ sub _emplace {
             File::Copy::move( $source, $target )
               || die "Failed to move $source to $target: $!\n";
         }
-        if ( $target =~ /^data\/(\w+)\/(\w+).txt$/ ) {
-            push( @topic, $target );
-        }
-        elsif ( $target =~ /^pub\/(\w+)\/(\w+)\/([^\/]+)$/ ) {
-            push( @pub, $target );
-        }
         unless ($inactive) {
-            chmod( oct( $MANIFEST->{$file} ), $target )
+            chmod( oct( $MANIFEST->{$file}->{perms} ), $target )
               || print STDERR
               "WARNING: cannot set permissions on $target: $!\n";
         }
+        if ( $MANIFEST->{$file}->{ci} ) {
+            if ( $target =~ /^data\/(\w+)\/(\w+).txt$/ ) {
+                push( @ci_topic, $target );
+            }
+            elsif ( $target =~ /^pub\/(\w+)\/(\w+)\/([^\/]+)$/ ) {
+                push( @ci_attachment, $target );
+            }
+        }
     }
-    foreach $file (@topic) {
+    my @bads;
+
+    foreach $file (@ci_topic) {
         $file =~ /^data\/(.*)\/(\w+).txt$/;
         unless ( checkin( $1, $2, undef ) ) {
             push( @bads, $file );
         }
     }
-    foreach $file (@pub) {
+    foreach $file (@ci_attachment) {
         $file =~ /^pub\/(.*)\/(\w+)\/([^\/]+)$/;
         unless ( checkin( $1, $2, $3 ) ) {
             push( @bads, $file );
@@ -858,7 +928,7 @@ sub _install {
     my $path = $MODULE;
 
     if ( $path !~ /^(Foswiki|TWiki)::/ ) {
-        my $source = $1;
+        my $source = 'Foswiki';
         my $type   = 'Contrib';
         if ( $path =~ /Plugin$/ ) {
             $type = 'Plugins';
@@ -866,21 +936,30 @@ sub _install {
         $path = $source . '::' . $type . '::' . $rootModule;
     }
 
-    eval 'use ' . $path;
-    unless ($@) {
-        my $version = eval '$' . $path . '::VERSION';
-        if ($version) {
-            unless (
-                ask(
-"$MODULE version $version is already installed. Are you sure you want to re-install this module?"
-                )
-              )
-            {
-                return 0;
-            }
-            print <<DONE;
-I will keep a backup of any files I overwrite.
-DONE
+    if ( $path->use ) {
+
+        # Module is already installed
+        # XXX SMELL: Could be more user-friendly:
+        # test that current version isn't newest
+        $moduleVersion = 0;
+
+        # if the VERSION string isn't perl compatible (\d+\.\d+(\.\d+)?)
+        # perl will print out some message and test will fail
+        # Try to catch those until all VERSION are correct
+        {
+            local $SIG{__WARN__} = \&check_non_perl_versions;
+
+            # Providing 0 as version number as version checking is done below
+            # and without it, perl < 5.10 won't trigger the warning
+            my $version = $path->VERSION(0);
+            $moduleVersion ||= $version;
+        }
+
+        if ($moduleVersion) {
+            return 0
+              unless ask( "$MODULE version $moduleVersion is already installed."
+                  . " Are you sure you want to re-install this module?" );
+            print "I will keep a backup of any files I overwrite.";
         }
     }
 
@@ -907,6 +986,24 @@ DONE
     return ( $unsatisfied ? 0 : 1 );
 }
 
+# Invoked when the user installs a new extension using
+# the configure script. It is used to ensure the perl module dependencies
+# provided by the module are real module names, and not some random garbage
+# which could be potentially insecure.
+sub _validatePerlModule {
+    my $module = shift;
+
+    # Remove all non alpha-numeric caracters and :
+    # Do not use \w as this is localized, and might be tainted
+    my $replacements = $module =~ s/[^a-zA-Z:_0-9]//g;
+    print STDERR 'validatePerlModule removed '
+      . $replacements
+      . ' characters, leading to '
+      . $module . "\n"
+      if $replacements;
+    return $module;
+}
+
 sub install {
     $PACKAGES_URL = shift;
     $MODULE       = shift;
@@ -916,15 +1013,15 @@ sub install {
 
     foreach my $row ( split( /\r?\n/, $data{MANIFEST} ) ) {
         my ( $file, $perms, $desc ) = split( ',', $row, 3 );
-        $MANIFEST->{$file} = $perms;
+        $MANIFEST->{$file}->{ci} = ( $desc =~ /\(noci\)/ ? 0 : 1 );
+        $MANIFEST->{$file}->{perms} = $perms;
     }
 
     my @deps;
     foreach my $row ( split( /\r?\n/, $data{DEPENDENCIES} ) ) {
         my ( $module, $condition, $trigger, $type, $desc ) =
           split( ',', $row, 5 );
-        $module =
-          Foswiki::Sandbox::untaint( $module, \&Foswiki::validatePerlModule );
+        $module = Foswiki::Sandbox::untaint( $module, \&_validatePerlModule );
         if ( $trigger eq '1' ) {
 
             # ONLYIF usually isn't used, and is dangerous
@@ -942,9 +1039,9 @@ sub install {
         else {
 
             # There is a ONLYIF condition, warn user
-            print
-'The script uses an ONLYIF condition which is potentially insecure: "'
-              . $trigger . "\n";
+            print 'The script uses an ONLYIF condition'
+              . ' which is potentially insecure: "'
+              . $trigger . "\"\n";
             if ( $trigger =~ /^[a-zA-Z:\s<>0-9.()]*$/ ) {
 
                 # It looks more or less safe
@@ -962,9 +1059,10 @@ sub install {
             else {
                 print 'This ' . $trigger . ' condition does not look safe.';
                 if (running_from_configure) {
-                    print
-'Disabling this as we were invoked from configure. If you really want to install this module, do it from the command line.'
-                      . "\n";
+                    print <<DONE;
+Disabling this as we were invoked from configure.
+If you really want to install this module, do it from the command line.'
+DONE
                 }
                 else {
                     my $reply = ask('Do you want to run it anyway?');
@@ -1007,6 +1105,12 @@ sub install {
         }
         elsif ( $ARGV[$n] =~ m/(install|uninstall|manifest|dependencies)/ ) {
             $action = $1;
+        }
+
+# SMELL:   There really shouldn't be a null argument.  But installer breaks if it is there.
+        elsif ( $ARGV[$n] eq '' ) {
+            $n++;
+            next;
         }
         else {
             usage();

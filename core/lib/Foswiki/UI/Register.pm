@@ -275,7 +275,7 @@ sub _registerSingleBulkUser {
         }
         $users->setEmails( $cUID, $row->{Email} );
 
-        $session->writeLog( 'bulkregister',
+        $session->logEvent( 'bulkregister',
             $row->{webName} . '.' . $row->{WikiName},
             $row->{Email}, $row->{WikiName} );
     }
@@ -398,7 +398,7 @@ sub _requireVerification {
     $data->{form} = $form;
     close(F);
 
-    $session->writeLog( 'regstart',
+    $session->logEvent('regstart',
         $Foswiki::cfg{UsersWebName} . '.' . $data->{WikiName},
         $data->{Email}, $data->{WikiName} );
 
@@ -594,7 +594,8 @@ sub _resetUsersPassword {
 
             if ($err) {
                 $$pMess .=
-                  $session->inlineAlert( 'alertsnohtml', 'generic', $err );
+                  $session->inlineAlert(
+                      'alertsnohtml', 'generic', $err );
             }
             else {
                 $sent = 1;
@@ -744,7 +745,7 @@ sub changePassword {
             );
         }
         else {
-            $session->writeLog( 'changepasswd', $login );
+            $session->logEvent('changepasswd', $login );
         }
 
         # OK - password changed
@@ -907,6 +908,15 @@ sub complete {
 
     my $users = $session->{users};
     try {
+        unless ( defined($data->{Password}) ) {
+            #SMELL: should give consideration to disabling $Foswiki::cfg{Register}{HidePasswd} 
+            #though that may reduce the conf options an admin has..
+            #OR, a better option would be that the rego email would thus point the user to the resetPasswd url.
+            $data->{Password} = Foswiki::Users::randomPassword();
+            #add data to the form so it can go out in the registration emails.
+            push(@{ $data->{form} }, {name=>'Password', value=>$data->{Password} });
+        }
+        
         my $cUID = $users->addUser(
             $data->{LoginName}, $data->{WikiName},
             $data->{Password},  $data->{Email}
@@ -918,7 +928,7 @@ sub complete {
         my $e = shift;
 
         # Log the error
-        $session->writeWarning( 'Registration failed: ' . $e->stringify() );
+        $session->logger->log('warning', 'Registration failed: ' . $e->stringify() );
         throw Foswiki::OopsException(
             'attention',
             web    => $data->{webName},
@@ -944,7 +954,7 @@ sub complete {
 
         # write log entry
         if ( $Foswiki::cfg{Log}{register} ) {
-            $session->writeLog( 'register',
+            $session->logEvent('register',
                 $Foswiki::cfg{UsersWebName} . '.' . $data->{WikiName},
                 $data->{Email}, $data->{WikiName} );
         }
@@ -1168,7 +1178,7 @@ sub _emailRegistrationConfirmations {
     if ($err) {
 
         # don't tell the user about this one
-        $session->writeWarning( 'Could not confirm registration: ' . $err );
+        $session->logger->log('warning', 'Could not confirm registration: ' . $err );
     }
 
     return $warnings;
@@ -1202,11 +1212,9 @@ sub _buildConfirmationEmail {
         if ( ( $name eq 'Password' ) && ($hidePassword) ) {
             $value = '*******';
         }
-        if ( $name ne 'Confirm' ) {
+        if ( ( $name ne 'Confirm' ) and 
+            ( $name ne 'LoginName' ) ) {        #skip LoginName - we've put it on top.
             $before .= $b1 . ' ' . $name . ': ' . $value . "\n";
-        }
-        if ( $name eq 'LoginName' ) {
-            $loginName = '';
         }
     }
     $templateText = $before . ( $after || '' );
@@ -1504,7 +1512,7 @@ sub _getDataFromQuery {
     my $data = {};
     foreach ( $query->param() ) {
         if (/^(Twk([0-9])(.*))/) {
-            my @values = $query->param( $1 );
+            my @values = $query->param( $1 ) || ();
             my $required = $2;
             my $name   = $3;
             # deal with multivalue fields like checkboxen

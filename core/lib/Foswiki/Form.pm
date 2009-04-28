@@ -55,7 +55,8 @@ reads it from the form definition topic on disc.
      the form definition topic. Note that this array should not be modified
      again after being passed into this constructor (it is not copied).
 
-May throw Foswiki::OopsException
+If the form cannot be read, will return undef to allow the caller to take
+appropriate action.
 
 =cut
 
@@ -65,13 +66,13 @@ sub new {
     ( $web, $form ) = $session->normalizeWebTopicName( $web, $form );
 
     # Validate
-    $web = Foswiki::Sandbox::untaint(
-        $web, \&Foswiki::Sandbox::validateWebName );
-    $form = Foswiki::Sandbox::untaint(
-        $form, \&Foswiki::Sandbox::validateTopicName );
+    $web =
+      Foswiki::Sandbox::untaint( $web, \&Foswiki::Sandbox::validateWebName );
+    $form =
+      Foswiki::Sandbox::untaint( $form, \&Foswiki::Sandbox::validateTopicName );
 
-    unless ($web && $form) {
-        throw Error::Simple("Invalid form name");
+    unless ( $web && $form ) {
+        return undef;
     }
 
     my $this = $session->{forms}->{"$web.$form"};
@@ -185,7 +186,7 @@ sub _parseFormDefinition {
             $title ||= '';
 
             $type ||= '';
-            $type = lc( $type );
+            $type = lc($type);
             $type =~ s/^\s*//go;
             $type =~ s/\s*$//go;
             $type = 'text' if ( !$type );
@@ -260,7 +261,8 @@ sub createField {
             my $class = shift;
             $class =~ /^(\w*)/;    # cut off +buttons etc
             return 'Foswiki::Form::' . ucfirst($1);
-        });
+        }
+    );
 
     eval 'require ' . $class;
     if ($@) {
@@ -295,7 +297,7 @@ sub _link {
         $link = CGI::a(
             {
                 target => $topic,
-                title => $tooltip,
+                title  => $tooltip,
                 href =>
                   $this->{session}->getScriptUrl( 0, 'view', $web, $topic ),
                 rel => 'nofollow'
@@ -551,8 +553,7 @@ sub renderForDisplay {
     my $templates = $this->{session}->templates;
     $templates->readTemplate('formtables');
 
-    my $text = $templates->expandTemplate('FORM:display:header');
-
+    my $text        = '';
     my $rowTemplate = $templates->expandTemplate('FORM:display:row');
     foreach my $fieldDef ( @{ $this->{fields} } ) {
         my $fm = $meta->get( 'FIELD', $fieldDef->{name} );
@@ -567,8 +568,12 @@ sub renderForDisplay {
             $text .= $fieldDef->renderForDisplay( $row, $fm->{value} );
         }
     }
+    $text = $templates->expandTemplate('FORM:display:header') . $text;
     $text .= $templates->expandTemplate('FORM:display:footer');
-    $text =~ s/%A_TITLE%/$this->{web}.$this->{topic}][$this->{topic}/g;
+
+    # substitute remaining placeholders in footer and header
+    $text =~ s/%A_TITLE%/$this->{web}.$this->{topic}/g;
+
     return $text;
 }
 

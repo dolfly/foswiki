@@ -26,7 +26,6 @@ Whenever you write ==ExternalSite:Page== it will be linked automatically to the 
 | ISBN | http://www.bookfinder.com/search/?st=sr;ac=qr;isbn= | Book with ISBN $page |
 | News | http://news.google.com/news?q= | Search for '$page' on Google news |
 | RFC | http://www.faqs.org/rfcs/rfc$page.html | IETF RFC #$page |
-| Twitter | https://twitter.com/ | $page on Twitter.com |
 
 </noautolink>
 

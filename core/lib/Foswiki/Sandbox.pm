@@ -72,7 +72,7 @@ sub _assessPipeSupport {
     # Shell quoting - shell used only on non-safe platforms
     if ( $Foswiki::cfg{OS} eq 'UNIX'
            || ( $Foswiki::cfg{OS} eq 'WINDOWS'
-                  && $$Foswiki::cfg{DetailedOS} eq 'cygwin' ) ) {
+                  && $Foswiki::cfg{DetailedOS} eq 'cygwin' ) ) {
         $CMDQUOTE = "'";
     }
     else {
@@ -533,7 +533,7 @@ sub sysCommand {
             untie(*STDOUT);
             untie(*STDERR);
 
-            open( STDOUT, ">&=" . fileno($writeHandle) ) or die;
+            open( STDOUT, ">&=", fileno($writeHandle) ) or die;
 
             open( STDERR, '>', File::Spec->devnull() );
             unless ( exec( $path, @args ) ) {

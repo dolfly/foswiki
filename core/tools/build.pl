@@ -302,17 +302,8 @@ sub stage_gendocs {
 
     # generate the POD documentation
     print "Building automatic documentation to $this->{tmpDir}...";
-    print `perl $this->{basedir}/tools/gendocs.pl -debug -root $this->{tmpDir}`;
     $this->cp( "$this->{tmpDir}/AUTHORS",
         "$this->{tmpDir}/pub/System/ProjectContributor/AUTHORS" );
-
-    for my $script qw( view rdiff ) {
-        $this->cp(
-            "$this->{tmpDir}/bin/$script",
-            "$this->{tmpDir}/bin/${script}auth"
-        );
-        $this->prot( "0555", "$this->{tmpDir}/bin/${script}auth" );
-    }
 
 #SMELL: these should probably abort the build if they return errors / oopies
 #replaced by the simpler INSTALL.html

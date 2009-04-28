@@ -57,6 +57,8 @@ $includedTopic 6
 9 [[System.$includedTopic]]
 10 [[$includedTopic]]
 11 [[http://fleegle][$includedTopic]]
+12 [[#anchor][$includedTopic]]
+13 [[#$includedTopic][$includedTopic]]
 THIS
     # Expand an include in the context of the test web
     my $text = $this->{twiki}->handleCommonTags(
@@ -83,6 +85,8 @@ $this->{other_web}.$includedTopic 6
 9 [[System.$includedTopic]]
 10 [[$this->{other_web}.$includedTopic][$includedTopic]]
 11 [[http://fleegle][$includedTopic]]
+12 [[#anchor][$includedTopic]]
+13 [[#$includedTopic][$includedTopic]]
 THIS
     while (my $e = pop(@expect)) {
         $this->assert_str_equals($e, pop(@get));
@@ -116,10 +120,31 @@ THIS
 No such section!
 %ENDSECTION{"nosuction"}%
 THIS
+
+    #warnings are off
     $text = $this->{twiki}->handleCommonTags(
-        "%INCLUDE{\"$this->{other_web}.$includedTopic\" section=\"suction\"}%",
+        "%INCLUDE{\"$this->{other_web}.$includedTopic\" section=\"suction\" warn=\"off\"}%",
         $this->{test_web}, $this->{test_topic});
     $this->assert_str_equals('', $text);
+
+    #warning on
+    $text = $this->{twiki}->handleCommonTags(
+        "%INCLUDE{\"$this->{other_web}.$includedTopic\" section=\"suction\" warn=\"on\"}%",
+        $this->{test_web}, $this->{test_topic});
+    $this->assert_str_equals(<<HERE, $text."\n");
+
+
+
+<span class='foswikiAlert'>
+    Warning: Can't find named section <nop>suction in topic <nop>TemporaryINCLUDETestWebINCLUDEother.<nop>TopicToInclude 
+</span>
+HERE
+
+    #custom warning
+    $text = $this->{twiki}->handleCommonTags(
+        "%INCLUDE{\"$this->{other_web}.$includedTopic\" section=\"suction\" warn=\"consider yourself warned\"}%",
+        $this->{test_web}, $this->{test_topic});
+    $this->assert_str_equals('consider yourself warned', $text);
 }
 
 # INCLUDE{"" section=""}% should act as though section was not set (ie, return the entire topic)

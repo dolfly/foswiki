@@ -154,5 +154,5 @@ Information for programmers.
 |  16 Nov 2001 | PTh: Added table border, cell spacing, cell padding, gif files |
 |  07 Oct 2001 | JT: Initial version |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
