@@ -138,6 +138,12 @@ Select the webs, users, and groups you want to change permissions for from the l
 </div>
 <!-- TO HERE -->
 
+%X% When using the plugin with sub-web permissions, beware of access
+control settings that are [[%SYSTEMWEB%.Macros#FinalMacros][finalised]]
+in parent webs, as these settings will override settings in subwebs.
+Use the =[[VarSHOWPREFERENCE][%<nop>SHOWPREFERENCE%]]= macro to review preference
+settings (not available on all Foswiki versions).
+
 ---+++ =TOPICPERMISSIONS=
 The topic permissions tool can be viewed (and edited) by entering =%<nop>TOPICPERMISSIONS%= anywhere in a topic. 
 

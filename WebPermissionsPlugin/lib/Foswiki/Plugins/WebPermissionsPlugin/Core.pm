@@ -34,12 +34,20 @@ use Foswiki::Meta ();
 
 our $antiBeforeSaveRecursion;
 
-# Handle WEBPERMISSIONS for Display and Edit
+sub TRACE_ACLS { 1 };
+
+# Handle %WEBPERMISSIONS% for Display and Edit
 sub WEBPERMISSIONS {
     my ( $session, $params, $topic, $web ) = @_;
     my $query   = $session->{cgiQuery};
     my $action  = $query->param('web_permissions_action') || 'Display';
     my $editing = $action eq 'Edit';
+
+    unless (Foswiki::Func::checkAccessPermission(
+        'CHANGE', Foswiki::Func::getWikiName(), undef,
+        $Foswiki::cfg{WebPrefsTopicName}, $web) ) {
+        $editing = 0;
+    }
 
     my @modes =
       split( /[\s,]+/,
@@ -52,7 +60,7 @@ sub WEBPERMISSIONS {
     }
 
     my @knownusers;
-    my $chosenUsers = $params->{users} || $query->param('users');
+    my $chosenUsers = $params->{users} || $query->param('users') || '';
 
     my %table;
     foreach $web (@webs) {
@@ -89,7 +97,8 @@ sub WEBPERMISSIONS {
                         src => Foswiki::Func::getPubUrlPath() . '/'
                       . $Foswiki::cfg{SystemWebName}
                       . '/WebPermissionsPlugin/'
-                      . $op . '.gif'
+                      . $op . '.gif',
+                        alt => $op,
                 }
             );
             $tab .= $images{$op} . ' ' . $op;
@@ -115,10 +124,11 @@ sub WEBPERMISSIONS {
             $repeater = $repeat_heads;
         }
         $repeater--;
-        $row = CGI::th("$user ");
+        $row = CGI::th($user.' ');
         foreach $web ( sort @webs ) {
             my $cell;
-            foreach my $op (@modes) {
+            foreach my $op ( @modes ) {
+                # Generate a single cell in the permissions table.
                 if ($editing) {
                     my %attrs = (
                         type => 'checkbox',
@@ -139,28 +149,44 @@ sub WEBPERMISSIONS {
     }
     $tab .= CGI::end_table();
 
-    if ($editing) {
+    my $can_edit = 1;
+    my $reason = '';
+    if ( !scalar( @knownusers )) {
+        $can_edit = 0;
+        $reason = "No authorised users in '$chosenUsers'";
+    } elsif (!Foswiki::Func::checkAccessPermission(
+        'CHANGE', Foswiki::Func::getWikiName(), undef,
+        $Foswiki::cfg{WebPrefsTopicName}, $web)) {
+        $can_edit = 0;
+        $reason = "Access denied";
+    }
+
+    if ($editing && $can_edit) {
         $action = Foswiki::Func::getScriptUrl(
             'WebPermissionsPlugin', 'change', 'rest' );
         $tab .= CGI::submit(
             -name  => 'web_permissions_action',
             -value => 'Save',
             -class => 'foswikiSubmit'
-        );
+           );
         $tab .= CGI::submit(
             -name  => 'web_permissions_action',
             -value => 'Cancel',
             -class => 'foswikiSubmit'
-        );
+           );
     }
     else {
         $action = Foswiki::Func::getScriptUrl( $web, $topic, 'view',
             '#' => 'webpermissions_matrix' );
-        $tab .= CGI::submit(
-            -name  => 'web_permissions_action',
-            -value => 'Edit',
-            -class => 'foswikiSubmit'
-        );
+        if ( $can_edit ) {
+            $tab .= CGI::submit(
+                -name  => 'web_permissions_action',
+                -value => 'Edit',
+                -class => 'foswikiSubmit'
+               );
+        } else {
+            $tab .= "Cannot edit: $reason";
+        }
     }
     my $page = CGI::start_form( -method => 'POST', -action => $action );
     # Anchor for jumping back to
@@ -216,6 +242,7 @@ sub changeHandler {
             return undef;
 
         }
+
         my @modes = split( /[\s,]+/,
             $Foswiki::cfg{Plugins}{WebPermissionsPlugin}{modes}
               || 'VIEW,CHANGE' );
@@ -232,6 +259,10 @@ sub changeHandler {
                 $web,
                 sub { Foswiki::Func::isValidWebName($_[0])
                     ? $_[0] : undef } ));
+
+            next unless (Foswiki::Func::checkAccessPermission(
+                'CHANGE', Foswiki::Func::getWikiName(), undef,
+                $Foswiki::cfg{WebPrefsTopicName}, $web) );
 
             my $acls = _getACLs( \@modes, $web );
 
@@ -499,52 +530,6 @@ sub _getListOfGroups {
     return @list;
 }
 
-# Gets all users which have access to the given topic. This functions respects hierchical webs and climbs up the ladder
-# if a web does not set any access permissions
-sub getUsersByWebPreferenceValue {
-    my ( $mode, $web, $topic, $perm ) = @_;
-    if ( $Foswiki::cfg{EnableHierarchicalWebs} ) {
-        my @webs = split('/', $web);
-        while ( scalar(@webs) > 0 ) {
-            my $curWeb = join('/', @webs);
-            my $users;
-            if ( defined &Foswiki::Meta::getPreference ) {
-                my $webObject =
-                  new Foswiki::Meta( $Foswiki::Plugins::SESSION, $curWeb );
-                $users = $webObject->getPreference( $perm . "WEB" . $mode );
-            }
-            else {
-                $users =
-                  $Foswiki::Plugins::SESSION->{prefs}
-                  ->getPreferencesValue( $perm . "WEB" . $mode,
-                    $curWeb, $topic );
-            }
-
-            # we found users, so there have been settings to define access.
-            # No need to check parent webs, as these settings are overriding
-            return $users if ( defined($users) );
-
-            # else continue with the parentwebs, if there are any
-            pop(@webs);
-        }
-    }
-    else {
-
-        # no hierchical webs, so just return the users of the current web
-        if ( defined &Foswiki::Meta::getPreference ) {
-            my $webObject =
-              new Foswiki::Meta( $Foswiki::Plugins::SESSION, $web );
-            return $webObject->getPreference( $perm . "WEB" . $mode );
-        }
-        else {
-            return $Foswiki::Plugins::SESSION->{prefs}
-              ->getWebPreferencesValue( $perm . "WEB" . $mode, $web, $topic );
-        }
-    }
-
-    return undef;
-}
-
 # _getACLs( \@modes, $web, $topic ) -> \%acls
 # Get the Access Control Lists controlling which registered users
 # *and groups* are allowed to access the topic (web).
@@ -587,7 +572,7 @@ sub _getACLs {
         $context = 'WEB';
         $topic   = $Foswiki::cfg{WebPrefsTopicName};
     }
-    #print STDERR "GET ACLS for $context $web $topic\n";
+    print STDERR "ACL: GET $context $web.$topic\n" if TRACE_ACLS;
     my @knownusers = _getListOfUsers();
     push( @knownusers, _getListOfGroups() );
 
@@ -600,36 +585,22 @@ sub _getACLs {
         }
     }
 
-    #print STDERR "Got users ".join(',',keys %acls)."\n";
+    Foswiki::Func::pushTopicContext( $web, $topic );
+
     foreach my $mode (@$modes) {
         foreach my $perm ( 'ALLOW', 'DENY' ) {
             my $users;
-            if ( $context eq 'WEB' ) {
 
-                $users =
-                  getUsersByWebPreferenceValue( $mode, $web, $topic, $perm );
+            $users = Foswiki::Func::getPreferencesValue(
+                "$perm$context$mode" );
 
-                #print STDERR "$perm$context$mode ($web) is not defined\n" unless defined($users);
-                #print STDERR "$perm$context$mode ($web) =$users\n" if defined($users);
+            if (defined $users) {
+                print STDERR "ACL: $perm$context$mode=$users\n" if TRACE_ACLS;
+            } else {
+                print STDERR "ACL: no $perm$context$mode defined\n";
             }
-            else {
-                $users =
-                  $Foswiki::Plugins::SESSION->{prefs}
-                  ->getTopicPreferencesValue( $perm . $context . $mode,
-                    $web, $topic );
-                unless ( defined($users) )
-                {
-                    # as we did not find any settings in the topic, we
-                    # have to look in the web prefs
 
-                    #print STDERR "$perm$context$mode ($web, $topic) is not defined\n";
-                    $users = getUsersByWebPreferenceValue( $mode, $web, $topic,
-                        $perm );
-
-                    #print STDERR $perm."WEB".$mode." ($web, $topic) is not defined\n" unless defined($users);
-                }
-            }
-            next unless defined($users);
+            next unless $users;
 
             my @lusers =
               grep { $_ }
@@ -666,29 +637,31 @@ sub _getACLs {
                 # so change the default for all other users to 0.
                 foreach my $user (@knownusers) {
 
-                    #print STDERR "Disallow $mode $user\n";
+                    print STDERR "ACL: Disallow $mode $user\n" if TRACE_ACLS;
                     $acls{$user}->{$mode} = 0;
                 }
                 foreach my $user (@users) {
 
-                    #print STDERR "Allow $mode $user\n";
+                    print STDERR "ACL: Allow $mode $user\n" if TRACE_ACLS;
                     $acls{$user}->{$mode} = 1;
                 }
             }
             else {
                 foreach my $user (@users) {
 
-                    #print STDERR "Deny $mode $user\n";
+                    print STDERR "ACL: Deny $mode $user\n" if TRACE_ACLS;
                     $acls{$user}->{$mode} = 0;
                 }
             }
         }
     }
 
+    Foswiki::Func::popTopicContext();
+
     return \%acls;
 }
 
-# ---++ _setACLs( \@modes, \%acls, $web, $topic, $plainText )
+# ---++ _setACLs( \@modes, \%acls, $web, $topic )
 # Set the access controls on the named topic.
 #    * =\@modes= - list of access modes you want to set;
 #      e.g. [ "VIEW","CHANGE" ]
@@ -699,9 +672,6 @@ sub _getACLs {
 #      This maps to a hash indexed by *access mode* e.g. =VIEW=, =CHANGE=
 #      etc. This in turn maps to a boolean value; 1 for allowed, and 0 for
 #      denied. See =getACLs= for an example of this kind of object.
-#    * =$plainText - if set, permissions will be written using plain text
-#      (* Set) in the topic body rather than being stored in meta-data
-#      (the default)
 #
 # Access modes used in \%acls that do not appear in \@modes are simply ignored.
 #
@@ -713,7 +683,7 @@ sub _getACLs {
 # for that web/topic are *undefined*.
 
 sub _setACLs {
-    my ( $modes, $acls, $web, $topic, $plainText ) = @_;
+    my ( $modes, $acls, $web, $topic ) = @_;
 
     my $context = 'TOPIC';
     unless ($topic) {
@@ -721,14 +691,11 @@ sub _setACLs {
         $topic   = $Foswiki::cfg{WebPrefsTopicName};
     }
 
+    print STDERR "ACL: SET $context $web.$topic\n" if TRACE_ACLS;
     my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic );
 
     my @knownusers = _getListOfUsers();
     push( @knownusers, _getListOfGroups() );
-
-    if ($plainText) {
-        $text .= "\n" unless $text =~ /\n$/s;
-    }
 
     foreach my $op (@$modes) {
         my @allowed = grep { $acls->{$_}->{$op} } @knownusers;
@@ -752,8 +719,8 @@ sub _setACLs {
                 $name = 'ALLOW' . $context . $op;
                 $set  = \@allowed;
             }
-            if ($plainText) {
-                $text .= "   * Set $name = " . join( ' ', @$set ) . "\n";
+            if( $Foswiki::cfg{Plugins}{WebPermissionsPlugin}{UsePlainText} ) {
+                $text .= "\n   * Set $name = " . join( ' ', @$set );
             }
             else {
                 $meta->putKeyed(
@@ -765,6 +732,9 @@ sub _setACLs {
                         value => join( ' ', @$set )
                     }
                 );
+            }
+            if (TRACE_ACLS) {
+                print STDERR "ACL: $name = ".join( ' ', @$set ) . "\n";
             }
         }
     }
