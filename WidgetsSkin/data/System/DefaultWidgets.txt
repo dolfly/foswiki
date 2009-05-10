@@ -237,8 +237,8 @@ powered by the community. 28th October 2008.
 %STARTSECTION{"footer-widgets"}% %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}% %ENDSECTION{"footer-widgets"}%
 
 ---+++ header
-%STARTSECTION{"header-widgets"}%	<h1 id="header-name">%TMPL:P{"titleaction"}%%IF{"defined PAGETITLE" then="%PAGETITLE%" else="<nop>%TOPIC% "}%</h1>
-        <h2 id="header-description"> [[%WEB%.WebHome][%WEB%]] </h2>%ENDSECTION{"header-widgets"}%
+%STARTSECTION{"header-widgets"}%	<h1 id="header-name">%TMPL:P{"titleaction"}%%IF{"defined PAGETITLE" then="%PAGETITLE%" else="<nop>%BASETOPIC% "}%</h1>
+        <h2 id="header-description"> [[%BASEWEB%.WebHome][%BASEWEB%]] </h2>%ENDSECTION{"header-widgets"}%
 ---++ widget default mechanisms
 do not change or re-define these.
 ---++++ header defaulting section 
