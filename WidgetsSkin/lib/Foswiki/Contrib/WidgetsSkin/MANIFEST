@@ -9,6 +9,12 @@ lib/Foswiki/Contrib/WidgetsSkin/build.pl
 lib/Foswiki/Contrib/WidgetsSkin/DEPENDENCIES
 lib/Foswiki/Contrib/WidgetsSkin/MANIFEST
 lib/Foswiki/Contrib/WidgetsSkin.pm
+
+templates/foswiki.widgets.tmpl
+templates/viewprint.widgets.tmpl
+templates/view.widgets.tmpl
+
+
 pub/System/WidgetsMantisDesign/base-weblog.css
 pub/System/WidgetsMantisDesign/Foswiki.css
 pub/System/WidgetsMantisDesign/inner-mantis-logo.jpg
@@ -395,5 +401,3 @@ pub/System/WidgetsSkin/two-column-right/datebased-archive.html
 pub/System/WidgetsSkin/two-column-right/individual-entry-archive.html
 pub/System/WidgetsSkin/two-column-right/main-index.html
 pub/System/WidgetsSkin/wikiringlogo20x20.png
-templates/foswiki.widgets.tmpl
-templates/viewprint.widgets.tmpl
