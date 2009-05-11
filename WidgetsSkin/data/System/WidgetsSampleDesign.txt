@@ -37,7 +37,7 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 ---+++ footer
 The footer-widgets have been redefined here, if you remove the SECTIONs below, the footer will come from %SYSTEMWEB%.DefaultWidgets
 %STARTSECTION{"footer-widgets"}%
-BANANANA %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}%
+%INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}%
 %ENDSECTION{"footer-widgets"}%
 
 ---+++ header
