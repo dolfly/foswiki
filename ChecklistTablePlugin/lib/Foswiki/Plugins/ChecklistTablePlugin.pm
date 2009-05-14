@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
 # Copyright (C) 2001-2006 Peter Thoeny, peter@thoeny.org
-# Copyright (C) 2007-2008 Daniel Rohde
+# Copyright (C) 2007-2009 Daniel Rohde
 # and TWiki and Foswiki Contributors. All Rights Reserved. TWiki and Foswiki
 # Contributors are listed in the AUTHORS file in the root of this distribution.
 # NOTE: Please extend that file, not this notice.
@@ -30,7 +30,8 @@ $FoswikiCompatibility{endRenderingHandler} = 1.1;
 
 
 $VERSION = '$Rev$';
-$RELEASE = 'v1.005'; # Kenneth Lavrsen changed extension to Foswiki namespace
+$RELEASE = 'v1.006'; # Kenneth Lavrsen did some docu updates. No code changes.
+#$RELEASE = 'v1.005'; # Kenneth Lavrsen changed extension to Foswiki namespace
 #$RELEASE = 'v1.004'; # dro - added initsort and initdirection feature; fixed numeric eq error; fixed missing default value rendering of 'date' format type;
 #$RELEASE = 'v1.003'; # dro - added quick insert feature; added new attributes (quickadd, quickinsert, buttonpos); fixed typos; fixed whitespaces in format bug; fixed (forced) link in text(area) bug; 
 #$RELEASE = 'v1.002'; # dro - fixed major pre/verbatim bug; fixed and added documenation; added sort feature; added changerows attribute; added EDITCELL feature; fixed Opera bug; fixed topic lock bug

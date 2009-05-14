@@ -10,10 +10,10 @@ This plugin helps you to create a checklist with tables. A HTML form for a quick
 <img src="%ATTACHURLPATH%/example.png" alt="example.png" title="Example image" align="bottom" />
 ---++ Features
 
-	* table based checklists with persistent item states: you can add or remove items without state lost
-	* table row editor: a simple way to add, insert or (re)move table entries (rows)
-	* various table cell formats are supported (item, text, textarea, date, ...) 
-	* automatic table format detection: simply put the =%<nop>CHECKLISTTABLE%= tag before an existing Foswiki table to get a table editor
+   * table based checklists with persistent item states: you can add or remove items without state lost
+   * table row editor: a simple way to add, insert or (re)move table entries (rows)
+   * various table cell formats are supported (item, text, textarea, date, ...) 
+   * automatic table format detection: simply put the =%<nop>CHECKLISTTABLE%= tag before an existing Foswiki table to get a table editor
 
 ---++ Syntax Rules
 
@@ -23,22 +23,22 @@ You can use the =%<nop>CHECKLIST%= tag to customize the checklist states, icons 
 
 
 ---++ Usage Examples
-	1 a simple checklist table:
-	  <verbatim>
+   1 a simple checklist table:
+     <verbatim>
 %CHECKLISTTABLE%
-	  </verbatim>
-	1 a checklist table with your own table format:
-	  <verbatim>
+     </verbatim>
+   1 a checklist table with your own table format:
+     <verbatim>
 %CHECKLISTTABLE{format="|text,20|item|" header="|*Item*|*State*|"}%
-	  </verbatim>
-	1 a checklist table with special states and icons:
-	  <verbatim>
+     </verbatim>
+   1 a checklist table with special states and icons:
+     <verbatim>
 %CHECKLIST{states="todo|doing|done" stateicons=":-(|:-I|%<nop>Y%"}%
 %CHECKLISTTABLE%
-	  </verbatim>
-	1 multiple checklist tables on the same topic with special states and icons:
-	  <br/>%X% attend to the name attribute:
-	  <verbatim>
+     </verbatim>
+   1 multiple checklist tables on the same topic with special states and icons:
+     <br/>%X% attend to the name attribute:
+     <verbatim>
 ---++ Checklist Table ONE
 %CHECKLIST{name="checklist one" states="not ok|ok" stateicons=":-(|:ok:"}%
 %CHECKLISTTABLE{name="checklist one"}%
@@ -46,7 +46,7 @@ You can use the =%<nop>CHECKLIST%= tag to customize the checklist states, icons 
 ---++ Checklist Table TWO
 %CHECKLIST{name="checklist two" states="todo|doing|done" stateicons=":-(|:-I|%<nop>Y%"}%
 %CHECKLISTTABLE{name="checklist two"}%
-		</verbatim>
+      </verbatim>
 ---++ Attributes
 *Syntax:* =%<nop>CHECKLISTTABLE{attribute1="value1" attribute2="value" ... }%=
 
@@ -117,47 +117,48 @@ You can define a special edit field type if you place an =%<nop>EDITCELL{"type,p
 Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>CHECKLISTTABLEPLUGIN_SHORTDESCRIPTION%==
 
 *Hints:* 
-	* You can setup every attribute of the =%<nop>CHECKLISTTABLE%= tag. You only have to use capital letters, e.g: 
-	  <br/> ==&nbsp;&nbsp;&nbsp;*&nbsp;Set&nbsp;ALLOWMOVE&nbsp;=&nbsp;on==
-	* Please use your <nop>%USERSWEB%.SitePreferences to setup plugin defaults. 
-	  This prevents you from overwriting settings on plugin updates. E.g. put the following to your
-	  global preferences: 
-	  <br/> ==&nbsp;&nbsp;&nbsp;*&nbsp;Set&nbsp;CHECKLISTTABLEPLUGIN_ALLOWMOVE&nbsp;=&nbsp;on==
+   * You can setup every attribute of the =%<nop>CHECKLISTTABLE%= tag. You only have to use capital letters, e.g: 
+     <br/> ==&nbsp;&nbsp;&nbsp;*&nbsp;Set&nbsp;ALLOWMOVE&nbsp;=&nbsp;on==
+   * Please use your <nop>%USERSWEB%.SitePreferences to setup plugin defaults. 
+     This prevents you from overwriting settings on plugin updates. E.g. put the following to your
+     global preferences: 
+     <br/> ==&nbsp;&nbsp;&nbsp;*&nbsp;Set&nbsp;CHECKLISTTABLEPLUGIN_ALLOWMOVE&nbsp;=&nbsp;on==
 
 
-	* One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-		* Set SHORTDESCRIPTION = Create a checklist table
+   * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
+      * Set SHORTDESCRIPTION = Create a checklist table
 
-	* Debug plugin: (See output in =data/debug.txt=)
-		* Set DEBUG = 0
+   * Debug plugin: (See output in =data/debug.txt=)
+      * Set DEBUG = 0
 
 ---++ Plugin Installation Instructions
 
 __Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the Foswiki server. 
 
-	* Install (or upgrade to) the latest Foswiki:Extensions.ChecklistPlugin plugin 
-	* Download the ZIP file from the Plugin web (see below)
-	* Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
-	  | *File:* | *Description:* |
-	  | ==data/System/%TOPIC%.txt== | Plugin topic |
-	  | ==data/System/VarCHECKLISTTABLE.txt== | Plugin tag documentation | 
-	  | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
-	  | ==lib/Foswiki/Plugins/%TOPIC%/Core.pm== | Perl module |
+   * Install (or upgrade to) the latest Foswiki:Extensions.ChecklistPlugin plugin 
+   * Download the ZIP file from the Plugin web (see below)
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
+     | *File:* | *Description:* |
+     | ==data/System/%TOPIC%.txt== | Plugin topic |
+     | ==data/System/VarCHECKLISTTABLE.txt== | Plugin tag documentation | 
+     | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
+     | ==lib/Foswiki/Plugins/%TOPIC%/Core.pm== | Perl module |
           | ==pub/System/%TOPIC%/cltpinsertform.js== | <nop>JavaScript module |
-	  | ==pub/System/%TOPIC%/example.png== | example image |
-	* Configure the Plugin:
-		* Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script to enable the Plugin
-		* Change the Plugin settings as needed
-	* Test if the installation was successful:
-		* see Examples section
+     | ==pub/System/%TOPIC%/example.png== | example image |
+   * Configure the Plugin:
+      * Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script to enable the Plugin
+      * Change the Plugin settings as needed
+   * Test if the installation was successful:
+      * see Examples section
 
 ---++ Plugin Info
 
 |  Plugin Author: | Foswiki:Main.DanielRohde |
 |  Copyright: | &copy; 2007-2008, Foswiki:Main.DanielRohde |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | V1.005 (15 Dec 2008) |
+|  Plugin Version: | V1.006 (14 May 2009) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  V1.006 (14 May 2009) | Foswiki:Main.KennethLavrsen: Changed feedback link to Support web. Added the attached files to the topic so they get uploaded to foswiki.org. No code changes. No need to upgrade |
 |  V1.005 (15 Dec 2008) | Foswiki:Main.KennethLavrsen: Changed namespace to Foswiki and added missing MANIFEST and build script for development on SVN |
 |  V1.004 (16 Jan 2008) | TWiki:Main:DanielRohde:  added initsort and initdirection feature; fixed numeric eq error; fixed missing default value rendering of 'date' format type; |
 |  V1.003 (22 Oct 2007) | TWiki:Main.DanielRohde: added quick insert feature; added new attributes (quickadd, quickinsert, buttonpos); fixed typos; fixed whitespaces in format bug; fixed (forced) link in text(area) bug; |
@@ -168,7 +169,10 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Other Dependencies: | none |
 |  Perl Version: | 5.008 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Feedback: | http://foswiki.org/Support/%TOPIC% |
 
 __Related Topics:__ [[%SYSTEMWEB%.Plugins][Plugins]], ChecklistPlugin
 
+
+%META:FILEATTACHMENT{name="cltpinsertform.js" attachment="cltpinsertform.js" attr="h" comment="" date="1242284414" size="1826" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="example.png" attachment="example.png" attr="h" comment="" date="1242284437" size="12580" user="ProjectContributor" version="1"}%
