@@ -71,7 +71,7 @@ The web is configured as a simple bug tracker, but can easily be customised to m
 |  12856 | 13 Feb 2007 - Foswiki:Main.SvenDowideit - update with lessons learned from longer term use |
 |  9804 | Foswiki:Main.CrawfordCurrie - packaged for Release |
 |  Home: | Foswiki:Extensions/%TOPIC% |
-|  Feedback: | Foswiki:Extensions/%TOPIC%Dev |
+|  Support: | Foswiki:Support/%TOPIC% |
 
 %META:FILEATTACHMENT{name="wikiring-bugscontrib.png" attachment="wikiring-bugscontrib.png" attr="" comment="" date="" path="logo.png" user="ProjectContributor" version="2"}%
 %META:FILEATTACHMENT{name="wikiring.png" attachment="wikiring.png" attr="" comment="" date=""  user="ProjectContributor" version="4"}%
