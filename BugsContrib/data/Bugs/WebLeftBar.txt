@@ -3,7 +3,7 @@
 
    * *[[WebHome][%ICON{"home"}% %INCLUDINGWEB% Web <img src="%PUBURL%/%BASEWEB%/WebPreferences/logo.png" />]]*
    * [[%SCRIPTURL{edit}%/%INCLUDINGWEB%/Item%NEWTOPICNAME%?templatetopic=WebTopicEditTemplate;formtemplate=ItemTemplate;_T=%SERVERTIME{$hou$min$sec}%][ %ICON{"newtopic"}% Create New Report]]
-   * *[[%SCRIPTURL{"view"}%/Bugs/AllOutStandingItems?class=.*&amp;amp=&amp;sortcol=3;table=1;up=1#sorted_table][%X% Items by urgency]]*
+   * *[[%SCRIPTURL{"view"}%/%WEB%/AllOutStandingItems?class=.*&amp;amp=&amp;sortcol=3;table=1;up=1#sorted_table][%X% Items by urgency]]*
    * [[AllOutStandingItems][ %ICON{"wip"}% Open Reports]]
    * [[MyItems][ %ICON{"arrowbright"}% My Reports]]
    * [[RecentlyClosed][ %ICON{"choice-yes"}% Recently Closed]]

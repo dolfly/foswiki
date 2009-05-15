@@ -65,6 +65,7 @@ The web is configured as a simple bug tracker, but can easily be customised to m
 |  Version: | 2085 (22 Jan 2009) |
 |  License: | GPL |
 |  Change History: | |
+|         | 15 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item1576 - fix hard-coded =/Bugs/= web directory name |
 |         | 22 Jan 2009 - Foswiki:Main.WillNorris - support to email users when a report they have created, or are expected to provide feedback for, has changed |
 |  15447 | 1 Nov 2007 - Foswiki:Main.SvenDowideit - updated to fix bugs reported in the Dev topic (4.2 query release to come later) |
 |  12856 | 13 Feb 2007 - Foswiki:Main.SvenDowideit - update with lessons learned from longer term use |
