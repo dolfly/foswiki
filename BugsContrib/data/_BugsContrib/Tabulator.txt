@@ -15,7 +15,7 @@
     limit="%URLPARAM{"limit" default="%LIMIT%"}%"
     nototal="on"
     header="| *Id* | *Summary* | *Applies&nbsp;To* | *Priority* | *Current&nbsp;State* | *Last&nbsp;Edit* | *Waiting&nbsp;For* |"
-    format="| [[$web.$topic][$topic]]  | $formfield(Summary) | $formfield(AppliesTo) $formfield(Component) | $formfield(Priority) | $formfield(CurrentState) | $date | $formfield(WaitingFor) |"
+    format="|  [[$web.$topic][$topic]] [[%SCRIPTURL{edit}%/$web.$topic][ $percntICON{edittopic}$percnt]] | $formfield(Summary) | $formfield(AppliesTo) $formfield(Component) | $formfield(Priority) | $formfield(CurrentState) | $date | $formfield(WaitingFor) |"
 }%
 | %IF{"%CALC{$ROW()}%='1'" then='<span style="background : #808080;"> %WHITE% No entries found matching your query %ENDCOLOR% </span>' else="Summary"}%  | | %IF{"%CALC{$ROW()}%='1'" then="" else="%CALC{"$COUNTITEMS( R2:C$COLUMN()..R$ROW(-1):C$COLUMN() )"}%"}% | %IF{"%CALC{$ROW()}%='1'" then="" else="%CALC{"$COUNTITEMS( R2:C$COLUMN()..R$ROW(-1):C$COLUMN() )"}%"}% | %IF{"%CALC{$ROW()}%='1'" then="" else="%CALC{"$COUNTITEMS( R2:C$COLUMN()..R$ROW(-1):C$COLUMN() )"}%"}% | | |
 </font>
