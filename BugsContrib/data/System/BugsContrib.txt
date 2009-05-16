@@ -94,6 +94,7 @@ The web is configured as a simple bug tracker, but can easily be customised to m
 |  Version: | 2085 (22 Jan 2009) |
 |  License: | GPL |
 |  Change History: | |
+|         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item8158 - add %ICON{edittopic}% to each result row |
 |         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item8156 - change to template web architecture, to allow more than one bug base per installation |
 |         | 15 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item1576 - fix hard-coded =/Bugs/= web directory name |
 |         | 22 Jan 2009 - Foswiki:Main.WillNorris - support to email users when a report they have created, or are expected to provide feedback for, has changed |
