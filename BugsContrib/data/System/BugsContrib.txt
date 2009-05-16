@@ -30,6 +30,20 @@ The main entry point for examining the list of issues is [[_BugsContrib.AllOutSt
 You can subdivide the web into different areas using the [[_BugsContrib.AppliesTo]] field, and provide each area with its own search topic.
 
 
+---++ Existing bug bases
+
+%SEARCH{ "NEWTOPICNAME"
+         nonoise="on" nototal="off"
+         web="all"
+         topic="WebPreferences"
+         scope="text"
+         type="literal"
+         format="| <img src='%PUBURL%/$web/WebPreferences/logo.png' /> [[$web.%HOMETOPIC%][$web]] |"
+         header="| *Bugs base web* |"
+         footer="$
+}%
+
+
 ---++ Installation
 
 ---+++ Installation Instructions
