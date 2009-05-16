@@ -40,7 +40,6 @@ You can subdivide the web into different areas using the [[_BugsContrib.AppliesT
          type="literal"
          format="| <img src='%PUBURL%/$web/WebPreferences/logo.png' /> [[$web.%HOMETOPIC%][$web]] |"
          header="| *Bugs base web* |"
-         footer="$
 }%
 
 
