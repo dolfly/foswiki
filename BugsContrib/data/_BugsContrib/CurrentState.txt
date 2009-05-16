@@ -23,8 +23,8 @@ Interactive lookup
 %ENDSECTION{form_select}%
 </h3>
 %INCLUDE{
-	"Bugs.Tabulator" 
-    STATUS="%STATE%"
+	"Tabulator" 
+	STATUS="%STATE%"
 	SUMMARY=".*"
 	DETAIL=".*"
 	PRIORITY=".*"

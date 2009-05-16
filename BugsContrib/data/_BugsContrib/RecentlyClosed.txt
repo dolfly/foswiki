@@ -1,7 +1,7 @@
 
 ---+++ Recently Closed
 %INCLUDE{
-"Bugs.Tabulator" 
+"Tabulator" 
 STATUS="Closed|Waiting for Release"
 SUMMARY=".*"
 DETAIL=".*"
@@ -15,7 +15,7 @@ CODEBASE=".*"
 
 ---+++ Recent No Action Items
 %INCLUDE{
-"Bugs.Tabulator" 
+"Tabulator" 
 STATUS="No Action Required"
 SUMMARY=".*"
 DETAIL=".*"

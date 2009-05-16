@@ -23,7 +23,7 @@ Interactive lookup
 %ENDSECTION{form_select}%
 </h3>
 %INCLUDE{
-	"Bugs.Tabulator" 
+	"Tabulator" 
         STATUS="New|Actioning|Waiting for Feedback|Confirmed|Being Worked On|Waiting for Release%IF{"defined closed" then="|Closed|No Action Required"}%"
 	SUMMARY=".*"
 	DETAIL=".*"
