@@ -365,10 +365,8 @@ sub formsFieldNames {
     my %fieldNames;
     my @webs = $self->websToIndex();
 
-    my $prefs = $Foswiki::Plugins::SESSION->{prefs};
-
     foreach my $web (@webs) {
-        my $legalForms = $prefs->getWebPreferencesValue( 'WEBFORMS', $web );
+        my $legalForms = Foswiki::Func::getPreferencesValue( 'WEBFORMS', $web );
         if ( !defined($legalForms) ) { next }
         $legalForms =~ s/^\s*//;
         $legalForms =~ s/\s*$//;
@@ -455,7 +453,12 @@ sub indexTopic {
     if ( !defined( $renderer = $Foswiki::Plugins::SESSION->{renderer} ) ) {
         $renderer = $Foswiki::Plugins::SESSION->renderer;
     }
-    $text = $renderer->TML2PlainText( $text, $web, $topic, "" );
+    if ( 1 ) {	# VERSION >= 2.1
+	my $topicObject = Foswiki::Meta->new( $Foswiki::Plugins::SESSION, $web, $topic );
+	$text = $renderer->TML2PlainText( $text, $topicObject, "" );
+    } else {
+	$text = $renderer->TML2PlainText( $text, $web, $topic, "" );
+    }
     $text =~ s/\n/ /g;
 
     # "TheTopic--NNNName" will return the "The Topic Name" string
@@ -546,7 +549,8 @@ sub indexTopic {
 sub indexAttachment {
     my ( $self, $invindexer, $web, $topic, $attachment ) = @_;
 
-    my $name   = $attachment->{'name'};
+    # SMELL: does $name have to have a value? (because sometimes it doesn't)
+    my $name   = $attachment->{'name'} || '';
     my $author = $attachment->{'user'};
     my $rev    = $attachment->{'version'};
 
