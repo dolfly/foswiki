@@ -453,7 +453,7 @@ sub indexTopic {
     if ( !defined( $renderer = $Foswiki::Plugins::SESSION->{renderer} ) ) {
         $renderer = $Foswiki::Plugins::SESSION->renderer;
     }
-    if ( 1 ) {	# VERSION >= 2.1
+    if ( my $RUNNING_TRUNK = 1 ) {	# TODO: check for API VERSION >= 2.1
 	my $topicObject = Foswiki::Meta->new( $Foswiki::Plugins::SESSION, $web, $topic );
 	$text = $renderer->TML2PlainText( $text, $topicObject, "" );
     } else {
