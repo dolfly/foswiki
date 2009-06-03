@@ -56,7 +56,7 @@ sub test_stringForFile {
 }
 
 sub test_SpecialCharacters {
-    # I check, that speciual characters are not destroied by the stringifier.
+    # check that special characters are not destroyed by the stringifier
     
     my $this = shift;
     my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_antiword->new();
