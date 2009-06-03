@@ -359,7 +359,7 @@ sub test_indexTopic {
     $ind->createIndex();
 
     # Now I create a topic with all elements.
-    Foswiki::Func::saveTopic( $this->{users_web}, "TopicWithExcelAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithExcelAttachment", <<'HERE');
 Just an example topic with MS Excel
 Keyword: spreadsheet
 HERE
