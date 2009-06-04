@@ -1,0 +1,3 @@
+# Release manifest for ForEachPlugin
+data/System/ForEachPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/ForEachPlugin.pm 0644 Perl module

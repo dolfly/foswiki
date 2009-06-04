@@ -1,0 +1,135 @@
+%META:TOPICINFO{author="ProjectContributor" date="1244077456" format="1.1" version="1"}%
+---+!! <nop>%TOPIC%
+
+This plugin provides basic =FOR= and =FOREACH= loop constructions.
+
+%TOC%
+
+------
+
+---++ Syntax Rules
+
+| *Tag* | *Description* |
+| =%<nop>FOREACH{"_var_" in="_list_"}% _body_ %<nop>NEXT{"_var_"}%= | Loop over =_body_= setting control variable =_var_= to each successive element of =_list_= |
+| =%<nop>FOR{"_var_" start="_int_" stop="_int_" step="_int_"}% _body_ %<nop>NEXT{"_var_"}%= | Loop over =_body_= setting control variable =_var_= to each integer in the range =start= to =stop= in steps of =step= |
+
+
+| *Parameters* | *Description* |
+| *FOREACH* ||
+| ="..."= | Loop control variable.  Within the body of the text this may be referred to as =$var=.  =%<nop>FOREACH{"var" ...}%= must have a matching =%<nop>NEXT{"var"}%= | 
+| =in="..."= | Comma separated list.  May contain Foswiki macros |
+| *FOR* ||
+| ="..."= | Loop control variable.  Within the body of the text this may be referred to as =$var=.  =%<nop>FOR{"var" ...}%= must have a matching =%<nop>NEXT{"var"}%= | 
+| ="start"="..."= | Starting integer |
+| ="stop"="..."= | Stop integer |
+| ="step"="..."= | Increment/decrement =var= in steps of =step=.  __THIS IS REQUIRED__ |
+
+   * *All parameters are required, and must appear in the specified order.*
+
+---++ =FOREACH= Examples
+
+---+++!! Basic Usage
+<verbatim>
+%FOREACH{"web" in="Main, Sandbox, System"}%
+   * [[$web.WebHome]]
+%NEXT{"web"}%
+</verbatim>
+
+... gives ...
+   * [[Main.WebHome]]
+   * [[Sandbox.WebHome]]
+   * [[System.WebHome]]
+
+... if installed.
+%FOREACH{"web" in="Main, Sandbox, System"}%
+   * [[$web.WebHome]]
+%NEXT{"web"}%
+
+---+++!! Nested loops are possible:
+<verbatim>
+%FOREACH{"i" in="1, 2, 3"}% %FOREACH{"j" in="a, b, c"}% $i$j %NEXT{"j"}% %NEXT{"i"}%
+</verbatim>
+%FOREACH{"i" in="1, 2, 3"}% %FOREACH{"j" in="a, b, c"}% $i$j %NEXT{"j"}% %NEXT{"i"}%
+
+---+++!! Lists may contain Foswiki macros or other plugins.  
+   * The body of the loop may need to delay expansion:  use =$percnt= to replace =%= if necessary.
+<verbatim>
+%FOREACH{"web" in="%WEBLIST{"$name" separator=", "}%"}%
+| $web | $percntFORMFIELD{"STATUS" topic="$web.%HOMETOPIC%" default="Formfield STATUS not defined in $web" alttext="Formfield STATUS not found in $web"}$percnt |
+%NEXT{"web"}%
+</verbatim>
+%FOREACH{"web" in="%WEBLIST{"$name" separator=", "}%"}%
+| $web | $percntFORMFIELD{"STATUS" topic="$web.%HOMETOPIC%" default="Formfield STATUS not defined in $web" alttext="Formfield STATUS not found in $web"}$percnt |
+%NEXT{"web"}%
+
+---++ =FOR= Examples 
+
+---+++!! Count up and down in steps
+   * =%<nop>FOR{"counta" start="1" stop="10" step="2"}% $counta %NEXT{"counta"}%=
+   * %FOR{"counta" start="1" stop="10" step="2"}% $counta %NEXT{"counta"}%
+   * =%<nop>FOR{"countb" start="1" stop="10" step="1"}% $countb %NEXT{"countb"}%=
+   * %FOR{"countb" start="1" stop="10" step="1"}% $countb %NEXT{"countb"}%
+   * =%<nop>FOR{"countc" start="10" stop="1" step="-1"}% $countc %NEXT{"countc"}%=
+   * %FOR{"countc" start="10" stop="1" step="-1"}% $countc %NEXT{"countc"}%
+
+---+++!! Nested loops are possible:
+<verbatim>
+%FOR{"outer" start="1" stop="3" step="1"}%
+%FOR{"inner" start="3" stop="1" step="-1"}%
+   * $outer - $inner 
+%NEXT{"inner"}%
+%NEXT{"outer"}%
+</verbatim>
+%FOR{"outer" start="1" stop="3" step="1"}%
+%FOR{"inner" start="103" stop="100" step="-1"}%
+   * $outer - $inner 
+%NEXT{"inner"}%
+%NEXT{"outer"}%
+
+---+++ Error trapping
+   * =%<nop>FOR{"countd" start="10" stop="1" step="1"}% $countd %NEXT{"countd"}%= (invalid step)
+   * %FOR{"countd" start="10" stop="1" step="1"}% $countd %NEXT{"countd"}%
+   * =%<nop>FOR{"counte" start="a" stop="b" step="c"}% $countd %NEXT{"counte"}%= (non-integers)
+   * %FOR{"counte" start="a" stop="b" step="c"}% $countd %NEXT{"counte"}%
+
+---++ Plugin Settings
+
+Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>INTERWIKIPLUGIN_SHORTDESCRIPTION%==
+
+   * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
+      * Set SHORTDESCRIPTION = Loop over successive elements of a list, or a range of numbers.
+
+   * Debug plugin: (See output in =data/debug.txt=)
+      * Set DEBUG = 0
+
+
+---++ Plugin Installation Instructions
+
+__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where Foswiki is running. 
+
+   * Download the ZIP file from the Plugin web (see below)
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
+     | *File:* | *Description:* |
+     | ==data/System/%TOPIC%.txt== | Plugin topic |
+     | ==data/System/%TOPIC%.txt,v== | Plugin topic repository |
+     | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
+   * Test if the installation was successful:
+      * _enter samples here_
+
+---++ Plugin Info
+
+|  Plugin Author: | Original 2005: Magnus Lewis Smith - From 2009 Kenneth Lavrsen and put in Feel Free to Modify policy |
+|  Plugin Version: | 04 Jun 2009 (1.100) |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  04 Jun 2009: | (1.100) Ported unmodified to Foswiki by Kenneth Lavrsen |
+|  28 Sep 2005: | (1.000) Initial version |
+|  Foswiki Dependency: | $Foswiki::Plugins::VERSION 1.024 |
+|  CPAN Dependencies: | none |
+|  Other Dependencies: | none |
+|  Perl Version: | 5.008 |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+
+__Related Topics:__ %SYSTEMWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
+
