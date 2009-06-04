@@ -131,5 +131,5 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 
-__Related Topics:__ %SYSTEMWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
+__Related Topics:__ %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
 
