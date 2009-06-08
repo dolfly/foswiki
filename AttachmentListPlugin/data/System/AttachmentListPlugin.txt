@@ -243,5 +243,4 @@ sort="$fileName"
 | 03 Mar 2006 - v.0.7 | TWiki:Main.SopanShewale: reworked for TWiki 4 |
 | 11 Apr 2005 - v.0.6 | TWiki:Main.VinodKulkarni: Initial version |
 | Home: | http://foswiki.org/Extensions/%TOPIC% |
-| Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-| Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
+| Support: | http://foswiki.org/Support/%TOPIC% |
