@@ -11,7 +11,7 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Plugins::AttachmentListPlugin::FileData;
+package Foswiki::Plugins::AttachmentListPlugin::FileData;
 
 use strict;
 use overload ( '""' => \&as_string );
@@ -44,11 +44,11 @@ sub new {
     $this->{'size'} = $attachment->{'size'} || 0;
 
     my $userName = $attachment->{'user'} || 'UnknownUser';
-    if ( $TWiki::Plugins::VERSION < 1.2 ) {
+    if ( $Foswiki::Plugins::VERSION < 1.2 ) {
         $userName =~ s/^(.*?\.)*(.*?)$/$2/;    # remove Main. from username
     }
     else {
-        $userName = TWiki::Func::getWikiName($userName);
+        $userName = Foswiki::Func::getWikiName($userName);
     }
     $this->{'user'}      = $userName;
     $this->{'name'}      = $attachment->{'name'} || '';

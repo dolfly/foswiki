@@ -11,23 +11,23 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Plugins::AttachmentListPlugin;
+package Foswiki::Plugins::AttachmentListPlugin;
 
 use strict;
-use TWiki::Func;
-use TWiki::Plugins::AttachmentListPlugin::FileData;
-use TWiki::Plugins::TopicDataHelperPlugin;
+use Foswiki::Func;
+use Foswiki::Plugins::AttachmentListPlugin::FileData;
+use Foswiki::Plugins::TopicDataHelperPlugin;
 
 use vars qw($VERSION $RELEASE $pluginName
   $debug $defaultFormat $imageFormat
 );
 
 my %sortInputTable = (
-    'none' => $TWiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'},
+    'none' => $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'},
     'ascending' =>
-      $TWiki::Plugins::TopicDataHelperPlugin::sortDirections{'ASCENDING'},
+      $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'ASCENDING'},
     'descending' =>
-      $TWiki::Plugins::TopicDataHelperPlugin::sortDirections{'DESCENDING'},
+      $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'DESCENDING'},
 );
 
 # This should always be $Rev$ so that TWiki can determine the checked-in
@@ -50,8 +50,8 @@ sub initPlugin {
     my ( $inTopic, $inWeb, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if ( $TWiki::Plugins::VERSION < 1.026 ) {
-        TWiki::Func::writeWarning(
+    if ( $Foswiki::Plugins::VERSION < 1.026 ) {
+        Foswiki::Func::writeWarning(
             "Version mismatch between $pluginName and Plugins.pm");
         return 0;
     }
@@ -60,8 +60,8 @@ sub initPlugin {
 
     # Get plugin preferences
     $defaultFormat =
-         TWiki::Func::getPreferencesValue('FORMAT')
-      || TWiki::Func::getPluginPreferencesValue('FORMAT')
+         Foswiki::Func::getPreferencesValue('FORMAT')
+      || Foswiki::Func::getPluginPreferencesValue('FORMAT')
       || $defaultFormat;
 
     $defaultFormat =~ s/^[\\n]+//;    # Strip off leading \n
@@ -70,22 +70,22 @@ sub initPlugin {
 
     # Get plugin preferences
     $imageFormat =
-         TWiki::Func::getPreferencesValue('IMAGE_FORMAT')
-      || TWiki::Func::getPluginPreferencesValue('IMAGE_FORMAT')
+         Foswiki::Func::getPreferencesValue('IMAGE_FORMAT')
+      || Foswiki::Func::getPluginPreferencesValue('IMAGE_FORMAT')
       || $imageFormat;
 
     $imageFormat =~ s/^[\\n]+//;      # Strip off leading \n
 
     # Get plugin debug flag
-    $debug = TWiki::Func::getPluginPreferencesFlag("DEBUG");
+    $debug = Foswiki::Func::getPluginPreferencesFlag("DEBUG");
 
-    TWiki::Func::registerTagHandler( 'FILELIST', \&_handleFileList )
+    Foswiki::Func::registerTagHandler( 'FILELIST', \&_handleFileList )
       ;                               #deprecated
-    TWiki::Func::registerTagHandler( 'ATTACHMENTLIST', \&_handleFileList );
+    Foswiki::Func::registerTagHandler( 'ATTACHMENTLIST', \&_handleFileList );
 
     # Plugin correctly initialized
-    TWiki::Func::writeDebug(
-        "- TWiki::Plugins::${pluginName}::initPlugin( $inWeb.$inTopic ) is OK")
+    Foswiki::Func::writeDebug(
+        "- Foswiki::Plugins::${pluginName}::initPlugin( $inWeb.$inTopic ) is OK")
       if $debug;
 
     return 1;
@@ -105,17 +105,17 @@ sub _handleFileList {
 
     # find all attachments except for excluded topics
     my $topicData =
-      TWiki::Plugins::TopicDataHelperPlugin::createTopicData( $webs,
+      Foswiki::Plugins::TopicDataHelperPlugin::createTopicData( $webs,
         $excludeWebs, $topics, $excludeTopics );
 
     # populate with attachment data
-    TWiki::Plugins::TopicDataHelperPlugin::insertObjectData( $topicData,
+    Foswiki::Plugins::TopicDataHelperPlugin::insertObjectData( $topicData,
         \&_createFileData );
 
     _filterTopicData( $topicData, $inParams );
 
     my $files =
-      TWiki::Plugins::TopicDataHelperPlugin::getListOfObjectData($topicData);
+      Foswiki::Plugins::TopicDataHelperPlugin::getListOfObjectData($topicData);
 
     # sort
     $files = _sortFiles( $files, $inParams ) if defined $inParams->{'sort'};
@@ -162,7 +162,7 @@ sub _createFileData {
 
         foreach my $attachment (@$attachments) {
             my $fd =
-              TWiki::Plugins::AttachmentListPlugin::FileData->new( $inWeb,
+              Foswiki::Plugins::AttachmentListPlugin::FileData->new( $inWeb,
                 $inTopic, $attachment );
             my $fileName = $fd->{name};
             $inTopicHash->{$inTopic}{$fileName} = \$fd;
@@ -188,23 +188,23 @@ sub _filterTopicData {
 
     # ----------------------------------------------------
     # filter topics by view permission
-    my $user = TWiki::Func::getWikiName();
-    my $wikiUserName = TWiki::Func::userToWikiName( $user, 1 );
-    TWiki::Plugins::TopicDataHelperPlugin::filterTopicDataByViewPermission(
+    my $user = Foswiki::Func::getWikiName();
+    my $wikiUserName = Foswiki::Func::userToWikiName( $user, 1 );
+    Foswiki::Plugins::TopicDataHelperPlugin::filterTopicDataByViewPermission(
         \%topicData, $wikiUserName );
 
     # ----------------------------------------------------
     # filter hidden attachments
-    my $hideHidden = TWiki::Func::isTrue( $inParams->{'hide'} );
+    my $hideHidden = Foswiki::Func::isTrue( $inParams->{'hide'} );
     if ($hideHidden) {
-        TWiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
+        Foswiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
             \%topicData, 'hidden', 1, undef, 'hidden' );
     }
 
     # ----------------------------------------------------
     # filter attachments by user
     if ( defined $inParams->{'user'} || defined $inParams->{'excludeuser'} ) {
-        TWiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
+        Foswiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
             \%topicData, 'user', 1, $inParams->{'user'},
             $inParams->{'excludeuser'} );
     }
@@ -212,7 +212,7 @@ sub _filterTopicData {
     # ----------------------------------------------------
     # filter attachments by date range
     if ( defined $inParams->{'fromdate'} || defined $inParams->{'todate'} ) {
-        TWiki::Plugins::TopicDataHelperPlugin::filterTopicDataByDateRange(
+        Foswiki::Plugins::TopicDataHelperPlugin::filterTopicDataByDateRange(
             \%topicData, $inParams->{'fromdate'},
             $inParams->{'todate'} );
     }
@@ -222,7 +222,7 @@ sub _filterTopicData {
     if (   defined $inParams->{'file'}
         || defined $inParams->{'excludefile'} )
     {
-        TWiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
+        Foswiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
             \%topicData, 'name', 1, $inParams->{'file'},
             $inParams->{'excludefile'} );
     }
@@ -231,7 +231,7 @@ sub _filterTopicData {
     if (   defined $inParams->{'includefilepattern'}
         || defined $inParams->{'excludefilepattern'} )
     {
-        TWiki::Plugins::TopicDataHelperPlugin::filterTopicDataByRegexMatch(
+        Foswiki::Plugins::TopicDataHelperPlugin::filterTopicDataByRegexMatch(
             \%topicData, 'name',
             $inParams->{'includefilepattern'},
             $inParams->{'excludefilepattern'}
@@ -247,7 +247,7 @@ sub _filterTopicData {
                    # param 'filter' is deprecated
     my $excludeExtensions = $inParams->{'excludeextension'} || undef;
     if ( defined $extensions || defined $excludeExtensions ) {
-        TWiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
+        Foswiki::Plugins::TopicDataHelperPlugin::filterTopicDataByProperty(
             \%topicData, 'extension', 0, $extensions, $excludeExtensions );
     }
 
@@ -264,31 +264,31 @@ sub _sortFiles {
 
     # get the sort key for the $inSortMode
     my $sortKey =
-      &TWiki::Plugins::AttachmentListPlugin::FileData::getSortKey(
+      &Foswiki::Plugins::AttachmentListPlugin::FileData::getSortKey(
         $inParams->{'sort'} );
     my $compareMode =
-      &TWiki::Plugins::AttachmentListPlugin::FileData::getCompareMode(
+      &Foswiki::Plugins::AttachmentListPlugin::FileData::getCompareMode(
         $inParams->{'sort'} );
 
     # translate input to sort parameters
     my $sortOrderParam = $inParams->{'sortorder'} || 'none';
     my $sortOrder = $sortInputTable{$sortOrderParam}
-      || $TWiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'};
+      || $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'};
 
     # set default sort order for sort modes
     if ( $sortOrder ==
-        $TWiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'} )
+        $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'} )
     {
         if ( defined $sortKey && $sortKey eq 'date' ) {
 
             # exception for dates: newest on top
-            $sortOrder = $TWiki::Plugins::TopicDataHelperPlugin::sortDirections{
+            $sortOrder = $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{
                 'DESCENDING'};
         }
         else {
 
             # otherwise sort by default ascending
-            $sortOrder = $TWiki::Plugins::TopicDataHelperPlugin::sortDirections{
+            $sortOrder = $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{
                 'ASCENDING'};
         }
     }
@@ -296,7 +296,7 @@ sub _sortFiles {
       if ( $sortOrderParam eq 'reverse' );
 
     $files =
-      TWiki::Plugins::TopicDataHelperPlugin::sortObjectData( $files, $sortOrder,
+      Foswiki::Plugins::TopicDataHelperPlugin::sortObjectData( $files, $sortOrder,
         $sortKey, $compareMode, 'name' )
       if defined $sortKey;
 
@@ -312,7 +312,7 @@ Returns an array of FILEATTACHMENT objects.
 sub _getAttachmentsInTopic {
     my ( $inWeb, $inTopic ) = @_;
 
-    my ( $meta, $text ) = TWiki::Func::readTopic( $inWeb, $inTopic );
+    my ( $meta, $text ) = Foswiki::Func::readTopic( $inWeb, $inTopic );
     my @fileAttachmentData = $meta->find("FILEATTACHMENT");
     return \@fileAttachmentData;
 }
@@ -334,7 +334,7 @@ sub _formatFileData {
     my $separator = $inParams->{'separator'} || "\n";
 
     # store once for re-use in loop
-    my $pubUrl = TWiki::Func::getUrlHost() . TWiki::Func::getPubUrlPath();
+    my $pubUrl = Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath();
 
     my %listedExtensions =
       ();    # store list of extensions to be used for format substitution
@@ -387,7 +387,7 @@ sub _formatFileData {
 
         if ( $s =~ m/\$fileActionUrl/ ) {
             my $fileActionUrl =
-              TWiki::Func::getScriptUrl( $fileData->{web}, $fileData->{topic},
+              Foswiki::Func::getScriptUrl( $fileData->{web}, $fileData->{topic},
                 "attach" )
               . "?filename=$fileData->{name}&revInfo=1";
             $s =~ s/\$fileActionUrl/$fileActionUrl/g;
@@ -396,7 +396,7 @@ sub _formatFileData {
         if ( $s =~ m/\$viewfileUrl/ ) {
             my $attrVersion = $fileData->{attachment}->{Version} || '';
             my $viewfileUrl =
-              TWiki::Func::getScriptUrl( $fileData->{web}, $fileData->{topic},
+              Foswiki::Func::getScriptUrl( $fileData->{web}, $fileData->{topic},
                 "viewfile" )
               . "?rev=$attrVersion&filename=$fileData->{name}";
             $s =~ s/\$viewfileUrl/$viewfileUrl/g;
@@ -457,10 +457,10 @@ Formats $epoch seconds to the date-time format specified in configure.
 sub _formatDate {
     my ($inEpoch) = @_;
 
-    return TWiki::Func::formatTime(
+    return Foswiki::Func::formatTime(
         $inEpoch,
-        $TWiki::cfg{DefaultDateFormat},
-        $TWiki::cfg{DisplayTimeValues}
+        $Foswiki::cfg{DefaultDateFormat},
+        $Foswiki::cfg{DisplayTimeValues}
     );
 }
 
@@ -481,8 +481,8 @@ sub _retrieveImageSize {
       $store->attachmentExists( $inFileData->{web}, $inFileData->{topic},
         $inFileData->{name} );
     if ($attachmentExists) {
-        my $user         = TWiki::Func::getWikiName();
-        my $wikiUserName = TWiki::Func::userToWikiName( $user, 1 );
+        my $user         = Foswiki::Func::getWikiName();
+        my $wikiUserName = Foswiki::Func::userToWikiName( $user, 1 );
         my $stream       = $store->getAttachmentStream(
             $wikiUserName,        $inFileData->{web},
             $inFileData->{topic}, $inFileData->{name}
@@ -756,21 +756,21 @@ sub _pngsize {
 sub _decodeFormatTokens {
     my $text = shift;
     return
-      defined(&TWiki::Func::decodeFormatTokens)
-      ? TWiki::Func::decodeFormatTokens($text)
+      defined(&Foswiki::Func::decodeFormatTokens)
+      ? Foswiki::Func::decodeFormatTokens($text)
       : _expandStandardEscapes($text);
 }
 
 =pod
 
-For TWiki versions that do not implement TWiki::Func::decodeFormatTokens.
+For TWiki versions that do not implement Foswiki::Func::decodeFormatTokens.
 
 =cut
 
 sub _expandStandardEscapes {
     my $text = shift;
     $text =~ s/\$n\(\)/\n/gos;    # expand '$n()' to new line
-    my $alpha = TWiki::Func::getRegularExpression('mixedAlpha');
+    my $alpha = Foswiki::Func::getRegularExpression('mixedAlpha');
     $text =~ s/\$n([^$alpha]|$)/\n$1/gos;    # expand '$n' to new line
     $text =~ s/\$nop(\(\))?//gos;      # remove filler, useful for nested search
     $text =~ s/\$quot(\(\))?/\"/gos;   # expand double quote
