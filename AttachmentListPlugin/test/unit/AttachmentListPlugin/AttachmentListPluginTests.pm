@@ -3,11 +3,11 @@ use strict;
 package AttachmentListPluginTests;
 use base qw(FoswikiFnTestCase);
 
-use TWiki;
-use TWiki::Meta;
+use Foswiki;
+use Foswiki::Meta;
 use Error qw( :try );
-use TWiki::UI::Save;
-use TWiki::OopsException;
+use Foswiki::UI::Save;
+use Foswiki::OopsException;
 use Devel::Symdump;
 use Data::Dumper;
 
@@ -139,7 +139,7 @@ Most simple test: attachments of current topic
 sub test_simple {
     my $this = shift;
 
-    my $pubUrl      = TWiki::Func::getUrlHost() . TWiki::Func::getPubUrlPath();
+    my $pubUrl      = Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath();
     my $testTopic   = $testAttachments{topic1}{name};
     my $att1        = $testAttachments{topic1}{attachment1}{name};
     my $att1comment = $testAttachments{topic1}{attachment1}{comment};
@@ -378,7 +378,7 @@ Test param format: $fileIcon.
 
 sub test_param_format_fileIcon {
     my $this       = shift;
-    my $pubUrlPath = TWiki::Func::getPubUrlPath();
+    my $pubUrlPath = Foswiki::Func::getPubUrlPath();
 
     my $format    = "\$fileIcon";
     my $testTopic = $testAttachments{topic1}{name};
@@ -389,7 +389,8 @@ sub test_param_format_fileIcon {
     my $expected =
         '<img width="16" alt="txt" align="top" src="'
       . $pubUrlPath
-      . '/TWiki/DocumentGraphics/txt.gif" height="16" border="0" />';
+      # SMELL: hardcoded %SYSTEMWEB%
+      . '/System/DocumentGraphics/txt.gif" height="16" border="0" />';
 
     $this->do_test( $this->{test_topic}, $expected, $source );
 }
@@ -450,10 +451,10 @@ sub test_param_format_fileDate {
     my $source =
 "%ATTACHMENTLIST{topic=\"$testTopic\" web=\"$this->{test_web}\" format=\"$format\" limit=\"1\"}%";
 
-    my $expected = TWiki::Func::formatTime(
+    my $expected = Foswiki::Func::formatTime(
         $rawDate,
-        $TWiki::cfg{DefaultDateFormat},
-        $TWiki::cfg{DisplayTimeValues}
+        $Foswiki::cfg{DefaultDateFormat},
+        $Foswiki::cfg{DisplayTimeValues}
     );
 
     $this->do_test( $this->{test_topic}, $expected, $source );
@@ -468,7 +469,7 @@ Test param format: $fileUrl.
 sub test_param_format_fileUrl {
     my $this = shift;
 
-    my $pubUrl = TWiki::Func::getUrlHost() . TWiki::Func::getPubUrlPath();
+    my $pubUrl = Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath();
 
     my $format         = "\$fileUrl";
     my $testTopic      = $testAttachments{topic1}{name};
@@ -597,7 +598,7 @@ Test param format: $imgTag.
 
 sub test_param_format_imgTag {
     my $this   = shift;
-    my $pubUrl = TWiki::Func::getUrlHost() . TWiki::Func::getPubUrlPath();
+    my $pubUrl = Foswiki::Func::getUrlHost() . Foswiki::Func::getPubUrlPath();
 
     my $format         = "\$imgTag";
     my $testTopic      = $testAttachments{topic1}{name};

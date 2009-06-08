@@ -26,7 +26,7 @@ This plugin uses Foswiki:Extensions/TopicDataHelperPlugin
 %BB% one web \
 %BB% a comma-separated list of web names \
 %BB% a wildcard * to search in all webs; exclude topics using =excludeweb= | the current web | =web="<nop>%WEB%"=, =web="<nop>%WEB%, <nop>Main"=, =web="*"= |
-| =excludeweb= | Comma-separated list of web names to not show the attachments of | none | =web="*" excludeweb="TWiki"= |
+| =excludeweb= | Comma-separated list of web names to not show the attachments of | none | =web="*" excludeweb="%SYSTEMWEB%"= |
 
 ---+++ Attachments to include/exclude
 %TABLE{columnwidths="20%,30%,15%,40%"}%
@@ -135,7 +135,7 @@ topic="WabiSabi"
 web="%SYSTEMWEB%"
 extension="jpg,jpeg,gif,png"
 header="Images:"
-format="<div class='twikiImage'><a href='$fileUrl'>$imgTag</a></div>"
+format="<div class='foswikiImage'><a href='$fileUrl'>$imgTag</a></div>"
 separator="<hr />"
 footer="Number of images: $fileCount"
 }%
@@ -148,7 +148,7 @@ topic="WabiSabi"
 web="%SYSTEMWEB%"
 extension="jpg,jpeg,gif,png"
 header="Images:"
-format="<div class='twikiImage'><a href='$fileUrl'>$imgTag</a></div>"
+format="<div class='foswikiImage'><a href='$fileUrl'>$imgTag</a></div>"
 separator="<hr />"
 footer="Number of images: $fileCount"
 }%
@@ -203,19 +203,19 @@ sort="$fileName"
 
 ---++ Plugin Installation Instructions
    * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your root ($TWIKI_ROOT) directory. Content:
+   * Unzip ==%TOPIC%.zip== in your root ($FOSWIKI_ROOT) directory. Content:
    | *File:* | *Description:* |
 %$MANIFEST%
-   * Optionally, if it exists, run ==%TOPIC%_installer== to automatically check and install other TWiki modules that this module depends on. You can also do this step manually.
+   * Optionally, if it exists, run ==%TOPIC%_installer== to automatically check and install other Foswiki modules that this module depends on. You can also do this step manually.
    * Alternatively, manually make sure the dependencies listed in the table below are resolved.
    %$DEPENDENCIES%
-   * Visit =configure= in your TWiki installation, and enable the plugin in the =Plugins= section.
+   * Visit =configure= in your Foswiki installation, and enable the plugin in the =Plugins= section.
 
 
 ---++ Plugin Info
 
-| Authors: | TWiki:Main.VinodKulkarni, TWiki:Main.SopanShewale (2006), TWiki:Main.ArthurClemens (2006, 2007, 2008) |
-| Copyright &copy;: | TWiki:Main.VinodKulkarni, TWiki:Main.SopanShewale (2006), TWiki:Main.ArthurClemens (2006, 2007, 2008) |
+| Authors: | TWiki:Main.VinodKulkarni, TWiki:Main.SopanShewale (2006), Foswiki:Main.ArthurClemens (2006, 2007, 2008) |
+| Copyright &copy;: | TWiki:Main.VinodKulkarni, TWiki:Main.SopanShewale (2006), Foswiki:Main.ArthurClemens (2006, 2007, 2008) |
 | License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
 | Dependencies: | %$DEPENDENCIES% |
 |  Plugin Version: | 24 Oct 2008 (V1.3)  |

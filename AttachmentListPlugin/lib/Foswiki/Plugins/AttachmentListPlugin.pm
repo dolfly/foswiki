@@ -30,7 +30,7 @@ my %sortInputTable = (
       $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'DESCENDING'},
 );
 
-# This should always be $Rev$ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev$';
@@ -751,6 +751,10 @@ sub _pngsize {
 
 =pod
 
+For TWiki versions that do not implement Foswiki::Func::decodeFormatTokens.
+
+SMELL: remove this; Foswiki 1.0.0 as ships with Foswiki::Func::decodeFormatTokens.
+
 =cut
 
 sub _decodeFormatTokens {
@@ -762,8 +766,6 @@ sub _decodeFormatTokens {
 }
 
 =pod
-
-For TWiki versions that do not implement Foswiki::Func::decodeFormatTokens.
 
 =cut
 
