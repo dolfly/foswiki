@@ -218,8 +218,9 @@ sort="$fileName"
 | Copyright &copy;: | TWiki:Main.VinodKulkarni, TWiki:Main.SopanShewale (2006), Foswiki:Main.ArthurClemens (2006, 2007, 2008) |
 | License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
 | Dependencies: | %$DEPENDENCIES% |
-|  Plugin Version: | 24 Oct 2008 (V1.3)  |
+|  Plugin Version: | 8 Jun 2009 (V1.3.1)  |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  8 Jun 2009 - 1.3.1 | ported to Foswiki  -- Foswiki:Main.WillNorris |
 | 24 Oct 2008 - 1.3  | Arthur Clemens: Added sorting on =$fileTopic=. For performance, attachments are no longer sorted by default; you must explicitly pass the =$sort= parameter. Added param =file= to explicitly list attachments. Added special =extension= placeholder =NONE= to find attachments that do not have an extension. Major code refactoring. Created unit tests. Various small bug fixes. |
 | 17 Oct 2008 - 1.2.7  | Fixed bug with undefined =todate=. |
 | 20 Feb 2008 - v.1.2.1 - 1.2.3   | Arthur Clemens: Fixed error with format tokens on TWiki older than 4.2; by default sort files by name. |
