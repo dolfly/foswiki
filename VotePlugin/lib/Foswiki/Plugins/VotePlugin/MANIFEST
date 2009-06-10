@@ -1,0 +1,9 @@
+data/System/VotePlugin.txt 0644
+data/System/VarVOTE.txt 0644
+lib/Foswiki/Plugins/VotePlugin/Core.pm 0644
+lib/Foswiki/Plugins/VotePlugin.pm 0644
+pub/System/VotePlugin/leftbar.gif 0644
+pub/System/VotePlugin/mainbar.gif 0644
+pub/System/VotePlugin/rightbar.gif 0644
+pub/System/VotePlugin/example_stars.gif 0644
+pub/System/VotePlugin/example_select.gif 0644

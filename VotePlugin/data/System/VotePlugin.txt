@@ -29,20 +29,20 @@ records are kept of who voted for what. Polls are _secret_ by default.
 
 You can choose whether to save the resuts of the vote in a _topic_ or in a
 _secret place_. If you choose to save the results in a topic, you can protect
-that topic using the normal TWiki access control mechanisms, and the vote
+that topic using the normal wiki access control mechanisms, and the vote
 will still work. Saving in a topic has the advantage that you can easily
-post-process the results in TWiki, but it's a bit more work to set up so
+post-process the results, but it's a bit more work to set up so
 polls are saved in a _secret place_ by default.
 
 Polls are either _local_ to the topic they are defined in, or are _global_ to
-the entire TWiki. Each poll has an _ID_ which distinguishes it from other
+the entire wiki. Each poll has an _ID_ which distinguishes it from other
 polls. These IDs are local to the topic for local polls, but can be shared
 between topics if the poll is made _global_.
 
 The result of a poll is displayed in the polling form.
 
 ---++ Example
-You create a poll using the %VOTE twiki variable. For example,
+You create a poll using the %VOTE macro. For example,
 
 =%<nop>VOTE{id="FavouriteMeal" select1="Drink" options1="Beer,Wine,Milk,Water" select2="Food" options2="Steak,Bread,Pasta,Pizza"}%=
 
@@ -62,7 +62,7 @@ displays as
 
 ---++ Syntax
 #StandardAttrs
-Write =%<nop>VOTE{ ... }%= in the text of a a TWiki topic to define a poll
+Write =%<nop>VOTE{ ... }%= in the text of a topic to define a poll
 %STARTSECTION{"vote_attributes"}%
    * The following standard attributes are recognized
    | *Name* | *Description* | *Example* |
@@ -92,7 +92,7 @@ Defines the format of a single bar in the results bar chart generated for the co
    | =global= | If set to ="off"=, this makes the =id= local to this topic (the default). If set to ="on"= it will be a global poll that can be accessed from many topics. | =global="on"= |
    | =open= | If set to ="off"= this is a closed vote. If set to ="on"= it is open (the default) | =open="on"= |
    | =secret= | If set to ="off"=, then the database will record who voted. If set to ="on"=, votes are secret (the default) | =secret="on"= |
-   | =saveto= | If set to the name of a topic, the poll results will be appended to the end of that topic. The results are formatted as a TWiki table for easy post-processing. | =saveto="Main.<nop>VoteResults"= |
+   | =saveto= | If set to the name of a topic, the poll results will be appended to the end of that topic. The results are formatted as a table for easy post-processing. | =saveto="Main.<nop>VoteResults"= |
    | =bayesian= | If set to ="on"=, rating averages will be computed using the Bayesian average of this item against all the other items _that have the same item in their =stars= field_. This requires all the participating %VOTEs to be =global=, or to save their results to the same place using =saveto=. See http://www.thebroth.com/blog/118/bayesian-rating for more information about Bayesian rating. | =bayesian="off"= |
    | =submit= | If set to ="off"=, this makes the %VOTE display the results of the vote without prompting for any input. This is useful when - for example - you want to show the results of a global vote, without permitting more voting. |
 %ENDSECTION{"vote_attributes"}%
@@ -105,11 +105,11 @@ the [[Macros][Macro]] =VOTEPLUGIN_DEFAULTS= to be a parameter string e.g.
 <pre>
    *<nop> Set VOTEPLUGIN_DEFAULTS = open="on" global="on" bayesian="on"
 </pre>
- You can do this in an individual topic, for an entire web (in !WebPreferences), or for the whole TWiki (in !%USERSWEB%.SitePreferences).
+ You can do this in an individual topic, for an entire web (in !WebPreferences), or for the whole wiki (in !%USERSWEB%.SitePreferences).
 
 #FormattingResults
 ---+++ Formatting the Results of a Poll
-Each item in the poll has a results display next to it (are as part of it in the case of stars). The =format= parameter is used to control how this is displayed. It is usually used to define a row in a TWiki table, and is expands once for each =stars= and once for each option in a =select=.
+Each item in the poll has a results display next to it (are as part of it in the case of stars). The =format= parameter is used to control how this is displayed. It is usually used to define a row in a table, and is expands once for each =stars= and once for each option in a =select=.
 
 The =format= parameter is a string that can include the following formatting tokens:
 | =$key= | Expands to the name of the item (e.g. the value of =select1=). |
@@ -143,7 +143,7 @@ The %<nop>VOTE{ ... }% will generate the selection box(es) and the poll
 results.
 
 ---+++ Weighting the vote
-You can weight the vote results by setting the !TWikiPreference
+You can weight the vote results by setting the !Preference
 =%<nop>VOTEPLUGIN_WEIGHTINGS%= to the name of a topic that is used
 to weight the votes of certain members of the community in the final result.
 For example,
@@ -161,7 +161,7 @@ The weighting topic applies to all votes in the scope of the =%<nop>VOTEPLUGIN_W
 
 #Reset
 ---+++ Resetting a Poll
-Sometimes you want to be able to clear the results of a poll. Access to this feature is controlled using the =VOTEPLUGIN_RESETTERS= TWiki variable. This variable defines a (semicolon-separated) list of wiki names and a (comma-separated) list of the IDs of votes they are allowed to reset. You can use =*= as a wildcard in the vote IDs. For example, in a =Web<nop>Preferences= topic you can write
+Sometimes you want to be able to clear the results of a poll. Access to this feature is controlled using the =VOTEPLUGIN_RESETTERS= macro. This variable defines a (semicolon-separated) list of wiki names and a (comma-separated) list of the IDs of votes they are allowed to reset. You can use =*= as a wildcard in the vote IDs. For example, in a =Web<nop>Preferences= topic you can write
 <verbatim>
    * Set VOTEPLUGIN_RESETTERS = GeorgeWBush(*);RobertMugabe(zimbabwe);SimonCowell(*Idol, XFactor)
    * Set FINALPREFERENCES = VOTEPLUGIN_RESETTERS
@@ -188,18 +188,19 @@ in !%USERSWEB%.SitePreferences, and add =VOTEPLUGIN_RESETTERS= to =FINALPREFEREN
 <!-- provided for compatibility only
    * Set SHORTDESCRIPTION = Simple way to count votes
 -->
-|  Plugin Author: | TWiki:Main/MichaelDaum |
+|  Plugin Author: | Foswiki:Main/MichaelDaum |
 |  Copyright &copy;: | 2005-2007, Michael Daum http://wikiring.de |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | &nbsp; | 
-|  14 Oct 2008 | TWikibug:Item6070 works for hierarchical webs now.  - TWiki:Main/ColasNahaboo |
-|  10 Aug 2008 | TWikibug:Item5768 suppress submission of individual ratings in a multi-row vote TWikibug:Item5769 correct default handling of transcluded rates TWikibug:Item5766 $large is once again large TWikibug:Item5771 support for resetting votes. |
-|  1 Jul 2007: | TWikibug:Item4310 : abstracted out Foswiki:Extensions.RatingContrib, and modified the code to be tolerant of forms within forms - TWiki:Main/CrawfordCurrie |
-|  24 Jun 2007: | TWikibug:ItemItem4298: fixed secret switch. Item4200: added VarVOTE. - TWiki:Main/CrawfordCurrie |
-|  11 Jun 2007: | TWikibug:Item4235 - removed excess newlines, fixed separator - TWiki:Main/CrawfordCurrie |
-|   8 Jun 2007: | Added =submit= - TWiki:Main/CrawfordCurrie |
-|   6 Jun 2007: | Added =global=, =open=, =secret=, =format=, =chart=, =saveto=, =VOTEPLUGIN_WEIGHTINGS=, bayesian averaging - TWiki:Main/CrawfordCurrie |
+|  10 Jun 2009 | Foswikitask:Item8010: incorporate upstream fixes, and port to Foswiki - Foswiki:Main/CrawfordCurrie |
+|  14 Oct 2008 | Item6070 works for hierarchical webs now. - Foswiki:Main/ColasNahaboo |
+|  10 Aug 2008 | Item5768 suppress submission of individual ratings in a multi-row vote Item5769 correct default handling of transcluded rates Item5766 $large is once again large Item5771 support for resetting votes. |
+|  1 Jul 2007: | Item4310 : abstracted out Foswiki:Extensions.RatingContrib, and modified the code to be tolerant of forms within forms - Foswiki:Main/CrawfordCurrie |
+|  24 Jun 2007: | Item4298: fixed secret switch. Item4200: added VarVOTE. - Foswiki:Main/CrawfordCurrie |
+|  11 Jun 2007: | Item4235 - removed excess newlines, fixed separator - Foswiki:Main/CrawfordCurrie |
+|   8 Jun 2007: | Added =submit= - Foswiki:Main/CrawfordCurrie |
+|   6 Jun 2007: | Added =global=, =open=, =secret=, =format=, =chart=, =saveto=, =VOTEPLUGIN_WEIGHTINGS=, bayesian averaging - Foswiki:Main/CrawfordCurrie |
 |  31 Aug 2006: | added NO_PREFS_IN_TOPIC |
 |  15 Aug 2006: | added "use strict" and fixed revealing errors |
 |  27 Apr 2006: | added lazy compilation |
@@ -220,4 +221,4 @@ in !%USERSWEB%.SitePreferences, and add =VOTEPLUGIN_RESETTERS= to =FINALPREFEREN
 %META:FILEATTACHMENT{name="example_select.gif" attr="h" comment="" version="1"}%
 %META:FILEATTACHMENT{name="example_stars.gif" attr="h" comment="" version="1"}%
 
--- TWiki:Main.MichaelDaum - 31 Aug 2006
+-- Foswiki:Main.MichaelDaum - 31 Aug 2006

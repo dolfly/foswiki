@@ -1,0 +1,5 @@
+%META:TOPICPARENT{name="Macros"}%
+#VarVOTE
+---+++ VOTE{ _attributes_ } -- define a poll in a topic.
+%INCLUDE{"%SYSTEMWEB%.VotePlugin" section="vote_attributes"}%
+   * See VotePlugin for more information
