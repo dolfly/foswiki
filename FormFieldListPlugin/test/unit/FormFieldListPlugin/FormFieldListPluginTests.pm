@@ -3,11 +3,12 @@ use strict;
 package FormFieldListPluginTests;
 use base qw(FoswikiFnTestCase);
 
-use TWiki;
-use TWiki::Meta;
+use Foswiki;
+use Foswiki::Meta;
+use Foswiki::Func;
 use Error qw( :try );
-use TWiki::UI::Save;
-use TWiki::OopsException;
+use Foswiki::UI::Save;
+use Foswiki::OopsException;
 use Devel::Symdump;
 use Data::Dumper;
 
@@ -15,7 +16,7 @@ my %testForms = (
     topic1 => {
         name   => 'FormFieldListTestTopic1',
         user   => 'ScumBag',
-        date   => '1100000000',
+        date   => time() - 4000,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -37,7 +38,7 @@ my %testForms = (
     topic2 => {
         name   => 'FormFieldListTestTopic2',
         user   => 'ProjectContributor',
-        date   => 1200000000,
+        date   => time() - 3000,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -58,7 +59,7 @@ my %testForms = (
     topic3 => {
         name   => 'FormFieldListTestTopic3',
         user   => 'WikiGuest',
-        date   => 1300000000,
+        date   => time() - 2000,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -79,7 +80,7 @@ my %testForms = (
     topic4 => {
         name   => 'FormFieldListTestTopic4',
         user   => 'AdminUser',
-        date   => 1400000000,
+        date   => time() - 1000,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -114,16 +115,17 @@ sub set_up {
     my $this = shift;
 
     $this->SUPER::set_up();
-    $this->createForms();
+    $this->_createForms();
 }
 
 # This formats the text up to immediately before <nop>s are removed, so we
 # can see the nops.
-sub do_test {
+sub _do_test {
     my ( $this, $topic, $expected, $source ) = @_;
 
     my $actual =
-      $this->{twiki}->handleCommonTags( $source, $this->{test_web}, $topic );
+      Foswiki::Func::expandCommonVariables( $source, $topic,
+        $this->{test_web} );
     $this->assert_equals( $expected, $actual );
 }
 
@@ -140,7 +142,7 @@ sub test_compatibility_version_1 {
 "%FORMFIELDLIST{\"Author, Status\" topic=\"$testTopic\" separator=\". \" default=\"(Field \$title not set)\" alttext=\"_\$title_ field not found\"}%";
 
     my $expected = 'MaryJones. being revised';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -160,7 +162,7 @@ sub test_simple_no_fields {
     my $expected = 'Author=MaryJones
 Remarks=The proposal does not reveal the current complexity well enough.
 Status=being revised';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -190,7 +192,7 @@ FormFieldListTestTopic3: Author=CoolAide
 FormFieldListTestTopic4: Status=outdated
 FormFieldListTestTopic4: Remarks=
 FormFieldListTestTopic4: Author=JohnDoe';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -207,7 +209,7 @@ sub test_simple_one_field {
     my $source = "%FORMFIELDLIST{\"Author\"}%";
 
     my $expected = 'MaryJones';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -224,7 +226,7 @@ sub test_simple_one_field_param_field {
     my $source = "%FORMFIELDLIST{field=\"Author\"}%";
 
     my $expected = 'MaryJones';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -243,7 +245,7 @@ sub test_simple_more_fields {
     my $expected = 'MaryJones
 being revised
 The proposal does not reveal the current complexity well enough.';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -262,7 +264,7 @@ sub test_simple_one_field_specified_topics {
 
     my $expected = 'MaryJones
 ChevyChase';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -282,7 +284,7 @@ ChevyChase
 CoolAide
 JohnDoe';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -299,7 +301,7 @@ sub test_param_excludeweb {
 
     my $expected = '';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -327,7 +329,7 @@ TBD...
 JohnDoe
 outdated
 ';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -344,7 +346,7 @@ sub test_param_topic_one_topic {
     my $source    = "%FORMFIELDLIST{\"Author\" topic=\"$topic1\"}%";
 
     my $expected = 'MaryJones';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -359,10 +361,14 @@ sub test_param_topic_one_topic_webdottopic_notation {
     my $testTopic = $testForms{topic1}{name};
     my $topic1    = $testForms{topic1}{name};
     my $web       = $this->{test_web};
-    my $source    = "%FORMFIELDLIST{\"Author\" topic=\"$web\.$topic1\"}%";
+
+    my $source =
+        '%FORMFIELDLIST{"Author" topic="'
+      . "TemporaryFormFieldListPluginTestsTestWebFormFieldListPluginTests.$topic1"
+      . '"}%';
 
     my $expected = 'MaryJones';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -381,7 +387,7 @@ sub test_param_topic_multiple_topics {
 
     my $expected = 'MaryJones
 ChevyChase';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -403,7 +409,7 @@ sub test_param_excludetopic {
 
     my $expected = 'MaryJones
 JohnDoe';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -429,7 +435,7 @@ Remarks=TBD...
 Status=outdated
 Remarks=';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -455,7 +461,7 @@ Remarks=TBD...
 Status=outdated
 Remarks=';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -477,7 +483,7 @@ Author=ChevyChase
 Author=CoolAide
 Author=JohnDoe';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -496,7 +502,7 @@ sub test_param_includevalue {
 
     my $expected = 'Remarks=Well done!';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -516,7 +522,7 @@ sub test_param_excludevalue {
     my $expected = 'Author=MaryJones
 Author=JohnDoe';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -538,7 +544,7 @@ sub test_param_includevaluepattern {
 Status=completed
 Author=CoolAide';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -561,7 +567,7 @@ Remarks=Well done!
 Remarks=TBD...
 Remarks=';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -590,7 +596,7 @@ FormFieldListTestTopic3: Remarks=TBD...
 FormFieldListTestTopic4: Author=JohnDoe
 FormFieldListTestTopic4: Status=outdated';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -621,9 +627,8 @@ Status=outdated
 Remarks=
 Author=';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
-
 
 =pod
 
@@ -635,7 +640,6 @@ sub test_param_user {
     my $this = shift;
 
     my $testTopic = $testForms{topic1}{name};
-
     my $source =
 "%FORMFIELDLIST{topic=\"$allTopics\" user=\"ScumBag, ProjectContributor\" format=\"topic=\$topicName, last changed by \$topicUser\"}%";
 
@@ -646,7 +650,7 @@ topic=FormFieldListTestTopic2, last changed by ProjectContributor
 topic=FormFieldListTestTopic2, last changed by ProjectContributor
 topic=FormFieldListTestTopic2, last changed by ProjectContributor';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -670,7 +674,7 @@ topic=FormFieldListTestTopic4, last changed by AdminUser
 topic=FormFieldListTestTopic4, last changed by AdminUser
 topic=FormFieldListTestTopic4, last changed by AdminUser';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -702,11 +706,11 @@ topic=FormFieldListTestTopic4; field=Remarks; value=
 topic=FormFieldListTestTopic4; field=Author; value=JohnDoe';
 
     my $actual =
-      $this->{twiki}
-      ->handleCommonTags( $source, $this->{test_web}, $testTopic );
+      Foswiki::Func::expandCommonVariables( $source, $testTopic,
+        $this->{test_web} );
 
     #$this->assert_not_null( $actual );
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -739,11 +743,11 @@ topic=FormFieldListTestTopic4; field=Remarks; value=
 topic=FormFieldListTestTopic4; field=Author; value=JohnDoe';
 
     my $actual =
-      $this->{twiki}
-      ->handleCommonTags( $source, $this->{test_web}, $testTopic );
+      Foswiki::Func::expandCommonVariables( $source, $testTopic,
+        $this->{test_web} );
 
     #$this->assert_not_null( $actual );
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -762,7 +766,7 @@ sub test_param_separator_one_topic {
 
     my $expected =
 'MaryJones, being revised, The proposal does not reveal the current complexity well enough.';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -796,7 +800,7 @@ sub test_param_topic_header {
    * FormFieldListTestTopic4: outdated
    * FormFieldListTestTopic4: ';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -818,7 +822,7 @@ sub test_param_default {
 Well done!
 TBD...
 --nothing--';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -833,10 +837,10 @@ sub test_param_alttext_current_topic {
     my $testTopic = $testForms{topic1}{name};
 
     my $source =
-      "%FORMFIELDLIST{\"DoesNotExist\" alttext=\"--field not found--\" includemissingfields=\"on\"}%";
+"%FORMFIELDLIST{\"DoesNotExist\" alttext=\"--field not found--\" includemissingfields=\"on\"}%";
 
     my $expected = '--field not found--';
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -862,7 +866,7 @@ sub test_param_alttext_all_topics {
 --field not found--
 --field not found--';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -881,7 +885,7 @@ sub test_param_alt {
 
     my $expected = 'No fields found';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -900,7 +904,7 @@ sub test_param_format {
 
     my $expected = '   * MaryJones';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -919,7 +923,7 @@ sub test_param_format_name {
 
     my $expected = 'name=Author';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -938,7 +942,7 @@ sub test_param_format_title {
 
     my $expected = 'title=Author';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -954,11 +958,11 @@ sub test_param_format_title_in_alttext {
     my $testTopic = $testForms{topic1}{name};
 
     my $source =
-      "%FORMFIELDLIST{\"DoesNotExist\" alttext=\"_\$title_ field not found\" includemissingfields=\"on\"}%";
+"%FORMFIELDLIST{\"DoesNotExist\" alttext=\"_\$title_ field not found\" includemissingfields=\"on\"}%";
 
     my $expected = '_DoesNotExist_ field not found';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -977,7 +981,7 @@ sub test_param_format_title_in_default {
 
     my $expected = '(Field Remarks not set)';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -996,7 +1000,7 @@ sub test_param_format_value {
 
     my $expected = 'value=MaryJones';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1015,7 +1019,7 @@ sub test_param_format_topicUser {
 
     my $expected = 'user=ScumBag';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1032,13 +1036,13 @@ sub test_param_format_topicDate {
     my $source =
 "%FORMFIELDLIST{\"Author\" topic=\"$testTopic\" format=\"date=\$topicDate\"}%";
 
-    require TWiki::Time;
-    my $time = TWiki::Time::formatTime( time(), '$epoch', 'servertime' );
+    require Foswiki::Time;
+    my $time = Foswiki::Time::formatTime( time(), '$epoch', 'servertime' );
     my $date = _formatDate($time);
 
     my $expected = "date=$date";
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1060,7 +1064,7 @@ topic=FormFieldListTestTopic3
 topic=FormFieldListTestTopic2
 topic=FormFieldListTestTopic1';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1081,7 +1085,7 @@ sub test_param_format_sort_fieldDate_save_field_only {
 
     my $testTopic = $testForms{topic1}{name};
 
-	# first make sure that the cache is created
+    # first make sure that the cache is created
     my $tmp_source =
 "%FORMFIELDLIST{\"$allFields\" topic=\"$allTopics\" sort=\"\$fieldDate\"}%";
     my $tmp_expected = '
@@ -1096,60 +1100,47 @@ ChevyChase
 The proposal does not reveal the current complexity well enough.
 being revised
 MaryJones';
-    $this->do_test( $testTopic, $tmp_expected, $tmp_source );
-    
+    $this->_do_test( $testTopic, $tmp_expected, $tmp_source );
+
     # --- STEP 1: change field value of topic 2, but not the text
 
     my $topic = $testForms{topic2}{name};
 
-    my $origFieldValue = $testForms{topic2}{field1}{value};
-    my $newFieldValue  = 'ABCDEF';
-
-    my ( $meta, $text ) =
-      $this->{twiki}->{store}
-      ->readTopic( 'ProjectContributor', $this->{test_web}, $topic );
+    my ( $meta, $text ) = Foswiki::Func::readTopic( $this->{test_web}, $topic );
 
     my @fields = $meta->find('FIELD');
+
     foreach my $field (@fields) {
         my $name = $field->{name};
         if ( $name eq 'Author' ) {
-            $field->{value} = 'Johnny';
+            $meta->put( 'FIELD',
+                { name => $name, title => $name, value => 'Johnny' } );
         }
     }
-    $meta->putAll( 'FIELD', @fields );
-
-    # delay loop
     _makeDelay(1.1);
-
-    $this->{twiki}->{store}
-      ->saveTopic( 'ProjectContributor', $this->{test_web}, $topic, $text,
-        $meta );
+    $meta->save();
 
     # --- STEP 2: change text of topic 3
     {
         my $topic = $testForms{topic3}{name};
 
         my ( $meta, $text ) =
-          $this->{twiki}->{store}
-          ->readTopic( 'ProjectContributor', $this->{test_web}, $topic );
+          Foswiki::Func::readTopic( $this->{test_web}, $topic );
 
-        # delay loop
+        $text = 'DA';
         _makeDelay(1.1);
-
-        $this->{twiki}->{store}
-          ->saveTopic( 'ProjectContributor', $this->{test_web}, $topic, 'DA',
-            $meta );
+        Foswiki::Func::saveTopic( $this->{test_web}, $topic, $meta, $text );
     }
 
     # --- PERFORM TESTS
-    
-    #my $currentDefaultDateFormat = $TWiki::cfg{DefaultDateFormat};
-    #$TWiki::cfg{DefaultDateFormat} = '$epoch';
+
+    my $currentDefaultDateFormat = $Foswiki::cfg{DefaultDateFormat};
+    $Foswiki::cfg{DefaultDateFormat} = '$epoch';
 
     my $source;
     my $expected;
 
-	# -----------------------------
+    # -----------------------------
     # SUBTEST 1: sort on $topicDate
     $source =
 "%FORMFIELDLIST{\"Author\" topic=\"$allTopics\" sort=\"\$topicDate\" format=\"\$topicName\"}%";
@@ -1159,9 +1150,9 @@ FormFieldListTestTopic2
 FormFieldListTestTopic4
 FormFieldListTestTopic1';
 
-    #$this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 
-	# -----------------------------
+    # -----------------------------
     # SUBTEST 2: sort on $fieldDate
     $source =
 "%FORMFIELDLIST{\"Author\" topic=\"$allTopics\" sort=\"\$fieldDate\" format=\"\$topicName\"}%";
@@ -1171,9 +1162,9 @@ FormFieldListTestTopic4
 FormFieldListTestTopic3
 FormFieldListTestTopic1';
 
-    #$this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 
-	# -----------------------------
+    # -----------------------------
     # SUBTEST 3: sort on $fieldDate, but search on different field
     $source =
 "%FORMFIELDLIST{\"Status\" topic=\"$allTopics\" sort=\"\$fieldDate\" format=\"\$topicName\"}%";
@@ -1183,8 +1174,7 @@ FormFieldListTestTopic3
 FormFieldListTestTopic2
 FormFieldListTestTopic1';
 
-    $this->do_test( $testTopic, $expected, $source );
-
+    $this->_do_test( $testTopic, $expected, $source );
 
     # restore topic
     @fields = $meta->find('FIELD');
@@ -1196,11 +1186,9 @@ FormFieldListTestTopic1';
     }
     $meta->putAll( 'FIELD', @fields );
 
-    $this->{twiki}->{store}
-      ->saveTopic( 'ProjectContributor', $this->{test_web}, $topic, $text,
-        $meta );
-        
-	#$TWiki::cfg{DefaultDateFormat} = $currentDefaultDateFormat;
+    Foswiki::Func::saveTopic( $this->{test_web}, $topic, $meta, $text );
+
+    $Foswiki::cfg{DefaultDateFormat} = $currentDefaultDateFormat;
 
 }
 
@@ -1220,7 +1208,7 @@ sub test_param_format_topicName {
 
     my $expected = 'topic=FormFieldListTestTopic1';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1239,7 +1227,7 @@ sub test_param_format_webName {
 
     my $expected = 'web=' . $this->{test_web};
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1270,7 +1258,7 @@ outdated
 
 Number of fields: 12';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1292,7 +1280,7 @@ MaryJones
 being revised
 The proposal does not reveal the current complexity well enough.';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1315,7 +1303,7 @@ The proposal does not reveal the current complexity well enough.
 ChevyChase
 completed';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1330,7 +1318,7 @@ sub test_param_limit_with_sort {
     my $testTopic = $testForms{topic1}{name};
 
     my $source =
-      "%FORMFIELDLIST{\"$allFields\" topic=\"$allTopics\" limit=\"10\" sort=\"\$date\" format=\"\$value\"}%";
+"%FORMFIELDLIST{\"$allFields\" topic=\"$allTopics\" limit=\"10\" sort=\"\$date\" format=\"\$value\"}%";
 
     my $expected = 'being revised
 The proposal does not reveal the current complexity well enough.
@@ -1343,7 +1331,7 @@ TBD...
 CoolAide
 completed';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1363,7 +1351,7 @@ sub test_param_sort_name {
 Remarks=The proposal does not reveal the current complexity well enough.
 Status=being revised';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1384,7 +1372,7 @@ sub test_param_sort_name_sortorder_descending {
 Remarks=The proposal does not reveal the current complexity well enough.
 Author=MaryJones';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1414,7 +1402,7 @@ value=TBD...
 value=The proposal does not reveal the current complexity well enough.
 value=Well done!';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1444,7 +1432,7 @@ value=ChevyChase
 value=being revised
 value=';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1474,7 +1462,7 @@ topic=FormFieldListTestTopic4, field=Author, value=JohnDoe
 topic=FormFieldListTestTopic4, field=Status, value=outdated
 topic=FormFieldListTestTopic4, field=Remarks, value=';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1496,7 +1484,7 @@ topic=FormFieldListTestTopic3, field=Author, value=CoolAide
 topic=FormFieldListTestTopic2, field=Author, value=ChevyChase
 topic=FormFieldListTestTopic1, field=Author, value=MaryJones';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1513,20 +1501,20 @@ sub test_param_sort_topicUser {
     my $source =
 "%FORMFIELDLIST{topic=\"$allTopics\" sort=\"\$topicUser\" format=\"user=\$topicUser\"}%";
 
-    my $expected = 'user=ScumBag
+    my $expected = 'user=AdminUser
+user=AdminUser
+user=AdminUser
+user=ProjectContributor
+user=ProjectContributor
+user=ProjectContributor
 user=ScumBag
 user=ScumBag
-user=AdminUser
-user=AdminUser
-user=AdminUser
-user=ProjectContributor
-user=ProjectContributor
-user=ProjectContributor
+user=ScumBag
 user=WikiGuest
 user=WikiGuest
 user=WikiGuest';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1546,7 +1534,7 @@ sub test_param_header {
     my $expected = 'Results:
 value=MaryJones';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1565,7 +1553,7 @@ sub test_param_header_no_results {
 
     my $expected = '';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1585,7 +1573,7 @@ sub test_param_footer {
     my $expected = 'value=MaryJones
 That was all';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -1604,14 +1592,14 @@ sub test_param_footer_no_results {
 
     my $expected = '';
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
 
 =cut
 
-sub set_up_topic {
+sub _set_up_topic {
     my $this = shift;
 
     # Create topic
@@ -1619,8 +1607,10 @@ sub set_up_topic {
     my $text  = shift;
     my $user  = shift;
 
-    $this->{twiki}->{store}
-      ->saveTopic( $user, $this->{test_web}, $topic, $text );
+    my $topicObject =
+      Foswiki::Meta->new( $this->{session}, $this->{test_web}, $topic, $text );
+
+    $topicObject->save();
 }
 
 =pod
@@ -1629,22 +1619,33 @@ Adds a form to a specified topic. Form attributes are passed in a hash.
 
 =cut
 
-sub addForm {
+sub _addForm {
     my ( $this, $topic, %formData ) = @_;
 
-    $this->assert(
-        $this->{twiki}->{store}->topicExists( $this->{test_web}, $topic ) );
+    $this->assert( Foswiki::Func::topicExists( $this->{test_web}, $topic ) );
 
-    my ( $meta, $text ) =
-      $this->{twiki}->{store}
-      ->readTopic( $this->{twiki}->{user}, $this->{test_web}, $topic );
+    my ( $oldmeta, $text ) =
+      Foswiki::Func::readTopic( $this->{test_web}, $topic );
 
-    my $user = $formData{user} || $this->{twiki}->{user};
+    my $web = $this->{test_web};
+    my $topicObject =
+      Foswiki::Meta->new( $this->{session}, $web, $topic, $text );
 
+    my $user = $formData{user} || $this->{session}->{user};
+
+    my $users = $this->{session}->{users};
+    my $cUID  = $users->getCanonicalUserID($user);
+    if ( !$cUID ) {
+
+        # Not a login name or a wiki name. Is it a valid cUID?
+        my $ln = $users->getLoginName($user);
+        $cUID = $user if defined $ln && $ln ne 'unknown';
+    }
+    my %options = ();
+    my $fieldKey;
     if ( $formData{'field1'} ) {
-        my $fieldKey;
         $fieldKey = 'field1';
-        $meta->putKeyed(
+        $topicObject->putKeyed(
             'FIELD',
             {
                 name  => $formData{$fieldKey}{name},
@@ -1652,8 +1653,10 @@ sub addForm {
                 value => $formData{$fieldKey}{value},
             }
         );
+    }
+    if ( $formData{'field2'} ) {
         $fieldKey = 'field2';
-        $meta->putKeyed(
+        $topicObject->putKeyed(
             'FIELD',
             {
                 name  => $formData{$fieldKey}{name},
@@ -1661,8 +1664,10 @@ sub addForm {
                 value => $formData{$fieldKey}{value},
             }
         );
+    }
+    if ( $formData{'field3'} ) {
         $fieldKey = 'field3';
-        $meta->putKeyed(
+        $topicObject->putKeyed(
             'FIELD',
             {
                 name  => $formData{$fieldKey}{name},
@@ -1670,23 +1675,14 @@ sub addForm {
                 value => $formData{$fieldKey}{value},
             }
         );
-
-        # topic date
-        # DOES NOT WORK ?!?
-        $meta->put(
-            'TOPICINFO',
-            {
-                author  => $user,
-                date    => $formData{'date'},
-                format  => '1.1',
-                version => '1.1913',
-            }
-        );
-        $this->{meta} = $meta;
     }
 
-    $this->{twiki}->{store}
-      ->saveTopic( $user, $this->{test_web}, $topic, $text, $meta );
+    #$options{forcedate}    = $formData{'date'};
+    $options{author}  = $cUID;
+    $options{format}  = '1.1';
+    $options{version} = '1.1913';
+
+    $topicObject->save(%options);
 
 }
 
@@ -1694,39 +1690,41 @@ sub addForm {
 
 =cut
 
-sub createFormForTopic {
+sub _createFormForTopic {
     my ( $this, $topicKey ) = @_;
 
     my $topic = $testForms{$topicKey}{name};
     my $text  = $testForms{$topicKey}{text} || 'hi';
     my $user  = $testForms{$topicKey}{user} || $this->{test_user_wikiname};
-    $this->set_up_topic( $topic, $text, $user );
+
+    $this->_set_up_topic( $topic, $text, $user );
 
     my %formData = %{ $testForms{$topicKey} };
-    $this->addForm( $topic, %formData );
+    $this->_addForm( $topic, %formData );
 
-    my ( $meta, $atext ) = $this->simulate_view( $this->{test_web}, $topic );
+    my ( $meta, $atext ) = $this->_simulate_view( $this->{test_web}, $topic );
+
     my @formfields = $meta->find('FIELD');
-
-    #printFormFields(@formfields);    # leave as comment unless debugging
+    _printFormFields( $topic, @formfields ); # leave as comment unless debugging
 }
 
 =pod
 
 =cut
 
-sub createForms {
+sub _createForms {
 
     my $this = shift;
-    $this->createFormForTopic('topic1');
+
+    $this->_createFormForTopic('topic1');
     _makeDelay(1.1);
-    $this->createFormForTopic('topic2');
+    $this->_createFormForTopic('topic2');
     _makeDelay(1.1);
-    $this->createFormForTopic('topic3');
-    _makeDelay(1.1);    
-    $this->createFormForTopic('topic4');
+    $this->_createFormForTopic('topic3');
     _makeDelay(1.1);
-    $this->createFormForTopic('topic5');
+    $this->_createFormForTopic('topic4');
+    _makeDelay(1.1);
+    $this->_createFormForTopic('topic5');
 }
 
 =pod
@@ -1735,12 +1733,12 @@ Needed for debugging (see above).
 
 =cut
 
-sub printFormFields {
-    my (@fields) = @_;
+sub _printFormFields {
+    my ( $inTopic, @inFields ) = @_;
 
-    print "\n\n-------FORM FIELDS--------\n";
-    foreach my $field (@fields) {
-        print "Form field found: " . Dumper($field) . "\n";
+    _debug("FORM FIELDS for topic $inTopic --- ");
+    foreach my $field (@inFields) {
+        _debug( Dumper($field) );
     }
 }
 
@@ -1748,21 +1746,19 @@ sub printFormFields {
 
 =cut
 
-sub simulate_view {
+sub _simulate_view {
     my ( $this, $web, $topic ) = @_;
 
-    my $oldWebName   = $this->{twiki}->{webName};
-    my $oldTopicName = $this->{twiki}->{topicName};
+    my $oldWebName   = $this->{session}->{webName};
+    my $oldTopicName = $this->{session}->{topicName};
 
-    $this->{twiki}->{webName}   = $web;
-    $this->{twiki}->{topicName} = $topic;
+    $this->{session}->{webName}   = $web;
+    $this->{session}->{topicName} = $topic;
 
-    my ( $meta, $text ) =
-      $this->{twiki}->{store}
-      ->readTopic( $this->{twiki}->{user}, $web, $topic );
+    my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic );
 
-    $this->{twiki}->{webName}   = $oldWebName;
-    $this->{twiki}->{topicName} = $oldTopicName;
+    $this->{session}->{webName}   = $oldWebName;
+    $this->{session}->{topicName} = $oldTopicName;
 
     return ( $meta, $text );
 }
@@ -1774,7 +1770,7 @@ sub simulate_view {
 sub _makeDelay {
     my ($inDelaySeconds) = @_;
 
-	sleep($inDelaySeconds);
+    sleep($inDelaySeconds);
 }
 
 =pod
@@ -1786,11 +1782,33 @@ Formats $epoch seconds to the date-time format specified in configure.
 sub _formatDate {
     my ($epoch) = @_;
 
-    return TWiki::Func::formatTime(
+    return Foswiki::Func::formatTime(
         $epoch,
-        $TWiki::cfg{DefaultDateFormat},
-        $TWiki::cfg{DisplayTimeValues}
+        $Foswiki::cfg{DefaultDateFormat},
+        $Foswiki::cfg{DisplayTimeValues}
     );
+}
+
+sub _debug {
+    my ($inText) = @_;
+
+    Foswiki::Func::writeDebug($inText);
+}
+
+=pod
+
+my @allTopics = split(/\s*,\s*/, $allTopics);
+map { $this->_debugMeta($_); } @allTopics;
+
+=cut
+
+sub _debugMeta {
+    my ( $this, $inTopic ) = @_;
+
+    my ( $meta, $text ) =
+      Foswiki::Func::readTopic( $this->{test_web}, $inTopic );
+    my @topicInfo = $meta->find('TOPICINFO');
+    _debug( "meta=" . Dumper(@topicInfo) );
 }
 
 1;
