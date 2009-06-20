@@ -1683,7 +1683,6 @@ sub _addForm {
     $options{version} = '1.1913';
 
     $topicObject->save(%options);
-
 }
 
 =pod
