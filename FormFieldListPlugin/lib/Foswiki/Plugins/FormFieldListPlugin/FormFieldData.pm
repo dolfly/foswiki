@@ -12,7 +12,7 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Plugins::FormFieldListPlugin::FormFieldData;
+package Foswiki::Plugins::FormFieldListPlugin::FormFieldData;
 
 use strict;
 use overload ( '""' => \&as_string );
@@ -116,4 +116,5 @@ sub as_string {
       . "; value="
       . $this->{'value'};
 }
+
 1;
