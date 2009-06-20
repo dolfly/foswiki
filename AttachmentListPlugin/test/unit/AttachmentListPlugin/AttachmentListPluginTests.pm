@@ -117,16 +117,17 @@ sub set_up {
     my $this = shift;
 
     $this->SUPER::set_up();
-    $this->createAttachments();
+    $this->_createAttachments();
 }
 
 # This formats the text up to immediately before <nop>s are removed, so we
 # can see the nops.
-sub do_test {
+sub _do_test {
     my ( $this, $topic, $expected, $source ) = @_;
 
     my $actual =
-      $this->{twiki}->handleCommonTags( $source, $this->{test_web}, $topic );
+      Foswiki::Func::expandCommonVariables( $source, $topic,
+        $this->{test_web} );
     $this->assert_equals( $expected, $actual );
 }
 
@@ -154,7 +155,7 @@ sub test_simple {
     $expected .=
       "   * [[$pubUrl/$this->{test_web}/$testTopic/$att2][$att2]] $att2comment";
 
-    $this->do_test( $testTopic, $expected, $source );
+    $this->_do_test( $testTopic, $expected, $source );
 }
 
 =pod
@@ -175,7 +176,7 @@ sub test_param_topic {
     my $expected =
 'A_important_salary_raise.txt,B_contract_negotiations.txt,C_image.jpg,D_photo.PNG';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -197,7 +198,7 @@ sub test_param_topic_duplicates {
 
     my $expected = 'A_important_salary_raise.txt,B_contract_negotiations.txt';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -217,7 +218,7 @@ sub test_param_excludetopic_topic_notation {
 
     my $expected = 'E_todo.xsl,F_report.doc,G_readme.txt,H_AUTHORS';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -238,7 +239,7 @@ sub test_param_excludetopic_webtopic_notation {
 
     my $expected = 'E_todo.xsl,F_report.doc,G_readme.txt,H_AUTHORS';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -256,7 +257,7 @@ sub test_param_web {
     my $expected =
 'A_important_salary_raise.txt,B_contract_negotiations.txt,C_image.jpg,D_photo.PNG,E_todo.xsl,F_report.doc,G_readme.txt,H_AUTHORS';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -273,7 +274,7 @@ sub test_param_excludeweb {
 
     my $expected = '';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -290,7 +291,7 @@ sub test_param_limit_int {
 
     my $expected = "A_important_salary_raise.txt,B_contract_negotiations.txt";
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -307,7 +308,7 @@ sub test_param_limit_0 {
 
     my $expected = '';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -327,7 +328,7 @@ sub test_param_format_fileName {
 
     my $expected = $testAttachments{topic1}{attachment1}{name};
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -347,7 +348,7 @@ sub test_param_format_fileSize {
 
     my $expected = '1.0K';    #$testAttachments{topic1}{attachment1}{size};
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -367,7 +368,7 @@ sub test_param_format_fileExtension {
 
     my $expected = 'txt';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -392,7 +393,7 @@ sub test_param_format_fileIcon {
       # SMELL: hardcoded %SYSTEMWEB%
       . '/System/DocumentGraphics/txt.gif" height="16" border="0" />';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -412,7 +413,7 @@ sub test_param_format_fileComment {
 
     my $expected = $testAttachments{topic1}{attachment1}{comment};
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -432,7 +433,7 @@ sub test_param_format_fileUser {
 
     my $expected = $testAttachments{topic1}{attachment1}{user};
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -457,7 +458,7 @@ sub test_param_format_fileDate {
         $Foswiki::cfg{DisplayTimeValues}
     );
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -484,7 +485,7 @@ sub test_param_format_fileUrl {
       . $testTopic . '/'
       . $attachmentName;
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -504,7 +505,7 @@ sub test_param_format_fileTopic {
 
     my $expected = $testTopic;
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -524,7 +525,7 @@ sub test_param_format_fileWeb {
 
     my $expected = $this->{test_web};
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -536,10 +537,7 @@ Test param format: $viewfileUrl.
 sub test_param_format_viewfileUrl {
     my $this = shift;
 
-    my $viewFileUrl =
-      $this->{twiki}
-      ->handleCommonTags( '%SCRIPTURL{"viewfile"}%', $this->{test_web},
-        $this->{test_topic} );
+    my $viewFileUrl = Foswiki::Func::expandCommonVariables( '%SCRIPTURL{"viewfile"}%',       $this->{test_topic}, $this->{test_web} );
 
     my $format         = "\$viewfileUrl";
     my $testTopic      = $testAttachments{topic1}{name};
@@ -555,7 +553,7 @@ sub test_param_format_viewfileUrl {
       . '?rev=&filename='
       . $attachmentName;
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -567,10 +565,7 @@ Test param format: $fileActionUrl.
 sub test_param_format_fileActionUrl {
     my $this = shift;
 
-    my $actionUrl =
-      $this->{twiki}
-      ->handleCommonTags( '%SCRIPTURL{"attach"}%', $this->{test_web},
-        $this->{test_topic} );
+    my $actionUrl = Foswiki::Func::expandCommonVariables('%SCRIPTURL{"attach"}%', $this->{test_topic}, $this->{test_web} );
 
     my $format         = "\$fileActionUrl";
     my $testTopic      = $testAttachments{topic1}{name};
@@ -587,7 +582,7 @@ sub test_param_format_fileActionUrl {
       . $attachmentName
       . '&revInfo=1';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -617,7 +612,7 @@ sub test_param_format_imgTag {
     my $expected =
       "<img src='$fileUrl' alt='$fileComment' title='$fileComment' />";
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -636,7 +631,7 @@ sub test_param_format_GIF_imgWidth_and_imgHeight {
 
     my $expected = '15 x 15';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -655,7 +650,7 @@ sub test_param_format_JPEG_imgWidth_and_imgHeight {
 
     my $expected = '113 x 85';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -673,7 +668,7 @@ sub test_param_format_PNG_imgWidth_and_imgHeight {
 
     my $expected = '140 x 40';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 =cut
 
@@ -694,7 +689,7 @@ sub test_param_format_hidden {
 
     my $expected = 'hidden';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -721,7 +716,7 @@ sub test_param_separator {
       . $separator
       . 'D_photo.PNG';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -742,7 +737,7 @@ sub test_param_header_specified {
     my $expected =
 "Things I Love:\nA_important_salary_raise.txt,B_contract_negotiations.txt";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -762,7 +757,7 @@ sub test_param_header_empty {
 
     my $expected = "A_important_salary_raise.txt,B_contract_negotiations.txt";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -783,7 +778,7 @@ sub test_param_footer_specified {
     my $expected =
 "A_important_salary_raise.txt,B_contract_negotiations.txt\nNumber of files: 2";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -803,7 +798,7 @@ sub test_param_footer_empty {
 
     my $expected = "A_important_salary_raise.txt,B_contract_negotiations.txt";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -822,7 +817,7 @@ sub test_param_alt {
 
     my $expected = $alt;
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -841,7 +836,7 @@ sub test_param_hide_on {
 
     my $expected = 'B_contract_negotiations.txt';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -860,7 +855,7 @@ sub test_param_hide_off {
 
     my $expected = 'A_important_salary_raise.txt,B_contract_negotiations.txt';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -881,7 +876,7 @@ sub test_param_extension {
     my $expected =
 'A_important_salary_raise.txt,B_contract_negotiations.txt,C_image.jpg,G_readme.txt';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -901,7 +896,7 @@ sub test_param_excludeextension {
 
     my $expected = 'D_photo.PNG,E_todo.xsl,F_report.doc,H_AUTHORS';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -922,7 +917,7 @@ sub test_param_extension_none {
     my $expected =
 'A_important_salary_raise.txt,B_contract_negotiations.txt,G_readme.txt,H_AUTHORS';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -943,7 +938,7 @@ sub test_param_extension_with_excludeextension {
 
     my $expected = 'F_report.doc';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -963,7 +958,7 @@ sub test_param_user {
 
     my $expected = 'JohnDoe,KathyJones,JohnDoe';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -983,7 +978,7 @@ sub test_param_user_not_specified {
 
     my $expected = 'UnknownUser';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1004,7 +999,7 @@ sub test_param_excludeuser {
     my $expected =
       'MaryDoe,AdamBlithe,AdminUser,UnknownUser,AdminUser';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1025,7 +1020,7 @@ sub test_param_user_with_excludeuser {
 
     my $expected = 'JohnDoe,JohnDoe';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1047,7 +1042,7 @@ sub test_param_file {
 
     my $expected = $attachmentName;
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1067,7 +1062,7 @@ sub test_param_excludefile {
 
     my $expected = "B_contract_negotiations.txt,C_image.jpg";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1090,7 +1085,7 @@ sub test_param_file_and_excludefile {
 
     my $expected = '';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1112,7 +1107,7 @@ sub test_param_includefilepattern {
 
     my $expected = 'A_important_salary_raise.txt,B_contract_negotiations.txt';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1135,7 +1130,7 @@ sub test_param_excludefilepattern {
     my $expected =
       'C_image.jpg,D_photo.PNG,E_todo.xsl,F_report.doc,G_readme.txt,H_AUTHORS';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1158,7 +1153,7 @@ sub test_param_includefilepattern_with_excludefilepattern {
     my $expected =
 'A_important_salary_raise.txt,C_image.jpg,D_photo.PNG,E_todo.xsl,F_report.doc,G_readme.txt,H_AUTHORS';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1181,7 +1176,7 @@ sub test_param_includefilepattern_with_excludefilepattern_overlapping {
 
     my $expected = '';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1201,7 +1196,7 @@ sub test_param_sort_fileName {
     my $expected =
 "A_important_salary_raise.txt,B_contract_negotiations.txt,C_image.jpg,D_photo.PNG,E_todo.xsl,F_report.doc,G_readme.txt,H_AUTHORS";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1222,7 +1217,7 @@ sub test_param_sort_fileName_sortorder_descending {
     my $expected =
 "H_AUTHORS,G_readme.txt,F_report.doc,E_todo.xsl,D_photo.PNG,C_image.jpg,B_contract_negotiations.txt,A_important_salary_raise.txt";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1243,7 +1238,7 @@ sub test_param_sort_fileName_sortorder_reverse {
     my $expected =
 "H_AUTHORS,G_readme.txt,F_report.doc,E_todo.xsl,D_photo.PNG,C_image.jpg,B_contract_negotiations.txt,A_important_salary_raise.txt";
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1262,7 +1257,7 @@ sub test_param_sort_fileSize {
 
     my $expected = '0,2b,10b,10.24b,1.0K,2.0K,10.0K,20.0K';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1281,7 +1276,7 @@ sub test_param_sort_fileSize_descending {
 
     my $expected = '20.0K,10.0K,2.0K,1.0K,10.24b,10b,2b,0';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1300,7 +1295,7 @@ sub test_param_sort_fileSize_reverse {
 
     my $expected = '20.0K,10.0K,2.0K,1.0K,10.24b,10b,2b,0';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1318,9 +1313,9 @@ sub test_param_sort_fileUser {
 "%ATTACHMENTLIST{topic=\"*\" format=\"\$fileUser\" separator=\",\" sort=\"\$fileUser\"}%";
 
     my $expected =
-'AdamBlithe,JohnDoe,JohnDoe,KathyJones,MaryDoe,AdminUser,AdminUser,UnknownUser';
+'AdamBlithe,AdminUser,AdminUser,JohnDoe,JohnDoe,KathyJones,MaryDoe,UnknownUser';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1338,9 +1333,9 @@ sub test_param_sort_fileUser_descending {
 "%ATTACHMENTLIST{topic=\"*\" format=\"\$fileUser\" separator=\",\" sort=\"\$fileUser\" sortorder=\"descending\"}%";
 
     my $expected =
-'UnknownUser,AdminUser,AdminUser,MaryDoe,KathyJones,JohnDoe,JohnDoe,AdamBlithe';
+'UnknownUser,MaryDoe,KathyJones,JohnDoe,JohnDoe,AdminUser,AdminUser,AdamBlithe';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1358,9 +1353,9 @@ sub test_param_sort_fileUser_reverse {
 "%ATTACHMENTLIST{topic=\"*\" format=\"\$fileUser\" separator=\",\" sort=\"\$fileUser\" sortorder=\"reverse\"}%";
 
     my $expected =
-'UnknownUser,AdminUser,AdminUser,MaryDoe,KathyJones,JohnDoe,JohnDoe,AdamBlithe';
+'UnknownUser,MaryDoe,KathyJones,JohnDoe,JohnDoe,AdminUser,AdminUser,AdamBlithe';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1380,7 +1375,7 @@ sub test_param_sort_fileDate {
     my $expected =
 '15 Jan 2027,14 Nov 2023,13 Sep 2020,14 Jul 2017,13 May 2014,13 Mar 2011,10 Jan 2008,09 Nov 2004';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1400,7 +1395,7 @@ sub test_param_sort_fileDate_descending {
     my $expected =
 '15 Jan 2027,14 Nov 2023,13 Sep 2020,14 Jul 2017,13 May 2014,13 Mar 2011,10 Jan 2008,09 Nov 2004';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1420,7 +1415,7 @@ sub test_param_sort_fileDate_ascending {
     my $expected =
 '09 Nov 2004,10 Jan 2008,13 Mar 2011,13 May 2014,14 Jul 2017,13 Sep 2020,14 Nov 2023,15 Jan 2027';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1440,7 +1435,7 @@ sub test_param_sort_fileDate_reverse {
     my $expected =
 '09 Nov 2004,10 Jan 2008,13 Mar 2011,13 May 2014,14 Jul 2017,13 Sep 2020,14 Nov 2023,15 Jan 2027';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1459,7 +1454,7 @@ sub test_param_sort_fileExtension {
 
     my $expected = 'doc,jpg,,png,txt,txt,txt,xsl';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1478,7 +1473,7 @@ sub test_param_sort_fileExtension_descending {
 
     my $expected = 'xsl,txt,txt,txt,png,,jpg,doc';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1497,7 +1492,7 @@ sub test_param_sort_fileExtension_reverse {
 
     my $expected = 'xsl,txt,txt,txt,png,,jpg,doc';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1517,7 +1512,7 @@ sub test_param_sort_fileTopic {
     my $expected =
 'AttachmentListTestTopic1,AttachmentListTestTopic1,AttachmentListTestTopic2,AttachmentListTestTopic2,AttachmentListTestTopic3,AttachmentListTestTopic3,AttachmentListTestTopic4,AttachmentListTestTopic4';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1537,7 +1532,7 @@ sub test_param_sort_fileTopic_descending {
     my $expected =
 'AttachmentListTestTopic4,AttachmentListTestTopic4,AttachmentListTestTopic3,AttachmentListTestTopic3,AttachmentListTestTopic2,AttachmentListTestTopic2,AttachmentListTestTopic1,AttachmentListTestTopic1';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1557,7 +1552,7 @@ sub test_param_sort_fileTopic_reverse {
     my $expected =
 'AttachmentListTestTopic4,AttachmentListTestTopic4,AttachmentListTestTopic3,AttachmentListTestTopic3,AttachmentListTestTopic2,AttachmentListTestTopic2,AttachmentListTestTopic1,AttachmentListTestTopic1';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1576,7 +1571,7 @@ sub test_param_fromdate {
 
     my $expected = '13 Sep 2020,14 Nov 2023,15 Jan 2027';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1596,7 +1591,7 @@ sub test_param_todate {
     my $expected =
       '09 Nov 2004,10 Jan 2008,13 Mar 2011,13 May 2014,14 Jul 2017,13 Sep 2020';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1615,7 +1610,7 @@ sub test_param_fromdate_and_todate {
 
     my $expected = '13 Sep 2020';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1634,7 +1629,7 @@ sub test_param_fromdate_and_todate_excluding {
 
     my $expected = '';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1665,7 +1660,7 @@ AttachmentListTestTopic1 or AttachmentListTestTopic1
 "do not read"
 %$<br />';
 
-    $this->do_test( $testTopic1, $expected, $source );
+    $this->_do_test( $testTopic1, $expected, $source );
 }
 
 =pod
@@ -1684,7 +1679,7 @@ sub test_formatting_fileCount {
 A_important_salary_raise.txt
 Number of files: 1';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
@@ -1702,22 +1697,24 @@ sub test_formatting_fileExtensions {
     my $expected = 'txt,txt,jpg,png,xsl,doc,txt,
 Extensions: doc,jpg,png,txt,xsl';
 
-    $this->do_test( $this->{test_topic}, $expected, $source );
+    $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 
 =pod
 
 =cut
 
-sub set_up_topic {
+sub _set_up_topic {
     my $this = shift;
 
     # Create topic
     my $topic = shift;
     my $text  = shift;
 
-    $this->{twiki}->{store}->saveTopic( $this->{test_user_wikiname},
-        $this->{test_web}, $topic, $text );
+    my $topicObject =
+      Foswiki::Meta->new( $this->{session}, $this->{test_web}, $topic, $text );
+
+    $topicObject->save();
 }
 
 =pod
@@ -1726,15 +1723,13 @@ Adds an attachment to a specified topic. Attachment attributes are passed in a h
 
 =cut
 
-sub addAttachment {
+sub _addAttachment {
     my ( $this, $topic, %attData ) = @_;
 
-    $this->assert(
-        $this->{twiki}->{store}->topicExists( $this->{test_web}, $topic ) );
+    $this->assert( Foswiki::Func::topicExists( $this->{test_web}, $topic ) );
 
     my ( $meta, $text ) =
-      $this->{twiki}->{store}
-      ->readTopic( $this->{twiki}->{user}, $this->{test_web}, $topic );
+      Foswiki::Func::readTopic( $this->{test_web}, $topic );
 
     $meta->putKeyed(
         'FILEATTACHMENT',
@@ -1749,52 +1744,51 @@ sub addAttachment {
             attr    => $attData{hidden},
         }
     );
-    $this->{twiki}->{store}->saveTopic( $this->{twiki}->{user},
-        $this->{test_web}, $topic, $text, $meta );
-
+    
+    $meta->save();
 }
 
 =pod
 
 =cut
 
-sub createAttachmentsForTopic {
+sub _createAttachmentsForTopic {
     my ( $this, $topicKey ) = @_;
 
     my $topic = $testAttachments{$topicKey}{name};
     my $text = $testAttachments{$topicKey}{text} || 'hi';
-    $this->set_up_topic( $topic, $text );
+    $this->_set_up_topic( $topic, $text );
     {
 
         # attachment1
         my %attachmentData = %{ $testAttachments{$topicKey}{attachment1} };
-        $this->addAttachment( $topic, %attachmentData );
+        $this->_addAttachment( $topic, %attachmentData );
     }
     {
 
         # attachment2
         my %attachmentData = %{ $testAttachments{$topicKey}{attachment2} };
-        $this->addAttachment( $topic, %attachmentData );
+        $this->_addAttachment( $topic, %attachmentData );
     }
-    my ( $meta, $atext ) = $this->simulate_view( $this->{test_web}, $topic );
-    my @attachments = $meta->find('FILEATTACHMENT');
+    my ( $meta, $atext ) = $this->_simulate_view( $this->{test_web}, $topic );
 
-    #printAttachments(@attachments);    # leave as comment unless debugging
+    #my @attachments = $meta->find('FILEATTACHMENT');
+    #_printAttachments(@attachments);    # leave as comment unless debugging
 }
 
 =pod
 
 =cut
 
-sub createAttachments {
+sub _createAttachments {
 
     my $this = shift;
-    $this->createAttachmentsForTopic('topic1');
-    $this->createAttachmentsForTopic('topic2');
-    $this->createAttachmentsForTopic('topic3');
-    $this->createAttachmentsForTopic('topic4');
+    $this->_createAttachmentsForTopic('topic1');
+    $this->_createAttachmentsForTopic('topic2');
+    $this->_createAttachmentsForTopic('topic3');
+    $this->_createAttachmentsForTopic('topic4');
 
-    # $this->createAttachmentsForTopic('topic5');
+    #$this->_createAttachmentsForTopic('topic5');
     # uncomment to test access permission
 }
 
@@ -1804,7 +1798,7 @@ Needed for debugging (see above).
 
 =cut
 
-sub printAttachments {
+sub _printAttachments {
     my (@attachments) = @_;
 
     print "\n\n-------ATTACHMENTS--------\n";
@@ -1817,21 +1811,20 @@ sub printAttachments {
 
 =cut
 
-sub simulate_view {
+sub _simulate_view {
     my ( $this, $web, $topic ) = @_;
 
-    my $oldWebName   = $this->{twiki}->{webName};
-    my $oldTopicName = $this->{twiki}->{topicName};
+    my $oldWebName   = $this->{session}->{webName};
+    my $oldTopicName = $this->{session}->{topicName};
 
-    $this->{twiki}->{webName}   = $web;
-    $this->{twiki}->{topicName} = $topic;
+    $this->{session}->{webName}   = $web;
+    $this->{session}->{topicName} = $topic;
 
-    my ( $meta, $text ) =
-      $this->{twiki}->{store}
-      ->readTopic( $this->{twiki}->{user}, $web, $topic );
+     my ( $meta, $text ) =
+      Foswiki::Func::readTopic( $web, $topic );
 
-    $this->{twiki}->{webName}   = $oldWebName;
-    $this->{twiki}->{topicName} = $oldTopicName;
+    $this->{session}->{webName}   = $oldWebName;
+    $this->{session}->{topicName} = $oldTopicName;
 
     return ( $meta, $text );
 }

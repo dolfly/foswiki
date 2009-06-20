@@ -1,5 +1,8 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
+# Copyright (C) 2006 Vinod Kulkarni, Sopan Shewale
+# Copyright (C) 2006-2009 Arthur Clemens, arthur@visiblearea.com
+#
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
 # as published by the Free Software Foundation; either version 2
@@ -15,6 +18,7 @@ package Foswiki::Plugins::AttachmentListPlugin;
 
 use strict;
 use Foswiki::Func;
+use Foswiki::Meta;
 use Foswiki::Plugins::AttachmentListPlugin::FileData;
 use Foswiki::Plugins::TopicDataHelperPlugin;
 
@@ -38,9 +42,11 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.3';
+$RELEASE = '1.3.2';
 
 $pluginName = 'AttachmentListPlugin';
+
+our $NO_PREFS_IN_TOPIC = 1;
 
 =pod
 
@@ -60,24 +66,22 @@ sub initPlugin {
 
     # Get plugin preferences
     $defaultFormat =
-         Foswiki::Func::getPreferencesValue('FORMAT')
-      || Foswiki::Func::getPluginPreferencesValue('FORMAT')
+         Foswiki::Func::getPreferencesValue('ATTACHMENTLISTPLUGIN_FORMAT')
       || $defaultFormat;
 
     $defaultFormat =~ s/^[\\n]+//;    # Strip off leading \n
 
-    $imageFormat = '<img src=\'$fileUrl\' alt=\'$fileComment\' />';
+    $imageFormat = '<img src=\'$fileUrl\' alt=\'$fileComment\' title=\'$fileComment\' />';
 
     # Get plugin preferences
     $imageFormat =
-         Foswiki::Func::getPreferencesValue('IMAGE_FORMAT')
-      || Foswiki::Func::getPluginPreferencesValue('IMAGE_FORMAT')
+         Foswiki::Func::getPreferencesValue('ATTACHMENTLISTPLUGIN_IMAGE_FORMAT')
       || $imageFormat;
 
     $imageFormat =~ s/^[\\n]+//;      # Strip off leading \n
 
     # Get plugin debug flag
-    $debug = Foswiki::Func::getPluginPreferencesFlag("DEBUG");
+    $debug = Foswiki::Func::getPreferencesFlag('ATTACHMENTLISTPLUGIN_DEBUG');
 
     Foswiki::Func::registerTagHandler( 'FILELIST', \&_handleFileList )
       ;                               #deprecated
@@ -96,8 +100,11 @@ sub initPlugin {
 =cut
 
 sub _handleFileList {
-    my ( $inSession, $inParams, $inTopic, $inWeb ) = @_;
+    my ( $this, $inParams, $inTopic, $inWeb ) = @_;
 
+	use Data::Dumper;
+	_debug("AttachmentListPlugin::_handleFileList -- topic=$inWeb.$inTopic; params=" . Dumper($inParams));
+	
     my $webs   = $inParams->{'web'}   || $inWeb   || '';
     my $topics = $inParams->{'topic'} || $inTopic || '';
     my $excludeTopics = $inParams->{'excludetopic'} || '';
@@ -125,7 +132,7 @@ sub _handleFileList {
       if defined $inParams->{'limit'};
 
     # format
-    my $formatted = _formatFileData( $inSession, $files, $inParams );
+    my $formatted = _formatFileData( $this, $files, $inParams );
 
     return $formatted;
 }
@@ -157,6 +164,10 @@ sub _createFileData {
     # has META:FILEATTACHMENT data
     my $attachments = _getAttachmentsInTopic( $inWeb, $inTopic );
 
+	_debug("AttachmentListPlugin::_createFileData");
+	use Data::Dumper;
+	_debug("\t attachments=" . Dumper($attachments));
+	
     if ( scalar @$attachments ) {
         $inTopicHash->{$inTopic} = ();
 
@@ -322,7 +333,7 @@ sub _getAttachmentsInTopic {
 =cut
 
 sub _formatFileData {
-    my ( $inSession, $inFiles, $inParams ) = @_;
+    my ( $this, $inFiles, $inParams ) = @_;
 
     my @files = @$inFiles;
 
@@ -372,7 +383,7 @@ sub _formatFileData {
         if ( $s =~ m/imgHeight/ || $s =~ m/imgWidth/ ) {
 
             my ( $imgWidth, $imgHeight ) =
-              _retrieveImageSize( $inSession, $fileData );
+              _retrieveImageSize( $this, $fileData );
             $s =~ s/\$imgWidth/$imgWidth/g   if defined $imgWidth;
             $s =~ s/\$imgHeight/$imgHeight/g if defined $imgHeight;
         }
@@ -443,7 +454,7 @@ sub _formatFileData {
 
         $outText = "$header$outText$footer";
     }
-    $outText = _decodeFormatTokens($outText);
+    $outText = Foswiki::Func::decodeFormatTokens($outText);
     $outText =~ s/\$br/\<br \/\>/g;
     return $outText;
 }
@@ -466,303 +477,40 @@ sub _formatDate {
 
 =pod
 
+This routine uses 
+
 =cut
 
 sub _retrieveImageSize {
-    my ( $inSession, $inFileData ) = @_;
+    my ( $this, $inFileData ) = @_;
 
+	_debug("AttachmentListPlugin::_retrieveImageSize");
+	
     my $imgWidth  = undef;
     my $imgHeight = undef;
 
-    # try to read image size
-    my $store = $inSession->{store};
+	my $topicObject = Foswiki::Meta->new( $this, $inFileData->{web}, $inFileData->{topic} );
+	
+	if ( !$topicObject->hasAttachment($inFileData->{name}) ) {
+		_debug("\t cannot read attachment");
+		return ( undef, undef );
+	}
+	if ( !$topicObject->testAttachment($inFileData->{name}, 'r') ) {
+		_debug("\t use is not allowed to read attachment");
+		return ( undef, undef );
+	}
+	
+	my $stream = $topicObject->openAttachment( $inFileData->{name}, '<' );
+	
+	_debug("\t opened stream=$stream");
+	
+	use Foswiki::Attach;
+	( $imgWidth, $imgHeight ) = Foswiki::Attach::_imgsize( $stream, $inFileData->{name} );
+	$stream->close();
 
-    my $attachmentExists =
-      $store->attachmentExists( $inFileData->{web}, $inFileData->{topic},
-        $inFileData->{name} );
-    if ($attachmentExists) {
-        my $user         = Foswiki::Func::getWikiName();
-        my $wikiUserName = Foswiki::Func::userToWikiName( $user, 1 );
-        my $stream       = $store->getAttachmentStream(
-            $wikiUserName,        $inFileData->{web},
-            $inFileData->{topic}, $inFileData->{name}
-        );
-        if ($stream) {
-            ( $imgWidth, $imgHeight ) =
-              &_imgsize( $stream, $inFileData->{name} );
-        }
-    }
+	_debug("\t width=$imgWidth; height=$imgHeight");
+	
     return ( $imgWidth, $imgHeight );
-}
-
-=pod
-
-Image calculation code copied from Attach.pm
-
-code fragment to extract pixel size from images
-taken from http://www.tardis.ed.ac.uk/~ark/wwwis/
-subroutines: _imgsize, _gifsize, _OLDgifsize, _gif_blockskip,
-             _NEWgifsize, _jpegsize
-
-=cut
-
-sub _imgsize {
-    my ( $file, $att ) = @_;
-    my ( $x, $y ) = ( 0, 0 );
-
-    if ( defined($file) ) {
-        binmode($file);    # For Windows
-        my $s;
-        return ( 0, 0 ) unless ( read( $file, $s, 4 ) == 4 );
-        seek( $file, 0, 0 );
-        if ( $s eq 'GIF8' ) {
-
-            #  GIF 47 49 46 38
-            ( $x, $y ) = _gifsize($file);
-        }
-        else {
-            my ( $a, $b, $c, $d ) = unpack( 'C4', $s );
-            if (   $a == 0x89
-                && $b == 0x50
-                && $c == 0x4E
-                && $d == 0x47 )
-            {
-
-                #  PNG 89 50 4e 47
-                ( $x, $y ) = _pngsize($file);
-            }
-            elsif ($a == 0xFF
-                && $b == 0xD8
-                && $c == 0xFF
-                && $d == 0xE0 )
-            {
-
-                #  JPG ff d8 ff e0
-                ( $x, $y ) = _jpegsize($file);
-            }
-        }
-        close($file);
-    }
-    return ( $x, $y );
-}
-
-sub _gifsize {
-    my ($GIF) = @_;
-    if (0) {
-        return &_NEWgifsize($GIF);
-    }
-    else {
-        return &_OLDgifsize($GIF);
-    }
-}
-
-sub _OLDgifsize {
-    my ($GIF) = @_;
-    my ( $type, $a, $b, $c, $d, $s ) = ( 0, 0, 0, 0, 0, 0 );
-
-    if (   defined($GIF)
-        && read( $GIF, $type, 6 )
-        && $type =~ /GIF8[7,9]a/
-        && read( $GIF, $s, 4 ) == 4 )
-    {
-        ( $a, $b, $c, $d ) = unpack( 'C' x 4, $s );
-        return ( $b << 8 | $a, $d << 8 | $c );
-    }
-    return ( 0, 0 );
-}
-
-# part of _NEWgifsize
-sub _gif_blockskip {
-    my ( $GIF, $skip, $type ) = @_;
-    my ($s)     = 0;
-    my ($dummy) = '';
-
-    read( $GIF, $dummy, $skip );    # Skip header (if any)
-    while (1) {
-        if ( eof($GIF) ) {
-
-            #warn "Invalid/Corrupted GIF (at EOF in GIF $type)\n";
-            return '';
-        }
-        read( $GIF, $s, 1 );        # Block size
-        last if ord($s) == 0;       # Block terminator
-        read( $GIF, $dummy, ord($s) );    # Skip data
-    }
-}
-
-# this code by "Daniel V. Klein" <dvk@lonewolf.com>
-sub _NEWgifsize {
-    my ($GIF) = @_;
-    my ( $cmapsize, $a, $b, $c, $d, $e ) = 0;
-    my ( $type, $s ) = ( 0, 0 );
-    my ( $x,    $y ) = ( 0, 0 );
-    my ($dummy) = '';
-
-    return ( $x, $y ) if ( !defined $GIF );
-
-    read( $GIF, $type, 6 );
-    if ( $type !~ /GIF8[7,9]a/ || read( $GIF, $s, 7 ) != 7 ) {
-
-        #warn "Invalid/Corrupted GIF (bad header)\n";
-        return ( $x, $y );
-    }
-    ($e) = unpack( "x4 C", $s );
-    if ( $e & 0x80 ) {
-        $cmapsize = 3 * 2**( ( $e & 0x07 ) + 1 );
-        if ( !read( $GIF, $dummy, $cmapsize ) ) {
-
-            #warn "Invalid/Corrupted GIF (global color map too small?)\n";
-            return ( $x, $y );
-        }
-    }
-  FINDIMAGE:
-    while (1) {
-        if ( eof($GIF) ) {
-
-            #warn "Invalid/Corrupted GIF (at EOF w/o Image Descriptors)\n";
-            return ( $x, $y );
-        }
-        read( $GIF, $s, 1 );
-        ($e) = unpack( 'C', $s );
-        if ( $e == 0x2c ) {    # Image Descriptor (GIF87a, GIF89a 20.c.i)
-            if ( read( $GIF, $s, 8 ) != 8 ) {
-
-                #warn "Invalid/Corrupted GIF (missing image header?)\n";
-                return ( $x, $y );
-            }
-            ( $a, $b, $c, $d ) = unpack( "x4 C4", $s );
-            $x = $b << 8 | $a;
-            $y = $d << 8 | $c;
-            return ( $x, $y );
-        }
-        if ( $type eq 'GIF89a' ) {
-            if ( $e == 0x21 ) {    # Extension Introducer (GIF89a 23.c.i)
-                read( $GIF, $s, 1 );
-                ($e) = unpack( 'C', $s );
-                if ( $e == 0xF9 ) { # Graphic Control Extension (GIF89a 23.c.ii)
-                    read( $GIF, $dummy, 6 );    # Skip it
-                    next FINDIMAGE;    # Look again for Image Descriptor
-                }
-                elsif ( $e == 0xFE ) {    # Comment Extension (GIF89a 24.c.ii)
-                    &_gif_blockskip( $GIF, 0, 'Comment' );
-                    next FINDIMAGE;       # Look again for Image Descriptor
-                }
-                elsif ( $e == 0x01 ) {    # Plain Text Label (GIF89a 25.c.ii)
-                    &_gif_blockskip( $GIF, 12, 'text data' );
-                    next FINDIMAGE;       # Look again for Image Descriptor
-                }
-                elsif ( $e == 0xFF )
-                {    # Application Extension Label (GIF89a 26.c.ii)
-                    &_gif_blockskip( $GIF, 11, 'application data' );
-                    next FINDIMAGE;    # Look again for Image Descriptor
-                }
-                else {
-
-           #printf STDERR "Invalid/Corrupted GIF (Unknown extension %#x)\n", $e;
-                    return ( $x, $y );
-                }
-            }
-            else {
-
-                #printf STDERR "Invalid/Corrupted GIF (Unknown code %#x)\n", $e;
-                return ( $x, $y );
-            }
-        }
-        else {
-
-            #warn "Invalid/Corrupted GIF (missing GIF87a Image Descriptor)\n";
-            return ( $x, $y );
-        }
-    }
-}
-
-# _jpegsize : gets the width and height (in pixels) of a jpeg file
-# Andrew Tong, werdna@ugcs.caltech.edu           February 14, 1995
-# modified slightly by alex@ed.ac.uk
-sub _jpegsize {
-    my ($JPEG) = @_;
-    my ($done) = 0;
-    my ( $c1, $c2, $ch, $s, $length, $dummy ) = ( 0, 0, 0, 0, 0, 0 );
-    my ( $a, $b, $c, $d );
-
-    if (   defined($JPEG)
-        && read( $JPEG, $c1, 1 )
-        && read( $JPEG, $c2, 1 )
-        && ord($c1) == 0xFF
-        && ord($c2) == 0xD8 )
-    {
-        while ( ord($ch) != 0xDA && !$done ) {
-
-            # Find next marker (JPEG markers begin with 0xFF)
-            # This can hang the program!!
-            while ( ord($ch) != 0xFF ) {
-                return ( 0, 0 ) unless read( $JPEG, $ch, 1 );
-            }
-
-            # JPEG markers can be padded with unlimited 0xFF's
-            while ( ord($ch) == 0xFF ) {
-                return ( 0, 0 ) unless read( $JPEG, $ch, 1 );
-            }
-
-            # Now, $ch contains the value of the marker.
-            if ( ( ord($ch) >= 0xC0 ) && ( ord($ch) <= 0xC3 ) ) {
-                return ( 0, 0 ) unless read( $JPEG, $dummy, 3 );
-                return ( 0, 0 ) unless read( $JPEG, $s,     4 );
-                ( $a, $b, $c, $d ) = unpack( 'C' x 4, $s );
-                return ( $c << 8 | $d, $a << 8 | $b );
-            }
-            else {
-
-                # We **MUST** skip variables, since FF's within variable
-                # names are NOT valid JPEG markers
-                return ( 0, 0 ) unless read( $JPEG, $s, 2 );
-                ( $c1, $c2 ) = unpack( 'C' x 2, $s );
-                $length = $c1 << 8 | $c2;
-                last if ( !defined($length) || $length < 2 );
-                read( $JPEG, $dummy, $length - 2 );
-            }
-        }
-    }
-    return ( 0, 0 );
-}
-
-#  _pngsize : gets the width & height (in pixels) of a png file
-#  source: http://www.la-grange.net/2000/05/04-png.html
-sub _pngsize {
-    my ($PNG)  = @_;
-    my ($head) = '';
-    my ( $a, $b, $c, $d, $e, $f, $g, $h ) = 0;
-    if (   defined($PNG)
-        && read( $PNG, $head, 8 ) == 8
-        && $head eq "\x89\x50\x4e\x47\x0d\x0a\x1a\x0a"
-        && read( $PNG, $head, 4 ) == 4
-        && read( $PNG, $head, 4 ) == 4
-        && $head eq 'IHDR'
-        && read( $PNG, $head, 8 ) == 8 )
-    {
-        ( $a, $b, $c, $d, $e, $f, $g, $h ) = unpack( 'C' x 8, $head );
-        return (
-            $a << 24 | $b << 16 | $c << 8 | $d,
-            $e << 24 | $f << 16 | $g << 8 | $h
-        );
-    }
-    return ( 0, 0 );
-}
-
-=pod
-
-For TWiki versions that do not implement Foswiki::Func::decodeFormatTokens.
-
-SMELL: remove this; Foswiki 1.0.0 as ships with Foswiki::Func::decodeFormatTokens.
-
-=cut
-
-sub _decodeFormatTokens {
-    my $text = shift;
-    return
-      defined(&Foswiki::Func::decodeFormatTokens)
-      ? Foswiki::Func::decodeFormatTokens($text)
-      : _expandStandardEscapes($text);
 }
 
 =pod
@@ -779,6 +527,17 @@ sub _expandStandardEscapes {
     $text =~ s/\$percnt(\(\))?/\%/gos; # expand percent
     $text =~ s/\$dollar(\(\))?/\$/gos; # expand dollar
     return $text;
+}
+
+=pod
+
+=cut
+
+sub _debug {
+    my ($inText) = @_;
+
+    Foswiki::Func::writeDebug($inText)
+      if $Foswiki::Plugins::AttachmentListPlugin::debug;
 }
 
 1;
