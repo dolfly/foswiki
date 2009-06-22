@@ -42,7 +42,7 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.3.2';
+$RELEASE = '1.3.3';
 
 $pluginName = 'AttachmentListPlugin';
 
@@ -100,7 +100,7 @@ sub initPlugin {
 =cut
 
 sub _handleFileList {
-    my ( $this, $inParams, $inTopic, $inWeb ) = @_;
+    my ( $session, $inParams, $inTopic, $inWeb ) = @_;
 
 	use Data::Dumper;
 	_debug("AttachmentListPlugin::_handleFileList -- topic=$inWeb.$inTopic; params=" . Dumper($inParams));
@@ -132,7 +132,7 @@ sub _handleFileList {
       if defined $inParams->{'limit'};
 
     # format
-    my $formatted = _formatFileData( $this, $files, $inParams );
+    my $formatted = _formatFileData( $session, $files, $inParams );
 
     return $formatted;
 }
@@ -333,7 +333,7 @@ sub _getAttachmentsInTopic {
 =cut
 
 sub _formatFileData {
-    my ( $this, $inFiles, $inParams ) = @_;
+    my ( $session, $inFiles, $inParams ) = @_;
 
     my @files = @$inFiles;
 
@@ -383,7 +383,7 @@ sub _formatFileData {
         if ( $s =~ m/imgHeight/ || $s =~ m/imgWidth/ ) {
 
             my ( $imgWidth, $imgHeight ) =
-              _retrieveImageSize( $this, $fileData );
+              _retrieveImageSize( $session, $fileData );
             $s =~ s/\$imgWidth/$imgWidth/g   if defined $imgWidth;
             $s =~ s/\$imgHeight/$imgHeight/g if defined $imgHeight;
         }
@@ -477,30 +477,39 @@ sub _formatDate {
 
 =pod
 
-This routine uses 
-
 =cut
 
 sub _retrieveImageSize {
-    my ( $this, $inFileData ) = @_;
+    my ( $session, $inFileData ) = @_;
 
 	_debug("AttachmentListPlugin::_retrieveImageSize");
 	
     my $imgWidth  = undef;
     my $imgHeight = undef;
 
-	my $topicObject = Foswiki::Meta->new( $this, $inFileData->{web}, $inFileData->{topic} );
+	my $topicObject = Foswiki::Meta->new( $session, $inFileData->{web}, $inFileData->{topic} );
 	
-	if ( !$topicObject->hasAttachment($inFileData->{name}) ) {
-		_debug("\t cannot read attachment");
+	
+	if (!Foswiki::Func::attachmentExists( $inFileData->{web}, $inFileData->{topic}, $inFileData->{name}) ) {
+		debug("\t cannot read attachment");
 		return ( undef, undef );
 	}
-	if ( !$topicObject->testAttachment($inFileData->{name}, 'r') ) {
-		_debug("\t use is not allowed to read attachment");
-		return ( undef, undef );
+	if ( $Foswiki::Plugins::VERSION < 2.1 ) {
+        # sorry, no check
+    } else {
+    	if ( !$topicObject->testAttachment($inFileData->{name}, 'r') ) {
+	    	_debug("\t use is not allowed to read attachment");
+		    return ( undef, undef );
+	    }
 	}
 	
-	my $stream = $topicObject->openAttachment( $inFileData->{name}, '<' );
+	my $stream;
+	if ( $Foswiki::Plugins::VERSION < 2.1 ) {
+	    $stream =
+          $session->{store}->getAttachmentStream( $inFileData->{user}, $inFileData->{web}, $inFileData->{topic}, $inFileData->{name} );
+	} else {
+        $stream = $topicObject->openAttachment( $inFileData->{name}, '<' );
+	}
 	
 	_debug("\t opened stream=$stream");
 	
@@ -534,10 +543,11 @@ sub _expandStandardEscapes {
 =cut
 
 sub _debug {
-    my ($inText) = @_;
+    my ($inText, $inDebug) = @_;
 
+	my $doDebug = $inDebug || $Foswiki::Plugins::AttachmentListPlugin::debug;
     Foswiki::Func::writeDebug($inText)
-      if $Foswiki::Plugins::AttachmentListPlugin::debug;
+      if $doDebug;
 }
 
 1;
