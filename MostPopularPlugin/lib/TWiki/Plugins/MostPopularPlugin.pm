@@ -53,8 +53,8 @@ sub _MOSTPOPULAR {
     my $limit = $params->{limit} || 10;
     my $format = $params->{format} || "| \$web | \$topic | \$views |";
     my $header = $params->{header} || "| *Web* | *Topic* | *Views* |";
-    my $noheader = TWiki::isTrue( $params->{noheader} );
-    my $groupbyweb = TWiki::isTrue( $params->{groupbyweb} );
+    my $noheader = TWiki::Func::isTrue( $params->{noheader} );
+    my $groupbyweb = TWiki::Func::isTrue( $params->{groupbyweb} );
     my $excludedRaw = $params->{excluded} || "";
     my $excludedtopicRaw = $params->{excludetopic} || "";
 
