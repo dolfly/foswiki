@@ -53,7 +53,7 @@ our $VERSION = '$Rev: 17659 $';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.4';
+our $RELEASE = '1.5';
 
 #
 # # Short description of this plugin
@@ -230,6 +230,13 @@ sub initPlugin {
     Foswiki::Func::setSessionValue( 'DGP_hash', freeze \%oldHashArray );
     Foswiki::Func::clearSessionValue('DGP_newhash')
       ;                    # blank slate for new attachments
+
+    # Tell WyswiygPlugin to protect <dot>...</dot> markup
+    if (defined &Foswiki::Plugins::WysiwygPlugin::addXMLTag) {
+        # Check if addXMLTag is defined, so that DirectedGraphPlugin 
+        # continues to work with older versions of WysiwygPlugin
+        Foswiki::Plugins::WysiwygPlugin::addXMLTag('dot', sub { 1 } );
+    }
 
     # Plugin correctly initialized
     &_writeDebug(

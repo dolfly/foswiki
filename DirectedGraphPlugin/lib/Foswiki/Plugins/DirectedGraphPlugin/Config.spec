@@ -9,7 +9,7 @@ $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{enginePath} = '';
 # **PATH**
 # Path to the ImageMagick convert utility.  <br>
 #   -  This is used to support antialias output <br> 
-#      (Required if GraphViz doesn't have Cario rendering support.)
+#      (Required if GraphViz doesn't have Cairo rendering support.)
 $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{magickPath} = '';
 # **PATH**
 # Path to the Foswiki tools directory . <br>

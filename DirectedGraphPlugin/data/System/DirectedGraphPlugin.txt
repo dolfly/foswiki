@@ -1,6 +1,7 @@
 %META:TOPICINFO{author="ProjectContributor" date="1238965436" format="1.1" reprev="1.7" version="1.7"}%
 ---+!! Directed Graph Plugin
 
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the Dev topic instead. -->
 %TOC%
 ---++ Introduction
 
@@ -10,7 +11,7 @@ This plugin uses [[http://www.graphviz.org/][Graphviz's]] applications to create
 
 Visit the [[http://www.graphviz.org/Gallery.php][Graphviz gallery]] to see some examples on what can be achieved with this plugin and Graphviz. Full documentation is available at http://graphviz.org/Documentation.php.
 
-| %X% *Caution* =&lt;dot&gt;= syntax is not currently compatible with the WYSIWYG editor. Raw editing is recommended, or use &lt;sticky&gt; tags to protect the dot tags. |
+| %X% *Caution* =&lt;dot&gt;= syntax is not compatible with versions of Foswiki:Extensions.WysiwygPlugin prior to 28 June 2009. It is recommended that you upgrade !WysiwygPlugin if you are running an older version. If that is not practical then raw editing is recommended, or use &lt;sticky&gt; tags to protect the dot tags. |
 ---+++ Attachment Handling
 | %X% *By default, this version of the plugin uses the Foswiki API to manipulate the attached graphs. The first user to view a topic containing a directed graph will be denied access if they do not have update permission. If defaults or DOT parameters have changed, viewing the topic may modify attachments, which will require update permission.* |
 
@@ -18,7 +19,7 @@ Each generated file is attached to the topic using the Foswiki attachment API. T
 
 Direct file I/O results in a considerable performance improvement.  Initial rendering of this topic on a test system resulted in a reduction of time to generate the attachments and initially display from 60 seconds down to approximately 8 seconds.
 
-| %X% *Caution* The plugin will also update attached files during __Preview__. if the edit is subsequently canceled, the attachments will be regenerated again. |
+| %X% *Caution* The plugin will also update attached files during __Preview__. If the edit is subsequently canceled, the attachments will be regenerated again. |
 
 The output of the &lt;dot&gt; command is cached as attachments to the topic. Any change to the &lt;dot&gt; input will result in the attachments being updated.
 
@@ -475,8 +476,9 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
-|  5 Apr 2009: | Foswikitask:Item8102 - Improve defaults, configure settings now optional --Foswiki:Main.GeorgeClar |
-|  25 Mar 2009: | Foswikitask:Item1201, Foswikitask:Item1360 - Configure script fails on perl 5.10. %BR% Foswikitask:Item8086 - Direct File I/O failis. -- Foswiki:Main.GeorgeClark |
+|  28 Jun 2009: | Foswikitask:Item1778 - Notify !WysiwygPlugin about &lt;dot&gt; markup so that it is protected in WYSIWYG editors --Foswiki:Main.MichaelTempest |
+|  5 Apr 2009: | Foswikitask:Item8102 - Improve defaults, configure settings now optional --Foswiki:Main.GeorgeClark |
+|  25 Mar 2009: | Foswikitask:Item1201, Foswikitask:Item1360 - Configure script fails on perl 5.10. %BR% Foswikitask:Item8086 - Direct File I/O fails. -- Foswiki:Main.GeorgeClark |
 |  8 Jan 2009: | Foswikitask:Item8035: Uninitialized variables reported in server Error log.-- Foswiki:Main.GeorgeClark |
 |  14 Dec 2008: | Foswikitask:Item8031: Port to Foswiki -- Foswiki:Main.GeorgeClark |
 |  11 Oct 2008: | TWikibug:Item6058: Incompatibilities with Windows, improved some error messages. --TWiki:Main.GeorgeClark |
