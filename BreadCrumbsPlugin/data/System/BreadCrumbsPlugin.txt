@@ -163,8 +163,10 @@ separator) may contain special variables:
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.30 (%$VERSION%) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | &nbsp; |
+|  29 Jun 2009: | use Foswiki !DBCachePlugin now |
 |  17 Apr 2009: | converted to Foswiki |
 |  07 Jan 2009: | fixed breadcrumbs breadcrumbs title for pattern skin |
 |  11 Nov 2008: | hide <nop>WebHome in location breadcrumbs |
@@ -185,5 +187,5 @@ separator) may contain special variables:
 |  Other Dependencies: | none |
 |  Perl Version: | 5.8 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Support: | http://foswiki.org/Support/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
