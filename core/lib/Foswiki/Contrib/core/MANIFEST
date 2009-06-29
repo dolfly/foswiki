@@ -384,7 +384,6 @@ lib/CPAN/lib/Locale/Maketext/Lexicon/Gettext.pm 0444
 lib/CPAN/lib/Locale/Maketext/Lexicon/Msgcat.pm 0444
 lib/CPAN/lib/Locale/Maketext/Lexicon/Tie.pm 0444
 lib/CPAN/lib/Text/Diff.pm 0444
-lib/CPAN/lib/UNIVERSAL/require.pm 0444
 lib/DEPENDENCIES 0444
 lib/Foswiki.pm 0444
 lib/Foswiki.spec 0444
@@ -418,6 +417,7 @@ lib/Foswiki/Configure/Checkers/MimeTypesFileName.pm 0444
 lib/Foswiki/Configure/Checkers/MinPasswordLength.pm 0444
 lib/Foswiki/Configure/Checkers/NameFilter.pm 0444
 lib/Foswiki/Configure/Checkers/OS.pm 0444
+lib/Foswiki/Configure/Checkers/PROXY/HOST.pm 0444
 lib/Foswiki/Configure/Checkers/PubDir.pm 0444
 lib/Foswiki/Configure/Checkers/PubUrlPath.pm 0444
 lib/Foswiki/Configure/Checkers/RCS/EgrepCmd.pm 0444
@@ -612,6 +612,8 @@ lib/Foswiki/Users/ApacheHtpasswdUser.pm 0444
 lib/Foswiki/Users/BaseUserMapping.pm 0444
 lib/Foswiki/Users/HtPasswdUser.pm 0444
 lib/Foswiki/Users/Password.pm 0444
+lib/Foswiki/Validation.pm 0444
+lib/Foswiki/ValidationException.pm 0444
 lib/MANIFEST 0444
 lib/Monitor.pm 0444
 locale/Foswiki.pot 0444
@@ -951,6 +953,7 @@ pub/System/JavascriptFiles/foswikiWindow.js 0644
 pub/System/JavascriptFiles/foswiki_edit.js 0644
 pub/System/JavascriptFiles/foswiki_renamebase.js 0644
 pub/System/JavascriptFiles/foswikilib.js 0644
+pub/System/JavascriptFiles/strikeone.js 0644
 pub/System/PlainSkin/fullscreen.gif 0644
 pub/System/PlainSkin/screenshot.gif 0644
 pub/System/PreviewBackground/blankltgraybg.gif 0644
@@ -1020,6 +1023,7 @@ templates/registernotifyadmin.tmpl 0444
 templates/rename.tmpl 0444
 templates/renamebase.tmpl 0444
 templates/renameconfirm.tmpl 0444
+templates/renameattachmentdelete.tmpl 0444
 templates/renamedelete.tmpl 0444
 templates/renameweb.tmpl 0444
 templates/renamewebbase.tmpl 0444
@@ -1031,6 +1035,7 @@ templates/searchbookview.tmpl 0444
 templates/searchformat.tmpl 0444
 templates/searchmeta.tmpl 0444
 templates/settings.tmpl 0444
+templates/validate.tmpl 0444
 templates/view.plain.tmpl 0444
 templates/view.print.tmpl 0444
 templates/view.rss.tmpl 0444

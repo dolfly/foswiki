@@ -1,4 +1,5 @@
 use strict;
+use warnings;
 
 # tests for the correct expansion of SEARCH
 # SMELL: this test is pathetic, becase SEARCH has dozens of untested modes
@@ -10,6 +11,20 @@ use base qw( FoswikiFnTestCase );
 use Foswiki;
 use Error qw( :try );
 
+# Load locale if UseLocale on;
+# otherwise the Ok+Topic Ok-Topic lexical sort order gets reversed
+# locale being a pragma, it has to be in a BEGIN block
+# but setlocale has to be outside
+BEGIN {
+    if ( $Foswiki::cfg{UseLocale} && $Foswiki::cfg{Site}{Locale} ) {
+        require POSIX;
+        require locale;
+        locale::import();
+    }
+}
+POSIX::setlocale( &POSIX::LC_COLLATE, $Foswiki::cfg{Site}{Locale} )
+  if ( $Foswiki::cfg{UseLocale} && $Foswiki::cfg{Site}{Locale} );
+
 sub new {
     my $self = shift()->SUPER::new( 'SEARCH', @_ );
     return $self;
@@ -19,9 +34,6 @@ sub set_up {
     my $this = shift;
 
     $this->SUPER::set_up();
-    # Turn UseLocale off; otherwise the Ok+Topic Ok-Topic lexical sort
-    # order gets reversed
-    $Foswiki::cfg{UseLocale} = 0;
     $this->{twiki}->{store}->saveTopic( $this->{twiki}->{user},
         $this->{test_web}, 'OkTopic', "BLEEGLE blah/matchme.blah" );
     $this->{twiki}->{store}->saveTopic( $this->{twiki}->{user},
@@ -192,7 +204,8 @@ sub verify_separator {
         $this->{test_web}, $this->{test_topic}
     );
 
-    $this->assert_str_equals( "Ok+Topic,Ok-Topic,OkTopic", $result );
+    $this->assert_str_equals( join( ',', sort qw(OkTopic Ok-Topic Ok+Topic) ),
+        $result );
 }
 
 sub verify_separator_with_header {
@@ -206,8 +219,48 @@ sub verify_separator_with_header {
 
     # FIXME: The first , shouldn't be there, but Arthur knows why
     # waiting for him to fix, and as I can't put this test into TODO...
-    $this->assert_str_equals( "RESULT:
-Ok+Topic,Ok-Topic,OkTopic", $result );
+    $this->assert_str_equals(
+        "RESULT:\n" . join( ',', sort qw(Ok+Topic Ok-Topic OkTopic) ),
+        $result );
+}
+
+sub verify_footer_with_ntopics {
+    my $this = shift;
+
+    my $result = $this->{twiki}->handleCommonTags(
+'%SEARCH{"name~\'*Topic\'" type="query"  nonoise="on" footer="Total found: $ntopics" format="$topic"}%',
+        $this->{test_web}, $this->{test_topic}
+    );
+
+    $this->assert_str_equals(
+        join( "\n", sort qw(Ok+Topic Ok-Topic OkTopic) ) . "\nTotal found: 3",
+        $result );
+}
+
+sub verify_multiple_and_footer_with_ntopics_and_nhits {
+    my $this = shift;
+
+    $this->set_up_for_formatted_search();
+
+    my $result = $this->{twiki}->handleCommonTags(
+'%SEARCH{"Bullet" type="regex" multiple="on" nonoise="on" footer="Total found: $ntopics, Hits: $nhits" format="$text - $nhits"}%',
+        $this->{test_web}, $this->{test_topic}
+    );
+
+    $this->assert_str_equals(
+        "   * Bullet 1 - 1\n   * Bullet 2 - 2\n   * Bullet 3 - 3\n   * Bullet 4 - 4\nTotal found: 1, Hits: 4",
+        $result );
+}
+
+sub verify_footer_with_ntopics_empty_format {
+    my $this = shift;
+
+    my $result = $this->{twiki}->handleCommonTags(
+'%SEARCH{"name~\'*Topic\'" type="query"  nonoise="on" footer="Total found: $ntopics" format="" separator=""}%',
+        $this->{test_web}, $this->{test_topic}
+    );
+
+    $this->assert_str_equals( "Total found: 3", $result );
 }
 
 sub verify_regex_match {
@@ -616,6 +669,11 @@ sub set_up_for_formatted_search {
 
 This text is fill in text which is there to ensure that the unique word below does not show up in a summary.
 
+   * Bullet 1
+   * Bullet 2
+   * Bullet 3
+   * Bullet 4
+
 %META:FORM{name="FormattedSearchForm"}%
 %META:FIELD{name="Name" attributes="" title="Name" value="!AnnaAnchor"}%
 HERE
@@ -828,8 +886,9 @@ sub verify_formQuery3 {
 sub verify_formQuery4 {
     my $this = shift;
 
-    if ($Foswiki::cfg{OS} eq 'WINDOWS'
-          && $Foswiki::cfg{DetailedOS} ne 'cygwin') {
+    if (   $Foswiki::cfg{OS} eq 'WINDOWS'
+        && $Foswiki::cfg{DetailedOS} ne 'cygwin' )
+    {
         $this->expect_failure();
         $this->annotate("THIS IS WINDOWS; Test will fail because of Item1072");
     }
@@ -844,8 +903,9 @@ sub verify_formQuery4 {
 sub verify_formQuery5 {
     my $this = shift;
 
-    if ($Foswiki::cfg{OS} eq 'WINDOWS'
-          && $Foswiki::cfg{DetailedOS} ne 'cygwin') {
+    if (   $Foswiki::cfg{OS} eq 'WINDOWS'
+        && $Foswiki::cfg{DetailedOS} ne 'cygwin' )
+    {
         $this->expect_failure();
         $this->annotate("THIS IS WINDOWS; Test will fail because of Item1072");
     }
@@ -1121,36 +1181,51 @@ sub test_validatepattern {
 sub verify_formatOfLinks {
     my $this = shift;
 
-    $this->{twiki}->{store}->saveTopic( $this->{twiki}->{user},
+    $this->{twiki}->{store}->saveTopic(
+        $this->{twiki}->{user},
         $this->{test_web}, 'Item977', "---+ Apache
 
 Apache is the [[http://www.apache.org/httpd/][well known web server]].
-" );
-
-    my $result = $this->{twiki}->handleCommonTags(
-'%SEARCH{"Item977" scope="topic" nonoise="on" format="$summary"}%',
-        $this->{test_web}, $this->{test_topic}
+"
     );
 
-    $this->assert_str_equals( 'Apache Apache is the well known web server.',   $result );
+    my $result =
+      $this->{twiki}->handleCommonTags(
+        '%SEARCH{"Item977" scope="topic" nonoise="on" format="$summary"}%',
+        $this->{test_web}, $this->{test_topic} );
 
-    #TODO: these test should move to a proper testing of Render.pm - will happen during
-    #extractFormat feature
-    $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[http://www.apache.org/httpd/][well known web server]].'));
+    $this->assert_str_equals( 'Apache Apache is the well known web server.',
+        $result );
+
+#TODO: these test should move to a proper testing of Render.pm - will happen during
+#extractFormat feature
+    $this->assert_str_equals(
+        'Apache is the well known web server.',
+        $this->{twiki}->{renderer}->TML2PlainText(
+'Apache is the [[http://www.apache.org/httpd/][well known web server]].'
+        )
+    );
 
     #test a few others to try to not break things
-    $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[http://www.apache.org/httpd/ well known web server]].'));
-    $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[ApacheServer][well known web server]].'));
+    $this->assert_str_equals(
+        'Apache is the well known web server.',
+        $this->{twiki}->{renderer}->TML2PlainText(
+'Apache is the [[http://www.apache.org/httpd/ well known web server]].'
+        )
+    );
+    $this->assert_str_equals(
+        'Apache is the well known web server.',
+        $this->{twiki}->{renderer}->TML2PlainText(
+            'Apache is the [[ApacheServer][well known web server]].')
+    );
 
     #SMELL: an unexpected result :/
     $this->assert_str_equals( 'Apache is the   well known web server  .',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the [[well known web server]].'));
+        $this->{twiki}->{renderer}
+          ->TML2PlainText('Apache is the [[well known web server]].') );
     $this->assert_str_equals( 'Apache is the well known web server.',
-                $this->{twiki}->{renderer}->TML2PlainText('Apache is the well known web server.'));
-
+        $this->{twiki}->{renderer}
+          ->TML2PlainText('Apache is the well known web server.') );
 
 }
 
@@ -1159,81 +1234,83 @@ sub verify_casesensitivesetting {
     my $session = $this->{session};
 
     my $actual, my $expected;
-    
-    $actual =
-      $this->{twiki}->handleCommonTags(
+
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"BLEEGLE" type="regex" multiple="on" casesensitive="on" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
-    $expected = '<nop>Ok+Topic,<nop>Ok-Topic,<nop>OkTopic,<nop>TestTopicSEARCH';
+    $expected = '<nop>' . join ',<nop>',
+      sort qw(OkTopic Ok-Topic Ok+Topic TestTopicSEARCH);
     $this->assert_str_equals( $expected, $actual );
 
-    $actual =
-      $this->{twiki}->handleCommonTags(
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"bleegle" type="regex" multiple="on" casesensitive="on" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
     $expected = '';
     $this->assert_str_equals( $expected, $actual );
 
-    $actual =
-      $this->{twiki}->handleCommonTags(
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"BLEEGLE" type="regex" multiple="on" casesensitive="off" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
-    $expected = '<nop>Ok+Topic,<nop>Ok-Topic,<nop>OkTopic,<nop>TestTopicSEARCH';
+    $expected = '<nop>' . join ',<nop>',
+      sort qw(OkTopic Ok-Topic Ok+Topic TestTopicSEARCH);
     $this->assert_str_equals( $expected, $actual );
 
-    $actual =
-      $this->{twiki}->handleCommonTags(
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"bleegle" type="regex" multiple="on" casesensitive="off" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
-    $expected = '<nop>Ok+Topic,<nop>Ok-Topic,<nop>OkTopic,<nop>TestTopicSEARCH';
+    $expected = '<nop>' . join ',<nop>',
+      sort qw(OkTopic Ok-Topic Ok+Topic TestTopicSEARCH);
     $this->assert_str_equals( $expected, $actual );
 
-#topic scope
-    $actual =
-      $this->{twiki}->handleCommonTags(
+    #topic scope
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"Ok" type="regex" scope="topic" multiple="on" casesensitive="on" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
-    $expected = '<nop>Ok+Topic,<nop>Ok-Topic,<nop>OkTopic';
+    $expected = '<nop>' . join ',<nop>', sort qw(OkTopic Ok-Topic Ok+Topic);
     $this->assert_str_equals( $expected, $actual );
 
-    $actual =
-      $this->{twiki}->handleCommonTags(
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"ok" type="regex" scope="topic" multiple="on" casesensitive="on" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
     $expected = '';
     $this->assert_str_equals( $expected, $actual );
 
-    $actual =
-      $this->{twiki}->handleCommonTags(
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"Ok" type="regex" scope="topic" multiple="on" casesensitive="off" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
-    $expected = '<nop>Ok+Topic,<nop>Ok-Topic,<nop>OkTopic';
+    $expected = '<nop>' . join ',<nop>', sort qw(OkTopic Ok-Topic Ok+Topic);
     $this->assert_str_equals( $expected, $actual );
 
-    $actual =
-      $this->{twiki}->handleCommonTags(
+    $actual = $this->{twiki}->handleCommonTags(
 '%SEARCH{"ok" type="regex" scope="topic" multiple="on" casesensitive="off" nosearch="on" noheader="on" nototal="on" format="<nop>$topic" separator=","}%',
         $this->{test_web}, $this->{test_topic}
-      );
+    );
+
     #$actual = $this->{test_topicObject}->renderTML($actual);
-    $expected = '<nop>Ok+Topic,<nop>Ok-Topic,<nop>OkTopic';
+    $expected = '<nop>' . join ',<nop>', sort qw(OkTopic Ok-Topic Ok+Topic);
     $this->assert_str_equals( $expected, $actual );
 
 }
-
 
 1;

@@ -320,10 +320,9 @@ sub test_rename_oldwebnewtopic {
     $this->{twiki}->finish();
     # The topic in the path should not matter
     $query->path_info( "/$this->{test_web}/SanityCheck" );
-    $query->method('POST');
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
-    $this->capture(\&Foswiki::UI::Manage::rename, $this->{twiki} );
+    $this->captureWithKey( rename => \&Foswiki::UI::Manage::rename, $this->{twiki} );
 
     $this->assert( $this->{twiki}->{store}->topicExists(
         $this->{test_web}, 'NewTopic' ));
@@ -439,11 +438,10 @@ sub test_rename_newweboldtopic {
                         });
 
     $query->path_info("/$this->{test_web}" );
-    $query->method('POST');
     $this->{twiki}->finish();
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
-    $this->capture( \&Foswiki::UI::Manage::rename, $this->{twiki} );
+    $this->captureWithKey( rename => \&Foswiki::UI::Manage::rename, $this->{twiki} );
 
     $this->assert( $this->{twiki}->{store}->topicExists(
         $this->{new_web}, 'OldTopic' ));
@@ -574,12 +572,11 @@ THIS
     });
 
     $query->path_info("/$this->{test_web}" );
-    $query->method('POST');
     $this->{twiki}->finish();
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
     my ($text,$result) =
-      $this->capture( \&Foswiki::UI::Manage::rename, $this->{twiki} );
+      $this->captureWithKey( rename => \&Foswiki::UI::Manage::rename, $this->{twiki} );
     my $ext = $Foswiki::cfg{ScriptSuffix};
     $this->assert_matches(qr/^Status:\s+302/s,$text);
     $this->assert_matches(qr([lL]ocation:\s+\S+?/view$ext/$this->{test_web}/UpperCase)s,$text);
@@ -606,7 +603,6 @@ sub test_accessRenameRestrictedTopic {
                         });
 
     $query->path_info("/$this->{test_web}" );
-    $query->method('POST');
     $this->{twiki}->finish();
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
@@ -634,7 +630,6 @@ sub test_accessRenameRestrictedWeb {
                         });
 
     $query->path_info("/$this->{test_web}" );
-    $query->method('POST');
     $this->{twiki}->finish();
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
@@ -662,11 +657,10 @@ sub test_leaseReleasemeLetMeGo {
                         });
 
     $query->path_info("/$this->{test_web}" );
-    $query->method('POST');
     $this->{twiki}->finish();
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
-    $this->capture(\&Foswiki::UI::Manage::rename, $this->{twiki} );
+    $this->captureWithKey( rename => \&Foswiki::UI::Manage::rename, $this->{twiki} );
 
     my $lease = $this->{twiki}->{store}->getLease(
         $this->{test_web}, 'OldTopic');
@@ -704,12 +698,11 @@ CONTENT
         }
        );
     $query->path_info("/$this->{test_web}/Renamedweb/WebHome");
-    $query->method('POST');
 
     $this->{twiki}->finish();
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
-    my ($text, $exit) = $this->capture( \&Foswiki::UI::Manage::rename, $this->{twiki} );
+    my ($text, $exit) = $this->captureWithKey( rename => \&Foswiki::UI::Manage::rename, $this->{twiki} );
     $this->assert(!$exit);
     $this->assert(Foswiki::Func::webExists("$this->{test_web}/Notrenamedweb/Renamedweb"));
     $this->assert(!Foswiki::Func::webExists("$this->{test_web}/Renamedweb"));
@@ -776,13 +769,12 @@ EOF
         }
        );
     $query->path_info("/Renamed$this->{test_web}/WebHome");
-    $query->method('POST');
 
     $this->{twiki}->finish();
     $this->{twiki} = new Foswiki( $this->{test_user_login}, $query );
     $Foswiki::Plugins::SESSION = $this->{twiki};
 
-    my ($text, $exit) = $this->capture(
+    my ($text, $exit) = $this->captureWithKey( rename =>
         \&Foswiki::UI::Manage::rename, $this->{twiki} );
 
     $this->assert(!$exit);

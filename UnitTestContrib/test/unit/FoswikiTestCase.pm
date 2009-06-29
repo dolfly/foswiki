@@ -203,4 +203,59 @@ sub removeWebFixture {
     };
 }
 
+# invoke capture with first setting a key
+# so it's authorized. First parameter is the action name,
+# rest is passed over to capture
+sub captureWithKey {
+    my $this   = shift;
+    my $action = shift;
+
+    # Shortcut if user doesn't want validation
+    return $this->capture(@_) if $Foswiki::cfg{Validation}{Method} eq 'none';
+
+    # If we pass a Foswiki object to capture, use that
+    # otherwise take $Foswiki::Plugins::SESSION
+    # and we fallback to the one from the test object
+    my $fatwilly;
+    if ( UNIVERSAL::isa( $_[1], 'Foswiki' ) ) {
+        $fatwilly = $_[1];
+    }
+    elsif ( UNIVERSAL::isa( $Foswiki::Plugins::SESSION, 'Foswiki' ) ) {
+        $fatwilly = $Foswiki::Plugins::SESSION;
+    }
+    else {
+        $fatwilly = $this->{twiki};
+    }
+    $this->assert( $fatwilly->isa('Foswiki'),
+        "Could not find the Foswiki object" );
+
+    # Now we have to manually craft the validation checkings
+    require Foswiki::Validation;
+    my $cgis = $fatwilly->getCGISession;
+    my $strikeone = $Foswiki::cfg{Validation}{Method} eq 'strikeone';
+    my $key =
+      Foswiki::Validation::addValidationKey( $cgis, $action, $strikeone );
+    unless (
+        $key =~ qr/^<input .*name=['"](\w+)['"].*value=["']\??(.*)["'].*$/ )
+    {
+        $this->assert( 0, "Could not extract validation key from $key" );
+    }
+    my ( $k, $v ) = ( $1, $2 );
+    my $request = $fatwilly->{request};
+    $this->assert( $request->isa('Unit::Request'),
+        "Could not find the Unit::Request object" );
+
+    # As we won't be clicking using javascript, we have to fake that part too
+    if ($strikeone) {
+        require Digest::MD5;
+        $v = Digest::MD5::md5_hex( $v, Foswiki::Validation::_getSecret($cgis) );
+    }
+    $request->param(
+        -name  => $k,
+        -value => $v
+    );
+    $request->method('POST');
+    $this->capture(@_);
+}
+
 1;
