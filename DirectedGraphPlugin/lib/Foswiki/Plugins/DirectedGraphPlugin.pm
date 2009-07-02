@@ -44,10 +44,10 @@ use File::Copy;    # Used for Foswiki attach API bypass
 
 # $VERSION is referred to by Foswiki, and is the only global variable that
 # # *must* exist in this package.
-# # This should always be $Rev: 3193 $ so that Foswiki can determine the checked-in
+# # This should always be $Rev$ so that Foswiki can determine the checked-in
 # # status of the plugin. It is used by the build automation tools, so
 # # you should leave it alone.
-our $VERSION = '$Rev: 17659 $';
+our $VERSION = '$Rev$';
 
 #
 # # This is a free-form string you can use to "name" your own plugin version.
