@@ -173,11 +173,11 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 <!-- 
    * Set SHORTDESCRIPTION = Substitute and extract information from content by using regular expressions
 -->
-
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2005-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v1.80 |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  17 Apr 2009: | converted to foswiki, added numerical sorting to MAKETEXT |
 |  08 Oct 2008: | added =$anchors= to MAKEINDEX (by Dirk Zimoch); \
