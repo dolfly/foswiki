@@ -166,6 +166,7 @@ separator) may contain special variables:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | &nbsp; |
+|  03 Jul 2009: | fixed fallback method to get the !TopicTitle without !DBCachePlugin |
 |  29 Jun 2009: | use Foswiki !DBCachePlugin now |
 |  17 Apr 2009: | converted to Foswiki |
 |  07 Jan 2009: | fixed breadcrumbs breadcrumbs title for pattern skin |
@@ -186,6 +187,6 @@ separator) may contain special variables:
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
 |  Perl Version: | 5.8 |
-|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Support: | http://foswiki.org/Support/%TOPIC% |
+|  Plugin Home: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
 

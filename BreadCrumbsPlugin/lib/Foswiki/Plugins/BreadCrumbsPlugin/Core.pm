@@ -311,11 +311,16 @@ sub getTopicTitle {
   }
 
   # use core means otherwise
-  my $topicTitle = Foswiki::Func::getPreferencesValue("TOPICTITLE");
-  return $topicTitle if $topicTitle;
+  my $topicTitle;
 
   my ($meta, $text) = Foswiki::Func::readTopic($theWeb, $theTopic);
   my $field = $meta->get('FIELD', 'TopicTitle');
+  if ($field) {
+    $topicTitle = $field->{value};
+    return $topicTitle if $topicTitle;
+  }
+
+  $field = $meta->get('PREFERENCE', 'TOPICTITLE');
   if ($field) {
     $topicTitle = $field->{value};
     return $topicTitle if $topicTitle;
