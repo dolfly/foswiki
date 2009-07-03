@@ -166,21 +166,9 @@ defining the default CSS properties  (indentation illustrates enclosure).
          * headlinesText: article text (div)
 
 ---++ Plugin Installation Instructions
+%$INSTALL_INSTRUCTIONS%
 
-   * [[%ATTACHURL%/%TOPIC%.zip][Download]] the ZIP file
-   * Unzip it in your foswiki installation directory. Content: 
-     | *File:* | *Description:* |
-     | ==data/System/%TOPIC%.txt== | plugin topic |
-     | ==pub/System/%TOPIC%/style.css== | default css |
-     | ==lib/Foswiki/%TOPIC%.pm== | plugin perl module |
-     | ==lib/Foswiki/%TOPIC%/Core.pm== | plugin core |
-     Check if above examples show a news feed instead of variable.
-   * Optionally, run ==%TOPIC%_installer.pl== to automatically check and
-     install other Foswiki modules that this module depends on. You can also do
-     this step manually.
-   * Alternatively, manually make sure the dependencies listed in the table
-     below are resolved.
-     %$DEPENDENCIES%
+Check if above examples show a news feed instead of variable.
 
 
 ---++ Plugin Info
@@ -188,7 +176,8 @@ defining the default CSS properties  (indentation illustrates enclosure).
 |  Plugin Author: | TWiki:Main.PeterThoeny, Foswiki:Main.MichaelDaum (2005-2007) |
 |  Copyright: | &copy; 2002-2009, Peter Thoeny, [[http://www.twiki.net/][TWIKI.NET]]; 2005-2007, Michael Daum http://wikiring.de |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 2.21.1 (08 Mar 2009) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
 |  08 Mar 2009: | Ported without changes to Foswiki namespace by Kenneth Lavrsen and put under "Feel Free To Modify" in Foswiki context. |
 |  12 Feb 2009: | {PROXY}{HOST} supports domain with and without protocol -- Peter Thoeny |
@@ -221,6 +210,6 @@ defining the default CSS properties  (indentation illustrates enclosure).
 |  02 Aug 2002: | Implemented caching of feeds, thanks to TWiki:Main/RobDuarte |
 |  11 Jun 2002: | Initial version (V1.000) |
 |  Perl Version: | 5.008 |
-|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Support: | http://foswiki.org/Support/%TOPIC% |
+|  Home: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
 
