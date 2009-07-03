@@ -244,7 +244,8 @@ Oranges
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2005-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.20 |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  17 Apr 2009: | converted to foswiki |
 |  07 Jan 2009: | certified for foswiki/compat |
@@ -252,7 +253,7 @@ Oranges
 |  31 Aug 2006: | added NO_PREFS_IN_TOPIC |
 |  28 Jul 2006: | fixed MANIFEST;\
                   some minor docu updates; \
-		  added =use strict;= |
+                  added =use strict;= |
 |  28 Aug 2005: | changed glue syntax; added glue escape sequence to \
                   work arround tags been interpreted before lines are \
                   recombined |
