@@ -8,7 +8,7 @@
 %{ ******************************************* }%
 %TMPL:DEF{"copyright"}% %WEBRSSCOPYRIGHT% %BR% skin by <a href="http://DistributedINFORMATION.com">DistributedINFORMATION</a> a [[http://WikiRing.com][<img src="%PUBURLPATH%/%SYSTEMWEB%/MOVEABLETYPESKIN/wikiringlogo20x20.png" alt="@" width='20' height='20' border='0'  /> WikiRing.com partner]] %TMPL:END%
 %{ ******************************************* }%
-%TMPL:DEF{"topicinfo"}%<div class="foswikTopicInfo">%BR%<hr />%TMPL:P{"topicaction"}%</div>%TMPL:END%
+%TMPL:DEF{"topicinfo"}%<div class="foswikiTopicInfo">%BR%<hr />%TMPL:P{"topicaction"}%</div>%TMPL:END%
 %{ ******************************************* }%
 %TMPL:DEF{"sep"}% &#8226; %TMPL:END%
 %{ ******************************************* }%
@@ -57,7 +57,7 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 
 %{ **************************************************************************************************************************************************************************** }%
 %{ ******************************************* }%
-%TMPL:DEF{"bodystart"}%<body class="layout-%TMPL:P{widgetscolumns}% %IF{"context authenticated" then="authenticated"}%">
+%TMPL:DEF{"bodystart"}%<body class="layout-%TMPL:P{widgetscolumns}% %IF{"context authenticated" then="authenticated"}% %IF{"'%BASEWEB%.%BASETOPIC%' allows 'CHANGE'" then="foswikiCanChangeBaseTopic"}%">
    <div id="container">
       <div id="container-inner" class="pkg">%TMPL:END%
 %{ ******************************************* }%
