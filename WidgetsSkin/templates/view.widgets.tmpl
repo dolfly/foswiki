@@ -1,0 +1,66 @@
+%TMPL:INCLUDE{"view"}%
+
+%TMPL:DEF{"top:toolbarbutton_edit"}%<span>
+	<a href="%SCRIPTURL{"edit"}%/%WEB%/%TOPIC%?t=%GMTIME{"$epoch"}%" title="Edit this topic">
+		<img alt="edit" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/pencil.png" width="16" height="16" />
+	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbutton_attach"}%<span>
+	<a href="%SCRIPTURL{"attach"}%/%WEB%/%TOPIC%" title="Attach files and manage existing attachments">
+		<img alt="attach" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/attach.png" width="16" height="16" />
+	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbutton_rdiff"}%<span>
+	<a href="%SCRIPTURL{"rdiff"}%/%WEB%/%TOPIC%?type=history" title="View topic history">
+		<img alt="history" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/page_white_stack.png" width="16" height="16" />
+	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbutton_raw"}%<span>
+	<a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?raw=on&rev=%REVINFO{"$rev"}%" title="View raw topic text">
+		<img alt="raw" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/text_align_left.png" width="16" height="16" />
+	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbutton_create"}%<span>
+	<a href="%SCRIPTURL{"view"}%/Home/WebCreateNewTopic?topicparent=%TOPIC%" title="Create new topic">
+		<img alt="new" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/page_white_add.png" width="16" height="16" />
+	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbutton_print"}%<span>
+	<a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?cover=print" title="Print this topic">
+		<img alt="print" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/printer.png" width="16" height="16" />
+	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbutton_more"}%<span>
+	<a href="%SCRIPTURL{"oops"}%/%WEB%/%TOPIC%?template=oopsmore" title="More actions">
+		<img alt="more" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/wrench.png" width="16" height="16" />
+	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbuttons_notauthenticated"}% %INCLUDE{"%TMPL:P{widgetstext}%" section="widget-login" warn="off"}% %TMPL:END%
+
+%TMPL:DEF{"top:toolbarbuttons_authenticated"}%		%TMPL:P{
+			"top:toolbarbutton_edit"
+		}%%TMPL:P{
+			"top:toolbarbutton_attach"
+		}%%TMPL:P{
+			"top:toolbarbutton_rdiff"
+		}%%TMPL:P{
+			"top:toolbarbutton_raw"
+		}%%TMPL:P{
+			"top:toolbarbutton_create"
+		}%%TMPL:P{
+			"top:toolbarbutton_print"
+		}%%TMPL:P{
+			"top:toolbarbutton_more"
+		}% %LOGOUT% %TMPL:END%
+
+%TMPL:DEF{"top:toolbarbuttons"}%<span class="foswikiToolBar foswikiRight">
+%TMPL:P{context="authenticated" then="top:toolbarbuttons_authenticated" else="top:toolbarbuttons_notauthenticated"}%
+		</span>%TMPL:END%
+
+%TMPL:DEF{"breadcrumb"}%%TMPL:P{"breadcrumb:title"}%%TMPL:P{"breadcrumb:currentweb"}%%TMPL:P{"breadcrumb:parents"}%%TMPL:P{"breadcrumb:currenttopic"}%%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:currentweb"}%<a href="%SCRIPTURLPATH{"view"}%/%WEB%/%HOMETOPIC%">%MAKETEXT{"[_1] Web" args="<nop>%WEB%"}%</a>%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:annotation"}%%IF{"defined rev" then=" %MAKETEXT{"(revision [_1])" args="%URLPARAM{"rev"}%"}%" else=" <span class='patternRevInfo'>(%REVINFO{format="$date"}%)</span>"}%%IF{"defined raw" then=" %MAKETEXT{"(raw view)"}%"}%%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:currenttopic"}%%TMPL:P{"breadcrumb:separator"}%<a href="%SCRIPTURL{view}%/%WEB%/%TOPIC%" title='%MAKETEXT{"Topic revision:"}% %REVINFO{format="$rev ($date - $time), !$wikiname"}%'>%TMPL:P{"breadcrumb:topic"}%</a>%TMPL:P{"breadcrumb:annotation"}%%TMPL:END%
