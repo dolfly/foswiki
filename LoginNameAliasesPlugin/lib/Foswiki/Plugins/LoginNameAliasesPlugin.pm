@@ -2,9 +2,6 @@
 
 # LoginNameAliasesPlugin 
 #
-# Copyright (C) 2000-2003 Andrea Sterbini, a.sterbini@flashnet.it
-# Copyright (C) 2001-2004 Peter Thoeny, peter@thoeny.com
-#
 # Copyright (C) 2004 by Carnegie Mellon University
 #
 # CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
@@ -31,7 +28,7 @@ package Foswiki::Plugins::LoginNameAliasesPlugin;
 # =========================
 use vars qw($web $topic $user $installWeb $VERSION $RELEASE $pluginName);
 
-# This should always be $Rev$ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev$';
@@ -39,9 +36,20 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Dakar';
+$RELEASE = '1.1';
 
 $pluginName = 'LoginNameAliasesPlugin';  # Name of this Plugin
+our $SHORTDESCRIPTION = 'Empty Plugin used as a template for new Plugins';
+
+# You must set $NO_PREFS_IN_TOPIC to 0 if you want your plugin to use
+# preferences set in the plugin topic. This is required for compatibility
+# with older plugins, but imposes a significant performance penalty, and
+# is not recommended. Instead, leave $NO_PREFS_IN_TOPIC at 1 and use
+# =$Foswiki::cfg= entries set in =LocalSite.cfg=, or if you want the users
+# to be able to change settings, then use standard Foswiki preferences that
+# can be defined in your %USERSWEB%.SitePreferences and overridden at the web
+# and topic level.
+our $NO_PREFS_IN_TOPIC = 0;
 
 # =========================
 sub initPlugin
@@ -86,12 +94,6 @@ sub earlyInitPlugin
 
 sub initializeUserHandler
 {
-
-# for security reasons, immediately return unless this variable is set 
-# in TWiki.cfg
-
-    return "" unless ($Foswiki::useLoginNameAliasesPlugin);
-
 # By default, the logfile is kept in the plugin directory.  Switch the 
 # comments around to have the logfile stored with the other logs
 
@@ -108,16 +110,15 @@ sub initializeUserHandler
  $original_loginName = $loginName;  # will need this later on
  
 
-# all returned login names go through the TWiki security filter.  set it
+# all returned login names go through the Foswiki security filter.  set it
 # here so we can change this (use some other filter) in one place if needed
 
     my $sec_filter = $Foswiki::securityFilter;
 
 # read in the topic which has the configuration information and aliases
-# list and process it.  Hardcode the web to 'TWiki' since we aren't passed
-# $installWeb.
+# list and process it.
 
-    my $text = Foswiki::Func::readTopicText('TWiki', $pluginName, "", 1);
+    my $text = Foswiki::Func::readTopicText('%SYSTEMWEB%', $pluginName, "", 1);
     
 # Get our settings using routines in Foswiki::Prefs
 
@@ -140,7 +141,7 @@ sub initializeUserHandler
             $prefs{$key} = $val;
     }
 
-# Assume TWiki is being called from a script (mailnotify, etc) 
+# Assume Foswiki is being called from a script (mailnotify, etc) 
 # if REMOTE_ADDR is not set. In that case, log a debug message 
 # and exit.
   
@@ -238,7 +239,7 @@ sub initializeUserHandler
 
 
 # Do registration check and return if found
-# This assumes that $doMapUserToWikiName is true in TWiki.cfg.
+# This assumes that $doMapUserToWikiName is true in Foswiki.cfg.
 # Looks for key in %Foswiki::userToWikiList
 
   if ($prefs{'MAP_UNREGISTERED'}) {
@@ -271,7 +272,7 @@ if (($prefs{'RETURN_NOTHING_IF_UNCHANGED'}) &&
 }
 
 # Optional logging of user information before and after plugin is run.
-# This can be useful to track down authorization issues, since the TWiki
+# This can be useful to track down authorization issues, since the Foswiki
 # logs only have the user information after it has been changed by the
 # plugin 
 
