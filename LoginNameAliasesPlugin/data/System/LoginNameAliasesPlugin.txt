@@ -23,7 +23,7 @@ on http://foswiki.org. Proposed solutions have often involved making small chang
 designed to be used in a intranet environment where all registered users have both a !WikiName and a user name (which is often the same as a Unix or Windows username).
 
 ---++ Settings
-Behavior of this plugin is controlled through the following settings in the [[%SYSTEMWEB%.LoginNameAliasesPlugin][%SYSTEMWEB%.LoginNameAliasesPlugin]] topic.  *Important:* the settings topic will not be read if you have renamed your Foswiki web or installed this topic in another web.
+Behavior of this plugin is controlled through the following settings in =configure= (in the Extensions / LoginNameAliasesPlugin section). 
 
 	* MAP_BLANK_USER = &lt;user&gt;
 	* USE_ALIASES = &lt;boolean&gt;
@@ -35,7 +35,7 @@ Behavior of this plugin is controlled through the following settings in the [[%S
 	* DEBUG = &lt;boolean&gt;
  
 
-In addition to the settings, the configuration page may contain aliases. An alias entry is a single line of the form:
+In addition to these settings, the plugin topic may contain aliases. An alias entry is a single line of the form:
 <pre>
 &lt;multiple of 3 spaces&gt;*&lt;space&gt;ALIAS:&lt;space&gt;&lt;string&gt;&lt;space&gt;&lt;username&gt;
 </pre>
@@ -69,23 +69,9 @@ There are obvious security risks with allowing arbitrary user names to get mappe
 Misconfiguration of this plugin could cause problems for Foswiki operation, and/or create various security problems.
 
 
----++ Settings
-
-<verbatim>
-
-	* Set DEBUG = off
-	* Set LOGGING = off
-	* Set USE_ALIASES = off
-	* Set REMOVE_PREFIX = 
-	* Set REMOVE_SUFFIX = 
-	* Set MAP_BLANK_USER = 
-	* Set MAP_UNREGISTERED = 
-	* Set RETURN_NOTHING_IF_UNCHANGED = on
-
-</verbatim>
-
-
 ---++ Aliases
+
+If you enable ={LoginNameAliasesPlugin}{USE_ALIASES}= in configure, the following Alias definitions are used.
 
 <verbatim>
 
@@ -103,10 +89,10 @@ Sample alias (disabled by a # character):
  
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main/ClaussStrauch |
-|  Plugin Version: | 8 Jul 2009 (V1.1) |
+|  Plugin Author: | Foswiki:Main.SvenDowideit & TWiki:Main/ClaussStrauch |
+|  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  8 Jul 2009: | ported to Foswiki by Foswiki:Main.SvenDowideit
+|  8 Jul 2009: | ported to Foswiki by Foswiki:Main.SvenDowideit, and changed to begin to use current practices |
 |  23 Jul 2004: | Initial version |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 

@@ -1,2 +1,3 @@
-data/Foswiki/LoginNameAliasesPlugin.txt NEW
+data/System/LoginNameAliasesPlugin.txt NEW
 lib/Foswiki/Plugins/LoginNameAliasesPlugin.pm NEW
+lib/Foswiki/Plugins/LoginNameAliasesPlugin/Config.spec NEW
