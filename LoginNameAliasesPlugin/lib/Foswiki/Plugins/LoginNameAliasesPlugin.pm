@@ -92,13 +92,6 @@ sub initializeUserHandler
  $loginName = "" unless defined($loginName);
  $original_loginName = $loginName;  # will need this later on
  
-
-# all returned login names go through the Foswiki security filter.  set it
-# here so we can change this (use some other filter) in one place if needed
-
-#    my $sec_filter = $Foswiki::securityFilter;
-
-        
   Foswiki::Func::writeDebug( "- $pluginName prefs read. user: $original_loginName" )
                              if ($Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'});
                              
@@ -111,15 +104,12 @@ sub initializeUserHandler
   }
 
 
-# take care of case where $loginName is blank or $loginName
-# would be blank after security filter is applied
+# take care of case where $loginName is blank
 
     my $tmpName = $loginName;
-    $tmpName =~ s/$sec_filter//go;
     unless ($tmpName) {
        my $u = $Foswiki::cfg{LoginNameAliasesPlugin}{'MAP_BLANK_USER'};
        if ($u) {
-          $u =~ s/$sec_filter//go;
           _dologging($logFile, $original_loginName, $u) if ($Foswiki::cfg{LoginNameAliasesPlugin}{'LOGGING'});
           return $u;
        } else {
@@ -143,7 +133,6 @@ sub initializeUserHandler
             if (($a && $u) && ($a eq $loginName)) {
               Foswiki::Func::writeDebug( "ALIAS found:  $a -->  $u" ) 
                              if ($Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'});
-                $u =~ s/$sec_filter//go;
                 _dologging($logFile, $loginName, $u) if ($Foswiki::cfg{LoginNameAliasesPlugin}{'LOGGING'});
                 return $u;
            }
@@ -173,11 +162,9 @@ sub initializeUserHandler
 # thing again
 
     $tmpName = $loginName;
-    $tmpName =~ s/$sec_filter//go;
     unless ($tmpName) {
        my $u = $Foswiki::cfg{LoginNameAliasesPlugin}{'MAP_BLANK_USER'};
        if ($u) {
-          $u =~ s/$sec_filter//go;
           _dologging($logFile, $original_loginName, $u) if ($Foswiki::cfg{LoginNameAliasesPlugin}{'LOGGING'});
           return $u;
        } else {
@@ -194,7 +181,6 @@ sub initializeUserHandler
   if ($Foswiki::cfg{LoginNameAliasesPlugin}{'MAP_UNREGISTERED'}) {
      unless (exists($Foswiki::userToWikiList{$loginName})) {
              $loginName = $Foswiki::cfg{LoginNameAliasesPlugin}{'MAP_UNREGISTERED'};
-             $loginName =~  s/$sec_filter//go;
              _dologging($logFile, $original_loginName, $loginName) if ($Foswiki::cfg{LoginNameAliasesPlugin}{'LOGGING'});
              return $loginName;
      }
@@ -212,7 +198,6 @@ if (($Foswiki::cfg{LoginNameAliasesPlugin}{'RETURN_NOTHING_IF_UNCHANGED'}) &&
                            if ($Foswiki::cfg{LoginNameAliasesPlugin}{'LOGGING'});     
      return "";
   } else {
-     $loginName =~ s/$sec_filter//go;
      _dologging($logFile, $original_loginName, $loginName) 
                          if ($Foswiki::cfg{LoginNameAliasesPlugin}{'LOGGING'});    
      return $loginName;

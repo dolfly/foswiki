@@ -42,9 +42,9 @@ For example:
 If the user (as passed to the plugin) is an exact match for the first string, the plugin will return the given username. 
 
 ---++ How it works
-When it runs, the plugin performs the following steps in  succession to the username passed to initializeUserHandler.  $Foswiki::securityFilter is applied  to all results before they are returned. 
+When it runs, the plugin performs the following steps in  succession to the username passed to initializeUserHandler.  
 
-	1. If the username is blank or would be blank after applying $Foswiki::securityFilter,  return either "", or the value of MAP_BLANK_USER if it is set. *Note:* a username that would evaluate to false in Perl (e.g. the user "0") is treated as blank.
+	1. If the username is blank return either "", or the value of MAP_BLANK_USER if it is set. *Note:* a username that would evaluate to false in Perl (e.g. the user "0") is treated as blank.
 	2. If USE_ALIASES is set, the alias list is checked for a match and the first match found is  returned. 
 	3. If REMOVE_PREFIX is set, an attempt is made to remove that string from the beginning of the username (quotemeta is applied to the string before it is used).
 	4. If REMOVE_SUFFIX is set, an attempt is made to remove that string from the end of the username (quotemeta is applied to the string before it is used).
@@ -52,7 +52,7 @@ When it runs, the plugin performs the following steps in  succession to the user
 	6. If MAP_UNREGISTERED is set, then check to see if the user has a !WikiName.  If not, then  return the value of MAP_UNREGISTERED. If the user already has a !WikiName, go to step 7. *Note:* This setting will not work unless doMapUserToWikiName is set to 1 in Foswiki.cfg.
 	7. If the username after the PREFIX/SUFFIX transformations is different from 
 	the  one passed to us in the original username argument, the new name will
-	be returned after being passed through the security filter.  If it is the same as	 the original one, then "" will be returned if RETURN_NOTHING_IF_UNCHANGED is true, otherwise the original username will be returned.
+	be returned. If it is the same as the original one, then the original username will be returned, unless RETURN_NOTHING_IF_UNCHANGED is true.
 
 If LOGGING is turned on, the following fields will be logged to to the file !PubDir()/Foswiki/LoginNameAliasesPlugin/_logfile.txt: timestamp, $ENV{'REMOTE_ADDR'}, $ENV{'REMOTE_USER'}, the username that was passed to the plugin, the username that the plugin returned.
 This is useful for debugging and keeping a record of user names before they are mapped. Note that the logfile must be writable by the web server (just like other Foswiki log files).
