@@ -21,7 +21,7 @@ designed to be used in a intranet environment where all registered users have bo
 ---++ Settings
 Behavior of this plugin is controlled through the following settings in =configure= (in the Extensions / LoginNameAliasesPlugin section). 
 
-	* MAP_BLANK_USER = &lt;user&gt;
+	* MAP_BLANK_USER = &lt;login name&gt; (replaces the internal guest user)
 	* USE_ALIASES = &lt;boolean&gt;
 	* REMOVE_PREFIX = &lt;string&gt;
 	* REMOVE_SUFFIX = &lt;string&gt;
@@ -54,7 +54,7 @@ When it runs, the plugin performs the following steps in  succession to the user
 	the  one passed to us in the original username argument, the new name will
 	be returned. If it is the same as the original one, then the original username will be returned, unless RETURN_NOTHING_IF_UNCHANGED is true.
 
-If LOGGING is turned on, the following fields will be logged to to the file (plugin workdir)/_logfile.txt: timestamp, $ENV{'REMOTE_ADDR'}, $ENV{'REMOTE_USER'}, the username that was passed to the plugin, the username that the plugin returned.
+If LOGGING is turned on, the following fields will be logged to to the file (workdir)/_logfile.txt: timestamp, $ENV{'REMOTE_ADDR'}, $ENV{'REMOTE_USER'}, the username that was passed to the plugin, the username that the plugin returned.
 This is useful for debugging and keeping a record of user names before they are mapped. Note that the logfile must be writable by the web server (just like other Foswiki log files).
 
 ---++ Security

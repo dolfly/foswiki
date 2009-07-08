@@ -77,7 +77,7 @@ sub initPlugin
 
 sub initializeUserHandler
 {
- my $logFile = Foswiki::Func::getWorkArea( $pluginName ) ."/_logfile.txt";
+ my $logFile = $Foswiki::cfg{WorkingDir} .'/'.$pluginName.'_logfile.txt';
 
   my $loginName = $_[0];
 
