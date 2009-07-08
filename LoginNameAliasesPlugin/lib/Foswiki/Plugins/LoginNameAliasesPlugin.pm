@@ -98,16 +98,7 @@ sub initializeUserHandler
 
 #    my $sec_filter = $Foswiki::securityFilter;
 
-# Assume Foswiki is being called from a script (mailnotify, etc) 
-# if REMOTE_ADDR is not set. In that case, log a debug message 
-# and exit.
-  
-  unless ($ENV{'REMOTE_ADDR'}) {
-        Foswiki::Func::writeDebug( "- $pluginName REMOTE_ADDR not set. Returning." )
-            if ($Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'});
-        return "";
-  }
-          
+        
   Foswiki::Func::writeDebug( "- $pluginName prefs read. user: $original_loginName" )
                              if ($Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'});
                              

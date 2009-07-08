@@ -1,19 +1,15 @@
-%META:TOPICINFO{author="cbs" date="1090800134" format="1.0" version="1.1"}%
+
 ---+ <nop>LoginNameAliasesPlugin
 
 This plugin is used to map login names (typically determined by the REMOTE_USER
-variable set by the web server) to usernames.  Most settings for the plugin are
-controlled on this page.  
-
-*IMPORTANT: For security reasons, this page should only be editable by people in the %MAINWEB%.AdminGroup.*
-
+variable set by the web server) to usernames.  
 
 ---+ !LoginNameAliasesPlugin documentation
-In an intranet
-mechanisms (<nop>PubCookie, for example) and users are identified to Foswiki via 
-a REMOTE_USER variable that is set by such a mechanism.  This can lead to the following issues:
+In an intranet (<nop>PubCookie, windows Domains etc) users are identified to Foswiki via 
+a REMOTE_USER variable that is set by the webserver.  This can lead to the following issues:
 
-	* This remote user variable may not be suitable for direct use as a Foswiki login name (e.g. it may contain special characters).
+	* This remote user value may not be suitable for direct use as a Foswiki login name 
+		* e.g. it may contain special characters, or be a windows Domain such as WORKGROUP/UserName
 	* The same person may connect to Foswiki via various authentication domains or methods. For example, !JohnSmith may connect both as jsmith@DOMAIN1 and johns@DOMAIN2, and should be identified as the same user to Foswiki.
 	* Non-registered but identified users may connect to Foswiki in this way 
 	and one may wish to map such users to a particular registered user.
@@ -44,8 +40,9 @@ For example:
 	* ALIAS: johns@BAR.COM jsmith
 </pre>
 If the user (as passed to the plugin) is an exact match for the first string, the plugin will return the given username. 
+
 ---++ How it works
-When it runs, the plugin performs the following steps in  succession to the username passed to initializeUserHandler.  $Foswiki::securityFilter is applied  to all results before they are returned. Note that if $ENV{'REMOTE_ADDR'} is not set, the plugin will return "" after logging some debugging information (if DEBUG is set).
+When it runs, the plugin performs the following steps in  succession to the username passed to initializeUserHandler.  $Foswiki::securityFilter is applied  to all results before they are returned. 
 
 	1. If the username is blank or would be blank after applying $Foswiki::securityFilter,  return either "", or the value of MAP_BLANK_USER if it is set. *Note:* a username that would evaluate to false in Perl (e.g. the user "0") is treated as blank.
 	2. If USE_ALIASES is set, the alias list is checked for a match and the first match found is  returned. 
@@ -79,6 +76,9 @@ Sample alias (disabled by a # character):
 	* #ALIAS: foo@BAR.COM foobar 
 
 </verbatim>
+
+The currently logged in user's =%!USERINFO%= is
+   * %USERINFO%
 
 
 	* Set ALLOWTOPICCHANGE = %MAINWEB%.AdminGroup
