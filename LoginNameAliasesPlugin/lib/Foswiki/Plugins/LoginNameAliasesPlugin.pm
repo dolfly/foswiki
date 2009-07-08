@@ -26,7 +26,7 @@
 
 # =========================
 
-package TWiki::Plugins::LoginNameAliasesPlugin;
+package Foswiki::Plugins::LoginNameAliasesPlugin;
 
 # =========================
 use vars qw($web $topic $user $installWeb $VERSION $RELEASE $pluginName);
@@ -49,8 +49,8 @@ sub initPlugin
     ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1.021 ) {
-        TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+    if( $Foswiki::Plugins::VERSION < 1.021 ) {
+        Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
         return 0;
     }
 
@@ -58,9 +58,9 @@ sub initPlugin
     # Plugin correctly initialized
 
     # plugin has already done its thing by the time this is called.
-    my $debug = TWiki::Func::getPreferencesFlag( "LOGINNAMEALIASESPLUGIN_DEBUG" );
-    TWiki::Func::writeDebug(
-    "- TWiki::Plugins::${pluginName}::initPlugin($web.$topic ) is OK" ) 
+    my $debug = Foswiki::Func::getPreferencesFlag( "LOGINNAMEALIASESPLUGIN_DEBUG" );
+    Foswiki::Func::writeDebug(
+    "- Foswiki::Plugins::${pluginName}::initPlugin($web.$topic ) is OK" ) 
        if ($debug);
     return 1;
 }
@@ -90,13 +90,13 @@ sub initializeUserHandler
 # for security reasons, immediately return unless this variable is set 
 # in TWiki.cfg
 
-    return "" unless ($TWiki::useLoginNameAliasesPlugin);
+    return "" unless ($Foswiki::useLoginNameAliasesPlugin);
 
 # By default, the logfile is kept in the plugin directory.  Switch the 
 # comments around to have the logfile stored with the other logs
 
- my $logFile = TWiki::Func::getPubDir() . "/TWiki/$pluginName/_logfile.txt";
-# my $logFile = $TWiki::logDir . "/LoginNameAliasesLog.txt";
+ my $logFile = Foswiki::Func::getPubDir() . "/Foswiki/$pluginName/_logfile.txt";
+# my $logFile = $Foswiki::logDir . "/LoginNameAliasesLog.txt";
 
 
   my $loginName = $_[0];
@@ -111,18 +111,18 @@ sub initializeUserHandler
 # all returned login names go through the TWiki security filter.  set it
 # here so we can change this (use some other filter) in one place if needed
 
-    my $sec_filter = $TWiki::securityFilter;
+    my $sec_filter = $Foswiki::securityFilter;
 
 # read in the topic which has the configuration information and aliases
 # list and process it.  Hardcode the web to 'TWiki' since we aren't passed
 # $installWeb.
 
-    my $text = TWiki::Func::readTopicText('TWiki', $pluginName, "", 1);
+    my $text = Foswiki::Func::readTopicText('TWiki', $pluginName, "", 1);
     
-# Get our settings using routines in TWiki::Prefs
+# Get our settings using routines in Foswiki::Prefs
 
     my %prefs = ();
-    my $parser = TWiki::Prefs::Parser->new();
+    my $parser = Foswiki::Prefs::Parser->new();
 
     foreach my $s (@{$parser->parseText($text)}) {
             my $key = $s->[0];
@@ -135,7 +135,7 @@ sub initializeUserHandler
             if (($key eq 'USE_ALIASES') || ($key eq 'DEBUG') ||
                 ($key eq 'RETURN_NOTHING_IF_UNCHANGED') ||
                 ($key eq 'LOGGING')) {
-               $val = TWiki::Prefs::formatAsFlag($val);
+               $val = Foswiki::Prefs::formatAsFlag($val);
             }
             $prefs{$key} = $val;
     }
@@ -145,20 +145,20 @@ sub initializeUserHandler
 # and exit.
   
   unless ($ENV{'REMOTE_ADDR'}) {
-        TWiki::Func::writeDebug( "- $pluginName REMOTE_ADDR not set. Returning." )
+        Foswiki::Func::writeDebug( "- $pluginName REMOTE_ADDR not set. Returning." )
             if ($prefs{'DEBUG'});
         return "";
   }
           
-  TWiki::Func::writeDebug( "- $pluginName prefs read. user: $original_loginName" )
+  Foswiki::Func::writeDebug( "- $pluginName prefs read. user: $original_loginName" )
                              if ($prefs{'DEBUG'});
                              
   if ($prefs{'DEBUG'}) {
-    TWiki::Func::writeDebug( "- $pluginName prefs: " );
+    Foswiki::Func::writeDebug( "- $pluginName prefs: " );
     foreach my $p (keys %prefs) {
-        TWiki::Func::writeDebug( "- $pluginName  pref $p is  $prefs{$p}");
+        Foswiki::Func::writeDebug( "- $pluginName  pref $p is  $prefs{$p}");
     }
-    TWiki::Func::writeDebug( "- logFile: $logFile");
+    Foswiki::Func::writeDebug( "- logFile: $logFile");
   }
 
 
@@ -191,7 +191,7 @@ sub initializeUserHandler
         foreach my $l (split(/\n/,$text)) {
             my ($a,$u) = ($l =~ m/^\t+\*\sALIAS:\s(\S+)\s(\S+)\s*$/);
             if (($a && $u) && ($a eq $loginName)) {
-              TWiki::Func::writeDebug( "ALIAS found:  $a -->  $u" ) 
+              Foswiki::Func::writeDebug( "ALIAS found:  $a -->  $u" ) 
                              if ($prefs{'DEBUG'});
                 $u =~ s/$sec_filter//go;
                 _dologging($logFile, $loginName, $u) if ($prefs{'LOGGING'});
@@ -207,7 +207,7 @@ sub initializeUserHandler
      my $p = quotemeta($prefs{'REMOVE_PREFIX'});
      my $tmp = $loginName if ($prefs{'DEBUG'});
      $loginName =~  s/^$p//;
-     TWiki::Func::writeDebug( "REMOVE_PREFIX  $tmp -->  $loginName" )
+     Foswiki::Func::writeDebug( "REMOVE_PREFIX  $tmp -->  $loginName" )
                               if ($prefs{'DEBUG'});
      }
 
@@ -215,7 +215,7 @@ sub initializeUserHandler
      my $s = quotemeta($prefs{'REMOVE_SUFFIX'});
      my $tmp = $loginName if ($prefs{'DEBUG'});
      $loginName =~ s/$s$//;
-     TWiki::Func::writeDebug( "REMOVE_SUFFIX  $tmp -->  $loginName" ) 
+     Foswiki::Func::writeDebug( "REMOVE_SUFFIX  $tmp -->  $loginName" ) 
                               if ($prefs{'DEBUG'});
      }
 
@@ -239,10 +239,10 @@ sub initializeUserHandler
 
 # Do registration check and return if found
 # This assumes that $doMapUserToWikiName is true in TWiki.cfg.
-# Looks for key in %TWiki::userToWikiList
+# Looks for key in %Foswiki::userToWikiList
 
   if ($prefs{'MAP_UNREGISTERED'}) {
-     unless (exists($TWiki::userToWikiList{$loginName})) {
+     unless (exists($Foswiki::userToWikiList{$loginName})) {
              $loginName = $prefs{'MAP_UNREGISTERED'};
              $loginName =~  s/$sec_filter//go;
              _dologging($logFile, $original_loginName, $loginName) if ($prefs{'LOGGING'});
@@ -279,11 +279,11 @@ sub _dologging {
     my ($logfile, $orig_name, $new_name) = @_;
     my $ip = $ENV{'REMOTE_ADDR'} ? $ENV{'REMOTE_ADDR'} : "";
     my $rem_user = defined($ENV{'REMOTE_USER'}) ? $ENV{'REMOTE_USER'} : "";
-    my $now = TWiki::Func::formatTime(time(), 'http', 'servertime');
+    my $now = Foswiki::Func::formatTime(time(), 'http', 'servertime');
     local *ALIASPLUGINLOG;
     # log a warning if we can't open the logfile
     unless (open(ALIASPLUGINLOG, ">>$logfile")) {
-        TWiki::Func::writeWarning(
+        Foswiki::Func::writeWarning(
           "- $pluginName: Unable to open logfile: $logfile" );
         return 0;
     }
