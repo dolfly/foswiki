@@ -77,12 +77,7 @@ sub initPlugin
 
 sub initializeUserHandler
 {
-# By default, the logfile is kept in the plugin directory.  Switch the 
-# comments around to have the logfile stored with the other logs
-
- my $logFile = Foswiki::Func::getPubDir() . "/Foswiki/$pluginName/_logfile.txt";
-# my $logFile = $Foswiki::logDir . "/LoginNameAliasesLog.txt";
-
+ my $logFile = Foswiki::Func::getWorkArea( $pluginName ) ."/_logfile.txt";
 
   my $loginName = $_[0];
 
