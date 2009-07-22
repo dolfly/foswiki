@@ -151,6 +151,7 @@ You can use this technique to create a FoswikiSkin that matches closely the HTML
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  22 Jul 2009: | general fixes and cleanups of html output |
 |  11 May 2009: | removed bonus BANANANA in WidgetsSampleDesign |
 |  27 Jan 2009: | added header and footer widgets, and some more sectional include magic |
 |  30 Dec 2008: | update to Foswiki |
