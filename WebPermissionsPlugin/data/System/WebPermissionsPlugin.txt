@@ -152,7 +152,7 @@ To add  an "Edit ACLS" option to the "More topic actions" screen  add =webpermis
 ---++ Plugin Settings
 <!--
    * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-      * Set SHORTDESCRIPTION = View and edit web permissions
+      * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 By default, the plugin only supports VIEW and CHANGE permissions on webs. You can change the set of access modes handled by the plugin by defining a configuration variable (in !LocalSite.cfg) to be a comma-separated list of access modes. For example,
 <verbatim>
@@ -176,10 +176,11 @@ Many thanks to the following sponsors for supporting this work:
    * This plugin was developed on behalf of <a href="http://www.evolvedmedianetwork.com">Evolved Media Network</a>
    * Further work supported by [[http://www.spanlink.com/][Spanlink Communications]]
 
-|  Plugin Author: | Foswiki:Main.CrawfordCurrie & :Main.SvenDowideit, http://wikiring.com |
+|  Author: | Foswiki:Main.CrawfordCurrie & :Main.SvenDowideit, http://wikiring.com |
 |  Copyright: | &copy; 2006, Evolved Media Network, Spanlink Communications and WikiRing |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | %$VERSION% |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
 |  Change History: | |
 |  21 Apr 2009 | Foswikitask:Item1484: Sven Dowideit, Crawford Currie, ported to Foswiki |
 |  4 Dec 2007 | TWikibug:Item4901 fixed templates TWikibug:Item5072 added users parameter to select a subset of users/groups in the web permissions interface |

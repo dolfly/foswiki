@@ -30,7 +30,7 @@ Note: searches over my paternal family tree (360 persons, 120 unions) are just a
    * %<nop>GRDESCENDANTS{"person"}% - generate a complete family tree rooted at the given person using !GraphViz. Only works if !DirectedGraphPlugin is installed.
 
 ---++ Plugin Settings
-   * Set SHORTDESCRIPTION = A simple genealogy database
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 
 ---++ Plugin Installation Instructions
 %$INSTALL_INSTRUCTIONS%
@@ -38,7 +38,8 @@ Note: searches over my paternal family tree (360 persons, 120 unions) are just a
 ---++ Plugin Info
 
 |  Plugin Author: | Foswiki:Main.CrawfordCurrie http://c-dot.co.uk, Foswiki:Main.GeorgeClark |
-|  Plugin Version: | %$VERSION% |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order --> |
 |   8 Jan 2009: | Foswikitask:Item8034 Rebrand FamilyTreePlugin to Foswiki .-- Foswiki:Main.GeorgeClark |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |

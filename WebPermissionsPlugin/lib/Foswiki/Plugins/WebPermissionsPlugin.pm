@@ -30,9 +30,9 @@ use strict;
 
 use Foswiki::Func ();
 
-our $pluginName = 'WebPermissionsPlugin';
 our $VERSION    = '$Rev: 160$';
 our $RELEASE    = '21 Apr 2009';
+our $SHORTDESCRIPTION = 'View and edit web permissions';
 
 sub initPlugin {
     my ( $topic, $web, $user, $installWeb ) = @_;
