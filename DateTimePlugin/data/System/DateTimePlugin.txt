@@ -142,7 +142,8 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 ---++ Plugin Info
 
 |  Plugin Author: | TWiki:Main.AurelioAHeckert (2004), Foswiki:Main.ArthurClemens (2008, 2009) |
-|  Plugin Version: | 1.1 (11 Mar 2009)  |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  11 Mar 2009 | 1.1 Foswiki release |
 |  28 Feb 2008 | 1.0 Arthur Clemens: Major rewrite to make this plugin compatible with (and use from) =TWiki::Time=. Localized language strings are now read from configure. |
