@@ -46,7 +46,6 @@ searches through the specified web and lists all the explicitly listed external 
 =cut
 
 sub getExternalLinks {
-
     #my ($session) = @_;
 
 #TODO: make a lease file, and only allow the first request to run..
@@ -55,7 +54,9 @@ sub getExternalLinks {
     my %urlHash;
     my $urls = \%urlHash;
 
-    my $web = Foswiki::Func::getCgiQuery()->param('web');
+    my $query = Foswiki::Func::getRequestObject();
+    my $web = $query->param('web'); 
+    return 'no web specified' if (not defined($web));
     $web =~ /(.*)/;
     $web = $1;
 
@@ -102,7 +103,7 @@ s/($Foswiki::regex{linkProtocolPattern}:([^\s<>'"\]]+[^\s*.,!?;:"')<|\]]))/_exte
     my @okLinks;
 
     foreach my $key (@sortedKeys) {
-        if ( $urls->{$key}->{response} eq 200 ) {
+        if ( defined($urls->{$key}->{response}) and $urls->{$key}->{response} eq 200 ) {
             push( @okLinks, $key );
         }
         else {
@@ -161,7 +162,10 @@ s/($Foswiki::regex{linkProtocolPattern}:([^\s<>'"\]]+[^\s*.,!?;:"')<|\]]))/_exte
     return
         "$web contains "
       . scalar( keys( %{$urls} ) )
-      . " urls: <br />$return\n\n";
+      . " urls: <br />$return\n\n"
+      . "see <a href='"
+      . Foswiki::Func::getScriptUrl($web, 'WebExternalURLsReport', 'view')
+      . "'>$web 's WebExternalURLsReport</a>";
 }
 
 sub _externalLink {

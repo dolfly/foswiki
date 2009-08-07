@@ -11,8 +11,8 @@ One line description, required for extensions repository catalog.
 
 This extension is best run from the command line, perhaps from a monthly cronjob..
 <verbatim>
-cd twiki/bin
-./rest ValidateUrlsPlugin.getExternalLinks web Sandbox
+cd foswiki/bin
+./rest /ValidateUrlsPlugin/getExternalLinks web=Sandbox
 </verbatim>
 This will generate or update =Sandbox.WebExternalURLsReport= for the Sandbox web, listing all the url's it finds in the topics of the Sandbox web, listed either as broken, or working (from the point of view of the server).
 
@@ -47,4 +47,4 @@ This can be changed by setting ={Plugins}{ValidateUrlsPlugin}{ReportViewPermissi
 |  Plugin Home: | http://foswiki.org/Extensions/ValidateUrlsPlugin |
 
 
-<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on twiki.org instead. -->
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on foswiki.org instead. -->
