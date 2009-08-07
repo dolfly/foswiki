@@ -1,0 +1,50 @@
+---+!! !ValidateUrlsPlugin
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Validates external Urls in Wiki topics
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+
+This extension is best run from the command line, perhaps from a monthly cronjob..
+<verbatim>
+cd twiki/bin
+./rest ValidateUrlsPlugin.getExternalLinks web Sandbox
+</verbatim>
+This will generate or update =Sandbox.WebExternalURLsReport= for the Sandbox web, listing all the url's it finds in the topics of the Sandbox web, listed either as broken, or working (from the point of view of the server).
+
+If you run this rest handler from your browser, it will try to update the topic (assuming you have (admin) permission to write to that web/topic), and it will _not_ attempt to validate the urls.
+
+The topics are set to be viewable only by the %USERSWEB%.AdminGroup, so that there is less risk of exposing url's listed on view restricted topics.
+This can be changed by setting ={Plugins}{ValidateUrlsPlugin}{ReportViewPermission}= to the group that you want to allow (set to %USERSWEB%.WikiGuest if you're ok with the list being public).
+
+---+++ existing reports
+%SEARCH{
+    "WebExternalURLsReport"
+    scope="topic"
+    web="all"
+    noheader="---+++ External Url reports"
+    format="   * $nop$web - $web.$topic"
+    nonoise="on"
+}%
+
+---++ Installation Instructions
+
+
+
+---++ Plugin Info
+
+|  Plugin Author(s): | Sven Dowideit - [[http://fosiki.com][fosiki]] |
+|  Copyright: | &copy; 2008,2009 SvenDowideit@fosiki.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Plugin Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Aug 2009 | initial public release for foswiki |
+|  Dependencies: | None |
+|  Plugin Home: | http://foswiki.org/Extensions/ValidateUrlsPlugin |
+
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on twiki.org instead. -->

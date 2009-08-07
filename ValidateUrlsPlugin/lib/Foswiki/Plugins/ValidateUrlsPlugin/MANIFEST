@@ -1,0 +1,3 @@
+data/System/ValidateUrlsPlugin.txt
+lib/Foswiki/Plugins/ValidateUrlsPlugin/Config.spec
+lib/Foswiki/Plugins/ValidateUrlsPlugin.pm
