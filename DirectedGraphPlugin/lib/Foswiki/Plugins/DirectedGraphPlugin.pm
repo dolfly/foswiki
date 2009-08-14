@@ -53,7 +53,7 @@ our $VERSION = '$Rev$';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.5';
+our $RELEASE = '1.6';
 
 #
 # # Short description of this plugin
@@ -105,11 +105,6 @@ sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
 
     &_writeDebug(" >>> initPlugin Entered");
-
-    my $doInit;
-
-    if ( ( defined $doInit ) && $doInit ) { return 1; }
-    $doInit = 1;
 
     $usWeb = $web;
     $usWeb =~ s/\//_/g;    #Convert any subweb separators to underscore
@@ -249,13 +244,7 @@ sub initPlugin {
 # =========================
 sub commonTagsHandler {
 ### my ( $text, $topic, $web ) = @_;   # do not uncomment, use $_[0], $_[1]... instead
-    #
-    if ( ( $_[1] ne $topic ) || ( $_[2] ne $web ) ) {
-        &_writeDebug(
-" SKIPPING commonTagsHandler  web = |$web|  topic = |$topic|  $_[2] $_[1] "
-        );
-        return;
-    }
+
     &_writeDebug("- ${pluginName}::commonTagsHandler( $_[2].$_[1] )");
 
     #pass everything within <dot> tags to handleDot function
@@ -668,6 +657,14 @@ sub _handleDot {
         # read and format map
         my $mapfile =
           Foswiki::Func::readAttachment( $web, $topic, "$outFilename.cmapx" );
+
+        my $mapfile = undef;
+        if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq "on" ) ) {
+            $mapfile = Foswiki::Func::readFile( "$attachPath/$web/$topic/$outFilename.cmapx" );
+        }
+        else {
+            $mapfile = Foswiki::Func::readAttachment( $web, $topic, "$outFilename.cmapx" );
+        }
         $mapfile =~
 s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
         $mapfile =~ s/[\n\r]/ /go;
