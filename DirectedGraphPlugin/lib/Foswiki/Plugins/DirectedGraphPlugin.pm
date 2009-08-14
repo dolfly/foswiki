@@ -227,10 +227,11 @@ sub initPlugin {
       ;                    # blank slate for new attachments
 
     # Tell WyswiygPlugin to protect <dot>...</dot> markup
-    if (defined &Foswiki::Plugins::WysiwygPlugin::addXMLTag) {
-        # Check if addXMLTag is defined, so that DirectedGraphPlugin 
+    if ( defined &Foswiki::Plugins::WysiwygPlugin::addXMLTag ) {
+
+        # Check if addXMLTag is defined, so that DirectedGraphPlugin
         # continues to work with older versions of WysiwygPlugin
-        Foswiki::Plugins::WysiwygPlugin::addXMLTag('dot', sub { 1 } );
+        Foswiki::Plugins::WysiwygPlugin::addXMLTag( 'dot', sub { 1 } );
     }
 
     # Plugin correctly initialized
@@ -659,11 +660,14 @@ sub _handleDot {
           Foswiki::Func::readAttachment( $web, $topic, "$outFilename.cmapx" );
 
         my $mapfile = undef;
-        if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq "on" ) ) {
-            $mapfile = Foswiki::Func::readFile( "$attachPath/$web/$topic/$outFilename.cmapx" );
+        if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq "on" ) )
+        {
+            $mapfile = Foswiki::Func::readFile(
+                "$attachPath/$web/$topic/$outFilename.cmapx");
         }
         else {
-            $mapfile = Foswiki::Func::readAttachment( $web, $topic, "$outFilename.cmapx" );
+            $mapfile = Foswiki::Func::readAttachment( $web, $topic,
+                "$outFilename.cmapx" );
         }
         $mapfile =~
 s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
