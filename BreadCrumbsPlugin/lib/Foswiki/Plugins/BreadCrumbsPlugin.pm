@@ -15,14 +15,12 @@
 package Foswiki::Plugins::BreadCrumbsPlugin;
 
 use strict;
-use vars qw(
-  $VERSION $RELEASE $NO_PREFS_IN_TOPIC $SHORTDESCRIPTION $doneInit
-);
 
-$VERSION = '$Rev$';
-$RELEASE = 'v2.41';
-$NO_PREFS_IN_TOPIC = 1;
-$SHORTDESCRIPTION = 'A flexible way to display breadcrumbs navigation';
+our $VERSION = '$Rev$';
+our $RELEASE = 'v2.42';
+our $NO_PREFS_IN_TOPIC = 1;
+our $SHORTDESCRIPTION = 'A flexible way to display breadcrumbs navigation';
+our $doneInit = 0;
 
 ###############################################################################
 sub initPlugin {

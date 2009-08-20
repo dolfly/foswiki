@@ -84,6 +84,8 @@ separator) may contain special variables:
    * =$name=: the name of the breadcrumb, this is the topic name or the web name having its
      parent web part being stripped off (that is =Bar= instead of =Sandbox/Foo/Bar=)
    * =$webtopic=: the full =web.topic= of the breadcrumb (wiki syntax)
+   * =$web=: the web part of the current breadcrumb
+   * =$topic=: the topic part of the current breadcrumb
    * =$target=: the full =web/topic= of the breadcrumb (url syntax)
    * =$name=: name of the breadcrumbs item this is the !TopicTitle, spaced out or normal topic name
      topic
@@ -166,6 +168,7 @@ separator) may contain special variables:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | &nbsp; |
+|  20 Aug 2009: | fixed usage of =$web= |
 |  03 Jul 2009: | fixed fallback method to get the !TopicTitle without !DBCachePlugin |
 |  29 Jun 2009: | use Foswiki !DBCachePlugin now |
 |  17 Apr 2009: | converted to Foswiki |

@@ -140,7 +140,7 @@ sub renderBreadCrumbs {
     $line =~ s/\$target/$item->{target}/g;
     $line =~ s/\$webtopic/$webtopic/g;
     $line =~ s/\$topic/$topic/g;
-    $line =~ s/\$web/$web/g;
+    $line =~ s/\$web/$item->{web}/g;
     #writeDebug("... added");
     push @lines, $line;
   }
@@ -202,10 +202,12 @@ sub getLocationBreadCrumbs {
     foreach my $parentName (split(/\//,$thisWeb)) {
       $parentWeb .= '/' if $parentWeb;
       $parentWeb .= $parentName;
-      #writeDebug("adding breadcrumb: target=$parentWeb/$homeTopic, name=$parentName");
+      my $name = getTopicTitle($parentWeb, $homeTopic);
+      $name = $parentName if $name eq $homeTopic;
+      #writeDebug("adding breadcrumb: target=$parentWeb/$homeTopic, name=$name");
       push @webCrumbs, {
           target=>"$parentWeb/$homeTopic", 
-          name=>$parentName, 
+          name=>$name, 
           web=>$parentWeb, 
           topic=>$homeTopic, 
           istopic => 0 
