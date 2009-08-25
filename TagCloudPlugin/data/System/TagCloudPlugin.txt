@@ -69,7 +69,8 @@ and processed, as well as the appearance of the resulting tag cloud.
 
 Parameters:
    * =terms=: input data, a list of terms; a term can have the form =term:weight= whereas the
-     ocurrence of this term is counted with the given weight
+     ocurrence of this term is counted with the given weight; this form can be extended to
+     =term:weight:custom1:custom2= to add one or more custom fields to each term
    * =split=: regular expression used to split up the input data 
      (default: =[/,\.?\s]+=)
    * =stopwords=: switch on/off filtering common (english) stop words
@@ -122,6 +123,7 @@ might contain the following pseudo variables:
    * =$fadeRGB(startRed,startGreen,startBlue,endRed,endGreen,endBlue)= color of the term
      given its current weight in a color gradient defined by the given 6 integer values;
      returns a string =rgb(red,green,blue)= that can be used in a css color property
+   * =$3=: custom field 1 (see term syntax above); custom field 2 is =$4= and so on
    * =$percnt=: expands to =%=
    * =$dollar=: expands to =$=
    * =$n=: expands to a linefeed
@@ -186,8 +188,9 @@ Cloud for the above text:
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.00 |
+|  Plugin Version: | v2.01 |
 |  Change History: | &nbsp; |
+|  25 Aug 2009: | added custom fields (Foswiki:Main.OliverKrueger) |
 |  24 Apr 2009: | converted to foswiki plugin |
 |  07 Jan 2009: | fixed parsing of parameters (tststs); \
                   certified for foswiki/compat | 

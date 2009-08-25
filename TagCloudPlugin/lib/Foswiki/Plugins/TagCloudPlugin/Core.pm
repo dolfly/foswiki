@@ -95,6 +95,9 @@ sub handleTagCloud {
 
   # count terms
   my %termCount;
+  
+  # store optional additional information per term
+  my %termInfo = ();
 
   # remove special chars
   #writeDebug("theFilter=$theFilter");
@@ -118,9 +121,15 @@ sub handleTagCloud {
     $term =~ s/^\s*(.*?)\s*$/$1/o;
     #writeDebug("term=$term");
     my $weight = 1;
-    if ($term =~ /^(.*):(\d+)$/) {
+    if ($term =~ /^(.*):(\d+)(?::(.*))*$/) {
       $term = $1;
       $weight = $2;
+      my $termInfoString = $3 || "";
+      my $infoNo = 3;
+      foreach my $info (split(/:/, $termInfoString)) {
+        $termInfo{$term}{$infoNo} = $info;
+        $infoNo++;
+      }
     }
     next if $term =~ /^.?$/;
 
@@ -218,13 +227,15 @@ sub handleTagCloud {
 	$text .= $theGroup.$theFormat;
       }
     }
-    &expandVariables($text, 
-      'index'=>$index,
-      'term'=>$term,
-      'weight'=> $weight,
-      'count'=>$termCount{$term}, 
-      'group'=>$group,
-    );
+    my %params = ( 'term'   => $term,
+                   'index'  => $index,
+                   'weight' => $weight,
+                   'group'  => $group,
+                   'count'  => $termCount{$term} );
+    if (defined($termInfo{$term})) {
+      %params = (%params, %{ $termInfo{$term} });
+    }
+    &expandVariables($text, %params);
     $text =~ s/\$fadeRGB\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/&handleFadeRGB($1,$2,$3,$4,$5,$6, $weight, $theBuckets+$theOffset)/ge;
     $result .= $text;
   }
@@ -243,7 +254,7 @@ sub expandVariables {
   return 0 unless $_[0];
 
   my $found = 0;
-  
+
   foreach my $key (keys %params) {
     if($_[0] =~ s/\$$key/$params{$key}/g) {
       $found = 1;
