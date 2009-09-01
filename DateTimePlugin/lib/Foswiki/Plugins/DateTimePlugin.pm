@@ -2,7 +2,7 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # For DateTimePlugin.pm:
-# Copyright (C) 2004 Aurélio A. Heckert, aurelio@im.ufba.br
+# Copyright (C) 2004 Aurelio A. Heckert, aurelio@im.ufba.br
 # Copyright (C) 2008, 2009 Arthur Clemens, arthur@visiblearea.com
 #
 # This program is free software; you can redistribute it and/or
