@@ -1,8 +1,7 @@
 ---+!! <nop>DateTimePlugin
+%$SHORTDESCRIPTION%
 
-Display date and time with formatting options and localized dates.
-
-This plugin is an extension of the Foswiki variable [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] (that only allows to show the current date date and time). %BR%
+This plugin is an extension of the macro [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] (that only allows to show the current date date and time). %BR%
 !DateTimePlugin lets you show any date and time before or after 'now', and it will return any part of a date such as the month name.
 
 With !DateTimePlugin you can write: %BR%
@@ -17,11 +16,12 @@ Use =%<nop>DATETIME{}%= to show the current date and time in default date format
 
 For more options use: =%<nop>DATETIME{"format" &lt;optional parameters&gt;}%=
 
----+++ Parameters
+---++ Parameters
 
 | *Parameter* | *Description* | *Example* |
-| ="..."= or =format="..."= | Format of date string; see [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] for formatting variables | =%<nop>DATETIME{"$wday"}%= |
-| =date="..."= | Any date in one of the following formats: %BR%%BR% \
+| ="..."= or =format="..."= | Format of date string; see [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] for formatting variables. Without setting the date explicitly, uses the current time and date. | =%<nop>DATETIME{"$wday"}%= |
+| =language="..."= | Optionally localize the output. Supported languages are: English, Portuguese, Dutch. Overrides the =LANGUAGE= preference (which is currently set to: =%LANGUAGE%=). | =%<nop>DATETIME{"$wday" language="pt"}%= |
+| =date="..."= | Before formatting, set the date in one of the following formats: %BR%%BR% \
 Default Foswiki format %BR% \
 &nbsp;&nbsp;&nbsp; =31 Dec 2001 - 23:59= %BR%%BR% \
 Foswiki format without time (defaults to =00:00=) %BR% \
@@ -40,38 +40,59 @@ ISO dates may have a timezone specifier, either Z or a signed difference in hh:m
 &nbsp;&nbsp;&nbsp; =2001-12-31T23:59:59+01:00= %BR% \
 &nbsp;&nbsp;&nbsp; =2001-12-31T23:59Z= %BR% \
 The local timezone will be assumed. %BR%%BR% \
+Seconds since 1970 (UNIX time) %BR% \
+&nbsp;&nbsp;&nbsp; =1218930300= %BR%%BR% \
 *Note: will not handle dates before 1970!* | =%<nop>DATETIME{date="2001/12/31"}%= |
 | =incdays="..."= | Increase the date by any number of days (may be a negative number) | =%<nop>DATETIME{date="31 Dec 2001" incdays="1"}%= |
 | =inchours="..."= | Increase the date by any number of hours (may be a negative number) | =%<nop>DATETIME{date="31 Dec 2001 - 07:00" format="$hours" inchours="-1"}%= |
 | =incminutes="..."= | Increase the date by any number of minutes (may be a negative number) | =%<nop>DATETIME{date="31 Dec 2001" format="$minutes" incminutes="15"}%= |
 | =incseconds="..."= | Increase the date by any number of seconds (may be a negative number) | =%<nop>DATETIME{date="31 Dec 2001" format="$seconds" incseconds="20"}%= |
+| =timezoneoffset="..."= | Increase the date by any number of hours (may be a negative number). Overrides the default value in [[%SCRIPTURL{"configure"}%/#DateTimePlugin$Extensions][configure]]. | =%<nop>DATETIME{date="31 Dec 2001" format="$seconds" timezoneoffset="20"}%= |
 
 ---+++ Formatting parameters
-See [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] for general date and time formatting parameters to pass to =format=. !DateTimePlugin supports the following additional paramters:
+See [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] for general date and time formatting parameters to pass to =format=. !DateTimePlugin supports the following additional parameters:
 
 | *Parameter* | *Description* | *Example* |
-| =$i_month= | The localized short name of the month. | =Ago= |
-| =$lmonth= | The English long name of the month. | =July= |
-| =$i_lmonth= | The localized long name of the month. | =Julho= |
-| =$i_wday= | The summarized internationalized name of the day of the week. | =Qua= |
-| =$lwday= | The English long name of the day of the week. | =Wednesday= |
-| =$i_lwday= | The localized long name of the day of the week. | =Quarta-feira= |
+| =$month_long= | The long name of the month. | =July= |
+| =$wday_long= | The long name of the day of the week. | =Wednesday= |
 
----++++ Overview of all formatting variables
+---+++ Localized formatting parameters 
+Either set preference =LANGUAGE= to your language of choice, or use the =DATETIME= parameter =language=.
+
+| *Parameter* | *Description* | *Example* |
+| =$month= with =language="..."= | The localized short name of the month. | =Out= |
+| =$month_long= with =language="..."= | The localized long name of the month. | =Outubro= |
+| =$wday= with =language="..."= | The localized short name of the day of the week. | =Seg= |
+| =$wday_long= with =language="..."= | The localized long name of the day of the week. | =Segunda-feira= |
+
+---+++ Deprecated formatting parameters
+These parameters will continue to work, but we advice to use the parameters above.
+
+| *Deprecated parameter* | *Explanation* | *Suggestion* |
+| =$i_month= | The localized short name of the month. | Use =$month= with a =language="..."= setting. |
+| =$i_lmonth= | The localized long name of the month. | Use =$month_long= with a =language="..."= setting. |
+| =$lmonth= | The English long name of the month. | Use =$month_long= with a =language="en"= setting. |
+| =$i_wday= | The localized short name of the day of the week. | Use =$wday= with a =language="..."= setting. |
+| =$i_lwday= | The localized long name of the day of the week. | Use =$wday_long= with a =language="..."= setting. |
+| =$lwday= | The English long name of the day of the week. | Use =$wday_long= with a =language="en"= setting. |
+| =$sec= | Undocumented notation for seconds. | Use =$second=. |
+| =$min= | Undocumented notation for minutes. | Use =$minutes=. |
+| =$hour= | Undocumented notation for hours. | Use =$hours=. |
+| =$day2= | Undocumented notation for day. | Use =$day=. |
+
+---+++ Overview of all formatting variables
 %DATETIME{format="
 | =$<nop>seconds= | $seconds |
 | =$<nop>minutes= | $minutes |
 | =$<nop>hours= | $hours |
 | =$<nop>day= | $day |
 | =$<nop>wday= | $wday |
-| =$<nop>i_wday= | $i_wday |
-| =$<nop>i_lwday= | $i_lwday |
+| =$<nop>wday_long= | $wday_long |
 | =$<nop>dow= | $dow |
 | =$<nop>week= | $week |
 | =$<nop>month= | $month |
+| =$<nop>month_long= | $month_long |
 | =$<nop>mo= | $mo |
-| =$<nop>i_month= | $i_month |
-| =$<nop>i_lmonth= | $i_lmonth |
 | =$<nop>year= | $year |
 | =$<nop>ye= | $ye |
 | =$<nop>tz= | $tz |
@@ -79,7 +100,7 @@ See [[%SYSTEMWEB%.VarGMTIME][GMTIME{"format"}]] for general date and time format
 | =$<nop>rcs= | $rcs |
 | =$<nop>http= | $http |
 | =$<nop>epoch= | $epoch |
-"}%
+" language="pt"}%
 
 ---++ Examples
 
@@ -114,30 +135,19 @@ incdays="1"
 }%
 
 ---++ Limitations
-Due to date handling in Perl, !DateTimePlugin cannot handle dates earlier than 1970.
-
+Due to date handling in Perl, !DateTimePlugin cannot reliably handle dates earlier than 1970.
 
 #PluginSettings
 ---++ Plugin Settings
 
-Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>DATETIMEPLUGIN_SHORTDESCRIPTION%==
-
-   * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-      * Set SHORTDESCRIPTION = Display date and time with formatting options, relative date parameters and localized dates
-
 ---+++ Localization
-Localized dates are read from [[%SCRIPTURL{configure}%][configure]] - see settings with ={DateTimePlugin}=.
+Localized dates are read from [[%SCRIPTURL{"configure"}%/#DateTimePlugin$Extensions][configure]] - see settings with ={DateTimePlugin}=.
 
 ---+++ Debugging
 Visit [[%SCRIPTURL{configure}%][configure]] and set ={DateTimePlugin}{Debug}= to 1.
 
 ---++ Plugin Installation Instructions
-
-__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where Foswiki is running. 
-
-   * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory.
-   * Enable the plugin in [[%SCRIPTURL{configure}%][configure]]
+%$INSTALL_INSTRUCTIONS%
 
 ---++ Plugin Info
 
@@ -145,6 +155,17 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  31 Aug 2009 | 1.2 Arthur Clemens %BR% \
+New features: \
+%BB% Added format parameter =$epoch= to pass seconds since 1970 (UNIX time). \
+%BB% Added parameter =language=. \
+%BB% Added parameter =timezoneoffset=. \
+%BB% Changed the 'localized' formatting parameters; now use =language="..."= to localize output. \
+%BB% Made configuration of localized strings in configure more coherent. \
+%BB% Completed unit test coverage. \
+%BR% \
+Bug fixes: \
+%BB% Fixed 'bug' in timezone offset that intentionally only uses the configure setting ={TimezoneOffset}= with current dates. To use a timezone offset with a set date, add parameter =timezoneoffset=. |
 |  11 Mar 2009 | 1.1 Foswiki release |
 |  28 Feb 2008 | 1.0 Arthur Clemens: Major rewrite to make this plugin compatible with (and use from) =TWiki::Time=. Localized language strings are now read from configure. |
 |  27 Jul 2004 | 0.90 Aurelio A Heckert: First release |
@@ -153,4 +174,4 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Perl Version: | 5.005 |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
