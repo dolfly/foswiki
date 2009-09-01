@@ -75,7 +75,7 @@ These parameters will continue to work, but we advice to use the parameters abov
 | =$i_wday= | The localized short name of the day of the week. | Use =$wday= with a =language="..."= setting. |
 | =$i_lwday= | The localized long name of the day of the week. | Use =$wday_long= with a =language="..."= setting. |
 | =$lwday= | The English long name of the day of the week. | Use =$wday_long= with a =language="en"= setting. |
-| =$sec= | Undocumented notation for seconds. | Use =$second=. |
+| =$sec= | Undocumented notation for seconds. | Use =$seconds=. |
 | =$min= | Undocumented notation for minutes. | Use =$minutes=. |
 | =$hour= | Undocumented notation for hours. | Use =$hours=. |
 | =$day2= | Undocumented notation for day. | Use =$day=. |
