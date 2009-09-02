@@ -246,6 +246,13 @@ sub initPlugin {
 sub commonTagsHandler {
 ### my ( $text, $topic, $web ) = @_;   # do not uncomment, use $_[0], $_[1]... instead
 
+    return if $_[3];    # Called in an include; do not process DOT macros
+
+    $topic = $_[1];     # Can't trust globals
+    $web   = $_[2];
+    $usWeb = $web;
+    $usWeb =~ s/\//_/g;    #Convert any subweb separators to underscore
+
     &_writeDebug("- ${pluginName}::commonTagsHandler( $_[2].$_[1] )");
 
     #pass everything within <dot> tags to handleDot function
@@ -373,9 +380,9 @@ sub _handleDot {
 "<font color=\"red\"><nop>DirectedGraph Error: links  must be either \"off\" or \"on\" (was: $linkFiles)</font>";
     }
 
-    unless ( $inlineAttach =~ m/^(png|jpg)$/o ) {
+    unless ( $inlineAttach =~ m/^(png|jpg|svg)$/o ) {
         return
-"<font color=\"red\"><nop>DirectedGraph Error: inline  must be either \"jpg\" or \"png\" (was: $inlineAttach)</font>";
+"<font color=\"red\"><nop>DirectedGraph Error: inline  must be either \"jpg\", \"png\" or \"svg\" (was: $inlineAttach)</font>";
     }
 
     unless ( $deleteAttachDefault =~ m/^(on|off)$/o ) {
@@ -460,9 +467,13 @@ sub _handleDot {
     $vectorFormats .= " " . $inlineAttach
       if !( $vectorFormats =~ m/$inlineAttach/ )
     ;                              # whatever specified inline is mandatory
+    $vectorFormats .= " png"
+      if ( $inlineAttach =~ m/svg/ )
+      ;    # Generate png if SVG is inline - for browser fallback
+
     $vectorFormats .= " ps"
       if ( ($antialias) && !( $vectorFormats =~ m/ps/ ) )
-      ;                            # postscript for antialias or as requested
+      ;    # postscript for antialias or as requested
     $vectorFormats .= " cmapx"
       if ( ($doMap) && !( $vectorFormats =~ m/cmapx/ ) );    # client side map
     $vectorFormats =~ s/none//g;    # remove the "none" if set by default
@@ -591,6 +602,20 @@ sub _handleDot {
 
         #
         foreach my $key ( keys(%attachFile) ) {
+
+#  As of IE 7 / FF 3.0 and 3.5,  the only way to get consistent link behavior for
+#  embedded links is to add target="_top".   Any other setting - IE opens the
+#  link in the current page, FF opens the link within the svg object on the page.
+#  This code overrides the target in the generated svg file for consistent operation.
+
+            if ( $key eq "svg" ) {
+                my $svgfile = Foswiki::Func::readFile("$tempFile{$key}");
+                &_writeDebug(" BEFORE: $svgfile");
+                $svgfile =~ s/xlink\:href/target=\"_top\" xlink:href/g;
+                &_writeDebug("  AFTER: $svgfile");
+                Foswiki::Func::saveFile( "$tempFile{$key}", "$svgfile" );
+            }
+
             if ( ($attachPath) && !( $forceAttachAPI eq "on" ) ) {
                 &_writeDebug(
                     "attaching $attachFile{$key} using direct file I/O  ");
@@ -653,13 +678,10 @@ sub _handleDot {
         }    # foreach my $key
     }    # if ($linkFiles
 
+    my $mapfile = '';
     if ($doMap) {
 
         # read and format map
-        my $mapfile =
-          Foswiki::Func::readAttachment( $web, $topic, "$outFilename.cmapx" );
-
-        my $mapfile = undef;
         if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq "on" ) )
         {
             $mapfile = Foswiki::Func::readFile(
@@ -672,20 +694,48 @@ sub _handleDot {
         $mapfile =~
 s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
         $mapfile =~ s/[\n\r]/ /go;
-
-     # place map and inline image  at the source of the <dot> tag in $Web.$Topic
-        my $loc = $urlPath . "/$web/$topic";
-        my $src = Foswiki::urlEncode("$loc/$outFilename.$inlineAttach");
-        return
-"<noautolink>$mapfile<img usemap=\"#$hashCode\" src=\"$src\"/></noautolink>$fileLinks";
     }
-    else {
 
-        # attach the inline image  at the source of the <dot> tag in $Web.$Topic
-        my $loc = $urlPath . "/$web/$topic";
-        my $src = Foswiki::urlEncode("$loc/$outFilename.$inlineAttach");
-        return "<img src=\"$src\"/>$fileLinks";
-    }    ### else [ if ($doMap)
+    my $loc        = $urlPath . "/$web/$topic";
+    my $src        = Foswiki::urlEncode("$loc/$outFilename.$inlineAttach");
+    my $returnData = '';
+
+    my $fbtype = $inlineAttach;
+
+    $returnData = "<noautolink>\n";
+
+# SMELL - Can't get image map links to open in parent window when embedding an SVG object
+# Adding target= to the links doesn't seem to work with FF.
+
+    $returnData .= "$mapfile\n" if ($doMap);
+
+    if ( $inlineAttach eq "svg" ) {
+        $fbtype = "png";
+        $returnData .=
+          "<object data=\"$src\" type=\"image/svg+xml\" border=\"0\"";
+        $returnData .= " usemap=\"#$hashCode\"" if ($doMap);
+        $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
+        $returnData .= "> \n";
+    }
+
+    my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
+    $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" "
+      ;    #Embedded img tag for fallback
+    $returnData .= " usemap=\"#$hashCode\""
+      if ($doMap);    #Include the image map if required
+    $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
+    $returnData .= "> \n";
+
+    $returnData .= "</object>\n" if ( $inlineAttach eq "svg" );
+
+    $returnData .= "</noautolink>";
+    $returnData .= $fileLinks;
+
+    return $returnData;
+
+#return "<object data=\"$src\" type=\"image/svg+xml\"></object>$fileLinks";
+#<object data="image-svg.svg" type="image/svg+xml" height="48" width="48">  <img src="image-png.png" height="48" width="48" alt="this is a PNG" /> </object>
+
 }    ### sub handleDot
 
 ### sub _showError
