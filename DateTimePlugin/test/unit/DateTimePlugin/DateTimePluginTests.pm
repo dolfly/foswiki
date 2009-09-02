@@ -16,6 +16,13 @@ sub new {
     return $self;
 }
 
+sub loadExtraConfig {
+    my $this = shift;
+    $this->SUPER::loadExtraConfig();
+
+    $Foswiki::cfg{Plugins}{DateTimePlugin}{Enabled} = 1;
+}
+
 sub set_up {
     my $this = shift;
 
@@ -23,7 +30,6 @@ sub set_up {
 
     $Foswiki::cfg{LocalSitePreferences} = "$this->{users_web}.SitePreferences";
     $fatwilly = $this->{session};
-    $this->{session}->enterContext('DateTimePluginEnabled');
 }
 
 sub doTest {
