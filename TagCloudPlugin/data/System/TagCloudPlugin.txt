@@ -85,7 +85,7 @@ Parameters:
      (default: undefined)
    * =buckets=: number of buckets which to sort terms into
      (default: 10)
-   * =sort=: sort terms in the tag cloud alphabetically or by weight (alpha, count or weight)
+   * =sort=: sort terms in the tag cloud alphabetically, casesensitive or by weight (alpha, case, count or weight)
      (default: alpha)
    * =group=: format string to distinguish groups within the sortion; if the tag cloud is
      sorted alphabetically terms are grouped according their first letter; terms sorted by
@@ -188,9 +188,10 @@ Cloud for the above text:
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.01 |
+|  Plugin Version: | v2.10 |
 |  Change History: | &nbsp; |
-|  25 Aug 2009: | added custom fields (Foswiki:Main.OliverKrueger) |
+|  03 Sep 2009: | made sorting case insensitive; added case sensitive extra param |
+|  25 Aug 2009: | added custom fields for terms in the tagcloud (Foswiki:Main.OliverKrueger) |
 |  24 Apr 2009: | converted to foswiki plugin |
 |  07 Jan 2009: | fixed parsing of parameters (tststs); \
                   certified for foswiki/compat | 
