@@ -3,4 +3,4 @@ data/System/AutoCompletePlugin.txt 0644 Documentation
 lib/Foswiki/Plugins/AutoCompletePlugin.pm 0644 Perl module
 data/Sandbox/AutoCompletePluginTestData.txt 0644 Test Data
 pub/System/AutoCompletePlugin/AutoCompletePluginScreenshot.png 0644 Screenshot
-lib/Foswiki/Plugins/AutoCompletePlugin/Config.spec 0444 Spec file for =configure=
+#lib/Foswiki/Plugins/AutoCompletePlugin/Config.spec 0444 Spec file for =configure=

@@ -26,7 +26,7 @@ require CGI;
 use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN_TOPIC $id $doneYui $doneStyle @loadedData);
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.0';
+our $RELEASE = '1.1';
 our $SHORTDESCRIPTION = 'Provides an Autocomplete input field based on Yahoo\'s User Interface Library';
 our $NO_PREFS_IN_TOPIC = 1;
 our $pluginName = 'AutoCompletePlugin';
@@ -326,7 +326,7 @@ EOT
 sub _Debug {
     my $text = shift;
 
-    my $debug = $Foswiki::cfg{Plugins}{$pluginName}{Debug} || 0;
+    my $debug = Foswiki::Func::getPreferencesFlag("\U$pluginName\E_DEBUG") || 0;
 
     Foswiki::Func::writeDebug( "- Foswiki::Plugins::${pluginName}: $text" ) if $debug;
 }
