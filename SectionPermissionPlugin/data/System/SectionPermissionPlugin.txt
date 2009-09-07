@@ -1,0 +1,80 @@
+---+!! !SectionPermissionPlugin
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Deny or allow view of sections for specific wiki groups
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Description
+
+The plugin allows you to cut out a specific text section for a specific wiki group. 
+By passing a name or name list of wiki groups to the plugin you can define those view rights 
+for this section.
+
+---++ Usage
+
+To define view rights for a section simple surround a section of any size with the following 
+start and stop tag:
+
+<verbatim>
+%STARTPERMISSION{...}%
+  ...any section...
+        ...of any size...
+%STOPPERMISSION%
+</verbatim>
+
+
+Supported parameters:
+
+| *Parameter:* | *Value:* | *Description:* |
+| allow | Group name %BR% or list of group names (comma separated) | Only (!) that group or grouplist *can* view the section |
+| deny | Group name %BR% or list of group names (comma separated) | That group or group list *cannot* view the section |
+
+You need to define either deny or allow! Both do not work together and will cause no operation.
+
+__Note:__ The admin group will never be affected.
+
+---++ Examples
+
+Only the admin group can see the following section:
+
+%STARTPERMISSION{allow="AdminGroup"}%
+Foswiki makes my day.
+%STOPPERMISSION%
+
+Guess it! :-)
+
+---++ Installation Instructions
+
+Visit the Plugin Home for a manually installation:
+
+   * Download the ZIP file from the [[http://foswiki.org/bin/view/Extensions/SectionPermissionPlugin][Plugin Home]]
+   * Unzip ==%TOPIC%.zip== in your Foswiki installation directory. Content:
+     | *File:* | *Description:* |
+     | ==data/System/%TOPIC%.txt== | Plugin topic |
+     | ==lib/Foswiki/Plugins/%TOPIC%.pm== | Plugin Perl module |
+     | ==lib/Foswiki/Plugins/%TOPIC%/Core.pm== | Plugin core Perl module |
+   * Run the [[%SCRIPTURL%/configure%SCRIPTSUFFIX%][configure]] script, and enable the plugin in the {Plugins} section.
+   * Surround a topic section with =%<nop>STARTPERMISSION{allow="AdminGroup"}%= and =%<nop>STOPPERMISSION%= to test if the installation was successful.
+
+---++ Info
+
+Many thanks to the following sponsors for supporting this work:
+
+[[http://formmed.de/][<img src="%ATTACHURLPATH%/formmed-logo.jpg" border="0" alt="FormMed HealthCare AG" />]]
+
+[[http://formmed.de/][FormMed HealthCare AG]]
+
+|  Author(s): | Foswiki:Main.SvenHess |
+|  Copyright: | &copy; 2009, Foswiki:Main.SvenHess |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Version: | 1.0 |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  28 August 2009: | Initial version |
+|  Dependencies: | none |
+|  Home page: | http://foswiki.org/bin/view/Extensions/SectionPermissionPlugin |
+|  Support: | http://foswiki.org/bin/view/Support/SectionPermissionPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->

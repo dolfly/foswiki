@@ -1,0 +1,4 @@
+# Release manifest for SectionPermissionPlugin
+data/System/SectionPermissionPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/SectionPermissionPlugin.pm 0644 Perl module
+
