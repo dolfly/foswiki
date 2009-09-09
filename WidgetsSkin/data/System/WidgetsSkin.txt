@@ -1,3 +1,4 @@
+%META:TOPICPARENT{name="Skins"}%
 <style>
 .demoImage {
     width: 95%;

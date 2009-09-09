@@ -1,4 +1,5 @@
 %META:TOPICINFO{author="BaseUserMapping_333" date="1251203084" format="1.1" version="1.6"}%
+%META:TOPICPARENT{name="SlickSitemapContrib"}%
 <link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
 
 ---++ %SPACEOUT{%WIKITOOLNAME%}% Sitemap generated using %IF{"istopic '%SYSTEMWEB%.TreePlugin'" then="%SYSTEMWEB%.TreePlugin" else="Foswiki:Extensions.TreePlugin"}%
