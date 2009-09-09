@@ -61,11 +61,9 @@ sub search {
     # getting the web, the topic and the user from the SESSION object
     my $webName    = $session->{webName};
     my $topicName  = $session->{topicName};
-    my $remoteUser = $session->{user}||"WikiGuest";
+    my $remoteUser = $session->{user} || $Foswiki::cfg{DefaultUserLogin} || 'guest';
     my $websStr = $query->param('web') || '';
     my $limit   = $self->limit($query);
-
-    $remoteUser = Foswiki::Func::userToWikiName($remoteUser);
 
     # getting some params - all params should be documented in KinoSearch topic
     my $search        = $query->param( "search" )    || "";
