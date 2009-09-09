@@ -1,0 +1,26 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1251203229" format="1.1" reprev="1.3" version="1.3"}%
+<link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
+
+---++ %SPACEOUT{%WIKITOOLNAME%}% Sitemap
+
+<div class="sitemap"><ul id="primaryNav" class="col8">
+<li id="home"><a href="%SCRIPTURL{view}%">%SPACEOUT{%WIKITOOLNAME%}%</a></li>
+%MENULIST{
+   NOtopic="%IF{
+      "istopic '%BASEWEB%.WebSubMenuDefinition'" 
+      then="%BASEWEB%.WebSubMenuDefinition" 
+      else="%SYSTEMWEB%.MenuListDefault"
+      }%"
+   topic="%IF{
+      "istopic '%USERSWEB%.MenuListDefinition'"
+      then="%USERSWEB%.MenuListDefinition"
+      else="%SYSTEMWEB%.MenuListDefault"
+      }%"
+   mode="all"
+   NOshowlevel="1"
+   NOformat="<li> $value </li>"
+}%
+</ul></div>
+
+---
+<small>This %SYSTEMWEB%.MenuListPlugin example uses the =WebSubMenuDefinition= topic in each web, or if that is not defined, the defaults found in %SYSTEMWEB%.MenuListDefault.</small>

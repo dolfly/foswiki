@@ -1,0 +1,39 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1251203229" format="1.1" reprev="1.3" version="1.3"}%
+<link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
+
+---++ %SPACEOUT{%WIKITOOLNAME%}% System web Sitemap
+
+<div class="sitemap"><ul id="primaryNav" class="col5">
+<li id="home"><a href="%SCRIPTURL{view}%">System web</a></li>
+      * %IF{"istopic '%USERSWEB%.%WIKIUSERSTOPIC%'" else=" $percntICON{\"person\"}$percnt $percntMAKETEXT{\"Users\"}$percnt" then="[[$percntUSERSWEB$percnt.$percntWIKIUSERSTOPIC$percnt][ $percntICON{\"person\"}$percnt $percntMAKETEXT{\"Users\"}$percnt]]"}%
+      * [[%USERSWEB%.WikiGroups][ %ICON{"group"}% %MAKETEXT{"Groups"}%]]
+      * [[WebTopicList][ %ICON{"index"}% %MAKETEXT{"Index"}%]]
+      * [[%BASEWEB%.WebSearch][ %ICON{"searchtopic"}% %MAKETEXT{"Search"}%]]
+      * [[WebChanges][ %ICON{"changes"}% %MAKETEXT{"Changes"}%]]
+      * [[WebNotify][ %ICON{"notify"}% %MAKETEXT{"Notifications"}%]]
+      * [[WebRss][ %ICON{"feed"}% %MAKETEXT{"RSS Feed"}%]]
+      * [[WebStatistics][ %ICON{"statistics"}% %MAKETEXT{"Statistics"}%]]
+      * [[WebPreferences][ %ICON{"wrench"}% %MAKETEXT{"Preferences"}%]]
+   * [[UserDocumentationCategory][User Documentation]]
+      * BeginnersStartHere
+      * TextFormattingRules
+      * [[%SYSTEMWEB%.Macros][Macros]]
+      * FormattedSearch
+      * QuerySearch
+      * DocumentGraphics
+      * SkinBrowser
+      * InstalledPlugins
+   * [[AdminToolsCategory][Admin Tools]]
+      * InterWikis
+      * ManagingWebs
+      * SiteTools
+      * %WIKIPREFSTOPIC%
+      * %WEBPREFSTOPIC%
+   * [[ReferenceManual][Reference Manual]]
+      * [[AdminDocumentationCategory][Admin Documentation]]
+      * [[DeveloperDocumentationCategory][Developer Doc]]
+      * [[UserToolsCategory][User Tools]]
+</ul></div>
+
+---
+This %SYSTEMWEB%.SlickSitemapContrib example uses a hand coded bullet list to render a Sitemap similar to the default shipped leftbar.

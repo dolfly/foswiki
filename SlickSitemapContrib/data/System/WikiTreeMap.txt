@@ -1,0 +1,18 @@
+%META:TOPICINFO{author="BaseUserMapping_333" date="1251203084" format="1.1" version="1.6"}%
+<link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
+
+---++ %SPACEOUT{%WIKITOOLNAME%}% Sitemap generated using %IF{"istopic '%SYSTEMWEB%.TreePlugin'" then="%SYSTEMWEB%.TreePlugin" else="Foswiki:Extensions.TreePlugin"}%
+
+%IF{"context TreePluginEnabled" else="__TreePlugin based Sitemap disabled - please ensure TreePlugin is installed and enabled__"}%
+<div class="sitemap"><div id="primaryNav" class="col9">
+%TREE{
+   Wweb="System" 
+   Wtopic="WebHome"
+   Wexcludetopic="Todo*,Tip*,Var*" 
+   formatting="outline" 
+   format="* [[$web.$topic][$percntIF{$quot'$topic' = 'WebHome'$quot then=$quot$web$quot else=$quot$spacetopic$quot}$percnt]]" 
+   levelprefix="   " 
+   startlevel="1"
+   stoplevel="2"
+}%
+</div></div>
