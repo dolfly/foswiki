@@ -37,8 +37,6 @@ sub new {
     my $type    = shift;
     my $self = bless {}, $handler;
 
-    $self->{Session} = $Foswiki::Plugins::SESSION;
-
     if (!($type eq "search") ) {$self->{Log} = $self->openLog($type)};
     $self->{Debug}   = $self->debugPref();
 

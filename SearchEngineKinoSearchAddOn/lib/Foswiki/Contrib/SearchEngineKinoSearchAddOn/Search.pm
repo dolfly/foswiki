@@ -32,13 +32,7 @@ sub newSearch {
 
 sub searchCgi {
     my $session = shift;
-  
-    if (! defined $session) {
-        my $query   = new CGI;    
-        $session = new Foswiki( undef, $query);
-    }
-
-    $Foswiki::Plugins::SESSION = $session;
+    
     my $searcher = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
     my $text = $searcher->search(0, $session);
   

@@ -17,6 +17,7 @@
 # Set library paths in @INC, at compile time
 BEGIN { unshift @INC, '.'; require '../../bin/setlib.cfg' } 
 
+use Foswiki;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
 use strict;
 
@@ -24,6 +25,8 @@ my $debug = ! ( @ARGV && $ARGV[0] eq "-q" );
 
 $debug && print "KinoSearch index files init\n";
 $debug && print "- to suppress all normal output: kinoindex -q\n";
+
+my $foswiki = new Foswiki();
 
 my $indexer = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 $indexer->createIndex($debug)
