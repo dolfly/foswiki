@@ -18,6 +18,9 @@ lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PDF.pm
 lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/Text.pm
 lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/XLS.pm
 lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PPT.pm
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOCX.pm
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PPTX.pm
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/XLSX.pm
 templates/kinosearch.tmpl
 templates/kinosearchrss.tmpl
 kinosearch/bin/kinoindex 0544
