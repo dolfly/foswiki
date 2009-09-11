@@ -16,11 +16,13 @@ use File::Temp qw/tmpnam/;
 use Encode;
 use Foswiki;
 
+my $abiword = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{abiwordCmd} || 'abiword';
+
 #only load abiword if the user has selected it in configure - Sven has had no success with it
 if (defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) && 
     ($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'abiword')) {
 # Only if abiword exists, I register myself.
-    if (__PACKAGE__->_programExists('abiword')){
+    if (__PACKAGE__->_programExists($abiword)){
         __PACKAGE__->register_handler("application/word", ".doc");
     }
 }
@@ -32,7 +34,7 @@ sub stringForFile {
     my $tmp_file = tmpnam() . ".html";
 
     # mensagens de erro do abiword ignoradas
-    my $cmd = "abiword --to=$tmp_file '$file' 2>/dev/null";
+    my $cmd = "$abiword --to=$tmp_file '$file' 2>/dev/null";
     system($cmd);
 
     # The I use the HTML stringifier to convert HTML to TXT

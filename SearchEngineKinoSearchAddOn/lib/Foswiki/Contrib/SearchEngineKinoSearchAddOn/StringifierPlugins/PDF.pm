@@ -13,8 +13,10 @@
 package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PDF;
 use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 
+my $pdftotext = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{pdftotextCmd} || 'pdftotext';
+
 # Only if pdftotext exists, I register myself.
-if (__PACKAGE__->_programExists("pdftotext")){
+if (__PACKAGE__->_programExists($pdftotext)){
     __PACKAGE__->register_handler("application/pdf", ".pdf");}
 use File::Temp qw/tmpnam/;
 
@@ -24,7 +26,7 @@ sub stringForFile {
     my $in;
     my $text;
 
-    unless ((system("pdftotext", $filename, $tmp_file, "-q") == 0) && (-f $tmp_file)) {
+    unless ((system($pdftotext, $filename, $tmp_file, "-q") == 0) && (-f $tmp_file)) {
         return "";
     }
     

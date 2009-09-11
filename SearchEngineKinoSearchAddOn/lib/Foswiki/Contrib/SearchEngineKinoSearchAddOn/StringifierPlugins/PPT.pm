@@ -16,8 +16,10 @@ use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier;
 use File::Temp qw/tmpnam/;
 
+my $ppthtml = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{ppthtmlCmd} || 'ppthtml';
+
 # Only if ppthtml exists, I register myself.
-if (__PACKAGE__->_programExists("ppthtml")){
+if (__PACKAGE__->_programExists($ppthtml)){
     __PACKAGE__->register_handler("text/ppt", ".ppt");
 }
 
@@ -26,7 +28,7 @@ sub stringForFile {
     my $tmp_file = tmpnam();
     
     # First I convert PPT to HTML
-    my $cmd = "ppthtml '$filename' > $tmp_file 2>/dev/null";
+    my $cmd = "$ppthtml '$filename' > $tmp_file 2>/dev/null";
     return "" unless ((system($cmd) == 0) && (-f $tmp_file));
 
     # Then I use the HTML stringifier to convert HTML to TXT

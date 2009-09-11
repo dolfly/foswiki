@@ -14,10 +14,12 @@ package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_ant
 use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use File::Temp qw/tmpnam/;
 
+my $antiword = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{antiwordCmd} || 'antiword';
+
 if (!defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) || 
     ($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'antiword')) {
     # Only if antiword exists, I register myself.
-    if (__PACKAGE__->_programExists("antiword")){
+    if (__PACKAGE__->_programExists($antiword)){
         __PACKAGE__->register_handler("application/word", ".doc");
     }
 }
@@ -28,7 +30,7 @@ sub stringForFile {
     my $in;
     my $text = '';
 
-    my $cmd = "antiword '$file' > $tmp_file 2>/dev/null";
+    my $cmd = "$antiword '$file' > $tmp_file 2>/dev/null";
     system($cmd);
 
     ###########

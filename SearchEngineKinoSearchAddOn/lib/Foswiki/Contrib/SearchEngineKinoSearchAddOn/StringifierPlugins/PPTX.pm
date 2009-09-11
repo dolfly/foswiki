@@ -19,8 +19,10 @@ use File::Temp qw/tmpnam/;
 use Encode;
 use CharsetDetector;
 
-# Only if ppthtml exists, I register myself.
-if (__PACKAGE__->_programExists("pptx2txt.pl")){
+my $pptx2txt = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{pptx2txtCmd} || 'pptx2txt.pl';
+
+# Only if ppthtml.pl exists, I register myself.
+if (__PACKAGE__->_programExists($pptx2txt)){
     __PACKAGE__->register_handler("text/pptx", ".pptx");
 }
 
@@ -28,7 +30,7 @@ sub stringForFile {
     my ($self, $filename) = @_;
     my $tmp_file = tmpnam();
 
-    my $cmd = "pptx2txt.pl '$filename' $tmp_file 2>/dev/null";
+    my $cmd = "$pptx2txt '$filename' $tmp_file 2>/dev/null";
     return "" unless ((system($cmd) == 0) && (-f $tmp_file));
   
     my $in;

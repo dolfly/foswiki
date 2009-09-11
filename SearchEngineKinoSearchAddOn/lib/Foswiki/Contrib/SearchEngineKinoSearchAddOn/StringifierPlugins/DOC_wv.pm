@@ -14,10 +14,12 @@ package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_wv;
 use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use File::Temp qw/tmpnam/;
 
+my $wvHtml = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{wvHtmlCmd} || 'wvHtml';
+
 if (!defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) || 
     ($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'wvHtml')) {
     # Only if wv exists, I register myself.
-    if (__PACKAGE__->_programExists("wvHtml")){
+    if (__PACKAGE__->_programExists($wvHtml)){
         __PACKAGE__->register_handler("application/word", ".doc");
     }
 }
@@ -37,7 +39,7 @@ sub stringForFile {
     my $in;
     my $text = '';
 
-    my $cmd = "wvHtml --targetdir=$tmp_dir '$file' $tmp_file >/dev/null 2>&1";
+    my $cmd = "$wvHtml --targetdir=$tmp_dir '$file' $tmp_file >/dev/null 2>&1";
     $tmp_file = "$tmp_dir/$tmp_file";
     return "" if (((system($cmd)) != 0) || (!(-f $tmp_file)) || (-z $tmp_file));
 

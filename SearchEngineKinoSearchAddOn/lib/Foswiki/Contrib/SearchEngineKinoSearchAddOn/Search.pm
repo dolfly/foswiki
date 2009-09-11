@@ -34,14 +34,13 @@ sub searchCgi {
     my $session = shift;
     
     my $searcher = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
-    my $text = $searcher->search(0, $session);
+    
+    my $text = $searcher->search($Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug}, $session);
   
     $session->writeCompletePage($text, 'view');
 }
 
-# Method to do the search.
-# NOTE: The parameter $session is normally undef. I use it only for testing 
-# withing unit tests.
+# Method to do the search
 sub search {
     my ($self, $debug, $session) = (@_);
     
@@ -103,6 +102,7 @@ sub search {
     $tmplTail   = Foswiki::Func::expandCommonVariables( $tmplTail,   $topicName, $webName);
 
     # do we have all the SPLIT parts?
+    # FIXME: should this throw an oops?
     if( ! $tmplTail ) {
         $result .= "<html><body>";
         $result .= "<h1>Foswiki Installation Error</h1>";
@@ -120,7 +120,7 @@ sub search {
     $result .= $tmplHead;
 
     # if configured, show only attachments option
-    my $searchAttachmentsOnly = Foswiki::Func::getPreferencesValue( "KINOSEARCHSEARCHATTACHMENTSONLY" ) || 0;
+    my $searchAttachmentsOnly = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SearchAttachmentsOnly} || 0;
     # if only attachments are displayed, even if configured, then the message is not shown
     if (($searchAttachmentsOnly)&&($usersearch !~ "attachment:yes")) {
 	$tempVal = $usersearch;
@@ -258,7 +258,7 @@ sub limit {
     }
 
     # Defines an absolute limit
-    my $maxlimit = Foswiki::Func::getPreferencesValue("KINOSEARCHMAXLIMIT") || 2000;
+    my $maxlimit = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{MaxLimit} || 2000;
     if ($maxlimit < $limit) {
         $limit = $maxlimit;
     }

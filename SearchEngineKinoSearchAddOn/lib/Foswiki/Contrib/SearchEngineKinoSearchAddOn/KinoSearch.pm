@@ -70,7 +70,7 @@ sub log {
 # Foswiki::Func::getPubDir()/../kinosearch/logs
 # QS
 sub logDirName {
-    my $log = $Foswiki::cfg{KinoSearchLogDir};
+    my $log = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{LogDirectory};
 
     if (!$log) {
 	$log = Foswiki::Func::getPubDir();
@@ -92,7 +92,7 @@ sub logFileName {
 # Path where the index is stored
 # QS
 sub indexPath {
-    my $idx = $Foswiki::cfg{KinoSearchIndexDir};
+    my $idx = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexDirectory};
 
     if (!$idx) {
 	$idx = Foswiki::Func::getPubDir();
@@ -111,9 +111,8 @@ sub pubPath {
 # List of webs that shall not be indexed
 # QS
 sub skipWebs {
-    #TODO: the defaults should not be here in code
-    #the settings should be added to the Config.spec file.
-    my $to_skip = Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXSKIPWEBS" ) || "Trash, Sandbox";
+    
+    my $to_skip = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipWebs} || "Trash, Sandbox";
     my %skipwebs;
 
     foreach my $tmpweb ( split( /\,\s+|\,|\s+/, $to_skip ) ) {
@@ -125,7 +124,8 @@ sub skipWebs {
 # List of attachments to be skipped.
 # QS
 sub skipAttachments {
-    my $to_skip = Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXSKIPATTACHMENTS" ) || "";
+    # SMELL: whats the best way to define skipped attachments?
+    my $to_skip = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipAttachments} || '';
     my %skipattachments;
 
     foreach my $tmpattachment ( split( /\,\s+/, $to_skip ) ) {
@@ -138,7 +138,7 @@ sub skipAttachments {
 # List of file extensions to be indexed
 # QS
 sub indexExtensions {
-    my $extensions = Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXEXTENSIONS" ) || ".pdf, .doc, .xml, .html, .txt, .xls, .ppt";
+    my $extensions = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions} || ".pdf, .doc, .xml, .html, .txt, .xls, .ppt";
     my %indexextensions;
 
     foreach my $tmpextension ( split( /\,\s+/, $extensions ) ) {
@@ -148,25 +148,19 @@ sub indexExtensions {
     return %indexextensions;
 }
 
-# Variables to be indexed.
-# Obsolet?
-sub indexeVariables {
-    return Foswiki::Func::getPreferencesValue( "KINOSEARCHINDEXVARIABLES" );
-}
-
 # QS
 sub analyserLanguage {
-    return Foswiki::Func::getPreferencesValue( "KINOSEARCHANALYSERLANGUAGE") || 'en';
+    return $Foswiki::cfg{SearchEngineKinoSearchAddOn}{UserLanguage} || 'en';
 }
 
 sub summaryLength {
-    return Foswiki::Func::getPreferencesValue( "KINOSEARCHSUMMARYLENGTH") || 300;
+    return $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SummaryLength} || 300;
 }
 
 # Returns, if debug statements etc shall be shown
 # QS
 sub debugPref {
-    return Foswiki::Func::getPreferencesValue( "KINOSEARCHDEBUG" ) || 0;
+    return $Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug} || 0;
 }
 
 # Returns an analyser
