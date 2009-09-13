@@ -1,19 +1,71 @@
 %META:TOPICINFO{author="BaseUserMapping_333" date="1251203084" format="1.1" version="1.6"}%
 %META:TOPICPARENT{name="SlickSitemapContrib"}%
 <link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
+<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/jquery-ui.js'></script>
+<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.draggable.js'></script>
+<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.droppable.js'></script>
+<script type="text/javascript">
+/* use jquery drag&drop to modifu parantage? */
+(function($) {
+$(function() {
+$("li").draggable({revert:true});
+$("li").droppable({
+  greedy: true,
+  tolerance: 'pointer',
+  drop: function(event, ui) { 
+/* assert that child&parent web are the same.. */
+/* only enable d&d if and on topics that the user has change perms to */
+	var childTopic = ui.draggable;
+	var parentTopic = $(this);
+	var childTopicName = ui.draggable.find("a:eq(0)").attr('topic');
+	var parentTopicName = $(this).find("a:eq(0)").attr('topic');
+	var webName = $(this).find("a:eq(0)").attr('web');
+	
+	$.post('%SCRIPTURL{save}%/'+webName+'/'+childTopicName , {
+						web: webName,
+						topic: childTopicName,
+						topicparent: parentTopicName,
+						action_save: 1,
+						forcenewrevision: 1
+					}, function(data, textStatus) {
+						if (textStatus == 'success') {
+							var inner_ul = parentTopic.find("ul:eq(0)");
+							if (inner_ul.size() == 0) {
+								/* make a ul to add to */
+								parentTopic.append("<ul></ul>");
+								inner_ul = parentTopic.find("ul:eq(0)");
+							}
+							inner_ul.append(childTopic);
+						}
+					}, "text");
+			 }
+	});
+});
+})(jQuery);
+</script>
+<style>
+.sitemap #primaryNav a .smallSummary {
+font-size:8px;
+font-weight:normal;
+line-height:10px;
+margin:0 2px;
+text-align:left;
+}
+</style>
 
 ---++ %SPACEOUT{%WIKITOOLNAME%}% Sitemap generated using %IF{"istopic '%SYSTEMWEB%.TreePlugin'" then="%SYSTEMWEB%.TreePlugin" else="Foswiki:Extensions.TreePlugin"}%
 
 %IF{"context TreePluginEnabled" else="__TreePlugin based Sitemap disabled - please ensure TreePlugin is installed and enabled__"}%
-<div class="sitemap"><div id="primaryNav" class="col9">
+<div class="sitemap"><div id="primaryNav" class="col6">
 %TREE{
    Wweb="System" 
    Wtopic="WebHome"
-   Wexcludetopic="Todo*,Tip*,Var*" 
+   excludetopic="Todo*,Tip*,Var*" 
    formatting="outline" 
-   format="* [[$web.$topic][$percntIF{$quot'$topic' = 'WebHome'$quot then=$quot$web$quot else=$quot$spacetopic$quot}$percnt]]" 
+   format="* <a web='$web' topic='$topic' href='%SCRIPTURL{view}%/$web/$topic'>$percntIF{$quot'$topic' = 'WebHome'$quot then=$quot$web web$quot else=$quot$topic$quot}$percnt </a> " 
+   Longformat="* <a web='$web' topic='$topic' href='%SCRIPTURL{view}%/$web/$topic'>$percntIF{$quot'$topic' = 'WebHome'$quot then=$quot$web web$quot else=$quot$topic$quot}$percnt <div class='smallSummary'>$percntENCODE{$quot$summary$quot type=$quothtml$quot}$percnt</div></a> " 
    levelprefix="   " 
    startlevel="1"
-   stoplevel="2"
+   stoplevel="9"
 }%
 </div></div>

@@ -113,7 +113,7 @@
 	margin: 0 20px 0 0;
 	padding: 10px 0;
 	display: block;
-	font-size: 14px;
+	font-size: 12px;
 	font-weight: bold;
 	text-align: center;
 	color: black;	
@@ -123,6 +123,7 @@
 	-webkit-border-radius: 5px;
 	-webkit-box-shadow: rgba(0,0,0,0.5) 2px 2px 2px; 
 	-moz-box-shadow: rgba(0,0,0,0.5) 2px 2px 2px; /* FF 3.5+ */	
+	overflow: hidden;
 }
 #primaryNav li a:hover {
 	background-color: #e2f4fd;
@@ -211,6 +212,20 @@
 	font-size: 9px;
 }
 
+#primaryNav li li li ul {
+Rpadding: 0;
+}
+#primaryNav li li li li:first-child,
+#primaryNav li li li li {
+Rpadding: 2px;
+}
+#primaryNav li li li li a {
+background-color:#FEDCBA;
+border-color:#765432;
+font-size:10px;
+Rpadding:0 5px;
+width: 70%;
+}
 /* ------------------------------------------------------------
         Foswiki specifics
 ------------------------------------------------------------ */
