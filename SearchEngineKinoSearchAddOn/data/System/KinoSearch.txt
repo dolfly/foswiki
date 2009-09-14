@@ -10,7 +10,7 @@
      <option value="%INCLUDINGWEB%">current web</option>
 %WEBLIST{"     <option>$name</option>"}%
    </select> <p />
-   %TWISTYBUTTON{ id="searchOptions" showlink="&#43; Show search options..." hidelink="&#8722; Hide search options" remember="on"}%
+   %TWISTYBUTTON{ id="searchOptions" showlink="<strong>&#43; Show search options...</strong>" hidelink="<strong>&#8722; Hide search options</strong>" remember="on"}%
    %TWISTYTOGGLE{ id="searchOptions" }%
    <br />
    <input type="checkbox" class="foswikiCheckbox" id="nosummary" name="nosummary" %IF{"'on' = $nosummary" then="checked"}% /> <label for="nosummary"> %MAKETEXT{"Do not show summaries"}%</label> <br/>
