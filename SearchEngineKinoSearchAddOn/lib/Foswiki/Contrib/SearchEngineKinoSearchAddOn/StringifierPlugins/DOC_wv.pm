@@ -38,10 +38,14 @@ sub stringForFile {
 
     my $in;
     my $text = '';
-
-    my $cmd = "$wvHtml --targetdir=$tmp_dir '$file' $tmp_file >/dev/null 2>&1";
+    
     $tmp_file = "$tmp_dir/$tmp_file";
-    return "" if (((system($cmd)) != 0) || (!(-f $tmp_file)) || (-z $tmp_file));
+    return '' if (-f $tmp_file) || (!(-z $tmp_file));
+    
+    my $cmd = "$wvHtml --targetdir=$tmp_dir '$file' $tmp_file >/dev/null 2>&1";
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    
+    return '' unless ($exit == 0);
 
     $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
 

@@ -29,9 +29,13 @@ sub stringForFile {
     my $tmp_file = tmpnam();
     my $in;
     my $text = '';
-
+    
+    return '' if (-f $tmp_file);
+    
     my $cmd = "$antiword '$file' > $tmp_file 2>/dev/null";
-    system($cmd);
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    
+    return '' unless ($exit == 0);
 
     ###########
     # Note: This way, the encoding of the text is reworked in the text stringifier.

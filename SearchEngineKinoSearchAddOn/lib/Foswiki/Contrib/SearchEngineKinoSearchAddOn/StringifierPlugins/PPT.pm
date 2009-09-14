@@ -27,9 +27,13 @@ sub stringForFile {
     my ($self, $filename) = @_;
     my $tmp_file = tmpnam();
     
+    return '' if (-f $tmp_file);
+    
     # First I convert PPT to HTML
     my $cmd = "$ppthtml '$filename' > $tmp_file 2>/dev/null";
-    return "" unless ((system($cmd) == 0) && (-f $tmp_file));
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    
+    return '' unless ($exit == 0);
 
     # Then I use the HTML stringifier to convert HTML to TXT
     my $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);

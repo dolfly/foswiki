@@ -30,8 +30,12 @@ sub stringForFile {
     my ($self, $filename) = @_;
     my $tmp_file = tmpnam();
 
+    return '' if (-f $tmp_file);
+    
     my $cmd = "$pptx2txt '$filename' $tmp_file 2>/dev/null";
-    return "" unless ((system($cmd) == 0) && (-f $tmp_file));
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    
+    return '' unless ($exit == 0);
   
     my $in;
     open $in, $tmp_file or return "";

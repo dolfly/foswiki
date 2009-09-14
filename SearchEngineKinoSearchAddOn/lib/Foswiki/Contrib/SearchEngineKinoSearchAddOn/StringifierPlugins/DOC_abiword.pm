@@ -32,10 +32,13 @@ if (defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) &&
 sub stringForFile {
     my ($self, $file) = @_;
     my $tmp_file = tmpnam() . ".html";
-
-    # mensagens de erro do abiword ignoradas
+    
+    return '' if (-f $tmp_file);
+    
     my $cmd = "$abiword --to=$tmp_file '$file' 2>/dev/null";
-    system($cmd);
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    
+    return '' unless ($exit == 0);
 
     # The I use the HTML stringifier to convert HTML to TXT
     my $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);

@@ -25,10 +25,18 @@ sub stringForFile {
     my $tmp_file = tmpnam();
     my $in;
     my $text;
+    
+    #unless ((system($pdftotext, $filename, $tmp_file, "-q") == 0) && (-f $tmp_file)) {
+    #    return "";
+    #}
 
-    unless ((system($pdftotext, $filename, $tmp_file, "-q") == 0) && (-f $tmp_file)) {
-        return "";
-    }
+    
+    return '' if (-f $tmp_file);
+    
+    my $cmd = "$pdftotext $filename $tmp_file -q";
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    
+    return '' unless ($exit == 0);
     
     ###########
     # Note: This way, the encoding of the text is reworked in the text stringifier.
