@@ -30,6 +30,7 @@ use vars qw(
   $debugDefault $antialiasDefault $densityDefault $sizeDefault
   $vectorFormatsDefault $hideAttachDefault $inlineAttachDefault $linkFilesDefault
   $engineDefault $libraryDefault $deleteAttachDefault $forceAttachAPI $forceAttachAPIDefault
+  $svgFallbackDefault $svgLinkTargetDefault
   $enginePath $magickPath $toolsPath $attachPath $attachUrlPath $perlCmd
   $antialiasCmd
 );
@@ -201,6 +202,16 @@ sub initPlugin {
       Foswiki::Func::getPreferencesValue("\U$pluginName\E_INLINEATTACHMENT")
       || 'png';
 
+    # Get the default fallback format for SVG output
+    $svgFallbackDefault =
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_SVGFALLBACK")
+      || 'png';
+
+    # Get the default for overriding SVG link target.
+    $svgLinkTargetDefault =
+      Foswiki::Func::getPreferencesValue("\U$pluginName\E_SVGLINKTARGET")
+      || 'on';
+
     # Get the default link file attachment default
     $linkFilesDefault =
       Foswiki::Func::getPreferencesValue("\U$pluginName\E_LINKATTACHMENTS")
@@ -314,7 +325,9 @@ sub _handleDot {
     my $hideAttach    = $params{hideattachments} || $hideAttachDefault;
     my $inlineAttach  = $params{inline}          || $inlineAttachDefault;
     $forceAttachAPI = $params{forceattachapi} || $forceAttachAPIDefault;
-    my $linkFiles = $params{linkfiles} || $linkFilesDefault;
+    my $linkFiles   = $params{linkfiles}   || $linkFilesDefault;
+    my $svgFallback = $params{svgfallback} || $svgFallbackDefault;
+    my $svgLinkTarget = $params{svglinktarget} || $svgLinkTargetDefault;
 
     # parameters with hardcoded defaults
     my $outFilename = $params{file}    || "";
@@ -383,6 +396,16 @@ sub _handleDot {
     unless ( $inlineAttach =~ m/^(png|jpg|svg)$/o ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: inline  must be either \"jpg\", \"png\" or \"svg\" (was: $inlineAttach)</font>";
+    }
+
+    unless ( $svgFallback =~ m/^(png|jpg|none)$/o ) {
+        return
+"<font color=\"red\"><nop>DirectedGraph Error: svg fallback must be either \"png\" or \"jpg\", or set to \"none\" to disable (was: $svgFallback)</font>";
+    }
+
+    unless ( $svgLinkTarget =~ m/^(on|off)$/o ) {
+        return
+"<font color=\"red\"><nop>DirectedGraph Error: svg Link Target must either be \"on\" or \"off\" (was: $svgLinkTarget)</font>";
     }
 
     unless ( $deleteAttachDefault =~ m/^(on|off)$/o ) {
@@ -467,12 +490,12 @@ sub _handleDot {
     $vectorFormats .= " " . $inlineAttach
       if !( $vectorFormats =~ m/$inlineAttach/ )
     ;                              # whatever specified inline is mandatory
-    $vectorFormats .= " png"
-      if ( $inlineAttach =~ m/svg/ )
+    $vectorFormats .= " " . "$svgFallback"
+      if ( $inlineAttach =~ m/svg/ && $svgFallback ne "none" )
       ;    # Generate png if SVG is inline - for browser fallback
 
     $vectorFormats .= " ps"
-      if ( ($antialias) && !( $vectorFormats =~ m/ps/ ) )
+      if ( ($antialias) && !( $vectorFormats =~ m/ps/ ) && !( $inlineAttach =~ m/svg/ ) )
       ;    # postscript for antialias or as requested
     $vectorFormats .= " cmapx"
       if ( ($doMap) && !( $vectorFormats =~ m/cmapx/ ) );    # client side map
@@ -525,7 +548,7 @@ sub _handleDot {
 
              # Don't create the GraphViz inline output if antialias is requested
                 $outString .= "-T$key -o$tempFile{$key} "
-                  unless ( $antialias && $key eq "$inlineAttach" );
+                  unless ( $antialias && $key eq "$inlineAttach" && $key ne "svg" );
             }    ### if (!exists ($tempFile
         }    ### foreach my $key
 
@@ -579,7 +602,7 @@ sub _handleDot {
         ### then set the size & density below to match so the image map
         ### matches correctly.
 
-        if ($antialias) {    # Convert the postscript image to the inline format
+        if (($antialias) && !( $inlineAttach =~ m/svg/ )) {    # Convert the postscript image to the inline format
             my ( $output, $status ) = Foswiki::Sandbox->sysCommand(
                 $magickPath . $antialiasCmd,
                 DENSITY  => $density,
@@ -608,13 +631,17 @@ sub _handleDot {
 #  link in the current page, FF opens the link within the svg object on the page.
 #  This code overrides the target in the generated svg file for consistent operation.
 
-            if ( $key eq "svg" ) {
+            if (( $key eq "svg" ) && ( $svgLinkTarget eq "on" )) {
                 my $svgfile = Foswiki::Func::readFile("$tempFile{$key}");
-                &_writeDebug(" BEFORE: $svgfile");
                 $svgfile =~ s/xlink\:href/target=\"_top\" xlink:href/g;
-                &_writeDebug("  AFTER: $svgfile");
                 Foswiki::Func::saveFile( "$tempFile{$key}", "$svgfile" );
             }
+
+            # the "dot" suffix use for the directed graph input will be detected as a msword template
+            # by most servers/browsers.  Rename the dot file to dot.txt suffix.
+            #
+            my $fname = "$attachFile{$key}";
+            $fname .= ".txt" if ($key eq "dot"); 
 
             if ( ($attachPath) && !( $forceAttachAPI eq "on" ) ) {
                 &_writeDebug(
@@ -622,15 +649,16 @@ sub _handleDot {
                 _make_path( $topic, $web );
                 umask(002);
                 copy( "$tempFile{$key}",
-                    "$attachPath/$web/$topic/$attachFile{$key}" );
+                    "$attachPath/$web/$topic/$fname" );
             }
             else {
                 my @stats    = stat $tempFile{$key};
                 my $fileSize = $stats[7];
                 my $fileDate = $stats[9];
+                &_writeDebug("attaching $fname using Foswiki API ");
                 Foswiki::Func::saveAttachment(
                     $web, $topic,
-                    "$attachFile{$key}",
+                    "$fname",
                     {
                         file     => "$tempFile{$key}",
                         filedate => $fileDate,
@@ -642,7 +670,9 @@ sub _handleDot {
             }    # else if ($attachPath)
             $tempFile{$key} =~ tr!\\!/!;
             unlink $tempFile{$key} unless $debugDefault;
-        }    ### foreach my $key (keys....
+        }    ### foreach my $key (keys...
+
+        &_writeDebug("attaching Files completed ");
 
     }    ### else [ if ($oldHashCode ne $hashCode) |
 
@@ -669,10 +699,12 @@ sub _handleDot {
         $fileLinks = "<br />";
         foreach my $key ( keys(%attachFile) ) {
             if ( ( $key ne $inlineAttach ) && ( $key ne "cmapx" ) ) {
+                my $fname = $attachFile{$key};
+                $fname .= ".txt" if ($key eq "dot");
                 $fileLinks .=
                     "<a href=" 
                   . $urlPath
-                  . Foswiki::urlEncode("/$web/$topic/$attachFile{$key}")
+                  . Foswiki::urlEncode("/$web/$topic/$fname")
                   . ">[$key]</a> ";
             }    # if (($key ne
         }    # foreach my $key
@@ -688,8 +720,15 @@ sub _handleDot {
                 "$attachPath/$web/$topic/$outFilename.cmapx");
         }
         else {
-            $mapfile = Foswiki::Func::readAttachment( $web, $topic,
-                "$outFilename.cmapx" );
+            if (
+                Foswiki::Func::attachmentExists(
+                    $web, $topic, "$outFilename.cmapx"
+                )
+              )
+            {
+                $mapfile = Foswiki::Func::readAttachment( $web, $topic,
+                    "$outFilename.cmapx" );
+            }
         }
         $mapfile =~
 s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
@@ -700,31 +739,34 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
     my $src        = Foswiki::urlEncode("$loc/$outFilename.$inlineAttach");
     my $returnData = '';
 
-    my $fbtype = $inlineAttach;
+    my $fbtype =
+      $inlineAttach;   # If not a SVG, fallback image becomes the primary image.
 
     $returnData = "<noautolink>\n";
-
-# SMELL - Can't get image map links to open in parent window when embedding an SVG object
-# Adding target= to the links doesn't seem to work with FF.
 
     $returnData .= "$mapfile\n" if ($doMap);
 
     if ( $inlineAttach eq "svg" ) {
-        $fbtype = "png";
+        $fbtype = "$svgFallback";
         $returnData .=
           "<object data=\"$src\" type=\"image/svg+xml\" border=\"0\"";
-        $returnData .= " usemap=\"#$hashCode\"" if ($doMap);
         $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
         $returnData .= "> \n";
     }
 
-    my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
-    $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" "
-      ;    #Embedded img tag for fallback
-    $returnData .= " usemap=\"#$hashCode\""
-      if ($doMap);    #Include the image map if required
-    $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
-    $returnData .= "> \n";
+# This is either the fallback image, or the primary image if not generating an inline SVG
+
+    if (   ( $inlineAttach eq "svg" && $svgFallback ne "none" )
+        || ( $inlineAttach ne "svg" ) )
+    {
+        my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
+        $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" "
+          ;    #Embedded img tag for fallback
+        $returnData .= " usemap=\"#$hashCode\""
+          if ($doMap);    #Include the image map if required
+        $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
+        $returnData .= "> \n";
+    }
 
     $returnData .= "</object>\n" if ( $inlineAttach eq "svg" );
 
@@ -732,9 +774,6 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
     $returnData .= $fileLinks;
 
     return $returnData;
-
-#return "<object data=\"$src\" type=\"image/svg+xml\"></object>$fileLinks";
-#<object data="image-svg.svg" type="image/svg+xml" height="48" width="48">  <img src="image-png.png" height="48" width="48" alt="this is a PNG" /> </object>
 
 }    ### sub handleDot
 
@@ -771,7 +810,7 @@ sub _showError {
 #   Writes a common format debug message if debug is enabled
 
 sub _writeDebug {
-    &Foswiki::Func::writeDebug( "$pluginName - " . $_[0] ) if $debugDefault;
+    &Foswiki::Func::writeDebug( "$pluginName - " . $_[0] );  # if $debugDefault;
 }    ### SUB _writeDebug
 
 ### sub afterRenameHandler
@@ -846,6 +885,8 @@ sub _loadHashCodes {
         %tempHash = %$hashref;
         return %tempHash;
     }
+
+    return %tempHash;
 
     ### Temporary Code - Convert file hash codes
     ### and delete the old files from the workarea
@@ -955,6 +996,7 @@ sub afterCommonTagsHandler {
                               )
                             {
                                 _deleteAttach("$filename.$oldsuffix");
+                                _deleteAttach("$filename.$oldsuffix.txt") if ($oldsuffix eq "dot");
                             }     ### if (%newHash
                         }    ### foreach my $olsduffix
                     }    ### if ($oldTypes)
