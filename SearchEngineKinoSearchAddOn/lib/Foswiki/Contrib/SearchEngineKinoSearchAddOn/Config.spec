@@ -7,7 +7,7 @@ $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipWebs} = 'Trash, Sandbox';
 
 # **STRING**
 # Comma seperated list of extenstions to index
-$Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions} = '.pdf, .doc, .xml, .html, .txt, .xls, .ppt';
+$Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions} = '.txt, .html, .xml, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf';
 
 # **STRING**
 # List of attachments to skip

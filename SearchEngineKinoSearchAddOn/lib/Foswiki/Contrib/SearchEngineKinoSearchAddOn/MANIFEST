@@ -1,38 +1,38 @@
 # Release manifest for SearchEngineKinoSearchAddOn
-bin/kinosearch 0544
-data/System/SearchEngineKinoSearchAddOn.txt 0644 Documentation
-data/System/KinoSearch.txt 0644 Examples
-pub/System/SearchEngineKinoSearchAddOn/KinoSearchResult.jpg 0644 Documentation
-pub/System/SearchEngineKinoSearchAddOn/KinoSEARCH.jpg 0644 Documentation
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn.pm 0644 Perl module
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Index.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/KinoSearch.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Search.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Stringifier.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifyBase.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOC_antiword.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOC_abiword.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOC_wv.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/HTML.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PDF.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/Text.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/XLS.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PPT.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOCX.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PPTX.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/XLSX.pm
-templates/kinosearch.tmpl
-templates/kinosearchrss.tmpl
-kinosearch/bin/kinoindex 0544
-kinosearch/bin/kinoupdate 0544
-kinosearch/bin/ks_test 0544
-kinosearch/bin/LocalLib.cfg 0644 
-kinosearch/logs/ 0755
-kinosearch/index/ 0755
-lib/Foswiki/Store/SearchAlgorithms/Kino.pm #highly experimental SEARCH backend that requires 4.2.2 to work. talk to SvenDowideit@home.org.au if you're stuck.
-lib/Foswiki/Plugins/SearchEngineKinoSearchPlugin.pm
-lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Config.spec
-data/System/SearchEngineKinoSearchPlugin.txt
-data/System/VarKINOSEARCH.txt
-templates/search.kino.tmpl
+bin/kinosearch 0555 Executable script for search
+data/System/SearchEngineKinoSearchAddOn.txt 0664 Documentation
+data/System/KinoSearch.txt 0664 End user documentation
+pub/System/SearchEngineKinoSearchAddOn/KinoSearchResult.jpg 0664 Screenshot
+pub/System/SearchEngineKinoSearchAddOn/KinoSEARCH.jpg 0664 Screenshot
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Index.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/KinoSearch.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Search.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Stringifier.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifyBase.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOC_antiword.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOC_abiword.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOC_wv.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/HTML.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PDF.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/Text.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/XLS.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PPT.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/DOCX.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/PPTX.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins/XLSX.pm 0444 Perl module
+templates/kinosearch.tmpl 0444 Search result template
+templates/kinosearchrss.tmpl 0444 RSS template
+kinosearch/bin/kinoindex 0555 Index script
+kinosearch/bin/kinoupdate 0555 Update script
+kinosearch/bin/ks_test 0555 Tester script
+#kinosearch/bin/LocalLib.cfg 0444
+kinosearch/logs/ 0755 Logs directory
+kinosearch/index/ 0755 Index directory
+lib/Foswiki/Store/SearchAlgorithms/Kino.pm 0444 Perl module #highly experimental SEARCH backend. talk to SvenDowideit@home.org.au if you're stuck.
+lib/Foswiki/Plugins/SearchEngineKinoSearchPlugin.pm 0444 Perl module
+lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/Config.spec 0444 Configure definition file
+data/System/SearchEngineKinoSearchPlugin.txt 0664 Documentation
+data/System/VarKINOSEARCH.txt 0664 Var documentation
+templates/search.kino.tmpl 0444 Template for SEARCH backend
 
