@@ -66,6 +66,6 @@ text-align:left;
    Longformat="* <a web='$web' topic='$topic' href='%SCRIPTURL{view}%/$web/$topic'>$percntIF{$quot'$topic' = 'WebHome'$quot then=$quot$web web$quot else=$quot$topic$quot}$percnt <div class='smallSummary'>$percntENCODE{$quot$summary$quot type=$quothtml$quot}$percnt</div></a> " 
    levelprefix="   " 
    startlevel="1"
-   stoplevel="9"
+   stoplevel="%URLPARAM{"showlevels" default="1"}%"
 }%
 </div></div>
