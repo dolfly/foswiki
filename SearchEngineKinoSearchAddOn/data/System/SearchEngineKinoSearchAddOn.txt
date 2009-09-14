@@ -241,3 +241,4 @@ Also the following settings have been renamed, for consistency:
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 
 %META:FILEATTACHMENT{name="KinoSearchResult.jpg" attachment="KinoSearchResult.jpg" attr="" comment="" date="1208389508" path="KinoSearchResult.jpg" size="112106" stream="KinoSearchResult.jpg" tmpFilename="" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="KinoSEARCH.jpg" attachment="kinoSEARCH.jpg" attr="" comment="" date="1208389508" path="kinoSEARCH.jpg" size="112106" stream="kinoSEARCH.jpg" tmpFilename="" user="ProjectContributor" version="1"}%
