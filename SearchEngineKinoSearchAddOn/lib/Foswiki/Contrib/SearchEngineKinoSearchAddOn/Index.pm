@@ -343,13 +343,9 @@ sub websToIndex {
 
     foreach my $web (@userWebList) {
         if ( $skipwebs{$web} ) {
-
-            #print "Skipping $web topics\n";
             $self->log("Skipping $web topics");
         }
         else {
-
-            #print "Indexing $web topics\n";
             $self->log("adding $web topics");
             push( @webList, $web );
         }
@@ -444,21 +440,11 @@ sub indexTopic {
     my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic, undef );
 
     # Eliminate Topic Makup Language elements and newlines.
-    # This is a trick to geht the renderer in 4.0/4.1 as well as in 4.2:
-    #  In 4.0/4.1 I can use TWiki->{renderer}. In 4.2 this can give undef.
-    #  Thus I have to use TWiki->renderer.
-    #  NOTE: In 4.0/4.1 the method TWiki->renderer does not exist, but I
-    # should never come there.
-    my $renderer;
-    if ( !defined( $renderer = $Foswiki::Plugins::SESSION->{renderer} ) ) {
-        $renderer = $Foswiki::Plugins::SESSION->renderer;
-    }
-    if ( $Foswiki::Plugins::VERSION >= 2.1 ) {
+    # SMELL: using undocumented function...
+    my $renderer = $Foswiki::Plugins::SESSION->renderer;
 	my $topicObject = Foswiki::Meta->new( $Foswiki::Plugins::SESSION, $web, $topic );
 	$text = $renderer->TML2PlainText( $text, $topicObject, "" );
-    } else {
-	$text = $renderer->TML2PlainText( $text, $web, $topic, "" );
-    }
+    
     $text =~ s/\n/ /g;
 
     # "TheTopic--NNNName" will return the "The Topic Name" string
@@ -532,7 +518,7 @@ sub indexTopic {
                 && ( !$skipattachments{"$web.$topic.$name"} ) )
             {
 
-                #print "Indexing attachment $web.$topic.$name\n";
+                $self->log("Indexing attachment | $web.$topic | $name");
 
                 $self->indexAttachment( $invindexer, $web, $topic,
                     $attachment );
@@ -737,6 +723,7 @@ sub readChanges {
 
     my $changes_file = $Foswiki::cfg{DataDir} . "/$web/.changes";
 
+    # SMELL: could we use Foswiki::Func::eachChangeSince?
     if ( -e $changes_file ) {
         my $FILE;
         if (open( $FILE, "<$changes_file" )) {
