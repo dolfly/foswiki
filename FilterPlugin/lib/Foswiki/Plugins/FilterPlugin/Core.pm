@@ -82,6 +82,7 @@ sub handleFilter {
   my $theExpand = $params->{expand} || 'on';
   my $theSeparator = $params->{separator};
   my $theExclude = $params->{exclude} || '';
+  my $theInclude = $params->{include} || '';
   my $theSort = $params->{sort} || 'off';
   my $theReverse = $params->{reverse} || '';
   my $theNoCase = $params->{nocase} || 'off';
@@ -150,6 +151,7 @@ sub handleFilter {
       $match =~ s/\$8/$arg8/g;
       $match =~ s/\$9/$arg9/g;
       next if $theExclude && $match =~ /^($theExclude)$/;
+      next if $theInclude && $match !~ /^($theInclude)$/;
       next if $skip-- > 0;
       push @result,$match;
       $hits--;
@@ -167,7 +169,7 @@ sub handleFilter {
   } elsif ($theMode == 1) {
     # substitution mode
     $result = '';
-    while($text =~ /(.*?)$thePattern/gs) {
+    while($text =~ /(.*?)$thePattern/gcs) {
       my $prefix = $1;
       my $arg1 = $2;
       my $arg2 = $3;
@@ -203,12 +205,16 @@ sub handleFilter {
       $match =~ s/\$8/$arg8/g;
       $match =~ s/\$9/$arg9/g;
       next if $theExclude && $match =~ /^($theExclude)$/;
+      next if $theInclude && $match !~ /^($theInclude)$/;
       next if $skip-- > 0;
       #writeDebug("match=$match");
       $result .= $prefix.$match;
       #writeDebug("($hits) result=$result");
       $hits--;
       last if $theLimit > 0 && $hits <= 0;
+    }
+    if ($text =~ /\G(.*)$/) {
+      $result .= $1;
     }
   }
   $result = $theNullFormat unless $result;
@@ -244,6 +250,7 @@ sub handleMakeIndex {
   my $theSplit = $params->{split} || ',';
   my $theUnique = $params->{unique} || '';
   my $theExclude = $params->{exclude} || '';
+  my $theInclude = $params->{include} || '';
   my $theReverse = $params->{reverse} || '';
   my $thePattern = $params->{pattern} || '';
   my $theHeader = $params->{header} || '';
@@ -273,6 +280,7 @@ sub handleMakeIndex {
   my %seen = ();
   foreach my $item (split(/$theSplit/, $theList)) {
     next if $theExclude && $item =~ /^($theExclude)$/;
+    next if $theInclude && $item !~ /^($theInclude)$/;
 
     $item =~ s/<nop>//go;
     $item =~ s/^\s+//go;
@@ -287,7 +295,7 @@ sub handleMakeIndex {
     }
 
     my $crit = $item;
-    if ($crit =~ /^\((.*?)\)(.*)$/) {
+    if ($crit =~ /\((.*?)\)/) {
       $crit = $1;
     }
     if ($theSort eq 'nocase') {
@@ -341,7 +349,7 @@ sub handleMakeIndex {
       group=>$group,
       format=>$itemFormat,
     );
-    writeDebug("group=$descriptor{group}, item=$descriptor{item} crit=$descriptor{crit}");
+    #writeDebug("group=$descriptor{group}, item=$descriptor{item} crit=$descriptor{crit}");
     push @theList, \%descriptor;
   }
 
@@ -501,6 +509,7 @@ sub handleFormatList {
   my $theSort = $params->{sort} || 'off';
   my $theUnique = $params->{unique} || '';
   my $theExclude = $params->{exclude} || '';
+  my $theInclude = $params->{include} || '';
   my $theReverse = $params->{reverse} || '';
   my $theSelection = $params->{selection};
   my $theMarker = $params->{marker};
@@ -522,6 +531,7 @@ sub handleFormatList {
   #writeDebug("theSort='$theSort'");
   #writeDebug("theUnique='$theUnique'");
   #writeDebug("theExclude='$theExclude'");
+  #writeDebug("theInclude='$theInclude'");
 
   my @theList = split(/$theSplit/, $theList);
   if ($theSort ne 'off') {
@@ -540,6 +550,7 @@ sub handleFormatList {
   foreach my $item (@theList) {
     #writeDebug("found '$item'");
     next if $theExclude && $item =~ /^($theExclude)$/;
+    next if $theInclude && $item !~ /^($theInclude)$/;
     next if $item =~ /^$/; # skip empty elements
     my $arg1 = '';
     my $arg2 = '';

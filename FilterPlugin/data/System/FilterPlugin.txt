@@ -44,6 +44,7 @@ insert a topic by processing its content.
      start of the text (defaults to =100000= aka all hits) 
    * =skip="&lt;n>"= skip the first n occurences
    * =exclude="..."=: skip occurences that match this regular expression
+   * =include="..."=: skip occurences that don't match this regular expression
    * sort="on,off,alpha,num" order of the formatted items (default "off")
    * =expand="on,off"=: toggle expansion of markup before filtering
      (defaults to =on=) 
@@ -94,6 +95,7 @@ prepended with a header and appended with a footer in case the list is not empty
    * reverse="on,off": reverse the sortion of the list
    * unique="on,off": remove dupplicates from the list
    * exclude="...": remove list items that match this regular expression
+   * include="...": remove list items that don't match this regular expression
    * selection="...": regular expression that a list item must match to be "selected"; if this matches the =$marker= is inserted
    * marker="...": string to be inserted when the =selection= regex matches; this will be inserted at the position =$marker= as
      indicated in =format= .
@@ -122,6 +124,7 @@ parameters:
    * sort="on,off,alpha,num,nocase": sort the list (default "on")
    * unique="on/off": removed duplicates (default "off")
    * exclude="...": pattern to check against items in the list to be excluded
+   * include="...": pattern to check against items in the list to be included
    * reverse="on/off": reverse the list (default "off")
    * header="...": format string to prepend to the result
    * footer="..." format string to be appended to the result
@@ -179,6 +182,8 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  14 Sep 2009: | added =include= counterpart to already existing =exclude= params; \
+                  fixed SUBST not to forget about the non-matching tail of a char sequence |
 |  17 Apr 2009: | converted to foswiki, added numerical sorting to MAKETEXT |
 |  08 Oct 2008: | added =$anchors= to MAKEINDEX (by Dirk Zimoch); \
                   added =nocase= option to FORMATLIST (by Dirk Zimoch); \
