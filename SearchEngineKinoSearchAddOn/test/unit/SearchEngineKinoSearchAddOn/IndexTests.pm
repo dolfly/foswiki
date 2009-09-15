@@ -1,6 +1,6 @@
 # Test for Index.pm
 package IndexTests;
-use base qw( FoswikiFnTestCase! );
+use base qw( FoswikiFnTestCase );
 
 use strict;
 
