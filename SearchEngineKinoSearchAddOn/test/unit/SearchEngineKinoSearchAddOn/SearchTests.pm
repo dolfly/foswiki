@@ -3,7 +3,6 @@ package SearchTests;
 use base qw( FoswikiFnTestCase );
 
 use strict;
-use CGI;
 
 use Foswiki::Func;
 use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
@@ -17,6 +16,7 @@ sub new {
         #running from foswiki/test/unit
         $self->{attachmentDir} = 'SearchEngineKinoSearchAddOn/attachement_examples/';
     }
+    
     return $self;
 }
 
@@ -26,18 +26,23 @@ sub set_up {
     $this->SUPER::set_up();
     # Use RcsLite so we can manually gen topic revs
     $Foswiki::cfg{StoreImpl} = 'RcsLite';
+    
+    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug} = 1;
+    
+    # don't bother indexing everything, we only want the temporary webs. Makes the tests a lot quicker
+    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipWebs} = 'Trash, Sandbox, System, TWiki, Main, TestCases';
 
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
-    $this->assert( defined $this->{users_web}, "no {users_web}" );
-    Foswiki::Func::saveTopicText( $this->{users_web}, 'TopicWithoutAttachment', <<'HERE');
+    $this->assert( defined $this->{test_web}, "no {test_web}" );
+    Foswiki::Func::saveTopicText( $this->{test_web}, 'TopicWithoutAttachment', <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
-	Foswiki::Func::saveTopicText( $this->{users_web}, 'TopicWithWordAttachment', <<'HERE');
+	Foswiki::Func::saveTopicText( $this->{test_web}, 'TopicWithWordAttachment', <<'HERE');
 Just an example topic wird MS Word
 Keyword: redmond
 HERE
-	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
+	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicWithWordAttachment", "Simple_example.doc",
 				       {file => $this->{attachmentDir}."Simple_example.doc"});
 }
 
@@ -50,7 +55,7 @@ sub test_newSearch {
     my $this = shift;
     my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
-    $this->assert(defined($search), "Search exemplar not created.")
+    $this->assert(defined($search), "Search example not created.")
 }
 
 sub test_docsForQuery {
@@ -67,7 +72,7 @@ sub test_docsForQuery {
     $this->assert(!defined($hit), "Bad hit found.");
 
     # Let's create something
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicTitleToSearch", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicTitleToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
@@ -96,7 +101,7 @@ sub test_renderHtmlStringFor {
     my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Let's create something
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicTitleToSearch", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicTitleToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
@@ -152,12 +157,12 @@ sub test_searchAttachments {
     my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Let's create something
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicToSearch", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicToSearch", <<'HERE');
 Just an example topic
 Keyword: BodyToSearchFor
 HERE
 
-	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicToSearch", "Simple_example.doc",
+	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicToSearch", "Simple_example.doc",
 				       {file => $this->{attachmentDir}."Simple_example.doc"});
 
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
@@ -187,10 +192,10 @@ sub test_search_with_users {
     $this->registerUser("TestUser2", "User", "TestUser2", 'testuser@an-address.net');
 
     # Now I create a topic that only "TestUser2" can read
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithAccesControl", << 'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicWithAccesControl", << 'HERE');
 Just an example topic
 Keyword: KeepOutHere
-      * Set ALLOWTOPICVIEW = UserTestUser2
+   * Set ALLOWTOPICVIEW = TestUser2
 HERE
 
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
@@ -217,13 +222,15 @@ HERE
 sub _search {
     my ( $this, $web, $topic, $user, $searchString ) = @_;
     
-    my $query = new CGI({
+    my $query = new Unit::Request({
         webName   => [ $web ],
         topicName => [ $topic ],
         search    => [ $searchString ],
     });
-
     $query->path_info( "$web/$topic" );
+    
+    my $response = new Unit::Response();
+    $response->charset("utf8");
 
     #my $foswiki  = new Foswiki( $this->{test_user_login}, $query );
     my $foswiki  = new Foswiki( $user, $query );
@@ -232,11 +239,11 @@ sub _search {
 
     # Note: With $foswiki I hand over the just defined session. Thus I have full 
     # control over query etc.
-    my ($text, $result) = $this->capture( \&Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search::search, $search, undef, $foswiki);
+    my ($text, $result) = $this->capture( \&Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search::search, $search, 1, $foswiki);
 
     $foswiki->finish();
-    $text =~ s/\r//g;
-    $text =~ s/^.*?\n\n+//s; # remove CGI header
+    #$text =~ s/\r//g;
+    #$text =~ s/^.*?\n\n+//s; # remove CGI header
     return $text;
 }
 

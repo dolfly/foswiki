@@ -29,6 +29,11 @@ sub set_up {
     #$Foswiki::cfg{StoreImpl} = 'RcsLite';
 
     #$this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
+    
+    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug} = 1;
+    
+    # don't bother indexing everything, we only want the temporary webs. Makes the tests a lot quicker
+    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipWebs} = 'Trash, Sandbox, System, TWiki, Main, TestCases';
 }
 
 sub tear_down {
