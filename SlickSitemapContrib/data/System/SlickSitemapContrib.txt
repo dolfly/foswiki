@@ -9,24 +9,25 @@ prefer.
 -->
 %SHORTDESCRIPTION%
 
+<img class="foswikiRight" src="%ATTACHURL%/WikiTreeMap.png" />
+
 %TOC%
 
 ---++ Usage
 Use [[http://astuteo.com/slickmap/][SlickMap CSS]] to render a sitemap for your Wiki.
 
 ---++ Examples
-   * System.WikiSiteMap
-   * System.WikiMenuMap
-   * System.WikiTreeMap
+   * System.WikiSiteMap - a hardcoded Sitemap
+   * System.WikiMenuMap - a Sitemap that uses Foswiki:Extensions.MenuListPlugin topics
+   * System.WikiTreeMap - a Sitemap that uses Foswiki:Extensions.TreePlugin
+
+System.WikiTreeMap also contains some javascript that will allow you to re-parent your topics using Drag and Drop - using Foswiki:Extensions.JQueryPlugin
 
 ---++ Installation Instructions
 
 %$INSTALL_INSTRUCTIONS%
 
 ---++ Info
-
-Many thanks to the following sponsors for supporting this work:
-   * Acknowledge any sponsors here
 
 |  Author(s): | Foswiki:Main.SvenDowideit |
 |  Copyright: | &copy; 2009 SvenDowideit @ http://fosiki.com |

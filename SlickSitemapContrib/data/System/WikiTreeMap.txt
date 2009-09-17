@@ -1,9 +1,9 @@
 %META:TOPICINFO{author="BaseUserMapping_333" date="1251203084" format="1.1" version="1.6"}%
 %META:TOPICPARENT{name="SlickSitemapContrib"}%
 <link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
-<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/jquery-ui.js'></script>
-<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.draggable.js'></script>
-<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.droppable.js'></script>
+<script type='text/javascript' src='NO%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/jquery-ui.js'></script>
+<script type='text/javascript' src='NO%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.draggable.js'></script>
+<script type='text/javascript' src='NO%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.droppable.js'></script>
 <script type="text/javascript">
 /* use jquery drag&drop to modifu parantage? */
 (function($) {
@@ -56,16 +56,21 @@ text-align:left;
 ---++ %SPACEOUT{%WIKITOOLNAME%}% Sitemap generated using %IF{"istopic '%SYSTEMWEB%.TreePlugin'" then="%SYSTEMWEB%.TreePlugin" else="Foswiki:Extensions.TreePlugin"}%
 
 <form method="GET" action="%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%">
-<input name="showlevels" type="dropdown">
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-<option>6</option>
-</input>
+<select name="showweb">
+%WEBLIST{"<option $marker >$name</option>" selection="%URLPARAM{"showweb" default="%BASEWEB%"}%"}%
+</select>
+<select name="showlevels">
+<option %IF{"$showlevels = '1'" then="selected='selected'"}% >1</option>
+<option %IF{"$showlevels = '2'" then="selected='selected'"}% >2</option>
+<option %IF{"$showlevels = '3'" then="selected='selected'"}% >3</option>
+<option %IF{"$showlevels = '4'" then="selected='selected'"}% >4</option>
+<option %IF{"$showlevels = '5'" then="selected='selected'"}% >5</option>
+<option %IF{"$showlevels = '6'" then="selected='selected'"}% >6</option>
+<option value="999" %IF{"$showlevels = '999'" then="selected='selected'"}% >all</option>
+</select>
 <input value="submit" type="submit" />
 </form>
+
 
 %IF{"context TreePluginEnabled" else="__TreePlugin based Sitemap disabled - please ensure TreePlugin is installed and enabled__"}%
 <div class="sitemap"><div id="primaryNav" class="col6">
