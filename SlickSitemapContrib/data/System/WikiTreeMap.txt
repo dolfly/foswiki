@@ -55,6 +55,18 @@ text-align:left;
 
 ---++ %SPACEOUT{%WIKITOOLNAME%}% Sitemap generated using %IF{"istopic '%SYSTEMWEB%.TreePlugin'" then="%SYSTEMWEB%.TreePlugin" else="Foswiki:Extensions.TreePlugin"}%
 
+<form method="GET" action="%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%">
+<input name="showlevels" type="dropdown">
+<option>1</option>
+<option>2</option>
+<option>3</option>
+<option>4</option>
+<option>5</option>
+<option>6</option>
+</input>
+<input value="submit" type="submit" />
+</form>
+
 %IF{"context TreePluginEnabled" else="__TreePlugin based Sitemap disabled - please ensure TreePlugin is installed and enabled__"}%
 <div class="sitemap"><div id="primaryNav" class="col6">
 %TREE{

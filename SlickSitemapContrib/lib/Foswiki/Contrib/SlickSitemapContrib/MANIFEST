@@ -13,6 +13,9 @@ pub/System/SlickSitemapContrib/images/L3-ul-top.png
 pub/System/SlickSitemapContrib/README.txt
 pub/System/SlickSitemapContrib/foswiki_slickmap.css
 pub/System/SlickSitemapContrib/slickmap.css
+
+pub/System/SlickSitemapContrib/WikiTreeMap.png
+
 data/System/SlickSitemapContrib.txt
 data/System/WikiSiteMap.txt
 data/System/WikiMenuMap.txt
