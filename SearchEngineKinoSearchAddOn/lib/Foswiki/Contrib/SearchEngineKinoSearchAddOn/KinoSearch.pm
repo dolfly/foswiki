@@ -61,8 +61,9 @@ sub log {
 	my $logtime = Foswiki::Func::formatTime( time(), '$rcs', 'servertime' ); 
 	$self->{Log}->print( "| $logtime | $logString\n");
 
-	print STDERR "$logString\n";
+	#print STDERR "$logString\n";
     }
+    $self->{Debug} && Foswiki::Func::writeDebug( $logString );
 }
 
 # Yields the directory, I want to do logs
@@ -124,7 +125,6 @@ sub skipWebs {
 # List of attachments to be skipped.
 # QS
 sub skipAttachments {
-    # SMELL: whats the best way to define skipped attachments?
     my $to_skip = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipAttachments} || '';
     my %skipattachments;
 
@@ -135,10 +135,22 @@ sub skipAttachments {
     return %skipattachments;
 }
 
+# List of topics to be skipped.
+sub skipTopics {
+    my $to_skip = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipTopics} || '';
+    my %skiptopics;
+
+    foreach my $t ( split( /\,\s+/, $to_skip ) ) {
+	$skiptopics{$t} = 1;
+    }
+    
+    return %skiptopics;
+}
+
 # List of file extensions to be indexed
 # QS
 sub indexExtensions {
-    my $extensions = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions} || ".pdf, .doc, .xml, .html, .txt, .xls, .ppt";
+    my $extensions = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions} || ".txt, .html, .xml, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf";
     my %indexextensions;
 
     foreach my $tmpextension ( split( /\,\s+/, $extensions ) ) {

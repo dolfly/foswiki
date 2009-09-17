@@ -117,7 +117,6 @@ sub test_skipAttachments {
     my $ks = new Foswiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch("index");
 
     my @config_atts  = ("att1", "att2");
-    my $a_att;
 
     $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipAttachments} = "";
     my %atts = $ks->skipAttachments();
@@ -126,8 +125,26 @@ sub test_skipAttachments {
 
     $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipAttachments} = "att1, att2";
     %atts = $ks->skipAttachments();
-    foreach $a_att (@config_atts) {
+    foreach my $a_att (@config_atts) {
 	$this->assert($atts{$a_att}, "Attachment $a_att not skipped in config.")
+	}
+}
+
+sub test_skipTopics {
+    my $this = shift;
+    my $ks = new Foswiki::Contrib::SearchEngineKinoSearchAddOn::KinoSearch("index");
+
+    my @config_atts  = ("Web.MyTopic", "MyOtherTopic");
+
+    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipTopics} = "";
+    my %atts = $ks->skipTopics();
+    my $num = %atts;
+    $this->assert($num == 0, "List of skipped attachments not empty. : $num");
+
+    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipTopics} = "Web.MyTopic, MyOtherTopic";
+    %atts = $ks->skipTopics();
+    foreach my $t (@config_atts) {
+	$this->assert($atts{$t}, "Topic $t not skipped in config.")
 	}
 }
 

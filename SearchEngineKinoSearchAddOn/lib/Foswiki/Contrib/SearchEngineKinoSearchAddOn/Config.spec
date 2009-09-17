@@ -15,6 +15,12 @@ $Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions} = '.txt, .html, .xml
 $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipAttachments} = '';
 
 # **STRING**
+# List of topics to skip.
+# Topics can be in the form of Web.MyTopic, or if you want a topic to be excluded from all webs just enter MyTopic.
+# For example: Main.WikiUsers, WebStatistics
+$Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipTopics} = '';
+
+# **STRING**
 # User language setting for KinoSearch
 $Foswiki::cfg{SearchEngineKinoSearchAddOn}{UserLanguage} = 'en';
 

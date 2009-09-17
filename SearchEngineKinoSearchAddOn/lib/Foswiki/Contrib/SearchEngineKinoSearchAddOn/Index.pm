@@ -46,7 +46,7 @@ sub createIndex {
     my ( $self, $debug ) = (@_);
 
     # FIXME: Make it more clear.
-    $self->{Debug} = $debug;
+    $self->{Debug} = $debug || $Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug} || 0;
 
     $self->log( "Indexing started", 1 );
 
@@ -58,6 +58,9 @@ sub createIndex {
     my $invindexer = $self->indexer( $analyzer, 1, %fldNames );
 
     my @webs = $self->websToIndex();
+    
+    # get the list of topics not to be indexed
+    my %skipTopics = $self->skipTopics;
 
     foreach my $web (@webs) {
         $self->log("Indexing web | $web");
@@ -65,6 +68,8 @@ sub createIndex {
         my $start_time = time();
 
         foreach my $topic ( Foswiki::Func::getTopicList($web) ) {
+            next if ( ( $skipTopics{"$web.$topic"} ) || ( $skipTopics{$topic} ) );
+            
             $self->log("Indexing topic | $web.$topic");
             $self->indexTopic( $invindexer, $web, $topic, %fldNames );
         }
@@ -205,6 +210,9 @@ sub changedTopics {
     my $currLastmodify = "";
     my @topicsToUpdate;
 
+    # get the list of topics not to be indexed
+    my %skipTopics = $self->skipTopics;
+    
     # do not process the same topic twice
     my %exclude;
 
@@ -215,6 +223,8 @@ sub changedTopics {
         # <topic>	<user>		<change time>	<revision>
         my ( $topicName, $userName, $changeTime, $revision ) =
           split( /\t/, $change );
+          
+        next if ( ( $skipTopics{"$web.$topicName"} ) || ( $skipTopics{$topicName} ) );
 
         if ( ( !%exclude ) || ( !$exclude{$topicName} ) ) {
 
