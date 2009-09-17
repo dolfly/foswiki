@@ -139,7 +139,7 @@ sub renderBreadCrumbs {
     $line =~ s/\$name/$item->{name}/g;
     $line =~ s/\$target/$item->{target}/g;
     $line =~ s/\$webtopic/$webtopic/g;
-    $line =~ s/\$topic/$topic/g;
+    $line =~ s/\$topic/$item->{topic}/g;
     $line =~ s/\$web/$item->{web}/g;
     #writeDebug("... added");
     push @lines, $line;
