@@ -1,9 +1,9 @@
 %META:TOPICINFO{author="BaseUserMapping_333" date="1251203084" format="1.1" version="1.6"}%
 %META:TOPICPARENT{name="SlickSitemapContrib"}%
 <link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
-<script type='text/javascript' src='NO%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/jquery-ui.js'></script>
-<script type='text/javascript' src='NO%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.draggable.js'></script>
-<script type='text/javascript' src='NO%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.droppable.js'></script>
+<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/jquery-ui.js'></script>
+<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.draggable.js'></script>
+<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.droppable.js'></script>
 <script type="text/javascript">
 /* use jquery drag&drop to modifu parantage? */
 (function($) {
