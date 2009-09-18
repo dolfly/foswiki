@@ -292,3 +292,12 @@ font-size: 8px;
 	font-size: 9px;
 	margin-bottom: 3px;
 }
+
+
+.sitemap #primaryNav a .smallSummary {
+font-size:8px;
+font-weight:normal;
+line-height:10px;
+margin:0 2px;
+text-align:left;
+}

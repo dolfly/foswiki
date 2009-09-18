@@ -1,59 +1,13 @@
 %META:TOPICINFO{author="BaseUserMapping_333" date="1251203084" format="1.1" version="1.6"}%
 %META:TOPICPARENT{name="SlickSitemapContrib"}%
-<link rel="stylesheet" type="text/css" media="screen,print" href="%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css" />
-<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/jquery-ui.js'></script>
-<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.draggable.js'></script>
-<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JQueryPlugin/ui/ui.droppable.js'></script>
-<script type="text/javascript">
-/* use jquery drag&drop to modifu parantage? */
-(function($) {
-$(function() {
-$("li").draggable({revert:true});
-$("li").droppable({
-  greedy: true,
-  tolerance: 'pointer',
-  drop: function(event, ui) { 
-/* assert that child&parent web are the same.. */
-/* only enable d&d if and on topics that the user has change perms to */
-	var childTopic = ui.draggable;
-	var parentTopic = $(this);
-	var childTopicName = ui.draggable.find("a:eq(0)").attr('topic');
-	var parentTopicName = $(this).find("a:eq(0)").attr('topic');
-	var webName = $(this).find("a:eq(0)").attr('web');
-	
-	$.post('%SCRIPTURL{save}%/'+webName+'/'+childTopicName , {
-						web: webName,
-						topic: childTopicName,
-						topicparent: parentTopicName,
-						action_save: 1,
-						forcenewrevision: 1
-					}, function(data, textStatus) {
-						if (textStatus == 'success') {
-							var inner_ul = parentTopic.find("ul:eq(0)");
-							if (inner_ul.size() == 0) {
-								/* make a ul to add to */
-								parentTopic.append("<ul></ul>");
-								inner_ul = parentTopic.find("ul:eq(0)");
-							}
-							inner_ul.append(childTopic);
-						}
-					}, "text");
-			 }
-	});
-});
-})(jQuery);
-</script>
-<style>
-.sitemap #primaryNav a .smallSummary {
-font-size:8px;
-font-weight:normal;
-line-height:10px;
-margin:0 2px;
-text-align:left;
-}
-</style>
 
 ---++ %SPACEOUT{%WIKITOOLNAME%}% Sitemap generated using %IF{"istopic '%SYSTEMWEB%.TreePlugin'" then="%SYSTEMWEB%.TreePlugin" else="Foswiki:Extensions.TreePlugin"}%
+
+%IF{
+	"'%BASEWEB%' allows 'CHANGE'"
+	then="   * __drag a topic onto another to change the dragged topic's parent__"
+	else="   * __you do not have change access permissions to this web - drag and drop disabled__"
+}%
 
 <form method="GET" action="%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%">
 <select name="showweb">
@@ -75,7 +29,7 @@ text-align:left;
 %IF{"context TreePluginEnabled" else="__TreePlugin based Sitemap disabled - please ensure TreePlugin is installed and enabled__"}%
 <div class="sitemap"><div id="primaryNav" class="col6">
 %TREE{
-   Wweb="System" 
+   web="%URLPARAM{"showweb" default="%BASEWEB%"}%"
    Wtopic="WebHome"
    excludetopic="Todo*,Tip*,Var*" 
    formatting="outline" 
@@ -86,3 +40,12 @@ text-align:left;
    stoplevel="%URLPARAM{"showlevels" default="1"}%"
 }%
 </div></div>
+
+
+%ADDTOHEAD{"slicksitemapcontrib" text="<link rel='stylesheet' type='text/css' media='screen,print' href='%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css' />"}%
+%JQREQUIRE{"ui"}%
+%ADDTOHEAD{
+	"slicksitemapcontrib_reparent_js" 
+	requires="JQUERYPLUGIN::UI" 
+	text="<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/reparent.js'></script>"
+}%

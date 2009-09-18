@@ -16,12 +16,19 @@ prefer.
 ---++ Usage
 Use [[http://astuteo.com/slickmap/][SlickMap CSS]] to render a sitemap for your Wiki.
 
+Add the SlickMap css to the Headder of any topic that you want to use it on with the following Markup
+
+<verbatim>
+%ADDTOHEAD{"slicksitemapcontrib" text="<link rel='stylesheet' type='text/css' media='screen,print' href='%PUBURL%/%SYSTEMWEB%/SlickSitemapContrib/foswiki_slickmap.css' />"}%
+</verbatim>
+
 ---++ Examples
    * System.WikiSiteMap - a hardcoded Sitemap
    * System.WikiMenuMap - a Sitemap that uses Foswiki:Extensions.MenuListPlugin topics
    * System.WikiTreeMap - a Sitemap that uses Foswiki:Extensions.TreePlugin
 
 System.WikiTreeMap also contains some javascript that will allow you to re-parent your topics using Drag and Drop - using Foswiki:Extensions.JQueryPlugin
+
 
 ---++ Installation Instructions
 
@@ -35,8 +42,10 @@ System.WikiTreeMap also contains some javascript that will allow you to re-paren
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Sep 2009: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/bin/view/Extensions/SlickSitemapContrib |
 |  Support: | http://foswiki.org/bin/view/Support/SlickSitemapContrib |
 
 <!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
+%META:FILEATTACHMENT{name="WikiTreeMap.png" attachment="WikiTreeMap.png" attr="h" date="1227691956" path="WikiTreeMap.png" user="ProjectContributor" version="1"}%
