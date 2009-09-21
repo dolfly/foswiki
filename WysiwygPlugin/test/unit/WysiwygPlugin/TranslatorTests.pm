@@ -35,19 +35,38 @@ require Foswiki::Plugins::WysiwygPlugin::HTML2TML;
 
 # Bits for test type
 # Fields in test records:
-my $TML2HTML  = 1 << 0;    # test tml => html
-my $HTML2TML  = 1 << 1;    # test html => finaltml (default tml)
-my $ROUNDTRIP = 1 << 2;    # test tml => => finaltml
-# Note: ROUNDTRIP is *not* the same as the combination of 
+my $TML2HTML  = 1 << 0;        # test tml => html
+my $HTML2TML  = 1 << 1;        # test html => finaltml (default tml)
+my $ROUNDTRIP = 1 << 2;        # test tml => => finaltml
+my $CANNOTWYSIWYG = 1 << 3;    # test that notWysiwygEditable returns true
+                               #   and make the ROUNDTRIP test expect failure
+
+# Note: ROUNDTRIP is *not* the same as the combination of
 # HTML2TML and TML2HTML. The HTML and TML comparisons are both
-# somewhat "flexible". This is necessry because, for example,
+# somewhat "flexible". This is necessary because, for example,
 # the nature of whitespace in the TML may change.
-# ROUNDTRIP tests are intended to isolate gradual degradation 
+# ROUNDTRIP tests are intended to isolate gradual degradation
 # of the TML, where TML -> HTML -> not quite TML -> HTML
 # -> even worse TML, ad nauseum
+#
+# CANNOTWYSIWYG should normally be used in conjunction with ROUNDTRIP
+# to ensure that notWysiwygEditable is consistent with this plugin's
+# ROUNDTRIP capabilities.
+#
+# CANNOTWYSIWYG and ROUNDTRIP used together document the failure cases,
+# i.e. they indicate TML that WysiwygPlugin cannot properly translate
+# to HTML and back. When WysiwygPlugin is modified to support these
+# cases, CANNOTWYSIWYG should be removed from each corresponding
+# test case and nonWysiwygEditable should be updated so that the TML
+# is "WysiwygEditable".
+#
+# Use CANNOTWYSIWYG without ROUNDTRIP *only* with an appropriate 
+# explanation. For example: 
+#   Can't ROUNDTRIP this TML because perl on the SMURF platform
+#   automagically replaces all instances of 'blue' with 'beautiful'.
 
 # Bit mask for selected test types
-my $mask = $TML2HTML | $HTML2TML | $ROUNDTRIP;
+my $mask = $TML2HTML | $HTML2TML | $ROUNDTRIP | $CANNOTWYSIWYG;
 
 my $protecton  = '<span class="WYSIWYG_PROTECTED">';
 my $linkon     = '<span class="WYSIWYG_LINK">';
@@ -61,10 +80,11 @@ my $nop        = "$protecton<nop>$protectoff";
 # testcase, so they get picked up and run by TestRunner.
 
 # Each testcase is a subhash with fields as follows:
-# exec => $TML2HTML to test TML -> HTML, $HTML2TML to test HTML -> TML, 
-#   $ROUNDTRIP to test TML-> ->TML, all other bits are ignored.
-#   They may be OR'd togoether to perform multiple tests. 
-#   For example: $TML2HTML | $HTML2TML to test both 
+# exec => $TML2HTML to test TML -> HTML, $HTML2TML to test HTML -> TML,
+#   $ROUNDTRIP to test TML-> ->TML, $CANNOTWYSIWYG to test 
+#   notWysiwygEditable, all other bits are ignored.
+#   They may be OR'd togoether to perform multiple tests.
+#   For example: $TML2HTML | $HTML2TML to test both
 #   TML -> HTML and HTML -> TML
 # name => identifier (used to compose the testcase function name)
 # tml => source topic meta-language
@@ -168,7 +188,7 @@ HERE
 <span class="WYSIWYG_TT">Code</span>
 </p>
 BLAH
-        tml  => '=Code='
+        tml => '=Code='
     },
     {
         exec => $ROUNDTRIP,
@@ -177,20 +197,20 @@ BLAH
         tml  => '==Bold Code=='
     },
     {
-        exec => $TML2HTML |  $HTML2TML,
+        exec => $TML2HTML | $HTML2TML,
         name => 'bToFromHtml',
         html => '<p><b>Bold</b></p>',
         tml  => '*Bold*'
     },
     {
-        exec => $TML2HTML |  $HTML2TML,
+        exec => $TML2HTML | $HTML2TML,
         name => 'strongCodeToFromHtml',
         html => <<'BLAH',
 <p>
 <b><span class="WYSIWYG_TT">Code</span></b>
 </p>
 BLAH
-        tml  => '==Code=='
+        tml => '==Code=='
     },
     {
         exec => $HTML2TML,
@@ -200,7 +220,7 @@ BLAH
 <span class="WYSIWYG_TT"><strong>Code</strong></span>
 </p>
 BLAH
-        tml  => '==Code=='
+        tml => '==Code=='
     },
     {
         exec => $HTML2TML,
@@ -210,7 +230,7 @@ BLAH
 <strong><span class="WYSIWYG_TT">Code</span></strong>
 </p>
 BLAH
-        tml  => '==Code=='
+        tml => '==Code=='
     },
     {
         exec => $HTML2TML,
@@ -220,7 +240,17 @@ BLAH
 <strong class="WYSIWYG_TT">Code</strong>
 </p>
 BLAH
-        tml  => '==Code=='
+        tml => '==Code=='
+    },
+    {
+        exec => $HTML2TML | $ROUNDTRIP,
+        name => 'strongWithTtAndColorClasses',
+        html => <<'BLAH',
+<p>
+<strong class="WYSIWYG_TT WYSIWYG_COLOR" style="color:#FF0000;">Code</strong>
+</p>
+BLAH
+        tml => '*%RED% =Code= %ENDCOLOR%*'
     },
     {
         exec => $HTML2TML,
@@ -259,7 +289,7 @@ BLAH
 <tr><td>ends with <b>bold</b> </td></tr>
 </table>
 BLAH
-        tml  => <<'BLAH',
+        tml => <<'BLAH',
 | =Code= |
 | =code= at start |
 | ends with =code= |
@@ -413,6 +443,34 @@ HERE
    A. Sushi
 
    i. Sushi
+
+   1 Sushi
+   A. Sushi
+   i. Sushi
+HERE
+    },
+    {
+        exec => $TML2HTML | $ROUNDTRIP,
+        name => 'orderedList_Item1341',
+        html => <<'HERE',
+<ol><li>Sushi</li><li>Banana</li></ol><p />
+<ol><li type="A">Sushi</li><li type="A">Banana</li></ol><p />
+<ol><li type="i">Sushi</li><li type="i">Banana</li></ol><p />
+<ol><li type="I">Sushi</li><li type="I">Banana</li></ol><p />
+<ol><li>Sushi</li><li type="A">Sushi</li><li type="i">Sushi</li></ol>
+HERE
+        tml => <<'HERE',
+   1 Sushi
+   1 Banana
+
+   A. Sushi
+   A. Banana
+
+   i. Sushi
+   i. Banana
+
+   I. Sushi
+   I. Banana
 
    1 Sushi
    A. Sushi
@@ -835,6 +893,12 @@ EVERYWHERE
         finaltml => 'Outside <verbatim>
  Inside
  </verbatim> Outside',
+    },
+    {
+        exec => $TML2HTML | $ROUNDTRIP,
+        name => 'verbatimWithNbsp1554',
+        html => '<p><pre class="TMLverbatim">&amp;nbsp;</pre></p>',
+        tml  => "<verbatim>&nbsp;</verbatim>"
     },
     {
         exec => $TML2HTML | $ROUNDTRIP,
@@ -1568,6 +1632,82 @@ GLUED
 '
     },
     {
+        exec => $HTML2TML,
+        name => 'mergeStickyItem1667',
+        html => <<'BLAH',
+<div class="WYSIWYG_STICKY">Line 1</div>
+<div class="WYSIWYG_STICKY">Line 2</div>
+BLAH
+        tml => "<sticky>Line 1\nLine 2</sticky>"
+    },
+    {
+        exec => $HTML2TML | $ROUNDTRIP,
+        name => 'separateStickyRegions',
+        html => <<'BLAH',
+<div class="WYSIWYG_STICKY">Oranges</div>
+<p></p>
+<div class="WYSIWYG_STICKY">Apples</div>
+BLAH
+        tml => "<sticky>Oranges</sticky>\n\n<sticky>Apples</sticky>"
+    },
+    {
+        exec => $HTML2TML | $ROUNDTRIP,
+        name => 'stickyInsideVerbatimItem1980',
+        tml  => <<'GLUED',
+<verbatim><sticky>banana</sticky></verbatim>
+GLUED
+        html => <<'BLAH',
+<p>
+<pre class="TMLverbatim">&lt;sticky&gt;banana&lt;/sticky&gt;</pre>
+</p>
+BLAH
+    },
+    {
+        exec => $ROUNDTRIP,
+        name => 'literalInsideVerbatimItem1980',
+        tml  => <<'GLUED',
+<verbatim><literal><font color="blue"> *|B|* </font></literal></verbatim>
+GLUED
+    },
+    {
+        exec => $ROUNDTRIP | $CANNOTWYSIWYG,
+        name => 'verbatimInsideLiteralItem1980',
+        tml  => <<'GLUED',
+<literal><font color="blue"> *|B|*<verbatim>%H%</verbatim> </font></literal>
+GLUED
+    },
+    {
+        exec => $TML2HTML | $ROUNDTRIP,
+        name => 'verbatimInsideStickyItem1980',
+        tml  => <<'GLUED',
+<sticky><font color="blue"> *|B|*<verbatim>%H%</verbatim> </font></sticky>
+GLUED
+        html => <<'STUCK'
+<p>
+<div class="WYSIWYG_STICKY">&#60;verbatim&#62;&#60;font color="blue"&#62; *|B|* &#60;/font&#62;&#60;/verbatim&#62;</div>
+</p>
+STUCK
+    },
+    {
+        exec => $TML2HTML | $ROUNDTRIP,
+        name => 'literalInsideSticky',
+        tml  => <<'GLUED',
+<sticky><literal><font color="blue"> *|B|* </font></literal></sticky>
+GLUED
+        html => <<'STUCK'
+<p>
+<div class="WYSIWYG_STICKY">&#60;literal&#62;&#60;font color="blue"&#62; *|B|* &#60;/font&#62;&#60;/literal&#62;</div>
+</p>
+STUCK
+    },
+    {
+        exec => $ROUNDTRIP | $CANNOTWYSIWYG,
+        name => 'stickyInsideLiteral',
+        tml  => <<'GLUED',
+<literal><sticky><font color="blue"> *|B|* </font></sticky/></literal>
+GLUED
+    },
+    {
         exec => $TML2HTML,
         name => 'Item4705_B',
         tml  => <<SPACED,
@@ -1636,6 +1776,20 @@ HERE
 THERE
     },
     {
+        name => 'Item1798',
+        exec => $ROUNDTRIP | $TML2HTML,
+        tml  => <<HERE,
+| [[LegacyTopic1]] | Main.SomeGuy |
+%SEARCH{"legacy" nonoise="on" format="| [[\$topic]] | [[\$wikiname]] |"}%
+HERE
+        html => <<THERE,
+<table cellspacing="1" cellpadding="0" border="1">
+<tr><td><span class="WYSIWYG_LINK">[[LegacyTopic1]]</span></td><td>Main.SomeGuy</td></tr>
+</table>
+<span class="WYSIWYG_PROTECTED"><br />%SEARCH{"legacy" nonoise="on" format="| [[\$topic]] | [[\$wikiname]] |"}%</span>
+THERE
+    },
+    {
         name => 'Item4871',
         exec => $TML2HTML,
         tml  => <<'BLAH',
@@ -1673,13 +1827,51 @@ BLAH
         tml  => 'the =complete= table',
     },
     {
+        exec => $HTML2TML,
+        name => 'strongWithColorClass',
+        html => <<'BLAH',
+<p>
+<strong class="WYSIWYG_COLOR" style="color:#FF0000;">Strong red</strong>
+</p>
+BLAH
+        tml => '*%RED%Strong red%ENDCOLOR%*'
+    },
+    {
+        exec => $HTML2TML | $ROUNDTRIP,
+        name => 'colorClassInTable',
+        html => <<'BLAH',
+<table>
+<tr><th class="WYSIWYG_COLOR" style="color:#FF0000;">Red Heading</th></tr>
+<tr><td class="WYSIWYG_COLOR" style="color:#FF0000;">Red herring</td></tr>
+</table>
+BLAH
+        tml => <<'BLAH',
+| *%RED%Red Heading%ENDCOLOR%* |
+| %RED%Red herring%ENDCOLOR% |
+BLAH
+    },
+    {
+        exec => $HTML2TML | $ROUNDTRIP,
+        name => 'colorAndTtClassInTable',
+        html => <<'BLAH',
+<table>
+<tr><th class="WYSIWYG_COLOR WYSIWYG_TT" style="color:#FF0000;">Redder code</th></tr>
+<tr><td class="WYSIWYG_COLOR WYSIWYG_TT" style="color:#FF0000;">Red code</td></tr>
+</table>
+BLAH
+        tml => <<'BLAH',
+| *%RED% =Redder code= %ENDCOLOR%* |
+| %RED% =Red code= %ENDCOLOR% |
+BLAH
+    },
+    {
         name => 'fontconv',
         exec => $HTML2TML,
         html => <<HERE,
-<font color="red" class="WYSIWYG_COLOUR">red</font>
+<font color="red" class="WYSIWYG_COLOR">red</font>
 <font style="color:green">green</font>
 <font style="border:1;color:blue">blue</font>
-<font class="WYSIWYG_COLOUR" style="border:1;color:yellow">yellow</font>
+<font class="WYSIWYG_COLOR" style="border:1;color:yellow">yellow</font>
 <font color="brown">brown</font>
 HERE
         tml => <<HERE,
@@ -1838,6 +2030,12 @@ sub gen_compare_tests {
             *$fn = sub { my $this = shift; $this->compareRoundTrip($datum) };
             use strict 'refs';
         }
+        if ( ( $mask & $datum->{exec} ) & $CANNOTWYSIWYG ) {
+            my $fn = 'TranslatorTests::testCANNOTWYSIWYG_' . $datum->{name};
+            no strict 'refs';
+            *$fn = sub { my $this = shift; $this->compareNotWysiwygEditable($datum) };
+            use strict 'refs';
+        }
     }
 }
 
@@ -1849,12 +2047,12 @@ sub gen_file_tests {
             foreach my $file ( grep { /^.*\.html$/i } readdir D ) {
                 $file =~ s/\.html$//;
                 my $test = { name => $file };
-                open( F, "<$d/test_html/$file.html" );
+                open( F, '<', "$d/test_html/$file.html" );
                 undef $/;
                 $test->{html} = <F>;
                 close(F);
                 next unless -e "$d/result_tml/$file.txt";
-                open( F, "<$d/result_tml/$file.txt" );
+                open( F, '<', "$d/result_tml/$file.txt" );
                 undef $/;
                 $test->{finaltml} = <F>;
                 close(F);
@@ -1883,8 +2081,8 @@ sub set_up {
         $query = new CGI("");
     }
     $query->path_info("/Current/TestTopic");
-    $this->{twiki} = new Foswiki( undef, $query );
-    $Foswiki::Plugins::SESSION = $this->{twiki};
+    $this->{session} = new Foswiki( undef, $query );
+    $Foswiki::Plugins::SESSION = $this->{session};
 }
 
 sub normaliseEntities {
@@ -1895,11 +2093,22 @@ sub normaliseEntities {
     return $text;
 }
 
+sub TML_HTMLconverterOptions
+{
+    my $this = shift;
+    return {
+        web          => 'Current',
+        topic        => 'TestTopic',
+        convertImage => \&convertImage,
+        rewriteURL   => \&Foswiki::Plugins::WysiwygPlugin::postConvertURL,
+    };
+}
+
 sub compareTML_HTML {
     my ( $this, $args ) = @_;
 
     my $page =
-      $this->{twiki}->getScriptUrl( 1, 'view', 'Current', 'TestTopic' );
+      $this->{session}->getScriptUrl( 1, 'view', 'Current', 'TestTopic' );
     $page =~ s/\/Current\/TestTopic.*$//;
     my $html = $args->{html} || '';
     $html =~ s/%!page!%/$page/g;
@@ -1908,62 +2117,95 @@ sub compareTML_HTML {
     my $tml = $args->{tml} || '';
     $tml =~ s/%!page!%/$page/g;
 
+    my $notEditable = Foswiki::Plugins::WysiwygPlugin::notWysiwygEditable( $tml );
+    $this->assert(!$notEditable, $notEditable);
+
     my $txer = new Foswiki::Plugins::WysiwygPlugin::TML2HTML();
     my $tx   = $txer->convert(
         $tml,
-        {
-            web        => 'Current',
-            topic      => 'TestTopic',
-            getViewUrl => \&Foswiki::Plugins::WysiwygPlugin::getViewUrl,
-            expandVarsInURL =>
-              \&Foswiki::Plugins::WysiwygPlugin::expandVarsInURL,
-        }
+        $this->TML_HTMLconverterOptions()
     );
 
     $this->assert_html_equals( $html, $tx );
 }
 
+sub compareNotWysiwygEditable {
+    my ( $this, $args ) = @_;
+
+    my $page =
+      $this->{session}->getScriptUrl( 1, 'view', 'Current', 'TestTopic' );
+    $page =~ s/\/Current\/TestTopic.*$//;
+    my $html = $args->{html} || '';
+    $html =~ s/%!page!%/$page/g;
+    my $finaltml = $args->{finaltml} || '';
+    $finaltml =~ s/%!page!%/$page/g;
+    my $tml = $args->{tml} || '';
+    $tml =~ s/%!page!%/$page/g;
+
+    my $notEditable = Foswiki::Plugins::WysiwygPlugin::notWysiwygEditable( $tml, '' );
+    $this->assert($notEditable, "This TML should not be wysiwyg-editable: $tml");
+}
+
 sub compareRoundTrip {
     my ( $this, $args ) = @_;
+
     my $page =
-      $this->{twiki}->getScriptUrl( 1, 'view', 'Current', 'TestTopic' );
+      $this->{session}->getScriptUrl( 1, 'view', 'Current', 'TestTopic' );
     $page =~ s/\/Current\/TestTopic.*$//;
 
     my $tml = $args->{tml} || '';
     $tml =~ s/%!page!%/$page/g;
 
     my $txer = new Foswiki::Plugins::WysiwygPlugin::TML2HTML();
-    my $html = $txer->convert(
-        $tml,
-        {
-            web        => 'Current',
-            topic      => 'TestTopic',
-            getViewUrl => \&Foswiki::Plugins::WysiwygPlugin::getViewUrl,
-            expandVarsInURL =>
-              \&Foswiki::Plugins::WysiwygPlugin::expandVarsInURL,
-        }
-    );
+    # This conversion can throw an exception. 
+    # This might be expected if $args->{exec} also has $CANNOTWYSIWYG set
+    my $html = eval {
+        $txer->convert(
+            $tml,
+            $this->TML_HTMLconverterOptions()
+        );
+    };
+    $html = $@ if $@;
 
     $txer = new Foswiki::Plugins::WysiwygPlugin::HTML2TML();
     my $tx = $txer->convert(
         $html,
-        {
-            web          => 'Current',
-            topic        => 'TestTopic',
-            convertImage => \&convertImage,
-            rewriteURL   => \&Foswiki::Plugins::WysiwygPlugin::postConvertURL,
-        }
+        $this->HTML_TMLconverterOptions()
     );
     my $finaltml = $args->{finaltml} || $tml;
     $finaltml =~ s/%!page!%/$page/g;
-    $this->_assert_tml_equals( $finaltml, $tx, $args->{name} );
+
+    my $notEditable = Foswiki::Plugins::WysiwygPlugin::notWysiwygEditable( $tml, '' );
+    if ( ( $mask & $args->{exec} ) & $CANNOTWYSIWYG ) {
+        $this->assert($notEditable, "This TML should not be wysiwyg-editable: $tml");
+        # Expect that roundtrip is not possible if notWysiwygEditable returns true.
+        # notWysiwygEditable should not return false for anything that *can* be
+        # roundtripped.
+        $this->_assert_tml_not_equals( $finaltml, $tx, $args->{name} );
+    }
+    else {
+        $this->_assert_tml_equals( $finaltml, $tx, $args->{name} );
+        $this->assert(!$notEditable, "$args->{name} TML is wysiwyg-editable, but notWysiwygEditable() reports: $notEditable");
+    }
+
+}
+
+sub HTML_TMLconverterOptions
+{
+    my $this = shift;
+    return {
+        web          => 'Current',
+        topic        => 'TestTopic',
+        convertImage => \&convertImage,
+        rewriteURL   => \&Foswiki::Plugins::WysiwygPlugin::postConvertURL,
+    };
 }
 
 sub compareHTML_TML {
     my ( $this, $args ) = @_;
 
     my $page =
-      $this->{twiki}->getScriptUrl( 1, 'view', 'Current', 'TestTopic' );
+      $this->{session}->getScriptUrl( 1, 'view', 'Current', 'TestTopic' );
     $page =~ s/\/Current\/TestTopic.*$//;
     my $html = $args->{html} || '';
     $html =~ s/%!page!%/$page/g;
@@ -1975,12 +2217,7 @@ sub compareHTML_TML {
     my $txer = new Foswiki::Plugins::WysiwygPlugin::HTML2TML();
     my $tx   = $txer->convert(
         $html,
-        {
-            web          => 'Current',
-            topic        => 'TestTopic',
-            convertImage => \&convertImage,
-            rewriteURL   => \&Foswiki::Plugins::WysiwygPlugin::postConvertURL,
-        }
+        $this->HTML_TMLconverterOptions()
     );
     $this->_assert_tml_equals( $finaltml, $tx, $args->{name} );
 }
@@ -2018,6 +2255,21 @@ sub _assert_tml_equals {
             $expl .= $a;
             $i++;
         }
+        $this->assert( 0, $expl . "\n" );
+    }
+}
+
+sub _assert_tml_not_equals {
+    my ( $this, $expected, $actual, $name ) = @_;
+    $expected ||= '';
+    $actual   ||= '';
+    $actual   =~ s/\n$//s;
+    $expected =~ s/\n$//s;
+    if ( $expected eq $actual ) {
+        my $expl =
+            "==$name== Actual TML unexpectedly correct, remove \$CANNOTWYSIWYG flag:\n"
+          . encode($actual)
+          . "\n==$name==\n";
         $this->assert( 0, $expl . "\n" );
     }
 }
