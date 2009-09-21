@@ -33,8 +33,12 @@ $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SummaryLength} = '300';
 $Foswiki::cfg{SearchEngineKinoSearchAddOn}{MaxLimit} = '2000';
 
 # **BOOLEAN**
-# Search attachments only
+# Provide a link in the templates to search attachments only
 $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SearchAttachmentsOnly} = '0';
+
+# **STRING**
+# Attachments only label. Provides a link to search for attachments only if $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SearchAttachmentsOnly} is true.
+$Foswiki::cfg{SearchEngineKinoSearchAddOn}{AttachmentsOnlyLabel} = 'Show only attachments';
 
 # **SELECT antiword,wv,abiword**
 # Select which MS Word indexer to use (you need to have antiword, abiword or wvHtml installed)

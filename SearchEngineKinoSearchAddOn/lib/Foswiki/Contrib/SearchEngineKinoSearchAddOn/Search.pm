@@ -35,7 +35,7 @@ sub searchCgi {
     
     my $searcher = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
     
-    my $text = $searcher->search($Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug}, $session);
+    my $text = $searcher->search(undef, $session);
   
     $session->writeCompletePage($text, 'view');
 }
@@ -44,7 +44,7 @@ sub searchCgi {
 sub search {
     my ($self, $debug, $session) = (@_);
     
-    $self->{Debug}   = $debug;
+    $self->{Debug}   = $debug || $Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug} || 0;
     $session ||= $Foswiki::Plugins::SESSION;
     
     # write log entry - should be used throughout this script
@@ -65,6 +65,8 @@ sub search {
     my $nototal       = $query->param( "nototal" )   || "";
     my $showlock      = $query->param( "showlock" )  || "";
     my $rss           = $query->param( "rss" )       || "";
+    
+    $debug && Foswiki::Func::writeDebug( "searching:'$search' from:'$webName.$topicName' in web:'$websStr' by:'$remoteUser'" );
 
     # usersearch will be printed out
     my $usersearch = $search;
@@ -126,7 +128,7 @@ sub search {
 	$tempVal = $usersearch;
 	$tempVal =~ s/\+/\%2B/go; # just for the above URL
 	$tempVal =~ s/\"/\%22/go; # just for the above URL
-	my $attachmentsOnlyLabel = Foswiki::Func::getPreferencesValue( "KINOSEARCHATTACHMENTSONLYLABEL" ) || "Show only attachments";
+	my $attachmentsOnlyLabel = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{AttachmentsOnlyLabel} || "Show only attachments";
 	$tmplSearch =~ s/%SEARCHATTACHMENTSONLY%/<a href="%SCRIPTURLPATH%\/kinosearch\/$webName\/?search=$tempVal\%20\%2Battachment:yes">$attachmentsOnlyLabel<\/a>/go;
 	$tmplSearch = Foswiki::Func::expandCommonVariables ( $tmplSearch, $topicName, $webName );
     }
