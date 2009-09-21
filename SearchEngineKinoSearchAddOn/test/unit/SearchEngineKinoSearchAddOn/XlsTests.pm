@@ -16,11 +16,6 @@ sub set_up {
         #running from foswiki/test/unit
         $this->{attachmentDir} = 'SearchEngineKinoSearchAddOn/attachement_examples/';
     }
-
-    # Use RcsLite so we can manually gen topic revs
-    #$Foswiki::cfg{StoreImpl} = 'RcsLite';
-
-    #$this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
 }
 
 sub tear_down {

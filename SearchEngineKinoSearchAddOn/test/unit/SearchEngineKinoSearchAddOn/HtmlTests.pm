@@ -18,17 +18,6 @@ sub set_up {
     }
     
     $this->SUPER::set_up();
-    # Use RcsLite so we can manually gen topic revs
-    $Foswiki::cfg{StoreImpl} = 'RcsLite';
-
-     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
-
-	Foswiki::Func::saveTopicText( $this->{users_web}, 'TopicWithHtmlAttachment', <<'HERE');
-Just an example topic with HTML
-Keyword: Cern
-HERE
-	Foswiki::Func::saveAttachment( $this->{users_web}, 'TopicWithHtmlAttachment', 'Simple_example.html', 
-				       {file => $this->{attachmentDir}."Simple_example.html"});
 }
 
 sub tear_down {
