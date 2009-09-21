@@ -11,6 +11,7 @@ use Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
 sub new {
     my $self = shift()->SUPER::new('Search', @_);
     
+    # FIXME: is there a better way to find the attachment examples?
     $self->{attachmentDir} = 'attachement_examples/';
     if (! -e $self->{attachmentDir}) {
         #running from foswiki/test/unit
@@ -126,9 +127,6 @@ HERE
     my $nosummary = "";
     my $htmlString = $search->renderHtmlStringFor($hit, $repeatText, $nosummary);
 
-    #print "HTML Result: #############################\n";
-    #print "$htmlString\n";
-
     $this->assert(index($htmlString, $hit->{web}),   "Web not in result");
     my $restopic = $hit->{topic};
     # For partial name search of topics, just hold the first part of the string
@@ -149,7 +147,7 @@ sub test_search {
 			     $this->{test_user_wikiname},
 			     "startpoint");
 
-    $this->assert(index($result, "TopicWithoutAttachment") > 0,   "TopicWithoutAttachment not found");
+    $this->assert_matches("TopicWithoutAttachment", $result, "TopicWithoutAttachment not found");
 }
 
 sub test_searchAttachments {
@@ -162,8 +160,8 @@ Just an example topic
 Keyword: BodyToSearchFor
 HERE
 
-	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicToSearch", "Simple_example.doc",
-				       {file => $this->{attachmentDir}."Simple_example.doc"});
+	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicToSearch", "Simple_example.html",
+				       {file => $this->{attachmentDir}."Simple_example.html"});
 
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     $ind->createIndex();
@@ -171,16 +169,16 @@ HERE
     my $result = $this->_search($this->{test_web},
 			     "Kino",
 			     $this->{test_user_wikiname},
-			     "type:doc");
+			     "type:html");
 
-    $this->assert(index($result, "TopicToSearch") > 0,   "TopicToSearch not found for type:doc");
+    $this->assert_matches("TopicToSearch", $result, "TopicToSearch not found for type:html");
 
     $result = $this->_search($this->{test_web},
 			     "Kino",
 			     $this->{test_user_wikiname},
-			     "name:Simple_example.doc");
+			     "name:Simple_example.html");
 
-    $this->assert(index($result, "TopicToSearch") > 0,   "TopicToSearch not found for name:Simple_example.doc");
+    $this->assert_matches("TopicToSearch", $result, "TopicToSearch not found for name:Simple_example.html");
 }
 
 # I check, if the access rights of the users are checked.
@@ -206,8 +204,7 @@ HERE
 			     "Kino",
 			     "TestUser2",
 			     "KeepOutHere");
-
-    $this->assert(index($result, "TopicWithAccesControl") > 0,   "TopicWithAccesControl not found");    
+    $this->assert_matches("TopicWithAccesControl", $result, "TopicWithAccesControl not found");
 
     # No the reverse test: The normal test uses should not find the toipic
     $result = $this->_search($this->{test_web},
@@ -215,7 +212,7 @@ HERE
 			     $this->{test_user_wikiname},
 			     "KeepOutHere");
 
-    $this->assert(index($result, "TopicWithoutAttachment") < 0,   "TopicWithoutAttachment should not be found");
+    $this->assert_does_not_match("TopicWithAccesControl", $result, "TopicWithAccesControl found, and it shouldn't be");
 }
 
 # Helper method to do a search.
@@ -223,28 +220,27 @@ sub _search {
     my ( $this, $web, $topic, $user, $searchString ) = @_;
     
     my $query = new Unit::Request({
-        webName   => [ $web ],
+        web   => [ $web ],
         topicName => [ $topic ],
         search    => [ $searchString ],
     });
     $query->path_info( "$web/$topic" );
     
+    my $foswiki  = new Foswiki( $user, $query );
+    
     my $response = new Unit::Response();
     $response->charset("utf8");
-
-    #my $foswiki  = new Foswiki( $this->{test_user_login}, $query );
-    my $foswiki  = new Foswiki( $user, $query );
 
     my $search = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
 
     # Note: With $foswiki I hand over the just defined session. Thus I have full 
     # control over query etc.
     my ($text, $result) = $this->capture( \&Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search::search, $search, 1, $foswiki);
-
+    
     $foswiki->finish();
-    #$text =~ s/\r//g;
-    #$text =~ s/^.*?\n\n+//s; # remove CGI header
-    return $text;
+    
+    # returns the html result for checking
+    return $result;
 }
 
 1;
