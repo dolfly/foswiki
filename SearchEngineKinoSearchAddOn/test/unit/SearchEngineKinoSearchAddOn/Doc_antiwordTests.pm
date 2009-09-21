@@ -18,19 +18,6 @@ sub set_up {
     }
 
     $this->SUPER::set_up();
-    # Use RcsLite so we can manually gen topic revs
-    $Foswiki::cfg{StoreImpl} = 'RcsLite';
-    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} = 'antiword';
-
-
-    $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
-
-	Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithWordAttachment", <<'HERE');
-Just an example topic wird MS Word
-Keyword: redmond
-HERE
-	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
-				       {file => $this->{attachmentDir}."Simple_example.doc"});
 }
 
 sub tear_down {
@@ -45,10 +32,7 @@ sub test_stringForFile {
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
     my $text2 = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($this->{attachmentDir}.'Simple_example.doc');
 
-    #print "Test : $text\n";
-    #print "Test2: $text2\n";
-
-    $this->assert(defined($text), "No text returned.");
+    $this->assert(defined($text) && $text ne "", "No text returned.");
     $this->assert_str_equals($text, $text2, "DOC_antiword stringifier not well registered.");
 
     my $ok = $text =~ /dummy/;
@@ -63,7 +47,7 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
 
-    $this->assert(($text =~ m\Größer\)==1, "Text Größer not found.");
+    $this->assert_matches('Größer', $text, "Text Größer not found.");
 }
 
 1;
