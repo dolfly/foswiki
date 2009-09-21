@@ -6,6 +6,7 @@ Spreadsheet::ParseExcel,>0,cpan,Required for =.xls= files
 Spreadsheet::XLSX,>0,cpan,Required for =.xlsx= files
 CharsetDetector,>0,cpan,Required (not in debian)
 Encode,>0,cpan,Required (not in debian)
+ppthtml,>0,c,Required for indexing =.ppt= files. Part of xlhtml
 pdftotext,>0,c,Required for indexing =.pdf=. Part of xpdf-utils
 antiword,>0,c,One of antiword, abiword or wvWare is required for =.doc= files
 abiword,>0,c,One of antiword, abiword or wvWare is required for =.doc= files

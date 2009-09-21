@@ -30,12 +30,17 @@ sub stringForFile {
     return '' if (-f $tmp_file);
     
     # First I convert PPT to HTML
-    my $cmd = "$ppthtml '$filename' > $tmp_file 2>/dev/null";
-    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    my $cmd = $ppthtml . ' %FILENAME|F%';
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
     
     return '' unless ($exit == 0);
+    
+    # put the html into a temporary file
+    open(TMPFILE, ">$tmp_file");
+    print TMPFILE $output;
+    close(TMPFILE);
 
-    # Then I use the HTML stringifier to convert HTML to TXT
+    # use the HTML stringifier to convert HTML to TXT
     my $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
 
     unlink($tmp_file);
