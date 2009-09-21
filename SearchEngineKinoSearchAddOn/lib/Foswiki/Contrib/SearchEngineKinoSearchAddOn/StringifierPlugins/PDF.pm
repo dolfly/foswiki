@@ -26,27 +26,15 @@ sub stringForFile {
     my $in;
     my $text;
     
-    #unless ((system($pdftotext, $filename, $tmp_file, "-q") == 0) && (-f $tmp_file)) {
-    #    return "";
-    #}
-
-    
     return '' if (-f $tmp_file);
     
-    my $cmd = "$pdftotext $filename $tmp_file -q";
-    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    my $cmd = $pdftotext . ' %FILENAME|F% %TMPFILE|F% -q';
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename, TMPFILE => $tmp_file);
     
     return '' unless ($exit == 0);
     
-    ###########
     # Note: This way, the encoding of the text is reworked in the text stringifier.
-    # Note2: May be this is not necessary: My UnitTest says NO...
     $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
-    
-    #open $in, $tmp_file;
-    #$text = join(" ", <$in>);
-    #close($in);
-    ###############
 
     unlink($tmp_file);
 
