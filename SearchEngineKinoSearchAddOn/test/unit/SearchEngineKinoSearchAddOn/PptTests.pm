@@ -39,4 +39,15 @@ sub test_stringForFile {
     $this->assert($ok, "Text slide not included")
 }
 
+sub test_SpecialCharacters {
+    # check that special characters are not destroyed by the stringifier
+    
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PPT->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.ppt');
+
+    $this->assert_matches('Übergang', $text, "Text Übergang not found.");
+}
+
 1;
