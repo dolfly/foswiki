@@ -50,4 +50,15 @@ sub test_SpecialCharacters {
     $this->assert_matches('Größer', $text, "Text Größer not found.");
 }
 
+# test for Passworded_example.doc
+# Note that the password for that file is: foswiki
+sub test_passwordedFile {
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_antiword->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Passworded_example.doc');
+
+    $this->assert_equals('', $text, "Protected file generated some text?");
+}
+
 1;

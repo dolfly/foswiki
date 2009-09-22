@@ -31,7 +31,7 @@ sub test_stringForFile {
     my $text2 = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($this->{attachmentDir}.'Simple_example.xls');
 
     $this->assert(defined($text), "No text returned.");
-    $this->assert_str_equals($text, $text2, "DOC stringifier not well registered.");
+    $this->assert_str_equals($text, $text2, "XLS stringifier not well registered.");
 
     my $ok = $text =~ /dummy/;
     $this->assert($ok, "Text dummy not included")
@@ -80,6 +80,18 @@ sub test_calculatedNumbers {
 
     $this->assert(($text =~ m\217\)==1,  "Number 200 + 17 not found.");
     $this->assert(($text =~ m\5\)==1, "Number 5 not found.");
+}
+
+# test for Passworded_example.xls
+# Note that the password for that file is: foswiki
+# SMELL: At the moment this fails, but one day it might pass!
+sub test_passwordedFile {
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::XLS->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Passworded_example.xls');
+    
+    $this->assert_equals('', $text, "Protected file generated some text?");
 }
 
 1;

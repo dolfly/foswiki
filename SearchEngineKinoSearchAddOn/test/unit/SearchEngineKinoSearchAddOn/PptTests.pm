@@ -50,4 +50,16 @@ sub test_SpecialCharacters {
     $this->assert_matches('Übergang', $text, "Text Übergang not found.");
 }
 
+# test for Passworded_example.ppt
+# Note that the password for that file is: foswiki
+sub test_passwordedFile {
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PPT->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Passworded_example.ppt');
+    
+    # not too sure what to test... This is the default from pptHtml
+    $this->assert_equals('http://chicago.sf.net/xlhtml attachement_examples/Passworded_example.ppt  Created with pptHtml', $text, "Protected file generated some text?");
+}
+
 1;
