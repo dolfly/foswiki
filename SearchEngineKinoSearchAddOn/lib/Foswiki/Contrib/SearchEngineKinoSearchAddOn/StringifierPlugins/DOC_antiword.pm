@@ -13,6 +13,8 @@
 package Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::DOC_antiword;
 use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 use File::Temp qw/tmpnam/;
+use Encode;
+use CharsetDetector;
 
 my $antiword = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{antiwordCmd} || 'antiword';
 
@@ -31,8 +33,21 @@ sub stringForFile {
     my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $file);
     
     return '' unless ($exit == 0);
-
-    return $output;
+    
+    # encode text
+    my $text = "";
+    foreach( split( "\n", $output ) ){
+        my $charset = CharsetDetector::detect1($_);
+        my $aux_text = "";
+        if ($charset =~ "utf") {
+            $aux_text = encode("iso-8859-15", decode($charset, $_));
+            $aux_text = $_ unless($aux_text);
+        } else {
+            $aux_text = $_;
+        }
+        $text .= " " . $aux_text;
+    }
+    return $text;
 }
 
 1;
