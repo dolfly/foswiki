@@ -20,6 +20,10 @@ use CharsetDetector;
 sub stringForFile {
     my ($self, $file) = @_;
     my $in;
+    
+    # check it is a text file
+    return '' unless ( -T $file );
+    
     open $in, $file or return "";
 
     my $text = "";

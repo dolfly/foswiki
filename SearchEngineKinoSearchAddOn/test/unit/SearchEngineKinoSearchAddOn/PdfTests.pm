@@ -42,4 +42,25 @@ sub test_stringForFile {
     $this->assert($ok, "Text Äußerung not included");
 }
 
+sub test_SpecialCharacters {
+    # check that special characters are not destroyed by the stringifier
+    
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PDF->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.pdf');
+
+    $this->assert_matches('Überflieger', $text, "Text Überflieger not found.");
+}
+
+# test what would happen if someone uploaded a png and called it a .pdf
+sub test_maliciousFile {
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PDF->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Im_a_png.pdf');
+
+    $this->assert_equals('', $text, "Malicious file generated some text?");
+}
+
 1;

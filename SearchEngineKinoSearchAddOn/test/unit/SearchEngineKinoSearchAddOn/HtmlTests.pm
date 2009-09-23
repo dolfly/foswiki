@@ -42,4 +42,25 @@ sub test_stringForFile {
     $this->assert($ok, "Text geöffnet not included");
 }
 
+sub test_SpecialCharacters {
+    # check that special characters are not destroyed by the stringifier
+    
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::HTML->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.html');
+
+    $this->assert_matches('geöffnet', $text, "Text geöffnet not found.");
+}
+
+# test what would happen if someone uploaded a png and called it a .html
+sub test_maliciousFile {
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::HTML->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Im_a_png.html');
+
+    $this->assert_equals('', $text, "Malicious file generated some text?");
+}
+
 1;

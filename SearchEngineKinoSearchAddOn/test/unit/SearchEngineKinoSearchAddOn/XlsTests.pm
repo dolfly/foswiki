@@ -85,13 +85,23 @@ sub test_calculatedNumbers {
 # test for Passworded_example.xls
 # Note that the password for that file is: foswiki
 # SMELL: At the moment this fails, but one day it might pass!
-sub DISABLED_test_passwordedFile {
+sub test_passwordedFile {
     my $this = shift;
     my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::XLS->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Passworded_example.xls');
     
     $this->assert_equals('', $text, "Protected file generated some text?");
+}
+
+# test what would happen if someone uploaded a png and called it a .xls
+sub test_maliciousFile {
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::XLS->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Im_a_png.xls');
+
+    $this->assert_equals('', $text, "Malicious file generated some text?");
 }
 
 1;

@@ -21,6 +21,10 @@ __PACKAGE__->register_handler("text/html", ".html");
 
 sub stringForFile {
     my ($self, $filename) = @_;
+    
+    # check it is a text file
+    return '' unless ( -T $filename );
+    
     my $tree = HTML::TreeBuilder->new;
     open(my $fh, "<", $filename) || return "";
 

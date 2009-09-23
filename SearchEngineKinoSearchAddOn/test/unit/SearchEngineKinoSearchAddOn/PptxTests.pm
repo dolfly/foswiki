@@ -61,4 +61,14 @@ sub test_passwordedFile {
     $this->assert_equals('', $text, "Protected file generated some text?");
 }
 
+# test what would happen if someone uploaded a png and called it a .pptx
+sub test_maliciousFile {
+    my $this = shift;
+    my $stringifier = Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyPlugins::PPTX->new();
+
+    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Im_a_png.pptx');
+
+    $this->assert_equals('', $text, "Malicious file generated some text?");
+}
+
 1;
