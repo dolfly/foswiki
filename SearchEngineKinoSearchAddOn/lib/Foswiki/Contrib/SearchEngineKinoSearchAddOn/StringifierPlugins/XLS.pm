@@ -15,12 +15,24 @@ use base 'Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase';
 __PACKAGE__->register_handler("application/excel", ".xls");
 
 use Spreadsheet::ParseExcel;
+use Spreadsheet::ParseExcel::FmtUnicode; 
 use Encode;
+use Error qw(:try);
 
 sub stringForFile {
     my ($self, $file) = @_;
 
-    my $book  = Spreadsheet::ParseExcel::Workbook->Parse($file);
+    my $format = Spreadsheet::ParseExcel::FmtUnicode->new();
+    my $book;
+    
+    try {
+        $book = Spreadsheet::ParseExcel::Workbook->Parse($file, $format);
+    }
+    catch Error with {
+        # file not opened, possibly passworded
+        return '';
+    };
+    
     return '' unless $book;
 
     my $text = '';
