@@ -24,11 +24,6 @@ sub set_up {
     my $this = shift;
 
     $this->SUPER::set_up();
-
-    # Use RcsLite so we can manually gen topic revs
-    #$Foswiki::cfg{StoreImpl} = 'RcsLite';
-
-    #$this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
     
     $Foswiki::cfg{SearchEngineKinoSearchAddOn}{Debug} = 1;
     
@@ -45,14 +40,14 @@ sub test_newCreateIndex {
     my $this = shift;
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
-    $this->assert(defined($ind), "Index exemplar not created.")
+    $this->assert(defined($ind), "Index example not created.")
 }
 
 sub test_newUpdateIndex {
     my $this = shift;
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
 
-    $this->assert(defined($ind), "Index exemplar not created.")
+    $this->assert(defined($ind), "Update example not created.")
 }
 
 sub test_createIndex {
@@ -83,8 +78,8 @@ sub test_createIndexWithAccessControl {
 If ALLOWWEB is set to a list of wikinames
     * people in the list will be PERMITTED
     * everyone else will be DENIED
-\t* Set ALLOWWEBVIEW = MrGreen MrYellow MrWhite
-\t* Set WEBFORMS = TestForm
+   * Set ALLOWWEBVIEW = MrGreen MrYellow MrWhite
+   * Set WEBFORMS = TestForm
 THIS
                                 );
     # Now the Form topic
@@ -118,11 +113,11 @@ sub test_updateIndex {
     $this->assert(!defined($hit), "Hit for updatepoint found. Should be undefined!");
 
     # Now I do some changes
-  Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopicUpdate", <<'HERE');
+  Foswiki::Func::saveTopicText( $this->{test_web}, "NewOrChangedTopicUpdate", <<'HERE');
 Just an example topic
 Keyword: updatedpoint
 HERE
- Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopicUpdate2", <<'HERE');
+ Foswiki::Func::saveTopicText( $this->{test_web}, "NewOrChangedTopicUpdate2", <<'HERE');
 Just an example topic
 Keyword: secondupdatedpoint
 HERE
@@ -147,7 +142,7 @@ HERE
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for update2 topic.");
 
     # Lets delete a topic
-    Foswiki::Func::moveTopic( $this->{users_web}, "NewOrChangedTopicUpdate",
+    Foswiki::Func::moveTopic( $this->{test_web}, "NewOrChangedTopicUpdate",
 			      "Trash", "NewOrChangedTopicUpdate" );
 
     # Now I update the index. 
@@ -157,7 +152,7 @@ HERE
     $this->assert(!defined($hit), "Hit for deleted topic found. Should be undefined!");
 
     # Now let's add an attachment
-    Foswiki::Func::saveAttachment( $this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
+    Foswiki::Func::saveAttachment( $this->{test_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
 				   {file => $this->{attachmentDir}."Simple_example.doc"});
     
     $ind->updateIndex();
@@ -167,7 +162,7 @@ HERE
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for attach.");
 
     # Now let't change the attachment
-    Foswiki::Func::saveAttachment( $this->{users_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
+    Foswiki::Func::saveAttachment( $this->{test_web}, "NewOrChangedTopicUpdate2", "Simple_example.doc",
 				   {file => $this->{attachmentDir}."Simple_example2.doc"});
     $ind->updateIndex();
     $docs = $search->docsForQuery( "additions");
@@ -193,10 +188,10 @@ sub test_attachmentsOfTopic {
 
     my @atts;
 
-    @atts = $ind->attachmentsOfTopic($this->{users_web}, "TopicWithoutAttachment");
+    @atts = $ind->attachmentsOfTopic($this->{test_web}, "TopicWithoutAttachment");
     $this->assert(!@atts, "Atts should be undefined.");
 
-    @atts = $ind->attachmentsOfTopic($this->{users_web}, "TopicWithWordAttachment");
+    @atts = $ind->attachmentsOfTopic($this->{test_web}, "TopicWithWordAttachment");
     $this->assert(@atts, "Atts should be defined.");
     $this->assert_str_equals($atts[0]->{'name'}, "Simple_example.doc", "Attachment name not O.K.");
 }
@@ -209,22 +204,22 @@ sub test_changedTopics {
     # The "+1" is a littel trick: The Topics created in set_up may have the same 
     # timestamp as time(). Wiht time()+1 I ensure, that the timestamp is bigger.
     my $start_time = time()+1;
-    $ind->saveUpdateMarker($this->{users_web}, $start_time);
+    $ind->saveUpdateMarker($this->{test_web}, $start_time);
 
     my @changes;
     my $change;
 
     # No there should not be any changed topics after the mark I just set.
-    @changes = $ind->changedTopics($this->{users_web});
+    @changes = $ind->changedTopics($this->{test_web});
     $this->assert(!@changes, "Changes found even if there are non.");
     
     # Now I do a change
-    Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopic", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
 
-    @changes = $ind->changedTopics($this->{users_web});
+    @changes = $ind->changedTopics($this->{test_web});
 
     $this->assert(@changes, "Changed topics not returned.");
 
@@ -235,13 +230,13 @@ HERE
     }
 
     $start_time = time();
-    $ind->saveUpdateMarker($this->{users_web}, $start_time);
+    $ind->saveUpdateMarker($this->{test_web}, $start_time);
 
     # Lets delete a topic
-    Foswiki::Func::moveTopic( $this->{users_web}, "TopicWithoutAttachment",
+    Foswiki::Func::moveTopic( $this->{test_web}, "TopicWithoutAttachment",
 			      "Trash", "NewOrChangedTopic" );
 
-    @changes = $ind->changedTopics($this->{users_web});
+    @changes = $ind->changedTopics($this->{test_web});
 
     $this->assert(@changes, "Changed topics not returned.");
 
@@ -269,7 +264,7 @@ sub test_removeTopics {
     # Now I remove some of the topics
     my @topicsList = ( "TopicWithoutAttachment" );
 
-    $ind->removeTopics($this->{users_web}, @topicsList);
+    $ind->removeTopics($this->{test_web}, @topicsList);
     
     # Now the topic should not be found any more.
     $docs = $search->docsForQuery( "startpoint");
@@ -291,14 +286,14 @@ sub test_addTopics {
     $this->assert(!defined($hit), "Hit for updatepoint found. Should be undefined!");
 
     # Now I create the topic
-    Foswiki::Func::saveTopicText( $this->{users_web}, "NewTopic", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "NewTopic", <<'HERE');
 Just an example topic
 Keyword: creatededpoint
 HERE
 
     # Now I add the topic to the index. 
     my @topicsList = ( "NewTopic" );
-    $ind->addTopics($this->{users_web}, @topicsList);
+    $ind->addTopics($this->{test_web}, @topicsList);
     
     # Let's check
     $docs = $search->docsForQuery( "creatededpoint");
@@ -315,7 +310,7 @@ sub test_websToIndex {
 
     my @webs = $ind->websToIndex();
     $this->assert(@webs, "No webs given.");
-    $this->assert(grep(/$this->{users_web}/,@webs), "User web not included.");
+    $this->assert(grep(/$this->{test_web}/,@webs), "Test web not included.");
 }
 
 sub test_formsFieldNames {
@@ -364,11 +359,11 @@ sub test_indexTopic {
     $ind->createIndex();
 
     # Now I create a topic with all elements.
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithExcelAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicWithExcelAttachment", <<'HERE');
 Just an example topic with MS Excel
 Keyword: spreadsheet
 HERE
-	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithExcelAttachment", "Simple_example.xls",
+	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicWithExcelAttachment", "Simple_example.xls",
 				       {file => $this->{attachmentDir}."Simple_example.xls"});
     # FIXME: How can I add a Form?
 
@@ -378,7 +373,7 @@ HERE
     my $analyzer = $ind->analyser( $ind->analyserLanguage() );
     my $indexer  = $ind->indexer($analyzer, 1, %fldNames);
     # Indexing
-    $ind->indexTopic($indexer, $this->{users_web}, "TopicWithExcelAttachment", %fldNames);
+    $ind->indexTopic($indexer, $this->{test_web}, "TopicWithExcelAttachment", %fldNames);
     # And finish
     $indexer->finish;
 
@@ -401,7 +396,7 @@ HERE
     # Search for string in Excel: "calculator"
     $docs = $search->docsForQuery( "calculator");
     $hit  = $docs->fetch_hit_hashref;
-    $this->assert(defined($hit), "No hit found for calculator.");
+    $this->assert(defined($hit), "No hit found for calculator in Excel.");
     $topic = $hit->{topic};
     $topic =~ s/ .*//;
     $this->assert_str_equals($topic, "TopicWithExcelAttachment", "Wrong topic for attachment.");
@@ -419,11 +414,11 @@ sub test_indexAttachment {
     $ind->createIndex();
 
     # Now I create a topic with an attachment.
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithPdfAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicWithPdfAttachment", <<'HERE');
 Just an example topic with PDF
 Keyword: spreadsheet
 HERE
-	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithPdfAttachment", "Simple_example.pdf",
+	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicWithPdfAttachment", "Simple_example.pdf",
 				       {file => $this->{attachmentDir}."Simple_example.pdf"});
 
     # Let's index the atachment
@@ -432,9 +427,9 @@ HERE
     my $analyzer = $ind->analyser( $ind->analyserLanguage() );
     my $indexer  = $ind->indexer($analyzer, 1, %fldNames);
     # Indexing
-    my @allAttachments = $ind->attachmentsOfTopic($this->{users_web}, "TopicWithPdfAttachment");
+    my @allAttachments = $ind->attachmentsOfTopic($this->{test_web}, "TopicWithPdfAttachment");
     my $attachment = $allAttachments[0];
-    $ind->indexAttachment($indexer, $this->{users_web}, "TopicWithPdfAttachment", $attachment);
+    $ind->indexAttachment($indexer, $this->{test_web}, "TopicWithPdfAttachment", $attachment);
     # And finish
     $indexer->finish;
 
@@ -445,7 +440,7 @@ HERE
     my $topic = $hit->{topic};
     $topic =~ s/ .*//;
     $this->assert_str_equals($topic, "TopicWithPdfAttachment", "Wrong topic for tile.");
-    $this->assert_str_equals($this->{users_web}."TopicWithPdfAttachment".$attachment->{'name'}, 
+    $this->assert_str_equals($this->{test_web}."TopicWithPdfAttachment".$attachment->{'name'}, 
 			     $hit->{'id_topic'},   "ID topic not O.K.");
     $this->assert_str_equals($hit->{'name'},       $attachment->{'name'}, "Name not O.K.");
     $this->assert_str_equals($hit->{'author'},     $attachment->{'user'}, "User not O.K.");
@@ -467,9 +462,9 @@ sub test_saveUpdateMarker{
     my $this = shift;
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
     my $start_time = time();
-    $ind->saveUpdateMarker($this->{users_web}, $start_time);
+    $ind->saveUpdateMarker($this->{test_web}, $start_time);
 
-    my $red_time = $ind->readUpdateMarker($this->{users_web});
+    my $red_time = $ind->readUpdateMarker($this->{test_web});
     $this->assert_str_equals($start_time, $red_time, "Red time does not fit saved time.");
 }
 
@@ -477,16 +472,16 @@ sub test_readChanges {
     my $this = shift;
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
-    Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopic", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
-	Foswiki::Func::saveTopicText( $this->{users_web}, "NewOrChangedTopic", <<'HERE');
+	Foswiki::Func::saveTopicText( $this->{test_web}, "NewOrChangedTopic", <<'HERE');
 Just an example topic: Updated
 Keyword: startpoint
 HERE
 
-    my @changes = $ind->readChanges($this->{users_web});
+    my @changes = $ind->readChanges($this->{test_web});
     my $change;
 
     $this->assert(@changes, "Changes not returned.");
@@ -580,11 +575,11 @@ sub _testForWordInAttachment {
 
     my $ind = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
 
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithSpecialFile", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicWithSpecialFile", <<'HERE');
 Just an example topic.
 Keyword: Superspecific
 HERE
-	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithSpecialFile", $file,
+	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicWithSpecialFile", $file,
 				       {file => $this->{attachmentDir}.$file});
 
     Foswiki::Func::setPreferencesValue( "KINOSEARCHINDEXSKIPWEBS", "Main, Sandbox, System, TestCases, Trash");
@@ -604,7 +599,7 @@ HERE
 sub _createTopicWithoutAttachment {
     my $this = shift;
 
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithoutAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicWithoutAttachment", <<'HERE');
 Just an example topic
 Keyword: startpoint
 HERE
@@ -613,12 +608,12 @@ HERE
 sub _createTopicWithWordAttachment {
     my $this = shift;
 
-    Foswiki::Func::saveTopicText( $this->{users_web}, "TopicWithWordAttachment", <<'HERE');
+    Foswiki::Func::saveTopicText( $this->{test_web}, "TopicWithWordAttachment", <<'HERE');
 Just an example topic with MS Word
 Keyword: redmond
 HERE
 
-	Foswiki::Func::saveAttachment( $this->{users_web}, "TopicWithWordAttachment", "Simple_example.doc",
+	Foswiki::Func::saveAttachment( $this->{test_web}, "TopicWithWordAttachment", "Simple_example.doc",
 				       {file => $this->{attachmentDir}."Simple_example.doc"});
 }
 
@@ -637,12 +632,12 @@ sub _indexOK {
     $this->assert_str_equals($topic, "TopicWithoutAttachment", "Wrong topic for startpoint.");
 
     # Lets seach for the MS Word attachment
-    $docs = $search->docsForQuery( "dummy");
+    $docs = $search->docsForQuery( "redmond");
     $hit  = $docs->fetch_hit_hashref;
-    $this->assert(defined($hit), "Hit for MS Word not found.");
+    $this->assert(defined($hit), "Hit for redmond not found.");
     $topic = $hit->{topic};
     $topic =~ s/ .*//;
-    $this->assert_str_equals($topic, "TopicWithWordAttachment", "Wrong topic for MS word.");
+    $this->assert_str_equals($topic, "TopicWithWordAttachment", "Wrong topic for redmond.");
 }
 
 1;
