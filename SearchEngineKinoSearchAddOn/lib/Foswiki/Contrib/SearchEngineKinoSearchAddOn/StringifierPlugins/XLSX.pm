@@ -19,13 +19,23 @@ __PACKAGE__->register_handler("application/vnd.openxmlformats-officedocument.spr
 use Text::Iconv;
 use Spreadsheet::XLSX;
 use Encode;
+use Error qw(:try);
 
 sub stringForFile {
     my ($self, $file) = @_;
 
     my $converter = Text::Iconv->new("utf-8", "windows-1251");
-    my $book = Spreadsheet::XLSX->new ($file, $converter);
-    return unless $book;
+    my $book;
+    
+    try {
+        $book = Spreadsheet::XLSX->new ($file, $converter);
+    }
+    catch Error with {
+        # file not opened, possibly passworded
+        return '';
+    };
+    
+    return '' unless $book;
 
     my $text = '';
 
