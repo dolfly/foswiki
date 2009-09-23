@@ -18,7 +18,7 @@ use Foswiki;
 
 my $abiword = $Foswiki::cfg{SearchEngineKinoSearchAddOn}{abiwordCmd} || 'abiword';
 
-#only load abiword if the user has selected it in configure - Sven has had no success with it
+#only load abiword if the user has selected it in configure - Sven & Andrew have had no success with it
 if (defined($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer}) && 
     ($Foswiki::cfg{SearchEngineKinoSearchAddOn}{WordIndexer} eq 'abiword')) {
 # Only if abiword exists, I register myself.
@@ -35,8 +35,8 @@ sub stringForFile {
     
     return '' if (-f $tmp_file);
     
-    my $cmd = "$abiword --to=$tmp_file '$file' 2>/dev/null";
-    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    my $cmd = $abiword . ' --to=%TMPFILE|F% \'%FILENAME|F%\'';
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, TMPFILE => $tmp_file, FILENAME => $file);
     
     return '' unless ($exit == 0);
 
@@ -44,8 +44,7 @@ sub stringForFile {
     my $text = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Stringifier->stringFor($tmp_file);
 
     unlink($tmp_file);
-    $cmd = "rm -rf " . $tmp_file . "_files";
-    system($cmd);
+    $self->rmtree($tmp_file . '_files');
 
     return $text;
 }

@@ -21,7 +21,7 @@ sub stringForFile {
     my ($self, $file) = @_;
 
     my $book  = Spreadsheet::ParseExcel::Workbook->Parse($file);
-    return unless $book;
+    return '' unless $book;
 
     my $text = '';
 

@@ -495,7 +495,7 @@ sub indexTopic {
         if (@fields) {
             foreach my $field (@fields) {
                 my $name = $field->{"name"};
-                if ( $fldNames{$name} ) {
+                if ( defined($fldNames{$name}) &&  $fldNames{$name}) {
                     my $value = $field->{"value"};
                     next if (!defined($value)); #field not there.
                     $doc->set_value( $name => $value );

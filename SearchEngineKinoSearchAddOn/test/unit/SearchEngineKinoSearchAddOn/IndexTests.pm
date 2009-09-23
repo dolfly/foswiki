@@ -29,6 +29,9 @@ sub set_up {
     
     # don't bother indexing everything, we only want the temporary webs. Makes the tests a lot quicker
     $Foswiki::cfg{SearchEngineKinoSearchAddOn}{SkipWebs} = 'Trash, Sandbox, System, TWiki, Main, TestCases';
+    
+    # ensure we index all attachments
+    $Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions} = '.txt, .html, .xml, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf';
 }
 
 sub tear_down {
@@ -156,9 +159,10 @@ HERE
 				   {file => $this->{attachmentDir}."Simple_example.doc"});
     
     $ind->updateIndex();
-    $docs = $search->docsForQuery( "dummy");
+    $docs = $search->docsForQuery( "dummy" );
     $hit  = $docs->fetch_hit_hashref;
     $this->assert(defined($hit), "Attached doc not found");
+    $topic = $hit->{topic};
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for attach.");
 
     # Now let't change the attachment
@@ -168,6 +172,7 @@ HERE
     $docs = $search->docsForQuery( "additions");
     $hit  = $docs->fetch_hit_hashref;
     $this->assert(defined($hit), "Attached changed doc not found");
+    $topic = $hit->{topic};
     $this->assert_str_equals($topic, "NewOrChangedTopicUpdate2", "Wrong topic for changed attach.");
 }
 

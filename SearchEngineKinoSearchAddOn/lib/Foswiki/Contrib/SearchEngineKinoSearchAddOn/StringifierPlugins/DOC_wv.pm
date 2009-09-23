@@ -42,8 +42,8 @@ sub stringForFile {
     $tmp_file = "$tmp_dir/$tmp_file";
     return '' if (-f $tmp_file) || (!(-z $tmp_file));
     
-    my $cmd = "$wvHtml --targetdir=$tmp_dir '$file' $tmp_file >/dev/null 2>&1";
-    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    my $cmd = $wvHtml . ' --targetdir=%TMPDIR|F% \'%FILENAME|F%\' %TMPFILE|F%';
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, TMPDIR => $tmp_dir, FILENAME => $file, TMPFILE => $tmp_file );
     
     return '' unless ($exit == 0);
 
