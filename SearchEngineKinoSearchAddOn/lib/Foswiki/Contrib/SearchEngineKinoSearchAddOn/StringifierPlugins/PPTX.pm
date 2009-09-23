@@ -28,22 +28,15 @@ if (__PACKAGE__->_programExists($pptx2txt)){
 
 sub stringForFile {
     my ($self, $filename) = @_;
-    my $tmp_file = tmpnam();
-
-    return '' if (-f $tmp_file);
     
-    my $cmd = "$pptx2txt '$filename' $tmp_file 2>/dev/null";
-    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd);
+    my $cmd = $pptx2txt . ' %FILENAME|F% -';
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
     
     return '' unless ($exit == 0);
-  
-    my $in;
-    open $in, $tmp_file or return "";
-    my $text = "";
    
-     while (<$in>) {
-        chomp;
-
+    # encode text
+    my $text = "";
+    foreach( split( "\n", $output ) ){
         my $charset = CharsetDetector::detect1($_);
         my $aux_text = "";
         if ($charset =~ "utf") {
@@ -54,10 +47,6 @@ sub stringForFile {
         }
         $text .= " " . $aux_text;
     }
-
-    close($in);
-    unlink($tmp_file);
-    
     return $text;
 }
 
