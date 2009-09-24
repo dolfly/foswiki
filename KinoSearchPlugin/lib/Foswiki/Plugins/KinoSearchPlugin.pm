@@ -22,7 +22,7 @@ use vars qw(
     );
 
 $VERSION = '$Rev: 5121 $';
-$RELEASE = '0.6';
+$RELEASE = '1.4';
 $SHORTDESCRIPTION = 'A plugin wrapper around the KinoSearchContrib';
 $NO_PREFS_IN_TOPIC = 1;
 $pluginName = 'KinoSearchPlugin';

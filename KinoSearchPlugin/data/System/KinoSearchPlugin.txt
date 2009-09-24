@@ -62,9 +62,9 @@ __Warning__ this can cause topic saves and attachments to become unacceptably sl
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  24 Sep 2009: | Extracted out of Foswiki:Extensions/KinoSearchContrib -- Foswiki:Main.AndrewJones |
+|  24 Sep 2009: | Version 1.4, Extracted out of Foswiki:Extensions/KinoSearchContrib -- Foswiki:Main.AndrewJones |
 |  24 Mar 2009: | Version 1.3, port to Foswiki  -- Foswiki:Main.WillNorris |
-|  20 Aug 2008: | Version 1.2, brought Plugin into SearchEngineKinoSearchAddOn package, and svn, and added restHandlers for indexing & searching - Foswiki:Main.SvenDowideit |
+|  20 Aug 2008: | Version 1.2, brought Plugin into !SearchEngineKinoSearchAddOn package, and svn, and added restHandlers for indexing & searching - Foswiki:Main.SvenDowideit |
 |  09 Apr 2008: | Version 1.1, Added auto index updater code |
 |  07 Apr 2008: | Initial version |
 |  Dependencies: | %$DEPENDENCIES% |
