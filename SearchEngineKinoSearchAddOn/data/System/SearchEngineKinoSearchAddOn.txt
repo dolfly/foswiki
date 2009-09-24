@@ -138,7 +138,7 @@ Then set the command path to these tools in =configure=.
 
 ---+++ Instaling the !AddOn
 
-%$INSTALLER_INSTRUCTIONS%
+%$INSTALL_INSTRUCTIONS%
 
 ---+++ Configuration
 
@@ -220,6 +220,7 @@ All the stringifiers have unit tests associated with them, and we would encourag
 
 |  Author(s): | Foswiki:Main.MarkusHesse, Foswiki:Main.SvenDowideit & Foswiki:Main.AndrewJones |
 |  Copyright:  | &copy; 2007, Foswiki:Main.MarkusHesse; &copy; 2009, Foswiki Contributors |
+|  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  24 Sep 2009:  | v 1.21, Foswikitask:Item1363: port to Foswiki -- Foswiki:Main.WillNorris. add stringifiers for =.docx=, =.pptx= and =.xlsx=; change the =kinosearch= script to work with [[Foswiki:Development.FoswikiStandAlone][FSA]]; Moved settings into =configure=; Commands now set in =configure=; Replaced =system()= calls with =Foswiki::Sandbox->sysCommand()=; Handle passworded MS Office files; Make the index more robust if it somehow encounters binary files; Can now specify skipped topics; updated and simplified docs; added doc for TipsContrib; update templates; Foswikitask:Item8246: fix checking of access controls -- Foswiki:Main.AndrewJones |
