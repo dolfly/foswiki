@@ -2,6 +2,7 @@
 bin/kinosearch 0555 Executable script for search
 data/System/SearchEngineKinoSearchAddOn.txt 0664 Documentation
 data/System/KinoSearch.txt 0664 End user documentation
+data/System/TipTopicForKinoSearch.txt 0664 Topic for TipsContrib
 pub/System/SearchEngineKinoSearchAddOn/KinoSearchResult.jpg 0664 Screenshot
 pub/System/SearchEngineKinoSearchAddOn/KinoSEARCH.jpg 0664 Screenshot
 lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn.pm 0444 Perl module

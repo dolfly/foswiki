@@ -4,13 +4,13 @@
 
 %TOC%
 
-[[http://www.rectangular.com/kinosearch/][KinoSearch]] is a Perl implementation of Lucene search engine (implemented in Java). This is the base of this indexed search engine for Foswiki. With !KinoSearch you create an index over all webs including attachments like Word, Excel and PDF. Based on that you get a really fast search over all topics and the attachments. You need this add-on if:
-   * your wiki has grown so big, that normal search is too slow or
+[[http://www.rectangular.com/kinosearch/][KinoSearch]] is a Perl implementation of the [[http://lucene.apache.org/java/docs/][Apache Lucene]] search engine (implemented in Java). This is the implementation of this indexed search engine for Foswiki. With !KinoSearch you create an index over all webs including attachments like Word, Excel and PDF. Based on that you get a really fast search over all topics and the attachments. You need this add-on if:
+   * your wiki has grown so big, that default search is too slow or
    * you want to do search not only on the topics but also the attachments.
 
 ---++ Screenshot
 
-     <img src="%ATTACHURLPATH%/KinoSearchResult.jpg" alt="KinoSearchResult.jpg"   />
+<img src="%ATTACHURLPATH%/KinoSearchResult.jpg" alt="KinoSearchResult.jpg" />
 
 ---++ Usage
 
@@ -18,18 +18,20 @@ See the KinoSearch topic for user documentation.
 
 ---+++ Searching With Kinosearch
 
-The ==kinosearch== script uses a template called ==kinosearch.tmpl== to render the results. You can override it in the same way as any other templates (i.e. create ==kinosearch.yourskin.tmpl==).
+The =kinosearch= script uses a template called =kinosearch.tmpl= to render the results. You can override it in the same way as any other templates (i.e. create =kinosearch.yourskin.tmpl=, =Set SKIN = yourskin,pattern=).
 
-There is also the *KinoSearch* topic with a form ready to use with the =kinosearch= script.
+There is also the *[[KinoSearch]]* topic with a form ready to use with the =kinosearch= script.
 
-If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller wiki), or the command line. The syntax is identical to the =kinosearch= script.
+If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler instead. The syntax is identical to the =kinosearch= script.
    * =%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search=
-   * =cd foswiki/bin ; ./rest SearchEngineKinoSearchPlugin.search=
+   * =cd foswiki/bin ; ./rest <nop>SearchEngineKinoSearchPlugin.search=
+
+__Note:__ Rest handlers currently require the user to be authenticated. If you want unauthenticated users to search, use the =kinosearch= script instead.
    
-The following form submits text to the =kinosearch= script. The installation instructions are detailed below.
+The following form submits a query to the =kinosearch= script. The installation instructions are detailed below.
 
 <form action="%SCRIPTURLPATH%/kinosearch%SCRIPTSUFFIX%/%INTURLENCODE{"%INCLUDINGWEB%"}%/">
-   <input type="text" name="search" size="32" class="foswikiInputField" /> <input type="submit" value="Search text" class="foswikiSubmit" /> | [[%SYSTEMWEB%.KinoSearch][Help]]
+   <input type="text" name="search" size="32" class="foswikiInputField" /> <input type="submit" value="Search text" class="foswikiSubmit" /><span class="foswikiSeparator"> | </span>[[%SYSTEMWEB%.KinoSearch][Help]]
 </form>
 
 %INCLUDE{"VarKINOSEARCH"}%
@@ -44,6 +46,8 @@ Foswiki will use the KinoSearch index for any inbuilt search (including WebSearc
 If you want Foswiki's WebSearch to also show you attachment results (when you select the 'Both body and title' option), you need to also set ={SearchEngineKinoSearchAddOn}{showAttachments}=1=, and add =kino= to the front of your =SKIN= setting.
 
 The reason this feature is experimental, is that kinosearch does not do partial matching, so searching for =TAG= will not match text like =%TAG{"something"}%=, only instances where the word TAG is seperated by whitespace. Foswiki's SEARCH expects total partial matching.
+
+__Note:__ This currently only works for Foswiki =1.0.x=.
 
 ---+++ RSS Feeds
 
@@ -65,7 +69,7 @@ If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handl
 
 ---+++ Updating the Index
 
-The ==kinoupdate== script uses the web's ==.changes== files to know about topic modifications. Also, a ==.kinoupdate== file is used on each web directory storing the last timestamp the script was run on it. So when this script is executed, it first checks if there are any topic updates since last execution. The most recent topic updates are removed from the index and then reindexed again.
+The =kinoupdate= script uses the web's =.changes= files to know about topic modifications. Also, a =.kinoupdate= file is used on each web directory storing the last timestamp the script was run on it. So when this script is executed, it first checks if there are any topic updates since last execution. The most recent topic updates are removed from the index and then reindexed again.
    * =cd foswiki/kinosearch/bin ; ./kinoupdate=
 
 If you have enabled the SearchEngineKinoSearchPlugin, you can use the rest handler either from a URL (this works only for a smaller wiki), or the command line
@@ -83,20 +87,20 @@ You can also optionally use SearchEngineKinoSearchPlugin's updateHandlers to aut
 ---+++ Attachment File Types to be Indexed
 
 By default, the following file types are indexed:
-  * =.txt=
-  * =.html=
-  * =.xml=
-  * =.doc=
-  * =.docx=
-  * =.xls=
-  * =.xlsx=
-  * =.ppt=
-  * =.pptx=
-  * =.pdf=
+   * =.txt=
+   * =.html=
+   * =.xml=
+   * =.doc=
+   * =.docx=
+   * =.xls=
+   * =.xlsx=
+   * =.ppt=
+   * =.pptx=
+   * =.pdf=
 
 You can change this with the =$Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions}= setting in =configure=.
 
-If you add other file extensions, they are treated as ASCII files. If needed, you can add more specialised stringifiers for further document types ( see [[%TOPIC%#Indexing_further_document_types][Indexing further document types]]).
+If you add other file extensions, they are treated as ASCII files. If needed, you can add more specialised stringifiers for further document types (see [[%TOPIC%#Indexing_further_document_types][Indexing further document types]]).
 
 ---+++ Indexing of Form Fields
 
@@ -104,30 +108,17 @@ All form fields are indexed. For this, the form templates are checked and the in
 
 __Note__: With =kinoupdate= only the form fields that existed at the time the initial index was created are indexed. Thus if you add a form or if you add a new field to an existing form, you should create a new index with =kinoindex=.
 
----++ Indexing Further Document Types
-
-The indexing of attached documents is realised in two steps: 
-   1 the content of the document is changed to an ASCII string. This is called stringification. 
-   1 this ASCII string is indexed with <nop>KinoSearch. This is the normal way in all index applications.  
-
-To index different types of documents, it is necessary to have specialised stringifiers, i.e. classes to extract the ASCII text out of the document.  In this add-on, a plug-in mechanism is implemented, so that additional stringifiers can be added without changing the existing code. All stringifier plugins are stored in the directory =lib/Foswiki/Contrib/KinoSearch/StringifierPlugins=. 
-
-You can add new stringifier plugins by just adding new files here. The minimum things to be implemented are:
-   * The plugin must inherit from =Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase=
-   * The plugin must register itself by =__PACKAGE__->register_handler($application, $file_extension)=;
-   * The plugin must implement the method =$text = stringForFile ($filename)=
-
-Then you should add to the list in =$Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexExtensions}= in =configure=. Now the defined document type should be indexed and the new stringifier should be used.
-
-NOTE: If you just extend the list without having a special stringifier in place, this document type is treaded like an ASCII file. For binary document types, this may lead to problems (inpropper search results, long indexing times and potential indexing break downs).
-
 ---++ Add-On Installation Instructions
 
 ---+++ Backend for Indexing Word 2003 Documents
 
-Install a backend to stringify Word documents if you want to index Word documents. For this either install antiword, abiword or !wvWare.
+To index Word 2003 Documents (=.doc=) you will need to install one of the following:
 
-__Note:__ This add-on comes with stringifiers for all three of them. Select the right stringifier is in =configure=.
+   * =antiword= (recommended)
+   * =abiword=
+   * =wvWare=
+
+You can then select the tool to use in =configure=.
 
 ---+++ Backend for PDF
 
@@ -145,8 +136,6 @@ To index these file types, you will need to install the following tools from Sou
 
 Then set the command path to these tools in =configure=.
 
-_Note for Windows_: For Windows, make sure you have a C-compiler in place. This is normally part of Visual Studio.
-
 ---+++ Instaling the !AddOn
 
 %$INSTALLER_INSTRUCTIONS%
@@ -163,9 +152,9 @@ You only need to enable the SearchEngineKinoSearchPlugin if you are using the =r
       * Check that =antiword=, =abiword= or =wvHtml= is in place: Type =antiword=,  =abiword= or =wvHtml= on the prompt and check that the command exists.
       * Check that =pdftotext= is in place: Type =pdftotext= on the prompt and check that the command exists.
       * Check that =ppthtml= is in place: Type =ppthtml= on the prompt and check that the command exists.
-      * Change the working directory to the ==kinosearch/bin== Foswiki installation directory.
+      * Change the working directory to the =kinosearch/bin= Foswiki installation directory.
       * Run =./kinoindex=
-      * Once finished, open a browser window and point it to the ==System/KinoSearch== topic.
+      * Once finished, open a browser window and point it to the =[[System.KinoSearch]]= topic.
       * Just type a query and check the results.
 
 ---+++ Test of Stringification with =ks_test=
@@ -201,8 +190,27 @@ If you previously used the TWiki version (< 1.21) of this !AddOn (either on TWik
 
 Also the following settings have been renamed, for consistency:
 
-   * =$Foswiki::cfg{KinoSearchLogDir}= => =$Foswiki::cfg{SearchEngineKinoSearchAddOn}{LogDirectory}=
-   * =$Foswiki::cfg{KinoSearchIndexDir}= => =$Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexDirectory}=
+   * =$Foswiki::cfg{KinoSearchLogDir}= __-->__ =$Foswiki::cfg{SearchEngineKinoSearchAddOn}{LogDirectory}=
+   * =$Foswiki::cfg{KinoSearchIndexDir}= __-->__ =$Foswiki::cfg{SearchEngineKinoSearchAddOn}{IndexDirectory}=
+
+---++ Further Development
+
+There is certainly a lot more that can be done with this Add-on, such as adding more stringifiers, improving the performance and making it more robust. See Foswiki:Tasks/SearchEngineKinoSearchAddOn for currently open tasks.
+
+---+++ Indexing Further Document Types
+
+The indexing of attached documents is realised in two steps: 
+   1 the content of the document is changed to an ASCII string. This is called stringification. 
+   1 this ASCII string is indexed with <nop>KinoSearch. This is the normal way in all index applications.  
+
+To index different types of documents, it is necessary to have specialised stringifiers, i.e. classes to extract the ASCII text out of the document.  In this add-on, a plug-in mechanism is implemented, so that additional stringifiers can be added without changing the existing code. All stringifier plugins are stored in the directory =lib/Foswiki/Contrib/SearchEngineKinoSearchAddOn/StringifierPlugins=. 
+
+You can add new stringifier plugins by just adding new files here. The minimum things to be implemented are:
+   * The plugin must inherit from =Foswiki::Contrib::SearchEngineKinoSearchAddOn::StringifyBase=
+   * The plugin must register itself by =__PACKAGE__->register_handler($application, $file_extension)=;
+   * The plugin must implement the method =$text = stringForFile ($filename)=
+
+All the stringifiers have unit tests associated with them, and we would encourage you to provide unit tests for any you wish to contribute. See Foswiki:Development/UnitTests for more information on unit testing.
 
 ---++ Add-On Info
 
@@ -210,15 +218,15 @@ Also the following settings have been renamed, for consistency:
    * Set SHORTDESCRIPTION = Fast indexed SEARCH of topics and attachments (eg Word, Excel, PDF and PPT)
 -->
 
-|  Author(s): | Foswiki:Main.MarkusHesse and Foswiki:Main.SvenDowideit |
-|  Copyright:  | &copy; 2009, Foswiki:Main.MarkusHesse; &copy; 2009, Foswiki Contributors |
+|  Author(s): | Foswiki:Main.MarkusHesse, Foswiki:Main.SvenDowideit & Foswiki:Main.AndrewJones |
+|  Copyright:  | &copy; 2007, Foswiki:Main.MarkusHesse; &copy; 2009, Foswiki Contributors |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|   Sep 2009:  | v 1.21 Foswikitask:Item1363 - port to Foswiki; add stringifiers for =.docx=, =.pptx= and =.xlsx=; change the =kinosearch= script to work with [[Foswiki:Development.FoswikiStandAlone][FSA]]; Moved settings into =configure=; Commands now set in =configure=; Replaced =system()= calls with =Foswiki::Sandbox->sysCommand()=; updated and simplified docs; Foswikitask:Item8246 - fix checking of access controls -- Foswiki:Main.AndrewJones, Foswiki:Main.WillNorris |
+|  24 Sep 2009:  | v 1.21, Foswikitask:Item1363: port to Foswiki -- Foswiki:Main.WillNorris. add stringifiers for =.docx=, =.pptx= and =.xlsx=; change the =kinosearch= script to work with [[Foswiki:Development.FoswikiStandAlone][FSA]]; Moved settings into =configure=; Commands now set in =configure=; Replaced =system()= calls with =Foswiki::Sandbox->sysCommand()=; Handle passworded MS Office files; Make the index more robust if it somehow encounters binary files; Can now specify skipped topics; updated and simplified docs; added doc for TipsContrib; update templates; Foswikitask:Item8246: fix checking of access controls -- Foswiki:Main.AndrewJones |
 |  06 Nov 2008:  | v 1.20, minor revert to stop crash |
 |  05 Nov 2008:  | v 1.19, fixes for (nex)twiki/trunk |
-|  20 Aug 2008:  | v 1.18, added Integrated SEARCH, SearchEngineKinoSearchPlugin, restHandlers, updated code and tests -- TWiki:Main.SvenDowideit |
-|  6 Aug 2008:   | v 1.17, TWikibug:Item5717: persist use form choices, TWikibug:Item5647: cope better with attachment problems -- TWiki:Main.SvenDowideit |
+|  20 Aug 2008:  | v 1.18, added Integrated SEARCH, SearchEngineKinoSearchPlugin, restHandlers, updated code and tests -- Foswiki:Main.SvenDowideit |
+|  6 Aug 2008:   | v 1.17, TWikibug:Item5717: persist use form choices, TWikibug:Item5647: cope better with attachment problems -- Foswiki:Main.SvenDowideit |
 |  4 Jun 2008:   | v 1.16, TWikibug:Item5646: Problem with attachments with capital letter suffix |
 |  12 May 2008:  | v 1.15, TWikibug:Item5579, TWikibug:Item5580, TWikibug:Item5619: Problem with ALLOWWEBVIEW and Forms fixed |
 |  23 Apr 2008:  | v 1.14, TWikibug:Item5273, TWikibug:Item5546, TWikibug:Item5550, TWikibug:Item5552: Use current user in search script |

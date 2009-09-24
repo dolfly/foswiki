@@ -32,7 +32,7 @@
 
    * ==text:kino== or just ==kino==
    * ==text:"search engine"== or just =="search engine"==
-   * ==author:MarkusHesse== &mdash; note that to search for a wiki author, use their WikiName
+   * ==author:%WIKINAME%== to search for a wiki author, use their WikiName
    * ==form:WebFormName== to get all topics with that form attached.
    * ==type:doc== to get all attachments of given type
    * ==web:Sandbox== to get all the topics in a given web
