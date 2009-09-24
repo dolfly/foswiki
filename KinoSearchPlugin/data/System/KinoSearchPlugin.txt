@@ -1,0 +1,67 @@
+%META:TOPICINFO{author="ProjectContributor" date="1207714807" format="1.1" version="$Rev: 5121 $"}%
+%META:TOPICPARENT{name="Plugins"}%
+---+!! <nop>%TOPIC%
+
+_A plugin wrapper around the KinoSearchContrib_
+
+Allows embedding a !KinoSearch in any page with a custom format it will automatically update the index when saving, renaming or adding an attachment.
+
+It can take a long time to update when dealing with large attachments
+
+This Plugin also adds restHandlers to index, update and search the index.
+
+%TOC%
+
+---++ Usage
+
+%INCLUDE{"VarKINOSEARCH"}%
+   
+---++ Rest Handler Usage (the rest handlers require that you are logged in)
+
+These restHandlers can be called from the browser, or from the command line (best done as the user that the web server is run as to make sure permissions are ok) - and thus from cron.
+
+---+++ create Index
+
+   * %SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/index
+   * =cd foswiki/bin ; rest !SearchEngineKinoSearchPlugin.index=
+
+---+++ update Index
+
+%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/update
+
+---+++ search Index
+
+__Note:__ the search rest handler will only be executed if you are authenticated. Currently it is probably better to use the =kinosearch= script with included with SearchEngineKinoSearchAddOn.
+
+%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search
+
+<form action="%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search/%INTURLENCODE{"%INCLUDINGWEB%"}%/">
+   <input type="text" name="search" size="32" class="foswikiInputField" /> <input type="submit" value="Search text" class="foswikiSubmit" /><span class="foswikiSeparator"> | </span>[[%SYSTEMWEB%.KinoSearch][Help]]
+</form>
+
+---++ Plugin Settings
+
+Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>NEWPLUGIN_SHORTDESCRIPTION%==
+
+   * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
+      * Set SHORTDESCRIPTION = _A plugin wrapper around the KinoSearchContrib_
+
+---++ Plugin Installation Instructions
+
+%$INSTALLER_INSTRUCTIONS%
+
+---++ Plugin Info
+
+|  Plugin Author: | TWiki:Main.DavidGuest and Foswikii:Main.SvenDowideit|
+|  Copyright: | &copy; 2007, TWiki:Main.DavidGuest; &copy; 2009, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | 24 Mar 2009 (V1.3) |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  24 Sep 2009: | Extracted out of Foswiki:Extensions/KinoSearchContrib -- Foswiki:Main.AndrewJones |
+|  24 Mar 2009: | Version 1.3, port to Foswiki  -- Foswiki:Main.WillNorris |
+|  20 Aug 2008: | Version 1.2, brought Plugin into SearchEngineKinoSearchAddOn package, and svn, and added restHandlers for indexing & searching - Foswiki:Main.SvenDowideit |
+|  09 Apr 2008: | Version 1.1, Added auto index updater code |
+|  07 Apr 2008: | Initial version |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |

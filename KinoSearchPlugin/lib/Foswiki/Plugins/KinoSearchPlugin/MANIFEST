@@ -1,0 +1,5 @@
+# Release manifest for KinoSearchPlugin
+data/System/KinoSearchPlugin.txt 0644 Documentation
+data/System/VarKINOSEARCH.txt 0644 Documentation
+lib/Foswiki/Plugins/KinoSearchPlugin.pm 0644 Perl module
+
