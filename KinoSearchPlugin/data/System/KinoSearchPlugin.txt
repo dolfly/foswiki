@@ -2,7 +2,7 @@
 %META:TOPICPARENT{name="Plugins"}%
 ---+!! <nop>%TOPIC%
 
-_A plugin wrapper around the KinoSearchContrib_
+_%SHORTDESCRIPTION%_
 
 Allows embedding a !KinoSearch in any page with a custom format it will automatically update the index when saving, renaming or adding an attachment.
 
@@ -22,40 +22,45 @@ These restHandlers can be called from the browser, or from the command line (bes
 
 ---+++ create Index
 
-   * %SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/index
-   * =cd foswiki/bin ; rest !SearchEngineKinoSearchPlugin.index=
+   * %SCRIPTURL{rest}%/KinoSearchPlugin/index
+   * =cd foswiki/bin ; rest !KinoSearchPlugin.index=
 
 ---+++ update Index
 
-%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/update
+%SCRIPTURL{rest}%/KinoSearchPlugin/update
 
 ---+++ search Index
 
-__Note:__ the search rest handler will only be executed if you are authenticated. Currently it is probably better to use the =kinosearch= script with included with SearchEngineKinoSearchAddOn.
+__Note:__ the search rest handler will only be executed if you are authenticated. Currently it is probably better to use the =kinosearch= script with included with KinoSearchContrib.
 
-%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search
+%SCRIPTURL{rest}%/KinoSearchPlugin/search
 
-<form action="%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search/%INTURLENCODE{"%INCLUDINGWEB%"}%/">
+<form action="%SCRIPTURL{rest}%/KinoSearchPlugin/search/%INTURLENCODE{"%INCLUDINGWEB%"}%/">
    <input type="text" name="search" size="32" class="foswikiInputField" /> <input type="submit" value="Search text" class="foswikiSubmit" /><span class="foswikiSeparator"> | </span>[[%SYSTEMWEB%.KinoSearch][Help]]
 </form>
 
----++ Plugin Settings
+---++ Update on Save 
 
-Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>NEWPLUGIN_SHORTDESCRIPTION%==
+You can also optionally use the plugin's updateHandlers to automatically update the index whenever a topic is modified (or an attachment uploaded) by setting ={KinoSearchPlugin}{EnableOnSaveUpdates}= to true in the _Extensions_ section of configure.
 
-   * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-      * Set SHORTDESCRIPTION = _A plugin wrapper around the KinoSearchContrib_
+__Warning__ this can cause topic saves and attachments to become unacceptably slow, as the index update happens before the browser operation has completed.
 
 ---++ Plugin Installation Instructions
 
-%$INSTALLER_INSTRUCTIONS%
+%$INSTALL_INSTRUCTIONS%
 
 ---++ Plugin Info
+
+<!--
+   * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
+      * Set SHORTDESCRIPTION = A plugin wrapper around the KinoSearchContrib
+-->
 
 |  Plugin Author: | TWiki:Main.DavidGuest and Foswikii:Main.SvenDowideit|
 |  Copyright: | &copy; 2007, TWiki:Main.DavidGuest; &copy; 2009, Foswiki Contributors |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 24 Mar 2009 (V1.3) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  24 Sep 2009: | Extracted out of Foswiki:Extensions/KinoSearchContrib -- Foswiki:Main.AndrewJones |
 |  24 Mar 2009: | Version 1.3, port to Foswiki  -- Foswiki:Main.WillNorris |

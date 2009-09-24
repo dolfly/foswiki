@@ -2,7 +2,7 @@
 %META:TOPICPARENT{name="Macros"}%
 
 ---+++ KINOSEARCH tag
-If the SearchEngineKinoSearchPlugin is enabled, you will be able to use the KINOSEARCH tag to search indexed topics and attachments:
+If the KinoSearchPlugin is enabled, you will be able to use the KINOSEARCH tag to search indexed topics and attachments:
    * =%<nop>KINOSEARCH{'Search String' format='Formatting string'}%=
    
 format takes the following variables to place content.
@@ -11,4 +11,4 @@ format takes the following variables to place content.
    * $locked - Show if a page is locked
    * $texthead - Summary text
    
-See: SearchEngineKinoSearchAddOn and SearchEngineKinoSearchPlugin
+For more informatin see KinoSearchPlugin.

@@ -13,7 +13,7 @@
 # GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
-package Foswiki::Plugins::SearchEngineKinoSearchPlugin;
+package Foswiki::Plugins::KinoSearchPlugin;
 
 # =========================
 use vars qw(
@@ -22,17 +22,17 @@ use vars qw(
     );
 
 $VERSION = '$Rev: 5121 $';
-$RELEASE = '0.5';
-$SHORTDESCRIPTION = 'Kino Search Plugin (mmm not sure if this will work)';
+$RELEASE = '0.6';
+$SHORTDESCRIPTION = 'A plugin wrapper around the KinoSearchContrib';
 $NO_PREFS_IN_TOPIC = 1;
-$pluginName = 'SearchEngineKinoSearchPlugin';
+$pluginName = 'KinoSearchPlugin';
 
 sub initPlugin
 {
     ( $topic, $web, $user, $installWeb ) = @_;
 
-    $debug = $Foswiki::cfg{Plugins}{SearchEngineKinoSearchAddOn}{Debug} || 0;
-    $enableOnSaveUpdates = $Foswiki::cfg{Plugins}{SearchEngineKinoSearchPlugin}{EnableOnSaveUpdates} || 0;
+    $debug = $Foswiki::cfg{Plugins}{KinoSearchPlugin}{Debug} || 0;
+    $enableOnSaveUpdates = $Foswiki::cfg{Plugins}{KinoSearchPlugin}{EnableOnSaveUpdates} || 0;
 
     Foswiki::Func::registerTagHandler('KINOSEARCH', \&_KINOSEARCH);
 
@@ -46,22 +46,22 @@ sub initPlugin
 sub _search {
     my $session = shift;
     
-    require Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
-    my $searcher = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->newSearch();
+    require Foswiki::Contrib::KinoSearchContrib::Search;
+    my $searcher = Foswiki::Contrib::KinoSearchContrib::Search->newSearch();
     return $searcher->search($debug, $session);
 }
 sub _index {
     my $session = shift;
 
-    require Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
-    my $indexer = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newCreateIndex();
+    require Foswiki::Contrib::KinoSearchContrib::Index;
+    my $indexer = Foswiki::Contrib::KinoSearchContrib::Index->newCreateIndex();
     return $indexer->createIndex($debug, 1);
 }
 sub _update {
     my $session = shift;
     
-    require Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
-    my $indexer = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
+    require Foswiki::Contrib::KinoSearchContrib::Index;
+    my $indexer = Foswiki::Contrib::KinoSearchContrib::Index->newUpdateIndex();
     return $indexer->updateIndex($debug);
 }
 
@@ -75,8 +75,8 @@ sub _KINOSEARCH {
     $format =~ s/\$locked/%LOCKED%/go;
     $format =~ s/\$texthead/%TEXTHEAD%/go;
 
-    require Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search;
-    my $docs = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->docsForQuery($params->{_DEFAULT});
+    require Foswiki::Contrib::KinoSearchContrib::Search;
+    my $docs = Foswiki::Contrib::KinoSearchContrib::Search->docsForQuery($params->{_DEFAULT});
 
     while( my $hit = $docs->fetch_hit_hashref ) {
         my $resweb   = $hit->{web};
@@ -93,7 +93,7 @@ sub _KINOSEARCH {
             next;
         }
 
-        $ret .= Foswiki::Contrib::SearchEngineKinoSearchAddOn::Search->renderHtmlStringFor($hit,$format,0,0);
+        $ret .= Foswiki::Contrib::KinoSearchContrib::Search->renderHtmlStringFor($hit,$format,0,0);
     }
 
     return "$ret";
@@ -106,8 +106,8 @@ sub afterSaveHandler {
     my $web = $_[2];
     my $topic = $_[1];
 
-    require Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
-    my $indexer = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
+    require Foswiki::Contrib::KinoSearchContrib::Index;
+    my $indexer = Foswiki::Contrib::KinoSearchContrib::Index->newUpdateIndex();
     my @topicsToUpdate = ($topic);
     $indexer->removeTopics($web, @topicsToUpdate);
     $indexer->addTopics($web, @topicsToUpdate);
@@ -122,8 +122,8 @@ sub afterRenameHandler {
     my $newweb = $_[3];
     my $newtopic = $_[4];
 
-    require Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
-    my $indexer = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
+    require Foswiki::Contrib::KinoSearchContrib::Index;
+    my $indexer = Foswiki::Contrib::KinoSearchContrib::Index->newUpdateIndex();
     my @topicsToUpdate = ($oldtopic);
     $indexer->removeTopics($oldweb, @topicsToUpdate);
     @topicsToUpdate = ($newtopic);
@@ -137,8 +137,8 @@ sub afterAttachmentSaveHandler {
     my $web = $_[2];
     my $topic = $_[1];
     
-    require Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index;
-    my $indexer = Foswiki::Contrib::SearchEngineKinoSearchAddOn::Index->newUpdateIndex();
+    require Foswiki::Contrib::KinoSearchContrib::Index;
+    my $indexer = Foswiki::Contrib::KinoSearchContrib::Index->newUpdateIndex();
     my @topicsToUpdate = ($topic);
     $indexer->removeTopics($web, @topicsToUpdate);
     $indexer->addTopics($web, @topicsToUpdate);
