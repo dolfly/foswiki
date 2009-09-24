@@ -30,7 +30,7 @@ These restHandlers can be called from the browser, or from the command line (bes
 ---+++ create Index
 
    * %SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/index
-   * cd foswiki/bin ; rest SearchEngineKinoSearchPlugin.index
+   * =cd foswiki/bin ; rest !SearchEngineKinoSearchPlugin.index=
 
 ---+++ update Index
 
@@ -43,7 +43,7 @@ __Note:__ the search rest handler will only be executed if you are authenticated
 %SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search
 
 <form action="%SCRIPTURL{rest}%/SearchEngineKinoSearchPlugin/search/%INTURLENCODE{"%INCLUDINGWEB%"}%/">
-   <input type="text" name="search" size="32" /> <input type="submit" value="Search text" /> | [[%SYSTEMWEB%.KinoSearch][Help]]
+   <input type="text" name="search" size="32" class="foswikiInputField" /> <input type="submit" value="Search text" class="foswikiSubmit" /><span class="foswikiSeparator"> | </span>[[%SYSTEMWEB%.KinoSearch][Help]]
 </form>
 
 ---++ Plugin Settings
@@ -52,9 +52,6 @@ Plugin settings are stored as preferences variables. To reference a plugin setti
 
    * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
       * Set SHORTDESCRIPTION = _A plugin wrapper around the SearchEngineKinoSearchAddOn_
-
-   * Debug plugin: (See output in =data/debug.txt=)
-      * Set DEBUG = 0
 
 ---++ Plugin Installation Instructions
 

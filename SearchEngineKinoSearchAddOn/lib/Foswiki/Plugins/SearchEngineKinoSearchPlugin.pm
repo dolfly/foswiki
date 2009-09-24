@@ -17,12 +17,7 @@ sub initPlugin
 {
     ( $topic, $web, $user, $installWeb ) = @_;
 
-    if( $Foswiki::Plugins::VERSION < 1.026  ) {
-        &Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
-        return 0;
-    }
-
-    $debug = $Foswiki::cfg{Plugins}{SearchEngineKinoSearchPlugin}{Debug} || 0;
+    $debug = $Foswiki::cfg{Plugins}{SearchEngineKinoSearchAddOn}{Debug} || 0;
     $enableOnSaveUpdates = $Foswiki::cfg{Plugins}{SearchEngineKinoSearchPlugin}{EnableOnSaveUpdates} || 0;
 
     Foswiki::Func::registerTagHandler('KINOSEARCH', \&_KINOSEARCH);
