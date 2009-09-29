@@ -1,0 +1,12 @@
+%META:TOPICINFO{author="ProjectContributor" date="1176109287" format="1.1" reprev="1.1" version="1.1"}%
+%TMPL:INCLUDE{"view"}%
+
+%TMPL:DEF{"simpleheader"}%%ADDTOHEAD{"ItemViewTemplate" text="<style type=\"text/css\" media=\"all\">#summaryTable{margin:0 0 1em 0;}</style>"}%
+---+ <nop>%TOPIC%: %FORMFIELD{"Summary"}%
+%TABLE{ id="summaryTable" sort="off" databg="#f5f5f5" }%
+| *Priority:* | *<nop>CurrentState:* | *<nop>AppliesTo:* | *Component:* | *<nop>WaitingFor:* |
+| %FORMFIELD{"Priority"}% | %FORMFIELD{"CurrentState"}% | %FORMFIELD{"AppliesTo"}% | %FORMFIELD{"Component"}% | %FORMFIELD{"WaitingFor"}% |
+
+%TMPL:END%
+
+%TMPL:DEF{"windowtitle"}%<title>%TMPL:P{"titleaction"}% <nop>%TOPIC%: <nop>%FORMFIELD{"Summary"}%%TMPL:P{"titlesep"}%%WEB%%TMPL:P{"titlesep"}%<nop>%WIKITOOLNAME%</title>%TMPL:END%
