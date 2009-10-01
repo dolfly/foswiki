@@ -1,9 +1,11 @@
-Cwd,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
-Digest::MD5,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
-File::Copy,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
-File::Path,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
-File::Temp,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
-File::Spec,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
-Storable,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
-htmldoc,,c,Required 
-imagemagick,,c,Required
+Cwd,>=0,cpan,Required  
+Digest::MD5,>=0,cpan,Required for calculating file hash values
+File::Copy,>=0,cpan,Required
+File::Path,>=0,cpan,Required
+File::Temp,>=0,cpan,Required if Foswiki configure is missing tempfile setting 
+File::Spec,>=0,cpan,Required 
+Storable,>=0,cpan,Required for saving attachment hash values and parameters 
+htmldoc,,external,Required 
+msttcorefonts,,external,Optional - truetype font support.
+imagemagick,,external,Optional - may be required for antialias support
+ghostscript,,external,Optional - may be required for antialias support
