@@ -23,15 +23,15 @@ $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{toolsPath} = '';
 $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{perlCmd} = 'perl';
 # **PATH EXPERT**
 # Path for plugin to store generated attachments<br>
-#  Optional.  If not provided, plugin will manage attachments using the standard Foswiki attachment functions.
-#  If not provided, first visit to System.DirectedGraphPlugin will require admin / sudo login for write access, in order to save generated attachments.
-#  If set to the /pub path, generated attachments will be invisible to Foswiki topics.
-#  This directory must be web readable.  <b>If not set to /pub, web server changes will be required to enable access.</b>
+#  Optional.  If not provided, plugin will manage attachments using the standard Foswiki attachment functions.<br />
+#  If not provided, first visit to System.DirectedGraphPlugin will require admin / sudo login so that the plugin can save the example attachments.
+#  If set to the full path to the pub directory, generated attachments will be stored along with regular attachments but will be invisible to Foswiki topics.
+#  This directory must be web readable.  <b>If not set to the "General Path Settings" {PubDir} path web server changes will be required to enable access.</b>
 $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachPath} = '';
 # **PATH EXPERT**
 # URL Path for generated attachments <br>
-#  Optional.  Only required if attachPath is not the Foswiki pubDir. 
-# If not provided, plugin will use the pub directory for linking to attachments.
+#  Optional.  Only required if attachPath is provided, and is not the same as the "General Path settings" {PubDir} path.
+# If not provided, plugin will use the value of "General Path Settings" {PubUrlPath} for linking to attachments.
 # If the attachPath is not provided, then this parameter will be ignored.
 $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachUrlPath} = '';
 

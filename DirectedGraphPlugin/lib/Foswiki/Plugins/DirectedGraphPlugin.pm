@@ -29,7 +29,9 @@ use vars qw(
   $web $usWeb $topic $user $installWeb
   $debugDefault $antialiasDefault $densityDefault $sizeDefault
   $vectorFormatsDefault $hideAttachDefault $inlineAttachDefault $linkFilesDefault
-  $engineDefault $libraryDefault $deleteAttachDefault $forceAttachAPI $forceAttachAPIDefault
+  $engineDefault $libraryDefault
+  $deleteAttachDefault $legacyCleanup
+  $forceAttachAPI $forceAttachAPIDefault
   $svgFallbackDefault $svgLinkTargetDefault
   $enginePath $magickPath $toolsPath $attachPath $attachUrlPath $perlCmd
   $antialiasCmd
@@ -164,67 +166,76 @@ sub initPlugin {
       || 'perl';
 
     # Get plugin debug flag
-    $debugDefault = Foswiki::Func::getPreferencesFlag("\U$pluginName\E_DEBUG");
+    $debugDefault =
+      Foswiki::Func::getPreferencesFlag('DIRECTEDGRAPHPLUGIN_DEBUG');
 
     # Get plugin antialias default
     $antialiasDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_ANTIALIAS") || 'off';
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_ANTIALIAS')
+      || 'off';
 
     # Get plugin density default
     $densityDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_DENSITY") || '300';
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_DENSITY')
+      || '300';
 
     # Get plugin size default
-    $sizeDefault = Foswiki::Func::getPreferencesValue("\U$pluginName\E_SIZE")
+    $sizeDefault =
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_SIZE')
       || '800x600';
 
     # Get plugin vectorFormats default
     $vectorFormatsDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_VECTORFORMATS")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_VECTORFORMATS')
       || 'none';
 
     # Get plugin engine default
     $engineDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_ENGINE") || 'dot';
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_ENGINE') || 'dot';
 
     # Get plugin library default
     $libraryDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_LIBRARY")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_LIBRARY')
       || 'System.DirectedGraphPlugin';
 
     # Get plugin hideattachments default
     $hideAttachDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_HIDEATTACHMENTS")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_HIDEATTACHMENTS')
       || 'on';
 
     # Get the default inline  attachment default
     $inlineAttachDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_INLINEATTACHMENT")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_INLINEATTACHMENT')
       || 'png';
 
     # Get the default fallback format for SVG output
     $svgFallbackDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_SVGFALLBACK")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_SVGFALLBACK')
       || 'png';
 
     # Get the default for overriding SVG link target.
     $svgLinkTargetDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_SVGLINKTARGET")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_SVGLINKTARGET')
       || 'on';
 
     # Get the default link file attachment default
     $linkFilesDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_LINKATTACHMENTS")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_LINKATTACHMENTS')
       || 'on';
 
     # Get plugin deleteattachments default
-    $deleteAttachDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_DELETEATTACHMENTS")
+    $deleteAttachDefault = Foswiki::Func::getPreferencesValue(
+        'DIRECTEDGRAPHPLUGIN_DELETEATTACHMENTS')
+      || 'off';
+
+    # Get plugin legacycleanup default
+    $legacyCleanup =
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_LEGACYCLEANUP')
       || 'off';
 
     # Get plugin force API default
     $forceAttachAPIDefault =
-      Foswiki::Func::getPreferencesValue("\U$pluginName\E_FORCEATTACHAPI")
+      Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_FORCEATTACHAPI')
       || 'off';
 
     # Read in the attachment information from previous runs
@@ -271,13 +282,13 @@ sub commonTagsHandler {
 
     ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/DOT>/&_handleDot($2,$1)/giseo )
 
-      & _writeDebug(" <<< EXIT  commonTagsHandler  ");
+      & _writeDebug(' <<< EXIT  commonTagsHandler  ');
 
 }    ### sub commonTagsHandler
 
 # =========================
 sub _handleDot {
-    &_writeDebug(" >>> _handleDot Entered ");
+    &_writeDebug(' >>> _handleDot Entered ');
 
   # Retrieve new attachments hash from the session variable from previous passes
     my %newHashArray = ();
@@ -286,7 +297,7 @@ sub _handleDot {
         %newHashArray = %{$newHashRef};
     }
     else {
-        &_writeDebug(" _handleDot is initializing the newHashArray");
+        &_writeDebug(' _handleDot is initializing the newHashArray');
         $newHashArray{SET} =
           1;    # Tell afterCommonTagsHandler that commonTagsHandler has run.
         $newHashArray{GRNUM} = 0;    # Initialize graph count
@@ -298,7 +309,7 @@ sub _handleDot {
         %oldHashArray = %{$oldHashRef};
     }
 
-    my $tempdir = "";
+    my $tempdir = '';
 
     if ( defined $Foswiki::cfg{TempfileDir} ) {
         $tempdir = $Foswiki::cfg{TempfileDir};
@@ -307,8 +318,8 @@ sub _handleDot {
         $tempdir = File::Spec->tmpdir();
     }
 
-    my $attr = $_[1] || "";   # Attributes from the <dot ...> tag
-    my $desc = $_[0] || "";   # GraphViz input between the <dot> ... </dot> tags
+    my $attr = $_[1] || '';   # Attributes from the <dot ...> tag
+    my $desc = $_[0] || '';   # GraphViz input between the <dot> ... </dot> tags
 
     my $grNum = $newHashArray{GRNUM};
 
@@ -325,18 +336,19 @@ sub _handleDot {
     my $hideAttach    = $params{hideattachments} || $hideAttachDefault;
     my $inlineAttach  = $params{inline}          || $inlineAttachDefault;
     $forceAttachAPI = $params{forceattachapi} || $forceAttachAPIDefault;
-    my $linkFiles   = $params{linkfiles}   || $linkFilesDefault;
-    my $svgFallback = $params{svgfallback} || $svgFallbackDefault;
+    my $linkFiles     = $params{linkfiles}     || $linkFilesDefault;
+    my $svgFallback   = $params{svgfallback}   || $svgFallbackDefault;
     my $svgLinkTarget = $params{svglinktarget} || $svgLinkTargetDefault;
 
     # parameters with hardcoded defaults
-    my $outFilename = $params{file}    || "";
-    my $doMap       = $params{map}     || "";
-    my $dotHash     = $params{dothash} || "on";
+    my $outFilename = $params{file}    || '';
+    my $doMap       = $params{map}     || '';
+    my $dotHash     = $params{dothash} || 'on';
 
     # Global parameters only specified in the DirectedGraphPlugin topic.
     # $debugDefault
     # $deleteAttachDefault
+    # $legacyCleanup
 
 # Strip all trailing white space on any parameters set by set statements - WYSIWYG seems to pad it.
     $antialias           =~ s/\s+$//;
@@ -352,7 +364,7 @@ sub _handleDot {
 
     # Make sure outFilename is clean
     $outFilename = Foswiki::Sandbox::sanitizeAttachmentName($outFilename)
-      if ( $outFilename ne "" );
+      if ( $outFilename ne '' );
 
     # clean up parms
     if ( $antialias =~ m/off/o ) {
@@ -467,7 +479,7 @@ sub _handleDot {
 # as they are include in $attr.
 
     my $hashCode =
-      md5_hex( "DOT" 
+      md5_hex( 'DOT' 
           . $desc 
           . $attr
           . $antialias
@@ -480,24 +492,26 @@ sub _handleDot {
           . $inlineAttach );
 
     # If a filename is not provided, set it to a name, with incrementing number.
-    if ( $outFilename eq "" ) {    #no filename?  Create a new name
+    if ( $outFilename eq '' ) {    #no filename?  Create a new name
         $grNum++;                  # increment graph number.
-        $outFilename = "DirectedGraphPlugin_" . "$grNum";
+        $outFilename = 'DirectedGraphPlugin_' . "$grNum";
     }
 
     # Make sure vectorFormats includes all required file types
     $vectorFormats =~ s/,/ /g;     #Replace any comma's in the list with spaces.
-    $vectorFormats .= " " . $inlineAttach
+    $vectorFormats .= ' ' . $inlineAttach
       if !( $vectorFormats =~ m/$inlineAttach/ )
     ;                              # whatever specified inline is mandatory
-    $vectorFormats .= " " . "$svgFallback"
-      if ( $inlineAttach =~ m/svg/ && $svgFallback ne "none" )
+    $vectorFormats .= ' ' . "$svgFallback"
+      if ( $inlineAttach =~ m/svg/ && $svgFallback ne 'none' )
       ;    # Generate png if SVG is inline - for browser fallback
 
-    $vectorFormats .= " ps"
-      if ( ($antialias) && !( $vectorFormats =~ m/ps/ ) && !( $inlineAttach =~ m/svg/ ) )
+    $vectorFormats .= ' ps'
+      if ( ($antialias)
+        && !( $vectorFormats =~ m/ps/ )
+        && !( $inlineAttach  =~ m/svg/ ) )
       ;    # postscript for antialias or as requested
-    $vectorFormats .= " cmapx"
+    $vectorFormats .= ' cmapx'
       if ( ($doMap) && !( $vectorFormats =~ m/cmapx/ ) );    # client side map
     $vectorFormats =~ s/none//g;    # remove the "none" if set by default
 
@@ -505,7 +519,7 @@ sub _handleDot {
       ;    # Hash to store attachment file names - key is the file type.
 
     my $oldHashCode = $oldHashArray{MD5HASH}{$outFilename}
-      || " ";    # retrieve hash code for filename
+      || ' ';    # retrieve hash code for filename
 
     $newHashArray{MD5HASH}{$outFilename} = $hashCode; # hash indexed by filename
     $newHashArray{FORMATS}{$outFilename} =
@@ -517,10 +531,10 @@ sub _handleDot {
     #  otherwise just use the previous graph already attached.
     #  Also check if the inline attachment is missing and recreate if needed
     #
-    foreach my $key ( split( " ", $vectorFormats ) ) {
-        if ( $key ne "none" ) {    # skip the bogus default
+    foreach my $key ( split( ' ', $vectorFormats ) ) {
+        if ( $key ne 'none' ) {    # skip the bogus default
             $attachFile{$key} = "$outFilename.$key";
-        }    ### if ($key ne "none"
+        }    ### if ($key ne 'none'
     }    ### foreach my $key
          #
          #
@@ -533,7 +547,7 @@ sub _handleDot {
 " >>> Processing changed dot tag or missing file $outFilename.$inlineAttach <<< "
         );
 
-        my $outString = "";
+        my $outString = '';
         my %tempFile;
 
         foreach my $key ( keys(%attachFile) ) {
@@ -548,7 +562,9 @@ sub _handleDot {
 
              # Don't create the GraphViz inline output if antialias is requested
                 $outString .= "-T$key -o$tempFile{$key} "
-                  unless ( $antialias && $key eq "$inlineAttach" && $key ne "svg" );
+                  unless ( $antialias
+                    && $key eq "$inlineAttach"
+                    && $key ne 'svg' );
             }    ### if (!exists ($tempFile
         }    ### foreach my $key
 
@@ -561,7 +577,7 @@ sub _handleDot {
         );
         Foswiki::Func::saveFile( "$dotFile", $desc );
 
-        my $debugFile = "";
+        my $debugFile = '';
         if ($debugDefault) {
             $debugFile = new File::Temp(
                 TEMPLATE => 'DiGraphPluginRunXXXXXXXXXX',
@@ -579,7 +595,7 @@ sub _handleDot {
             WORKDIR      => $workingDir,
             INFILE       => "$dotFile",
             IOSTRING     => $outString,
-            ERRFILE      => "$dotFile" . ".err",
+            ERRFILE      => "$dotFile" . '.err',
             DEBUGFILE    => "$debugFile"
         );
 
@@ -591,7 +607,7 @@ sub _handleDot {
                 $output,
                 "Processing $toolsPath$dotHelper - $enginePath$engine: <br />"
                   . $desc,
-                $dotFile . ".err"
+                $dotFile . '.err'
             );
         }    ### if ($status)
         $dotFile =~ tr!\\!/!;
@@ -602,7 +618,8 @@ sub _handleDot {
         ### then set the size & density below to match so the image map
         ### matches correctly.
 
-        if (($antialias) && !( $inlineAttach =~ m/svg/ )) {    # Convert the postscript image to the inline format
+        if ( ($antialias) && !( $inlineAttach =~ m/svg/ ) )
+        {    # Convert the postscript image to the inline format
             my ( $output, $status ) = Foswiki::Sandbox->sysCommand(
                 $magickPath . $antialiasCmd,
                 DENSITY  => $density,
@@ -614,7 +631,7 @@ sub _handleDot {
             if ($status) {
                 return &_showError( $status, $output,
                     "Processing $magickPath.$antialiasCmd <br />" . $desc );
-            }                ### if ($status)
+            }    ### if ($status)
         }    ### if ($antialias)
 
         ### Attach all of the files to the topic.  If a hard path is specified,
@@ -631,25 +648,24 @@ sub _handleDot {
 #  link in the current page, FF opens the link within the svg object on the page.
 #  This code overrides the target in the generated svg file for consistent operation.
 
-            if (( $key eq "svg" ) && ( $svgLinkTarget eq "on" )) {
+            if ( ( $key eq 'svg' ) && ( $svgLinkTarget eq 'on' ) ) {
                 my $svgfile = Foswiki::Func::readFile("$tempFile{$key}");
                 $svgfile =~ s/xlink\:href/target=\"_top\" xlink:href/g;
                 Foswiki::Func::saveFile( "$tempFile{$key}", "$svgfile" );
             }
 
-            # the "dot" suffix use for the directed graph input will be detected as a msword template
-            # by most servers/browsers.  Rename the dot file to dot.txt suffix.
-            #
+# the "dot" suffix use for the directed graph input will be detected as a msword template
+# by most servers/browsers.  Rename the dot file to dot.txt suffix.
+#
             my $fname = "$attachFile{$key}";
-            $fname .= ".txt" if ($key eq "dot"); 
+            $fname .= '.txt' if ( $key eq 'dot' );
 
-            if ( ($attachPath) && !( $forceAttachAPI eq "on" ) ) {
+            if ( ($attachPath) && !( $forceAttachAPI eq 'on' ) ) {
                 &_writeDebug(
                     "attaching $attachFile{$key} using direct file I/O  ");
                 _make_path( $topic, $web );
                 umask(002);
-                copy( "$tempFile{$key}",
-                    "$attachPath/$web/$topic/$fname" );
+                copy( "$tempFile{$key}", "$attachPath/$web/$topic/$fname" );
             }
             else {
                 my @stats    = stat $tempFile{$key};
@@ -657,8 +673,7 @@ sub _handleDot {
                 my $fileDate = $stats[9];
                 &_writeDebug("attaching $fname using Foswiki API ");
                 Foswiki::Func::saveAttachment(
-                    $web, $topic,
-                    "$fname",
+                    $web, $topic, "$fname",
                     {
                         file     => "$tempFile{$key}",
                         filedate => $fileDate,
@@ -672,7 +687,7 @@ sub _handleDot {
             unlink $tempFile{$key} unless $debugDefault;
         }    ### foreach my $key (keys...
 
-        &_writeDebug("attaching Files completed ");
+        &_writeDebug('attaching Files completed ');
 
     }    ### else [ if ($oldHashCode ne $hashCode) |
 
@@ -684,7 +699,7 @@ sub _handleDot {
     #  and $attachUrlPath is provided,  and use of the API is not forced.
 
     my $urlPath = undef;
-    if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq "on" ) ) {
+    if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq 'on' ) ) {
         $urlPath = $attachUrlPath;
     }
     else {
@@ -694,15 +709,15 @@ sub _handleDot {
     #  Build a manual link for each specified file type except for
     #  The "inline" file format, and any image map file
 
-    my $fileLinks = "";
+    my $fileLinks = '';
     if ($linkFiles) {
-        $fileLinks = "<br />";
+        $fileLinks = '<br />';
         foreach my $key ( keys(%attachFile) ) {
-            if ( ( $key ne $inlineAttach ) && ( $key ne "cmapx" ) ) {
+            if ( ( $key ne $inlineAttach ) && ( $key ne 'cmapx' ) ) {
                 my $fname = $attachFile{$key};
-                $fname .= ".txt" if ($key eq "dot");
+                $fname .= '.txt' if ( $key eq 'dot' );
                 $fileLinks .=
-                    "<a href=" 
+                    '<a href=' 
                   . $urlPath
                   . Foswiki::urlEncode("/$web/$topic/$fname")
                   . ">[$key]</a> ";
@@ -714,7 +729,7 @@ sub _handleDot {
     if ($doMap) {
 
         # read and format map
-        if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq "on" ) )
+        if ( ($attachPath) && ($attachUrlPath) && !( $forceAttachAPI eq 'on' ) )
         {
             $mapfile = Foswiki::Func::readFile(
                 "$attachPath/$web/$topic/$outFilename.cmapx");
@@ -746,7 +761,7 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
 
     $returnData .= "$mapfile\n" if ($doMap);
 
-    if ( $inlineAttach eq "svg" ) {
+    if ( $inlineAttach eq 'svg' ) {
         $fbtype = "$svgFallback";
         $returnData .=
           "<object data=\"$src\" type=\"image/svg+xml\" border=\"0\"";
@@ -756,8 +771,8 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
 
 # This is either the fallback image, or the primary image if not generating an inline SVG
 
-    if (   ( $inlineAttach eq "svg" && $svgFallback ne "none" )
-        || ( $inlineAttach ne "svg" ) )
+    if (   ( $inlineAttach eq 'svg' && $svgFallback ne 'none' )
+        || ( $inlineAttach ne 'svg' ) )
     {
         my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
         $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" "
@@ -810,7 +825,7 @@ sub _showError {
 #   Writes a common format debug message if debug is enabled
 
 sub _writeDebug {
-    &Foswiki::Func::writeDebug( "$pluginName - " . $_[0] );  # if $debugDefault;
+    &Foswiki::Func::writeDebug( "$pluginName - " . $_[0] ) if $debugDefault;
 }    ### SUB _writeDebug
 
 ### sub afterRenameHandler
@@ -851,7 +866,7 @@ sub afterRenameHandler {
         my $prefix = "${oldweb}_${oldtopic}-";
         my ($suffix) = ( $f =~ "^$prefix(.*)" );
         $f = Foswiki::Sandbox::untaintUnchecked($f);
-        if ( $newweb eq "Trash" ) {
+        if ( $newweb eq 'Trash' ) {
             unlink "$workAreaDir/$f";
         }
         else {
@@ -877,45 +892,47 @@ sub _loadHashCodes {
       || die "<ERR> Can't find directory --> $workAreaDir !";
 
     my %tempHash;
-    my %typeHash;
 
     if ( -e "$workAreaDir/${usWeb}_${topic}-filehash" ) {
-        &_writeDebug(" loading filehash  ");
+        &_writeDebug(' loading filehash  ');
         my $hashref = retrieve("$workAreaDir/${usWeb}_${topic}-filehash");
         %tempHash = %$hashref;
         return %tempHash;
     }
 
-    return %tempHash;
+    return %tempHash unless ( $legacyCleanup eq 'on' );
 
     ### Temporary Code - Convert file hash codes
     ### and delete the old files from the workarea
     ### Also insert any old format attachments into the table
     ### for later cleanup.
 
+    my %typeHash;
+
     # Get all the attachments filenames and extract their types
+    &_writeDebug(' entering legacy cleanup routine  ');
 
     my ( $met, $tex ) = Foswiki::Func::readTopic( $web, $topic );
     my @attachments = $met->find('FILEATTACHMENT');
-    &_writeDebug(" converting old filehash  ");
+    &_writeDebug(' converting old filehash  ');
     foreach my $a (@attachments) {
         my $aname = $a->{name};
         my ( $n, $t ) = $aname =~ m/^(.*)\.(.*)$/;    # Split file name and type
         next unless $t;    # If no type, skip it, it's not ours.
         &_writeDebug("    - Attach = |$aname| Name = |$n| Type = |$t| ");
-        $typeHash{$n} .= " " . $t;
+        $typeHash{$n} .= ' ' . $t;
         my ($on) = $n =~
           m/^graph([0-9a-f]{32})$/;   # old style attachment graph<hashcode>.xxx
         if ($on) {
             $tempHash{MD5HASH}{$n} = $on;
-            $tempHash{FORMATS}{$n} .= " " . $t;
+            $tempHash{FORMATS}{$n} .= ' ' . $t;
         }                             # if ($on)
     }    # foreach my $a
 
     # Read in all of the hash files for the generated attachments
     # and build a new format hash table.
 
-    my $fPrefix = $usWeb . "_" . $topic . "_";
+    my $fPrefix = $usWeb . '_' . $topic . '_';
     my @wfiles = grep { /^$fPrefix/ } readdir(DIR);
     &_writeDebug(" unlinking old hash files for $fPrefix");
     foreach my $f (@wfiles) {
@@ -955,13 +972,13 @@ sub afterCommonTagsHandler {
         return;
     }
 
-    &_writeDebug(" >>> afterCommonTagsHandler entered ");
+    &_writeDebug(' >>> afterCommonTagsHandler entered ');
 
     my %newHash    = ();
     my $newHashRef = thaw( Foswiki::Func::getSessionValue('DGP_newhash') );
 
     if ($newHashRef) {    # DGP_newhash existed
-        &_writeDebug("     -- newHashRef existed in session - writing out ");
+        &_writeDebug('     -- newHashRef existed in session - writing out ');
         %newHash = %{$newHashRef};
         my $workAreaDir = Foswiki::Func::getWorkArea('DirectedGraphPlugin');
         store \%newHash, "$workAreaDir/${usWeb}_${topic}-filehash";
@@ -973,13 +990,13 @@ sub afterCommonTagsHandler {
 
             &_writeDebug(" afterCommon - Value of SET s $newHash{SET} ");
             &_writeDebug(" delete = $deleteAttachDefault");
-            &_writeDebug( " keys = " . ( keys %oldHash ) );
+            &_writeDebug( ' keys = ' . ( keys %oldHash ) );
 
             if ( ($deleteAttachDefault) && ( keys %oldHash ) )
             {                     # If there are any old files to deal with
                 foreach my $filename ( keys %{ $oldHash{FORMATS} } )
                 {                 # Extract filename
-                    my $oldTypes = $oldHash{FORMATS}{$filename} || "";
+                    my $oldTypes = $oldHash{FORMATS}{$filename} || '';
                     if ($debugDefault) {
                         &_writeDebug("old  $filename ... types= $oldTypes ");
                         &_writeDebug(
@@ -987,7 +1004,7 @@ sub afterCommonTagsHandler {
                         );
                     }             ### if ($debugDefault
                     if ($oldTypes) {
-                        foreach my $oldsuffix ( split( " ", $oldTypes ) ) {
+                        foreach my $oldsuffix ( split( ' ', $oldTypes ) ) {
                             if (
                                 !(
                                     $newHash{FORMATS}{$filename} =~
@@ -996,8 +1013,9 @@ sub afterCommonTagsHandler {
                               )
                             {
                                 _deleteAttach("$filename.$oldsuffix");
-                                _deleteAttach("$filename.$oldsuffix.txt") if ($oldsuffix eq "dot");
-                            }     ### if (%newHash
+                                _deleteAttach("$filename.$oldsuffix.txt")
+                                  if ( $oldsuffix eq 'dot' );
+                            }    ### if (%newHash
                         }    ### foreach my $olsduffix
                     }    ### if ($oldTypes)
                 }    ### foreach my $filename
@@ -1023,7 +1041,7 @@ sub _deleteAttach {
 
     if ( _attachmentExists( $web, $topic, $fn ) ) {
 
-        if ( ($attachPath) && !( $forceAttachAPI eq "on" ) )
+        if ( ($attachPath) && !( $forceAttachAPI eq 'on' ) )
         {    # Direct file I/O requested
             unlink "$attachPath/$web/$topic/$fn";
             &_writeDebug(" ### Unlinked $attachPath/$web/$topic/$fn ");
@@ -1038,7 +1056,7 @@ sub _deleteAttach {
                 )
               )
             {
-                &_writeDebug(" ### Creating missing TrashAttachment topic ");
+                &_writeDebug(' ### Creating missing TrashAttachment topic ');
                 my $text =
                   "---+ %MAKETEXT{\"Placeholder for trashed attachments\"}%\n";
                 Foswiki::Func::saveTopic( "$Foswiki::cfg{TrashWebName}",
@@ -1106,7 +1124,7 @@ sub _make_path {
 sub _attachmentExists {
     my ( $web, $topic, $fn ) = @_;
 
-    if ( ($attachPath) && !( $forceAttachAPI eq "on" ) ) {
+    if ( ($attachPath) && !( $forceAttachAPI eq 'on' ) ) {
         return ( -e "$attachPath/$web/$topic/$fn" );
     }
     else {

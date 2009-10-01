@@ -5,3 +5,5 @@ File::Path,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.
 File::Temp,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
 File::Spec,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
 Storable,>=0,cpan,May be required for lib/Foswiki/Plugins/DirectedGraphPlugin.pm
+htmldoc,,c,Required 
+imagemagick,,c,Required
