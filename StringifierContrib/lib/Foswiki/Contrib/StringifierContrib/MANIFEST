@@ -1,5 +1,6 @@
 data/System/StringifierContrib.txt 0644
 lib/Foswiki/Contrib/StringifierContrib/Base.pm 0644
+lib/Foswiki/Contrib/StringifierContrib/Config.spec 0644
 lib/Foswiki/Contrib/StringifierContrib/Plugins/DOC_abiword.pm 0644
 lib/Foswiki/Contrib/StringifierContrib/Plugins/DOC_antiword.pm 0644
 lib/Foswiki/Contrib/StringifierContrib/Plugins/DOC_wv.pm 0644
