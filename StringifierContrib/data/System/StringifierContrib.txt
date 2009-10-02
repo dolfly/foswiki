@@ -1,0 +1,134 @@
+%META:TOPICINFO{author="micha" comment="reprev" date="1254480148" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICPARENT{name="Contribs"}%
+---+ StringifierContrib
+%SHORTDESCRIPTION%
+
+This extension has been extracted from Foswiki:Extensions/KinoSearchContrib to make it available
+for search engines other than kinosearch.
+
+%TOC%
+
+---++ Supported file formats
+
+   * =.txt=
+   * =.html=
+   * =.xml=
+   * =.doc=
+   * =.docx=
+   * =.xls=
+   * =.xlsx=
+   * =.ppt=
+   * =.pptx=
+   * =.pdf=
+
+You can change this with the
+=$Foswiki::cfg{StringifierContrib}{IndexExtensions}= setting in =configure=.
+
+If you add other file extensions, they are treated as ASCII files. If needed,
+you can add more specialised stringifiers for further document types (see below).
+
+---++ Backend for Indexing Word 2003 Documents
+
+To index Word 2003 Documents (=.doc=) you will need to install one of the following:
+
+   * =antiword= (recommended)
+   * =abiword=
+   * =wvWare=
+
+You can then select the tool to use in =configure=.
+
+---++ Backend for PDF
+
+To index =.pdf= files you need to install =xpdf-utils=.
+
+---++ Backend for PPT
+
+To index =.ppt= files you need to install =ppthtml=.
+
+---++ Backends for DOCX, PPTX
+
+To index these file types, you will need to install the following tools from Sourceforge:
+   * [[http://sourceforge.net/projects/docx2txt/][docx2txt]] for =.docx=
+   * [[http://sourceforge.net/projects/pptx2txt/][pptx2txt]] for =.pptx=
+
+Then set the command path to these tools in =configure=.
+
+---++ Instaling the Contrib
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Configuration
+
+There are a number of settings that need to be set in =configure= before you can use the Contrib.
+
+---++ Test of the Installation
+
+   * Test if the installation was successful:
+      * Check that =antiword=, =abiword= or =wvHtml= is in place: Type =antiword=,  =abiword= or =wvHtml= on the prompt and check that the command exists.
+      * Check that =pdftotext= is in place: Type =pdftotext= on the prompt and check that the command exists.
+      * Check that =ppthtml= is in place: Type =ppthtml= on the prompt and check that the command exists.
+      * Change the working directory to the =kinosearch/bin= Foswiki installation directory.
+      * Run =./kinoindex=
+      * Once finished, open a browser window and point it to the =[[System.KinoSearch]]= topic.
+      * Just type a query and check the results.
+
+---++ Test of Stringification with =stringify=
+
+Some users report problems with the stringification: The stringifier scipts
+fails, takes too long on attachments. Some times this may result from
+installation errors esp. of the installation of the backends for the
+stringification.
+
+=stringify= give you the opportunity to test the stringification in advance.
+
+Usage: =stringify file_name=
+
+In the result you see, which stringifier is used and the result of the
+stringification.
+
+Example:
+
+<verbatim>
+stringify /path/to/foswiki/StringifierContrib/test/unit/StringifierContrib/attachement_examples/Simple_example.doc
+
+Simple example  
+
+Keyword: dummy  
+
+Umlaute: Grober, Uberschall, Anderung
+</verbatim>
+
+---++ Further Development
+
+In this extension, a plug-in mechanism is implemented, so that additional
+stringifiers can be added without changing the existing code. All stringifier
+plugins are stored in the directory =lib/Foswiki/Contrib/StringifierContrib/Plugins=. 
+
+You can add new stringifier plugins by just adding new files here. The minimum
+things to be implemented are:
+
+   * The plugin must inherit from =Foswiki::Contrib::StringififierContrib::Base=
+   * The plugin must register itself by =__PACKAGE__->register_handler($application, $file_extension)=;
+   * The plugin must implement the method =$text = stringForFile ($filename)=
+
+All the stringifiers have unit tests associated with them, and we would
+encourage you to provide unit tests for any you wish to contribute. See
+Foswiki:Development/UnitTests for more information on unit testing.
+
+See Foswiki:Tasks/StringifierContrib for currently open tasks.
+
+---++ Contrib Info
+
+<!--
+   * Set SHORTDESCRIPTION = Helper library to stringify binary document formats
+-->
+
+|  Author(s): | Foswiki:Main.MarkusHesse, Foswiki:Main.SvenDowideit, Foswiki:Main.MichaelDaum & Foswiki:Main.AndrewJones |
+|  Copyright: | &copy; 2007, Foswiki:Main.MarkusHesse; &copy; 2009, Foswiki Contributors |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  02 Oct 2009: | extracted from Foswiki:Extensions/KinoSearchContrib (MD) |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
