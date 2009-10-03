@@ -27,3 +27,13 @@ If you have any problems, or if the extension isn't available in =configure=, th
 |  Release | %$DATE% | 
 |  Home | http://foswiki.org/Extensions/%TOPIC% |
 |  Support | http://foswiki.org/Support/%TOPIC% |
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="ExtensionClassification" attributes="" title="ExtensionClassification" value="User interactivity"}%
+%META:FIELD{name="ExtensionType" attributes="" title="ExtensionType" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value="Foswiki 1.0.x"}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="SupportUrl" attributes="" title="SupportUrl" value="Support.TweetOnSavePlugin"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="ContactAuthorFirst"}%
+
