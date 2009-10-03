@@ -3,6 +3,8 @@
 
 This plugin updates twitter (or identi.ca) status upon topic save or creation.
 
+This plugin is currently of *ALPHA*-quality.
+
 ---++ Plugin Preferences
 
 Preferences are set in configure.
@@ -23,5 +25,5 @@ If you have any problems, or if the extension isn't available in =configure=, th
 |  License | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Version | %$VERSION% |
 |  Release | %$DATE% | 
-|  Home | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Home | http://foswiki.org/Extensions/%TOPIC% |
 |  Support | http://foswiki.org/Support/%TOPIC% |
