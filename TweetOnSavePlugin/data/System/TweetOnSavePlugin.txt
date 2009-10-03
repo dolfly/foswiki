@@ -21,7 +21,7 @@ If you have any problems, or if the extension isn't available in =configure=, th
 |  Author | Foswiki:Main.KoenMartens |
 |  Copyright | &copy; 2009, Koen Martens |
 |  License | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Version | 4684 (2009-08-18) |
-|  Release | $Date: 2009-08-18 17:13:53 +0200 (Tue, 18 Aug 2009) $ | 
+|  Version | %$VERSION% |
+|  Release | %$DATE% | 
 |  Home | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support | http://foswiki.org/Support/%TOPIC% |
