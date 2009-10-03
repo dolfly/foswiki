@@ -1,0 +1,27 @@
+%META:TOPICINFO{author="KoenMartens" date="1254601386" format="1.1" version="1.1"}%
+---+ Tweet On Save Plugin
+
+This plugin updates twitter (or identi.ca) status upon topic save or creation.
+
+---++ Plugin Preferences
+
+Preferences are set in configure.
+
+---++ Installation
+
+You do not need to install anything in the browser to use this extension. The following instructions are for the administrator who installs the extension on the server.
+
+Open configure, and open the "Extensions" section. Use "Find More Extensions" to get a list of available extensions. Select "Install".
+
+If you have any problems, or if the extension isn't available in =configure=, then you can still install manually from the command-line. See http://foswiki.org/Support/ManuallyInstallingExtensions for more help.
+
+
+---++ Plugin Info
+
+|  Author | Foswiki:Main.KoenMartens |
+|  Copyright | &copy; 2009, Koen Martens |
+|  License | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Version | 4684 (2009-08-18) |
+|  Release | $Date: 2009-08-18 17:13:53 +0200 (Tue, 18 Aug 2009) $ | 
+|  Home | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support | http://foswiki.org/Support/%TOPIC% |
