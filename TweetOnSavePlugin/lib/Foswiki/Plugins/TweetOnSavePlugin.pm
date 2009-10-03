@@ -34,6 +34,8 @@ our $NO_PREFS_IN_TOPIC = 1;
 
 our %isNewTopic = ();
 
+our @excludeWebs = ();
+
 =begin TML
 
 ---++ initPlugin($topic, $web, $user) -> $boolean
@@ -66,6 +68,10 @@ sub initPlugin {
     #Foswiki::Func::registerTagHandler( 'EXAMPLETAG', \&_EXAMPLETAG );
 
     #Foswiki::Func::registerRESTHandler('example', \&restExample);
+
+    if(defined($Foswiki::cfg{Plugins}{TweetOnSavePlugin}{ExcludeWebs})) {
+      @excludeWebs=split(/\s*,\s*/,$Foswiki::cfg{Plugins}{TweetOnSavePlugin}{ExcludeWebs});
+    }
 
     # Plugin correctly initialized
     return 1;
@@ -449,6 +455,8 @@ sub afterSaveHandler {
     # variable $_[0]. These allow you to operate on $text
     # as if it was passed by reference; for example:
     # $_[0] =~ s/SpecialString/my alternative/ge;
+
+    return if(grep(/^$web$/,@excludeWebs));
 
     my $tweet=$Foswiki::cfg{Plugins}{TweetOnSavePlugin}{Template} || '$user $action topic $web.$topic $url';
 

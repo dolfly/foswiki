@@ -7,6 +7,10 @@
 # Specify the template to use for status updates, $user will be replaced by the username, $action by either 'saved' or 'created', $web by the web, $topic by the topic name, $url with the (possibly shortened) url
 $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{Template} = '$user $action topic $web.$topic $url';
 
+# **STRING**
+# A comma-seperated list of webs for which no updates will be done (optional)
+$Foswiki::cfg{Plugins}{TweetOnSavePlugin}{ExcludeWebs} = '';
+
 # **STRING,M**
 # Specify the username for the twitter account
 $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{StatusUser} = '';
