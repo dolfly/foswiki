@@ -1,0 +1,6 @@
+data/System/FootNotePlugin.txt 0644 Plugin doc page
+pub/System/FootNotePlugin/styles.css 0660
+lib/Foswiki/Plugins/FootNotePlugin.pm 0444 Plugin Perl module
+lib/Foswiki/Plugins/FootNotePlugin/Note.pm 0444 Plugin Perl module
+lib/Foswiki/Plugins/FootNotePlugin/LabelFormat.pm 0444 Plugin Perl module
+

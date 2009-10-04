@@ -1,0 +1,69 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+!! Footnote Plugin
+
+Support for footnotes in foswiki topics.
+
+%TOC%
+
+---++ Syntax Rules
+
+Write ={<nop>{= _note text_ =}<nop>}= anywhere in a topic.
+This will be replaced with a link to the note at the end of the topic.
+The footnote has a link back to the text where it was inserted.
+
+Write ={<nop>{f:= _note text_ =}<nop>}= to use label format =f= instead
+of the default numerical footnote labeling.
+Available formats are:
+   * =1= : Arabic numerals
+   * =A= , =a= : Upper- or Lower-case letters
+   * =I= , =i= : Upper- or Lower-case roman numerals
+   * =X= , =x= : Upper- or Lower-case hexadecimal numbers.
+
+Write ={<nop>{l::= _note text_ =}<nop>}= to use the label =l=
+instead of automatic numbering.
+Valid labels may be any length and contain alphanumeric characters,
+but must not include spaces.
+
+=%<nop>FOOTNOTELIST%= will be replaced by the notes so far on the page.
+
+=%<nop>FOOTNOTE{LIST="Web.Topic"}%= will be replaced by the notes from an =%<nop>INCLUDE%= ed page.
+
+=%<nop>STARTFOOTNOTE{LABEL="l" LABELFORMAT="f"}%= _note text_ =%<nop>ENDFOOTNOTE%= may also be used instead of ={<nop>{= _note text_ =}<nop>}=
+
+Do not embed footnotes in headings. That will break the heading in the =%<nop>TOC%=.
+
+---++ Examples
+
+   * You type:
+      * ==Tim Berners-Lee{<nop>{Tim Berners-Lee is now director of the World Wide Web Consortium, and Professor of Computer Science at Southampton ECS.}} invented the World Wide Web.==
+   * If the plugin is installed you get:
+      * Tim Berners-Lee<sup>[[#EndNote1a][(1)]]</sup> invented the World Wide Web.
+   * And this at the end of the page:
+      * <a name="#FootNote1a"></a> *1:* Tim Berners-Lee is now director of the World Wide Web Consortium, and Professor of Computer Science at Southampton ECS.
+   * Actual example, it renders properly if the Plugin is installed and enabled:
+      * Tim Berners-Lee{{Tim Berners-Lee is now director of the World Wide Web Consortium, and Professor of Computer Science at Southampton ECS.}} invented the World Wide Web.
+
+---++ Plugin Settings
+Change default settings in [[%SCRIPTURL{"configure"}%/#FootNotePlugin$Extensions][configure]].
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+Plugin configuration is done through =configure=, in the "Plugins" section. You must run and save configure at least once to complete installation.
+
+---++ Plugin Info
+
+|  Author: | Foswiki:Main.IanBygrave |
+|  Copyright: | &copy; 2009, Ian Bygrave |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Version: | %$VERSION%) |
+|  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+
+%META:FORM{name="PackageForm"}%
+%META:FIELD{name="TopicClassification" attributes="" title="TopicClassification" value="PluginPackage"}%
+%META:FIELD{name="Compatibility" attributes="" title="[[Compatibility]]" value=""}%
+%META:FIELD{name="DemoUrl" attributes="" title="DemoUrl" value="http://"}%
+%META:FIELD{name="DevelopedInSVN" attributes="" title="DevelopedInSVN" value="Yes"}%
+%META:FIELD{name="ModificationPolicy" attributes="" title="ModificationPolicy" value="PleaseFeelFreeToModify"}%
+
