@@ -155,6 +155,7 @@ sub _parseOutTables {
 
     $topic =~ s/\r//go;
     $topic =~ s/\\\n//go;  # Join lines ending in "\"
+    $topic .= '\n';     # Make sure we also discover a table at bottom of topic
     foreach( split( /\n/, $topic ) ) {
 
         # change state:

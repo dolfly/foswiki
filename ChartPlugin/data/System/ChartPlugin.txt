@@ -182,8 +182,10 @@ If the required parameters are not defined, then an error message is returned or
 |  Plugin Author: | Current maintainer Foswiki:Main.KennethLavrsen, original authors from old project: TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus |
 |  Copyright &copy;: | 2004-2006, TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus; 2008 Kenneth Lavrsen and Foswiki Contributors | 
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | 08 Dec 2008 |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
+|   13 Oct 2009: | Kenneth Lavrsen: Fixed problem where the plugin could not chart the contents of a table if the table is at the end of a topic |
 |   08 Dec 2008: | Kenneth Lavrsen: Changed the author to myself. TWiki:Main.TaitCyrus is the original author but has not been maintaining this since and is not registered user on fork. So now I officially take the task as maintainer. Plugin is changed to Foswiki namespace and tested and works under Foswiki 1.0.0 |  
 |   18 May 2007: | Added discontinuous ranges - Foswiki:Main.CrawfordCurrie |
 |	16 Nov 2004: | V1.401 - Added benchmarks (no code changes) |
