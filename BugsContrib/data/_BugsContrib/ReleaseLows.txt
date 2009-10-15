@@ -22,7 +22,7 @@ All open Low priority bugs related to the core engine or any of the default exte
     limit="%URLPARAM{"limit" default="%LIMIT%"}%"
     nototal="on"
     header="| *Id* | *Summary* | *Component* | *Current&nbsp;State* | *Waiting&nbsp;For* |"
-    format="| [[$web.$topic][$topic]]%BR%<span class='twikiGrayText twikiSmall'>$percntCALC{$FORMATTIMEDIFF(min, 1, $ROUND($TIMEDIFF($TIME($createdate GMT), $TIME(), min)))}$percnt</span> | $formfield(Summary) | $formfield(Component) | $formfield(CurrentState) | $formfield(WaitingFor) |"
+    format="| [[$web.$topic][$topic]]%BR%<span class='foswikiGrayText foswikiSmall'>$percntCALC{$FORMATTIMEDIFF(min, 1, $ROUND($TIMEDIFF($TIME($createdate GMT), $TIME(), min)))}$percnt</span> | $formfield(Summary) | $formfield(Component) | $formfield(CurrentState) | $formfield(WaitingFor) |"
 }%
 | %IF{"%CALC{$ROW()}%='1'" then='<span style="background : #808080;"> %WHITE% No entries found matching your query %ENDCOLOR% </span>' else="Summary"}%  | | %IF{"%CALC{$ROW()}%='1'" then="" else="%CALC{"$COUNTITEMS( R2:C$COLUMN()..R$ROW(-1):C$COLUMN() )"}%"}% | %IF{"%CALC{$ROW()}%='1'" then="" else="%CALC{"$COUNTITEMS( R2:C$COLUMN()..R$ROW(-1):C$COLUMN() )"}%"}% | %IF{"%CALC{$ROW()}%='1'" then="" else="%CALC{"$COUNTITEMS( R2:C$COLUMN()..R$ROW(-1):C$COLUMN() )"}%"}% |
 

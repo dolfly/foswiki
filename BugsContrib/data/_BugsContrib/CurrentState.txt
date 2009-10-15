@@ -3,7 +3,7 @@ Interactive lookup
 
    * Set STATE = %URLPARAM{"CurrentState" default=".*"}%
 -->
-<div class="twikiPageForm">
+<div class="foswikiPageForm">
 <form name="chooser" action="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%" method="get">
 <h3>%STARTSECTION{form_select}%Current State 
 <select name="CurrentState" onchange="chooser.submit()">

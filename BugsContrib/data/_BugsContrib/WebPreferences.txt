@@ -5,7 +5,7 @@ The following settings are __web preferences__ of the [[%WEB%.%HOMETOPIC%][%WEB%
 
 __Bugs web specific Settings:__
    * Broadcast message:
-      * Set !BROADCASTMESSAGE = <div class="twikiBroadcastMessage"> <h5> *NOTE:*  </h5></div>
+      * Set !BROADCASTMESSAGE = *NOTE:* this is an important message
 
 __Preferences:__
 

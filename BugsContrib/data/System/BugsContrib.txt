@@ -94,6 +94,7 @@ The web is configured as a simple bug tracker, but can easily be customised to m
 |  Version: | 2085 (22 Jan 2009) |
 |  License: | GPL |
 |  Change History: | |
+|         | 15 Oct 2009 - Foswiki:Main.SvenDowideit - Foswiki:Bugs.Item2252 - remove twiki css |
 |         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item5669 - dashboard cleanup |
 |         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item8158 - add edit %ICON{edittopic}% to each result row |
 |         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item8156 - change to template web architecture, to allow more than one bug base per installation |

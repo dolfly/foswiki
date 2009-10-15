@@ -3,7 +3,7 @@ Interactive lookup
 
    * Set PRIORITY = %URLPARAM{"Priority" default=".*"}%
 -->
-<div class="twikiPageForm">
+<div class="foswikiPageForm">
 <form name="chooser" action="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%" method="get">
 <h3>%STARTSECTION{form_select}%
 Active Items with Priority
