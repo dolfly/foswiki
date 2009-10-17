@@ -183,7 +183,7 @@ sub _restExit {
 
     Foswiki::Func::writeDebug( __PACKAGE__, "::_restExit()" ) if $debug;
 
-    my $query = Foswiki::Func::getRequestObject();
+    my $query = Foswiki::Func::getCgiQuery();
 
     unless ( defined ($query->param('url')) ) {
         $response->header(
