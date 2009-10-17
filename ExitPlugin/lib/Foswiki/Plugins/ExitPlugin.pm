@@ -51,6 +51,19 @@ sub _patFromCfg
         . ")" ;
 }
 
+sub _isWebInCfg
+{
+    my $cfg = $Foswiki::cfg{Plugins}{$pluginName}{$_[0]} || '';
+
+    # Wildcard
+    return 1 if ($cfg =~ /^[[:space:]]*\*[[:space:]]*$/);
+
+    my @items = split(/[[:space:]]*,[[:space:]]*/s, $cfg);
+    return 1 if (grep /$web/, @items);
+
+    return 0;
+}
+
 sub _partInit
 {
 # Partial initialization
@@ -76,7 +89,7 @@ sub _partInit
             $debug = $Foswiki::cfg{Plugins}{$pluginName}{Debug} || 0;
 
             # Get disable flag
-            $disable = Foswiki::Func::getPreferencesFlag( "EXITPLUGIN_DISABLEEXITPLUGIN" ) || 0;
+            $disable = !_isWebInCfg("EnableWebs");
             Foswiki::Func::writeDebug( __PACKAGE__, "disable = ${disable}" ) if $debug;
 
             # Get schemes to redirect

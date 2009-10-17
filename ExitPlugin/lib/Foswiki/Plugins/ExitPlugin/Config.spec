@@ -23,6 +23,11 @@ $Foswiki::cfg{Plugins}{ExitPlugin}{RedirectVia} = '$Foswiki::cfg{DefaultUrlHost}
 # An array of strings listing the hosts for which no exit page should be shown.
 $Foswiki::cfg{Plugins}{ExitPlugin}{NoExit} = ['.twiki.org', '.foswiki.org'];
 
+# **STRING 200**
+# Comma-separated list of webs to redirect links from.<br />
+# Use <code>*</code> as wildcard to enable redirection of links in all webs.
+$Foswiki::cfg{Plugins}{ExitPlugin}{EnableWebs} = '*';
+
 # **STRING 30**
 # External link marks (you can use an image if you want). These are optional.
 $Foswiki::cfg{Plugins}{ExitPlugin}{Premark} = '';
