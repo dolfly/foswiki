@@ -11,17 +11,17 @@ $Foswiki::cfg{SwitchBoard}{exit} = [
           }
         ];
 
-# **PERL**
-# An array of strings listing the URI schemes to be redirected
-$Foswiki::cfg{Plugins}{ExitPlugin}{Schemes} = ['http', 'https'];
+# **STRING 200**
+# Comma-seperated list of URI schemes to be redirected
+$Foswiki::cfg{Plugins}{ExitPlugin}{Schemes} = 'http, https';
 
 # **URL**
 # Exit handler
 $Foswiki::cfg{Plugins}{ExitPlugin}{RedirectVia} = '$Foswiki::cfg{DefaultUrlHost}$Foswiki::cfg{ScriptUrlPath}/exit?url=';
 
-# **PERL**
-# An array of strings listing the hosts for which no exit page should be shown.
-$Foswiki::cfg{Plugins}{ExitPlugin}{NoExit} = ['.twiki.org', '.foswiki.org'];
+# **STRING 200**
+# Comma-seperated list of hosts for which no exit page should be shown.
+$Foswiki::cfg{Plugins}{ExitPlugin}{NoExit} = 'foswiki.org, www.myfoswikihost.com';
 
 # **STRING 200**
 # Comma-separated list of webs to redirect links from.<br />

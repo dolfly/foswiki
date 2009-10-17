@@ -19,7 +19,7 @@ If Exit Plugin is installed, the following link should take you to =<nop>%SCRIPT
 
 http://www.google.com/
 
-Note that these links will not be affected if the =NOEXIT= setting lists =foswiki.org=.
+Note that these links will not be affected if the =NoExit= setting lists =foswiki.org=.
 
 http://foswiki.org/Home/WebHome
 

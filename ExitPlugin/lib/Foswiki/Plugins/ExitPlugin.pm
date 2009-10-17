@@ -47,7 +47,9 @@ sub _patFromCfg
     return
         "(?:" .
         join( "|",
-              map( quotemeta, @{$Foswiki::cfg{Plugins}{$pluginName}{$_[0]}} ) )
+              map( quotemeta,
+                   split( /[[:space:]]*,[[:space:]]*/s,
+                          $Foswiki::cfg{Plugins}{$pluginName}{$_[0]} ) ) )
         . ")" ;
 }
 
