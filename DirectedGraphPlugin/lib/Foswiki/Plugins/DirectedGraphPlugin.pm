@@ -280,9 +280,9 @@ sub commonTagsHandler {
     #pass everything within <dot> tags to handleDot function
     # - Returns true if any matches were found.
 
-    ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/DOT>/&_handleDot($2,$1)/giseo )
+    ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/DOT>/&_handleDot($2,$1)/giseo );
 
-      & _writeDebug(' <<< EXIT  commonTagsHandler  ');
+    &_writeDebug(' <<< EXIT  commonTagsHandler  ');
 
 }    ### sub commonTagsHandler
 
