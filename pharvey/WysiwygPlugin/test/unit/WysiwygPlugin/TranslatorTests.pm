@@ -41,6 +41,11 @@ my $ROUNDTRIP = 1 << 2;        # test tml => => finaltml
 my $CANNOTWYSIWYG = 1 << 3;    # test that notWysiwygEditable returns true
                                #   and make the ROUNDTRIP test expect failure
 
+# SMELL: Accomodates the temporary work-around for Item2254, for when TML2HTML
+#        is wrapping content in <div></div>
+my $Item2254start = '<div>';
+my $Item2254end = '</div>';
+
 # Note: ROUNDTRIP is *not* the same as the combination of
 # HTML2TML and TML2HTML. The HTML and TML comparisons are both
 # somewhat "flexible". This is necessary because, for example,
@@ -2160,6 +2165,12 @@ sub compareTML_HTML {
         $tml,
         $this->TML_HTMLconverterOptions()
     );
+    
+    # SMELL: Item2254 temporary work-around requires TML2HTML to wrap output
+    # in <div></div>.
+    if (($Item2254start) and ($Item2254end)) {
+      $tx = ($tx =~ /^$Item2254start(.*)$Item2254end$/mxs)[0];
+    }
 
     $this->assert_html_equals( $html, $tx );
 }

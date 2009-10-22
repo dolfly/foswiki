@@ -46,6 +46,11 @@ my $TT0 = chr(0);
 my $TT1 = chr(1);
 my $TT2 = chr(2);
 
+# SMELL: Item2254: Accomodates a temporary work-around, where TML2HTML
+#        needs to wrap content in <div></div>
+my $Item2254start = '<div>';
+my $Item2254end = '</div>';
+
 # HTML elements that are palatable to editors. Other HTML tags will be
 # rendered in 'protected' regions to prevent the WYSIWYG editor mussing
 # them up. Note that A is specifically excluded from this list because it
@@ -128,7 +133,10 @@ sub convert {
     #print STDERR "TML2HTML = '$content'\n";
 
     # This should really use a template, but what the heck...
-    return $content;
+    # SMELL: Item2254 - see var declaration up top
+    return $Item2254start . $content . $Item2254end;
+
+    #return $content;
 }
 
 sub _liftOut {

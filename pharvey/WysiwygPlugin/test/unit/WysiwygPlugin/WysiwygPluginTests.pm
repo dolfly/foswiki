@@ -30,6 +30,11 @@ use Carp;
 
 my $UI_FN;
 
+# SMELL: Accomodates the temporary work-around for Item2254, for when TML2HTML
+#        is wrapping content in <div></div>
+my $Item2254start = '<div>';
+my $Item2254end = '</div>';
+
 sub new {
     my $self = shift()->SUPER::new(@_);
     return $self;
@@ -163,10 +168,10 @@ sub TML2HTML_test {
     $out =~ s/^.*?\r\n\r\n//s;
 
     $out = Encode::decode_utf8($out);
-
+    
     my $id = "<!--$Foswiki::Plugins::WysiwygPlugin::SECRET_ID-->";
-    $this->assert( $out =~ s/^\s*$id<p>\s*//s, anal($out) );
-    $out =~ s/\s*<\/p>\s*$//s;
+    $this->assert( $out =~ s/^\s*$id$Item2254start<p>\s*//s, anal($out) );
+    $out =~ s/\s*<\/p>$Item2254end\s*$//s;
 
     require Foswiki::Plugins::WysiwygPlugin::Constants;
     Foswiki::Plugins::WysiwygPlugin::Constants::mapUnicode2HighBit($out);
