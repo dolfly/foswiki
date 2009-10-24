@@ -23,29 +23,15 @@ require Foswiki::Plugins; # For the API version
 
 use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN_TOPIC );
 $VERSION = '$Rev$';
-$RELEASE = 'Foswiki-1.0';
+$RELEASE = '24 Oct 2009';
 $SHORTDESCRIPTION = 'FirebugLite javascript based debugger for IE, Opera, Safari and FireFox';
 $NO_PREFS_IN_TOPIC = 1;
 $pluginName = 'FirebugLitePlugin';
 
 
 sub initPlugin {
-    my( $topic, $web, $user, $installWeb ) = @_;
+    # Plugin should really be a Contrib :-)
 
-    # check for Plugins.pm versions
-    if( $Foswiki::Plugins::VERSION < 1.026 ) {
-        Foswiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
-        return 0;
-    }
-
-    my $setting = $Foswiki::cfg{Plugins}{FirebugLitePlugin}{ExampleSetting} || 0;
-    $debug = $Foswiki::cfg{Plugins}{FirebugLitePlugin}{Debug} || 0;
-
-    Foswiki::Func::loadTemplate(lc($pluginName));
-    my $firebugHeader = Foswiki::Func::expandTemplate($debug?'firebug':'firebug-compressed');
-    Foswiki::Func::addToHEAD($pluginName, $firebugHeader);
-
-    # Plugin correctly initialized
     return 1;
 }
 

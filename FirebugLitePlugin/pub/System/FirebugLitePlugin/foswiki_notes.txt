@@ -1,0 +1,7 @@
+This is a checkout of firebug1.2 and firebug1.3 from 
+http://fbug.googlecode.com/svn/lite/branches/
+
+Note: .htaccess file deleted from firebug1.3/build
+
+The template for firebug13 may need adjusting as the 1.3 branch is
+considered alpha at time of writing (October 2009)
