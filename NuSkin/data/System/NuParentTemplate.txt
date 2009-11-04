@@ -1,0 +1,37 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+%TMPL:INCLUDE{"view"}%
+
+%TMPL:DEF{"setparent"}%
+---+++ %MAKETEXT{"Set new topic parent for %BASETOPIC%"}%
+<form name="main" action="%SCRIPTURLPATH{"save"}%/%WEB%/%TOPIC%?action_save=1">
+<div class="foswikiFormSteps">
+<div class="foswikiFormStep">
+---++!! %MAKETEXT{"Current parent:"}% %IF{"'NONE%SEARCH{ "^%TOPIC%$" scope="topic" regex="on" nosearch="on" nototal="on" format="$parent" }%'='NONE'" then="(none)" else='%SEARCH{ "^%TOPIC%$" scope="topic" regex="on" nosearch="on" nototal="on" format="[[$web.$parent][$parent]]" }%' }%
+</div>
+<div class="foswikiFormStep">
+---+++!! %MAKETEXT{"Select topic parent:"}%
+<p>%IF{"defined pickparent" then="<select name='topicparent' size='10' class='foswikiSelect' tabindex='12'>$percntTOPICLIST{$quot<option $marker value='$name'>$name</option>$quot separator=$quot$quot selection=$quot$percntMETASEARCH{type=$quotparent$quot}$percnt}$percnt<option value=$quot$quot>$percntMAKETEXT{$quot(no parent, orphaned topic)$quot}$percnt</option></select>" else="<input type='text' name='topicparent' size='40' class='foswikiInputField' />&nbsp;<a href='$percntSCRIPTURLPATH{view}$percnt/$percntBASEWEB$percnt/$percntBASETOPIC$percnt?$percntQUERYSTRING$percnt;pickparent=1'>%MAKETEXT{"Pick from a list"}%</a>"}%</p>
+</div>
+<div class="foswikiFormStep foswikiLast">
+<input type='submit' class='foswikiButton' value='%MAKETEXT{"Set new parent"}%' />
+</div>
+</div>
+</form>%TMPL:END%
+
+
+%TMPL:DEF{"content"}%
+%TMPL:P{"setparent"}%
+%TMPL:END%
+
+
+%{ do not show the following elements }%
+%TMPL:DEF{"topicaction"}%%TMPL:END%
+%TMPL:DEF{"topicinfo"}%%TMPL:END%
+%TMPL:DEF{"toolbar"}%%TMPL:END%
+%TMPL:DEF{"topicpathinfo"}%%TMPL:END%
+%TMPL:DEF{"breadcrumb"}%%TMPL:END%
+%TMPL:DEF{"top:toolbarbuttons"}%%TMPL:END%
+%TMPL:DEF{"tagme"}%%TMPL:END%
+
+%META:REVCOMMENT{ncomments="0"}%

@@ -1,0 +1,160 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+---+ Nu Skin
+
+An overlay to the default PatternSkin (currently just a view template) inspired by the examples and discussion at TWiki:Codev.TWikiForNormalUsers (hence the name) and, with !JavaScript enabled on the client, code adapted from the Foswiki:Extensions.QuickMenuSkin is used to provide a highly customisable JS menu system. A functional UI for "normal users" persists even when !JavaScript is disabled on the client.
+
+---++ Screen Shot
+
+%SEARCH{ "NuSkin" scope="topic" nosearch="on" nototal="on" format="$pattern(.*\| *Screenshot\:[^\|]*\|([^\|]*).*)" }%
+
+---++ Installation
+
+%$INSTALL_INSTRUCTIONS%
+   * Test if installed by browsing to this topic on your own installation
+   * Activate the skin sitewide by copying the following to your =%MA<nop>INWEB%.SitePreferences= topic:
+<noautolink><pre>
+---++!! %SYSTEMWEB%.NuSkin settings
+   * Set COVER = nu
+   * Set LEFTBAR = no
+   * Set NULEFTBAR = !%SYSTEMWEB%.NuLeftBar
+   * #Set NUMENUBAR = !%SYSTEMWEB%.NuMenuBar
+   * #Set NUMENUBARCONTENTS = !%SYSTEMWEB%.NuMenuBarContents
+   * #Set NUMENUXTRACONTENTS =
+   * #Set NUTOOLBAR = !%SYSTEMWEB%.OfficeToolBar
+   * #Set NUTOOLBAROPTIONS = !%SYSTEMWEB%.OfficeToolBarOptions
+   * #Set NUSUBMENUBAR = !%SYSTEMWEB%.SubMenuBarExample
+   * #Set NUSUBMENUCONTENTS = !%SYSTEMWEB%.SubMenuContentsExample
+</pre></noautolink>
+The above variables are the !NuSkin default settings. For customisation of the default UI for your own Foswiki installation you are encouraged to create your own versions of the above topics and reset the above variables accordingly. These settings are further introduced in the next section.
+
+Please note that the skin was originally developed for the installation on my company's intranet and that things like the green colour scheme and 960px page width are taken from the Community pages that I have tried to fit in with. I have not included our top bar banner in the distribution package as it is unique to us but, as this skin is aimed at the workplace, perhaps you have your own company's banner and colour scheme you can apply. Alternatively, the Foswiki:Extensions.QuickMenuSkin has a neutral style that I am sure could be easily adapted to this skin.
+
+---++ Layout and Customising
+
+Starting at the top of the page, in the top bar, each web can have its own descriptive title using the =WEBTITLE= variable set in the !WebPreferences topic. If this is empty or not defined, the web name is used in its place. This can also be (ab)used by a page to put its own title in the top bar, e.g.
+<pre>
+   * Set WEBTITLE = Welcome to the Nu skin for Normal Users
+</pre>   
+Staying in the top bar, directly below the banner, is the main menubar (as defined by =NUMENUBAR= with all js menus defined in =NUMENUBARCONTENTS=). This is the main wiki-navigation-resource on the page:
+   * At work I use kinosearch for the search box on the left hand side, but for the distribution I have commented-out this html form and put in a standard Foswiki search form.
+   * On the right hand side is the "functions" menubar: 
+      * the "webnav" menu contains the web utilities that are part of the default WebLeftBar but also a Site Map link which uses the Foswiki:Plugins.TreePlugin and the Foswiki:Plugins.TreeBrowserPlugin to give a hierarchical map of the web's topics (see the Dependencies list in the table at the end for a list of all the additional functionality I am assuming is available); 
+      * the "users" menu (when logged-in) contains a link to show the latest 50 contributions of the user in the current web, and a listing of all the user's wiki-bookmarks (see below for more on this) - this is basically to replace the personal left bar which has never 'worked' for my users (plenty of lease files to be found for personal left bars that have never been created - they must have clicked on the link, thought "What the..?," and just browsed back); 
+      * the last two links are for the %SYSTEMWEB% web, "Foswiki documentation - only interesting if you want to do more than just WYSIWYG editing," and the Main web, "Usersweb and default wiki homepage."
+   * In the middle is the "webs" menubar where all the main or gateway webs/links are found. For example, I have a Forum web and a Blog web (courtesy of the respective Add-Ons), a Groups web for access-restricted workspaces (sub-webs) for various groups/projects/sections/divisions at work and two other webs that are major, living projects in themselves.
+      * The Forum and the Blog menus list the latest 10 entries in those webs and the Groups menu uses =WEBLIST= to list all the webs the current user has VIEW access to (the Groups !WebHome has a site map of all sub-webs irrespective of VIEW access).
+	  
+There is no default link to the Sandbox web. For example, I have added a link to the webhome, "Go to the Sandbox when you want to try out all the cool stuff you are about to learn," but that's it.
+
+The =NUSUBMENUBAR= and =NUSUBMENUCONTENTS= variables define a menubar that goes directly beneath the main menubar and is intended for webs that do not have their own entry in the main menubar to which a js menu can be attached through =NUMENUXTRACONTENTS=. Of course, a page can also define these variables but risks loosing the web defined menubar when doing so. More on this sort of customisation below.
+
+The !NuSkin is not intended to have a left bar and, especially with javascript enabled on the client, it really doesn't need it, but a web/page/user can re-enable the left bar by locally setting =LEFTBAR= to 'yes'. The default !NuLeftBar is similar to the WebLeftBar but with the web indicator bit removed and the personal leftbar replaced by a listing of the user's bookmarks. If you have a web which already has a customised WebLeftBar topic just set =NULEFTBAR= to be blank and WebLeftBar will be used as the default.
+
+I have reverted to using the old 4.1 topicpathinfo because I personally don't like the new 4.2 one.
+
+If you have the Foswiki:Extensions.TagMePlugin installed I have included a "tagme" =TMPL:DEF= in view.nu.tmpl which you can uncomment from the "top" =TMPL:DEF= (no need to put tagme in the skin path).
+
+The last element to introduce is the =NUTOOLBAR=. This replaces the toolbar buttons and the topicaction bar. The default toolbar is as defined in the !OfficeToolBar topic, so called because I have intended it to look like something the office worker will find familiar (so I hope it does ;) ). The =NUTOOLBAROPTIONS= topic contains some js that adds small menus to some of the entries. From left to right:
+   * Edit: default setting is WYSIWYG edit but there is also the option to raw edit
+   * Attach
+   * Edit page settings: default setting is to edit the page preferences but there is also the option to change the topic parent
+   * Edit ACLs: comment this out from the topic if you don't have the Foswiki:Extensions.WebPermissionsPlugin installed, if you do, you have to add webpermissions to the SKIN path to look like "nu, webpermissions, pattern"
+   * Subscribe to topic update emails courtesy of the Foswiki:Extensions.SubscribePlugin (and MailerContrib) - essential for "normal users" - the button, a bell_add icon, is only visible when a user is logged-in
+   * Bookmark this page - click on the green add icon and the current topic gets added (using CommentPlugin notation) as a bullet-point to the user's Bookmarks topic and is then available for quick access from the users menu on the topbar - if the current page has already been bookmarked by the logged-in user, the bookmark button is replaced by a green tick icon
+   * Print version of the current topic
+   * PDF version of the current topic - assuming the Foswiki:Extensions.GenPDFAddOn
+   * mailto: mail a link to the current topic
+   * Raw view of the current topic
+   * History: Foswiki:Extensions.HistoryPlugin and Foswiki:Extensions.CompareRevisionsAddOn really should be installed
+   * Rename/move: links checked for in all public webs
+   * Delete: links checked for in all public webs
+   * Children of the current topic: uses the same !SiteMapViewTemplate as for the web sitemap option on the main menubar but with the current topic as the root
+   * Create new (child) topic
+When looking at previous topic revisions the edit and attach options are replaced by a "Restore to this version" option and a "View latest version" option, and the Rename/move and Delete options are unavailable.
+
+!JavaScript is used to detach the toolbar and fix it at the top of the browser window when scrolling down. This is not supported in MSIE5.5/6 because it doesn't recognise the css position:fixed property.
+
+!JavaScript is also used to fix the MSIE5.5/6 png problem so some nice looking icons can be used. The used Tango and !FamFamFamSilk icons are included in the skin package.
+
+!JavaScript caveat: some jQuery functions are used in the !NuSkin js so it is required to have the latest version of the Foswiki:Extensions.JQueryPlugin installed.
+
+---+++ Modifying Menus
+Each of the menubars is a single-row html table pre-defined in the above topics to which js menus can be added. Each cell in the table has an anchor with a unique ID and each table has a unique ID and a class which is used to define the menu's look and feel. This way, a usable menubar is always available and, if javascript is disabled on the client, the "users" menu gets a sad-face instead of a smiley-face and a link to the !NuSkinNoJS page is added to the menubar.
+
+Following is a simple example of a menubar with two menu-headers,
+<noautolink><verbatim>
+<table id="webs" cellspacing="0" cellpadding="0" class="qm1">
+<tbody>
+<tr><td>
+<a id="forum" title="Ask your questions, answer those of others" href="%SCRIPTURLPATH{view}%/Forum/%HOMETOPIC%"><span>Forums</span></a>
+</td><td>
+<a id="blog" title="Tell us about it..." href="%SCRIPTURLPATH{view}%/Blog/%HOMETOPIC%"><span>Blogs</span></a>
+</td></tr>
+</tbody>
+</table>
+</verbatim></noautolink>
+Note that when the anchors in the table cells contain a text-node only, the text needs to be wrapped in span tags (as in the example above). This is to prevent a bug in a jquery plugin (part of the Foswiki:Extensions.JQueryPlugin package) that would cause the menus not to load properly in IE6 and not load at all in IE7.
+
+---++++ !NuSkin Javascript Reference
+Users of the Foswiki:Extensions.QuickMenuSkin will recognise the following syntax but there is one important difference due to the fact that the menubar with its link or js action per menu-header (i.e. the =Button= in the js and the =table cell= in html) has already been created.
+<noautolink><pre>
+> To initiate a new menu:
+   new QuickMenu.Menu("&lt;id of the button&gt;","&lt;id of the table&gt;");
+   or with a variable which can be used to add menu items,
+   mymenu = new QuickMenu.Menu("&lt;id of the button&gt;","&lt;id of the table&gt;");
+
+> Add items to the menu (the same syntax as for the QuickMenuSkin)
+   mymenu.Add("Item Text", "%<nop>SCRIPTURLPATH{"view"}%/PageToView", "", "Item Tip");
+   mymenu.Add("Text Formatting", "%<nop>SCRIPTURLPATH{"view"}%/TextFormattingRules", "%<nop>ICONURLPATH{"help"}%", "More formatting help");
+   mymenu.Add("Disabled item");
+
+> Add a submenu (the same syntax as for the QuickMenuSkin but with an additional option)
+   mymenu.Add("Choose Colour", ":Colour");
+   mymenu.Colour.Add(...
+   or
+   submenu = mymenu.Add("Choose Colour", ":");
+   submenu.Add(...
+   if you want the header of the submenu to also be a link, use a double colon,
+   submenu = mymenu.Add("Choose Colour", "::&lt;url or WikiWordLink&gt;");
+   
+> A _cleaner_ interface
+   <small>You don't need to store each menu &amp; submenu in variables.</small>
+	with (new QuickMenu.Menu(menuBar, "Menu")) {
+		Add("Item1", "url");
+		Add(); // Separator 
+		with (Add("SubMenu", ":")) {
+			Add("SubItem1", "url");
+			Add("SubItem2", "url");
+			Add(...
+			} 
+	}
+</pre></noautolink>
+
+---+++ page/web/user customisations
+Four variables are provided for this:
+   * =NUSUBMENUBAR= and =NUSUBMENUCONTENTS= are intended for webs (or even topics) that want their own menubar just below the topbar
+   * =NUMENUXTRACONTENTS= - this is intended for:
+      * those webs or gateway topics that are a menu header on the top menubar and want to add extra menu items to their topbar menu when the user is within their domain
+      * those webs or topics that want to add additional sub-options to the tool buttons on the toolbar
+      * those topics that want to add menu items to the existing menus on the submenubar - any author that is defining this variable in his/her topic should check for an existing variable declaration in the !WebPreferences topic and =INCLUDE= that extra-contents topic at the top of their own
+   * =NUMENUUSERCONTENTS= - this is intended for the power-user who wants to do more than just add links to his/her Bookmarks list, e.g. add a raw=debug sub-option to the "raw view" button on the toolbar
+
+---++ Skin Info
+
+|  Description: | An overlay to the default PatternSkin using dynamic menus |
+|  Screenshot: | <img src="%ATTACHURLPATH%/nuskin_screenshot_without_banner.PNG" alt="Screen shot" /> |
+|  Preview: | [[%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?cover=nu][Preview with this topic]] |
+|  Base Name: | nuskin |
+|  Author: | Foswiki:Main/DavidPatterson |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
+| Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
+|  4 Nov 2009: | Ported to Foswiki by Crawford Currie http://c-dot.co.uk |
+|  3 Sep 2008: | Initial version (v1.00) |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Skin Home: | http://Foswiki.org/Extensions/NuSkin |
+|  Support: | http://Foswiki.org/Support/NuSkin |
+
+-- %MAINWEB%.DavidPatterson - 3 Sep 2008
+
+%META:FILEATTACHMENT{name="nuskin_screenshot_without_banner.PNG" attr="" comment="" date="1220445468" size="116924" user="ProjectContributor" version="1"}%

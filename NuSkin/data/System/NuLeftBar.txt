@@ -1,0 +1,21 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+%IF{"istopic '%USERSWEB%.%WIKINAME%Bookmarks'" then="<div class='patternLeftBarPersonal patternLeftBarPersonalContent foswikiSmall'>
+Your bookmarks <a href='%SCRIPTURLPATH{edit}%/%WEB%/%TOPIC%?t=%SERVERTIME{"$epoch"}%' class='foswikiSmallish'>(organise...)</a>
+%INCLUDE{"%USERSWEB%.%WIKINAME%Bookmarks" warn="off"}%
+</div>"}%
+
+   * <b>[[%INCLUDINGWEB%.%HOMETOPIC%][ %ICON{"home"}% <nop>%MAKETEXT{"[_1] Web" args="%INCLUDINGWEB%"}%]]</b>
+   * [[%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebTopicCreator?parent=%BASETOPIC%][ %ICON{"newtopic"}% %MAKETEXT{"Create New Topic"}%]]
+   * [[%INCLUDINGWEB%.WebTopicList][ %ICON{"index"}% %MAKETEXT{"Index"}%]]
+   * [[%INCLUDINGWEB%.WebSearch][ %ICON{"searchtopic"}% %MAKETEXT{"Search"}%]]
+   * [[%INCLUDINGWEB%.WebChanges][ %ICON{"changes"}% %MAKETEXT{"Changes"}%]]
+   * [[%INCLUDINGWEB%.WebNotify][ %ICON{"notify"}% %MAKETEXT{"Notifications"}%]]
+   * [[%INCLUDINGWEB%.WebRss][ %ICON{"feed"}% %MAKETEXT{"RSS Feed"}%]]
+   * [[%INCLUDINGWEB%.WebStatistics][ %ICON{"statistics"}% %MAKETEXT{"Statistics"}%]]
+   * [[%INCLUDINGWEB%.WebPreferences][ %ICON{"wrench"}% %MAKETEXT{"Preferences"}%]]
+
+---
+%INCLUDE{ "%SYSTEMWEB%.WebLeftBarWebsList" }%
+
+%META:REVCOMMENT{ncomments="0"}%

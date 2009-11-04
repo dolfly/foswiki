@@ -1,0 +1,19 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+<pre>%STARTINCLUDE%<noautolink>
+navMenu = new QuickMenu.Menu("webnav","functions");
+if ("%USERINFO{format="$groups"}%".match(/AdminGroup/)) {
+  navMenu.Add("%MAKETEXT{"Users"}%","%SCRIPTURLPATH{"view"}%/%MAINWEB%/WikiUsers","%ICONURLPATH{"person"}%");
+  navMenu.Add("%MAKETEXT{"Groups"}%","%SCRIPTURLPATH{"view"}%/%MAINWEB%/WikiGroups","%ICONURLPATH{"group"}%");
+  navMenu.Add();
+}
+navMenu.Add("%MAKETEXT{"Search"}%","%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebSearch","%ICONURLPATH{"searchtopic"}%");
+navMenu.Add("%MAKETEXT{"Index"}%","%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebTopicList","%ICONURLPATH{"index"}%");
+navMenu.Add("%MAKETEXT{"Site Map"}%","%SCRIPTURLPATH{"view"}%/%BASEWEB%/?template=System.SiteMapView","%ICONURLPATH{"indexlist"}%");
+navMenu.Add("%MAKETEXT{"Changes"}%","%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebChanges","%ICONURLPATH{"changes"}%");
+navMenu.Add("%MAKETEXT{"Notifications"}%","%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebNotify","%ICONURLPATH{"notify"}%");
+navMenu.Add("%MAKETEXT{"RSS Feed"}%","%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebRss","%ICONURLPATH{"feed"}%");
+navMenu.Add("%MAKETEXT{"Preferences"}%","%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebPreferences","%ICONURLPATH{"wrench"}%");
+</noautolink>%STOPINCLUDE%</pre>
+
+%META:REVCOMMENT{ncomments="0"}%

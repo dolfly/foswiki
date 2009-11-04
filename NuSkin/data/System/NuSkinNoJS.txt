@@ -1,0 +1,19 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+---+ !JavaScript is Disabled
+
+---++ ...and you're missing out!
+
+The NuSkin uses !JavaScript to add some very useful menus to the top bar. Without Javascript the menus do not load and navigating through the wiki becomes cumbersome: at least one extra page load is required to take you to where you want to go. If you really don't want to have JS enabled you can enable the default left bar (containing your bookmark links, some default navigation links for the local web and an expanded list of all the webs to which you have read access) by adding the following to your user page,
+<pre>
+   * Set LEFTBAR = yes
+</pre>
+but note that this will be overridden if a Web has defined its own leftbar.
+
+The toolbar on each page (containing the edit, attach etc. links) also looses some nice extra options.
+
+---++ The best solution
+
+We're on the intranet, a _friendly_ environment, so enable !JavaScript for this wiki!
+
+%META:REVCOMMENT{ncomments="0"}%

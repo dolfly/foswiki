@@ -1,0 +1,10 @@
+Foswiki::Plugins::CompareRevisionsAddOn,>=0,perl,Required
+Foswiki::Plugins::GenPDFAddOn,>=0,perl,Optional
+Foswiki::Plugins::HistoryPlugin,>=0,perl,Required
+Foswiki::Plugins::JQueryPlugin,>=0,perl,Required
+Foswiki::Contrib::QuickMenuSkin,>=0,perl,Required
+Foswiki::Plugins::SubscribePlugin,>=0,perl,Required
+Foswiki::Plugins::TagMePlugin,>=0,perl,Optional
+Foswiki::Plugins::TreeBrowserPlugin,>=0,perl,Optional
+Foswiki::Plugins::TreePlugin,>=0,perl,Required
+Foswiki::Plugins::WebPermissionsPlugin,>=0,perl,Optional

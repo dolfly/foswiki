@@ -1,0 +1,176 @@
+#submenubar {
+	width:960px;
+/*	height:20px;*/
+	margin-top:0em;
+	margin-right:-1.5em;
+	margin-left:-1.5em;
+	margin-bottom:10px;
+	border:0;
+	background-color:LightSeaGreen;
+	color:MintCream;
+	font-weight:bold;
+}
+#patternMainContents {
+	padding-top:0;	/*This is because in MSIE setting the #submenubar margin-top to -1em has no apparent effect, i.e. the submenubar is still within the 1em padding-top of patternMainContents*/
+}
+#submenubar A,
+#submenubar A:visited {
+	display:block;
+	position:relative;
+	z-index:1000;
+	padding:0px 10px;
+	text-decoration:none !important;
+	background-color:LightSeaGreen;
+	color:MintCream;
+	font-weight:bold;
+}
+#submenubar .submenu-button-over,
+#submenubar .submenu-button-click {
+	background-color:MintCream;
+	color:LightSeaGreen; 
+}
+#submenubar A:hover {
+	background-color:MintCream;
+	color:LightSeaGreen; 
+}
+#submenubar .separator {
+	margin:1px 2px;
+	height:25px;
+	width:2px;
+	background-color:#b8b6ad;
+}
+#submenubar table {
+	margin-left:auto;
+	margin-right:auto;
+	cursor:default;
+/*	width:100%;*/
+	text-align:center;
+}
+/*#submenubar table,
+#submenubar table A {
+	background-color:LightSeaGreen;
+	color:MintCream;
+	font-weight:bold;
+	padding:0 2px;
+	line-height:1;
+}*/
+/*.submenu-button,
+.submenu-button-click {
+	display:block;
+	color: #fff;
+	font-weight: bold;
+	position:relative;
+	z-index:100;
+}*/
+.submenu-button IMG.icononly,
+.submenu-button-over IMG.icononly,
+.submenu-button-click IMG.icononly {
+	margin:0 !important;
+	z-index:200;
+}
+/*.submenu-button IMG,
+.submenu-button-over IMG,
+.submenu-button-click IMG {
+	margin-right:4px;
+/* 	vertical-align: top; */
+/*	border:0;
+/*	height:16px; */
+/*	width:auto;
+}*/
+/*.submenu-button {
+	padding:1px 6px 2px 6px;
+	color:#000 !important;
+}*/
+img.submenu-button {
+	padding:0;
+}
+.submenu-button A {
+	text-align:left;
+}
+/*.submenu-button-over {
+	padding:0 5px 1px 5px;
+	border:1px solid #369;
+	background:url("menu_over.gif") repeat-x center;
+	color:#fff !important;
+}*/
+/*.submenu-button-click {
+	background:url("menubar-click.jpg") repeat-x center;
+	color:#fff;
+	z-index:3;
+}*/
+.submenu-menu {
+	position:fixed;
+	_position:absolute;
+	visibility:hidden;
+	z-index:201;
+	text-align: left; /* Needed when page centering is in use */
+}
+.submenu-menu-shadow {
+	background:#888;
+	position:absolute;
+	-moz-opacity:0.30;
+	top: 3px !important;
+	left: 3px !important;
+	top: 1px;
+	left: 1px;
+	-moz-border-radius: 3px;
+}
+.submenu-menulist {
+	position:relative;
+	margin:0;
+	padding:1px;
+	border:2px solid LightSeaGreen;
+/*	background:#ddd url("menuitem_bg.gif") repeat-y left;
+        filter:alpha(opacity=95);*/
+        -moz-opacity:.95;
+        opacity:.95;
+	z-index:2;
+}
+.submenu-menulist A {
+	display:list-item;
+	list-style:none;
+	margin:0;
+	padding:2px;
+	text-decoration:none;
+	color:MintCream;
+	background-color:LightSeaGreen;
+ 	vertical-align:top;
+	text-align:left;
+}
+.submenu-menulist .over {
+	padding:1px;
+	color:LightSeaGreen;
+	border:1px solid #667b0d;
+	background-color:MintCream;/*url("menuitem_over.gif") repeat-x center;*/
+	text-decoration:underline;
+}
+.submenu-menulist A.disabled {
+	color:#777;
+}
+.submenu-menulist A.separator {
+	margin:1px 3px;
+	padding:0;
+}
+.submenu-menulist A.separator DIV {
+	border-top:1px solid #369;
+}
+.submenu-menulist IMG {
+	border:0;
+	vertical-align:top;
+	position:absolute;
+	width:16px;
+	height:16px;
+}
+.submenu-menuitem,
+.submenu-menuitem-arrow {
+	padding:0 19px;
+	position:relative;
+	font:13px/16px verdana;
+}
+.submenu-menuitem-arrow {
+	background:url("arrow.gif") no-repeat right;
+}
+.submenu-menuitem-separator {
+	height:1px;
+	background:#396;
+}

@@ -1,0 +1,28 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="OfficeToolBar"}%
+<pre>%STARTINCLUDE%<noautolink>
+new QuickMenu.Menu("restore","officetools");
+new QuickMenu.Menu("viewlatest","officetools");
+new QuickMenu.Menu("create","officetools");
+with (new QuickMenu.Menu("edit","officetools")) {
+Add("WYSIWYG (default)", "%SCRIPTURLPATH{edit}%/%BASEWEB%/%BASETOPIC%?t=%SERVERTIME{$epoch}%","%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_white_word.png");
+Add("markup (raw) edit", "%SCRIPTURLPATH{edit}%/%BASEWEB%/%BASETOPIC%?t=%SERVERTIME{$epoch}%;nowysiwyg=1","%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_white_code.png");
+}
+new QuickMenu.Menu("attach","officetools");
+with (new QuickMenu.Menu("settings","officetools")) {
+Add("Edit page preferences (default)", "%SCRIPTURLPATH{manage}%/%BASEWEB%/%BASETOPIC%?action=editSettings");
+Add("Set new topic parent", "%SCRIPTURLPATH{view}%/%BASEWEB%/%BASETOPIC%?template=%SYSTEMWEB%.NuParent");
+}
+new QuickMenu.Menu("acls","officetools");
+new QuickMenu.Menu("subscribe","officetools");
+new QuickMenu.Menu("bookmark","officetools");
+new QuickMenu.Menu("print","officetools");
+new QuickMenu.Menu("pdf","officetools");
+new QuickMenu.Menu("mailto","officetools");
+new QuickMenu.Menu("raw","officetools");
+new QuickMenu.Menu("history","officetools");
+new QuickMenu.Menu("rename","officetools");
+new QuickMenu.Menu("delete","officetools");
+new QuickMenu.Menu("sitemap","officetools");
+new QuickMenu.Menu("newtopic","officetools");
+</noautolink>%STOPINCLUDE%</pre>

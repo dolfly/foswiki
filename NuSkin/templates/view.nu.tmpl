@@ -1,0 +1,110 @@
+%TMPL:INCLUDE{"view"}%
+
+%TMPL:DEF{"nustyle"}%
+<style type="text/css" media="all">
+	@import url('%PUBURLPATH%/%SYSTEMWEB%/NuSkin/nuqmenu_v1_6.css');
+	@import url('%PUBURLPATH%/%SYSTEMWEB%/NuSkin/officetools_v1_2.css');
+	%IF{"defined NUSUBMENUBAR and $ NUSUBMENUBAR != ''" then="@import url('%PUBURLPATH%/%SYSTEMWEB%/NuSkin/submenu_v1.css');"}%
+</style> 
+%TMPL:END%
+
+%TMPL:DEF{"toolbar:posfixedjs"}%
+%ADDTOHEAD{"<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/NuSkin/posfixed.js'></script>" requires="JQUERYPLUGIN::FOSWIKI"}%
+%TMPL:END%
+
+%TMPL:DEF{"menuxtracontents"}%
+%{definable per web or per page - a page menu definition topic should be careful to include any existing web menu definition topic}%
+%INCLUDE{"%NUMENUXTRACONTENTS%" raw="on" warn="off"}%
+%TMPL:END%
+
+%TMPL:DEF{"menuusercontents"}%
+%INCLUDE{"%NUMENUUSERCONTENTS%" raw="on" warn="off"}%
+%TMPL:END%
+
+%TMPL:DEF{"submenucontents"}%
+%INCLUDE{"%NUSUBMENUCONTENTS%" raw="on" warn="off"}%
+%TMPL:END%
+
+%TMPL:DEF{"jsmenu"}%%ADDTOHEAD{"<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/NuSkin/nuqmenu_v1_4.js'></script><script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/NuSkin/makedynamicmenu.js'></script>" requires="JQUERYPLUGIN::FOSWIKI"}%<script type="text/javascript">
+%{ the order of the following INCLUDEs is relevant to ensure that
+ user/page/web defined menu contents don't appear in the menus before
+ the default contents }%
+function makeDynamicMenu() {
+%INCLUDE{"%IF{"defined NUMENUBARCONTENTS and $ NUMENUBARCONTENTS" then="%NUMENUBARCONTENTS%" else="%SYSTEMWEB%.NuMenuBarContents"}%" raw="on" warn="off"}%
+%INCLUDE{"%IF{"defined NUTOOLBAROPTIONS and $ NUTOOLBAROPTIONS" then="%NUTOOLBAROPTIONS%" else="%SYSTEMWEB%.OfficeToolBarOptions"}%" raw="on" warn="off"}%
+%IF{"defined NUSUBMENUCONTENTS and $ NUSUBMENUCONTENTS" then="$percntTMPL:P{$quotsubmenucontents$quot}$percnt"}%
+%IF{"defined NUMENUXTRACONTENTS and $ NUMENUXTRACONTENTS" then="$percntTMPL:P{$quotmenuxtracontents$quot}$percnt"}%
+%IF{"defined NUMENUUSERCONTENTS and $ NUMENUUSERCONTENTS" then="$percntTMPL:P{$quotmenuusercontents$quot}$percnt"}%
+}
+</script>
+%TMPL:END%
+
+%TMPL:DEF{"iepngfix"}%%ADDTOHEAD{"<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/NuSkin/iepngfix.js'></script>" requires="JQUERYPLUGIN::FOSWIKI"}%%TMPL:END%
+
+%TMPL:DEF{"nujs"}%%TMPL:P{"toolbar:posfixedjs"}%%TMPL:P{"jsmenu"}%%TMPL:P{"iepngfix"}%%TMPL:END%
+
+%TMPL:DEF{"styles:default"}%%TMPL:P{"styles:screen"}%
+%TMPL:P{"styles:print"}%
+%TMPL:P{"styles:iespecific"}%
+%TMPL:P{"styles:javascript_affected"}%
+%TMPL:P{"nustyle"}%
+%TMPL:END%
+
+%TMPL:DEF{"script"}%%TMPL:P{"script:skinbase"}%%TMPL:P{"script:skintemplate"}%%TMPL:P{"script:topictemplate"}%%TMPL:P{"nujs"}%%TMPL:END%
+
+%TMPL:DEF{"menubar"}%
+%INCLUDE{"%IF{"defined NUMENUBAR and $ NUMENUBAR" then="%NUMENUBAR%" else="%SYSTEMWEB%.NuMenuBar"}%" raw="on" warn="off"}%
+%TMPL:END%
+
+%TMPL:DEF{"topbar"}%<div id="patternTopBar"><div id="patternTopBarContents"><span id="webtitle">%IF{"defined WEBTITLE and $ WEBTITLE" then="%WEBTITLE%" else="%WEB%"}%</span><div id="userTopbarInfo">%INCLUDE{"%IF{"context can_login" then="%SYSTEMWEB%.NuLogin" else="<nop>"}%" warn="off"}%</div></div>%TMPL:P{"topbar:menubar"}%</div><!-- /patternTopBar-->%TMPL:END%
+
+%TMPL:DEF{"topbarspacer"}%<div id="patternClearHeaderCenter"></div>%TMPL:END%
+
+%TMPL:DEF{"topbar:menubar"}%<div id="menuBarWrapper">%TMPL:P{"menubar"}%</div>%TMPL:END%
+
+%TMPL:DEF{"tagme"}%<div class="foswikiSmall" style="background-color:#F6F6F6; padding:5px; margin:0 0 5px;"> Tags: %TAGME{ tpaction="%URLPARAM{tpaction}%" web="%WEB%" tag="%URLPARAM{tag}%" }%, [[System.TagMeViewAllTags][view all tags]] </div>%TMPL:END%
+
+%TMPL:DEF{"submenubar"}%<div id="submenubar">%INCLUDE{"%NUSUBMENUBAR%" raw="on" warn="off"}%</div>%TMPL:END%
+
+%TMPL:DEF{"top"}%%IF{"defined NUSUBMENUBAR and $ NUSUBMENUBAR" then="$percntTMPL:P{$quotsubmenubar$quot}$percnt"}%<div class="patternTop foswikiSmallish">%TMPL:P{"topicpathinfo"}%%{TMPL:P{"tagme"}%%TMPL:P{"top:toolbarbuttons"}%<br class="foswikiClear" /></div><!--/patternTop-->%TMPL:END%
+
+%TMPL:DEF{"topicpathinfo"}%<div class="patternHomePath"><span class="foswikiRight">%TMPL:P{"revinfo"}%</span>%TMPL:P{"breadcrumb"}%<br class="foswikiClear" /></div><!-- /patternHomePath-->%TMPL:END%
+
+%TMPL:DEF{"revinfo"}% <span class="patternRevInfo">%REVINFO%</span>%TMPL:END%
+
+%TMPL:DEF{"breadcrumb"}%You are here: %{"breadcrumb:title"}%%TMPL:P{"breadcrumb:wikitoolname"}%%TMPL:P{"breadcrumb:currentweb"}%%META{"parent" nowebhome="on" prefix="%TMPL:P{"breadcrumb:separator"}%" suffix=""}%%TMPL:P{"breadcrumb:currenttopic"}%%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:annotation"}%<span class='patternRevInfo'>%IF{"defined raw" then=" %MAKETEXT{"(raw view)"}%"}%</span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbuttons"}%<div id="toolBar" class="patternToolBar">%INCLUDE{"%IF{"defined NUTOOLBAR and $ NUTOOLBAR" then="%NUTOOLBAR%" else="%SYSTEMWEB%.OfficeToolBar"}%" raw="on" warn="off"}%</div><!-- /patternToolBar-->%TMPL:END%
+
+%TMPL:DEF{"topicaction"}%%TMPL:END%
+
+%TMPL:DEF{"topbardimensions"}%%TMPL:END%
+
+%TMPL:DEF{"websidebar"}%%INCLUDE{"%IF{"defined NULEFTBAR and $ NULEFTBAR" then="%NULEFTBAR%" else="%WEB%.WebLeftBar"}%" raw="on" warn="off"}%%TMPL:END%
+
+%TMPL:DEF{"nuleftbardimensions"}%#patternOuter {
+	margin-left:13em; /*163px;  12em;*/
+}
+#patternLeftBar {
+	width:13em;  /*163px;  12em;*/
+	margin-left:-13em; /*-163px;   /*-12em;*/
+}
+#patternSideBar {
+    display: none;
+    width: 0;
+    margin: 0;
+}%TMPL:END%
+
+%TMPL:DEF{"nuleftbar"}%<div id="patternLeftBar"><div id="patternClearHeaderLeft"></div>
+<div id="patternLeftBarContents">%TMPL:P{"webleftbar"}%
+</div><!-- /patternLeftBarContents--></div><!-- /patternLeftBar-->%TMPL:END%
+
+%TMPL:DEF{"leftbar"}%%IF{"defined LEFTBAR and $ LEFTBAR = 'no'" then="" else="$percntTMPL:P{$quotnuleftbar$quot}$percnt"}%%TMPL:END%
+%TMPL:DEF{"leftbardimensions"}%%IF{"defined LEFTBAR and $ LEFTBAR = 'no'" then="" else="$percntTMPL:P{$quotnuleftbardimensions$quot}$percnt"}%%TMPL:END%
+
+%TMPL:DEF{"nusidebar"}%<div id="patternSideBar"><div id="patternClearHeaderLeft"></div>
+<div id="patternSideBarContents">%TMPL:P{"websidebar"}%
+</div><!-- /patternSideBarContents--></div><!-- /patternSideBar-->%TMPL:END%
+%TMPL:DEF{"sidebar"}%%IF{"defined LEFTBAR and $ LEFTBAR = 'no'" then="<style type='text/css'>#patternOuter{margin:0}</style>" else="$percntTMPL:P{$quotnusidebar$quot}$percnt"}%%TMPL:END%

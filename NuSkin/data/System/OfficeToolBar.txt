@@ -1,0 +1,34 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+<div id="officetoolbar">
+<table id="officetools" class="officetools" cellspacing="0" cellpadding="1"><tr><td>
+%IF{"context inactive" then="<a id='restore' href='%SCRIPTURLPATH{manage}%/%BASEWEB%/%BASETOPIC%?rev=%URLPARAM{"rev"}%;action=restoreRevision;nowysiwyg=1'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/arrow_undo.png' alt='restore' title='Restore to this version' /></a></td><td><a id='viewlatest' href='%SCRIPTURLPATH{view}%/%BASEWEB%/%BASETOPIC%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page.png' alt='view' title='View latest version' /></a>" else="%IF{"context new_topic" then="<a id='create' href='%SCRIPTURLPATH{edit}%/%BASEWEB%/%BASETOPIC%?t=%SERVERTIME{"$epoch"}%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_lightning.png' alt='create' title='Create this page' /></a>" else="<a id='edit' href='%SCRIPTURLPATH{edit}%/%BASEWEB%/%BASETOPIC%?t=%SERVERTIME{"$epoch"}%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_edit.png' alt='edit' title='Edit this page' /></a></td><td><a id='attach' href='%SCRIPTURLPATH{attach}%/%BASEWEB%/%BASETOPIC%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_attach.png' alt='attach' title='Attach a file' /></a></td><td><a id='settings' href='%SCRIPTURLPATH{manage}%/%BASEWEB%/%BASETOPIC%?action=editSettings'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_white_wrench.png' alt='settings' title='Edit page settings' /></a></td><td><a id='acls' href='%SCRIPTURLPATH{oops}%/%BASEWEB%/%BASETOPIC%?template=topicacls'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/lock_edit.png' alt='ACLs' title='Edit Page Access Control Lists' /></a>"}%"}%
+</td><td>
+<div class="separator"></div>
+</td><td>
+%SUBSCRIBE{format="<a id='subscribe' href='$url'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/bell_add.png' alt='subscribe' title='Subscribe to page updates' /></a>" formatunsubscribe="<a href='$url'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/bell.png' alt='unsubscribe' title='You are subscribed to page updates - unsubscribe' /></a>"}%
+</td><td>
+<noautolink>%IF{" '%SEARCH{"%BASEWEB%.%BASETOPIC%]" topic="%WIKINAME%Bookmarks" web="Main" nonoise="on" format="$topic"}%' != '' " then="<img id='bookmark' src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/tick.png' alt='bookmarked' title='You have already wiki-bookmarked this page' />" else="
+<a id='bookmark' href='%SCRIPTURLPATH{save}%/%MAINWEB%/%WIKINAME%Bookmarks?bullet_above_item=[<nop>[%BASEWEB%.%BASETOPIC%]<nop>[%BASEWEB%: %BASETOPIC%]<nop>];comment_type=bulletabove;comment_action=save;dontnotify=1;redirectto=%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%;topicparent=%MAINWEB%.%WIKINAME%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/add.png' alt='add' title='Add this page to your wiki bookmarks; see the list in the user menu above' /></a>"}%</noautolink>
+</td><td>
+<div class="separator"></div>
+</td><td>
+<a id='print' href='%SCRIPTURLPATH{view}%/%BASEWEB%/%BASETOPIC%?cover=print%IF{"defined QUERYSTRING and $ QUERYSTRING != ''" then=";%QUERYSTRING%"}%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/printer.png' alt='print' title='Print this page' /></a>
+</td><td>
+<a id='pdf' href='%SCRIPTURLPATH{genpdf}%/%BASEWEB%/%BASETOPIC%%IF{"defined QUERYSTRING and $ QUERYSTRING != ''" then="?%QUERYSTRING%"}%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_white_acrobat.png' alt='pdf' title='PDF this page' /></a>
+</td><td>
+<a id='mailto' href='mailto:?subject=Have a look at this page on the wiki&body=%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%%IF{"defined QUERYSTRING and $ QUERYSTRING != ''" then="&%QUERYSTRING%"}%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/email.png' alt='email' title='Email this page' /></a>
+</td><td>
+%IF{"defined raw" then="<a id='raw' href='%SCRIPTURLPATH{view}%/%BASEWEB%/%BASETOPIC%%IF{"defined rev" then="?rev=%URLPARAM{"rev"}%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_red.png' alt='view old' title='Rendered view of old version' /></a>" else="'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page.png' alt='view' title='View rendered version' /></a>"}%" else="<a id='raw' href='%SCRIPTURLPATH{view}%/%BASEWEB%/%BASETOPIC%?raw=on%IF{"defined rev" then=";rev=%URLPARAM{"rev"}%"}%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_code.png' alt='raw' title='Raw view' /></a>"}%
+</td><td>
+<div class="separator"></div>
+</td><td>
+<a id='history' href='%SCRIPTURLPATH{oops}%/%BASEWEB%/%BASETOPIC%?template=oopshistory'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_white_stack.png' alt='history' title='History' /></a>%IF{"context inactive" then="" else="</td><td><a id='rename' href='%SCRIPTURLPATH{rename}%/%BASEWEB%/%BASETOPIC%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_go.png' alt='rename' title='Rename/Move' /></a></td><td><a id='delete' href='%SCRIPTURLPATH{rename}%/%BASEWEB%/%BASETOPIC%?newweb=Trash&nonwikiword=on'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/cross.png' alt='delete' title='Delete' /></a>"}%
+</td><td>
+<div class="separator"></div>
+</td><td>
+<a id='sitemap' href='%SCRIPTURLPATH{view}%/%BASEWEB%/%BASETOPIC%?template=%SYSTEMWEB%.SiteMapView;root=%BASETOPIC%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/sitemap_color.png' alt='children' title='Children of this topic' /></a>
+</td><td>
+<a id='newtopic' href='%SCRIPTURLPATH{view}%/%BASEWEB%/WebTopicCreator?parent=%BASETOPIC%'><img src='%PUBURLPATH%/System/NuSkin/FamFamFamSilkIcons/page_add.png' alt='new' title='Create new page' /></a>
+</td></tr></table></div>
+<div class="clear"></div>

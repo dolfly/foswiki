@@ -1,0 +1,39 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+<div class="MenuBar" id="MenuBar">
+<div class="MenuBarLeft searchBar"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/system-search.png" /> <span>
+<!-- <form name="kinosearch" action="%SCRIPTURLPATH%/kinosearch%SCRIPTSUFFIX%/%INTURLENCODE{"%INCLUDINGWEB%"}%/">
+<input type="hidden" name="web" value="%BASEWEB%" />
+%IF{" '%URLPARAM{"search" encode="entity" scope="topic"}%' = '' " then="<input type=\"text\" class=\"foswikiInputField patternFormFieldDefaultColor\" name=\"search\" value=\"%MAKETEXT{"Search"}%\" size=\"16\" onfocus=\"this.value='';\" onblur=\"this.value='Search';\" />" else="<input type=\"text\" class=\"foswikiInputField\" name=\"search\" value=\"%URLPARAM{ "search" encode="entity" scope="topic" }%\" size=\"16\" />"}%</form> -->
+<form name="quickSearchForm" action="%SCRIPTURLPATH{view}%/%INCLUDINGWEB%/WebSearch"><input type="text" class="foswikiInputField" id="quickSearchBox" name="search" value="Search" size="16" onfocus="this.value='';" onblur="this.value='Search';" /><input type="hidden" name="scope" value="all" /><input type="hidden" name="web" value="%BASEWEB%" /></form> </span>
+</div>
+<div class="MenuBarLeft" id="MenuBarLeftMenu"></div>
+<div class="MenuBarRight" id="MenuBarRightMenu">
+<table id="functions" cellspacing="0" cellpadding="0" class="qm1">
+<tbody><tr>
+<noscript><td><a href="%SCRIPTURLPATH{view}%/%SYSTEMWEB%/NuSkinNoJS" title="JavaScript is disabled. Why?"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/help-browser.png" class="icononly"/></a></td></noscript>
+<td><a id="webnav" title="Local web navigation" style="display:none;"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/go-down.png" class="icononly"/></a>
+<noscript><a href="%SCRIPTURLPATH{view}%/%BASEWEB%/?template=%SYSTEMWEB%.WebNav" title="Local web navigation"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/go-down.png" class="icononly"/></a></noscript>
+</td><td><a id="user" title="User Authentication, data and bookmarks" style="display:none;"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/face-smile.png" class="icononly"/></a>
+<noscript><a href="%SCRIPTURLPATH{view}%/%BASEWEB%/?template=%MAINWEB%.UserLinks" title="User data and bookmarks"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/face-sad.png" class="icononly"/></a></noscript>
+</td><td><a id="foswiki" title="Foswiki documentation - only interesting if you want to do more than just WYSIWYG editing" href="%SCRIPTURLPATH{view}%/%SYSTEMWEB%/%HOMETOPIC%"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/help-contents.gif" class="icononly"/></a>
+</td><td><a id="main" title="Usersweb and default home page of the wiki" href="%SCRIPTURLPATH{view}%/%MAINWEB%/%HOMETOPIC%"><img src="%PUBURLPATH%/%SYSTEMWEB%/NuSkin/TangoIcons/system-users.png" class="icononly"/></a>
+</td></tr>
+</tbody>
+</table>
+</div>
+<div class="MenuBarCentre" id="MenuBarCentreMenu">
+<table id="webs" cellspacing="0" cellpadding="0" class="qm1">
+<tbody>
+<tr><td><a id="forum" title="Ask your questions, answer those of others" href="%SCRIPTURLPATH{view}%/Forum/%HOMETOPIC%"><span>Forums</span></a>
+</td><td><a id="blog" title="Tell us about it..." href="%SCRIPTURLPATH{view}%/Blog/%HOMETOPIC%"><span>Blogs</span></a>
+</td><td><a id="groups" title="Access restricted workspaces" href="%SCRIPTURLPATH{view}%/Groups/%HOMETOPIC%"><span>Groups</span></a>
+</td><td><a id="emofs" title="ESOC Mission Operations Facilities &amp; Services" href="%SCRIPTURLPATH{view}%/EMOFS/%HOMETOPIC%"><span>EMOFS</span></a>
+</td><td><a id="km" title="Knowledge Management wiki" href="%SCRIPTURLPATH{view}%/KMan/%HOMETOPIC%"><span>KM</span></a>
+</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+%META:REVCOMMENT{ncomments="0"}%

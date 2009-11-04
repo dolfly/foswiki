@@ -1,0 +1,19 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+<pre>%STARTINCLUDE%<noautolink>
+%CALC{$SET(monthold, $TIMEADD($TIME(), -30, day))$SET(count,0)}%
+with (new QuickMenu.Menu("forum","webs")) {
+   %SEARCH{" form.name = 'DiscussionTopicForm' " type="query" web="Forum" nonoise="on" excludetopic="*Template" format="$percntCALC{$IF($TIME($date) < $GET(monthold), <nop>,  Add(\"$formfield(Title)\", \"%SCRIPTURLPATH{view}%/$web/$topic\", \"\",\"\"); $SETM(count,+1) )}$percnt"  order="created" reverse="on" limit="10"}% 
+%CALC{$IF($EXEC($GET(count) < 1), Add("Nothing new to report from the last 30 days");,<nop>)$SET(count,0)}%
+}
+with (new QuickMenu.Menu("blog","webs"))  { 
+   %SEARCH{" TopicType = 'BlogPost' OR TopicType = 'BlogPostComment' " type="query" web="Blog" nonoise="on" excludetopic="*Template" format="$percntCALC{$IF($TIME($date) < $GET(monthold), <nop>,  Add(\"$formfield(Title)\", \"%SCRIPTURLPATH{view}%/$web/$IF($EXACT('$formfield(TopicType)','BlogPostComment'),$parent#Comments,$topic)\", \"\",\"\"); $SETM(count,+1) )}$percnt"  order="created" reverse="on" limit="10"}% 
+%CALC{$IF($EXEC($GET(count) < 1), Add("Nothing new to report from the last 30 days");,<nop>)}%
+}
+groupsMenu = new QuickMenu.Menu("groups","webs");
+%WEBLIST{"groupsMenu.Add($qname,"%SCRIPTURLPATH{"view"}%/$name/%HOMETOPIC%","%ICONURLPATH{"web-bg"}%");
+groupsMenu.Items[groupsMenu.Items.length - 1].Icon.style.background="%$markerVAR{"WEBBGCOLOR" web=$qname}$marker%";" subwebs="Groups"}%
+
+new QuickMenu.Menu("emofs","webs");
+new QuickMenu.Menu("km","webs");
+</noautolink>%STOPINCLUDE%</pre>

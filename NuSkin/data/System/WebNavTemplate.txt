@@ -1,0 +1,34 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+%TMPL:INCLUDE{"view"}%
+
+
+%TMPL:DEF{"content"}%
+---+ Common navigation links of the %BASEWEB% Web
+
+   * <b>[[%INCLUDINGWEB%.%HOMETOPIC%][ %ICON{"home"}% Web home page]]</b>
+   * [[%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebTopicCreator?parent=%BASETOPIC%][ %ICON{"newtopic"}% %MAKETEXT{"Create New Topic"}%]]
+   * [[%INCLUDINGWEB%.WebTopicList][ %ICON{"index"}% %MAKETEXT{"Index"}%]]
+   * [[%INCLUDINGWEB%.WebSearch][ %ICON{"searchtopic"}% %MAKETEXT{"Search"}%]]
+   * [[%INCLUDINGWEB%.WebChanges][ %ICON{"changes"}% %MAKETEXT{"Changes"}%]]
+   * [[%INCLUDINGWEB%.WebNotify][ %ICON{"notify"}% %MAKETEXT{"Notifications"}%]]
+   * [[%INCLUDINGWEB%.WebRss][ %ICON{"feed"}% %MAKETEXT{"RSS Feed"}%]]
+   * [[%INCLUDINGWEB%.WebStatistics][ %ICON{"statistics"}% %MAKETEXT{"Statistics"}%]]
+   * [[%INCLUDINGWEB%.WebPreferences][ %ICON{"wrench"}% %MAKETEXT{"Preferences"}%]]
+
+---
+%INCLUDE{ "%SYSTEMWEB%.WebLeftBarWebsList" }%
+
+%TMPL:END%
+
+
+%{ do not show the following elements }%
+%TMPL:DEF{"topicaction"}%%TMPL:END%
+%TMPL:DEF{"topicinfo"}%%TMPL:END%
+%TMPL:DEF{"toolbar"}%%TMPL:END%
+%TMPL:DEF{"topicpathinfo"}%%TMPL:END%
+%TMPL:DEF{"breadcrumb"}%%TMPL:END%
+%TMPL:DEF{"top:toolbarbuttons"}%%TMPL:END%
+%TMPL:DEF{"tagme"}%%TMPL:END%
+
+%META:REVCOMMENT{ncomments="0"}%

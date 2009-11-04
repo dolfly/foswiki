@@ -1,0 +1,23 @@
+%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICPARENT{name="NuSkin"}%
+<pre>%STARTINCLUDE%<noautolink>
+with ( new QuickMenu.Menu("entry1","submenu")) {
+Add("entry1.1","#");
+Add("entry1.2","#");
+Add("entry1.3","");
+}
+new QuickMenu.Menu("entry2","submenu");
+new QuickMenu.Menu("entry3","submenu");
+with ( new QuickMenu.Menu("entry4","submenu")) {
+Add("entry4.1","#");
+Add("entry4.2","#");
+Add("entry4.3","");
+}
+with ( new QuickMenu.Menu("entry5","submenu")) {
+Add("entry5.1","#");
+Add("entry5.2","#");
+Add("entry5.3","");
+}
+</noautolink>%STOPINCLUDE%</pre>
+
+%META:REVCOMMENT{ncomments="0"}%
