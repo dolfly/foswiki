@@ -21,6 +21,19 @@ $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{toolsPath} = '';
 # Perl command used on this system <br>
 #  On many systems this can just be the "perl" command
 $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{perlCmd} = 'perl';
+# **BOOLEAN EXPERT**
+# Flag specifying if the plugin should generate graphs when viewing previous topic revisions<br/>
+#  If the plugin generates attachments when viewing old revisions, this can result
+#  in out of date attachments, and significant overhead regenerating the attachments.
+#  Enable this flag to restore previous behavior of the plugin
+#  Note that by default, old revisions of attachments can be viewed using the attach dialog.
+$Foswiki::cfg{Plugins}{DirectedGraphPlugin}{generateRevAttachments} = '0';
+# **BOOLEAN EXPERT**
+# Flag specifying if the plugin should generate graphs when comparing two topic revisions <br/>
+#  If the plugin generates attachments during compare operations, this can result
+#  in out of date attachments, and significant overhead regenerating the attachments
+#  Enable this setting to restore the prior behavior of the plugin.
+$Foswiki::cfg{Plugins}{DirectedGraphPlugin}{generateDiffAttachments} = '0';
 # **PATH EXPERT**
 # Path for plugin to store generated attachments<br>
 #  Optional.  If not provided, plugin will manage attachments using the standard Foswiki attachment functions.<br />
