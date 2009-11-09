@@ -111,20 +111,26 @@ sub initPlugin {
 
     #  Disable the plugin if a topic revision is requested in the query.
     my $query = Foswiki::Func::getRequestObject();
-    if ($query->param('rev')) {
-        if (! $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{generateRevAttachments} ) {
-	    &Foswiki::Func::writeDebug( 'DirectedGraphPlugin - Disabled  - revision provided'  );
-	    return 0;
-	    }
-	}
+    if ( $query->param('rev') ) {
+        if ( !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}
+            {generateRevAttachments} )
+        {
+            &_writeDebug(
+                'DirectedGraphPlugin - Disabled  - revision provided');
+            return 0;
+        }
+    }
 
     #  Disable the plugin if comparing two revisions (context = diff
     if ( Foswiki::Func::getContext()->{'diff'} ) {
-       if (! $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{generateDiffAttachments} ) {
-           &Foswiki::Func::writeDebug( 'DirectedGraphPlugin - Disabled  - diff context'  );
-           return 0;
-	   }
-       }
+        if ( !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}
+            {generateDiffAttachments} )
+        {
+            &_writeDebug(
+                'DirectedGraphPlugin - Disabled  - diff context');
+            return 0;
+        }
+    }
 
     $usWeb = $web;
     $usWeb =~ s/\//_/g;    #Convert any subweb separators to underscore
@@ -287,7 +293,6 @@ sub commonTagsHandler {
 
     return if $_[3];    # Called in an include; do not process DOT macros
 
-
     $topic = $_[1];     # Can't trust globals
     $web   = $_[2];
     $usWeb = $web;
@@ -296,12 +301,12 @@ sub commonTagsHandler {
     &_writeDebug("- ${pluginName}::commonTagsHandler( $_[2].$_[1] )");
 
     #pass everything within <dot> tags to handleDot function
-    
+
     ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/(DOT)>/&_handleDot($2,$1)/giseo );
 
-    # $2 will be left set if any matches were found in the topic.  If found, do cleanup processing
-    if ($3 && ($3 eq 'dot')) {
-        &Foswiki::Func::writeDebug( "DirectedGraphPlugin - FOUND MATCH  -  $3"  );
+# $3 will be left set if any matches were found in the topic.  If found, do cleanup processing
+    if ( $3 && ( $3 eq 'dot' ) ) {
+        &_writeDebug("DirectedGraphPlugin - FOUND MATCH  -  $3");
         wrapupTagsHandler();
     }
 
