@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1254437198" format="1.1" reprev="1.22" version="1.22"}%
+%META:TOPICINFO{author="ProjectContributor" date="1257300385" format="1.1" reprev="1.28" version="1.28"}%
 ---+!! Directed Graph Plugin
 
 %TOC%
@@ -121,8 +121,7 @@ digraph G {
     label="Cole's Example";
 }
 </dot> 
-</td></tr></table>
-</sticky>
+</td></tr></table></sticky>
 
 ---+++ Clientside imagemap (clickable nodes and edges)
 
@@ -172,8 +171,7 @@ digraph G {
 }
 </dot>
 </td>
-</tr></table>
-</sticky>
+</tr></table></sticky>
 
 ---+++ Usecase description / state diagram
 
@@ -234,8 +232,7 @@ digraph G {
 }
 </dot>
 </td>
-</tr></table>
-</sticky>
+</tr></table></sticky>
 
 ---+++ Component architecture (inline SVG)
 
@@ -288,8 +285,7 @@ digraph G {
 }
 </dot>
 </td>
-</tr></table>
-</sticky>
+</tr></table></sticky>
 
 ---+++ Simple LAN setup (custom icons / shapefiles)
 
@@ -345,13 +341,13 @@ digraph G { size="2,3!"; dpi="100";
 }
 </dot>
 </td>
-</tr></table>
-</sticky>
+</tr></table></sticky>
 
----++ <nop>%TOPIC% Global Preference Settings
+---++ Plugin Configuration
+---+++ <nop>%TOPIC% Global Preference Settings
 
-%X% *Note: This version of the plugin no longer reads setting from this topic*. Copy the below settings to your %USERSWEB%.SitePreferences topic and remove the # if changes are required.
-
+%X% *Note: This version of the plugin no longer reads setting from this topic*. Copy the below settings to your %USERSWEB%.SitePreferences topic and remove the # if changes are required.  These settings can be placed in %USERSWEB%.SitePreferences,  WebPreferences, User topics, or any individual topic.
+---++++ Sample settings
 <verbatim>
    * #Set DIRECTEDGRAPHPLUGIN_ENGINE = dot
    * #Set DIRECTEDGRAPHPLUGIN_ANTIALIAS = off
@@ -370,6 +366,7 @@ digraph G { size="2,3!"; dpi="100";
    * #Set DIRECTEDGRAPHPLUGIN_DEBUG = 0
 </verbatim>
 
+---++++ Description of the settings
 Changes to the settings marked %X% will cause changes to the file hash. This will result in the attached graphcs being regenerated on the next view
 
 | *Setting* | *Description* | *dot override* | *Default* |
@@ -389,25 +386,48 @@ Changes to the settings marked %X% will cause changes to the file hash. This wil
 | DIRECTEDGRAPHPLUGIN_LIBRARY | %X% Default topic to read library icons (shapefiles) from | library="Web.Topic" | (this topic) |
 | DIRECTEDGRAPHPLUGIN_DEBUG | Debug plugin: (See output in =data/debug.txt=) | [n/a] | =0= |
 
+---+++ Foswiki bin/configure settings
+All settings start with =$Foswiki::cfg{Plugins}{DirectedGraphPlugin}=, and on many systems, these are all optional.
+---++++ Standard Settings
+| ={{Enabled}= | Set to 1 to enable the plugin |
+| ={enginePath}=| Path to the GraphViz executable. On many systems this is not required if the GraphViz executables are on the default path |
+| ={magickPath}= | Path to the ImageMagick convert utility. Again optional if the imagemagick utilities ( =convert= ) can be found on the default path |
+| ={toolsPath}= | Path to the Foswiki tools directory. The DirectedGraphPlugin.pl helper script is found in this directory. Typically found in the web server root along with bin, data, pub, etc. If not provided the plugin will guess based upon the current working directory |
+| ={perlCmd}= | Perl command used on this system. On many systems this can just be the "perl" command, and the default will be acceptable if =perl= is found on the default path. |
+---++++ Expert settings
+| ={Module}= | Required.  Set to ='Foswiki::Plugins::DirectedGraphPlugin'=  Do not change | 
+| ={generateRevAttachments}=| Flag specifying if the plugin should generate graphs when viewing previous topic revisions. If the plugin generates attachments when viewing old revisions, this can result in out of date attachments, and significant overhead regenerating the attachments. Enable this flag to restore previous behavior of the plugin Note that by default, old revisions of attachments can be viewed using the attach dialog. |
+| ={generateDiffAttachments}= | Flag specifying if the plugin should generate graphs when comparing two topic revisions. If the plugin generates attachments during compare operations, this can result in out of date attachments, and significant overhead regenerating the attachments. Enable this setting to restore the prior behavior of the plugin. |
+| ={attachPath}= | Path for plugin to store generated attachments. (Optional). If not provided, plugin will manage attachments using the standard Foswiki attachment functions. If not provided, first visit to System.DirectedGraphPlugin will require admin / sudo login so that the plugin can save the example attachments. If set to the full path to the pub directory, generated attachments will be stored along with regular attachments but will be invisible to Foswiki topics. This directory must be web readable. If not set to the "General Path Settings" {PubDir} path web server changes will be required to enable access. |
+| ={attachUrlPath}= | URL Path for generated attachments (Optional). Only required if attachPath is provided, and is not the same as the "General Path settings" {PubDir} path. If not provided, plugin will use the value of "General Path Settings" {PubUrlPath} for linking to attachments. If the attachPath is not provided, then this parameter will be ignored. |
+
 ---++ Plugin Installation Instructions
-
-| *Step* | *Debian based Foswiki* | *Native Foswiki Installer* | *Manual Installation* |
-| Install prerequisite packages | <p>apt-get install graphviz<br />apt-get install imagemagick<br />apt-get install msttcorefonts<br />apt-get install ghostscript-gpl</p> | <em>follow instructions for your distribution. </em>Install !GraphViz, Imagemagick, ghostscript. If available, install the msttcorefonts. Also install perl modules =Digest::MD5, Storable, File::Copy, File::Path, File::Spec,= and =File::Temp= using CPAN whatever is appropriate for your distribution. | _follow instructions for your distribution [Same as Native Foswiki instllation]_ |
-| Install optional packages | | Install cairo and graphviz-cairo plugin. (only for old versions of !GraphViz) | _[Same as Native Foswiki Installer]_ |
-| Install plugin | apt-get install foswiki-directedgraphplugin | Use "Extensions" tab in bin/configure Click the "Find More Extensions" button, locate the DirectedGraphPlugin and click the "Install" button. | Retrieve installer and the .tgz or .zip file, attached to <br />[[http://foswiki.org/Extensions/DirectedGraphPlugin][Foswiki.org]]<br />Put the installer and archive into your foswiki root directory<br />Run the installer and follow the prompts =perl !DirectedGraphPlugin _installer.pl= |
-| Configure Plugin | _[Same as Native Installer]_ | <p>Using the Foswiki =configure= interface, set the paths to the graphviz =dot= and <nop>ImageMagick =convert= commands, along with perl, and the Foswiki tools directory. (If perl and the default tools are found on the default system path, configuration is not required)</p> <p>Optionally set the attachPath and attachUrlPath Expert settings. (Click the button to expose expert settings) These can be set to match the Foswiki pubUrlPath and pubDir settings, or set to a web-readable directory outside of Foswiki. This improves performance but loses revision tracking of generated files.</p> | _[Same as Native Foswiki installer]_ |
-<br /> 
-   * Reminder: 
-      * If not set, the standard Foswiki "attach" API will be used by the plugin. View users will require "update" permission if the plugin needs to regenerate the attached files.
-      * If the attachPath is set, standard Foswiki attachment handling will be bypassed and files will be written directly to this path. Attachments will not be subject to revision controls.
-      * If the attachPath is _not_ the Foswiki pub directory, then the attachUrlPath must be configured for the plugin to generate correct URLs. The web server must be configured to permit access to this directory.
-      * %X% The plugin does not attempt to manage attachments across changes between direct file I/O and the Foswiki API. Attachments can be orphaned when these parameters are changed.
-
-   * Verify your installation 
-      * Ensure that the =dot= command can manually generate a png file. From a command prompt, enter =dot -v= Then ^c and examine the output. You should see =png= as a listed device, and can confirm that textlayout uses =cairo=.
-      * If using the antialias option, ensure that ImageMagic =convert= command can convert from a .ps to .png format.
-
-   * Errors returned by the plugin:
+   1 <em>follow instructions for your distribution. </em>Install !GraphViz, Imagemagick, ghostscript. If available, install the msttcorefonts. Also install perl modules Digest::MD5, Storable, File::Copy, File::Path, File::Spec, and File::Temp using CPAN whatever is appropriate for your distribution.
+   1 Use the "Extensions" tab in bin/configure Click the "Find More Extensions" button, locate the DirectedGraphPlugin and click the "Install" button. 
+      * Alternative - manually install the plugin from the shell: 
+         a. Retrieve installer and the .tgz or .zip file, attached to [[http://foswiki.org/Extensions/DirectedGraphPlugin][Foswiki.org]]
+         a. Put the installer and archive into your foswiki root directory
+         a. Run the installer and follow the prompts perl !DirectedGraphPlugin_installer.pl
+   1 Using the Foswiki configure interface, set the paths to the graphviz dot and !ImageMagick convert commands, along with perl, and the Foswiki tools directory. (If perl and the default tools are found on the default system path, configuration is not required)
+   1 Enable the plugin in the configuration settings.
+   1 Optionally set the attachPath and attachUrlPath Expert settings. (Click the button to expose expert settings) These can be set to match the Foswiki pubUrlPath and pubDir settings, or set to a web-readable directory outside of Foswiki. This improves performance but loses revision tracking of generated files.
+---+++ Debian users
+   1 Install the prerequisites and plugin using apt-get 
+      * apt-get install graphviz
+      * apt-get install imagemagick
+      * apt-get install msttcorefonts
+      * apt-get install ghostscript-gpl
+      * apt-get install foswiki-directedgraphplugin
+   1 Proceed with step 3 above
+---+++ Reminders:
+   * If not set, the standard Foswiki "attach" API will be used by the plugin. View users will require "update" permission if the plugin needs to regenerate the attached files.
+   * If the attachPath is set, standard Foswiki attachment handling will be bypassed and files will be written directly to this path. Attachments will not be subject to revision controls.
+   * If the attachPath is _not_ the Foswiki pub directory, then the attachUrlPath must be configured for the plugin to generate correct URLs. The web server must be configured to permit access to this directory.
+   * %X% The plugin does not attempt to manage attachments across changes between direct file I/O and the Foswiki API. Attachments can be orphaned when these parameters are changed.
+---+++ Verify your installation
+   * Ensure that the =dot= command can manually generate a png file. From a command prompt, enter =dot -v= Then ^c and examine the output. You should see =png= as a listed device, and can confirm that textlayout uses =cairo=.
+   * If using the antialias option, ensure that ImageMagic =convert= command can convert from a .ps to .png format.
+---+++ Errors returned by the plugin:
 | *Error* | *Description* |
 | ==DirectedGraph Error (1):== on all examples. | Verify the value of =perlCmd= in lib/LocalSite.cfg |
 | ==DirectedGraph Error (2):== on all examples | Verify the value of =toolsPath= in lib/LocalSite.cfg |
@@ -418,7 +438,7 @@ Changes to the settings marked %X% will cause changes to the file hash. This wil
 
 ---+++ Plugin zip content:
 | *File:* | *Description:* |
-%$MANIFEST% 
+%$MANIFEST%
 
 ---+++ Dependencies:
 | *Package:* | *Description:* ||
@@ -473,7 +493,10 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
-|  7 Sep 2009: | Foswikitask:Item8234, Foswikitask:Item8239, Foswikitask:Item8241 - Add support for inline SVG objects. Fix issues with recursive rendering, CGI acceleration |
+|  8 Nov 2009: | Foswikitask:Item8314 - Bypass plungin processing for diff operations and viewing of topic revisions.  |
+|  8 Nov 2009: | Foswikitask:Item8234, Foswikitask:Item8239, Foswikitask:Item8241, Foswikitask:Item8314 - Add support for inline SVG objects. Fix issues with recursive rendering, CGI acceleration, diff and rev handling  |
+|  8 Nov 2009: | Foswikitask:Item8233 - Fix imagemaps when attachpath is used |
+|  8 Nov 2009: | Foswikitask:Item1202 - Add DEPENDENCIES on htmldoc and other external applications. |
 |  28 Jun 2009: | Foswikitask:Item1778 - Notify !WysiwygPlugin about &lt;dot&gt; markup so that it is protected in WYSIWYG editors --Foswiki:Main.MichaelTempest |
 |  5 Apr 2009: | Foswikitask:Item8102 - Improve defaults, configure settings now optional --Foswiki:Main.GeorgeClar |
 |  25 Mar 2009: | Foswikitask:Item1201, Foswikitask:Item1360 - Configure script fails on perl 5.10. %BR% Foswikitask:Item8086 - Direct File I/O failis. -- Foswiki:Main.GeorgeClark |
@@ -496,6 +519,11 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  25 Mar 2005: | Cleaner code |
 |  01 Jul 2004: | Initial version |
 |  Dependencies: | %$DEPENDENCIES% |
+
+---+++ Significant Changes in Version %$VERSION%  
+
+   * The plugin will not longer generate graphs when it detects that a topic revision is being viewed, or a topic comparison is being performed.  See the expert configuration parameters to restore the prior behavior.
+   * Support for inline SVG - Scalable Vector Graphics - has been added.  
 
 __Related Topics:__ System.DefaultPreferences, %USERSWEB%.SitePreferences, [[System.Plugins][Plugins]]
 
