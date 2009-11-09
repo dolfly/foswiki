@@ -109,6 +109,23 @@ sub initPlugin {
 
     &_writeDebug(" >>> initPlugin Entered");
 
+    #  Disable the plugin if a topic revision is requested in the query.
+    my $query = Foswiki::Func::getRequestObject();
+    if ($query->param('rev')) {
+        if (! $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{generateRevAttachments} ) {
+	    &Foswiki::Func::writeDebug( 'DirectedGraphPlugin - Disabled  - revision provided'  );
+	    return 0;
+	    }
+	}
+
+    #  Disable the plugin if comparing two revisions (context = diff
+    if ( Foswiki::Func::getContext()->{'diff'} ) {
+       if (! $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{generateDiffAttachments} ) {
+           &Foswiki::Func::writeDebug( 'DirectedGraphPlugin - Disabled  - diff context'  );
+           return 0;
+	   }
+       }
+
     $usWeb = $web;
     $usWeb =~ s/\//_/g;    #Convert any subweb separators to underscore
 
@@ -270,6 +287,7 @@ sub commonTagsHandler {
 
     return if $_[3];    # Called in an include; do not process DOT macros
 
+
     $topic = $_[1];     # Can't trust globals
     $web   = $_[2];
     $usWeb = $web;
@@ -278,9 +296,14 @@ sub commonTagsHandler {
     &_writeDebug("- ${pluginName}::commonTagsHandler( $_[2].$_[1] )");
 
     #pass everything within <dot> tags to handleDot function
-    # - Returns true if any matches were found.
+    
+    ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/(DOT)>/&_handleDot($2,$1)/giseo );
 
-    ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/DOT>/&_handleDot($2,$1)/giseo );
+    # $2 will be left set if any matches were found in the topic.  If found, do cleanup processing
+    if ($3 && ($3 eq 'dot')) {
+        &Foswiki::Func::writeDebug( "DirectedGraphPlugin - FOUND MATCH  -  $3"  );
+        wrapupTagsHandler();
+    }
 
     &_writeDebug(' <<< EXIT  commonTagsHandler  ');
 
@@ -959,20 +982,13 @@ sub _loadHashCodes {
 }    ### sub _loadHashCodes
 
 #
-#  sub afterCommonTagsHandler
+#  sub wrapupTagsHandler
 #   - Find any files or file types that are no longer needed
 #     and move to Trash with a unique name.
 #
-sub afterCommonTagsHandler {
+sub wrapupTagsHandler {
 
-    if ( ( $_[1] ne $topic ) || ( $_[2] ne $web ) ) {
-        &_writeDebug(
-" SKIPPING afterCommonTagsHandler  web = |$web|  topic = |$topic|  $_[2] $_[1] "
-        );
-        return;
-    }
-
-    &_writeDebug(' >>> afterCommonTagsHandler entered ');
+    &_writeDebug(' >>> wrapupTagsHandler  entered ');
 
     my %newHash    = ();
     my $newHashRef = thaw( Foswiki::Func::getSessionValue('DGP_newhash') );
@@ -1027,7 +1043,7 @@ sub afterCommonTagsHandler {
         }    ### if ($newHash{SET}
     }    ### if ($newHashRef)
 
-}    ### sub afterCommonTagsHandler
+}    ### sub wrapupTagsHandler
 
 ### sub _deleteAttach
 #
