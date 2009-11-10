@@ -478,8 +478,9 @@ See TWiki:Plugins.TreeBrowserPluginDev.
    
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main.ThomasWeigert & TWiki:Main.StephaneLenclud |
-|  Plugin Version: | 2.0 |
+|  Author(s): | TWiki:Main.ThomasWeigert & TWiki:Main.StephaneLenclud |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  10 Nov 2009: | (v2.0) - Fixed version numbering for configure. By [[Foswiki:Main.IngoKappler][Ingo Kappler]]. |
 |  20 Feb 2009: | (v1.9) - Foswiki port. By [[Foswiki:Main.StephaneLenclud][Stéphane Lenclud]]. |
