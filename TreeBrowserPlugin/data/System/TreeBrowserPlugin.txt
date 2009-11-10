@@ -479,8 +479,9 @@ See TWiki:Plugins.TreeBrowserPluginDev.
 ---++ Plugin Info
 
 |  Plugin Author: | TWiki:Main.ThomasWeigert & TWiki:Main.StephaneLenclud |
-|  Plugin Version: | 1.9 |
+|  Plugin Version: | 2.0 |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  10 Nov 2009: | (v2.0) - Fixed version numbering for configure. By [[Foswiki:Main.IngoKappler][Ingo Kappler]]. |
 |  20 Feb 2009: | (v1.9) - Foswiki port. By [[Foswiki:Main.StephaneLenclud][Stéphane Lenclud]]. |
 |  29 Mar 2007: | (v1.8) - Improved =smenu= CSS and fixing warning.  By [[TWiki:Main.StephaneLenclud][Stéphane Lenclud]]. |
 |  18 Mar 2007: | (v1.7) - Improved =smenu= CSS, resolved _highlighting gap issue_ . Now closing sub-menu when highlighting leaf.  By [[TWiki:Main.StephaneLenclud][Stéphane Lenclud]]. |

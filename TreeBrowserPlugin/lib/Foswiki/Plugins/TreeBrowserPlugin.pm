@@ -35,11 +35,12 @@ package Foswiki::Plugins::TreeBrowserPlugin;
 
 # =========================
 use vars qw(
-        $web $topic $user $installWeb $VERSION $pluginName
+        $web $topic $user $installWeb $VERSION $RELEASE $pluginName
         $debug $js
     );
 
-$VERSION = 'v1.9';
+$VERSION = '$Rev$';
+$RELEASE = 'v2.0';
 $pluginName = 'TreeBrowserPlugin';
 
 # =========================
