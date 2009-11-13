@@ -53,7 +53,7 @@ To index these file types, you will need to install the following tools from Sou
 
 Then set the command path to these tools in =configure=.
 
----++ Instaling the Contrib
+---++ Installing the Contrib
 
 %$INSTALL_INSTRUCTIONS%
 
