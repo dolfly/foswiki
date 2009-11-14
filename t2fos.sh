@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Change files from TWiki namespace to Foswiki
 # $1 - name of the subdirectory to operate on
 # e.g 
