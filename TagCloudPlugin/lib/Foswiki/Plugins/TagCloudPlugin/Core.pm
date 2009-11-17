@@ -415,7 +415,7 @@ sub handleTagCloud {
 
   # generate term list
 
-  if (&expandVariables($theTerms)) {
+  if (expandVariables($theTerms)) {
     #writeDebug("initially theTerms=$theTerms\n");
     $theTerms = Foswiki::Func::expandCommonVariables($theTerms, $theTopic, $theWeb);
   }
@@ -567,13 +567,13 @@ sub handleTagCloud {
     if (defined($termInfo{$term})) {
       %params = (%params, %{ $termInfo{$term} });
     }
-    &expandVariables($text, %params);
+    expandVariables($text, %params);
     $text =~ s/\$fadeRGB\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)/&handleFadeRGB($1,$2,$3,$4,$5,$6, $weight, $theBuckets+$theOffset)/ge;
     $result .= $text;
   }
-  &expandVariables($theHeader);
-  &expandVariables($theFooter);
-  $result = Foswiki::Func::expandCommonVariables($theHeader.$result.$theFooter, $theTopic, $theWeb);
+  expandVariables($theHeader);
+  expandVariables($theFooter);
+  $result = $theHeader.$result.$theFooter;
 
   return $result;
 }

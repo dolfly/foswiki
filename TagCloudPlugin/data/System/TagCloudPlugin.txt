@@ -188,7 +188,8 @@ Cloud for the above text:
 |  Plugin Author: | Michael Daum |
 |  Copyright &copy;: | 2006-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | v2.10 |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | &nbsp; |
 |  03 Sep 2009: | made sorting case insensitive; added case sensitive extra param |
 |  25 Aug 2009: | added custom fields for terms in the tagcloud (Foswiki:Main.OliverKrueger) |
