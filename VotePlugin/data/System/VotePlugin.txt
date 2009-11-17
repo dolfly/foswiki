@@ -189,9 +189,10 @@ in !%USERSWEB%.SitePreferences, and add =VOTEPLUGIN_RESETTERS= to =FINALPREFEREN
    * Set SHORTDESCRIPTION = Simple way to count votes
 -->
 |  Plugin Author: | Foswiki:Main/MichaelDaum |
-|  Copyright &copy;: | 2005-2007, Michael Daum http://wikiring.de |
+|  Copyright &copy;: | 2005-2009, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | &nbsp; | 
 |  10 Jun 2009 | Foswikitask:Item8010: incorporate upstream fixes, and port to Foswiki - Foswiki:Main/CrawfordCurrie |
 |  14 Oct 2008 | Item6070 works for hierarchical webs now. - Foswiki:Main/ColasNahaboo |
