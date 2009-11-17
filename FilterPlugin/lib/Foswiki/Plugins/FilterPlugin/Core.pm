@@ -18,7 +18,7 @@
 package Foswiki::Plugins::FilterPlugin::Core;
 use strict;
 
-use vars qw($currentTopic $currentWeb $mixedAlphaNum %seenAnchorNames $makeIndexCounter);
+use vars qw($currentTopic $currentWeb $mixedAlphaNum %seenAnchorNames $makeIndexCounter %filteredTopic);
 use POSIX qw(ceil);
 
 use constant DEBUG => 0; # toggle me
@@ -29,6 +29,7 @@ sub init {
 
   $mixedAlphaNum = $Foswiki::regex{'mixedAlphaNum'};
   %seenAnchorNames = ();
+  %filteredTopic = ();
   $makeIndexCounter = 0;
 }
 
@@ -96,15 +97,17 @@ sub handleFilter {
   if ($theText) { # direct text
     $text = $theText;
   } else { # topic text
-    $text = &Foswiki::Func::readTopicText($theWeb, $theTopic);
+    return '' if $filteredTopic{"$theWeb.$theTopic"};
+    $filteredTopic{"$theWeb.$theTopic"} = 1;
+    $text = Foswiki::Func::readTopicText($theWeb, $theTopic);
     if ($text =~ /^No permission to read topic/) {
       return showError("$text");
     }
     if ($text =~ /%STARTINCLUDE%(.*)%STOPINCLUDE%/gs) {
       $text = $1;
       if ($theExpand eq 'on') {
-	$text = &Foswiki::Func::expandCommonVariables($text, $currentTopic, $currentWeb);
-	$text = &Foswiki::Func::renderText($text, $currentWeb);
+	$text = Foswiki::Func::expandCommonVariables($text, $currentTopic, $currentWeb);
+	$text = Foswiki::Func::renderText($text, $currentWeb);
       }
     }
   }
@@ -219,8 +222,10 @@ sub handleFilter {
   }
   $result = $theNullFormat unless $result;
   $result = $theHeader.$result.$theFooter;
-  $result = &Foswiki::Func::expandCommonVariables($result, $currentTopic, $currentWeb)
+  $result = Foswiki::Func::expandCommonVariables($result, $theTopic, $theWeb)
     if expandVariables($result);
+
+  delete $filteredTopic{"$theWeb.$theTopic"};
 
   #writeDebug("result='$result'");
   return $result;
@@ -270,7 +275,7 @@ sub handleMakeIndex {
   $maxCols = 1 if $maxCols < 1;
 
   # compute the list
-  $theList = &Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
+  $theList = Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
     if expandVariables($theList);
 
   #writeDebug("theList=$theList");
@@ -479,7 +484,7 @@ sub handleMakeIndex {
   expandVariables($theHeader, count=>$listSize, anchors=>$anchors);
   expandVariables($theFooter, count=>$listSize, anchors=>$anchors);
 
-  $result = &Foswiki::Func::expandCommonVariables(
+  $result = Foswiki::Func::expandCommonVariables(
     "<div class='fltMakeIndexWrapper'>".
       $theHeader.$result.$theFooter .
     "</div>",$theTopic, $theWeb);
@@ -513,12 +518,14 @@ sub handleFormatList {
   my $theReverse = $params->{reverse} || '';
   my $theSelection = $params->{selection};
   my $theMarker = $params->{marker};
+  my $theMap = $params->{map};
+  my $theNullFormat = $params->{null} || '';
+  my $theTokenize = $params->{tokenize};
 
   $theMarker = ' selected ' unless defined $theMarker;
-
   $theSeparator = ', ' unless defined $theSeparator;
 
-  $theList = &Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
+  $theList = Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
     if expandVariables($theList);
 
   #writeDebug("theList='$theList'");
@@ -533,7 +540,23 @@ sub handleFormatList {
   #writeDebug("theExclude='$theExclude'");
   #writeDebug("theInclude='$theInclude'");
 
+  my %map = ();
+  if ($theMap) {
+    %map = map {$_ =~ /^(.*)=(.*)$/, $1=>$2} split(/\s*,\s*/, $theMap);
+  }
+
+  my %tokens = ();
+  my $tokenNr = 0;
+  if ($theTokenize) {
+    $theList =~ s/$theTokenize/$tokenNr++; $tokens{'token_'.$tokenNr} = $1; 'token_'.$tokenNr/gems;
+  }
+
   my @theList = split(/$theSplit/, $theList);
+
+  if ($theTokenize) {
+    @theList = map {(defined $tokens{$_}) ? $tokens{$_}:$_} @theList;
+  }
+
   if ($theSort ne 'off') {
     if ($theSort eq 'alpha' || $theSort eq 'on') {
       @theList = sort {uc($a) cmp uc($b)} @theList;
@@ -581,6 +604,7 @@ sub handleFormatList {
     $line =~ s/\$4/$arg4/g;
     $line =~ s/\$5/$arg5/g;
     $line =~ s/\$6/$arg6/g;
+    $line =~ s/\$map\((.*?)\)/($map{$1}||$1)/ge;
     #writeDebug("after susbst '$line'");
     if ($theUnique eq 'on') {
       next if $seen{$line};
@@ -600,11 +624,17 @@ sub handleFormatList {
     }
   }
   #writeDebug("count=$count");
-  return '' if $count == 0;
+  my $result = '';
+  if ($count == 0) {
+    return '' unless $theNullFormat;
+    $result = $theNullFormat;
+  } else {
+    $result = join($theSeparator, @result);
+  }
 
-  my $result = $theHeader.join($theSeparator, @result).$theFooter;
+  $result = $theHeader.$result.$theFooter;
   $result =~ s/\$count/$count/g;
-  $result = &Foswiki::Func::expandCommonVariables($result, $theTopic, $theWeb)
+  $result = Foswiki::Func::expandCommonVariables($result, $theTopic, $theWeb)
     if expandVariables($result);
 
   #writeDebug("result=$result");

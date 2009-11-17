@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1223455374" format="1.1"  version="$Rev$"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1258466835" format="1.1" reprev="1.2" version="1.2"}%
 <!--
 
    PLEASE DO NOT EDIT THIS TOPIC
@@ -83,6 +83,7 @@ a split expression; each item is matched agains a pattern and then formatted
 using a format string while being separated by a separator string; the result is
 prepended with a header and appended with a footer in case the list is not empty.
    * &lt;list>: the list 
+   * tokenize="...": regex to tokenize the list before spliting it up, tokens are inserted back again after the split stage has been passed
    * split="...": the split expression (default ",")
    * pattern="...": pattern applied to each item (default "\s(.*)\s")
    * format="...": the format string for each item (default "$1")
@@ -135,14 +136,10 @@ The first matched grouping $1 will be used as the $item to sort the list.
 
 In addition =header= and =footer= might contain the =$anchors= variable which will expand
 to a navigation to jump to the groups within the index.
+
 ---++ Examples
 
----+++ Secure Html
-%STARTSUBST{pattern="<(a href=\"javascript:.*?)>(.*?)</a>" format="&lt;$1&gt;$2&lt;/a&gt;"}%
-<a href="javascript:window.alert('Pop me up');">Pop me up</a>
-%STOPSUBST%
-
----+++ Format Comments
+---+++ Formating Comments
 | *Date* | *Author* | *Headline* |
 %EXTRACT{topic="%TOPIC%" expand="off" pattern=".div class=\"text\">.*?[\r\n]+(.*?)[\r\n]+(?:.*?[\r\n]+)+?-- (.*?) on (.*?)[\r\n]+" format="| $3 | $2 | $1 ... |$n"}%
 
@@ -167,6 +164,31 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
   format="[[http://en.wikipedia.org/wiki/$item][$item]]"
   header="$anchors"
 }%
+---+++ MAKEINDEX example 2
+%MAKEINDEX{
+   "%SEARCH{".*" 
+      web="%USERSWEB%"
+      scope="topic"
+      type="regex"
+      limit="30"
+      nonoise="on"
+      format="$topic;$web;$wikiusername;$date"
+      separator="$n"
+      excludetopic="CGI*,*Plugin"
+    }%" 
+   cols="2"
+   split="\n"
+   pattern="(.*);(.*);(.*);(.*)"
+   format="<div class='indexItem'>
+       [[$2.$1][$1]] 
+       <div class='foswikiGrayText'>$4 - $3</div>
+     </div>"
+}% 
+<style type="text/css">
+.indexItem {
+  margin:0px 10px 10px 0px;
+}
+</style>
 
 ---++ Plugin Installation Instructions
 %$INSTALL_INSTRUCTIONS%
@@ -182,6 +204,8 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  17 Nov 2009: | added =tokenize= pattern for FORMATLIST; \
+                  fixed potential deep recursion in SUBST/EXTRACT |
 |  14 Sep 2009: | added =include= counterpart to already existing =exclude= params; \
                   fixed SUBST not to forget about the non-matching tail of a char sequence |
 |  17 Apr 2009: | converted to foswiki, added numerical sorting to MAKETEXT |
