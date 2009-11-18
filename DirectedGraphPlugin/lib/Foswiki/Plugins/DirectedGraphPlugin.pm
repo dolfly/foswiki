@@ -110,13 +110,19 @@ sub initPlugin {
     &_writeDebug(" >>> initPlugin Entered");
 
     #  Disable the plugin if a topic revision is requested in the query.
-    my $query = Foswiki::Func::getRequestObject();
-    if ( $query->param('rev') ) {
+    my $query;
+    if ( $Foswiki::Plugins::VERSION >= 2.1 ) {
+        $query = Foswiki::Func::getRequestObject();
+    }
+    else {
+        $query = Foswiki::Func::getCgiQuery();
+    }
+
+    if ( $query && $query->param('rev') ) {
         if ( !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}
             {generateRevAttachments} )
         {
-            &_writeDebug(
-                'DirectedGraphPlugin - Disabled  - revision provided');
+            &_writeDebug('DirectedGraphPlugin - Disabled  - revision provided');
             return 0;
         }
     }
@@ -126,8 +132,7 @@ sub initPlugin {
         if ( !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}
             {generateDiffAttachments} )
         {
-            &_writeDebug(
-                'DirectedGraphPlugin - Disabled  - diff context');
+            &_writeDebug('DirectedGraphPlugin - Disabled  - diff context');
             return 0;
         }
     }
@@ -276,7 +281,10 @@ sub initPlugin {
 
         # Check if addXMLTag is defined, so that DirectedGraphPlugin
         # continues to work with older versions of WysiwygPlugin
+	&_writeDebug(" DISAABLE the dot tag in WYSIWYIG ");
         Foswiki::Plugins::WysiwygPlugin::addXMLTag( 'dot', sub { 1 } );
+	# Some older versions of the plugin used upper-case DOT tags - protect these as well.
+	Foswiki::Plugins::WysiwygPlugin::addXMLTag( 'DOT', sub { 1 } );
     }
 
     # Plugin correctly initialized
