@@ -547,7 +547,9 @@ sub handleTagCloud {
     } else {
       if ($theSort eq 'alpha') {
 	$group = substr($term, 0, 1);
-	$group = lc($group) if $theLowerCase eq 'on';
+	$group = ($theLowerCase eq 'on')?lc($group):uc($group);
+      } elsif ($theSort eq 'case') {
+	$group = substr($term, 0, 1);
       } else {
 	$group = int($weight/10)*10;
       }

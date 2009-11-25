@@ -191,6 +191,7 @@ Cloud for the above text:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | &nbsp; |
+|  25 Nov 2009: | fixed grouping in case sensitive tag clouds |
 |  03 Sep 2009: | made sorting case insensitive; added case sensitive extra param |
 |  25 Aug 2009: | added custom fields for terms in the tagcloud (Foswiki:Main.OliverKrueger) |
 |  24 Apr 2009: | converted to foswiki plugin |
