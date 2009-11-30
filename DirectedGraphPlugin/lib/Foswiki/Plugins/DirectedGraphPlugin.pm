@@ -281,10 +281,11 @@ sub initPlugin {
 
         # Check if addXMLTag is defined, so that DirectedGraphPlugin
         # continues to work with older versions of WysiwygPlugin
-	&_writeDebug(" DISAABLE the dot tag in WYSIWYIG ");
+        &_writeDebug(" DISAABLE the dot tag in WYSIWYIG ");
         Foswiki::Plugins::WysiwygPlugin::addXMLTag( 'dot', sub { 1 } );
-	# Some older versions of the plugin used upper-case DOT tags - protect these as well.
-	Foswiki::Plugins::WysiwygPlugin::addXMLTag( 'DOT', sub { 1 } );
+
+# Some older versions of the plugin used upper-case DOT tags - protect these as well.
+        Foswiki::Plugins::WysiwygPlugin::addXMLTag( 'DOT', sub { 1 } );
     }
 
     # Plugin correctly initialized
