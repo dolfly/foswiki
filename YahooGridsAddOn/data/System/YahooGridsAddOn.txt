@@ -1,6 +1,12 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="save topic" date="1259966746" format="1.1" reprev="1.2" version="1.2"}%
----+!! Yahoo Grids !AddOn
-An interface to [[http://developer.yahoo.com/yui/grids/][Yahoo Grids]]. Improves layout of topics by enabling columns in topics. Various column widths and configurations are supported. Nested columns are possible.
+---+!! Yahoo Grids add-on
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = An interface to [[http://developer.yahoo.com/yui/grids/][Yahoo Grids]]. Improves layout of topics by enabling columns in topics. Various column widths and configurations are supported. Nested columns are possible.
+-->
+%SHORTDESCRIPTION%
+
+This add-on only installs 1 css file, and can be used safely with non-Yahoo javascript libraries. 
 
 <div class="foswikiImage">
 <img src="%ATTACHURLPATH%/example.png" alt="example.png" width='640' height='257' />
