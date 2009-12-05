@@ -1,0 +1,148 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="save topic" date="1259966746" format="1.1" reprev="1.2" version="1.2"}%
+---+!! Yahoo Grids !AddOn
+An interface to [[http://developer.yahoo.com/yui/grids/][Yahoo Grids]]. Improves layout of topics by enabling columns in topics. Various column widths and configurations are supported. Nested columns are possible.
+
+<div class="foswikiImage">
+<img src="%ATTACHURLPATH%/example.png" alt="example.png" width='640' height='257' />
+</div>
+
+%TOC%
+
+---++ Usage
+Creating a 2 column grid - at a glance:
+   1 Create content sections, one for each column
+   1 Include the column definition
+   1 Load the required stylesheet
+   
+---+++ Step 1: Create content sections
+We have 2 columns, let's call them =mainleft= and =mainright= (you are free to choose section names). The section stubs are:
+<verbatim>
+%STARTSECTION{"mainleft"}%
+contents of the main left column
+%ENDSECTION{"mainleft"}%
+
+%STARTSECTION{"mainright"}%
+contents of the right side column
+%ENDSECTION{"mainright"}%
+</verbatim>
+
+If you do not want to have the section definitions appear twice on the page, wrap these inside a hidden =verbatim=:
+
+=&lt;verbatim class="foswikiHidden"&gt;= <br />
+=%<nop>STARTSECTION etcetera= <br />
+=&lt;/verbatim&gt;=
+
+---+++ Step 2: Include the column definition
+Include %SYSTEMWEB%.TwoColumnDefinition and pass column type and section names. 
+
+To make the section contents appear in a two column grid, where the right column is 300px wide:
+<verbatim>
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="300right"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+LEFTCOL="mainleft"
+RIGHTCOL="mainright"
+}%
+</verbatim>
+
+Explanation of the attributes passed to this macro:
+   * section name: one of the column type configurations of the definition topic
+      * for example: =onethirdleft=, =160left=, =300right=
+   * =CONTENTTOPIC=: the topic the content resides in. This can be a different topic.
+   * For 2 columns (defined in TwoColumnDefinition):
+      * =LEFTCOL=: name of the section that contains left column contents
+      * =RIGHTCOL=: name of the section that contains left column contents
+   * For 4 columns (defined in FourColumnDefinition):
+      * =COL1=: name of the section that contains column 1 contents
+      * =COL2=, =COL3=, =COL4=: section names for the other columns
+   
+
+---+++ Step 3: Load the stylesheet
+Load the CSS file either in a template or in a topic.
+
+In a template write:
+<verbatim>
+<style type="text/css" media="all">
+	@import url("%PUBURLPATH%/%SYSTEMWEB%/YahooGridsAddOn/grids-min.css");
+</style>
+</verbatim>
+   
+To use this in a topic only:
+<verbatim>
+%ADDTOHEAD{"yahoogridsaddon" text="<style type=\"text/css\" media=\"all\">
+@import url(\"%PUBURLPATH%/%SYSTEMWEB%/YahooGridsAddOn/grids-min.css\");
+</style>"}%
+</verbatim>
+
+---++ Column definitions
+Choose from several configurations:
+   * TwoColumnDefinition - defines for example: =onethirdleft=, =160left=, =300right=
+   * ThreeColumnDefinition
+   * FourColumnDefinition
+
+---++ Stylesheet classes
+This addon uses a number of CSS classes, mainly to set extra paddings or background colors:
+   * =.ygColumnLeft= - right column
+   * =.ygColumnRight= - right column
+   * =.ygColumn= - a column that is not a left nor a right column
+
+---++ Installation Instructions
+%$INSTALL_INSTRUCTIONS%
+
+---+++ Test
+If installed, you will see 2 columns. View the source (view raw) if you want to start with a working example.
+
+<verbatim class="foswikiHidden">
+%STARTSECTION{"testleft"}%
+3/4 <br />
+contents of the main left column
+%ENDSECTION{"testleft"}%
+
+%STARTSECTION{"testright"}%
+1/4 <br />
+contents of the right side column
+%ENDSECTION{"testright"}%
+</verbatim>
+
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+section="quarterright"
+LEFTCOL="testleft"
+RIGHTCOL="testright"
+}%
+
+%ADDTOHEAD{"yahoogridsaddon" text="<style type=\"text/css\" media=\"all\">
+@import url(\"%PUBURLPATH%/%SYSTEMWEB%/YahooGridsAddOn/grids-min.css\");
+.ygColumnLeft {background:#eee;}
+.ygColumnRight {background:#ddd;}
+</style>"}%
+
+---++ Troubleshooting
+If TML markup doesn't create proper HTML, a reason could be that you have written =STARTSECTION= in a condensed way, like:
+<verbatim>
+%STARTSECTION{"mainleft"}%---+ Topic title%ENDSECTION{"mainleft"}%
+</verbatim>
+This doesn't work out, because the content of the section definition does not start on a newline. Instead, put the contents on a new line:
+<verbatim>
+%STARTSECTION{"mainleft"}%
+---+ Topic title
+%ENDSECTION{"mainleft"}%
+</verbatim>
+
+---++ Further information
+http://developer.yahoo.com/yui/grids/
+
+---++ <nop>AddOn Info
+| Copyright &copy;: | 2009 Arthur Clemens |
+| License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]], [[http://developer.yahoo.com/yui/license.html][Yahoo licence]] (BSD) |
+| Dependencies: | %$DEPENDENCIES% |
+| <nop>AddOn Version: | 1.0 (04 Dec 2009)  |
+| 04 Dec 2009 | 1.0 First release. |
+| Demo url:  |   |
+| Home: | http://foswiki.org/Extensions/%TOPIC% |
+| Support: | http://foswiki.org/Support/%TOPIC% |
+
+%META:FILEATTACHMENT{name="example.png" attr="" autoattached="1" comment="" date="1259965768" path="example.png" size="68887" version=""}%
+%META:FILEATTACHMENT{name="grids-min.css" attr="" autoattached="1" comment="Minimized stylesheet by Yahoo" date="1259963553" path="grids-min.css" size="4769" version=""}%

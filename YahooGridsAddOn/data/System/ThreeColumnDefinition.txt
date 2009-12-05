@@ -1,0 +1,35 @@
+%META:TOPICINFO{author="WikiContributor" date="1259094585" format="1.1" version="1.1"}%
+---+ Definition topic: three columns
+Part of %SYSTEMWEB%.YahooGridsAddOn. See also: TwoColumnDefinition, FourColumnDefinition.
+
+Column configurations:
+   * =third=: 1/3, 1/3, 1/3 (fluid)
+
+---++ Usage
+See %SYSTEMWEB%.YahooGridsAddOn
+
+Refer to columns with:
+   1 =COL1=
+   1 =COL2=
+   1 =COL3=
+   
+---++ Grid definitions
+These are for developers only. To use columns you don't need to change anything below.
+
+---+++ Definition third
+<verbatim>
+%STARTSECTION{"third"}%<div class="yui-gb">
+	<div class="yui-u first">
+		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%COL1%"}%</div>
+	</div>
+	<div class="yui-u">
+		<div class="ygColumn">%INCLUDE{"%CONTENTTOPIC%" section="%COL2%"}%</div>
+	</div>
+	<div class="yui-u">
+		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%COL3%"}%</div>
+	</div>
+</div>%ENDSECTION{"third"}%
+</verbatim>
+
+
+

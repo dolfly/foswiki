@@ -1,0 +1,43 @@
+%META:TOPICINFO{author="ArthurClemens" date="1259094585" format="1.1" version="1.1"}%
+---+ Definition topic: four columns
+See %SYSTEMWEB%.YahooGridsAddOn. See also: TwoColumnDefinition.
+
+Column configurations:
+   * =quarter=: 1/4, 1/4, 1/4, 1/4 (fluid)
+   
+---++ Usage
+See %SYSTEMWEB%.YahooGridsAddOn
+
+Refer to columns with:
+   1 =COL1=
+   1 =COL2=
+   1 =COL3=
+   1 =COL4=
+   
+---++ Grid definitions
+These are for developers only. To use columns you don't need to change anything below.
+
+---+++ Definition quarter
+<verbatim>
+%STARTSECTION{"quarter"}%<div class="yui-g">
+	<!-- the first child of a Grid needs the "first" class -->
+	<div class="yui-g first">
+		<!-- the first child of a Grid needs the "first" class -->
+		<div class="yui-u first">
+			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%COL1%"}%</div>
+		</div>	
+		<div class="yui-u">
+			<div class="ygColumn">%INCLUDE{"%CONTENTTOPIC%" section="%COL2%"}%</div>
+		</div>
+	</div>
+	<div class="yui-g">
+		<!-- the first child of a Grid needs the "first" class -->
+		<div class="yui-u first">
+			<div class="ygColumn">%INCLUDE{"%CONTENTTOPIC%" section="%COL3%"}%</div>
+		</div>
+		<div class="yui-u first">
+			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%COL4%"}%</div>
+		</div>
+	</div>	
+</div>%ENDSECTION{"quarter"}%
+</verbatim>

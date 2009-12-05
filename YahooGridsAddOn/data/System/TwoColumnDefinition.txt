@@ -1,0 +1,184 @@
+%META:TOPICINFO{author="WikiContributor" date="1259094585" format="1.1" version="1.1"}%
+---+ Definition topic: two columns
+Part of %SYSTEMWEB%.YahooGridsAddOn. See also: ThreeColumnDefinition, FourColumnDefinition.
+
+Column configurations:
+   * =half=: 1/2, 1/2 (fluid)
+   * =thirdright=: 2/3, 1/3 (fluid)
+   * =thirdleft=: 1/3, 2/3 (fluid)
+   * =quarterright=: 3/4, 1/4 (fluid)
+   * =quarterleft=: 1/4, 3/4 (fluid)
+   * =160left=: 160px, fluid
+   * =180left=: 180px, fluid
+   * =300left=: 300px, fluid
+   * =180right=: fluid, 180px
+   * =240right=: fluid, 240px
+   * =300right=: fluid, 300px
+
+Grids can be nested: it is possible to have a =half= grid inside a main column of =180right=.
+
+---++ Usage
+See %SYSTEMWEB%.YahooGridsAddOn
+
+Refer to columns with:
+   1 =LEFTCOL=
+   1 =RIGHTCOL=
+   
+---++ Grid definitions
+These are for developers only. To use columns you don't need to change anything below.
+
+---+++ Definition half
+<verbatim>
+%STARTSECTION{"half"}%<div class="yui-g">
+	<div class="yui-u first">
+		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+	</div>
+	<div class="yui-u">
+		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+	</div>
+</div>%ENDSECTION{"half"}%
+</verbatim>
+
+---+++ Definition one third right
+<verbatim>
+%STARTSECTION{"thirdright"}%<div class="yui-gc">
+	<div class="yui-u first">
+		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+	</div>
+	<div class="yui-u">
+		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+	</div>
+</div>%ENDSECTION{"thirdright"}%
+</verbatim>
+
+---+++ Definition one third left
+<verbatim>
+%STARTSECTION{"thirdleft"}%<div class="yui-gd">
+	<div class="yui-u first">
+		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+	</div>
+	<div class="yui-u">
+		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+	</div>
+</div>%ENDSECTION{"thirdleft"}%
+</verbatim>
+
+---+++ Definition one quarter left
+<verbatim>
+%STARTSECTION{"quarterleft"}%<div class="yui-gf">
+	<div class="yui-u first">
+		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+	</div>
+	<div class="yui-u">
+		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+	</div>
+</div>%ENDSECTION{"quarterleft"}%
+</verbatim>
+
+---+++ Definition one quarter right
+<verbatim>
+%STARTSECTION{"quarterright"}%<div class="yui-ge">
+	<div class="yui-u first">
+		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+	</div>
+	<div class="yui-u">
+		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+	</div>
+</div>%ENDSECTION{"quarterright"}%
+</verbatim>
+
+---+++ Definition 160px left
+<verbatim>
+%STARTSECTION{"160left"}%<div id="doc3" class="yui-t1">					
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+			</div>
+		</div>
+		<div class="yui-b">
+			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		</div>
+	</div>
+</div>%ENDSECTION{"160left"}%
+</verbatim>
+
+---+++ Definition 180px left
+<verbatim>
+%STARTSECTION{"180left"}%<div id="doc3" class="yui-t2">					
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+			</div>
+		</div>
+		<div class="yui-b">
+			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		</div>
+	</div>
+</div>%ENDSECTION{"180left"}%
+</verbatim>
+
+---+++ Definition 300px left
+<verbatim>
+%STARTSECTION{"300left"}%<div id="doc3" class="yui-t3">					
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+			</div>
+		</div>
+		<div class="yui-b">
+			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		</div>
+	</div>
+</div>%ENDSECTION{"300left"}%
+</verbatim>
+
+---+++ Definition 180px right
+<verbatim>
+%STARTSECTION{"180right"}%<div id="doc3" class="yui-t4">
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+			</div>
+		</div>
+		<div class="yui-b">
+			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		</div>
+	</div>
+</div>%ENDSECTION{"180right"}%
+</verbatim>
+
+---+++ Definition 240px right
+<verbatim>
+%STARTSECTION{"240right"}%<div id="doc3" class="yui-t5">
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+			</div>
+		</div>
+		<div class="yui-b">
+			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		</div>
+	</div>
+</div>%ENDSECTION{"240right"}%
+</verbatim>
+
+---+++ Definition 300px right
+<verbatim>
+%STARTSECTION{"300right"}%<div id="doc3" class="yui-t6">
+	<div id="bd">
+		<div id="yui-main">
+			<div class="yui-b">
+				<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+			</div>
+		</div>
+		<div class="yui-b">
+			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		</div>
+	</div>
+</div>%ENDSECTION{"300right"}%
+</verbatim>

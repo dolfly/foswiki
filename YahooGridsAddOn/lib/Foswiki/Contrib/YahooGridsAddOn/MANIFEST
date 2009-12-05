@@ -1,0 +1,7 @@
+data/System/YahooGridsAddOn.txt 0644
+data/System/FourColumnDefinition.txt 0644
+data/System/ThreeColumnDefinition.txt 0644
+data/System/TwoColumnDefinition.txt 0644
+lib/Foswiki/Contrib/YahooGridsAddOn.pm 0666
+pub/System/YahooGridsAddOn/grids-min.css 0644
+pub/System/YahooGridsAddOn/example.png 0644
