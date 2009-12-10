@@ -349,6 +349,9 @@ our %stopWords = (
   },
 );
 
+use constant NORMALIZE_LINEAR => 0;
+use constant NORMALIZE_LOG => 1;
+
 ###############################################################################
 sub writeDebug {
   print STDERR '- TagCloudPlugin - '.$_[0]."\n" if DEBUG;
@@ -382,6 +385,7 @@ sub handleTagCloud {
   my $theGroup = $params->{group} || '';
   my $theFilter = $params->{filter} || 'off';
   my $theLimit = $params->{limit};
+  my $theNormalize = $params->{normalize} || 'log' ;
 
   unless (defined($theHeader) || defined($theFooter)) {
     $theHeader = '<div class="tagCloud">';
@@ -402,6 +406,15 @@ sub handleTagCloud {
   $theLowerCase = 'off' unless $theLowerCase =~ /^(on|off)$/;
   $theStopWords = 'off' unless $theStopWords =~ /^(on|off)$/;
   $thePlural = 'on' unless $thePlural =~ /^(on|off)$/;
+
+  if ($theNormalize eq 'linear') {
+    $theNormalize = NORMALIZE_LINEAR;
+  } elsif ($theNormalize =~ /log(arithmic)?/) {
+    $theNormalize = NORMALIZE_LOG;
+  } else {
+    $theNormalize = NORMALIZE_LINEAR; # default
+  }
+
 
   # build class map
   my %classMap = ();
@@ -447,6 +460,7 @@ sub handleTagCloud {
   my $stopWords; 
   $stopWords = getStopWords($theLanguage) 
     if $theStopWords eq 'on';
+
   foreach my $term (split(/$theSplit/, $theTerms)) {
     $term =~ s/^\s*(.*?)\s*$/$1/o;
     #writeDebug("term=$term");
@@ -488,10 +502,16 @@ sub handleTagCloud {
   my $floor = -1;
   my $ceiling = 0;
   foreach my $term (keys %termCount) {
+
+    # normalization
+    $termCount{$term} = log($termCount{$term}) if $theNormalize == NORMALIZE_LOG;
+
+    # truncation
     if ($termCount{$term} < $theMin) {
       delete $termCount{$term};
       next;
     }
+
     $ceiling = $termCount{$term}
       if $termCount{$term} > $ceiling;
     $floor = $termCount{$term}

@@ -100,6 +100,8 @@ Parameters:
      (default: 10)
    * =lowercase=: switch on/off converting terms to lowercase
      (default: off)
+   * =normalize=: method to normalize the term counts, either logarithmic or linear 
+     (default: log)
    * =plural=: switch on/off counting plurals, if set to off plural terms are matched
      to their singular form (caution: very rudimentary and assuming the input data is all english, 
      use stopwords="on" to get good results)
@@ -191,6 +193,7 @@ Cloud for the above text:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | &nbsp; |
+|  10 Dec 2009: | added logarithmic normalization (Foswiki:Main/DanielOderbolz) |
 |  25 Nov 2009: | fixed grouping in case sensitive tag clouds |
 |  03 Sep 2009: | made sorting case insensitive; added case sensitive extra param |
 |  25 Aug 2009: | added custom fields for terms in the tagcloud (Foswiki:Main.OliverKrueger) |
