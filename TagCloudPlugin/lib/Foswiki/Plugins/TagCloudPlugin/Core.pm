@@ -501,6 +501,7 @@ sub handleTagCloud {
   # filter low frequencies, compute floor, ceiling
   my $floor = -1;
   my $ceiling = 0;
+  my %origTermCount = %termCount;
   foreach my $term (keys %termCount) {
 
     # normalization
@@ -585,7 +586,7 @@ sub handleTagCloud {
                    'index'  => $index,
                    'weight' => $weight,
                    'group'  => $group,
-                   'count'  => $termCount{$term} );
+                   'count'  => $origTermCount{$term});
     if (defined($termInfo{$term})) {
       %params = (%params, %{ $termInfo{$term} });
     }
