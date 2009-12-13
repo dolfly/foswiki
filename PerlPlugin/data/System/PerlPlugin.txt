@@ -1,0 +1,90 @@
+<img src="%ATTACHURL%/logo.gif" style="float:right" />
+---+!! !PerlPlugin
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Embed perl scripts in topics
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+This plugin allows you to embed scripts within topics, using a tightly
+controlled subset of Perl. The scripts will be executed on the server,
+and the result displayed in the topic.
+
+Scripts are executed inside a
+[[http://perldoc.perl.org/Safe.html][Safe container]] that *strictly* limits
+what the perl script can do. By default only basic operations are permitted,
+as well as access to a subset of the =Foswiki::Func= interface. No IO
+operations, such as print or file manipulation are permitted, and neither
+is sub-process execution.
+
+The range of permitted operations can easily be customised from the
+=configure= interface.
+
+---++ Usage
+   * =%<nop>PERL{"perl expression"}%=
+Expands to the result of the perl expression, evaluated in a Safe container.
+
+The constraints imposed by the container are defined in the Foswiki
+configuration.
+
+Because the perl expression is entered as a parameter to a Foswiki macro, the
+usual constraints on characters apply. Note especially that double-quotes have to be escaped using \" e.g =%<nop>PERL{"my $meal=\"fish";\"I ate a $meal\""}%=
+
+---++ Examples
+If the plugin is installed, the text after 'expands to' will show the result of the example.
+   * =%<nop>PERL{"'A String'"}%= expands to %PERL{"'A String'"}%
+   * =%<nop>PERL{"101 - 59"}%= expands to %PERL{"101 - 59"}%
+
+Note that the same container is used for each %<nop>PERL call made during rendering. As a result, a perl function defined in one %<nop>PERL will be available in other %<nop>PERLs that are evaluated later.
+   * =%<nop>PERL{"sub x{95};x()"}%...%<nop>PERL{"x()+164"}%= expands to %PERL{"sub x{95};x()"}%...%PERL{"x()+164"}%
+
+---++ WARNING
+The default configuration is designed for the following
+requirements:
+   * Basic Perl,
+   * Can use loops, define and call functions, 
+   * Can call Foswiki::Func functions (except readFile and saveFile),
+*This provides the user with enough rope to hang your server!*
+
+For example, an infinite loop may (in some server configurations) 
+result in a denial of service to other users. You are recommended to
+think carefully about the abilities of your users before enabling
+this configuration. <span class="foswikiAlert">You have been warned!</span>
+
+Another common configuration that provides a lot less rope to the end user
+(and thus protects your server better) is as follows:
+<verbatim>
+$Foswiki::cfg{Plugins}{PerlPlugin}{Opcodes} = {
+    Permit => [], # :default only
+    Deny => [ ':base_mem', ':base_loop', ':base_orig' ] };
+$Foswiki::cfg{Plugins}{PerlPlugin}{Share} = {}; # no access to Foswiki::Func
+</verbatim>
+This denies access to looping constructs.
+
+If you want to use an even smaller subset of Perl then you should
+read the [[http://perldoc.perl.org/Safe.html][Safe]] and [[http://perldoc.perl.org/Opcode.html][Opcode]] manual pages.
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+Check the plugin is working:
+
+=%<nop>PERL{"'Cushty'"}%= expands to %PERL{"'Cushty'"}%
+
+---++ Plugin Info
+Another great Foswiki extension from the <a style="text-decoration:none" href="http://wikiring.com"><img src="%ATTACHURLPATH%/wikiring.png" alt="" /> *WikiRing* </a> - working together to improve your wiki experience!
+
+|  Author(s): | Crawford Currie http://c-dot.co.uk |
+|  Copyright: | &copy; 2008 Crawford Currie |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home: | http://foswiki.org/Extensions/PerlPlugin |
+|  Support: | http://foswiki.org/Support/PerlPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on twiki.org instead. -->
