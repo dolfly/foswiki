@@ -1,4 +1,4 @@
-# Plugin for TWiki Collaboration Platform, http://TWiki.org/
+# Plugin for Foswiki Collaboration Platform, http://Foswiki.org/
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -18,7 +18,7 @@
 
 ---+ package Foswiki::Plugins::PerlPlugin
 
-This plugin provides an %PERL TWiki variable that allows perl scripts to
+This plugin provides an %PERL Foswiki variable that allows perl scripts to
 be directly embedded in topics and executed on the server. It uses the
 'Safe' package to limit the opcodes and namespace of the executed code,
 to minimise the security risk.
@@ -34,8 +34,8 @@ use Safe;
 use Foswiki::Func;
 
 our $VERSION = '$Rev$';
-our $RELEASE = 'TWiki-4.2';
-our $SHORTDESCRIPTION = 'Embed perl scripts in TWiki topics';
+our $RELEASE = 'Foswiki-4.2';
+our $SHORTDESCRIPTION = 'Embed perl scripts in Foswiki topics';
 our $NO_PREFS_IN_TOPIC = 1;
 
 # The Safe container
