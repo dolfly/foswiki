@@ -78,7 +78,7 @@ sub startRenderingHandler {
 	if ($_[0] !~ /chgUpper/) {   # Ugly hack to prevent UserRegistration page from breaking.
 	    $_[0] =~ s((?<=[^\w\-])\-\-\-(?=[^\w\-\+]))(&#8212;)go;
 	    $_[0] =~ s((?<=[^\w\-])\-\-(?=[^\w\-\+]))(&#8211;)go;
-	    $_[0] =~ s((?<=\s)(&quot;|\")(?![^<]+>)(?![^<{]*}))(&#8220)go;
+	    $_[0] =~ s((?<=\s)(&quot;|\")(?![^<]+>)(?![^<{]*}))(&#8220;)go;
 	    $_[0] =~ s((&quot;|\")(?![^<]*>)(?![^<{]*}))(&#8221;)go;
 	    $_[0] =~ s((?<=\s)(&apos;|\')(?![^<]+>)(?![^<{]*}))(&#8216;)go;
 	    $_[0] =~ s((&apos;|\')(?![^<]+>)(?![^<{]*}))(&#8217;)go;
@@ -144,7 +144,7 @@ sub expandWikiWord {
 
 	# Expand a few known words with appropriate punctuation.
         $wikiWord =~ s(\bCouldnt\b)(Couldn&#8217;t)go;       
-	$wikiWord =~ s(\bYouve\b)(You&8217;ve)go;
+	$wikiWord =~ s(\bYouve\b)(You&#8217;ve)go;
 
     &Foswiki::Func::writeDebug("-      expanded to $wikiWord") if $debug;
 
