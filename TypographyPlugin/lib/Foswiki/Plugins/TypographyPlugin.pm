@@ -72,18 +72,9 @@ sub startRenderingHandler {
 
     &Foswiki::Func::writeDebug("- TypographyPlugin::startRenderingHandler( $_[1].$topic )") if $debug;
 
-	# See if we have Internet Explorer. Other browsers (esp. older Netscapes) aren't
-	# very savvy about typography.
-
 	my $userAgent = $ENV{'HTTP_USER_AGENT'} || "";
-	my $isInternetExplorer = $userAgent =~ m/msie ([\d]+)/i;
-	my $ieMajorVersion = int $1 if ($isInternetExplorer);
-
-	my $isModernNetscape = $userAgent =~ m/Netscape\d?\/([\d]+)/i;
-	my $nsMajorVersion = int $1 if ($isModernNetscape);
 
 	# Render special character sequences.
-
 	if ($_[0] !~ /chgUpper/) {   # Ugly hack to prevent UserRegistration page from breaking.
 	    $_[0] =~ s((?<=[^\w\-])\-\-\-(?=[^\w\-\+]))(&mdash;)go;
 	    $_[0] =~ s((?<=[^\w\-])\-\-(?=[^\w\-\+]))( &ndash; )go;
@@ -152,19 +143,9 @@ sub expandWikiWord {
 	$wikiWord =~ s((.+)\bWith\b)($1with)go;
 
 	# Expand a few known words with appropriate punctuation.
-
-	my $userAgent = $ENV{'HTTP_USER_AGENT'} || "";
-	my $isInternetExplorer = $userAgent =~ m/msie/i;
-
-	if ($isInternetExplorer) {
         $wikiWord =~ s(\bCouldnt\b)(Couldn&rsquo;t)go;       
-		$wikiWord =~ s(\bYouve\b)(You&rsquo;ve)go;
-		$wikiWord =~ s(\bPMLs\b)(PML&rsquo;s)go;
-	} else {
-		$wikiWord =~ s(\bCouldnt\b)(Couldn\'t)go;
-		$wikiWord =~ s(\bYouve\b)(You\'ve)go;
-		$wikiWord =~ s(\bPMLs\b)(PML\'s)go;
-	}
+	$wikiWord =~ s(\bYouve\b)(You&rsquo;ve)go;
+	$wikiWord =~ s(\bPMLs\b)(PML&rsquo;s)go;
 
     &Foswiki::Func::writeDebug("-      expanded to $wikiWord") if $debug;
 
