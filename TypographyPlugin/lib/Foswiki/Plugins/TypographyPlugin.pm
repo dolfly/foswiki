@@ -5,6 +5,7 @@
 #
 #   Copyright (C) 2002, Eric Scouten
 #   Started Sat, 07 Dec 2002
+#   Copyright (c) 2009, Will Norris
 #
 #  *****************************************************************************
 #
@@ -95,19 +96,12 @@ sub startRenderingHandler {
 
 	if ($_[0] !~ /chgUpper/) {   # Ugly hack to prevent UserRegistration page from breaking.
 
-		if (($isInternetExplorer && $ieMajorVersion >= 5) || ($isModernNetscape && $nsMajorVersion >= 6)) {
-			$_[0] =~ s((?<=[^\w\-])\-\-\-(?=[^\w\-\+]))(&mdash;)go;
-			$_[0] =~ s((?<=[^\w\-])\-\-(?=[^\w\-\+]))( &ndash; )go;
-			$_[0] =~ s((?<=\s)(&quot;|\")(?![^<]+>)(?![^<{]*}))(&ldquo;)go;
-			$_[0] =~ s((&quot;|\")(?![^<]*>)(?![^<{]*}))(&rdquo; )go;
-			$_[0] =~ s((?<=\s)(&apos;|\')(?![^<]+>)(?![^<{]*}))(&lsquo;)go;
-			$_[0] =~ s((&apos;|\')(?![^<]+>)(?![^<{]*}))(&rsquo;)go;
-		} else {
-			$_[0] =~ s((?<=[^\w\-!])\-\-\-(?=[^\w\-\+]))(\-\-)go;
-			$_[0] =~ s(&(m|n)dash;)(\-\-)go;
-			$_[0] =~ s(&(l|r)dquo;)(&quot;)go;
-			$_[0] =~ s(&(l|r)squo;)(&apos;)go;
-		}
+	    $_[0] =~ s((?<=[^\w\-])\-\-\-(?=[^\w\-\+]))(&mdash;)go;
+	    $_[0] =~ s((?<=[^\w\-])\-\-(?=[^\w\-\+]))( &ndash; )go;
+	    $_[0] =~ s((?<=\s)(&quot;|\")(?![^<]+>)(?![^<{]*}))(&ldquo;)go;
+	    $_[0] =~ s((&quot;|\")(?![^<]*>)(?![^<{]*}))(&rdquo; )go;
+	    $_[0] =~ s((?<=\s)(&apos;|\')(?![^<]+>)(?![^<{]*}))(&lsquo;)go;
+	    $_[0] =~ s((&apos;|\')(?![^<]+>)(?![^<{]*}))(&rsquo;)go;
 
 	}
 
