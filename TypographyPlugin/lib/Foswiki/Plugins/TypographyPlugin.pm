@@ -77,9 +77,9 @@ sub startRenderingHandler {
 	# Render special character sequences.
 	if ($_[0] !~ /chgUpper/) {   # Ugly hack to prevent UserRegistration page from breaking.
 	    $_[0] =~ s((?<=[^\w\-])\-\-\-(?=[^\w\-\+]))(&mdash;)go;
-	    $_[0] =~ s((?<=[^\w\-])\-\-(?=[^\w\-\+]))( &ndash; )go;
+	    $_[0] =~ s((?<=[^\w\-])\-\-(?=[^\w\-\+]))(&ndash;)go;
 	    $_[0] =~ s((?<=\s)(&quot;|\")(?![^<]+>)(?![^<{]*}))(&ldquo;)go;
-	    $_[0] =~ s((&quot;|\")(?![^<]*>)(?![^<{]*}))(&rdquo; )go;
+	    $_[0] =~ s((&quot;|\")(?![^<]*>)(?![^<{]*}))(&rdquo;)go;
 	    $_[0] =~ s((?<=\s)(&apos;|\')(?![^<]+>)(?![^<{]*}))(&lsquo;)go;
 	    $_[0] =~ s((&apos;|\')(?![^<]+>)(?![^<{]*}))(&rsquo;)go;
 	}
