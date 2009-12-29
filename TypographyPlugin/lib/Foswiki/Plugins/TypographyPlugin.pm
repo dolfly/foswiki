@@ -82,29 +82,16 @@ sub startRenderingHandler {
 	my $isModernNetscape = $userAgent =~ m/Netscape\d?\/([\d]+)/i;
 	my $nsMajorVersion = int $1 if ($isModernNetscape);
 
-	# Render little grey arrows.
-
-	if ($isInternetExplorer || ($isModernNetscape && $userAgent =~ m/win/i)) {
-		$_[0] =~ s((<<)|(&lt;&lt;))(<font face="Webdings">&nbsp;</font>)go;
-		$_[0] =~ s((>>)|(&gt;&gt;))( <font face="Webdings">4</font>)go;
-	} else {
-		$_[0] =~ s(\s(<<)|(&lt;&lt;)\s)()go;
-		$_[0] =~ s(\s(>>)|(&gt;&gt;)\s)( <b>&gt;</b>)go;
-	}
-
 	# Render special character sequences.
 
 	if ($_[0] !~ /chgUpper/) {   # Ugly hack to prevent UserRegistration page from breaking.
-
 	    $_[0] =~ s((?<=[^\w\-])\-\-\-(?=[^\w\-\+]))(&mdash;)go;
 	    $_[0] =~ s((?<=[^\w\-])\-\-(?=[^\w\-\+]))( &ndash; )go;
 	    $_[0] =~ s((?<=\s)(&quot;|\")(?![^<]+>)(?![^<{]*}))(&ldquo;)go;
 	    $_[0] =~ s((&quot;|\")(?![^<]*>)(?![^<{]*}))(&rdquo; )go;
 	    $_[0] =~ s((?<=\s)(&apos;|\')(?![^<]+>)(?![^<{]*}))(&lsquo;)go;
 	    $_[0] =~ s((&apos;|\')(?![^<]+>)(?![^<{]*}))(&rsquo;)go;
-
 	}
-
 }
 
 
