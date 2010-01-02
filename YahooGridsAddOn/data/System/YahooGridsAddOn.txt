@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="save topic" date="1259966746" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1259966746" format="1.1" reprev="1.1" version="1.1"}%
 ---+!! Yahoo Grids add-on
 <!--
 One line description, required for extensions repository catalog.
@@ -9,10 +9,13 @@ One line description, required for extensions repository catalog.
 This add-on only installs 1 css file, and can be used safely with non-Yahoo javascript libraries. 
 
 <div class="foswikiImage">
-<img src="%ATTACHURLPATH%/example.png" alt="example.png" width='640' height='257' />
+<img src="%ATTACHURLPATH%/example.png" alt="example.png" width='815' height='204' />
 </div>
 
 %TOC%
+
+---++ Examples
+%IF{"istopic 'Sandbox.YahooGridsAddOnExamples'" then="see Sandbox.YahooGridsAddOnExamples" else="<nop>Sandbox.YahooGridsAddOnExamples"}%
 
 ---++ Usage
 Creating a 2 column grid - at a glance:
@@ -47,8 +50,8 @@ To make the section contents appear in a two column grid, where the right column
 "%SYSTEMWEB%.TwoColumnDefinition"
 section="300right"
 CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
-LEFTCOL="mainleft"
-RIGHTCOL="mainright"
+COL1="mainleft"
+COL2="mainright"
 }%
 </verbatim>
 
@@ -57,8 +60,8 @@ Explanation of the attributes passed to this macro:
       * for example: =onethirdleft=, =160left=, =300right=
    * =CONTENTTOPIC=: the topic the content resides in. This can be a different topic.
    * For 2 columns (defined in TwoColumnDefinition):
-      * =LEFTCOL=: name of the section that contains left column contents
-      * =RIGHTCOL=: name of the section that contains left column contents
+      * =COL1=: name of the section that contains left column contents
+      * =COL2=: name of the section that contains left column contents
    * For 4 columns (defined in FourColumnDefinition):
       * =COL1=: name of the section that contains column 1 contents
       * =COL2=, =COL3=, =COL4=: section names for the other columns
@@ -93,8 +96,26 @@ This addon uses a number of CSS classes, mainly to set extra paddings or backgro
    * =.ygColumnRight= - right column
    * =.ygColumn= - a column that is not a left nor a right column
 
+To create even spacing of =.5em= between columns, use this style definition:
+<verbatim>
+.ygColumn {
+	padding:0 .5em;
+}
+.ygColumnLeft {
+	padding:0 .5em 0 0;
+}
+.ygColumnRight {
+	padding:0 0 0 .5em;
+}
+</verbatim>
+
 ---++ Installation Instructions
-%$INSTALL_INSTRUCTIONS%
+You do not need to install anything in the browser to use this extension. The following instructions are for the administrator who installs the extension on the server.
+
+Open configure, and open the "Extensions" section. Use "Find More Extensions" to get a list of available extensions. Select "Install".
+
+If you have any problems, or if the extension isn't available in =configure=, then you can still install manually from the command-line. See http://foswiki.org/Support/ManuallyInstallingExtensions for more help.
+
 
 ---+++ Test
 If installed, you will see 2 columns. View the source (view raw) if you want to start with a working example.
@@ -115,8 +136,8 @@ contents of the right side column
 "%SYSTEMWEB%.TwoColumnDefinition"
 CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
 section="quarterright"
-LEFTCOL="testleft"
-RIGHTCOL="testright"
+COL1="testleft"
+COL2="testright"
 }%
 
 %ADDTOHEAD{"yahoogridsaddon" text="<style type=\"text/css\" media=\"all\">
@@ -126,6 +147,7 @@ RIGHTCOL="testright"
 </style>"}%
 
 ---++ Troubleshooting
+---+++ TML formatting messed up
 If TML markup doesn't create proper HTML, a reason could be that you have written =STARTSECTION= in a condensed way, like:
 <verbatim>
 %STARTSECTION{"mainleft"}%---+ Topic title%ENDSECTION{"mainleft"}%
@@ -137,14 +159,19 @@ This doesn't work out, because the content of the section definition does not st
 %ENDSECTION{"mainleft"}%
 </verbatim>
 
+---+++ Overlapping columns
+Overlapping can occur when columns are nested - this is a known bug with the grid library. Even if you don't do the nesting yourself, it can occur if you use a skin with a sidebar that is based on Yahoo Grids.
+
+
 ---++ Further information
-http://developer.yahoo.com/yui/grids/
+This add-on uses YUI Grids version 2. See http://developer.yahoo.com/yui/grids/
 
 ---++ <nop>AddOn Info
-| Copyright &copy;: | 2009 Arthur Clemens |
+| Copyright &copy;: | 2009, 2010 Arthur Clemens |
 | License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]], [[http://developer.yahoo.com/yui/license.html][Yahoo licence]] (BSD) |
-| Dependencies: | %$DEPENDENCIES% |
-| <nop>AddOn Version: | 1.0 (04 Dec 2009)  |
+| Dependencies: | None |
+| <nop>AddOn Version: | 1.1 (02 Jan 2010)  |
+| 02 Jan 2010 | 1.1 Changed =LEFTCOL= and =RIGHTCOL= to =COL1= and =COL2=. The definitions now ignore empty section names. Added examples. |
 | 04 Dec 2009 | 1.0 First release. |
 | Demo url:  |   |
 | Home: | http://foswiki.org/Extensions/%TOPIC% |

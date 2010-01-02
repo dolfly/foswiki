@@ -1,0 +1,198 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1259966746" format="1.1" reprev="1.1" version="1.1"}%
+---+!! Yahoo Grids add-on examples
+
+See %SYSTEMWEB%.YahooGridsAddOn
+
+%TOC%
+
+%ADDTOHEAD{"yahoogridsaddon" text="<style type=\"text/css\" media=\"all\">
+@import url(\"%PUBURLPATH%/%SYSTEMWEB%/YahooGridsAddOn/grids-min.css\");
+.ygColumn {
+   padding:0 .5em;
+}
+.ygColumnLeft {
+   padding:0 .5em 0 0;
+}
+.ygColumnRight {
+   padding:0 0 0 .5em;
+}
+.cols {
+	background:#fff0f0;
+	border:2px solid #fff0f0;
+}
+.ygColumn, .ygColumnLeft, .ygColumnRight {
+	background:#fff;
+}
+</style>"}%
+
+<verbatim class="foswikiHidden"> 
+%STARTSECTION{"col1"}%
+Two silly chrysanthemums ran away, although umpt- een bourgeois televisions gossips drunkenly. Five ele- phants kisses umpteen extremely silly Klingons, but two quixotic mats noisily sacrificed the silly televisions. Two schizophrenic Jabberwockies lamely tickled the cat, even though two speedy sheep abused umpteen slightly putrid Klingons, because the angst-ridden dwarf perused umpteen lampstands. The botulism ran away, but Santa Claus kisses one dwarf, and five bourgeois subways sacrificed irascible mats. Two fountains tastes tickets.
+%ENDSECTION{"col1"}%
+
+%STARTSECTION{"col2"}%
+Darin bought Tokyo, although five angst-ridden ele- phants easily perused one obese Klingon. Santa Claus lamely towed five dwarves, but elephants mar- ries five wart hogs. Trailers tastes five angst-ridden chrysanthemums. Putrid Jabberwockies grew up. The Klingons auctioned off umpteen irascible poisons, ho- wever the pawnbroker almost noisily abused sub- ways, although the Klingons gossips. One television sacrificed two wart hogs. Umpteen angst-ridden trai- lers partly drunkenly kisses the botulism, and one mostly putrid mat tastes Jupiter.
+%ENDSECTION{"col2"}%
+
+%STARTSECTION{"col3"}%
+Two schizophrenic Jabberwockies lamely tickled the cat, even though two speedy sheep abused umpteen slightly putrid Klingons, because the angst-ridden dwarf perused umpteen lampstands.The botulism ran away, but Santa Claus kisses one dwarf, and five bourgeois subways sacrificed irascible mats. Two fountains tastes tickets.
+%ENDSECTION{"col3"}%
+
+%STARTSECTION{"col4"}%
+The purple Macintosh telephoned two mats, because umpteen putrid elephants partly comfortably abused Springfield. Two bourgeois dwarves bought the lamp- stands, yet Mercury mostly lamely auctioned off five fountains, however umpteen Klingons ran away. One very speedy aardvark fights five botulisms. Two silly trailers gossips, although pawnbrokers grew up slightly quickly, and five orifices auctioned off two.
+%ENDSECTION{"col4"}%
+</verbatim>
+
+---++ <nop>TwoColumnDefinition
+
+---+++ <nop>TwoColumnDefinition: half
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="half"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: thirdright
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="thirdright"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: thirdleft
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="thirdleft"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: quarterright
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="quarterright"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: quarterleft
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="quarterleft"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: 160left
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="160left"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: 180left
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="180left"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: 300left
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="300left"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: 180right
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="180right"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: 240right
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="240right"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---+++ <nop>TwoColumnDefinition: 300right
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.TwoColumnDefinition"
+section="300right"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+}%
+</div>
+
+---++ <nop>ThreeColumnDefinition
+
+---+++ <nop>ThreeColumnDefinition: third
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.ThreeColumnDefinition"
+section="third"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+COL3="col3"
+}%
+</div>
+
+---++ <nop>FourColumnDefinition
+
+---+++ <nop>FourColumnDefinition: quarter
+<div class="cols">
+%INCLUDE{
+"%SYSTEMWEB%.FourColumnDefinition"
+section="quarter"
+CONTENTTOPIC="%BASEWEB%.%BASETOPIC%"
+COL1="col1"
+COL2="col2"
+COL3="col3"
+COL4="col4"
+}%
+</div>
+
+

@@ -21,8 +21,8 @@ Grids can be nested: it is possible to have a =half= grid inside a main column o
 See %SYSTEMWEB%.YahooGridsAddOn
 
 Refer to columns with:
-   1 =LEFTCOL=
-   1 =RIGHTCOL=
+   1 =COL1=
+   1 =COL2=
    
 ---++ Grid definitions
 These are for developers only. To use columns you don't need to change anything below.
@@ -31,10 +31,10 @@ These are for developers only. To use columns you don't need to change anything 
 <verbatim>
 %STARTSECTION{"half"}%<div class="yui-g">
 	<div class="yui-u first">
-		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 	<div class="yui-u">
-		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 </div>%ENDSECTION{"half"}%
 </verbatim>
@@ -43,10 +43,10 @@ These are for developers only. To use columns you don't need to change anything 
 <verbatim>
 %STARTSECTION{"thirdright"}%<div class="yui-gc">
 	<div class="yui-u first">
-		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 	<div class="yui-u">
-		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 </div>%ENDSECTION{"thirdright"}%
 </verbatim>
@@ -55,10 +55,10 @@ These are for developers only. To use columns you don't need to change anything 
 <verbatim>
 %STARTSECTION{"thirdleft"}%<div class="yui-gd">
 	<div class="yui-u first">
-		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 	<div class="yui-u">
-		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 </div>%ENDSECTION{"thirdleft"}%
 </verbatim>
@@ -67,10 +67,10 @@ These are for developers only. To use columns you don't need to change anything 
 <verbatim>
 %STARTSECTION{"quarterleft"}%<div class="yui-gf">
 	<div class="yui-u first">
-		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 	<div class="yui-u">
-		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 </div>%ENDSECTION{"quarterleft"}%
 </verbatim>
@@ -79,10 +79,10 @@ These are for developers only. To use columns you don't need to change anything 
 <verbatim>
 %STARTSECTION{"quarterright"}%<div class="yui-ge">
 	<div class="yui-u first">
-		<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+		<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 	<div class="yui-u">
-		<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+		<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 	</div>
 </div>%ENDSECTION{"quarterright"}%
 </verbatim>
@@ -93,11 +93,11 @@ These are for developers only. To use columns you don't need to change anything 
 	<div id="bd">
 		<div id="yui-main">
 			<div class="yui-b">
-				<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+				<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 			</div>
 		</div>
 		<div class="yui-b">
-			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+			<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>
 </div>%ENDSECTION{"160left"}%
@@ -109,11 +109,11 @@ These are for developers only. To use columns you don't need to change anything 
 	<div id="bd">
 		<div id="yui-main">
 			<div class="yui-b">
-				<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+				<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 			</div>
 		</div>
 		<div class="yui-b">
-			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+			<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>
 </div>%ENDSECTION{"180left"}%
@@ -125,11 +125,11 @@ These are for developers only. To use columns you don't need to change anything 
 	<div id="bd">
 		<div id="yui-main">
 			<div class="yui-b">
-				<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+				<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 			</div>
 		</div>
 		<div class="yui-b">
-			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+			<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>
 </div>%ENDSECTION{"300left"}%
@@ -141,11 +141,11 @@ These are for developers only. To use columns you don't need to change anything 
 	<div id="bd">
 		<div id="yui-main">
 			<div class="yui-b">
-				<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+				<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 			</div>
 		</div>
 		<div class="yui-b">
-			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+			<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>
 </div>%ENDSECTION{"180right"}%
@@ -157,11 +157,11 @@ These are for developers only. To use columns you don't need to change anything 
 	<div id="bd">
 		<div id="yui-main">
 			<div class="yui-b">
-				<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+				<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 			</div>
 		</div>
 		<div class="yui-b">
-			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+			<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>
 </div>%ENDSECTION{"240right"}%
@@ -173,11 +173,11 @@ These are for developers only. To use columns you don't need to change anything 
 	<div id="bd">
 		<div id="yui-main">
 			<div class="yui-b">
-				<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%LEFTCOL%"}%</div>
+				<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 			</div>
 		</div>
 		<div class="yui-b">
-			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%RIGHTCOL%"}%</div>
+			<div class="ygColumnRight">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>
 </div>%ENDSECTION{"300right"}%

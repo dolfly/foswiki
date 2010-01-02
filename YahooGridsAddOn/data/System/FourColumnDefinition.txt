@@ -24,19 +24,19 @@ These are for developers only. To use columns you don't need to change anything 
 	<div class="yui-g first">
 		<!-- the first child of a Grid needs the "first" class -->
 		<div class="yui-u first">
-			<div class="ygColumnLeft">%INCLUDE{"%CONTENTTOPIC%" section="%COL1%"}%</div>
+			<div class="ygColumnLeft">%IF{"$COL1" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL1%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>	
 		<div class="yui-u">
-			<div class="ygColumn">%INCLUDE{"%CONTENTTOPIC%" section="%COL2%"}%</div>
+			<div class="ygColumn">%IF{"$COL2" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL2%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>
 	<div class="yui-g">
 		<!-- the first child of a Grid needs the "first" class -->
 		<div class="yui-u first">
-			<div class="ygColumn">%INCLUDE{"%CONTENTTOPIC%" section="%COL3%"}%</div>
+			<div class="ygColumn">%IF{"$COL3" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL3%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
-		<div class="yui-u first">
-			<div class="ygColumnRight">%INCLUDE{"%CONTENTTOPIC%" section="%COL4%"}%</div>
+		<div class="yui-u">
+			<div class="ygColumnRight">%IF{"$COL4" then="$percntINCLUDE{$quot$percntCONTENTTOPIC$percnt$quot section=$quot%COL4%$quot}$percnt" else="&nbsp;"}%</div>
 		</div>
 	</div>	
 </div>%ENDSECTION{"quarter"}%
