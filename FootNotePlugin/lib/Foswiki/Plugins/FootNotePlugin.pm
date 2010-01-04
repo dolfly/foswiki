@@ -33,6 +33,7 @@ our $NO_PREFS_IN_TOPIC = 1;
 use vars qw(
 $web $topic $user $installWeb $pluginName
 $debug $header $footer $maintopic
+$stylesheet
 );
 
 $pluginName = 'FootNotePlugin';  # Name of this Plugin
@@ -59,6 +60,10 @@ sub initPlugin
   # Get footnotes footer
   $footer = $Foswiki::cfg{Plugins}{$pluginName}{Footer} || 0;
   Foswiki::Func::writeDebug( __PACKAGE__, " footer = ${footer}" ) if $debug;
+
+  # Get configured stylesheet
+  $stylesheet = $Foswiki::cfg{Plugins}{$pluginName}{CSS} || '%PUBURLPATH%/%SYSTEMWEB%/FootNotePlugin/styles.css';
+  Foswiki::Func::writeDebug( __PACKAGE__, " stylesheet = ${stylesheet}" ) if $debug;
 
   $maintopic = "$web.$topic";
   Foswiki::Plugins::FootNotePlugin::Note::reset();
@@ -136,7 +141,7 @@ sub postRenderingHandler {
   # Print remaining footnotes
   $_[0] = $_[0] . printNotes($maintopic, ("LIST" => "ALL"));
   my $head = <<HERE;
-<link rel="stylesheet" href="%FOOTNOTEPLUGIN_CSS%" type="text/css" media="all" />
+<link rel="stylesheet" href="$stylesheet" type="text/css" media="all" />
 HERE
   Foswiki::Func::addToHEAD( 'FOOTNOTEPLUGIN_LINKCSS', $head );
 }

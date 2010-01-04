@@ -15,7 +15,7 @@ $Foswiki::cfg{Plugins}{FootNotePlugin}{Footer} = '---';
 
 # **STRING 50**
 # Full URL of the CSS to use to format footnotes.
-$Foswiki::cfg{Plugins}{FootNotePlugin}{CSS} = '%PUBURL%/%SYSTEMWEB%/FootNotePlugin/styles.css';
+$Foswiki::cfg{Plugins}{FootNotePlugin}{CSS} = '%PUBURLPATH%/%SYSTEMWEB%/FootNotePlugin/styles.css';
 
 # **BOOLEAN**
 # Debug flag

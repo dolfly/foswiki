@@ -57,6 +57,7 @@ Plugin configuration is done through =configure=, in the "Plugins" section. You 
 |  Copyright: | &copy; 2009, Ian Bygrave |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Version: | %$VERSION%) |
+|  Changes: | 04 Jan 2010 - Foswiki:Main.AntonioTerceiro; fixing CSS link |
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 
