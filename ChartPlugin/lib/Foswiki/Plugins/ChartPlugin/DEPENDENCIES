@@ -1,2 +1,3 @@
-
+gd,>0,c,Required.
 GD,>=0.01,cpan,Required.
+POSIX,>0,cpan,Required.

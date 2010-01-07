@@ -185,6 +185,7 @@ If the required parameters are not defined, then an error message is returned or
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
+|   07 Jan 2010: | Foswiki:Main.AndrewJones, Foswiki:Main.SvenDowideit: Add dependencies (Foswikitask:Item8381) |
 |   13 Oct 2009: | Kenneth Lavrsen: Fixed problem where the plugin could not chart the contents of a table if the table is at the end of a topic |
 |   08 Dec 2008: | Kenneth Lavrsen: Changed the author to myself. TWiki:Main.TaitCyrus is the original author but has not been maintaining this since and is not registered user on fork. So now I officially take the task as maintainer. Plugin is changed to Foswiki namespace and tested and works under Foswiki 1.0.0 |  
 |   18 May 2007: | Added discontinuous ranges - Foswiki:Main.CrawfordCurrie |
