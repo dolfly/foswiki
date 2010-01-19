@@ -1,6 +1,6 @@
 %META:TOPICPARENT{name="WidgetsSkin"}%
 ---+ <nop>%TOPIC%
-Create your own Foswiki <nop>WidgetDesign by attaching your Moveable Type css and images (and a copy of =base-weblog.css=) to your copy of the WidgetSampleDesign topic. Then configure the settings on the topic to match, so that you can proof your design. 
+Create your own Foswiki <nop>WidgetDesign by attaching your Moveable Type CSS and images (and a copy of =base-weblog.css=) to your copy of the WidgetSampleDesign topic. Then configure the settings on the topic to match, so that you can proof your design. 
 
 ---++ Enable this design
 Copy and paste the following section to your %USERSWEB%.SitePreferences topic (or !WebPreferences, or your personal topic)
