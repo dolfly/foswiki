@@ -14,11 +14,11 @@ ContribInfoTable {
 </style>
 
 ---+!! WidgetsSkin Contrib Package
-This is a revised version of the WidgetsSkin, updated to match the changes made for MT4. There are some css id and class changes, that will need to be applied to any theme from MT3.
+This is a revised version of the WidgetsSkin, updated to match the changes made for MT4. There are some CSS id and class changes, that will need to be applied to any theme from MT3.
 
 I have now included the 38 themes included in the Open source version of Moveable Type, and you can try them out using the Theme Browser below.
 
-There is a set of reasonably easy upgrade steps to modify your css and Design topic to work with this upgrade. 
+There is a set of reasonably easy upgrade steps to modify your CSS and =*Design= topic to work with this upgrade. 
 
 ---+++ Theme Browser
 *If the skin is installed*, you can use this browser to mix and match layouts with various CSS files that are available from the [[http://www.sixapart.com/][Six Apart website]]. 
@@ -27,8 +27,8 @@ Use the navigation buttons to select between options. Click on the theme name to
 %INCLUDE{"WidgetsSkin" section="css-browser"}%
 
 ---+++ TODO:
-   * context and 'webHome' css classes in body, so that web home's can have a larger banner pic - and different ones for each web
-   * where's the top list of webs/pages thing like wp has?
+   * context and 'webHome' CSS classes in =BODY=, so that !WebHomes can have a larger banner pic - and different ones for each web
+   * where's the top list of webs/pages thing like WP has?
    * http://www.movabletype.org/design/assistant/ 
 
 
@@ -36,19 +36,19 @@ Use the navigation buttons to select between options. Click on the theme name to
 But it's easy to download and install these designs. 
 Download the zip file for your chosen design, and unzip it in the directory on the server that corresponds to this URL: %PUBURL%/%WEB%/%TOPIC%. Then type the full URL into the text box in the browser.
 
-<nop>%TOPIC% is a simple Foswiki Skin that re-uses these style and HTML definitions, so making designs done for Moveable Type available to Foswiki sites.
+<nop>%TOPIC% is a simple Foswiki Skin that reuses these style and HTML definitions, so making designs done for Moveable Type available to Foswiki sites.
 
-Aside from the ability to re-use these designs, there are several other advantages to this skin:
-   1 It's very lightweight, only generating the bare minimum html required to implement the Moveable type classes and IDs. This means it is *fast*, *portable* and *easy to upgrade*.
+Aside from the ability to reuse these designs, there are several other advantages to this skin:
+   1 It's very lightweight, only generating the bare minimum HTML required to implement the Moveable type classes and IDs. This means it is *fast*, *portable* and *easy to upgrade*.
    2 The CSS is independent of Foswiki, so any stylesheet you develop for this skin *will work with _all_ versions of Foswiki* that support the skin,
    3 This also means the same CSS can be *shared with other applications* (such as Six Apart based blogs).
    4 The skin reuses Foswiki's base templates for most of the Foswiki-specific bits, so when those base templates are extended any *new functionality will automatically become available* for your use.
 
 You can preview some design ideas at the [[http://www.sixapart.com/movabletype/styles/library][the Moveable Type style library]]. To use one of these designs with Foswiki, 
-you will need to install the skin, and then download and install the theme as per the Customisation instructions, below. Some designs are not suitable for re-use with Foswiki, 
+you will need to install the skin, and then download and install the theme as per the Customisation instructions, below. Some designs are not suitable for reuse with Foswiki, 
 as they make assumptions about the number of pixels that the text is long, but you should be able to get inspiration from these works anyway. 
 
-Alternatively you can visit [[http://www.home.org.au/cgi-bin/view/Foswiki/WidgetsSkin][Sven's personal Blog]] for a *DEMO*.
+Alternatively, you can visit [[http://www.home.org.au/cgi-bin/view/Foswiki/WidgetsSkin][Sven's personal Blog]] for a *DEMO*.
 
 <nop>%TOPIC% is a <img src="%ATTACHURLPATH%/wikiringlogo20x20.png" /> [[http://www.wikiring.com][WikiRing]] partnership production.
 
@@ -58,7 +58,7 @@ The Moveable Type classes can support several different column layouts, so
 the skin gets some of the layout from a "design topic", which defines HTML
 to use in different sections of the page, for the different column layouts.
 
-The skin uses two CSS files; the reusable CSS that defines the Moveable Type
+The skin uses two CSS files: the reusable CSS that defines the Moveable Type
 classes, and a mapping CSS that adds additional classes that Foswiki requires,
 but aren't defined by the Moveable Type standard.
 
@@ -89,7 +89,7 @@ If you set =PAGETOPIC= in your preferences or in your topic, it will be used as 
 This is useful for creating user-friendly titles for AUTOINC-named topics
    
 ---++ Customisation
-Customisation of this skin to create your own look and feel is very straightforward. You only have to develop (or re-use) a CSS file. 
+Customisation of this skin to create your own look and feel is very straightforward. You only have to develop (or reuse) a CSS file. 
 You can also customise the _text section definitions_ (WIDGETSSKIN_DESIGNTOPIC) and the _Foswiki css_ WIDGETSSKIN_TWIKICSSFILE) 
 for even greater control over the rendering, but this is not necessary for most applications.
 
@@ -105,10 +105,10 @@ For more radical customisations (or to distribute your theme as a Contrib) you w
    1 Attach your custom Foswiki CSS and imagefiles to your new topic.
    1 Edit your new topic and modify the WIDGETSSKIN_CSSFILE setting to reflect the name of your CSS file. You should now be able to proof your design by viewing that topic.
 
-You can also optionally customise the Foswiki.css attached to your design topic. This file contains most Foswiki specific styles, such as tables, forms and diffs.
+You can also optionally customise the Foswiki.css attached to your design topic. This file contains most Foswiki specific styles, such as tables, forms, and diffs.
 
-Finally you can also customise the common text sections in your design by editing the _Moveable Type Common Text sections_. 
-There are two sample design topics, WidgetsSampleDesign and  WidgetsSample2Design.
+Finally, you can also customise the common text sections in your design by editing the _Moveable Type Common Text sections_. 
+There are four sample design topics: WidgetsSampleDesign, WidgetsSample2Design, WidgetsSample3Design, and WidgetsMantistDesign.
 
 Once you are done, you will be able to follow the instructions under 'Enable this design' in your design topic to roll out your design.
 
@@ -136,7 +136,7 @@ Once you are done, you will be able to follow the instructions under 'Enable thi
 This skin is an example of how to make a [[%SYSTEMWEB%.Skins][Skin]] _without_ duplicating the work of the Foswiki Core release. It reuses the default skin, and only adds a =foswiki.Widget.tmpl= 
 (and a viewprint that I hope to remove later), and only defines the bare essentials to create HTML that is similar to an existing system.
 
-You can use this technique to create a FoswikiSkin that matches closely the HTML of your existing web site, and thus re-use the existing site's css styling, thus creating a comon look & feel.
+You can use this technique to create a skin that matches closely the HTML of your existing web site, and thus reuse the existing site's CSS styling, thus creating a common look & feel.
 
 %TABLE{ id="ContribInfoTable"}%
 |  Contrib Author: | Foswiki:Main.SvenDowideit - SvenDowideit@fosiki.com [[http://fosiki.com][fosiki]] - a <img src="%ATTACHURLPATH%/wikiringlogo20x20.png" /> [[http://www.wikiring.com][WikiRing.com]] partner |
@@ -152,7 +152,8 @@ You can use this technique to create a FoswikiSkin that matches closely the HTML
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  22 Jul 2009: | general fixes and cleanups of html output |
+|  18 Jan 2010: | documentation cleanup |
+|  22 Jul 2009: | general fixes and cleanups of HTML output |
 |  11 May 2009: | removed bonus BANANANA in WidgetsSampleDesign |
 |  27 Jan 2009: | added header and footer widgets, and some more sectional include magic |
 |  30 Dec 2008: | update to Foswiki |

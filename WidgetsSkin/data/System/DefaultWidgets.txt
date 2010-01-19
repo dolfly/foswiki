@@ -4,7 +4,7 @@
 
 Common Widgets used by WidgetsSkin.
 
-Unfortuanatly the =css-browser= Widget on WidgetsSkin won't work, as it relies heavily on a long list of topic Settings - DBCALL style.
+Unfortuanatly the =css-browser= Widget on WidgetsSkin won't work, as it relies heavily on a long list of topic Settings - =DBCALL= style.
 
 Each Contrib and Plugin can define its own set of Widgets that can be included into the Foswiki structure, or topics as desired.
 

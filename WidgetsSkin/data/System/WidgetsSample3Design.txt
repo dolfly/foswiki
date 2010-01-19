@@ -1,8 +1,8 @@
 %META:TOPICPARENT{name="WidgetsSkin"}%
 ---+ <nop>%TOPIC%
-Create your own Foswiki <nop>Widget design by attaching your Moveable Type css and images 
-(and a copy of base-weblog.css) to your copy of the WidgetsSampleDesign topic. 
-Then configure the settings on the topic to match, so that you can Proof your design. 
+Create your own Foswiki <nop>WidgetDesign by attaching your Moveable Type css and images 
+(and a copy of =base-weblog.css=) to your copy of the WidgetsSampleDesign topic. 
+Then configure the settings on the topic to match, so that you can proof your design. 
 
 =wiki.gif= background is from Ward Cunninghams' Wiki - http://c2.com/cgi/wiki
 
@@ -43,11 +43,11 @@ Copy and paste the following section to your %USERSWEB%.SitePreferences topic (o
 <textarea readonly rows="13" style="width:85%;margin:10px;">
    * Set Foswiki to use this Widget design, set the following on %USERSWEB%.SitePreferences (don't copy the raw text)
       * Set SKIN=Widget
-   * set the Widget skin to use this topic to get the _Moveable Type Common Text sections_ from this topic
+   * Set the Widget skin to use this topic to get the _Moveable Type Common Text sections_ from this topic
       * Set WidgetsSkin_DESIGNTOPIC = %TOPIC%
-   * set the Widget skin to use to get the css and images from here
+   * Set the Widget skin to use to get the css and images from here
       * Set WidgetsSkin_CSSFILE = %PUBURL%/%SYSTEMWEB%/%WidgetsSkin_DESIGNTOPIC%/theme.css
-   * is the css one-column, two-column-left, two-column-right, three-column
+   * Is the css one-column, two-column-left, two-column-right, three-column?
       * Set WidgetsSkin_COLUMNS = %URLPARAM{"Widgetcolumns" default="%COLS%CURRENTCOLS%%"}%
 </textarea>
 </noautolink>
