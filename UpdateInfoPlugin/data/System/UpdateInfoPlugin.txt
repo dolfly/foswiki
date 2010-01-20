@@ -24,24 +24,24 @@ Full syntax overrides site/topic defaults.
 
 ---++ Syntax Examples
 
-	* =<nop>MyTopic %<nop/>ISNEW%=
-	* =<nop>Web.ToPic %<nop/>ISNEW%=
-	* =<nop>Gr�dWeb.Bl�B�rGr�d %<nop/>ISNEW%= (I18N characters in <nop>WikiWords and <nop>WebNames are matched)
-	* =<nop>TopIc %<nop/>ISNEW{days="15"}%=
-	* =<nop>TopiC %<nop/>ISNEW{days="20" version="1.4"}%=
+	* =<nop>MyTopic %<nop>ISNEW%=
+	* =<nop>Web.ToPic %<nop>ISNEW%=
+	* =<nop>Gr�dWeb.Bl�B�rGr�d %<nop>ISNEW%= (I18N characters in <nop>WikiWords and <nop>WebNames are matched)
+	* =<nop>TopIc %<nop>ISNEW{days="15"}%=
+	* =<nop>TopiC %<nop>ISNEW{days="20" version="1.4"}%=
 
-%TOPIC% supports these <nop/>TWikiML link syntaxes:
+%TOPIC% supports these TML link syntaxes:
 
-	* <nop/>WikiWord 
-	* (<nop/>WikiWordAs)WebName.WikiWord 
-	* [<nop/>[WikiWord][link text]]
-	* [<nop/>[WebName.WikiWord][link text]] 
-	* [<nop/>[link text]] 
-	* [<nop/>[link-text]] (links to non-WikiWord topics, i.e. topic names containing special chars like "-")
-	* [<nop/>[singleword]] 
+	* <nop>WikiWord 
+	* (<nop>WikiWordAs)WebName.WikiWord 
+	* [<nop>[WikiWord][link text]]
+	* [<nop>[WebName.WikiWord][link text]] 
+	* [<nop>[link text]] 
+	* [<nop>[link-text]] (links to non-WikiWord topics, i.e. topic names containing special chars like "-")
+	* [<nop>[singleword]] 
 	* WIK IWO RDS (abbreviations / acronyms) 
 
-(All followed by the %<nop/>ISNEW% syntax).
+(All followed by the %<nop>ISNEW% syntax).
 
 ---++ Examples (Works if installed)
 
@@ -49,7 +49,7 @@ Full syntax overrides site/topic defaults.
 	* %USERSWEB%.WebHome %ISNEW%
 	* %SYSTEMWEB%.WebHome %ISNEW{days="15"}%
 	* %SYSTEMWEB%.DefaultPreferences %ISNEW{days="20" version="1.4"}%
-	* Sandbox.UpdateInfoPluginTest %ISNEW% (Edit and save the <nop/>Sandbox.UpdateInfoPluginTest topic, and it should be highlighted with a %N% icon)
+	* Sandbox.UpdateInfoPluginTest %ISNEW% (Edit and save the <nop>Sandbox.UpdateInfoPluginTest topic, and it should be highlighted with a %N% icon)
 
 #PluginSettings
 ---+++ <nop>%TOPIC% Settings
@@ -68,20 +68,23 @@ Full syntax overrides site/topic defaults.
 
 ---+++ Plugin Installation Instructions
 
-	* Just unzip the package as usual.
+%$INSTALL_INSTRUCTIONS%
+
 
 ---+++ Plugin Info
 
-|  Plugin Author: | TWiki:Main.ChrisHuebsch & TWiki:Main.SteffenPoulsen |
-|  Plugin Version: | v2.0 |
+|  Plugin Author: | Chris Huebsch & Foswiki:Main.SteffenPoulsen |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  20 Jan 2010: | (v3.0) - converted to Foswiki (Foswiki:Main.MichaelDaum) |
 |  26 Jul 2006: | (v2.0) - Updated to use default graphic icons from %SYSTEMWEB%.DocumentGraphics. |
-|  20 Apr 2006: | (v1.9) - Cairo+Dakar compatibility (TWiki:Main.SteffenPoulsen) |
+|  20 Apr 2006: | (v1.9) - Cairo+Dakar compatibility (Foswiki:Main.SteffenPoulsen) |
 |  10 Jan 2006: | (v1.8) - Dakar compatibility |
 |  7 Apr 2005: | (v1.7) - New variable name in plugin settings |
-|  6 Apr 2005: | (v1.6) - Fetch default "days" and "version" variables from TWiki variables |
-|  4 Apr 2005: | (v1.5) - Support for non-WikiWord topics in <nop/>TWikiML link syntaxes |
-|  2 Apr 2005: | (v1.4) - Support for more <nop/>TWikiML link syntaxes |
+|  6 Apr 2005: | (v1.6) - Fetch default "days" and "version" variables from variables |
+|  4 Apr 2005: | (v1.5) - Support for non-WikiWord topics in TML link syntaxes |
+|  2 Apr 2005: | (v1.4) - Support for more TML link syntaxes |
 |  1 Apr 2005: | (v1.3) - Plugin is now I18N-aware |
 |  30 Mar 2005: | (v1.2) - implemented changes/fixes from Foswiki:Extensions.UpdateInfoPluginDev |
 |  15 Apr 2002: | Initial version |
@@ -89,7 +92,5 @@ Full syntax overrides site/topic defaults.
 |  Other Dependencies: | none |
 |  Perl Version: | 5.005 |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
-|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-
--- TWiki:Main.ChrisHuebsch - 07 Apr 2005
+|  Plugin Home: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |

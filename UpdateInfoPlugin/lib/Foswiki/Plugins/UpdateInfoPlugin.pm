@@ -1,16 +1,16 @@
 #
-#      TWiki UpdateInfo Plugin
+#      Foswiki UpdateInfo Plugin
 #
 #      Written by Chris Huebsch chu@informatik.tu-chemnitz.de
 #
 # 31-Mar-2005:   SteffenPoulsen
 #                  - Updated plugin to be I18N-aware
 #  2-Apr-2005:   SteffenPoulsen
-#                  - Support for more TWikiML link syntaxes, cleaned up code, touched documentation
+#                  - Support for more TML link syntaxes, cleaned up code, touched documentation
 #  4-Apr-2005:   SteffenPoulsen
-#                  - Support for _even more_ TWikiML link syntaxes (i.e. "-" now allowed in WikiWord)
+#                  - Support for _even more_ TML link syntaxes (i.e. "-" now allowed in WikiWord)
 #  6-Apr-2005:   SteffenPoulsen (patch by DieterWeber)
-#                  - Fetch default "days" and "version" variables from TWiki variables.
+#                  - Fetch default "days" and "version" variables from variables.
 #                  - Search web/user/topic preferences first, and then in the plugin if we can't find it
 # 10-Jan-2006:   SteffenPoulsen
 #                  - Dakar compatibility
@@ -19,7 +19,7 @@
 # 26-Jul-2006:   SteffenPoulsen
 #                  - Updated to use default new and updated icons (from %SYSTEMWEB%.DocumentGraphics)
 
-package TWiki::Plugins::UpdateInfoPlugin;
+package Foswiki::Plugins::UpdateInfoPlugin;
 
 use vars qw(
   $web $topic $user $installWeb $VERSION $RELEASE $debug
@@ -33,7 +33,7 @@ use vars qw(
   $version
 );
 
-# This should always be $Rev$ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that the core can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev$';
@@ -41,12 +41,12 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Dakar';
+$RELEASE = 'v3.0';
 
 BEGIN {
 
     # 'Use locale' for internationalisation of Perl sorting and searching
-    if ( $TWiki::cfg{UseLocale} ) {
+    if ( $Foswiki::cfg{UseLocale} ) {
         require locale;
         import locale();
     }
@@ -56,34 +56,34 @@ sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if ( $TWiki::Plugins::VERSION < 1 ) {
-        TWiki::Func::writeWarning(
+    if ( $Foswiki::Plugins::VERSION < 1 ) {
+        Foswiki::Func::writeWarning(
             "Version mismatch between UpdateInfoPlugin and Plugins.pm");
         return 0;
     }
 
     # Get plugin preferences
-    $debug = &TWiki::Func::getPreferencesFlag("UPDATEINFOPLUGIN_DEBUG");
+    $debug = &Foswiki::Func::getPreferencesFlag("UPDATEINFOPLUGIN_DEBUG");
 
-    $days = &TWiki::Func::getPreferencesValue("UPDATEINFODAYS")
-      || &TWiki::Func::getPreferencesValue("UPDATEINFOPLUGIN_DAYS")
+    $days = &Foswiki::Func::getPreferencesValue("UPDATEINFODAYS")
+      || &Foswiki::Func::getPreferencesValue("UPDATEINFOPLUGIN_DAYS")
       || "5";
 
-    $version = &TWiki::Func::getPreferencesValue("UPDATEINFOVERSION")
-      || &TWiki::Func::getPreferencesValue("UPDATEINFOPLUGIN_VERSION")
+    $version = &Foswiki::Func::getPreferencesValue("UPDATEINFOVERSION")
+      || &Foswiki::Func::getPreferencesValue("UPDATEINFOPLUGIN_VERSION")
       || "1.1";
 
-    $wnre   = TWiki::Func::getRegularExpression('webNameRegex');
-    $wwre   = TWiki::Func::getRegularExpression('wikiWordRegex');
-    $manre  = TWiki::Func::getRegularExpression('mixedAlphaNum');
-    $abbre  = TWiki::Func::getRegularExpression('abbrevRegex');
-    $smanre = TWiki::Func::getRegularExpression('singleMixedAlphaNumRegex');
+    $wnre   = $Foswiki::regex{'webNameRegex'};
+    $wwre   = $Foswiki::regex{'wikiWordRegex'};
+    $manre  = $Foswiki::regex{'mixedAlphaNum'};
+    $abbre  = $Foswiki::regex{'abbrevRegex'};
+    #$smanre = $Foswiki::regex{'singleMixedAlphaNumRegex'};
 
-    TWiki::Func::writeDebug(
-        "- TWiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK")
+    Foswiki::Func::writeDebug(
+        "- Foswiki::Plugins::${pluginName}::initPlugin( $web.$topic ) is OK")
       if $debug;
-    TWiki::Func::writeDebug(
-        '- $TWiki::cfg{UseLocale}: ' . "$TWiki::cfg{UseLocale}" )
+    Foswiki::Func::writeDebug(
+        '- $Foswiki::cfg{UseLocale}: ' . "$Foswiki::cfg{UseLocale}" )
       if $debug;
 
     # Plugin correctly initialized
@@ -110,16 +110,16 @@ sub update_info {
     # Turn spaced-out names into WikiWords - upper case first letter of
     # whole link, and first of each word.
     $topic =~ s/^(.)/\U$1/o;
-    $topic =~ s/\s($smanre)/\U$1/go;
-    $topic =~ s/\[\[($smanre)(.*?)\]\]/\u$1$2/o;
+    #$topic =~ s/\s($smanre)/\U$1/go;
+    #$topic =~ s/\[\[($smanre)(.*?)\]\]/\u$1$2/o;
 
     my $match = 0;
 
-    if ( $TWiki::Plugins::VERSION < 1.1 ) {
+    if ( $Foswiki::Plugins::VERSION < 1.1 ) {
 
         # Cairo
 
-        ( $meta, $dummy ) = TWiki::Store::readTopMeta( $web, $topic );
+        ( $meta, $dummy ) = Foswiki::Store::readTopMeta( $web, $topic );
         if ($meta) {
             $match = 1;
 
@@ -140,7 +140,7 @@ sub update_info {
     else {
 
         # Dakar
-        ( $meta, $dummy ) = TWiki::Func::readTopic( $web, $topic );
+        ( $meta, $dummy ) = Foswiki::Func::readTopic( $web, $topic );
         if ($meta) {
             $match = 1;
 
@@ -155,7 +155,7 @@ sub update_info {
                 $params{$key} = $val;
             }
 
-            if ( defined(&TWiki::Meta::findOne) ) {
+            if ( defined(&Foswiki::Meta::findOne) ) {
                 %info = $meta->findOne("TOPICINFO");
             }
             else {
