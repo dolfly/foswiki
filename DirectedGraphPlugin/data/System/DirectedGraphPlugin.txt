@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1258559939" format="1.1" version="1.29"}%
+%META:TOPICINFO{author="ProjectContributor" date="1264207563" format="1.1" version="1.30"}%
 ---+!! Directed Graph Plugin
 
 %TOC%
@@ -493,6 +493,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
+|  22 Jan 2010: | Foswikitask:Item8415 - Clean up global variables |
 |  8 Nov 2009: | Foswikitask:Item8314 - Bypass plungin processing for diff operations and viewing of topic revisions.  |
 |  8 Nov 2009: | Foswikitask:Item8234, Foswikitask:Item8239, Foswikitask:Item8241, Foswikitask:Item8314 - Add support for inline SVG objects. Fix issues with recursive rendering, CGI acceleration, diff and rev handling  |
 |  8 Nov 2009: | Foswikitask:Item8233 - Fix imagemaps when attachpath is used |

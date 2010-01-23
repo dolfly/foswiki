@@ -25,18 +25,6 @@ package Foswiki::Plugins::DirectedGraphPlugin;
 # =========================
 use strict;
 
-use vars qw(
-  $web $usWeb $topic $user $installWeb
-  $debugDefault $antialiasDefault $densityDefault $sizeDefault
-  $vectorFormatsDefault $hideAttachDefault $inlineAttachDefault $linkFilesDefault
-  $engineDefault $libraryDefault
-  $deleteAttachDefault $legacyCleanup
-  $forceAttachAPI $forceAttachAPIDefault
-  $svgFallbackDefault $svgLinkTargetDefault
-  $enginePath $magickPath $toolsPath $attachPath $attachUrlPath $perlCmd
-  $antialiasCmd
-);
-
 use Digest::MD5 qw( md5_hex );
 use Storable qw(store retrieve freeze thaw);
 
@@ -56,7 +44,7 @@ our $VERSION = '$Rev$';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.6';
+our $RELEASE = '1.7';
 
 #
 # # Short description of this plugin
@@ -75,8 +63,43 @@ our $SHORTDESCRIPTION = 'Draw graphs using the !GraphViz utility';
 our $NO_PREFS_IN_TOPIC = 1;
 
 #
+#  General plugin information
+#
+my $web;         # Current web being processed
+my $usWeb;       # Web name with subwebs delimiter changed to underscore
+my $topic;       # Current topic
+my $user;        # Current user
+my $installWeb;  # Web where plugin topic is installed
 
-my $pluginName = 'DirectedGraphPlugin';
+#
+# Plugin settings passed in URL or by preferences
+#
+my $debugDefault;          # Debug mode
+my $antialiasDefault;      # Anti-ailas setting
+my $densityDefault;        # Density for Postscript document
+my $sizeDefault;           # Size of graph
+my $vectorFormatsDefault;  # Types of images to be generated
+my $hideAttachDefault;     # Should attachments be shown in the attachment table
+my $inlineAttachDefault;   # Image type that will be shown inline in the topic
+my $linkFilesDefault;      # Should other file types have links shown under the inline image
+my $engineDefault;         # Which GraphVize engine should generate the image (default is "dot")
+my $libraryDefault;        # Topic for images
+my $deleteAttachDefault;   # Should old attachments be trashed
+my $legacyCleanup;         # Backwards cleanup from TWiki implementation
+my $forceAttachAPI;        # Force attachment processing using Foswiki API
+my $forceAttachAPIDefault; # 
+my $svgFallbackDefault;    # File graphics type attached as fallback for browsers without svg support
+my $svgLinkTargetDefault;  #
+
+# 
+# Locations of the commands, etc. passed in from LocalSite.cfg
+#
+my $enginePath;            # Location of the "dot" command
+my $magickPath;            # Location of ImageMagick
+my $toolsPath;             # Location of the Tools directory for helper script
+my $attachPath;            # Location of attachments if not using Foswiki API
+my $attachUrlPath;         # URL to find attachments
+my $perlCmd;               # perl command
 
 my $HASH_CODE_LENGTH = 32;
 
@@ -91,11 +114,11 @@ my $HASH_CODE_LENGTH = 32;
 #   * S simple, short string,
 #   * D rcs format date
 
-my $dotHelper = "DirectedGraphPlugin.pl";
+my $dotHelper = 'DirectedGraphPlugin.pl';
 my $engineCmd =
-" %HELPERSCRIPT|F% %DOT|F% %WORKDIR|F% %INFILE|F% %IOSTRING|U% %ERRFILE|F% %DEBUGFILE|F%";
+' %HELPERSCRIPT|F% %DOT|F% %WORKDIR|F% %INFILE|F% %IOSTRING|U% %ERRFILE|F% %DEBUGFILE|F%';
 my $antialiasCmd =
-  "convert -density %DENSITY|N% -geometry %GEOMETRY|S% %INFILE|F% %OUTFILE|F%";
+  'convert -density %DENSITY|N% -geometry %GEOMETRY|S% %INFILE|F% %OUTFILE|F%';
 
 # The session variables are used to store the file names and md5hash of the input to the dot command
 #   xxxHashArray{SET} - Set to 1 if the array has been initialized
@@ -107,7 +130,7 @@ my $antialiasCmd =
 sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
 
-    &_writeDebug(" >>> initPlugin Entered");
+    &_writeDebug(' >>> initPlugin Entered');
 
     #  Disable the plugin if a topic revision is requested in the query.
     my $query;
@@ -143,7 +166,7 @@ sub initPlugin {
     # check for Plugins.pm versions
     if ( $Foswiki::Plugins::VERSION < 1 ) {
         Foswiki::Func::writeWarning(
-            "Version mismatch between $pluginName and Plugins.pm");
+            'Version mismatch between DirectedGraphPlugin and Plugins.pm');
         return 0;
     }
 
@@ -157,7 +180,8 @@ sub initPlugin {
 
     # path to Plugin helper script
     $toolsPath = $Foswiki::cfg{DirectedGraphPlugin}{toolsPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{toolsPath};
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{toolsPath} 
+      || $Foswiki::cfg{ToolsDir};
 
     # If toolsPath is not set, guess the current directory.
     if ( !$toolsPath ) {
@@ -290,7 +314,7 @@ sub initPlugin {
 
     # Plugin correctly initialized
     &_writeDebug(
-"- Foswiki::Plugins::${pluginName}::initPlugin( $web.$topic ) initialized OK"
+"- Foswiki::Plugins::DirectedGraphPlugin::initPlugin( $web.$topic ) initialized OK"
     );
 
     return 1;
@@ -307,7 +331,7 @@ sub commonTagsHandler {
     $usWeb = $web;
     $usWeb =~ s/\//_/g;    #Convert any subweb separators to underscore
 
-    &_writeDebug("- ${pluginName}::commonTagsHandler( $_[2].$_[1] )");
+    &_writeDebug("- DirectedGraphPlugin::commonTagsHandler( $_[2].$_[1] )");
 
     #pass everything within <dot> tags to handleDot function
 
@@ -862,7 +886,7 @@ sub _showError {
 #   Writes a common format debug message if debug is enabled
 
 sub _writeDebug {
-    &Foswiki::Func::writeDebug( "$pluginName - " . $_[0] ) if $debugDefault;
+    &Foswiki::Func::writeDebug( 'DirectedGraphPlugin - ' . $_[0] ) if $debugDefault;
 }    ### SUB _writeDebug
 
 ### sub afterRenameHandler
@@ -884,7 +908,7 @@ sub afterRenameHandler {
     my $newtopic    = $_[4];
     my $workAreaDir = Foswiki::Func::getWorkArea('DirectedGraphPlugin');
 
-    &_writeDebug( "- ${pluginName}::afterRenameHandler( "
+    &_writeDebug( "- DirectedGraphPlugin::afterRenameHandler( "
           . "$_[0].$_[1] $_[2] -> $_[3].$_[4] $_[5] )" );
 
     # Find all files in the workarea directory for the old topic
