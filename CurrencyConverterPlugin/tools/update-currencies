@@ -1,0 +1,52 @@
+#!/usr/bin/perl
+
+use XML::Twig;
+use Data::Dumper;
+use DBI;
+use LWP::Simple;
+use strict;
+
+my $dbname="currency";
+my $username="updater";
+my $pw="yourPassword";
+
+my $data1 = "DBI:mysql:$dbname";
+my $data2 = DBI->connect($data1, $username, $pw, { RaiseError => 1 }) || die("Cannot open database!");
+
+my $twig= XML::Twig->new
+( 
+   twig_roots    => { 'Series' => 1, 'Obs' => \&convert, },
+);
+
+my $content = get("http://www.ecb.europa.eu/stats/eurofxref/eurofxref-sdmx.xml");
+
+system(sprintf("logger -s $0: Downloaded %i bytes", length($content)));
+
+my $item = 0;
+my $curCur;
+$twig->parse($content);
+
+system("logger -s $0: $item rates inserted/replaced");
+
+sub convert 
+{
+    my( $t, $price)= @_;
+
+    my $cur=$price->parent->{'att'}->{'CURRENCY'};
+    my $date=$price->{'att'}->{'TIME_PERIOD'};
+    my $rate=$price->{'att'}->{'OBS_VALUE'};
+
+    if ( $curCur ne $cur )
+    {
+        my $abfr1=$data2->prepare("CREATE TABLE IF NOT EXISTS $cur (date DATE UNIQUE NOT NULL, rate FLOAT);");
+        $abfr1->execute;
+
+        $curCur = $cur;
+    }
+    my $sql="REPLACE INTO $cur values (\"$date\", $rate );";
+
+    my $abfr1=$data2->prepare($sql);
+    $abfr1->execute;
+    $item++;
+}
+

@@ -1,0 +1,5 @@
+# Release manifest for CurrencyConverterPlugin
+data/System/CurrencyConverterPlugin.txt 0644 Documentation
+data/System/ExchangeRates.txt 0644 Documentation
+lib/Foswiki/Plugins/CurrencyConverterPlugin.pm 0644 Perl module
+tools/update-currencies 0755 Perl script
