@@ -65,11 +65,11 @@ our $NO_PREFS_IN_TOPIC = 1;
 #
 #  General plugin information
 #
-my $web;         # Current web being processed
-my $usWeb;       # Web name with subwebs delimiter changed to underscore
-my $topic;       # Current topic
-my $user;        # Current user
-my $installWeb;  # Web where plugin topic is installed
+my $web;           # Current web being processed
+my $usWeb;         # Web name with subwebs delimiter changed to underscore
+my $topic;         # Current topic
+my $user;          # Current user
+my $installWeb;    # Web where plugin topic is installed
 
 #
 # Plugin settings passed in URL or by preferences
@@ -81,25 +81,28 @@ my $sizeDefault;           # Size of graph
 my $vectorFormatsDefault;  # Types of images to be generated
 my $hideAttachDefault;     # Should attachments be shown in the attachment table
 my $inlineAttachDefault;   # Image type that will be shown inline in the topic
-my $linkFilesDefault;      # Should other file types have links shown under the inline image
-my $engineDefault;         # Which GraphVize engine should generate the image (default is "dot")
-my $libraryDefault;        # Topic for images
-my $deleteAttachDefault;   # Should old attachments be trashed
-my $legacyCleanup;         # Backwards cleanup from TWiki implementation
-my $forceAttachAPI;        # Force attachment processing using Foswiki API
-my $forceAttachAPIDefault; # 
-my $svgFallbackDefault;    # File graphics type attached as fallback for browsers without svg support
-my $svgLinkTargetDefault;  #
+my $linkFilesDefault
+  ;    # Should other file types have links shown under the inline image
+my $engineDefault
+  ;    # Which GraphVize engine should generate the image (default is "dot")
+my $libraryDefault;           # Topic for images
+my $deleteAttachDefault;      # Should old attachments be trashed
+my $legacyCleanup;            # Backwards cleanup from TWiki implementation
+my $forceAttachAPI;           # Force attachment processing using Foswiki API
+my $forceAttachAPIDefault;    #
+my $svgFallbackDefault
+  ;   # File graphics type attached as fallback for browsers without svg support
+my $svgLinkTargetDefault;    #
 
-# 
+#
 # Locations of the commands, etc. passed in from LocalSite.cfg
 #
-my $enginePath;            # Location of the "dot" command
-my $magickPath;            # Location of ImageMagick
-my $toolsPath;             # Location of the Tools directory for helper script
-my $attachPath;            # Location of attachments if not using Foswiki API
-my $attachUrlPath;         # URL to find attachments
-my $perlCmd;               # perl command
+my $enginePath;              # Location of the "dot" command
+my $magickPath;              # Location of ImageMagick
+my $toolsPath;               # Location of the Tools directory for helper script
+my $attachPath;              # Location of attachments if not using Foswiki API
+my $attachUrlPath;           # URL to find attachments
+my $perlCmd;                 # perl command
 
 my $HASH_CODE_LENGTH = 32;
 
@@ -119,6 +122,7 @@ my $engineCmd =
 ' %HELPERSCRIPT|F% %DOT|F% %WORKDIR|F% %INFILE|F% %IOSTRING|U% %ERRFILE|F% %DEBUGFILE|F%';
 my $antialiasCmd =
   'convert -density %DENSITY|N% -geometry %GEOMETRY|S% %INFILE|F% %OUTFILE|F%';
+my $identifyCmd = 'identify %INFILE|F%';
 
 # The session variables are used to store the file names and md5hash of the input to the dot command
 #   xxxHashArray{SET} - Set to 1 if the array has been initialized
@@ -179,8 +183,9 @@ sub initPlugin {
       || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{magickPath};
 
     # path to Plugin helper script
-    $toolsPath = $Foswiki::cfg{DirectedGraphPlugin}{toolsPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{toolsPath} 
+    $toolsPath =
+         $Foswiki::cfg{DirectedGraphPlugin}{toolsPath}
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{toolsPath}
       || $Foswiki::cfg{ToolsDir};
 
     # If toolsPath is not set, guess the current directory.
@@ -234,7 +239,7 @@ sub initPlugin {
     # Get plugin size default
     $sizeDefault =
       Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_SIZE')
-      || '800x600';
+      || 'auto';
 
     # Get plugin vectorFormats default
     $vectorFormatsDefault =
@@ -441,9 +446,9 @@ sub _handleDot {
 "<font color=\"red\"><nop>DirectedGraph Error: density parameter should be given as a number (was: $density)</font>";
     }
 
-    unless ( $size =~ m/^\d+x\d+$/o ) {
+    unless ( $size =~ m/^\d+x\d+|auto$/o ) {
         return
-"<font color=\"red\"><nop>DirectedGraph Error: size parameter should be given in format: widthxheight (was: $size)</font>";
+"<font color=\"red\"><nop>DirectedGraph Error: size parameter should be given in format: \"widthxheight\", or \"auto\" (was: $size)</font>";
     }
 
     unless ( $engine =~ m/^(dot|neato|twopi|circo|fdp)$/o ) {
@@ -620,12 +625,7 @@ sub _handleDot {
                       0,    #  Manually unlink later if debug not specified.
                     SUFFIX => ".$key"
                 );
-
-             # Don't create the GraphViz inline output if antialias is requested
-                $outString .= "-T$key -o$tempFile{$key} "
-                  unless ( $antialias
-                    && $key eq "$inlineAttach"
-                    && $key ne 'svg' );
+                $outString .= "-T$key -o$tempFile{$key} ";
             }    ### if (!exists ($tempFile
         }    ### foreach my $key
 
@@ -675,18 +675,38 @@ sub _handleDot {
         unlink "$dotFile.err" unless $debugDefault;
         unlink $dotFile unless $debugDefault;
 
-        ### SMELL: Possible improvement - let the engine create the PNG file and
-        ### then set the size & density below to match so the image map
-        ### matches correctly.
-
-        if ( ($antialias) && !( $inlineAttach =~ m/svg/ ) )
+        if (
+            ($antialias)
+            && (   ( $inlineAttach eq 'svg' && $svgFallback ne 'none' )
+                || ( $inlineAttach ne 'svg' ) )
+          )
         {    # Convert the postscript image to the inline format
-            my ( $output, $status ) = Foswiki::Sandbox->sysCommand(
+
+            my $inlineType = "$tempFile{$inlineAttach}";
+            if ( $inlineAttach eq 'svg' ) {
+                my $inlineType = "$tempFile{$svgFallback}";
+            }
+
+            my ( $output, $status ) =
+              Foswiki::Sandbox->sysCommand( $magickPath . $identifyCmd,
+                INFILE => "$inlineType", );
+
+            &_writeDebug(" _____IDENTIFY_____ $output");
+
+            #$size = "auto";
+            if (   $size eq "auto"
+                && $output =~ m/.*\s([[:digit:]]+x[[:digit:]]+)\s.*/i )
+            {
+                &_writeDebug(" ______________ size $1");
+                $size = $1;
+            }
+
+            ( $output, $status ) = Foswiki::Sandbox->sysCommand(
                 $magickPath . $antialiasCmd,
                 DENSITY  => $density,
                 GEOMETRY => $size,
                 INFILE   => "$tempFile{'ps'}",
-                OUTFILE  => "$tempFile{$inlineAttach}"
+                OUTFILE  => "$inlineType"
             );
             &_writeDebug("dgp-antialias: output: $output \n status: $status");
             if ($status) {
@@ -794,6 +814,7 @@ sub _handleDot {
         {
             $mapfile = Foswiki::Func::readFile(
                 "$attachPath/$web/$topic/$outFilename.cmapx");
+            &_writeDebug("MAPFILE $outFilename.cmapx is  $mapfile");
         }
         else {
             if (
@@ -886,7 +907,8 @@ sub _showError {
 #   Writes a common format debug message if debug is enabled
 
 sub _writeDebug {
-    &Foswiki::Func::writeDebug( 'DirectedGraphPlugin - ' . $_[0] ) if $debugDefault;
+    &Foswiki::Func::writeDebug( 'DirectedGraphPlugin - ' . $_[0] )
+      if $debugDefault;
 }    ### SUB _writeDebug
 
 ### sub afterRenameHandler
