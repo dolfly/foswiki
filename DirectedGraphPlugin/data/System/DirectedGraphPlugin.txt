@@ -1,5 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1264901379" format="1.1" version="1.31"}%
-
+%META:TOPICINFO{author="ProjectContributor" date="1265144070" format="1.1" version="1.32"}%
 <!--
 This topic is part of the documentation for DirectedGraphPlugin and is
 automatically generated from Subversion. Do not edit it! Your edits
@@ -74,7 +73,7 @@ You can use the following parameters in the =dot= tag to control the rendering o
 
 | *Parameter:* | *Description:* | *Default:* |
 | =map="on"= | Create a client side map for the generated image. This will turn any =[URL="..."];= attribute in the graph description into a clickable area (see demonstration below). | =off= |
-| =vectorformats="ps svg"= | The PNG file created from the graph per default is a bitmap file. If you need a vector based file rendering or other bitmap types as well, you can specify =ps=, =svg= and =jpg= formats (will be attached to topic, visible under attachments view). Any format supported by !GraphViz is supported by this plugin. It is mapped to the =-T= parameter. | none |
+| =vectorformats="ps svg"= | The PNG file created from the graph per default is a bitmap file. If you need a vector based file rendering or other bitmap types, add them to this list, separated by a space. (If the Foswiki attach API is used, they will be attached to topic, visible under attachments view). Any format supported by !GraphViz is supported by this plugin and is mapped to the =-T= parameter.  Examples include jpg, ps, gif, etc.  The type =dot= will attach the parsed input to the topic. | none |
 | =engine="neato"= | Which layout engine to use for the graph: One of =dot=, =neato=, =twopi=, =circo= or =fdp=. | =dot= |
 | =library="Main.GroupIcons"= | Which icon library topic to use for custom shapes ([shapefile] parameter). Needs to be explicitly set, also if icons are attached locally to the current graph topic. See demo below. | (this topic) |
 | =file="file_prefix"= | Overrides the dynamically generated filenames. If specified, must be unique for each graph within a single topic! Suffix is still generated automatically based upon file type.  | =graph_nn= nn increments per graph |
@@ -571,9 +570,9 @@ __Related Topics:__ System.DefaultPreferences, %USERSWEB%.SitePreferences, [[Sys
 %META:FILEATTACHMENT{name="Wireless_Router.png" attr="h" autoattached="1" comment="Cisco library icon for sample graph" date="1172906345" path="Wireless_Router.png" size="7771" user="ProjectContributor" version=""}%
 %META:FILEATTACHMENT{name="usecase_sample.png" attr="h" autoattached="1" comment="DOT usecase sample" date="1172906345" path="usecase_sample.png" size="109307" user="Main.ProjectContributor" version="1"}%
 %META:FILEATTACHMENT{name="sample_simple_lan_setup.png" attr="h" autoattached="1" comment="Sample DOT graph" date="1172906345" path="sample_simple_lan_setup.png" size="28102" user="Main.ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="Cloud-Filled.jpg" attachment="Cloud-Filled.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223776982" path="Cloud-Filled.jpg" size="4986" stream="IO::File=GLOB(0x8bded24)" tmpFilename="/usr/tmp/CGItemp11791" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="Laptop.jpg" attachment="Laptop.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777001" path="Laptop.jpg" size="4583" stream="IO::File=GLOB(0x8be0c84)" tmpFilename="/usr/tmp/CGItemp11788" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="Printer.jpg" attachment="Printer.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777024" path="Printer.jpg" size="4349" stream="IO::File=GLOB(0x8be0ca4)" tmpFilename="/usr/tmp/CGItemp11908" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="Sun_Workstation.jpg" attachment="Sun_Workstation.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777052" path="Sun_Workstation.jpg" size="4481" stream="IO::File=GLOB(0x8be103c)" tmpFilename="/usr/tmp/CGItemp11800" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="Wireless_Router.jpg" attachment="Wireless_Router.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777069" path="Wireless_Router.jpg" size="5046" stream="IO::File=GLOB(0x8be1434)" tmpFilename="/usr/tmp/CGItemp11852" user="ProjectContributor" version="1"}%
-%META:FILEATTACHMENT{name="Workgroup_Switch.jpg" attachment="Workgroup_Switch.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777089" path="Workgroup_Switch.jpg" size="4483" stream="IO::File=GLOB(0x8be155c)" tmpFilename="/usr/tmp/CGItemp11850" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Cloud-Filled.jpg" attachment="Cloud-Filled.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223776982" path="Cloud-Filled.jpg" size="4986" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Laptopk.jpg" attachment="Laptop.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777001" path="Laptop.jpg" size="4583" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Printer.jpg" attachment="Printer.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777024" path="Printer.jpg" size="4349" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Sun_Workstation.jpg" attachment="Sun_Workstation.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777052" path="Sun_Workstation.jpg" size="4481" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Wireless_Router.jpg" attachment="Wireless_Router.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777069" path="Wireless_Router.jpg" size="5046" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="Workgroup_Switch.jpg" attachment="Workgroup_Switch.jpg" attr="h" comment="jpg format for antialiased diagram" date="1223777089" path="Workgroup_Switch.jpg" size="4483" user="ProjectContributor" version="1"}%
