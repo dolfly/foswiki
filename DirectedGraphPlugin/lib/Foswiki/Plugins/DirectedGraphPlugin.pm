@@ -1081,8 +1081,9 @@ sub wrapupTagsHandler {
                     }             ### if ($debugDefault
                     if ($oldTypes) {
                         foreach my $oldsuffix ( split( ' ', $oldTypes ) ) {
-                            if (
-                                !(
+                            if ( 
+                                ( ! defined $newHash{FORMATS}{$filename} ) ||
+                                ( ! 
                                     $newHash{FORMATS}{$filename} =~
                                     (/$oldsuffix/)
                                 )
