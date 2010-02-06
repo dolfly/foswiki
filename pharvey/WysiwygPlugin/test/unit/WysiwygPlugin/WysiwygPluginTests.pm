@@ -24,8 +24,10 @@ use Unit::Request;
 use Unit::Response;
 use Foswiki;
 use Foswiki::Plugins::WysiwygPlugin;
-
+use Foswiki::Plugins::WysiwygPlugin::Handlers;
+use Encode();
 use strict;
+use warnings;
 use Carp;
 
 my $UI_FN;
@@ -98,7 +100,9 @@ sub save_test {
     $query->param( text => $t );
     $query->method('GET');
 
-    $Foswiki::Plugins::SESSION = new Foswiki( 'guest', $query );
+    $this->{session}->finish();
+    $this->{session} = new Foswiki( 'guest', $query );
+    $Foswiki::Plugins::SESSION = $this->{session};
 
     # charset definition affects output, so it is a response method and
     # can only be adjusted after creating session object.
@@ -152,7 +156,7 @@ sub TML2HTML_test {
     my ( $out, $result ) = $this->captureWithKey(
         save => sub {
             my $ok =
-              Foswiki::Plugins::WysiwygPlugin::_restTML2HTML( $foswiki, undef,
+              Foswiki::Plugins::WysiwygPlugin::Handlers::_restTML2HTML( $foswiki, undef,
                 undef, $foswiki->{response} );
             $Foswiki::engine->finalize( $foswiki->{response},
                 $foswiki->{request} );
@@ -169,7 +173,7 @@ sub TML2HTML_test {
 
     $out = Encode::decode_utf8($out);
     
-    my $id = "<!--$Foswiki::Plugins::WysiwygPlugin::SECRET_ID-->";
+    my $id = "<!--$Foswiki::Plugins::WysiwygPlugin::Handlers::SECRET_ID-->";
     $this->assert( $out =~ s/^\s*$id$Item2254start<p>\s*//s, anal($out) );
     $out =~ s/\s*<\/p>$Item2254end\s*$//s;
 
@@ -178,6 +182,7 @@ sub TML2HTML_test {
 
     $this->assert( $text eq $out,
         "'" . anal($out) . "' !=\n'" . anal($text) . "'" );
+    $foswiki->finish();
 }
 
 sub HTML2TML_test {
@@ -206,7 +211,7 @@ sub HTML2TML_test {
     my ( $out, $result ) = $this->captureWithKey(
         save => sub {
             my $ok =
-              Foswiki::Plugins::WysiwygPlugin::_restHTML2TML( $foswiki, undef,
+              Foswiki::Plugins::WysiwygPlugin::Handlers::_restHTML2TML( $foswiki, undef,
                 undef, $foswiki->{response} );
             $Foswiki::engine->finalize( $foswiki->{response},
                 $foswiki->{request} );
@@ -230,6 +235,7 @@ sub HTML2TML_test {
 
     $this->assert_str_equals( $text, $out,
         "'" . anal($out) . "' !=\n'" . anal($text) . "'" );
+    $foswiki->finish();
 }
 
 # tests for various charsets

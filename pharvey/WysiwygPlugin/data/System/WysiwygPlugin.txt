@@ -6,7 +6,7 @@
 <!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the Dev topic instead. -->
 %SHORTDESCRIPTION%
 
-Support for the integration of WYSIWYG (What-You-See-Is-What-You-Get) editors. On its own, the only thing this plugin gives you is a stand-alone HTML to TML (topic markup language) translator script. For WYSIWYG editing in Foswiki and Foswiki, you will also need to install a specific editor package such as Foswiki:Extensions.TinyMCEPlugin.
+Support for the integration of WYSIWYG (What-You-See-Is-What-You-Get) editors. On its own, the only thing this plugin gives you is a stand-alone HTML to TML (topic markup language) translator script. For WYSIWYG editing you will also need to install a specific editor package such as Foswiki:Extensions.TinyMCEPlugin.
 
 This plugin provides a generic framework that supports editing of topics using any browser-based HTML editor. It works by transforming TML into HTML for the editor, and then transforming HTML back into TML on save.
 
@@ -140,7 +140,7 @@ Plugins that extend the syntax using macros, such as =%MYMACRO%=, should work fi
 *Implementors note* plugins that use XML-like tags may call [[%SCRIPTURLPATH{view}%/%SYSTEMWEB%/PerlDoc?module=Foswiki::Plugins::WysiwygPlugin][Foswiki::Plugins::WysiwygPlugin::addXMLTag()]] from their =initPlugin= handlers to make WysiwygPlugin protect the content between XML-like tags, just like it does for macros. 
 
 ---+++ Overlapping styles
-Because Foswiki uses a "best guess" approach to some formatting, it allows overlapping of tags in a way forbidden by HTML, and it is impossible to guarantee 100% that formating in the original Foswiki document will still be there when the same document is loaded and then saved through the WysiwygPlugin. The most obvious case of this is to do with styles. For example, the sentence
+Because Foswiki uses a "best guess" approach to some formatting, it allows overlapping of tags in a way forbidden by HTML, and it is impossible to guarantee 100% that formatting in the original Foswiki document will still be there when the same document is loaded and then saved through the WysiwygPlugin. The most obvious case of this is to do with styles. For example, the sentence
 <verbatim>
 *bold _bold-italic* italic_
 </verbatim>
@@ -153,6 +153,12 @@ which gets translated back to TML as
 *bold _bold-italic_* _italic_
 </verbatim>
 which is correct by construction, but does not render correctly in Foswiki. This problem is unfortunately unavoidable due to the way TML works.
+
+---+++ Rowspan processing needs %SYSTEMWEB%.TablePlugin
+
+WysiwygPlugin is able to convert tables with cells that span rows into TML. This requires syntax provided by the %SYSTEMWEB%.TablePlugin (that is, the =| ^ |= markup). WysiwygPlugin will therefore only perform row-span related conversion if %SYSTEMWEB%.TablePlugin is enabled. %SYSTEMWEB%.TablePlugin is enabled by default and hence WysiwygPlugin converts tables with cells that span rows between TML and HTML by default.
+
+If %SYSTEMWEB%.TablePlugin is *not* enabled, then TML table cells containing only =^= are not converted to rowspans, and HTML tables containing rowspans are not converted to TML.
 
 ---++ Plugin Info
 
@@ -169,6 +175,10 @@ Many thanks to the following sponsors for supporting this work:
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | |
+|  17 Jan 2010 | Foswikitask:Item2337: ATTACHFILESIZELIMIT check fails confusingly if value is "0 " |
+|  18 Dec 2009 | Foswikitask:Item2511: move code out of the plugin module to accelerate loading |
+|  18 Nov 2009 | Foswikitask:Item2369: Convert tables with cells that span rows |
+|  22 Oct 2009 | Foswikitask:Item2183: Protect div style= by default |
 |  18 Sep 2009 | Foswikitask:Item1980: Prevent dataloss when saving a topic in Wysiwyg where there are a pair of sticky tags inside verbatim tags |
 |  28 Jun 2009 | Foswikitask:Item1770: Protect XML tags registered by plugins, and not just the content between them (Michael Tempest) |
 |  06 Jun 2009 | Foswikitask:Item1013: Correct dependency on HTML::Parser (Will Norris) Foswikitask:Item1397: Foswikitask:Item1535: Foswikitask:Item1666: Correct processing of colour and typewriter-text in several situations, include application to bold text and table cells (Michael Tempest) Foswikitask:Item1667: Remove unwanted extra &lt;sticky&gt; tags (Michael Tempest) Foswikitask:Item1674: Let plugins register XML tags that should be protected like macros |
