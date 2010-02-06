@@ -1081,18 +1081,16 @@ sub wrapupTagsHandler {
                     }             ### if ($debugDefault
                     if ($oldTypes) {
                         foreach my $oldsuffix ( split( ' ', $oldTypes ) ) {
-                            if ( 
-                                ( ! defined $newHash{FORMATS}{$filename} ) ||
-                                ( ! 
-                                    $newHash{FORMATS}{$filename} =~
-                                    (/$oldsuffix/)
-                                )
+                            if (
+                                ( !defined $newHash{FORMATS}{$filename} )
+                                || ( !$newHash{FORMATS}{$filename} =~
+                                    (/$oldsuffix/) )
                               )
                             {
                                 _deleteAttach("$filename.$oldsuffix");
                                 _deleteAttach("$filename.$oldsuffix.txt")
                                   if ( $oldsuffix eq 'dot' );
-                            }    ### if (%newHash
+                            }     ### if (%newHash
                         }    ### foreach my $olsduffix
                     }    ### if ($oldTypes)
                 }    ### foreach my $filename
