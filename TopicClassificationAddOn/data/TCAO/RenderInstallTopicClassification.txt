@@ -33,7 +33,7 @@ function setWeb(theWeb) {
    document.installTCAO.topic.value = theWeb + ".TopicClassification";
 }
 </script>
-<form name="installTCAO" action="%SCRIPTURL{save}%/" >
+<form name="installTCAO" action="%SCRIPTURL{save}%/" action="post" >
 <input type="hidden" name="templatetopic" value="%TCAOWEB%/Installs.TopicClassification" />
 <input type="hidden" name="topic" value="TopicClassification" />
 *Select web to install !TopicClassification framework:* <select name="selectWeb" onchange="setWeb(this.value);" ><option> Select web... </option>%WEBLIST{"<option>$name</option>" separator=" " }% </select> %BR% 

@@ -52,6 +52,7 @@ Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes
 |  Copyright: | &copy; |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  05 Feb 2010 | Foswikibug:Item1624: update to CSRF requirements |
 |  15431 | TWikibug:Item1715 - Fix !TableSearchResults |
 |  15158 | TWikibug:Item1715 - Updated !Weblog and added new Task Topic Type |
 |  15121 | TWikibug:Item1715 - Correcting some script names. |
@@ -69,5 +70,5 @@ Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes
 |  12949 | TWikibug:Item1715 - Uploading Version 2.0 of TopicClassificationAddOn |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Add-on Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Demo url: |  |
