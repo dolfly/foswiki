@@ -189,13 +189,15 @@ sub getAttachmentsList
 
 maps function calls into twiki urls
 
+Sven doesn't like this :) it will try to create any method that doesn't exist - like $self->Dumper(...
+
 =cut
 
 sub AUTOLOAD {
     our ($AUTOLOAD);
     no strict 'refs';
     (my $action = $AUTOLOAD) =~ s/.*:://;
-    print STDERR "--- $AUTOLOAD, $action\n";
+    #print STDERR "--- $AUTOLOAD, $action\n";
     *$AUTOLOAD = sub {
 	my ($self, $topic, $args) = @_;
 	croak "no topic on action=[$action]" unless $topic;
