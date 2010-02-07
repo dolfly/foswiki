@@ -1,11 +1,11 @@
-package WWW::Mechanize::Fosiki;
+package WWW::Mechanize::Foswiki;
 
 use warnings;
 use strict;
 
 =head1 NAME
 
-WWW::Mechanize::Fosiki - The great new WWW::Mechanize::Fosiki!
+WWW::Mechanize::Foswiki - The great new WWW::Mechanize::Foswiki!
 
 =head1 VERSION
 
@@ -22,9 +22,9 @@ Quick summary of what the module does.
 
 Perhaps a little code snippet.
 
-    use WWW::Mechanize::Fosiki;
+    use WWW::Mechanize::Foswiki;
 
-    my $foo = WWW::Mechanize::Fosiki->new();
+    my $foo = WWW::Mechanize::Foswiki->new();
     ...
 
 =head1 EXPORT
@@ -54,8 +54,8 @@ Sven Dowideit, C<< <SvenDowideit at home.org.au> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-www-mechanize-fosiki at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Mechanize-Fosiki>.  I will be notified, and then you'll
+Please report any bugs or feature requests to C<bug-www-mechanize-foswiki at rt.cpan.org>, or through
+the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=WWW-Mechanize-Foswiki>.  I will be notified, and then you'll
 automatically be notified of progress on your bug as I make changes.
 
 
@@ -65,7 +65,7 @@ automatically be notified of progress on your bug as I make changes.
 
 You can find documentation for this module with the perldoc command.
 
-    perldoc WWW::Mechanize::Fosiki
+    perldoc WWW::Mechanize::Foswiki
 
 
 You can also look for information at:
@@ -74,19 +74,19 @@ You can also look for information at:
 
 =item * RT: CPAN's request tracker
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Mechanize-Fosiki>
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Mechanize-Foswiki>
 
 =item * AnnoCPAN: Annotated CPAN documentation
 
-L<http://annocpan.org/dist/WWW-Mechanize-Fosiki>
+L<http://annocpan.org/dist/WWW-Mechanize-Foswiki>
 
 =item * CPAN Ratings
 
-L<http://cpanratings.perl.org/d/WWW-Mechanize-Fosiki>
+L<http://cpanratings.perl.org/d/WWW-Mechanize-Foswiki>
 
 =item * Search CPAN
 
-L<http://search.cpan.org/dist/WWW-Mechanize-Fosiki/>
+L<http://search.cpan.org/dist/WWW-Mechanize-Foswiki/>
 
 =back
 
@@ -107,4 +107,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of WWW::Mechanize::Fosiki
+1; # End of WWW::Mechanize::Foswiki

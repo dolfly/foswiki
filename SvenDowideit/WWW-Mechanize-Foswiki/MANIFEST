@@ -2,7 +2,7 @@ Changes
 MANIFEST
 Makefile.PL
 README
-lib/WWW/Mechanize/Fosiki.pm
+lib/WWW/Mechanize/Foswiki.pm
 t/00-load.t
 t/manifest.t
 t/pod-coverage.t

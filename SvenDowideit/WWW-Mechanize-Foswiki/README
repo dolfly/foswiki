@@ -1,4 +1,4 @@
-WWW-Mechanize-Fosiki
+WWW-Mechanize-Foswiki
 
 The README is used to introduce the module and provide instructions on
 how to install the module, any machine dependencies it may have (for
@@ -26,21 +26,21 @@ SUPPORT AND DOCUMENTATION
 After installing, you can find documentation for this module with the
 perldoc command.
 
-    perldoc WWW::Mechanize::Fosiki
+    perldoc WWW::Mechanize::Foswiki
 
 You can also look for information at:
 
     RT, CPAN's request tracker
-        http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Mechanize-Fosiki
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=WWW-Mechanize-Foswiki
 
     AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/WWW-Mechanize-Fosiki
+        http://annocpan.org/dist/WWW-Mechanize-Foswiki
 
     CPAN Ratings
-        http://cpanratings.perl.org/d/WWW-Mechanize-Fosiki
+        http://cpanratings.perl.org/d/WWW-Mechanize-Foswiki
 
     Search CPAN
-        http://search.cpan.org/dist/WWW-Mechanize-Fosiki/
+        http://search.cpan.org/dist/WWW-Mechanize-Foswiki/
 
 
 LICENSE AND COPYRIGHT

@@ -1,7 +1,7 @@
 use inc::Module::Install;
 
-name     'WWW-Mechanize-Fosiki';
-all_from 'lib/WWW/Mechanize/Fosiki.pm';
+name     'WWW-Mechanize-Foswiki';
+all_from 'lib/WWW/Mechanize/Foswiki.pm';
 author   q{Sven Dowideit <SvenDowideit@home.org.au>};
 license  'perl';
 
