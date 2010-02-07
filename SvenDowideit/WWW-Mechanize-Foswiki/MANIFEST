@@ -1,10 +1,12 @@
 Changes
 MANIFEST
+MANIFEST.SKIP
 Makefile.PL
 README
 lib/WWW/Mechanize/Foswiki.pm
 t/00-load.t
 t/boilerplate.t
+t/foswiki.t
 t/manifest.t
 t/pod-coverage.t
 t/pod.t
