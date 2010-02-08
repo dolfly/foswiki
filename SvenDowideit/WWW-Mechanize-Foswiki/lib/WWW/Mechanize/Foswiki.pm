@@ -4,7 +4,8 @@ package WWW::Mechanize::Foswiki;
 use warnings;
 use strict;
 
-require Exporter;
+use Exporter;
+use WWW::Mechanize;
 
 our @ISA = qw(Exporter WWW::Mechanize);
 
@@ -12,7 +13,7 @@ our %EXPORT_TAGS = ( 'all' => [ qw() ] );
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 our @EXPORT = qw();
 
-use WWW::Mechanize;
+use Digest::MD5;
 use Carp;
 
 =head1 NAME
@@ -53,56 +54,49 @@ if you don't export anything, such as for a purely object-oriented module.
 sub new {
     my $class = shift;
     my %args = @_;
-    my $self = $class->SUPER::new( stack_depth => 1, cookie_jar => {}, %args );
+    
+    my %mechanize_args;
+    my @cols = grep(/(cgibin|scriptSuffix|pub|username|password)/, keys(%mechanize_args));
+    @mechanize_args{@cols} = @args{@cols};
+    
+    my $self = $class->SUPER::new( 
+		stack_depth => 1, 
+		cookie_jar => {}, 
+		%mechanize_args );
+		
+    $self->{cgibin} = $args{cgibin} if (defined($args{cgibin}));
+    $self->{scriptSuffix} = $args{scriptSuffix} || '';
+    $self->{pub} = $args{pub} if (defined($args{pub}));
+    $self->{username} = $args{username} if (defined($args{username}));
+    $self->{password} = $args{password} if (defined($args{password}));
+    
+    if (defined($self->{cgibin}) and defined($self->{username}) and defined($self->{password})) {
+	#we can set up the basic auth credentials now
+	#TODO: really need to defer this until we can detect if its digest, basic, or templatelogin
+	#at that point, $args{autocheck}=>1 will have to be turned off.
+	$self->credentials();
+    }
+		
     return $self;
 }
 
-=head2 credentials
+=head2 credentials($username, $password)
+
+parameters optional - may as well set these when we start.
+
+currently assumes we're using basic auth.
+need to wait until we know what the server is asking - what about Digest?
 
 =cut
 
 sub credentials {
     require MIME::Base64;
     my $self = shift;
-    my @credentials = @_;
+    my $username = shift || $self->{username};
+    my $password = shift || $self->{password};
 
-    if ( @credentials == 4 ) {
-	# http://rt.cpan.org/Public/Bug/Display.html?id=31688
-	# 4 argument form no longer supprted by WWW::Mechanize
-	shift @credentials, shift @credentials;
-    }
-
-    $self->SUPER::credentials( $self->{cgibin}, '', @credentials );
-    $self->add_header( Authorization => 'Basic ' . MIME::Base64::encode( $credentials[0] . ':' . $credentials[1] ) );
-}
-
-=head2 cgibin
-
-=cut
-
-sub cgibin {
-    my $self = shift;
-    my $cgibin = shift || $self->{cgibin};
-    die "no cgibin?" unless $cgibin;
-    my $opts = shift;
-
-    $self->{cgibin} = $cgibin;
-    $self->{scriptSuffix} = $opts->{scriptSuffix} || '';
-
-    return $self->{cgibin};
-}
-
-=head2 pub
-
-=cut
-
-sub pub
-{
-    my $self = shift;
-    my $pub = shift || $self->{pub};
-    die "no pub?" unless $pub;
-
-    return $self->{pub} = $pub;
+    $self->SUPER::credentials( $self->{cgibin}, '', $username, $password );
+    $self->add_header( Authorization => 'Basic ' . MIME::Base64::encode( $username . ':' . $password ) );
 }
 
 =head2 getPageList
@@ -185,6 +179,45 @@ sub getAttachmentsList
     return @attachments;
 }
 
+sub _templateLogin {
+    my $self = shift;
+    
+    return if ($self->{loggedIn});
+     
+    $self->login( 'System.WebHome' );
+    $self->form_name('loginform');
+    $self->set_fields(  username => $self->{username}, 
+			password => $self->{password}, 
+			validation_key => $self->_strikeone()
+		     );
+    $self->click_button(value => 'Logon');
+    $self->{loggedIn} = 1;
+}
+
+###### from BuildContrib
+sub _strikeone {
+    my $this = shift;
+    
+    my $validationKey = $this->value('validation_key');
+    if (not defined $validationKey) {
+        warn "WARNING: The form does not have a validation_key field\n";
+        return '';
+    }
+
+    my $cookie;
+    $this->cookie_jar()->scan(sub {
+        my ($version, $key, $value) = @_;
+        $cookie = $value if $key eq 'FOSWIKISTRIKEONE';
+    });
+    if (not defined $cookie) {
+        warn "WARNING: Could not find strikeone cookie in cookiejar - disabling strikeone\n";
+        return $validationKey;
+    }
+    $validationKey =~ s/^\?//;
+
+    return Digest::MD5::md5_hex( $validationKey.$cookie );
+}
+
 =head2 AUTOLOAD
 
 maps function calls into twiki urls
@@ -202,6 +235,10 @@ sub AUTOLOAD {
 	my ($self, $topic, $args) = @_;
 	croak "no topic on action=[$action]" unless $topic;
 	croak "no cgibin" unless $self->{cgibin};
+	
+	#login if we havn't already (oh boy this is hacky, but as the AUTOLOAD has to go, there's not much point doing more)
+	$self->_templateLogin() unless ($action eq 'login');
+	
 	$args->{skin} = 'plain';
 	(my $url = URI->new( "$self->{cgibin}/$action$self->{scriptSuffix}/$topic" ))->query_form( $args );
         my $response = $self->get( $url );
