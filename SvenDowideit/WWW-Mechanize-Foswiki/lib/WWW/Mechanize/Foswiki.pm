@@ -9,9 +9,9 @@ use WWW::Mechanize;
 
 our @ISA = qw(Exporter WWW::Mechanize);
 
-our %EXPORT_TAGS = ( 'all' => [ qw() ] );
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-our @EXPORT = qw();
+our %EXPORT_TAGS = ( 'all' => [qw()] );
+our @EXPORT_OK   = ( @{ $EXPORT_TAGS{'all'} } );
+our @EXPORT      = qw();
 
 use Digest::MD5;
 use Carp;
@@ -27,7 +27,6 @@ Version 0.01
 =cut
 
 our $VERSION = '0.01';
-
 
 =head1 SYNOPSIS
 
@@ -53,30 +52,36 @@ if you don't export anything, such as for a purely object-oriented module.
 
 sub new {
     my $class = shift;
-    my %args = @_;
-    
+    my %args  = @_;
+
     my %mechanize_args;
-    my @cols = grep(/(cgibin|scriptSuffix|pub|username|password)/, keys(%mechanize_args));
+    my @cols = grep( /(cgibin|scriptSuffix|pub|username|password)/,
+        keys(%mechanize_args) );
     @mechanize_args{@cols} = @args{@cols};
-    
-    my $self = $class->SUPER::new( 
-		stack_depth => 1, 
-		cookie_jar => {}, 
-		%mechanize_args );
-		
-    $self->{cgibin} = $args{cgibin} if (defined($args{cgibin}));
+
+    my $self = $class->SUPER::new(
+        stack_depth => 1,
+        cookie_jar  => {},
+        %mechanize_args
+    );
+
+    $self->{cgibin} = $args{cgibin} if ( defined( $args{cgibin} ) );
     $self->{scriptSuffix} = $args{scriptSuffix} || '';
-    $self->{pub} = $args{pub} if (defined($args{pub}));
-    $self->{username} = $args{username} if (defined($args{username}));
-    $self->{password} = $args{password} if (defined($args{password}));
-    
-    if (defined($self->{cgibin}) and defined($self->{username}) and defined($self->{password})) {
-	#we can set up the basic auth credentials now
-	#TODO: really need to defer this until we can detect if its digest, basic, or templatelogin
-	#at that point, $args{autocheck}=>1 will have to be turned off.
-	$self->credentials();
+    $self->{pub}      = $args{pub}      if ( defined( $args{pub} ) );
+    $self->{username} = $args{username} if ( defined( $args{username} ) );
+    $self->{password} = $args{password} if ( defined( $args{password} ) );
+
+    if (    defined( $self->{cgibin} )
+        and defined( $self->{username} )
+        and defined( $self->{password} ) )
+    {
+
+#we can set up the basic auth credentials now
+#TODO: really need to defer this until we can detect if its digest, basic, or templatelogin
+#at that point, $args{autocheck}=>1 will have to be turned off.
+        $self->credentials();
     }
-		
+
     return $self;
 }
 
@@ -91,48 +96,51 @@ need to wait until we know what the server is asking - what about Digest?
 
 sub credentials {
     require MIME::Base64;
-    my $self = shift;
+    my $self     = shift;
     my $username = shift || $self->{username};
     my $password = shift || $self->{password};
 
     $self->SUPER::credentials( $self->{cgibin}, '', $username, $password );
-    $self->add_header( Authorization => 'Basic ' . MIME::Base64::encode( $username . ':' . $password ) );
+    $self->add_header( Authorization => 'Basic '
+          . MIME::Base64::encode( $username . ':' . $password ) );
 }
 
 =head2 getPageList
 
 =cut
 
-sub getPageList
-{
-    my $self = shift;
-    my $iWeb = shift;
+sub getPageList {
+    my $self      = shift;
+    my $iWeb      = shift;
     my $overrides = shift || {};
 
     my $tagStartTopics = '__TOPICS__';
-    my $xxx = $self->search( $iWeb, {
-	skin => '',			# has no (real/positive) effect during a search :-(
-	nosearch => 'on',
-	nototal => 'on',
-	scope => 'topic',
-	search => '.+',
-	regex => 'on',
-	format => '<topic>$web.$topic</topic>',
-        separator => '$n',
-        header => "!$tagStartTopics",
-	%{$overrides},			# overrides these defaults
-    } );
+    my $xxx            = $self->foswikiRequest(
+        'search',
+        $iWeb,
+        {
+            skin     => '',  # has no (real/positive) effect during a search :-(
+            nosearch => 'on',
+            nototal  => 'on',
+            scope     => 'topic',
+            search    => '.+',
+            regex     => 'on',
+            format    => '<topic>$web.$topic</topic>',
+            separator => '$n',
+            header    => "!$tagStartTopics",
+            %{$overrides},    # overrides these defaults
+        }
+    );
 
     #TODO: test with i8n foswiki
     my $topic = $xxx->decoded_content();
 
-    $topic =~ s|^.+?$tagStartTopics||s;		# strip up to start tag
-    $topic =~ s|<p />.+?$||s;				# strip after formatted output
+    $topic =~ s|^.+?$tagStartTopics||s;    # strip up to start tag
+    $topic =~ s|<p />.+?$||s;              # strip after formatted output
 
     my @topics = ();
-    while ( $topic =~ /<topic>([^<]+?)<\/topic>/gi )
-    {
-    	push @topics, $1;
+    while ( $topic =~ /<topic>([^<]+?)<\/topic>/gi ) {
+        push @topics, $1;
     }
 
     return @topics;
@@ -142,38 +150,34 @@ sub getPageList
 
 =cut
 
-sub getAttachmentsList
-{
-    my $self = shift;
+sub getAttachmentsList {
+    my $self  = shift;
     my $topic = shift;
     my $parms = shift;
 
     my @attachments = ();
 
-    my $attachments = $self->attach( $topic )->content();
+    my $attachments = $self->attach($topic)->content();
 
     my @cols = qw( Attachment Comment Attribute );
-    # qw(I Attachment Action Size Date Who Comment Attribute)
-    my $te = HTML::TableExtract->new( headers => [ @cols ] ) or die $!;
-    $te->parse( $attachments );
 
-    foreach my $row ($te->rows) 
-    {
-	my %attach = ();
-	my $idxCol = 0;
-	foreach my $col ( @cols )
-	{
-	    my $data = $row->[ $idxCol++ ];
-	    $data =~ s/^\s+//;
-	    $data =~ s/\s+$//;
-	    $attach{$col} = $data;
-	}
-	( my $attachTopic = $topic ) =~ s|\.|\/|;
-	$attach{_filename} = $attach{Attachment};
-	$attach{Attachment} = "$self->{pub}/$attachTopic/" . $attach{_filename};
-	push @attachments, {
-	        %attach,
-	    };
+    # qw(I Attachment Action Size Date Who Comment Attribute)
+    my $te = HTML::TableExtract->new( headers => [@cols] ) or die $!;
+    $te->parse($attachments);
+
+    foreach my $row ( $te->rows ) {
+        my %attach = ();
+        my $idxCol = 0;
+        foreach my $col (@cols) {
+            my $data = $row->[ $idxCol++ ];
+            $data =~ s/^\s+//;
+            $data =~ s/\s+$//;
+            $attach{$col} = $data;
+        }
+        ( my $attachTopic = $topic ) =~ s|\.|\/|;
+        $attach{_filename}  = $attach{Attachment};
+        $attach{Attachment} = "$self->{pub}/$attachTopic/" . $attach{_filename};
+        push @attachments, { %attach, };
     }
 
     return @attachments;
@@ -181,44 +185,48 @@ sub getAttachmentsList
 
 sub _templateLogin {
     my $self = shift;
-    
-    return if ($self->{loggedIn});
-     
-    $self->login( 'System.WebHome' );
+
+    return if ( $self->{loggedIn} );
+
+    $self->foswikiRequest( 'login', 'System.WebHome' );
     $self->form_name('loginform');
-    $self->set_fields(  username => $self->{username}, 
-			password => $self->{password}, 
-			validation_key => $self->_strikeone()
-		     );
-    $self->click_button(value => 'Logon');
+    $self->set_fields(
+        username       => $self->{username},
+        password       => $self->{password},
+        validation_key => $self->_strikeone()
+    );
+    $self->click_button( value => 'Logon' );
     $self->{loggedIn} = 1;
 }
 
 ###### from BuildContrib
 sub _strikeone {
     my $this = shift;
-    
+
     my $validationKey = $this->value('validation_key');
-    if (not defined $validationKey) {
+    if ( not defined $validationKey ) {
         warn "WARNING: The form does not have a validation_key field\n";
         return '';
     }
 
     my $cookie;
-    $this->cookie_jar()->scan(sub {
-        my ($version, $key, $value) = @_;
-        $cookie = $value if $key eq 'FOSWIKISTRIKEONE';
-    });
-    if (not defined $cookie) {
-        warn "WARNING: Could not find strikeone cookie in cookiejar - disabling strikeone\n";
+    $this->cookie_jar()->scan(
+        sub {
+            my ( $version, $key, $value ) = @_;
+            $cookie = $value if $key eq 'FOSWIKISTRIKEONE';
+        }
+    );
+    if ( not defined $cookie ) {
+        warn
+"WARNING: Could not find strikeone cookie in cookiejar - disabling strikeone\n";
         return $validationKey;
     }
     $validationKey =~ s/^\?//;
 
-    return Digest::MD5::md5_hex( $validationKey.$cookie );
+    return Digest::MD5::md5_hex( $validationKey . $cookie );
 }
 
-=head2 AUTOLOAD
+=head2 NO_AUTOLOAD
 
 maps function calls into twiki urls
 
@@ -226,49 +234,57 @@ Sven doesn't like this :) it will try to create any method that doesn't exist - 
 
 =cut
 
-sub AUTOLOAD {
+sub NO_AUTOLOAD {
     our ($AUTOLOAD);
     no strict 'refs';
-    (my $action = $AUTOLOAD) =~ s/.*:://;
+    ( my $action = $AUTOLOAD ) =~ s/.*:://;
+
     #print STDERR "--- $AUTOLOAD, $action\n";
     *$AUTOLOAD = sub {
-	my ($self, $topic, $args) = @_;
-	croak "no topic on action=[$action]" unless $topic;
-	croak "no cgibin" unless $self->{cgibin};
-	
-	#login if we havn't already (oh boy this is hacky, but as the AUTOLOAD has to go, there's not much point doing more)
-	$self->_templateLogin() unless ($action eq 'login');
-	
-	$args->{skin} = 'plain';
-	(my $url = URI->new( "$self->{cgibin}/$action$self->{scriptSuffix}/$topic" ))->query_form( $args );
-        my $response = $self->get( $url );
-
-	my $u = URI->new( $url );
-	my $error = {};
-	if ( grep { /^oops\b/ } $u->path_segments() )
-	{
-	    my %form = $u->query_form();
-	    ( $error->{error} = $form{template} ) =~ s/^oops(.+?)/$1/;
-#	    ( $error->{error} = $form{template} ) =~ s/^oops(.+?)err/$1/;
-#	    delete $form{template};
-
-	    # convert all the named (semi-) generic param# parameters into a perl array
-	    map {
-		push @{ $error->{message} }, $form{ $_ }
-	    } sort grep { /^param\d+$/ } keys %form;
-	}
-
-#        print STDERR Data::Dumper::Dumper( $response );
-#      http://localhost/~twiki/cgi-bin/twiki/oops/TWikitestcases/ATasteOfTWiki?template=oopssaveerr&param1=Save%20attachment%20error%20/Users/twiki/Sites/htdocs/twiki/TWikitestcases/ATasteOfTWiki/TWikiInstaller.smlp%20is%20not%20writable
-
-#	print STDERR Data::Dumper::Dumper( $response->request );
-        $response;
+        my ( $self, $topic, $args ) = @_;
+        return $self->foswikiRequest( $action, $topic, $args );
     };
     goto &$AUTOLOAD;
 }
 
-sub DESTROY
-{
+=head2 foswikiRequest($action, $topic, $args)
+
+
+=cut
+
+sub foswikiRequest {
+    my $self   = shift;
+    my $action = shift;
+    my $topic  = shift;
+    my $args   = shift;
+
+    croak "no topic on action=[$action]" unless $topic;
+    croak "no cgibin" unless $self->{cgibin};
+
+#login if we havn't already (oh boy this is hacky, but as the AUTOLOAD has to go, there's not much point doing more)
+    $self->_templateLogin() unless ( $action eq 'login' );
+
+    $args->{skin} = 'plain';
+    ( my $url =
+          URI->new("$self->{cgibin}/$action$self->{scriptSuffix}/$topic") )
+      ->query_form($args);
+    my $response = $self->get($url);
+
+    my $u     = URI->new($url);
+    my $error = {};
+    if ( grep { /^oops\b/ } $u->path_segments() ) {
+        my %form = $u->query_form();
+        ( $error->{error} = $form{template} ) =~ s/^oops(.+?)/$1/;
+
+     # convert all the named (semi-) generic param# parameters into a perl array
+        map { push @{ $error->{message} }, $form{$_} }
+          sort grep { /^param\d+$/ } keys %form;
+    }
+
+    return $response;
+}
+
+sub DESTROY {
 }
 
 =head1 AUTHOR
@@ -335,4 +351,4 @@ See http://dev.perl.org/licenses/ for more information.
 
 =cut
 
-1; # End of WWW::Mechanize::Foswiki
+1;    # End of WWW::Mechanize::Foswiki
