@@ -55,8 +55,9 @@ To set Foswiki Site skin as default (site wide) skin, use these settings in [[%M
 |  Screenshot: | <a href="%ATTACHURL%/screenshot_full.png"><img src="%ATTACHURL%/screenshot.jpg" style="border:1px solid #eee;" alt="Click for full screen image" width="600" /></a> |
 |  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=foswikisite,pattern][Preview with this skin]] |
 |  Base Name: | foswikisite,pattern |
-|  Skin Version: | 10 Apr 2009 (v1.1.5) | 
+|  Skin Version: | 09 Feb 2010 (v1.1.6) | 
 |  History: | <!-- specify latest version first -->&nbsp; |
+|  09 Feb 2010: | Foswikitask:Item2433: auto-scroll verbatim (pre) blocks instead of overlaying them with the right bar |
 |  16 Apr 2009: | Foswikitask:Item1455: added SubscribePlugin support to FoswikiSiteSkin |
 |  10 Apr 2009: | Foswikitask:Item783: fixed "Create new topic" button to create topic in current web; Foswikitask:Item1432: provide button to return to normal view from raw view mode; Foswikitask:Item1436: rel="nofollow" on button action links |
 |  15 Feb 2009: | Main menu buttons are no longer hidden when viewed on a small screen; improvements to preview screen. |
