@@ -3,16 +3,7 @@
 
 # **STRING**
 # Comma seperated list of webs to skip
-$Foswiki::cfg{StringifierContrib}{SkipWebs} = 'Trash, Sandbox';
-
-# **STRING**
-# Comma seperated list of extenstions to index
-$Foswiki::cfg{StringifierContrib}{IndexExtensions} = '.txt, .html, .xml, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .pdf';
-
-# **STRING**
-# List of attachments to skip
-# For example: Web.SomeTopic.AnAttachment.txt, Web.OtherTopic.OtherAttachment.pdf
-$Foswiki::cfg{StringifierContrib}{SkipAttachments} = '';
+$Foswiki::cfg{StringifierContrib}{SkipWebs} = 'Trash';
 
 # **STRING**
 # List of topics to skip.
@@ -56,6 +47,10 @@ $Foswiki::cfg{StringifierContrib}{pptx2txtCmd} = '../tools/pptx2txt.pl';
 # **COMMAND**
 # docx2txt.pl command
 $Foswiki::cfg{StringifierContrib}{docx2txtCmd} = '../tools/docx2txt.pl';
+
+# **COMMAND**
+# xlsx2txt.pl command
+$Foswiki::cfg{StringifierContrib}{xls2txtCmd} = '../tools/xls2txt.pl';
 
 # **BOOLEAN**
 # Debug setting

@@ -1,4 +1,6 @@
-# Copyright (C) 2009 Foswiki Contributors
+# Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
+#
+# Copyright (C) 2009-2010 Foswiki Contributors
 #
 # For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
@@ -25,7 +27,7 @@ use File::stat;
 use vars qw($VERSION $RELEASE $magic);
 
 $VERSION = '$Rev: 4426 (2009-07-03) $';
-$RELEASE = '1.0';
+$RELEASE = '1.10';
 $magic = File::MMagic->new();
 
 sub stringFor {

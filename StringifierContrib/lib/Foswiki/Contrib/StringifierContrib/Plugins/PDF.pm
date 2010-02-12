@@ -1,4 +1,4 @@
-# Copyright (C) 2009 Foswiki Contributors
+# Copyright (C) 2009-2010 Foswiki Contributors
 #
 # For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
@@ -15,33 +15,34 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::PDF;
 use base 'Foswiki::Contrib::StringifierContrib::Base';
 use Foswiki::Contrib::StringifierContrib ();
+use File::Temp qw/tmpnam/;
 
 my $pdftotext = $Foswiki::cfg{StringifierContrib}{pdftotextCmd} || 'pdftotext';
 
 # Only if pdftotext exists, I register myself.
-if (__PACKAGE__->_programExists($pdftotext)){
-    __PACKAGE__->register_handler("application/pdf", ".pdf");}
-use File::Temp qw/tmpnam/;
+if (__PACKAGE__->_programExists($pdftotext)) {
+  __PACKAGE__->register_handler("application/pdf", ".pdf");
+}
 
 sub stringForFile {
-    my ($self, $filename) = @_;
-    my $tmp_file = tmpnam();
-    my $in;
-    my $text;
-    
-    return '' if (-f $tmp_file);
-    
-    my $cmd = $pdftotext . ' %FILENAME|F% %TMPFILE|F% -q';
-    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename, TMPFILE => $tmp_file);
-    
-    return '' unless ($exit == 0);
-    
-    # Note: This way, the encoding of the text is reworked in the text stringifier.
-    $text = Foswiki::Contrib::StringifierContrib->stringFor($tmp_file);
+  my ($self, $filename) = @_;
+  my $tmp_file = tmpnam();
+  my $in;
+  my $text;
 
-    unlink($tmp_file);
+  return '' if (-f $tmp_file);
 
-    return $text;
+  my $cmd = $pdftotext . ' %FILENAME|F% %TMPFILE|F% -q -nopgbrk -enc Latin1';
+  my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename, TMPFILE => $tmp_file);
+
+  return '' unless ($exit == 0);
+
+  # Note: This way, the encoding of the text is reworked in the text stringifier.
+  $text = Foswiki::Contrib::StringifierContrib->stringFor($tmp_file);
+
+  unlink($tmp_file);
+
+  return $text;
 }
 
 1;

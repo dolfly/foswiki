@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1254480148" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1254480148" format="1.1" reprev="1.2" version="1.2"}%
 %META:TOPICPARENT{name="Contribs"}%
 ---+ StringifierContrib
 %SHORTDESCRIPTION%
@@ -20,9 +20,6 @@ for search engines other than kinosearch.
    * =.ppt=
    * =.pptx=
    * =.pdf=
-
-You can change this with the
-=$Foswiki::cfg{StringifierContrib}{IndexExtensions}= setting in =configure=.
 
 If you add other file extensions, they are treated as ASCII files. If needed,
 you can add more specialised stringifiers for further document types (see below).
@@ -124,10 +121,11 @@ See Foswiki:Tasks/StringifierContrib for currently open tasks.
 -->
 
 |  Author(s): | Foswiki:Main.MarkusHesse, Foswiki:Main.SvenDowideit, Foswiki:Main.MichaelDaum & Foswiki:Main.AndrewJones |
-|  Copyright: | &copy; 2007, Foswiki:Main.MarkusHesse; &copy; 2009, Foswiki Contributors |
+|  Copyright: | &copy; 2007, Foswiki:Main.MarkusHesse; &copy; 2009-2010, Foswiki Contributors |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  12 Feb 2010: | robust parsing of password protected XLS files |
 |  02 Oct 2009: | extracted from Foswiki:Extensions/KinoSearchContrib (MD) |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home: | Foswiki:Extensions/%TOPIC% |

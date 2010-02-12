@@ -1,4 +1,4 @@
-# Copyright (C) 2009 Foswiki Contributors
+# Copyright (C) 2009-2010 Foswiki Contributors
 #
 # For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
@@ -15,54 +15,38 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::XLS;
 use base 'Foswiki::Contrib::StringifierContrib::Base';
 __PACKAGE__->register_handler("application/excel", ".xls");
-
-use Spreadsheet::ParseExcel;
-use Spreadsheet::ParseExcel::FmtUnicode; 
+use File::Temp qw/tmpnam/;
 use Encode;
-use Error qw(:try);
+use CharsetDetector;
+
+my $xls2txt = $Foswiki::cfg{StringifierContrib}{xls2txtCmd} || 'xls2txt.pl';
+
+# Only if xls2txt.pl exists, I register myself.
+if (__PACKAGE__->_programExists($xls2txt)){
+    __PACKAGE__->register_handler("text/docx", ".docx");
+}
 
 sub stringForFile {
-    my ($self, $file) = @_;
-
-    my $format = Spreadsheet::ParseExcel::FmtUnicode->new();
-    my $book;
+    my ($self, $filename) = @_;
     
-    try {
-        $book = Spreadsheet::ParseExcel::Workbook->Parse($file, $format);
-    }
-    catch Error with {
-        # file not opened, possibly passworded
-        return '';
-    };
+    my $cmd = $xls2txt . ' %FILENAME|F% -';
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
     
-    return '' unless $book;
-
-    my $text = '';
-
-    foreach my $sheet (@{$book->{Worksheet}}) {
-        last if !defined $sheet->{MaxRow};
-        foreach my $row ($sheet->{MinRow} .. $sheet->{MaxRow}) {
-            foreach my $col ($sheet->{MinCol} .. $sheet->{MaxCol}) {
-                my $cell = $sheet->{Cells}[$row][$col];
-                if ($cell) {
-                    my $cell_text;
-                    if ($cell->{Type} eq "Numeric") {
-                        $cell_text = $cell->{Val};
-                    } else {
-                        $cell_text = $cell->Value;
-                    }
-                    next if ($cell_text eq "");
-
-                    $text .= $cell_text;
-                }
-                $text .= " ";
-            }
-            $text .= "\n";
+    return '' unless ($exit == 0);
+   
+    # encode text
+    my $text = "";
+    foreach( split( "\n", $output ) ){
+        my $charset = CharsetDetector::detect1($_);
+        my $aux_text = "";
+        if ($charset =~ "utf") {
+            $aux_text = encode("iso-8859-15", decode($charset, $_));
+            $aux_text = $_ unless($aux_text);
+        } else {
+            $aux_text = $_;
         }
-        $text .= "\n\n";
+        $text .= "\n" . $aux_text;
     }
-
-    $text = encode("iso-8859-15", $text);
     return $text;
 }
 
