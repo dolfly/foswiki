@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2005-2009 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2005-2010 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -74,19 +74,18 @@ sub handleFilter {
   my $theFooter = $params->{footer} || '';
   my $theLimit = $params->{limit} || $params->{hits} || 100000; 
   my $theSkip = $params->{skip} || 0;
-  my $theTopic = $params->{_DEFAULT} || $params->{topic} || $currentTopic;
-  my $theWeb = $currentWeb;
-  if ($theTopic =~ /^(.*)\.(.*?)$/) { # TODO : put normalizeWebTopicName() into the DakarContrib
-    $theWeb = $1;
-    $theTopic = $2;
-  }
   my $theExpand = $params->{expand} || 'on';
   my $theSeparator = $params->{separator};
   my $theExclude = $params->{exclude} || '';
   my $theInclude = $params->{include} || '';
   my $theSort = $params->{sort} || 'off';
   my $theReverse = $params->{reverse} || '';
-  my $theNoCase = $params->{nocase} || 'off';
+
+  my $theTopic = $params->{_DEFAULT} || $params->{topic} || $currentTopic;
+  my $theWeb = $currentWeb;
+
+  ($theWeb, $theTopic) = Foswiki::Func::normalizeWebTopicName($theWeb, $theTopic);
+  $theWeb =~ s/\//\./g;
   
   $theText ||= $params->{text};
 
@@ -392,7 +391,7 @@ sub handleMakeIndex {
       # construct group format
       my $thisGroup = $$descriptor{group};
       my $cont = '';
-      if ($group ne $thisGroup || $rowIndex == 1) {
+      if (($theGroup && $group ne $thisGroup) || $rowIndex == 1) {
         #last if $itemIndex % $colSize < 2 && $colIndex < $maxCols; # prevent schusterjunge
 
         if ($thisGroup eq $group && $rowIndex == 1) {
@@ -548,7 +547,7 @@ sub handleFormatList {
   my %tokens = ();
   my $tokenNr = 0;
   if ($theTokenize) {
-    $theList =~ s/$theTokenize/$tokenNr++; $tokens{'token_'.$tokenNr} = $1; 'token_'.$tokenNr/gems;
+    $theList =~ s/($theTokenize)/$tokenNr++; $tokens{'token_'.$tokenNr} = $1; 'token_'.$tokenNr/gems;
   }
 
   my @theList = split(/$theSplit/, $theList);
@@ -651,9 +650,9 @@ sub getAnchorName {
   $seenAnchorNames{$anchorName} = 1;
 
   if ($Foswiki::Plugins::VERSION > 2.0) {
-    return $session->{renderer}->_makeAnchorName($anchorName);
+    return $session->renderer->_makeAnchorName($anchorName);
   } else {
-    return $session->{renderer}->makeAnchorName($anchorName);
+    return $session->renderer->makeAnchorName($anchorName);
   }
 }
 
