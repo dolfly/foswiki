@@ -526,6 +526,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
+|  12 Feb 2010: | Foswikitask:Item8495 - Insert image size in &lt/img> and &lt;object tags |
 |  31 Jan 2010: | Foswikitask:Item8415 - Clean up global variables, Foswikitask:Item8442: Documentation updates, Foswikitask:Item8443: Automate the size= parameter for antialiasing |
 |  8 Nov 2009: | Foswikitask:Item8314 - Bypass plungin processing for diff operations and viewing of topic revisions.  |
 |  8 Nov 2009: | Foswikitask:Item8234, Foswikitask:Item8239, Foswikitask:Item8241, Foswikitask:Item8314 - Add support for inline SVG objects. Fix issues with recursive rendering, CGI acceleration, diff and rev handling  |

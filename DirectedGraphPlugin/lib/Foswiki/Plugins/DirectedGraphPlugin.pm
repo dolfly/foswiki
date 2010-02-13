@@ -593,18 +593,23 @@ sub _handleDot {
 
     &_writeDebug("$outFilename: oldhash = $oldHashCode  newhash = $hashCode");
 
-    #  If the hash codes don't match, the graph needs to be recreated
-    #  otherwise just use the previous graph already attached.
-    #  Also check if the inline attachment is missing and recreate if needed
-    #
+    # Initialize the attachment filenames and copy over image sizes from the old hash.
     foreach my $key ( split( ' ', $vectorFormats ) ) {
         if ( $key ne 'none' ) {    # skip the bogus default
             $attachFile{$key} = "$outFilename.$key";
+            $newHashArray{IMAGESIZE}{$key} = $oldHashArray{IMAGESIZE}{$key} || '';   # Copy the image size
         }    ### if ($key ne 'none'
     }    ### foreach my $key
-         #
-         #
+         
 
+#  #######################################################
+#  Generate the attachments if hash or missing files require
+#  ########################################################
+
+    #  If the hash codes don't match, the graph needs to be recreated
+    #  otherwise just use the previous graph already attached.
+    #  Also check if the inline attachment is missing and recreate if needed
+    
     if ( ( ( $oldHashCode ne $hashCode ) && $chkHash ) |
         not _attachmentExists( $web, $topic, "$outFilename.$inlineAttach" ) )
     {
@@ -724,6 +729,21 @@ sub _handleDot {
         #
         foreach my $key ( keys(%attachFile) ) {
 
+# Get the images size for inline images so that the <object> or <img> tag can be built with the
+# correct size.  Reserve # space in the browser to speed rendering a bit, and ensure SVG displays correctly.
+
+            if ( ($key eq $inlineAttach) || ($key eq $svgFallback) ) {
+                my ( $imgSize, $status ) =
+                  Foswiki::Sandbox->sysCommand( $magickPath . $identifyCmd,
+                    INFILE => "$tempFile{$key}", );
+
+                &_writeDebug(" _____IDENTIFY_____ $tempFile{$key}: OBJSIZE  $imgSize - STATUS $status");
+                $imgSize =~ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i; 
+                &_writeDebug(" _____MODIFIED $imgSize");
+                chomp $imgSize;
+                $newHashArray{IMAGESIZE}{$key} = $imgSize;
+            }
+
 #  As of IE 7 / FF 3.0 and 3.5,  the only way to get consistent link behavior for
 #  embedded links is to add target="_top".   Any other setting - IE opens the
 #  link in the current page, FF opens the link within the svg object on the page.
@@ -734,6 +754,7 @@ sub _handleDot {
                 $svgfile =~ s/xlink\:href/target=\"_top\" xlink:href/g;
                 Foswiki::Func::saveFile( "$tempFile{$key}", "$svgfile" );
             }
+            
 
 # the "dot" suffix use for the directed graph input will be detected as a msword template
 # by most servers/browsers.  Rename the dot file to dot.txt suffix.
@@ -774,6 +795,10 @@ sub _handleDot {
 
     $newHashArray{GRNUM} = $grNum;
     Foswiki::Func::setSessionValue( 'DGP_newhash', freeze \%newHashArray );
+
+#  ##############################
+#  End Generation of attachments
+#  ###############################
 
     #  Build the path to use for attachment URL's
     #  $attachUrlPath is used only if attachments are stored in an explicit path
@@ -846,7 +871,7 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
     if ( $inlineAttach eq 'svg' ) {
         $fbtype = "$svgFallback";
         $returnData .=
-          "<object data=\"$src\" type=\"image/svg+xml\" border=\"0\"";
+          "<object data=\"$src\" type=\"image/svg+xml\" border=\"0\" " . $newHashArray{IMAGESIZE}{'svg'} ;
         $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
         $returnData .= "> \n";
     }
@@ -857,7 +882,7 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
         || ( $inlineAttach ne 'svg' ) )
     {
         my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
-        $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" "
+        $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" " . $newHashArray{IMAGESIZE}{$fbtype}
           ;    #Embedded img tag for fallback
         $returnData .= " usemap=\"#$hashCode\""
           if ($doMap);    #Include the image map if required
