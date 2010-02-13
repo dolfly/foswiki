@@ -129,6 +129,7 @@ my $identifyCmd = 'identify %INFILE|F%';
 #   xxxHashArray{GRNUM} - Counts the unnamed graphs for the page
 #   xxxHashArray{FORMATS}{<filename>} - contains the list of output file types for the input file
 #   xxxHashArray{MD5HASH}{<filename>} - contains the hash of the input used to create the files
+#   xxxHashArray{IMAGESIZE}{<filename>} - contains the image size of the file for rendering 
 
 # =========================
 sub initPlugin {
@@ -597,7 +598,7 @@ sub _handleDot {
     foreach my $key ( split( ' ', $vectorFormats ) ) {
         if ( $key ne 'none' ) {    # skip the bogus default
             $attachFile{$key} = "$outFilename.$key";
-            $newHashArray{IMAGESIZE}{$key} = $oldHashArray{IMAGESIZE}{$key}
+            $newHashArray{IMAGESIZE}{$outFilename.$key} = $oldHashArray{IMAGESIZE}{$outFilename.$key}
               || '';               # Copy the image size
         }    ### if ($key ne 'none'
     }    ### foreach my $key
@@ -745,7 +746,7 @@ sub _handleDot {
 s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                 &_writeDebug(" _____MODIFIED $imgSize");
                 chomp $imgSize;
-                $newHashArray{IMAGESIZE}{$key} = $imgSize;
+                $newHashArray{IMAGESIZE}{$outFilename.$key} = $imgSize;
             }
 
 #  As of IE 7 / FF 3.0 and 3.5,  the only way to get consistent link behavior for
@@ -875,7 +876,7 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
         $fbtype = "$svgFallback";
         $returnData .=
           "<object data=\"$src\" type=\"image/svg+xml\" border=\"0\" "
-          . $newHashArray{IMAGESIZE}{'svg'};
+          . $newHashArray{IMAGESIZE}{$outFilename.$inlineAttach};
         $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
         $returnData .= "> \n";
     }
@@ -887,7 +888,7 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
     {
         my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
         $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" "
-          . $newHashArray{IMAGESIZE}{$fbtype};    #Embedded img tag for fallback
+          . $newHashArray{IMAGESIZE}{$outFilename.$fbtype};    #Embedded img tag for fallback
         $returnData .= " usemap=\"#$hashCode\""
           if ($doMap);    #Include the image map if required
         $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
