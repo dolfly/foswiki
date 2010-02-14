@@ -131,7 +131,7 @@ from esc tab hack moz min-height solution ***/
 
 /* GENERAL HTML ELEMENTS */
 
-html body {
+body {
 	font-size:104%; /* to change the site's font size, change #patternPage below */
 	voice-family:"\"}\""; 
 	voice-family:inherit;
@@ -197,8 +197,6 @@ h6 { font-size:95%; font-weight:bold; }
 h2, h3, h4, h5, h6 {
 	display:block;
 	/* give header a background color for easy scanning:*/
-	padding:.25em 10px;
-	margin:1em -10px .35em -10px;
 	height:auto;	
 }
 /*
@@ -1268,7 +1266,7 @@ tr.foswikiDiffDebug td {
 
 /* GENERAL HTML ELEMENTS */
 
-html body {
+body {
    background-color:#f5f5f5;
    color:#000;
 }

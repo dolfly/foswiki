@@ -64,23 +64,27 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 %TMPL:DEF{"standardheader"}%         <div id="header">%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-banner" warn="off"}%
                <span id="banner-extra"></span>
             <div id="header-inner" class="pkg">
-            <div id="header-content">
-		%TMPL:P{header-widgets}%
+                <div id="header-content">
+        		    %TMPL:P{header-widgets}%
+                </div>
             </div>
+            <div id="main-navigation">
+                <div id="main-navigation-inner">
+                    %TMPL:P{"top:toolbarbuttons"}%
+                </div>
             </div>
 %INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-banner" warn="off"}%         </div>
-         <div id="pagebody">
-            <div id="pagebody-inner" class="pkg">               <div id="alpha">
-%TMPL:P{"top:toolbarbuttons"}%
-%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-main" warn="off"}%  <div id="alpha-inner" class="pkg">
-	<span id="twiki_text">%TMPL:END%
+         <div id="content">
+            <div id="content-inner" class="pkg">               <div id="alpha">
+%INCLUDE{"%TMPL:P{widgetstext}%" section="startsectionwrapper-main" warn="off"}%  <div id="alpha-inner" class="pkg"> <div id="kludge" class="entry-asset asset hentry">
+	<span id="twiki_text" class="asset-content entry-content">%TMPL:END%
 	
 	
 %{ ******************************************* }%
 
 %{ ******************************************* }%
 %TMPL:DEF{"standardfooter"}%	</span><!-- twiki_text -->
-  </div>%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-main" warn="off"}%
+  </div></div>%INCLUDE{"%TMPL:P{widgetstext}%" section="endsectionwrapper-main" warn="off"}%
                </div>%TMPL:P{thin-columns}%      </div>
                <div id="footer">%TMPL:P{footer-widgets}%</div>
          </div>%TMPL:END%
