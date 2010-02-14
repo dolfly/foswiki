@@ -1,0 +1,245 @@
+/*
+name: Pixeled
+designer: samk
+designer_url: http://samk.ca/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm
+*/
+
+h1, h2, h3, h4, h5, h6, .mt-entry-archive #header-name, .mt-entry-archive #header-description {
+	font-family: Verdana;
+}
+
+p {
+	font-size: 9pt;
+}
+
+a {
+	color: white;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #ff9933;
+	text-decoration: underline;
+}
+
+a img {
+	border: none;  
+}
+
+blockquote {
+	background: #070707;
+	border: 1px solid #060606;
+	padding: 5px 15px;
+	margin: 10px 10px 5px 15px;
+	font-style: italic;
+	color: #fff;
+}
+
+strong {
+	t-size: 110%;
+}
+
+/*
+	Containers
+*/
+
+#container {
+	text-align: center;
+	margin: 0;
+	padding: 0 0 15px 0;
+	font-family: trebuchet ms, arial, helvetica, sans-serif;
+	background: #000 url(bgbody.jpg) top center no-repeat;
+}
+
+
+#header-content { margin-left: -20px; }
+#header-name a {
+	color: #fff;
+	font-size: 17pt;
+	text-decoration: none;
+	font-weight:bold;
+}
+#header-name a:hover {
+	color: #eee;
+	text-decoration: none;
+}
+#header-description {
+	padding: 0;
+	color: #111;
+	font-size: 11pt;
+
+}
+
+#alpha-inner {
+	font-size: 9pt;
+	color: #efefef;
+	margin: 8px 0;
+}
+#alpha-inner a {
+	text-decoration: underline;
+	color: #fff;
+}
+#alpha-inner a:hover {
+	text-decoration: underline;
+	color: #ff9933;
+}
+
+.mt-entry-archive #alpha, .layout-wm #alpha, .mt-entry-archive #beta, .layout-wm #beta { margin-top: 20px; }
+
+#page-title, #page-title a, .entry-title a {
+	font-size: 15pt;
+	font-weight: normal;
+	color: #fff;
+	letter-spacing: -2px;
+	text-decoration: none;
+}
+
+
+/**
+	Assets, widgets and entries
+*/
+.asset-meta {
+	padding: 0;
+	margin: -5px 0 0 0;
+	font-size: 9pt;
+	color: #cdcdcd;
+}
+
+
+.widget-header, .archive-header {
+	margin: 0;
+	padding: 0 0 2px 0;
+	font-weight: normal;
+	font-size: 11pt;
+	color: #fff;
+	letter-spacing: -1px;
+
+}
+.widget-header a{
+	text-decoration: none;
+}
+.archive-content, .widget-content {
+	background: url(bg-trans.png) repeat;
+	padding: 8px 15px;
+	color:white;
+}
+
+.archive-content li, .widget-content li
+{
+	margin: 0;
+	padding: 2px 2px 2px 16px;
+	color: #eee;
+	background: url(bullet.gif) left 8px no-repeat;
+	line-height: 17px; /* Required for cross-browser consistency; cross-browser defaults vary. */
+
+}
+
+.widget-archive-category li, .widget-archive-monthly li
+{
+	background: url(more.gif) left 8px no-repeat;
+}
+
+.widget-search input[type=submit]
+{
+	margin: -4px 0 0 5px;
+	background: #010101;
+	color: #fff;
+	font-size: 8pt;
+	padding: 3px 6px;
+	vertical-align: middle;
+	border: 1px solid #111;
+
+}
+.widget-search input[type=text]
+{
+	padding: 1px;
+	width: 180px;
+}
+
+.asset-more-link, .entry-tags
+{
+	font-size: 9pt;
+	font-style: italic;
+	background: url(bg-trans.png) repeat;
+	padding: 8px 10px;
+	margin-right: 5px;
+	line-height: 27pt;
+	color: #fff;
+	border: 1px solid #111;
+
+}
+
+
+/**
+Comments and trackbacks
+
+*/
+
+.comment, .trackback
+{
+	background: #000;
+	border: 1px solid #010101;
+	border: none;
+	margin: 0 0 15px 0;
+	padding: 10px;
+}
+
+.trackbacks-header, .comments-header
+{
+	color: #fff;
+	font-size: 12pt;
+	margin-top: 10px;
+}
+
+#trackbacks a, #comments a
+{
+	color: #6598b8;
+}
+
+
+/** Nav bar**/
+
+#catnav {
+	margin: -10px 0 0 0;
+	padding: 0;
+	clear: both;
+	height: 44px;
+	width: 960px;
+}
+
+#nav {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#nav ul {
+	margin: 0;
+	padding: 0;
+}
+
+#nav li {
+	float: left;
+	margin: 0;
+	padding: 0;
+}
+
+#nav a {
+	display: block;
+	line-height: 44px;
+	margin: 0;
+	padding: 0 20px 0 15px;
+	font-size: 10pt;
+	color: #fff;
+	letter-spacing: -1px;
+	text-decoration:none;
+}
+
+#nav li a:hover {
+	color: #6598b8;
+	text-decoration: none;
+	display: block;
+}

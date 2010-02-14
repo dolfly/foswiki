@@ -1,0 +1,166 @@
+/*
+name: I'm Okay ;-) (black)
+designer: Converted by Mike Thomsen. Based on WordPress theme by Laurentiu Piron (http://www.stealthsettings.com/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+
+*/
+
+#header
+{
+	background: url(images/logo.jpg) no-repeat;
+	width:950px;
+	height:247px;
+	text-align:right;
+}
+
+#header a
+{
+	color:#B8DC0A;
+	font:27px Nose Bleed,sans-serif;
+	text-decoration: none;
+}
+
+body
+{
+	background:url("images/fon.jpg");
+}
+
+.entry-asset, .content-nav
+{
+	background-color:#f1f1f1;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding-left:10px;
+	padding-top:5px;
+}
+
+.content-nav a
+{
+	color:#FE9113;
+}
+
+#header-description {
+	color:white;
+}
+
+.archive, .widget
+{
+	background-color:#f1f1f1;
+	margin-bottom:3px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding-left:10px;
+}
+
+.archive-title
+{
+	font-size:18pt;
+	font-weight:bold;
+	color:white;
+}
+
+.archive a{ color:#FE9113;}
+
+.asset-body a { color:#FE9113;}
+
+#trackbacks, #comments-open, #comments
+
+{
+	background-color:#f1f1f1;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding-left:10px;
+	padding-top:5px;
+}
+
+#trackbacks a
+{
+	color:#FE9113;
+}
+
+#comments-open a
+{
+	color:#FE9113;
+}
+
+
+.entry-title a {
+	color:#FE9113;
+}
+
+.entry-title a:link {color:#FE9113;}
+.entry-title a:visited {color:#FE9113;}
+.entry-title a:hover {color:#FE9113;}
+
+.asset-meta a {
+	color:#68983C;
+}
+
+blockquote {
+	border-left: 3px solid #ccc;
+	padding-left: 5px;
+}
+.widget-header {
+	font-weight:bold;
+}
+
+.recent-comments-list
+{
+	margin-left:0px;
+}
+
+.recent-comments-list, .widget-list li
+{
+	font-size:11px;
+	border: 0;
+	margin-top: 0;
+	padding: 0;
+	padding-left: 0px;
+	list-style-image:url(images/ulli.gif);
+	margin-left:10px;
+	color:#FE9113;
+}
+
+.widget-list a
+{
+	color:black;
+}
+
+.recent-comments-list a
+{
+	color:black;
+}
+
+.widget-header a {
+	color:#FE9113;
+}
+.widget-powered 
+{
+	text-align:center;
+}
+
+.widget-powered a
+{
+	color:#FE9113;
+}
+
+.entry-title
+{
+	border-bottom: 1px solid black;
+	padding-bottom:2px;
+	width:95%
+}
+
+.widget-about-this-page a
+{
+	color:#FE9113;
+}
+
+.widget-syndication a
+{
+	color:#FE9113;
+}

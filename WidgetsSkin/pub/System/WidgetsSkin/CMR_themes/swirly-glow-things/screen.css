@@ -1,0 +1,313 @@
+/*
+name: Swirly Glow Things
+designer: Matthew Reese
+designer_url: http://mrmatthewreese.com/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wt
+*/
+
+body {
+	font-size:14px;
+	line-height:20px;
+	font-family: 'Arial', Sans-Serif;
+	background: #10170f url('bg.jpg');
+	background-repeat:no-repeat;
+	background-position: top center;
+	color: #cadbe9;
+	text-align: center;
+	margin: 0 0 20px 0;
+	padding: 0;
+}
+
+a:link, a:visited { text-decoration: none; color:#83ccdf; }
+a:active, a:hover { text-decoration: none; color:#70ce80; }
+
+h1#header-name, div#header-name {
+	font-family:'Arial','Lucida Grande',Verdana,Arial,Sans-Serif;
+	font-size:2.8em;
+	font-weight:100;
+	letter-spacing:4px;
+	margin:0;
+	padding-top:70px;
+	text-align:right;
+}
+
+h1, h2, #page-title {
+	font-size:1.4em;
+	margin:0 0 0;
+}
+
+h2, h3, #page-title {
+	font-family:'Arial',Sans-Serif;
+	font-weight:200;
+	letter-spacing:2px;
+}
+
+blockquote 
+{
+	margin: 15px 30px 0 10px;
+	padding-left: 20px;
+	border-left: 5px solid #ddd;
+}
+
+/** 
+
+Header elements
+
+*/
+
+#header-description {
+	color:#74BA7C;
+	font-size:1.4em;
+	margin-top:15px;
+	text-align:right; 
+}
+
+.layout-wt #header 
+{
+	margin-top: 0px; 
+	padding-bottom:30px;
+}
+
+#professional-website #header 
+{
+	padding-bottom: 0px;
+}
+
+.layout-wt #alpha-inner 
+{
+	padding: 0px 0px 0px 40px; 
+	width: 585px; 
+}
+
+.layout-wt #alpha 
+{ 
+	width: 600px; 
+	border-right:1px dashed #70CE80;
+	font-size:1em;
+	margin:0 10px 0 0;
+	padding: 0 40px 20px 0px;
+}
+
+#main-navigation {
+	height:48px;
+	position:relative;
+	text-align:right;
+	width:900px;
+}
+
+#main-navigation li {
+	display: inline; 
+	border: 0px;
+}
+
+#main-navigation-inner ul 
+{
+	width: 300px; 
+	float:left; 
+}
+
+#main-navigation li a {
+	font-weight: bold;
+	font-size: 16px;
+	padding: 5px;
+}
+
+#main-navigation li a:hover {
+	background: #10170F;
+	padding: 5px;
+}
+
+#main-navigation .widget-search .widget-header, #header .widget-sign-in .widget-header, #homepage-image
+{
+	display: none;
+}
+
+#main-navigation .widget-search input[type=submit]
+{
+	width: 40px;
+}
+
+#main-navigation .widget-search 
+{
+	background: url(bar.png) no-repeat;
+	float:right;
+	height:41px;
+	margin-right:-21px;
+	margin-top:-15px;
+	padding-left:20px;
+	padding-top:7px;
+	position:relative;
+	text-align:center;
+	width:256px;
+}
+
+#main-navigation .widget-search .widget-content {
+	padding: 5px 15px;
+}
+
+#header .widget-sign-in {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    text-align: right;
+    font-family: verdana;
+    font-size: 19px;
+    margin: 0 5px 0 0;
+    padding: 0;
+}
+
+/** Column modifications **/
+
+#beta ul, #alpha ul
+{
+	margin-bottom:20px;
+	margin-left:0;
+	margin-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	width:100%;
+}
+
+#beta ul li, #beta ol li, #alpha ul li, #alpha ol li
+{
+	margin-left:0;
+	margin-top:0;
+	padding-bottom:0;
+	padding-left:0;
+	width:100%;
+}
+
+#beta li a, #alpha li a 
+{
+	border-bottom:1px dashed #70CE80;
+	display: block;
+	margin-left:0;
+	margin-top:0;
+	padding:5px 0 5px 10px;
+	text-decoration:none;
+}
+
+#beta li a:hover {
+	border-bottom:1px dashed #70ce80;
+	background-color:#000000;
+	display: block;
+	text-decoration: none;
+	padding:5px 0px 5px 10px;
+	margin-left:0px;
+	margin-top:0px;
+}
+
+.layout-wt #beta { margin: 0 0 0 0px; padding: 0px; width: 235px;  }
+	.entry-asset .asset-header {
+	background-color:#000000;
+	border:1px dashed #70CE80;
+	padding:10px;
+}
+
+.layout-wt #content 
+{ 
+	padding-top: 3px; 
+}
+
+#professional-website #content-inner
+{
+	padding-top: 10px;
+}
+
+.mt-dynamic-error #content 
+{ 
+	padding-top: 50px;
+	padding-left: 25px;
+}
+
+.mt-dynamic-error #footer
+{
+	padding-left: 25px;
+}
+
+.entry-asset .asset-meta {
+	font-family:Arial,Helvetica,Sans-Serif;
+	font-size:0.9em;
+	line-height:1.5em;
+	margin-top:10px;
+}
+
+#beta, #gamma {
+	font-size:12px;
+}
+
+#beta li a, #beta th a, #beta td a
+{
+	border-bottom:1px dashed #70CE80;
+}
+
+#beta .widget-header, #footer .widget-header {
+	border-bottom:1px solid #70CE80;
+	margin:0 0 0;
+	padding:0 0 5px;
+	text-align:center;
+	width:100%;
+	font-size:1.4em;
+}
+
+.widget-calendar table
+{
+	width: 190px;
+}
+
+.widget-calendar thead
+{
+    empty-cells:show;
+}
+
+.widget-calendar th
+{
+	font-style:normal;
+	text-align:center;
+	text-transform:capitalize;
+}
+
+.widget-calendar td, th
+{
+	padding:3px 0;
+	text-align:center;
+}
+
+input, textarea
+{
+	background-color:#000000;
+	border:1px dashed #70CE80;
+	color:#CADBE9;
+	margin:0 0 10px 0;
+	padding:5px;
+	width:170px;
+}
+
+input[type=checkbox], input[type=radio] 
+{
+	width:15px;
+	margin: 0px;
+}
+
+#footer 
+{
+	border-top:1px dashed #70CE80;
+	clear:both;
+	font-size:0.8em;
+	margin:0 auto;
+	padding:10px 0 20px;
+}
+#footer .widget {
+	width: 250px;
+	float:left;
+	margin-right:15px;
+}
+
+#footer .widget-powered {
+	float: none;
+	width: 100%;
+	text-align: center;
+	padding-bottom: 20px;
+}

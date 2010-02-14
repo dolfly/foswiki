@@ -1,0 +1,120 @@
+/*
+name: Fire and Ice
+designer: Joe Fischler
+designer_url: http://thebuckmaker.com/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-tw
+*/
+
+h1, h2, h3, h4, h5, h6{font-weight:normal; font-family: Trebuchet MS, Arial, Verdana, Sans-Serif;}
+         h2{font-size:1.4em}
+         h3{font-size:1.3em}
+         h4{font-size:1.2em; color:#F7353E; padding:5px 0;}
+         h5{font-size:1.1em}
+         h6{font-weight:bold}
+
+blockquote {
+         margin: 20px; 
+         padding:10px; 
+         border-left:3px solid #F7353E;
+}
+
+         
+blockquote p {
+         font-style:italic; 
+         color:#fff; 
+         font-weight:bold;
+
+}
+
+
+a:link {color: #F2F2F2; text-decoration:none;}
+a:visited {text-decoration:none; color:#F2F2F2;}
+a:hover {color: #FFF; text-decoration:none;}
+body {
+         background: #000000 url(feuersidebar.jpg); 
+         background-repeat:no-repeat; 
+         background-attachment:fixed;
+         font-family: Arial, Verdana, Sans-Serif;
+         color:#fff;
+}
+
+#alpha-inner
+{
+	width:500px;
+}
+
+#header{
+        background: #000000 url(mountains.jpg);
+        padding:0 0px;
+        height: 130px;
+        width: 749px;
+        position:relative;
+        top:1em;
+        border: 1px solid #F7353E;
+        overflow:hidden;
+
+}
+
+#header-name {
+font-size:32px; color:#F7353E; }
+#header-name a{color:#F7353E;}
+#header-description {padding-left:5px; font-size:1.0em;
+}
+
+#page-title, .entry-title { font-size:1.3em; font-weight:normal; color:#F2F2F2; margin:0; padding:0;} 
+#beta-inner
+{
+        border-left:1px solid #F7353E;
+        border-right:1px solid #F7353E;
+        border-bottom:1px solid #F7353E;
+	margin-top:-4px;
+	font-size: 12px;
+}
+#beta a { color: #f7353e; }
+
+#footer {clear:both; padding-top:60px; text-align:center; color:#FFFFFF; font-size:11px;}
+#footer a {color:#FFFFFF;}
+#footer a:hover {color:#F7353E;}
+
+.widget-list li {color:#f7353e; list-style-type:none; font-size: 10px;}
+.widget-list a, .xoxo a:visited {font-size:12px; font-weight:bold; color:#f7353e }
+.widget-header {margin:20px 0 5px 0; padding:0; font-size:19px; color:#f7353e}
+.widget-header a { color:#f7353e; text-decoration: none; }
+.widget-list ul {margin:0; padding:0;}
+.widget-list ul li {padding:3px; width:150px;}
+.widget-list ul li:hover {color:#F2F2F2; background:#F7353E;}
+.widget-list ul li:hover a {color:#F2F2F2}
+.widget-list ul li.current_page_item {background:#F7353E;color:#F2F2F2;}
+.widget-list ul li a:visited {color:#F2F2F2;}
+.widget-list li a:hover { color:#F2F2F2; background:#F7353E}
+.widget-list ul ul li {padding-left:5px;}
+.widget-list ul ul li:hover {background:#000; color:#f7353e}
+
+.asset-body {overflow:hidden;}
+.asset-body p{color:#FFFFFF; font-size:12px; line-height:1.5em; padding:0.5em 0;}
+.asset-body em{font-style:italic}
+.asset-body ul, ol{margin:10px;font-size:12px; line-height:1.5em;}
+.asset-body ul li{padding-left:5px; list-style-type:disc;}
+.asset-body ol li{padding-left:5px;}
+.asset-body strong, .entry-content b{font-weight:bold}
+.asset-body img{padding:10px; border:none;}
+
+.asset-body a{color:#F7353E; padding:2px;}
+.asset-body a:hover{text-decoration:underline;}
+.asset-body h2 {margin:0; padding:0;}
+
+
+.asset-meta {font-size:11px; color:#808080; clear:both;}
+.asset-meta a, .entry-meta a:visited {color:#F7353E}
+.asset-meta a:hover{text-decoration:underline;}
+
+.archive-header { font-size: 1.1em; margin-top: 5px; }
+
+#comments-form input{border:3px solid #F7353E; padding:5px; height:16px; width:424px; background:none; color:#fff;}
+#comments-form input[type=submit] {border:0; margin-top:10px; width:150px; padding:5px; border: 2px solid #f7353e; height:30px; background:none; font-weight:bold; cursor:pointer;}
+#comments-form textarea {border:3px solid #F7353E; padding:5px; height:80px; width:424px; background:none; color:#fff;}
+.widget-search input{border:3px solid #F7353E; padding:5px; height:16px; background:none; color:#fff;}
+.widget-search input[type=text] { width: 130px; }
+.widget-search input[type=submit] {border:0; margin-top:10px; padding:5px; border: 2px solid #f7353e; height:30px; background:none; font-weight:bold; cursor:pointer;}

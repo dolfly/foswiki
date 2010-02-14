@@ -1,0 +1,125 @@
+/*
+name: Deep Space
+designer: Converted by Mike Thomsen. Original work by Sly Zane (http://www.wordpresstemplate.org/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+*/
+
+#header{
+	background: url(img/header.jpg) no-repeat;
+	background-color: black;
+	height:272px;
+	text-align:right;
+}
+
+#header-name
+{
+}
+
+#header-name a {
+	text-align: left;
+	font-weight: bold;
+	color: #19a800;
+	text-decoration: none;
+	font-family: "Trebuchet MS";
+	font-size: 2em;
+	font-weight: bold;
+	
+}
+
+#header-description
+{
+	
+	height:300px;
+	color: #19a800;
+	text-align:right;
+	width:300px;
+	margin-left:600px;
+}
+
+blockquote
+{
+	margin: 0px 0px 0px 30px;
+	padding: 5px 25px 5px 0px;
+	color: #202020;
+}
+
+body
+{
+	background-image:url(img/bg.jpg);
+	background-repeat:repeat-x;
+	background-color:#021500;
+	color: #929292;
+}
+
+a { color: #929292;}
+
+#container-inner
+{
+	background-color:white;
+	width:940px;
+}
+
+.archive a, .widget a
+{
+	color: #19a800;
+}
+
+#footer
+{
+	background-color:#106c06;
+	color:white;
+	text-align:center;
+}
+#footer a { color:white; }
+
+.entry-title
+{
+	font-family: Arial, sans-serif; 
+	font-size: 18px;
+	font-weight: bold;
+	height:28px;
+	padding: 2px 0 0px 25px;
+	margin-top: 3px;
+	margin-left: 0px;
+	border-bottom: 1px solid #ababab;
+ 	background: url("img/pt.jpg") left  no-repeat;
+}
+.entry-title a
+{
+	color: #106009;
+}
+
+#alpha-inner
+{
+}
+
+.widget-header
+{
+	font-size:15pt;
+	color:white;
+}
+
+#page-title, .archive-header
+{
+	font-size:15pt;
+	color: #106009;
+}
+
+.widget
+{
+	color:white;
+}
+
+li
+{
+	border-bottom: 1px dotted #085900;
+	padding-bottom: 5px;
+}
+
+#container-inner
+{
+	background:url(img/container.gif);
+}
+
+.entry-content a, .asset-more-link a { color: #585858; }

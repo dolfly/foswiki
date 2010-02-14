@@ -1,0 +1,132 @@
+/*
+name: Goldenage
+designer: Metamorphosis Design
+designer_url: http://www.metamorphozis.com/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm
+*/
+
+body {
+	margin: 0;
+	background: #130506 url(back_all.jpg) repeat-x top;
+}
+
+a {
+	text-decoration: underline;
+	color: #867B1C;
+}
+
+a:hover {
+	border: none;
+	text-decoration: none;
+}
+
+#header{
+
+	height: 483px;
+	margin-left: 1px;
+	background: transparent url(background.png) no-repeat scroll 0 0;
+	text-align: left;
+
+}
+
+#header-inner
+{
+    background: url(header.jpg) no-repeat;
+    margin-left: 77px;
+    height: 483px;
+}
+
+#footer
+{
+	padding: 20px;
+	height: 50px
+}
+
+#footer .widget-content {
+	text-align: center;
+	font-size: 9px;
+	color: #ffffff;
+	margin: 0px;
+	padding: 0px;
+}
+#footer a
+{
+	color: #FFFFFF
+}
+
+#header-name {
+	padding-top: 130px;
+	padding-right: 20px;
+	font-size: 18px;
+	margin-left: 75px;
+}
+#header-name a {
+	color: #ffffff;
+}
+#header-description {
+	color:white;
+	margin-left: 75px;
+}
+
+body, th, td, input, textarea {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666666;
+}
+#container
+{ 
+	background: #130506 url(back_all.jpg) repeat-x top;
+}
+
+#beta .widget { width:230px; }
+#content-inner{
+	background: #ffffff url(table_back.gif) repeat-x;
+	border-top: none;
+	border-left: 5px solid white;
+	border-right: 5px solid white;
+	margin-left:78px;
+	margin-top: -1px;
+	width:768px;
+}
+
+#trackbacks, #comments,.mt-comment-preview .comment,.mt-comment-preview .comments-open, .entry-asset { width:500px; margin-left:75px; }
+
+.layout-wm #alpha { width:600px; margin-left: -75px;}
+.layout-wm #beta { width:240px; }
+.entry-title {
+	font-size: 16px;
+	font-weight:bold;
+	text-transform:uppercase;
+
+}
+.asset-meta {
+margin: 0;
+	text-transform: uppercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #867B1C;
+
+}
+
+
+.widget-header {
+	background: url(title.gif) no-repeat left top;
+	height: 35px;
+	color: #FFFFFF;
+	padding-left: 20px;
+	padding-top: 14px;
+text-transform: uppercase;
+	font-size: 1.1em;
+	font-weight: bold;
+
+}
+.widget-header a { color: white; text-decoration:none; }
+
+#beta ul
+{
+	line-height: normal;
+	margin-left: 20px;
+}
+

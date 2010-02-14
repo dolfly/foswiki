@@ -1,0 +1,237 @@
+/*
+name: Disciple
+designer: WizardRegis
+designer_url: http://themes.blogwarhammer.net/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-twt
+*/
+
+
+a { color:#CC0000; text-decoration:none; outline:none; }
+a:hover { color:#CC0000; text-decoration:underline; }
+a img { border:0; }
+
+#alpha-inner { 
+	margin-top:5px; 
+	margin-left: 30px; 
+	overflow:hidden; 
+	height:100%; 
+	background:transparent url('bg_c2.gif') top center repeat-y;
+}
+
+#beta, #gamma 
+{ 
+	margin-top: 50px; 
+}
+
+#beta { text-align:right }
+
+#gamma { text-align: left} 
+
+#container { 
+	width:100%; 
+	background:#F5F4F1 url('bg.gif') top left repeat-x; 
+	margin:0px 0px 10px 0px; 
+	padding:0px; 
+	font:8pt Verdana, Arial, sans-serif; 
+	line-height:150%; 
+	color:#333333; 
+}
+
+#footer
+{ 
+	width:990px; 
+	height:160px; 
+        margin-top:-26px;
+        margin-left:-15px;
+	padding:0px 5px 5px 5px; 
+	font-family:Georgia, "Times New Roman", Times, serif;
+	color:#AA9F8A;
+	text-align:center;
+}
+
+.mt-entry-archive #footer
+{
+	background: url('');
+}
+
+#entryFooter
+{
+	margin-left: 30px;
+	background:transparent url('bar_bottom.gif') bottom no-repeat;
+	height:160px;
+}
+
+
+#footer a 
+{
+	color:#AA9F8A; 
+	border-bottom:dotted 1px #BEB6A7; 
+	text-transform:uppercase;
+}
+
+#footer a:hover
+{ 
+	text-decoration:none;
+}
+
+#footer .widget-powered { font-size: 0px; }
+	   
+#header {
+	width:1000px; 
+	margin-bottom:-25px; 
+	padding:0px; 
+	overflow:hidden; 
+	background:transparent url('bg_top.gif') 0 0 no-repeat; 
+	margin-left:-15px; 
+	text-align:center;
+}
+
+#header-description { 
+	margin:0px 0px 15px 0px; 
+	padding:0px; font:normal 11pt Georgia, "Times New Roman", Times, serif; 
+	color:#FFFFFF; 
+	text-transform:uppercase;
+}
+
+#header-name {
+	margin:15px 0px 10px 0px; 
+	padding:0px; 
+	font:normal 34pt Georgia, "Times New Roman", Times, serif; 
+	letter-spacing:2px; text-transform:uppercase; 
+}
+#header-name a
+{ 
+	color:#FFFFFF; 
+}
+
+blockquote 
+{ 
+	border-left:solid 5px #A7B3BC; 
+	padding:5px 5px 5px 8px; 
+	margin:8px; 
+	background-color:#F4F5F7; 
+	font:normal 8pt Georgia, "Times New Roman", Times, serif; 
+	line-height:160%; 
+}
+pre 
+{ 
+	border-left:solid 5px #738695; 
+	padding:5px 5px 5px 8px; 
+	margin:8px 8px 8px 8px;
+	background-color:#EEF0F2; 
+	overflow:scroll;
+}
+
+ul 
+{ 
+	list-style-type:square;
+}
+
+
+input, select,  textarea { font:8pt Verdana, Arial, sans-serif; color:#333333; }
+
+form { margin:0px; padding:0px; }
+
+p { margin:11px 0px 11px 0px; }
+
+/** Entries **/
+
+.entry-title 
+{ 
+	margin:0px; 
+	padding:0px 0px 2px 0px; 
+	font:normal 2.4em Georgia, "Times New Roman", Times, serif; 
+	letter-spacing:-0.02em; 
+	line-height:130%; 
+}
+
+.entry-title a 
+{ 
+	color:#333333; 
+	text-decoration:none; 
+}
+
+.entry-title a:hover 
+{ 
+	color:#666666; 
+	text-decoration:none; 
+}
+
+.asset-meta 
+{
+	padding:5px 0px 0px 0px;
+	overflow:hidden; 
+	font:normal 8pt Georgia, "Times New Roman", Times, serif; 
+	color:#999999;
+}
+.asset-meta a{
+	color:#999999; border-bottom:dotted 1px #CCCCCC;
+}
+.asset-meta a:hover 
+{
+	background-color:#EBEBEB;
+	color:#666666; 
+	border-bottom:dotted 1px #333333;
+	text-decoration:none; 
+}
+
+/** Widgets **/
+
+.widget 
+{ 
+	margin-left: 10px;
+}
+
+.widget ul 
+{
+	margin:0px; 
+	padding:0px; 
+}
+
+.widget ul li a 
+{ 
+	padding:1px 3px 1px 3px;
+}
+
+.widget li a:hover 
+{ 
+	background-color:#546a85; 
+	color:#FFFFFF; 
+	text-decoration:none; 
+}
+
+.widget-header 
+{ 
+	margin:0px 0px 5px 0px; 
+	padding:0px; 
+	color:#546a85; 
+	font:italic 11pt Georgia, "Times New Roman", Times, serif; 
+	text-transform:lowercase; 
+}
+
+
+#beta .widget li { 
+	text-align:right; 
+	list-style:none; 
+	background:url('78.png');
+	background-position: top right;
+	background-repeat: no-repeat;
+	margin:0px 0px 5px 0px; padding:0px 20px 0px 0px; 
+}
+#gamma .widget li 
+{ 
+	text-align:left;
+	list-style:none;
+	background:url('78.png') top left no-repeat; 
+	margin:0px 0px 5px 0px;
+	padding:0px 0px 0px 20px;
+}
+
+/**Comments and Trackbacks **/
+
+.trackback, .comment
+{
+	border-top:solid 1px #97A8BD;
+}

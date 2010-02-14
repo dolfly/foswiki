@@ -1,0 +1,107 @@
+/*
+name: Aurora
+designer: Mathew Browne
+designer_url: http://www.mbwebdesign.co.uk/templates/wordpress/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm
+*/
+
+#header {
+	background: url(aurora.jpg);
+	height:250px;
+	background-repeat:no-repeat;
+	margin-top:20px;
+	margin-left:10px;
+	padding-top:10px;
+}
+.entry-asset { width:550px; }
+#header-name {
+	text-decoration:none;
+	font-size:1.7em
+}
+#header-name a{
+	text-decoration: none;
+}
+
+#header-description
+{
+	margin-top:20px;
+	color:#DDDCD2;
+	font-size: 1.0em;
+}
+
+#footer {
+	margin:10px auto; font-size:1.0em; padding:5px 0px 5px 0px; width:920px; color:#666666; text-align:right
+}
+
+body { 
+	background-color:#262927;
+	font-family: 'Trebuchet MS', Tahoma, Arial, Helvetica, sans-serif;
+	color:#C1BCAC;
+	font-size:0.7em;
+	line-height:1.4em;
+}
+#container-inner {
+	background-color:#181B19; border:1px solid #383C37;
+}
+
+a{color:white; text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+#page-title, .entry-title, .archive-title { font-size: 1.7em }
+
+.entry-title {
+	border-bottom:1px solid #262927; 
+	margin-bottom:20px;
+	display:block;
+}
+
+#page-title, .archive-title,.entry-title,  .entry-title a {
+	color:#CADE58;display:block;text-decoration:none;
+}
+
+.entry-title a:hover{background-color:#262927;}
+
+#beta .widget {
+	width: 250px;
+	margin-left:30px;
+	background-color:#1f2320; border:1px solid #262927;
+}
+#footer-content .widget-powered { margin-left:0px; }
+h3 a {
+	color:#CADE58;
+}
+h2,h3,h4,h5,h6{
+	color:#CADE58;
+	margin-bottom:0.8em;
+	font-family: Georgia, 'Times New Roman', serif; 
+	font-weight: normal; 
+	margin-top:0px; 
+	padding-top:0px;
+	line-height:1.3em;
+	font-size:1.7em
+}
+
+.widget-content { margin-left:20px; }
+.widget-content ul {list-style-type:none; padding:0;}
+
+.widget-header {
+	margin-left:20px;
+	margin-top: 20px;
+	font-size: 1.2em;
+}
+
+.recent-comments-list { margin-left: 0px; }
+
+blockquote {
+	margin:5;
+	padding:5px;
+	background-color:#1f2320;
+	border-top:1px solid #262927;
+	border-bottom:1px solid #262927;
+}
+
+input[type=submit] {border:1px solid #262927; width:50px;background:#262927; color:#C1BCAC;padding:3px;}
+input[type=submit]:hover{color:#CADE58;border:1px solid #C1BCAC;}
+input[type=text] { border:1px solid #262927; background:#000; color:#C1BCAC; padding:3px;}

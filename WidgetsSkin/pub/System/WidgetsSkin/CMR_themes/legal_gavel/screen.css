@@ -1,0 +1,254 @@
+/*
+name: Legal Gavel
+designer: http://www.templatelite.com
+designer_url: http://www.templatelite.com
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm
+*/
+
+
+body 
+{
+    font:80% Trebuchet MS;
+	padding:0;
+	margin: .5;
+	background:whitesmoke;
+	background:url('bgimage.gif') repeat; 
+}
+
+
+p
+{
+	/*line-height:1.5em;
+	text-align:justify;
+	margin-top:0;
+	margin-bottom:10px;*/
+	margin:0;
+	padding:5px 0 5px 0;
+}
+
+a
+{
+	color:#544E4F;
+	text-decoration:none;
+	font-weight:bold;
+}
+
+a:hover 
+{
+	color:#5A1318;
+	text-decoration:underline;
+	font-weight:bold;
+}
+
+h1 
+{
+    font-size:3em;
+	margin:0;
+	padding:0;
+	font-weight:normal;
+
+}
+    
+#page-title, h2 
+{
+    font-size:1.2em;
+	margin:0;
+	padding:0;
+color:#000000;
+}
+
+#page-title { font-weight: bold; }
+    
+h3 
+{
+    font-size:1.15em;
+	margin:0;
+	padding:0;
+}
+
+h4 
+{
+    font-size:1em;
+	margin:0;
+	padding:0;
+}
+
+
+#header
+{
+background:url('top.jpg') no-repeat bottom;
+	width:800px;
+	height:222px;
+	margin-bottom:10px;	
+
+}
+
+#header a, #header a:hover
+{
+	color:#000;
+	text-decoration:none;
+	font-weight:normal;
+}
+
+#header-name
+{
+margin-top: 15px;	
+	top:33px;
+	left:20px;
+	font-size:25px;
+}
+
+#header-description
+{
+
+	top:60px;
+	left:20px;
+	color:#660033;
+
+}
+
+
+.layout-wm #container-inner
+{
+width:800px;
+	border-style: solid; 
+	border-width: 1px;
+	border-color: #000000;
+		background:url('linetablebg.jpg') repeat; 
+
+}
+.layout-wm #alpha
+{
+width:500px;
+}
+
+.layout-wm #beta
+{
+width:230px;
+}
+
+.layout-wm #content
+{
+	background:url('middlebg.jpg') repeat;
+
+	width:760px;
+	margin:0 auto;
+	padding:10px;
+	color: #ffffff;
+
+}
+
+.widget {
+width:225px;
+color:black;
+}
+
+.widget a
+{
+	text-decoration:none;
+}
+
+#page-title, .entry-title a {
+color: #293040;
+text-decoration:none;
+
+}
+
+.entry-asset
+{
+background:#fff;
+color:#000;
+
+}
+.entry-title {
+background:url('middlebg.jpg') repeat;
+}
+.widget-header {
+	margin:0;
+	padding:7px 10px 2px 7px;
+	font-size:1.2em;
+font-weight:bold;
+background:url('bgimage2.jpg') repeat;
+	display:block;
+	width:200px;
+	height:27px;
+	color:#ffffff;
+	font-weight:heavy;
+
+}
+.widget-content {
+background: #fff;
+margin-top:-5px;
+padding-top:5px;
+}
+.widget-header a {
+color:white;
+text-decoration:none;
+font-weight:bold;
+}
+
+#footer
+{
+color:black;
+background:url('middlebg.jpg') repeat;
+margin-left:10px;
+width:780px;
+}
+
+#footer .widget-content
+{
+background:url('middlebg.jpg') repeat;
+}
+
+.widget-list li
+{
+list-style-image:none;
+list-style-position:outside;
+list-style-type:none;
+padding:0 5px;
+}
+
+blockquote
+{
+	margin-left:10px;
+	margin-right:-5px;
+	padding:10px;
+	border:1px solid #fff;
+	background:#eaeaea;
+}
+
+blockquote blockquote
+{
+	margin-right:10px;
+	background:#fff;
+}
+
+.asset-meta, .asset-body
+{
+padding:5px;
+}
+
+#trackbacks,#comments
+{
+background:white;
+color:black;
+border-bottom:10px solid #eaeaea;
+margin-top:-19px;
+padding-left:1px;
+}
+
+/** Forms **/
+
+input[type=submit], input[type=button]
+{
+	font:1em Trebuchet MS, Arial, Verdana, Helvetica, sans-serif;
+	font-weight:bold;
+	background:none;
+	border:none;
+	padding:3px 0 2px 0;
+
+	text-align:right;
+	margin-bottom:10px;
+}

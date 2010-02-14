@@ -1,0 +1,152 @@
+/*
+name: Painted Desert
+designer: JTk
+designer_url: http://www.jtkconsulting.com
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-tw
+*/
+
+body {
+	background: #DADAD0 url(images/back.jpg) 0 repeat;
+	color: #400000;
+	text-align: center;
+	font-family: verdana, helvetica, arial, sans-serif;
+	font-size: 12px;
+	padding:0px;
+}
+
+#header
+{
+	background: url(images/head.jpg);
+	background-repeat: no-repeat;
+	height:225px;
+}
+
+#header-description
+{
+	position: absolute;
+	left: 58px;
+	top: 70px;
+	color: #2E2620;
+	margin: 0;
+	padding: 0;
+	font-weight:bold;
+	font-size: 14px;
+	letter-spacing: -1.2px;
+	word-spacing: -0.4px;
+	width: 640px;
+
+}
+
+#header-name
+{
+	position: absolute;
+	left: 55px;
+	top: 30px;
+	margin: 0;
+	padding: 0;
+	font-weight:bold;
+	font-size: 36px;
+	letter-spacing: -2px;
+	word-spacing: -0.8px;
+
+}
+
+#header-name a { color: #DBD1C2; text-decoration: none; }
+
+#container-inner
+{
+	background: url(images/repeat.jpg);
+	background-repeat: repeat-y;
+}
+
+#alpha-inner
+{
+	width:500px;
+	margin-left:40px;
+}
+#beta-inner
+{
+	margin-left:25px;
+}
+
+#footer
+{
+	text-align:center;
+}
+
+.entry-title a{
+	color: #708D9D;
+	font-weight: bold;
+	font-size: 15px;
+	text-decoration: none;
+}
+
+a:link {
+color: #4E719D;
+text-decoration: none;
+}
+
+a:visited {
+	color: #4E719D;
+	text-decoration: none;
+
+}
+a:hover, a:active {
+	color: #BB7D55;
+	text-decoration: none;
+}
+
+.widget a {
+	color: #6F4219;
+	text-decoration: none;
+}
+
+.widget a:visited {
+	color: #6F4219;
+	text-decoration: none;
+
+}
+
+.widget a:hover {
+	color: #C48256;
+}
+
+.widget-header, #page-title
+{
+	font-weight: bold;
+}
+
+.widget-header a { color: #400000; }
+
+input
+{
+	color: #0E5993;
+	border: 1px solid #0E5993; 
+	background-color: #FFFFFF;
+	font-family: verdana, sans-serif;
+	vertical-align: middle;
+}
+
+input[type=text] {
+	width: 120px;
+}
+
+.recent-comments-list {
+	margin-left: 0px;
+}
+
+ul, ol {
+
+margin: 5px 0 20px 0px;
+list-style-type: none;
+
+}
+
+
+li, dd, blockquote {
+	margin-left: 7px;
+	list-style-type: none;
+
+}

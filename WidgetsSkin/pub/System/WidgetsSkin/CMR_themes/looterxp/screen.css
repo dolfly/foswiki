@@ -1,0 +1,114 @@
+/*
+name: Looter XP
+designer: Converted by Mike Thomsen. Based on WordPress theme by Arun Kumar. His site is http://www.va4business.com/
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-tw
+
+*/
+
+.archive-title
+{
+	font-size:20pt;
+	font-weight:bolder;
+	color:gray;
+}
+
+#container-inner
+{
+	background: url(images/sfondo.jpg);
+	background-repeat: no-repeat;
+}
+
+.archive, .widget
+{
+	background: url(images/bg1.png);
+	margin-left:25px;
+}
+
+#header
+{
+	margin-left:25px;
+	padding-top:35px;
+
+}
+
+.archive-header, .widget-header {
+	color:gray;
+	font-size:14pt;
+	font-weight:bold;
+}
+
+.widget-content {
+	color:gray;
+}
+
+.widget a { color:#fbb528; }
+.archive a { color:#fbb528; }
+
+.entry-title a {
+	color:gray;
+	font-size:14pt;
+	font-weight:bold;
+}
+.asset-meta a{
+	color:gray
+}
+.asset-body {
+
+}
+
+.content-nav a {
+	background: url(images/bg1.png);
+	color:#fbb528;
+}
+#header-name {
+	font-size:20pt;
+	font-weight:bolder;
+}
+
+#header-name a
+{
+	color:#fbb528;
+}
+
+#header-description {
+	background: url(images/bg1.png);
+	color:gray;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+.widget-about-this-page a
+{
+	color:#fbb528;
+}
+
+.widget-syndication a
+{
+	color:#fbb528;
+}
+
+.widget-powered 
+{
+	text-align:center;
+}
+
+.widget-powered a
+{
+	color:#fbb528;
+}
+
+#trackbacks a
+{
+	color:#fbb528;
+}
+
+.comments-open a
+{
+	color:#fbb528;
+}
+
+.archive-list
+{
+	color:gray;
+}

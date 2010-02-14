@@ -1,0 +1,277 @@
+/*
+name: Dark Marble
+designer: primestrategy
+designer_url: http://www.web-strategy.jp/wp_theme/dark_marble/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wt
+*/
+
+a, a:link, li a{
+	color: #ffffff;
+	text-decoration: none;
+}
+a:hover, li a:hover {
+	color: #35b256;
+	text-decoration: underline;
+}
+a:visited {
+	color: #ffffff;
+}
+
+blockquote {
+
+    background-color:#333333;
+    background-image:url(blockquote.gif);
+    background-position:6px 6px;
+    background-repeat:no-repeat;
+    border:1px solid #26521D;
+    margin-bottom:30px;
+    min-height:40px;
+    padding:30px 43px 20px 50px;
+
+}
+
+body 
+{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Courier', Verdana, Arial, Sans-Serif;
+    color: #FFF;
+}
+
+
+#container {
+    background-color:#121212;
+}
+
+#container-inner {
+
+    margin-left:auto;
+    margin-right:auto;
+    padding-left:0;
+    padding-right:0;
+    position:relative;
+    width:1040px;
+}
+
+#header {
+    background: url(Image0.jpg);
+    height:205px;
+}
+
+#header, #header a
+{
+	color:#FFFFFF;
+	font-family:"Times New Roman",Times,serif;
+}
+
+#header-name a {
+    font-size:24px;
+    font-weight:normal;
+    text-decoration:none;
+}
+
+#header-description {
+    border-top:1px solid #FFFFFF;
+    display:inline;
+    font-size:0.8em;
+}
+
+#content {
+    background: url(content_bg.jpg) no-repeat;
+    min-height:525px;
+}
+#content-inner, #footer-inner, #header-inner {
+	margin-left:60px;
+}
+
+#footer { 
+	clear:both;
+}
+
+.layout-wt #alpha {
+    width:650px;
+}
+
+.layout-wt #beta {
+    background: #222 url(side_head.gif) no-repeat scroll 0 0;
+    margin-left:-4px;
+    width:262px;
+padding-top:10px;
+margin-top:-5px;
+
+
+
+
+
+}
+
+#beta-inner {
+    width:250px;
+	padding-left:10px;
+}
+
+.widget-content { 
+	font-size:0.8em;
+}
+
+#beta ul, .archive-content ul {
+    background:transparent url(sidebar_ul_ul_div.gif) no-repeat scroll 0 bottom;
+    margin:5px 0 0 0;
+    padding-bottom:10px;
+    padding-left:20px;
+    padding-right:15px;
+}
+
+#beta ul li, .archive-content ul li
+{
+    background:transparent url(li_mark.gif) no-repeat scroll left 4px;
+    margin:0 0 10px;
+    padding:0 0 0 10px;
+    text-indent:10px;
+}
+
+.entry-asset
+{
+    color:#CCCCCC;
+    font-size:0.8em;
+    line-height:1.5em;
+}
+
+.entry-title, #page-title
+{
+    background-image:url(h_pagetitle.gif);
+    background-repeat:no-repeat;
+    color:#FFFFFF;
+    font-size:1.1em;
+    height:20px;
+    padding:9px;
+    width:598px;
+}
+
+.entry-title a:hover, #page-title a:hover
+{
+    color: #B2B2B2;
+}
+
+.widget-header
+{
+    background-image:url(h2_pagetitle.gif);
+    background-repeat:no-repeat;
+    color:#FFFFFF;
+    font-size:1.1em;
+    height:37px;
+    margin-bottom:5px;
+    padding:11px 9px 8px;
+    width:241px;
+}
+
+.widget-search input[type=submit]
+{
+    background:transparent url(search_submit_btn.gif) no-repeat scroll 0 0;
+    border-style:none;
+    border-width:0;
+    height:19px;
+    margin-top:3px;
+    text-indent:-9999px;
+    width:75px;
+    display: inline;
+}
+
+.widget-search #search {
+    border-style:none;
+    border-width:0;
+    float:left;
+    margin-left:2px;
+    margin-top:3px;
+    padding-left:2px;
+    padding-top:5px;
+    width:155px;
+}
+
+.widget-search form
+{
+    background:transparent url(search_form.gif) repeat scroll 0 0;
+    height:25px;
+    margin-top:15px;
+    width:237px;
+}
+
+.entry-asset .asset-body, .entry-asset .asset-meta {
+	padding-left:28px;
+	padding-left:15px;
+}
+
+#comments-form {
+	background:transparent url(comment_form_bg.gif) repeat scroll 0 0;
+	border:1px solid #26521D;
+	margin-bottom:50px;
+	padding:20px 25px 10px;
+}
+
+#comments-form input[type=submit] {
+	background:transparent url(h_pagetitle.gif) no-repeat scroll 0 0;
+	border-style:none;
+	border-width:0;
+	color:white;
+	height:40px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+	width:70px;
+}
+
+.widget-calendar table
+{
+	empty-cells: show;
+	margin: 10px auto 0;
+	width: 211px;
+	background: #313131 no-repeat;
+	padding: 0px;
+	border-collapse: collapse;
+	color: #FFF;
+}
+
+
+
+.widget-calendar th
+{
+	margin: 0px!important;
+	padding: 0px!important;
+	border: 1px solid #999999;
+	background: url(calendar_th1.png) no-repeat;
+	background-position: 0px 2px;
+}
+
+.widget-calendar th:first-child
+{
+	background-position: 1px 2px;
+}
+
+.widget-calendar th:last-child
+{
+	background: #5C5C5C url(calendar_th2.png) no-repeat;
+	background-position: 0px 2px;
+}
+
+.widget-calendar table tr:first-child
+{
+	height: 29px;
+}
+
+.widget-calendar table tr td
+{
+	text-align: center;
+	border: 1px solid #999999;
+	height: 28px;
+	margin: 0px;
+	padding: 0px;
+	width: 29px;
+
+}
+
+.widget-calendar table tr td:last-child
+{
+	background: #5C5C5C;
+}

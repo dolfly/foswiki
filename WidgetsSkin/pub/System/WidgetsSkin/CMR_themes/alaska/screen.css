@@ -1,0 +1,308 @@
+/*
+
+A WordPress theme converted into a Movable Type Professional Website style
+name: Alaskan Lake
+designer: SEM Labs  
+designer_url: http://semlabs.co.uk/journal/free-fluid-wordpress-themes-and-css-templates
+developer: Mike Thomsen (converter)
+developer_url: http://www.codemonkeyramblings.com/themes/
+layouts: layout-wm
+*/
+
+body { background: url(bg.gif); }
+hr { height: 1px; margin: 2em 0 1.5em 0; background: #425767; border-width: 0; }
+pre { white-space: pre-wrap; }
+table { width: 100%; margin: .8em 0 .8em 0; background: #afadaf; border-spacing: 1px; font: 1em Lucida Sans Unicode, Trebuchet MS, Sans; font-weight: bold; }
+tr { background: #fff; }
+td, th { padding: .5em .5em .4em .5em; }
+th { background: #6480a8; border: 1px solid #fff; font: 1em Lucida Sans Unicode, Trebuchet MS, Sans; font-weight: bold; text-align: center; color: #fff; }
+td { background: #fff; border: 1px solid #fff; }
+td:hover{ background: #f7f7f7; cursor: crosshair; }
+a { color: #6480a8; }
+a:hover { color:#a44e4e;  }
+a:visited { color: #a44e4e; }
+table input { width: 15em; }
+
+.entry-asset, .comments, .trackbacks
+{
+	color:#7E7E7E;
+	font:12px Lucida Sans Unicode,Trebuchet MS;
+}
+
+#header
+{
+	background:url(scene.jpg) no-repeat;
+	height:168px;
+}
+#header-name {
+	position: absolute; 
+	top: .5em; 
+	left: 1em; 
+	font: 3.5em Lucida Sans Unicode, Trebuchet MS;
+}
+#header-description {
+	position: absolute; 
+	top: 5.7em; 
+	left: 3.1em; 
+	font: 1.0em Lucida Sans Unicode, Trebuchet MS; 
+	font-weight: bold; 
+	color: #fff;
+}
+
+#header-name a 
+{ 
+	text-decoration: none; 
+	color: #fff; 
+}
+
+#container-inner
+{ 
+	margin-right: auto; 
+	margin-left: auto; 
+	padding: 0 .25em 0 .25em; 
+	background: #3C5769; 
+	border-right: 1px solid #5c7690; 
+	border-left: 1px solid #5c7690; 
+	width:770px;
+}
+
+#content
+{
+	background: #f0f0f0;
+}
+#content-inner
+{
+	margin-top:5px;
+}
+
+.entry-asset a, .comments a, .trackbacks a { color: #a44e4e; }
+#comments div.comment { margin-top: .2em; padding: .9em; border: 1px solid #dfdfdf; }
+#comments div.odd { background: #edf3fa;}
+#comments div.even{ background: #fafafa; }
+
+.entry-asset blockquote { margin:0px; padding: .5em; background: #f6f6f6; border-top: 1px dotted #6480a8; border-bottom: 1px dotted #6480a8; font: 1em Lucida Sans Unicode, Trebuchet MS, Sans; }
+.entry-asset h1 { font: 1.4em Lucida Sans Unicode, Trebuchet MS; line-height: 2em; font-weight: bold; color: #6480a8; }
+.entry-asset h2 { font: 1.2em Lucida Sans Unicode, Trebuchet MS; line-height: 2em; font-weight: bold; color: #a44e4e; }
+.entry-asset h3 { font: 1em Lucida Sans Unicode, Trebuchet MS; line-height: 2em; font-weight: bold; color: #64a869; }
+
+#page-title, .entry-title a
+{
+	text-align:left;
+	color:#6480A8;
+	float:right;
+	font:bold 24px Lucida Sans Unicode,Trebuchet MS;
+	text-decoration:none;
+	width:300px;
+}
+
+.entry-title a:hover { color: #64a869; }
+.entry-asset .asset-meta {
+	width:170px;
+	float:left;
+	background: url(date_day.gif) no-repeat;
+	height:80px;
+	font-size:11px;
+}
+
+.entry-asset .asset-meta a
+{
+	display:block;
+}
+
+.asset-content
+{
+	padding-top:15px;
+}
+
+.entry-asset .byline a
+{
+	color:white;
+	text-decoration: underline;
+	display:inline;
+}
+
+.entry-asset abbr.published, .entry-asset span.byline
+{
+	display:block;
+	background: url(date_month.gif) no-repeat;
+	text-align:center;
+	color:white;
+}
+
+
+span.separator { display: none; }
+
+#homepage-image{ 
+	display:none;
+}
+
+.layout-wm #alpha
+{
+	background: #fff;
+	margin-top:-1.25em;
+	width:520px;
+}
+.layout-wm #beta
+{
+	width:249px;
+}
+
+/*** Navigation **/
+
+#main-navigation
+{
+	height:40px;
+	margin-top:98px;
+	padding-left:32%;
+}
+
+#main-navigation-inner ul 
+{
+
+}
+#main-navigation-inner ul li 
+{ 
+	float: left; 
+	height: 1.8em;
+	margin-right: .3em; 
+	background: #131b22 url(menu_holder_bg.gif) top repeat-x;
+	border: 1px solid #00040b; 
+	border-bottom-width: 0; 
+	list-style-type: none; 
+}
+
+#main-navigation-inner ul li a 
+{ 
+	display: block; 
+	margin: .1em; 
+	margin-bottom: 0; 
+	padding: 0 .5em 0 .5em; 
+	background: #011b41 url(menu_bg.gif) top repeat-x; 
+	font: .75em Verdana; 
+	line-height: 2.3em; 
+	font-weight: bold; 
+	text-align: center; 
+	text-decoration: none; 
+	color: #fff; 
+}
+
+#main-navigation-inner ul li a:hover 
+{ 
+	background: #6d89b1 url(menu_bg_hover.gif) top repeat-x; 
+}
+
+#header-content .widget-sign-in
+{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    text-align: right;
+    font-family: verdana;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+    color:white;
+}
+
+#header-content .widget-sign-in .widget-header { display: none;}
+
+#main-navigation .widget-search {
+	display:none;
+}
+
+/*** Footer **/
+#footer { padding: 1em 1em 2em 1em; background: #0f1921 url(footer_bg.gif) repeat-x; }
+#footer .header { border-top: 1px solid #1f3444; border-bottom: 1px solid #1f3444; }
+#footer .widget-header { margin: .1em 0 .1em 0; padding-left: .5em; background: #1f3444 ; font: .75em verdana; line-height: 1.6em; font-weight: bold; color: #fff; }
+#footer .widget { width:335px; margin-left:5px; margin-right:5px; float:left; border-top:1px solid #1F3444; }
+#footer a { font: .75em Lucida Sans Unicode, Trebuchet MS, Sans; line-height: 2em; text-decoration: none; color: #fff; }
+#footer ul ul li:hover { background: #1a2f3f; }
+#footer .widget-content li { background: url(footer_li_trim.gif) bottom repeat-x; }
+#footer .widget-content li a { display: block; padding-left: 2em; background: url(bullet.gif) .5em center no-repeat; }
+#footer .widget-content li:hover { background: #1a2f3f; }
+#footer p { margin-top: 1.6em; font: .75em Lucida Sans Unicode, Trebuchet MS, Sans; line-height: 1.5em; color: #fff; }
+
+
+
+/*** Sidebar   */
+#beta
+{
+	margin-top:-1.25em;
+	padding-top:1em;
+	background: #ecf1f9;
+	border-top: 1px solid #fff;
+	border-left: 1px solid #fff;
+}
+
+#beta .widget-content ul, .archive-content ul
+{
+	border-top: 1px solid rgb(229, 229, 229);
+	list-style-position: inside;
+	list-style-type: none;
+}
+
+#beta .widget-content ul li, #beta .widget-content dt, .archive-content ul li
+{
+	color: rgb(17, 17, 17);
+	display: block;
+	font-family: 'Lucida Sans Unicode';
+	background: url(folder.gif) no-repeat;
+	font-size: 11px;
+	padding-left: 2em;
+	line-height:19px;
+}
+
+#beta .widget-content ul li, .archive-content ul li
+{
+	border-bottom: 1px solid rgb(229, 229, 229);
+}
+
+#beta .widget-content dt
+{
+	border-top: 1px solid rgb(229, 229, 229);
+	padding-top:3px;
+}
+
+#beta .widget-content dd
+{
+	display: block;
+	font-family: 'Lucida Sans Unicode';
+	font-size: 11px;
+	padding-left: 2em;
+}
+
+#beta .widget-content li a, .archive-content li a
+{
+	height: 17px;
+	color: rgb(93, 93, 93);
+	text-decoration: none;
+	font-size:11px;
+}
+
+#beta .widget-header, #beta .widget-header a
+{
+	color: rgb(101, 101, 101);
+	font-family: verdana;
+	font-size: 20px;
+}
+
+#beta .widget-header a
+{
+	text-decoration: none;
+}
+
+
+/** Forms **/
+
+input { padding: .4em; background: #fff url(input_bg.gif) bottom repeat-x; border: 1px solid #b0b5bd; border-bottom: 1px solid #757a82; font: 1.2em Lucida Sans Unicode, Trebuchet MS; color: #222; }
+#comment-author, #comment-email, #comment-url { width: 50%; }
+label[for="comment-author"], label[for="comment-email"], label[for="comment-url"] { float:right; text-alight: left; width:40%; padding-top:10px;}
+input:focus { border-top: 1px solid #757a82; border-bottom: 1px solid #b0b5bd; font-weight: bold; }
+input.button { float: none !important; width: 100% !important; margin: 0 !important; padding: .5em; background: #fff url(button_bg.gif) bottom repeat-x; border: 1px solid #fff; font: 1.2em verdana; font-weight: bold; text-align: center; color: #222; cursor: pointer; }
+input.button:hover { background: #fff url(button_bg_hover.gif) top repeat-x; }
+label { margin-left: 1em; font: 1em verdana; font-weight: bold; color: #7c7c7c; }
+legend { margin-left: 1em; padding: .3em .3em .3em .3em; background: #efedef; border: 1px solid #afadaf; font: 1.1em Lucida Sans Unicode, Trebuchet MS, Sans; font-weight: bold; color: #7e7e7e; }
+option { padding: 0 .5em 0 .5em; }
+select { border: 1px solid #b0b5bd; }
+textarea { width: 97%; margin-top: .5em; padding: .6em; background: url(input_bg.gif) bottom repeat-x; border: 1px solid #b0b5bd; border-bottom: 1px solid #757a82; font: 1.2em Lucida Sans Unicode, Trebuchet MS; color: #222; }
+textarea:focus { border-top: 1px solid #757a82; border-bottom: 1px solid #b0b5bd; font-weight: bold; }

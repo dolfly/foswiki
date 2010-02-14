@@ -1,0 +1,244 @@
+/*
+name: Blueflower
+designer: Mu
+designer_url: http://www.tagtagweb.com/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-tw
+*/
+
+/** links, basic headers and miscellaneous **/
+
+a {
+	color: #0099FF;
+}
+
+a img {
+	border: none;
+}
+
+a:visited {
+	color: #0099FF;
+}
+
+a:hover {
+	color: #006699;
+}
+
+h2 {
+	font: 95% "Times New Roman", Times, serif;
+	margin: 15px 0 2px 0;
+	padding-bottom: 2px;
+}
+
+h3 {
+	color: #00FFFF;
+	margin: 15px 0 0 0;
+	font: 24px arial;
+}
+
+blockquote {
+	border-left: 5px solid #A9DAFF;
+	margin-left: 1.5em;
+	padding-left: 5px;
+}
+
+
+body {
+	background: #000;
+	color: #CCCCCC;
+	font: 13px "trebuchet MS";
+	margin: 0;
+	padding: 0;
+}
+
+/** Header **/
+
+#header
+{
+	margin-left:400px;
+	padding-bottom:125px;
+}
+
+#header-name {
+	font-family:"Verdana,trebuchet ms";
+	font-size:36px;
+	margin:0;
+	padding:0;
+}
+
+#header-name a{
+	text-decoration:none;
+}
+
+#header-description {
+	color:#82ABC6;
+	font-size:13px;
+	margin-top:0px;
+	padding:0;
+}
+
+/** Layout modification **/
+
+.layout-tw #container-inner
+{
+	padding-top:110px;
+	background: transparent url('top.jpg') no-repeat top left;
+}
+
+.layout-tw #content
+{
+	padding-left:10px;
+	width: 100%;
+	background: #27465a  url('01.png') repeat-x top left;
+}
+
+
+.layout-tw #beta
+{
+	ckground-image:url(black.png);
+}
+
+.layout-tw #beta-inner
+{
+	padding:10px;
+}
+
+
+/** Widgets **/
+.widget-header, .archive-header {
+	color:#FFFFFF;
+	font-family:Georgia,Arial,Helvetica,Verdana;
+	font-size:14px;
+	font-weight:bold;
+	padding:8px 10px;
+	text-transform:uppercase;
+}
+.widget-header a
+{
+	color:#FFFFFF;
+	text-decoration:none;
+}
+
+.widget-content, .archive-content
+{
+	background-image:url(black.png);
+
+}
+.archive-content
+{
+	width:250px;
+}
+.widget-content ul, .widget-content ol, .archive-content ul, .archive-content ol
+{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+	margin:0;
+	padding:10px;
+}
+.widget-content ul li ul, .widget-content ol li ol, .archive-content ul li ul, .archive-content ol li ul
+{
+	list-style-type:disc;
+}
+
+/** Entries and assets */
+
+.entry-title {
+	color:#00FFFF;
+}
+#page-title {
+	color: white;
+}
+.entry-title, #page-title {
+	-x-system-font:none;
+	
+	font-family:arial;
+	font-size:24px;
+	font-size-adjust:none;
+	font-stretch:normal;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:normal;
+	margin:15px 0 0;
+}
+.entry-title a{
+	text-decoration:none;
+}
+.asset-body {
+	margin-bottom:15px;
+	padding-bottom:5px;
+}
+.asset-meta {
+	font-family:Arial,"Trebuchet MS";
+	font-size:11px;
+	font-style:normal;
+}
+
+.entry-asset, #comments-form
+{
+	background:transparent url(images/black.png) repeat scroll 0 0;
+	border:1px dotted #1084CE;
+	padding:15px;background:transparent url(black.png) repeat scroll 0 0;
+	border:1px dotted #1084CE;
+	padding:15px;
+	width:680px;
+}
+
+/** Comments and Trackbacks **/
+
+.comment, .trackback
+{
+	margin-bottom: 5px;
+	border: 1px dotted #A9DAFF;
+	padding: 10px;
+	font-size: 11px;
+	background: url(black.png);
+	color: #E0E6E0;
+	gin-left:50px;
+}
+
+/** Footer **/
+
+#footer .widget-content { text-align:center }
+
+/** Toolbar **/
+
+
+div#pages {
+	font-family: "Verdana";
+	padding-right:10px;
+	margin: 0px auto 0px;
+	top:290px;
+	height: 25px;
+	width:100%;
+	background: #1084ce;
+}
+div#pages ul {
+	padding: 0px 0px 0px;
+	white-space: nowrap;
+	list-style-type: none;
+	margin: 0px;	
+}
+
+div#pages ul li {
+	float:right;
+}
+
+div#pages ul li a {
+	display: block;
+	text-decoration: none;
+	border-left: 1px dotted #333;
+	font-size:12px;
+	padding:4px 15px 4px 15px;
+	text-transform: uppercase;
+	color: #000;
+	font-weight:bold;
+}
+
+div#pages ul li a:hover {
+	color: #333333;
+	background-color:#82abc6;
+}
+

@@ -1,0 +1,141 @@
+/*
+name: Grey gets green
+designer: Converted by Mike Thomsen. Original work by Fred Banuelos (http://www.mexico.vg/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+*/
+
+#header{
+	background: url(images/top.png) no-repeat;
+	height:250px;
+	background-color:#242424;
+}
+
+#header-name
+{
+
+}
+
+#header-name a {
+	text-transform:uppercase;
+	text-decoration:none;
+	color:#999;
+	font: 18px Arial, Helvetica, sans-serif;
+	letter-spacing: -1px;	
+}
+
+#header-description
+{
+	color: white;
+	text-align:left;
+}
+
+blockquote
+{
+	font-style: italic;
+	color: #999999;
+}
+
+body
+{
+	margin: 0px;
+	padding: 0px;
+	background: #242424;
+	color: #999999;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:15px;
+	font-size:11px;
+	font-family:Lucida Grande, sans-serif;
+}
+
+a { color: #9c3;}
+
+#container-inner
+{
+	background-color:white;
+	width:940px;
+}
+
+#footer
+{
+	text-align:center;
+	color:#999999;
+}
+#footer a { color: #9c3; }
+
+.entry-title a
+{
+	color: #9c3;
+	text-decoration:none;
+	border-style: none;
+	font-size: 14px;
+	font-weight: bolder;
+	text-transform: none;
+}
+
+.asset-meta
+{
+	height: 16px;
+	margin-top: 0;
+	font-size: 10px;
+	color: #666;
+	border-top:dotted 1px #666;
+	padding-top:4px;
+	margin-bottom: 8px;
+}
+
+.archive-header, .widget-header
+{
+	color: #999;
+	margin-top: 5px;
+	margin-right: 0px;
+	margin-bottom: 8px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 4px;
+	padding-left: 0px;
+	border-bottom: 1px solid #ccc;
+	font-size: 10px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.widget
+{
+	color: #999999;
+}
+
+.widget a { color:#9c3; }
+
+#container-inner
+{
+	background-color:#333;
+}
+
+.archive a, .widget a, .entry-content a, .asset-more-link a { color: #9c3; }
+
+.widget ul li a
+{
+	border-bottom: 1px dotted #666;
+	color: #9c3;
+	display: block;
+	text-decoration: none !important;
+	padding-left: 20px;
+	padding-top: 4px;
+	padding-right: 0px;
+	padding-bottom: 4px;
+	background-image: url('images/navbulle.gif');
+	background-repeat: no-repeat;
+	background-position: 10px 50%
+}
+
+.archive ul li
+{
+	margin-left: 0px;
+	padding-top: 4px;
+	padding-right: 0px;
+	padding-bottom: 4px;
+	padding-left: 25px;
+}

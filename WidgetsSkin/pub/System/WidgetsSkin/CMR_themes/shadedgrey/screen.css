@@ -1,0 +1,157 @@
+/*
+name: ShadedGrey
+designer: Converted by Mike Thomsen. Original work by Sadish Balasubramanian (http://wpthemes.info/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+*/
+
+#header{
+	background: url(img/header.jpg);
+	background-color:#242424;
+}
+
+#header-name
+{
+
+}
+
+#header-name a {
+	text-transform:uppercase;
+	text-decoration:none;
+	color:white;
+	font: 18px Arial, Helvetica, sans-serif;
+	letter-spacing: -1px;	
+}
+
+#header-description
+{
+	color: white;
+	text-align:left;
+}
+
+blockquote
+{
+	background: #EEE url(img/blockquote.png) no-repeat bottom left;
+	padding: 10px;
+	padding-bottom: 40px;
+	margin: 1em;
+}
+
+body
+{
+	margin: 0;
+		padding: 0;
+		text-align: center;
+		color: #666;
+		background: #e5e5e5 url(img/bg.gif) repeat-y center;
+	font: 90% 'Trebuchet MS', Verdana, Georgia, Arial, sans-serif;
+}
+
+a { color: #7A7636;}
+
+#container-inner
+{
+	background-color:white;
+	width:940px;
+}
+
+#footer
+{
+	text-align:center;
+	color:#999999;
+}
+
+.entry-title
+{
+	background: url(img/dateheader.png);
+	width:649px;
+	height:25px;
+	vertical-align:bottom;
+}
+.entry-title a
+{
+	color: #7A7636;
+	text-decoration:none;
+	border-style: none;
+	font-size: 14px;
+	font-weight: bolder;
+	text-transform: none;
+}
+
+.asset-meta
+{
+	height: 16px;
+	margin-top: 0;
+	font-size: 10px;
+	color: #666;
+	padding-top:4px;
+	margin-bottom: 8px;
+}
+
+.archive-header, .widget-header
+{
+	margin: 0;
+	padding:3px 5px;
+	font-size: 1em;
+	color: #333;
+	font-weight:normal;
+	background:transparent url(img/sidetitle.png) repeat-x top center;
+}
+
+.widget
+{
+	color: #999999;
+}
+
+.widget a { color:#9c3; }
+
+#container-inner
+{
+
+	
+		background: #fff;
+		
+		font-size: 0.9em;
+	
+		color:#333;
+}
+
+#alpha-inner
+{
+	border-right:2px solid #eee;
+}
+
+
+.entry-content
+{
+	width:649px;
+}
+
+.archive a, .widget a, .entry-content a, .asset-more-link a { color: #7A7636; }
+
+.widget-content
+{
+	list-style-type: none;
+	padding: 0 5px 1em 10px;
+	margin: 0 0 1em 0;	
+	border:#eee 1px solid;
+}
+
+.archive-content { border:#eee 1px solid;}
+
+.archive ul li
+{
+	margin-left: 0px;
+	padding-top: 4px;
+	padding-right: 0px;
+	padding-bottom: 4px;
+	padding-left: 25px;
+}
+
+.widget ul li a, .archive ul li a
+{
+	color: #999;
+	border-bottom: 1px solid #ebebeb;
+	text-decoration: none;
+}
+

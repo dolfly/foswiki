@@ -1,0 +1,160 @@
+/*
+name: Talian
+designer: Converted by Mike Thomsen. Based on WordPress theme by Arun Kumar. His site is http://www.va4business.com/
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-twt
+
+*/
+
+/* add custom css here */
+
+.archive-title
+{
+	font-size:18pt;
+	color:#666666;
+}
+
+#header-name { font-size: 40px; background: #ffc; }
+#header-inner {
+	background: url(images/headerbg.gif);
+	height:79px;
+	margin-left:17px;
+	width:92%;
+}
+
+#header-name {
+	background-color:black;
+	width:100%;
+	color:white;
+}
+#header-description {
+	background-color:black;
+	color:white;
+}
+#header-name a {
+	color:white;
+}
+.asset-body {
+
+}
+.widget-header {
+	background:url(images/h2navbg.gif);
+	padding:5px;
+	color:white;
+	height:21px;
+	vertical-align:middle;
+	font-size:14pt;
+}
+.widget-header a {
+	color:white;
+}
+.widget-header a:visited { color:white; }
+.asset-body blockquote {
+	background: url(images/bquote.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+.widget-content {
+	background-color: #EEEEDD;
+}
+
+.widget-archive {
+	background-color: #EEEEDD;
+}
+.widget-archive a:link {
+	color: black;
+}
+
+.entry-title {
+font-size:16pt;
+}
+
+.entry-title a{
+	color: #666666;
+}
+.asset-meta a {
+	color: #666666;
+}
+.asset-body a {
+	color: #666666;
+}
+.widget-content a {
+	color: #666666;
+}
+
+.content-nav a {
+	color: #666666;
+
+}
+
+#alpha{
+background: url(images/someimage.gif) no-repeat;
+}
+
+#alpha-inner{
+margin-top:140px;
+}
+
+.widget-recent-entries
+{
+	background-color: #EEEEDD;
+
+}
+
+.widget-tag-cloud
+{
+	background-color: #EEEEDD;
+
+}
+
+.widget-search
+{
+	background-color: #EEEEDD;
+
+}
+
+.widget-recent-comments
+{
+	background-color: #EEEEDD;
+
+}
+
+.recent-comments-list li
+{
+	list-style-image: url(images/bullet.gif);
+}
+
+blockquote {
+	background-image: url(images/bquote.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	clear: both;
+	margin-top: 10px;
+	margin-right: 40px;
+	margin-bottom: 10px;
+	margin-left: 5px;
+	padding-top: 15px;
+	padding-left: 38px;
+}
+
+.asset-more-link, .comments-open a {
+	color: #666666;
+}
+
+.entry-category a {
+	color: #666666;
+
+}
+
+.archive a { color: #666666; }
+
+.entry-tag a {
+	color: #666666;
+
+}
+
+#trackbacks a {
+	color: #666666;
+}
+

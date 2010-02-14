@@ -1,0 +1,249 @@
+/*
+name: Metamorph Cell
+designer: Metamorphosis Design
+designer_url: http://www.metamorphozis.com/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm
+*/
+
+#container{
+	margin: 0;
+	background: #FEF261 url(back_all.gif) repeat-x top;
+}
+
+body, th, td, input, textarea {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #666666;
+}
+
+#header
+{
+	width: 774px;
+	height: 279px;
+	background: #BC4300 url(header.jpg) no-repeat center ;
+	text-align: lefr;
+	border-right:2px solid #BC4300;
+	border-left:1px solid #BC4300;
+}
+
+#header-name {
+	padding-top: 180px;
+	padding-left: 20px;
+	font-size: 18px;
+}
+#header-name a {
+	color: #BC4300;
+	font-weight:bold;
+	text-decoration:none;
+}
+#header-description {
+	font-style: italic;
+	font-size: 10px;
+	padding-left: 20px;
+	font-weight:bold;
+
+}
+
+h1, h2, h3 {
+	color: #BC4300;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2 {
+	text-transform: uppercase;
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #BC4300;
+}
+
+h3 {
+	font-size: 1em;
+}
+
+ul, ol {
+	margin-left: 3em;
+}
+
+a {
+	text-decoration: underline;
+	color: #BC4300;
+}
+
+a:hover {
+	border: none;
+	text-decoration: none;
+}
+
+h1 a, h2 a, h3 a {
+	border: none;
+	text-decoration: none;
+	color: #BC4300;
+}
+
+h1 a:hover, h2 a:hover, h3 a:hover {
+	background: none;
+	color: #BC4300;
+}
+
+/** Entry styles **/
+.entry-title , #page-title {
+
+	font-size:14px;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+.entry-title a { color:#FFFFFF;}
+
+.entry-asset
+{
+	border: 1px solid #BC4300;
+	background: #ffffff url(box_back.gif) no-repeat top;
+	width: 450px;
+	padding: 10px;
+	margin-bottom: 20px;
+}
+
+/** Layout details **/
+
+.layout-wm #content-inner
+{
+	background: url(table_back.gif) repeat-x;
+}
+
+.layout-wm #container-inner
+{
+	background-color:white;
+	width:775px;
+	padding-left:10px;
+	padding-right:10px;
+}
+
+.layout-wm #content, #footer
+{
+	width:771px;
+	border-right:3px solid #BC4300;
+	border-left:3px solid #BC4300;
+}
+
+.layout-wm #alpha
+{
+	width:500px;
+}
+
+.layout-wm #beta
+{
+	width:270px;
+}
+
+/** Widgets **/
+
+.widget-header {
+	background: url(title.png) no-repeat left top;
+	height: 74px;
+	color: #FFFFFF;
+	padding-left: 20px;
+	padding-top: 14px;
+	margin-bottom: -50px;
+	font-size:1.1em;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+.widget-content
+{
+	margin-top:-15px;
+	padding-top:20px;
+}
+
+.widget-content p, .widget-content form
+{
+	padding-left:5px;
+}
+
+.widget-sign-in .widget-content, .widget-calendar .widget-content, .widget-tag-cloud .widget-content
+{
+	padding-left:20px;
+        padding-top:35px;
+}
+
+.widget-calendar .widget-content table { font-size:1.0em; }
+
+.widget-calendar .widget-content td, .widget-calendar .widget-content th { padding:0px 3px 3px 3px; text-align:center; }
+
+
+#beta .widget-powered .widget-content, #beta .widget-powered .widget-content
+{
+	padding-left:10px;
+	padding-top:30px;
+}
+
+.widget-content ul
+{
+	line-height: normal;
+	margin-left: 20px;
+	margin-bottom: 20px;
+
+}
+
+.widget-content ul li
+{
+	padding: 5px;
+
+	background: url(small.png) no-repeat left;
+	font-size: .8em;
+}
+
+.widget-content li a {
+	border: none;
+	padding-left: 10px;
+}
+
+.widget-content li a:hover {
+	border: none;
+	padding-left: 10px;
+}
+
+
+.widget-header a{
+	color:white;
+	text-decoration:none;
+}
+
+/** Footer **/
+
+#footer
+{
+	padding-top: 20px;
+	height: 50px;
+	width: 771px;
+	background: url(table_back.gif) repeat-x;
+}
+
+#footer p {
+	text-align: center;
+	font-size: 9px;
+	color: #ffffff;
+	margin: 0px;
+	padding: 0px;
+}
+#footer a
+{
+	color: #FFFFFF
+}
+
+#footer .widget-powered .widget-content {
+	background:url(transparent.png);
+	padding:0px;
+	margin:0px;
+	text-align:center
+}
+
+#footer .widget-creative-commons {
+	width:0px;
+	height:0px;
+}

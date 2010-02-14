@@ -1,0 +1,154 @@
+/*
+name: Ragteka
+designer: Slimmity Brown
+designer_url: http://www.slimmity.com/themes/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm
+*/
+
+
+body {
+	background-repeat:repeat-x;
+	font-family: 'Lucida Grande',Verdana,'Bitstream Vera Sans',Arial,sans-serif; 
+	margin:8px auto;
+	background-color:#424242;
+	background-image:url(images/bg.png);
+}
+
+
+a { outline-style:none;  }
+a:link ,a:active ,a:visited { 
+	text-decoration: none; 
+	border: none;
+	color : #f8ac29;
+}
+a:hover	{ 
+	text-decoration: none;
+	border: none;
+	color : #c3c3c3;
+} 
+input, textarea  {
+    outline:none;
+}
+
+#alpha-inner
+{
+	border:1px solid #f8ac29;
+	background-color:#ffffff;
+
+}
+
+.widget
+{
+	color:#a8a8a8;
+	font-size: 11px;
+}
+
+.widget-header, .archive-header, #page-title
+{
+	font-size:14px;
+	margin:0 0 5px 0;
+	padding-bottom:5px;
+
+	color:#f8ac29;
+	border-bottom:1px solid #c0c0c0;
+}
+
+#page-title
+{
+	font-size: 18px;
+}
+
+.widget-list, .recent-comments-list
+{
+	margin:0; 
+	padding:0; 
+	list-style:none;
+	font-size:11px;
+}
+
+.widget-list ul, .widget-list ol
+{
+	padding:5px;
+	margin:2px 0 0 0;
+}
+
+.widget-list li, .recent-comments-list li
+{
+	background-repeat:no-repeat;
+	background-position:0 0px;
+	padding:0px 0 4px 14px;
+	background-image:url(images/bullet.gif);
+	border-bottom:1px solid #8b8b8b;
+	color:#a8a8a8;
+}
+
+.entry-asset
+{
+	margin:10px 10px 0px 10px;
+	padding-bottom:15px;
+	background-position:bottom left;
+	background-repeat: repeat-x;
+	background-image:url(images/divider.png);
+}
+
+.asset-meta
+{
+	color:#4e4e4e;
+}
+
+.asset-body
+{
+	font-size:12px;
+	line-height:20px;
+	color:#4e4e4e;
+}
+
+.entry-title
+{
+	font-size:18px;
+}
+#header-description {
+	color:white;
+	font-family:     "Monotype Corsiva"  "Comic Sans MS"
+                    "Brush Script MT"
+                    cursive;
+	font-size: 25px;
+}
+#header-name {
+	font-family:       "Comic Sans MS"
+                    "Brush Script MT" "Monotype Corsiva"
+                    cursive;
+	font-size: 30px;
+	font-weight:bolder;
+	font-style: italic;
+}
+
+#footer {
+	color:#f2f0de;
+	border-top:1px solid #8b8b8b;
+}
+
+blockquote
+{
+	border-left:3px solid #ffa200;
+}
+
+.content-nav
+{
+	font-weight: bolder;
+}
+input[type=text]
+{
+	padding: 2px;
+	background-color: #424242;
+        border: 1px solid #f8ac29;
+	color: #f8ac29;
+}
+input[type=submit]
+{
+	color: #f8ac29;
+	background-color: #424242;
+	border: 1px solid #f8ac29;
+}

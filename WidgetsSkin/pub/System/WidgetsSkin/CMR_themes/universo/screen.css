@@ -1,0 +1,89 @@
+/*
+name: Universo
+designer: Converted by Mike Thomsen. Original work by Sly Zane (http://wordpresstemplate.org/about/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+*/
+
+#header{
+	background:url(header.jpg) no-repeat;
+	height:250px;
+}
+
+#header-name {
+	margin: 0 auto;
+	padding: 60px 0 10px 420px;
+	text-align: right;
+}
+#header-name a
+{
+	color:#83a6e9;
+	font-size:18px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+}
+
+#header-description
+{
+	margin: 0 auto;
+	padding: 25px 5px 0 475px;
+	color:#688ed5;
+	font-size:11px;
+	text-align: right;
+	font-family:Verdana, Arial, Helvetica, sans-serif
+}
+
+body
+{
+	background: url(bg.jpg) repeat-x;
+	background-color:#3f5783
+}
+
+#container-inner
+{
+	background: url(container.gif);
+}
+
+a
+{
+	color: #203b6c;
+}
+
+#footer
+{
+	background-color:#0d1c37;
+	color:white;
+}
+#footer a { color:white; }
+
+.entry-title
+{
+	background: url("pt.jpg") left  no-repeat;
+	font-family: Arial, sans-serif; 
+	font-size: 18px;
+	font-weight: bold;
+	height:28px;
+	padding: 2px 0 0px 25px;
+	margin-top: 3px;
+	margin-left: 0px;
+	border-bottom: 1px solid #cccccc;
+}
+
+#alpha-inner
+{
+	background-color:white;
+	width:600px;
+}
+.widget-header
+{
+	height: 30px;
+	font-weight:bold;
+	padding: 10px 0 0px 0px;
+	font-family: Arial, sans-serif; 
+	color: #132443;
+}
+
+li
+{
+	padding: 3px 0 5px 0px;
+	border-bottom: 1px dotted #91a6cb;
+}

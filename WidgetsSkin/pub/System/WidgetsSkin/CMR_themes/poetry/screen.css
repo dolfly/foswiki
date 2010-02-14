@@ -1,0 +1,258 @@
+/*
+
+name: Poetry
+designer: cuikai  
+designer_url: http://uicss.cn/wordpress-poetry/
+developer: Mike Thomsen (converter)
+developer_url: http://www.codemonkeyramblings.com/themes/
+layouts: layout-wm
+*/
+
+body {
+	background:#fefff5;
+	color:#555;
+	font-family:Verdana,"BitStream vera Sans",Helvetica,Sans-serif;
+	font-size:12px;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight:bolder;
+	letter-spacing:-0.07em;
+	font-family:Arial;
+}
+h1 {font-size:200%;}
+h2 {font-size:170%;}
+h3 {font-size:150%;}
+h4 {font-size:130%;}
+h5 {font-size:110%;}
+h6 {font-size:100%;}
+img {
+	border:0;
+}
+
+small {
+	font-size:10px;
+}
+a:hover img.sided {
+	border-color:#A6A6A6;
+}
+
+#alpha a, #beta a, #footer a {
+    text-decoration: none;
+}
+a, a:link, .entry-title a:hover {
+	color:#2970A6;
+	text-decoration:none;
+}
+a:hover, #alpha .entry-asset .asset-meta a:hover, #alpha .entry-asset .asset-body a:hover, #beta a:hover {
+	text-decoration:underline; 
+}
+
+blockquote, pre {
+	background:#F4F5F7 url(blockquote.gif) 3px 3px no-repeat;
+	border:1px dashed #CCC;
+	padding:8px 12px 8px 36px;
+	margin:5px 0;
+}
+
+#container {
+    background:url(top_bg.jpg) repeat-x scroll center top transparent;
+}
+
+#header  {
+    background:url(header.jpg) no-repeat scroll 0 0 transparent;
+    height:250px;
+}
+
+#header-name {
+    height:54px;
+    padding:50px 30px 0px 300px;
+}
+
+div#header-name {
+    font-size: 200%;
+}
+
+#header-name a {
+    color:#4A8E00;
+    display:block;
+    font-family:"Trajan Pro";
+    height:30px;
+    letter-spacing:0;
+    text-decoration:none;
+}
+
+#header-description {
+    color:#666666;
+    float:left;
+    font-size:10px;
+    padding: 0px 0px 0px 300px;
+    margin-top: -20px;
+    text-decoration:none;
+}
+
+.layout-wm #alpha {
+    background:none repeat scroll 0 0 #FFFFFF;
+    border:1px solid #CCCCCC;
+    float:left;
+    overflow:hidden;
+    padding:5px 15px 15px;
+    width:595px;
+}
+
+.layout-wm #content {
+    width: 935px;
+}
+
+.layout-wm #content-inner {
+    padding-top: 0px;
+}
+
+.layout-wm #beta {
+    font-size:95%;
+    float:right;
+    font-size:95%;
+    line-height:145%;
+    overflow:hidden;
+    width:305px;   
+}
+
+.layout-wm #beta-inner {
+    width: 300px;
+    padding-right: 0px;
+    padding-left: 5px;
+}
+
+.layout-wm #alpha-inner {
+    padding-left: 0px;
+}
+
+/** Widgets **/
+
+.widget {
+    background:none repeat scroll 0 0 #FFFFFF;
+    border:1px solid #CCCCCC;
+    margin-bottom:10px;
+    width: 298px;
+}
+
+.widget-header {
+    background-image:url(title_bg.jpg);
+    border-bottom:1px solid #CCCCCC;
+    color:#393300;
+    font-family:Verdana,Arial,Helvetica,sans-serif;
+    font-size:14px;
+    font-weight:bold;
+    height:28px;
+    line-height:28px;
+    padding:0 10px;
+    text-decoration:none;
+}
+
+.widget-header a {
+    color: #393300;
+}
+
+#beta .widget ul, #beta .widget ol {
+    padding:7px;
+}
+
+.widget li {
+    font-size:12px;
+    background:url(icons.gif) no-repeat scroll 0 -320px transparent;
+    list-style:none outside none;
+    margin-top:5px;
+    padding-left:22px;
+}
+.widget-tag-cloud .rank-1 { font-size: 20pt; }
+.widget-tag-cloud .rank-2 { font-size: 17pt; }
+.widget-tag-cloud .rank-3 { font-size: 14pt; }
+.widget-tag-cloud .rank-4 { font-size: 11pt; }
+.widget-tag-cloud .rank-5 { font-size: 9pt; }
+.widget-tag-cloud .rank-6 { font-size: 7pt; }
+
+/** Entry listing settings **/
+
+.entry-title {
+    border-bottom:1px solid #CCCCCC;
+    display:block;
+    font-family:Verdana,"BitStream vera Sans";
+    font-size:16px;
+    margin-top:10px;
+    padding:0 5px 3px;
+}
+
+.entry-title a {
+    color:#4C4C4C;
+    text-decoration:none;
+}
+
+.entry-asset .asset-meta {
+    margin:5px;
+}
+
+.asset-body {
+    line-height:145%;
+    overflow:hidden;
+    padding:5px 0 5px 5px;
+}
+
+
+/** Comments and trackbacks **/
+
+.comment-content
+{
+	background:#EDEFF0 url(comment.gif) 0 0 no-repeat;
+	padding:5px;
+}
+
+/** Forms **/
+
+#comment-author, #comment-email, #comment-url, #comment-text {
+	background:#FFFFFF url(textfield.gif) repeat-x scroll center top;
+	border:1px solid #A6A6A6;
+	padding:2px 1px;
+    
+}
+
+#comment-author, #comment-email, #comment-url
+{
+    width: 200px;
+}
+
+input[type=submit],input[type=button] {
+	background:#B4D666 none repeat scroll 0 0;
+	border-color:#B4D666 #81B840 #81B840 #B4D666;
+	border-style:solid;
+	border-width:1px;
+	color:#2970A6;
+	cursor:pointer;
+	font-size:11px;
+	padding:3px 6px;
+}
+
+
+#comment-form-name label, #comment-form-email label, #comment-form-url label {
+    float: right;
+    width: 360px;
+    padding-top: 3px;
+}
+
+#comment-form-remember-me { clear: both; }
+
+
+/*** Calendar widget settings **/
+
+.widget-calendar table {
+    background-color:#FFFFFF;
+    color:#000000;
+    empty-cells:show;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:12px;
+    margin:10px auto;
+    width:220px;
+}
+
+.widget-calendar td {
+    padding:2px 0;
+    text-align:center;
+}

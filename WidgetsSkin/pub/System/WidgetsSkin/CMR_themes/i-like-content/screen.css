@@ -1,0 +1,195 @@
+/*
+
+name: I Like Content
+designer: John Saddington 
+designer_url: http://human3rror.com/i-like-content-wordpress-theme-release/
+developer: Mike Thomsen (converter)
+developer_url: http://www.codemonkeyramblings.com/themes/
+layouts: layout-wt
+*/
+
+
+body { background: #666 url(wood.jpg) fixed; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 13px; padding: 0px; margin-top: 0px; color:#35383d;}
+
+a:link { text-decoration: none; color : #f07f00; border: 0px; -moz-outline-style: none;}
+a:active { text-decoration: underline; color : #f07f00; border: 0px; -moz-outline-style: none;}
+a:visited { text-decoration: none; color : #f07f00; border: 0px; -moz-outline-style: none;}
+a:hover	{ text-decoration: underline; color : #985000; border: 0px; -moz-outline-style: none;} 
+a:focus { outline: none;-moz-outline-style: none;}
+
+h1, h2, h3, h4 { font-family: Arial, Helvetica, sans-serif; font-weight: bold;  }
+
+blockquote { font: italic 14px/19px Georgia, "Times New Roman", Times, serif; padding: 10px 20px; margin: 10px 0px; background: #e2e2e2; }
+
+ul,ol { list-style:none outside none; }
+
+/** Main layout containers **/
+
+.layout-wt #alpha {
+    background:none repeat scroll 0 0 #FFFFFF;
+    overflow:hidden;
+    width:740px;
+}
+
+.layout-wt #alpha-inner {
+    padding:10px 15px 0 15px;
+}
+
+.layout-wt #beta {
+    padding-bottom:0;
+    width:180px;
+}
+
+#header-inner {
+    padding-bottom: 0px;
+    padding-left: 0px;
+}
+
+#search {
+    width:120px;
+}
+
+#footer {
+    padding:15px 0;
+    width:870px;
+}
+
+#footer p{
+    color:#111111;
+    font-family:'Verdana';
+    font-size:11px;
+    margin:0;
+    padding:0;
+}
+
+#header {
+    overflow:hidden;
+}
+#header-name { font-size: 20pt; font-weight: bold; }
+#header-description { font-size: 12pt; font-weight: bold;}
+
+/** Widget settings **/
+
+#beta .widget, #gamma .widget {
+    background:none repeat scroll 0 0 #E2E2E2;
+    border:1px solid #F07F00;
+    color:#985000;
+    margin-bottom:3px;
+    padding:10px;
+    width: 120px
+}
+
+.widget a {
+    color:#985000;
+    text-decoration:underline;
+}
+
+.widget-header {
+    border-bottom:1px solid #F07000;
+    color:#102A30;
+    font:bold 15px/15px 'Arial';
+    letter-spacing:-1px;
+    margin-bottom:5px;
+    padding-bottom:5px;
+}
+
+.widget li {
+    background:url(arrow.png) no-repeat scroll left 6px transparent;
+    color:#5E8A89;
+    font-size:11px;
+    padding:2px 0 2px 6px;
+}
+
+.widget-tag-cloud .rank-1 { font-size: 20pt; }
+.widget-tag-cloud .rank-2 { font-size: 18pt; }
+.widget-tag-cloud .rank-3 { font-size: 15pt; }
+.widget-tag-cloud .rank-4 { font-size: 12pt; }
+.widget-tag-cloud .rank-5 { font-size: 10pt; }
+.widget-tag-cloud .rank-6 { font-size: 8pt; }
+
+
+
+/** Entry listing settings **/
+
+.entry-title a, #page-title
+{
+    color:#272D36;
+    font:bold 40px/40px "Helvetica";
+    letter-spacing:0;
+}
+
+.entry-asset .asset-body {
+    border-top:1px solid #DBDBDB;
+    border-bottom:1px dashed #DBDBDB;
+    padding-top: 10px;
+}
+
+.entry-asset .asset-meta {
+    color:#999999;
+    font:11px/14px 'Arial';
+    text-transform:uppercase;
+}
+
+/*** Comment and trackback listing CSS settings **/
+
+.trackbacks-header, .comments-header {
+    color:#272D36;
+    font:bold 28px/28px "Arial";
+    letter-spacing:-1px;
+    padding-bottom:20px;
+}
+
+.comment, .trackback {
+    background:url() no-repeat scroll right bottom #FFFFFF;
+    border:1px solid #F07F00;
+    margin-bottom:15px;
+    padding:25px;
+}
+
+.comment .byline abbr {
+    color:#985000;
+    text-decoration:underline;
+}
+
+.comment-content {
+    color:#333333;
+    font:12px/17px "Verdana";
+    margin-right: 90px;
+    padding:5px 0;
+}
+
+/*** Comments form style settings **/
+
+#comments-form {
+    background:none repeat scroll 0 0 #E2E2E2;
+    border:1px solid #F07F00;
+    margin:10px 0;
+    padding:20px;
+}
+
+#comment-author, #comment-email, #comment-url, #comment-text {
+    background:url() no-repeat scroll left center #FFFFFF;
+    border:1px solid #F07F00;
+    padding:5px 5px 5px 40px;
+}
+
+#comment-author, #comment-email, #comment-url
+{
+    width: 210px;
+}
+
+#comment-form-name label, #comment-form-email label, #comment-form-url label {
+    float: right;
+    width: 400px;
+    padding-top: 5px;
+}
+
+input[type=submit], input[type=button] {
+    background:url(button-post-comment.png) no-repeat scroll left center transparent;
+    border:1px solid #F07F00;
+    color:#FFFFFF;
+    font-size:11px;
+    font-weight:bold;
+    padding:4px 6px 4px 38px;
+    width:auto;
+}

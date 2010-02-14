@@ -1,0 +1,231 @@
+/*
+name: Night Vision
+designer: http://www.freewpthemes.net/
+designer_url: hhttp://www.freewpthemes.net/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm, layout-wtt
+*/
+
+body {
+	margin: 0;
+	padding: 0;
+	background: #000000 url(img12.jpg) repeat top left;
+	text-align: justify;
+	font: 13px "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #7F7772;
+}
+
+h1, h1 a, h2, h2 a, h3, h3 a {
+	margin: 0;
+	text-decoration: none;
+	font-weight: normal;
+	color: #AAFF00;
+}
+
+h1 {
+	letter-spacing: -3px;
+	font-size: 2.6em;
+}
+
+h2, .widget-header {
+	letter-spacing: -2px;
+	font-size: 2em;
+}
+
+h3 {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+blockquote {
+	margin: 0 0 0 1.5em;
+	padding-left: 1em;
+	border-left: 5px solid #DDDDDD;
+}
+
+a {
+	color: #AAFF00;
+}
+
+a:hover {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+#header {
+	width: 890px;
+	height: 128px;
+	margin: 0 auto;
+}
+
+#header-name {
+	float: left;
+	color: #AAFF00;
+	height: 88px;
+	padding: 0px 15px 0 0;
+	font-size: 4em; 
+	letter-spacing: -3px;
+}
+#header-description {
+	margin: 0 0 0 -80px;
+	padding: 35px 0 0 0;
+	line-height: normal;
+	letter-spacing: -1px;
+	font-size: 1.2em;
+	font-weight: bold;
+	color: #AAFF00;
+}
+
+#container-inner
+{
+	background: url(img14.jpg) no-repeat center top;
+}
+
+.layout-wt #alpha { width: 600px; }
+.layout-wt #beta { width: 300px; }
+.layout-wt #alpha, .layout-wt #beta, .layout-wtt #alpha, .layout-wtt #beta, .layout-wtt #gamma { margin-top:35px; }
+
+.layout-wtt #alpha { width: 430px; }
+.layout-wtt #beta { width: 160px; margin-left: 60px; }
+.layout-wtt #gamma { width: 240px;  }
+
+.entry-title a, .entry-asset a { text-decoration: none }
+.asset-more-link {
+	width: 410px;
+	height: 29px;
+	margin: 0;
+	padding: 6px 0 0 20px;
+	background: url(img08.gif) no-repeat;
+
+}
+
+.entry-asset .asset-meta {
+	/*width: 380px;*/
+	height: 34px;
+	margin: 0;
+	padding: 6px 0 0 20px;
+	background: black  no-repeat;
+	border: 1px solid #333;
+
+}
+.widget-content ul
+{
+	padding: 15px 20px;
+	line-height: 200%;
+	list-style: none;
+}
+
+.widget-content ul li
+{
+	margin: 0;
+	padding-left: 15px;
+	line-height: 200%;
+	background: url(img07.gif) no-repeat 0 11px;
+	line-height: 200%;
+}
+
+#sidebar li li {
+	margin: 0;
+	padding-left: 15px;
+	background: url(img07.gif) no-repeat 0 11px;
+}
+
+
+.widget-header {
+	width: 210px;
+	height: 30px;
+	padding: 5px 0 0 30px;
+	background: url(img05.gif);
+	letter-spacing: -1px;
+	font-size: 1.6em;
+	color: #FFFFFF;
+
+}
+.widget-header a { color: #FFFFFF; text-decoration: none; font-weight: bold;}
+
+.widget-calendar table {
+    width: 240px;
+    background: #1F1F1D;
+    border: 1px solid #11110F;
+    text-align: center;
+}
+
+.widget-calendar th {
+    background: #161616;
+}
+
+.widget-calendar tbody td {
+    background: #0F0F0D;
+    border: 1px solid #11110F;
+}
+
+#footer
+{
+	clear: both;
+	width: 950px;
+	margin: 0 auto;
+	padding: 30px 0;
+	background: url(img11.gif) no-repeat;
+
+}
+
+#footer-content {
+	margin: 0 0 5px 0;
+	text-align: center;
+	line-height: normal;
+	font-size: .9em;
+}
+
+#footer a {
+	text-decoration: none;
+}
+
+
+#menu
+{
+	width: 950px;
+	height: 60px;
+	margin-bottom: 30px;
+	background: url(img04.gif);
+
+}
+
+#menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#menu li {
+	display: inline;
+	text-transform: uppercase;
+}
+
+#menu a {
+	display: block;
+	float: left;
+	background: url(img15.gif) no-repeat right 100%;
+	padding: 18px 30px 0 30px;
+	text-decoration: none;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 1em;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+
+#menu a:hover {
+	height: 60px;
+	background: url(img16.gif) repeat-x right 30%;
+	color: #000000;
+}
+
+#menu .current_page_item {
+}
+
+#menu .current_page_item a {
+	color: #000000;
+}
+
+.trackback, .comment {
+	padding-left:15px;
+}

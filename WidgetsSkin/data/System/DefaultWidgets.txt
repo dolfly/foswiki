@@ -133,7 +133,7 @@ Need a magical WebWidgets topic that can add widgets to the list for a web - sim
 %STARTSECTION{"widget-webleftbar"}%<div class="widget-archives widget">
    <h2 class="widget-header">%BASEWEB%</h2>
    <div class="widget-content">
-%INCLUDE{"%BASEWEB%.WebLeftBar"}%
+%INCLUDE{"%BASEWEB%.WebLeftBar" warn="create a %BASEWEB%.WebLeftBar" }%
    </div>
 </div>%ENDSECTION{"widget-webleftbar"}%
 
@@ -145,13 +145,13 @@ Need a magical WebWidgets topic that can add widgets to the list for a web - sim
     Need to add skin selector, and then appropriate details
     <b class="widget-header3"> %SYSTEMWEB%.WidgetsSkin options: </b>
         <ul class="widget-list">
-            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=w][Wide]]</li>
-            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=wt][Wide - Thin]]</li>
-            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=tw][Thin - Wide]]</li>
-            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=twt][Thin - Wide - Thin]]</li>
-            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=wtt][Wide - Thin - Thin]]</li>
-            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=wm][Wide - Medium]]</li>
-            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=mw][Medium - Wide]]</li>
+            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=w;colsidx=1;%QUERYSTRING%][Wide]]</li>
+            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=wt;colsidx=2;%QUERYSTRING%][Wide - Thin]]</li>
+            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=tw;colsidx=3;%QUERYSTRING%][Thin - Wide]]</li>
+            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=twt;colsidx=4;%QUERYSTRING%][Thin - Wide - Thin]]</li>
+            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=wtt;colsidx=5;%QUERYSTRING%][Wide - Thin - Thin]]</li>
+            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=wm;colsidx=6;%QUERYSTRING%][Wide - Medium]]</li>
+            <li class="widget-list-item">[[%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?skin=widgets;widgetscolumns=mw;colsidx=7;%QUERYSTRING%][Medium - Wide]]</li>
         </ul>
     </div>
 </div>%ENDSECTION{"widget-skins"}%
@@ -196,8 +196,17 @@ powered by the community. 28th October 2008.
 %STARTSECTION{"widget-subscribe"}%<div class="widget-subscribe widget">
    <h2 class="widget-header">Subscribe</h2>
    <div class="widget-content">
-        %IF{"context SubscribePluginEnabled" then="" else="SubscribePlugin not installed/enabled"}%
+        %INCLUDE{"%WEB%.%TOPIC%" section="%IF{"context SubscribePluginEnabled AND context authenticated" then="widget-subscribe-enabled" else="widget-subscribe-notenabled"}%"}%
+    </div>
+</div>%ENDSECTION{"widget-subscribe"}%
+%STARTSECTION{"widget-subscribe-notenabled"}%
+        %IF{"context SubscribePluginEnabled" 
+            then="" 
+            else="!SubscribePlugin not installed/enabled"
+          }%
         %IF{"context SubscribePluginEnabled AND NOT context authenticated" then="You need to log in to subscribe to a topic<div stlye='display:none;'>"}%
+%ENDSECTION{"widget-subscribe-notenabled"}%
+%STARTSECTION{"widget-subscribe-enabled"}%
         %SUBSCRIBE{
             topic="%BASEWEB%.%BASETOPIC%"
             format="<a href='$url' class='foswikiButton'>$action</a> to changes to %BASEWEB%.%BASETOPIC%"
@@ -211,8 +220,7 @@ powered by the community. 28th October 2008.
         }%
         %IF{"context SubscribePluginEnabled AND NOT context authenticated" then="</div>"}%
     </div>
-</div>%ENDSECTION{"widget-subscribe"}%
-
+</div>%ENDSECTION{"widget-subscribe-enabled"}%
 
 ---+++ widget-bugs
 %STARTSECTION{"widget-bugs"}%<div class="widget-bugs widget">
@@ -231,7 +239,7 @@ powered by the community. 28th October 2008.
 <input  type="submit" value="Add Issue" class="foswikiButton" />
 </form>
     </div>
-</div>%ENDSECTION{"widget-subscribe"}%
+</div>%ENDSECTION{"widget-bugs"}%
 ----
 ---+++ footer
 %STARTSECTION{"footer-widgets"}% %INCLUDE{"%SYSTEMWEB%.DefaultWidgets" section="widget-history" warn="on"}% %ENDSECTION{"footer-widgets"}%

@@ -1,0 +1,197 @@
+/*
+name: Ancho
+designer: Converted by Mike Thomsen. Original work by Ivan Garcia (http://biboz.net/themes/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+*/
+
+#header{
+	background: url(images/logo.jpg) no-repeat;
+	background-color: black;
+	height:170px;
+	text-align:right;
+}
+
+#header-name
+{
+	text-align: left;
+	text-transform:uppercase;
+}
+
+#header-name a {
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+	font-family: "Trebuchet MS";
+	font-size: 2em;
+	font-weight: bold;
+	
+}
+
+#header-description
+{
+	color: white;
+	text-align:left;
+	width:400px;
+}
+
+
+
+body
+{
+	background-attachment: fixed;
+	background-color: #000000;
+	background: #666666 url(images/bg.png) repeat;
+	margin: 0;
+	padding: 0;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height: 1.6;
+	color: #222;
+}
+
+.asset-meta
+{
+	background-color: #EEEEEE;
+	margin-bottom: 12px;
+	padding: 3px;
+}
+
+#content  { background-color: white; }
+#container
+{
+	margin: 0 auto;
+	padding: 0;
+	width: 795px;
+	background-image: url(images/sf-content.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-color: white;
+	background-position: center top;
+	border-right-width: 2px;
+	border-left-width: 2px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #000000;
+	border-left-color: #000000;
+}
+
+a
+{
+	color: #333333;
+}
+
+.asset-body
+{
+	line-height: 130%;
+	padding-top: 10px;
+	color: #666666;
+}
+
+#alpha
+{
+	width:300px;
+}
+
+#footer
+{
+	background-color: #000000;
+	border-bottom-color: #000000;
+	border-bottom-style: outset;
+	border-bottom-width: 5px;
+	border-top-width: 1px;
+	clear: both;
+	color: #666666;
+	font-size: 10px;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 130%;
+	text-align:center;
+}
+#footer a { color:white; }
+
+blockquote {
+	color: #777777;
+	margin: 10px;
+	padding: 0 0 0 10px;
+	border-left: 3px solid #CEE8FD;
+}
+
+.entry-title
+{
+	background-image: url(images/tik.png);
+	background-position: left;
+	background-repeat: no-repeat;
+	font-family: "Trebuchet MS", Arial, "Bitstream Vera Sans", sans-serif;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-left: 17px;
+	padding-top: 2px;
+	text-align: left;
+}
+.entry-title a
+{
+	font-size: 18px;
+    	padding-top: 10px;
+	color: #353535;
+	font-weight: bold;
+}
+
+.widget-header
+{
+	color: #909090;
+	font-family: Geneva, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	height: 30px;
+	margin: 0px;
+	padding-bottom: 2px;
+	padding-right: 10px;
+	padding-top: 12px;
+	text-align: right;
+}
+
+.widget a
+{
+	color: #909090
+}
+
+#page-title, .archive-header
+{
+	font-size:15pt;
+	color: black;
+}
+
+.widget
+{
+	background: #222222;
+	background-position:bottom;
+	background-repeat:no-repeat;
+	float: right;
+	left: -10px;
+	margin: 0px 0px 0px 0px;
+	margin-bottom:auto;
+	padding: 0px 0px 0px 0px;
+	text-align: left;
+	color: #FFFFFF;
+}
+
+#container-inner
+{
+	background:url(img/container.gif);
+}
+
+.widget ul
+{
+	list-style-type: none;
+	margin: 0px 0px 0px -10px;
+	padding: 0px;
+	padding-right: 10px;
+	text-align: right;
+}
+
+.widget ul li a:link
+{
+	color: white;
+}

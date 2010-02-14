@@ -1,0 +1,209 @@
+/*
+
+name: Dark Smoke
+designer: Medical Website Design
+designer_url: http://www.medicalwebsitedesignpros.com/free-wordpress-theme-dark-smoke.htm
+developer: Mike Thomsen (converter)
+developer_url: http://www.codemonkeyramblings.com/themes/
+layouts: layout-wm
+*/
+
+h1, h1 a, h1 a:visited, #header-name {
+    font-size:38px;
+    text-decoration:none;
+}
+
+body {
+	font-size: 11px;
+	font-family: Tahoma, Arial, Verdana;
+	background: #1e1816;
+	text-align: left;
+	color: #ffffff;
+	margin: 0 0 20px 0;
+	padding: 0;
+}
+
+#header  {
+    height:111px;
+    margin:0;
+    width:938px;
+}
+
+.header-transparent-box {
+    background:none repeat scroll 0 0 #000000;
+    bottom:0;
+    height:111px;
+    left:0;
+    opacity:0.25;
+    filter: alpha(opacity=25);
+    position: absolute;
+    top: 0;
+    width:100%;
+}
+
+#header-content {
+    position: relative;
+}
+
+.slim-transparent-box {
+    background:none repeat scroll 0 0 #000000;
+    bottom:0;
+    height:36px;
+    left:0;
+    opacity:0.5;
+    filter: alpha(opacity=50);
+    width:100%;
+}
+
+#header-description {
+    color:#CC0000;
+    font-family:Tahoma,Arial,Verdana;
+    font-size:22px;
+}
+
+#header-name a
+{
+    color:#EEEDE5;
+    font-family:Tahoma,Arial,Verdana;
+    font-weight:200;
+    height:38px;
+    line-height:44px;
+
+    text-decoration:none;
+    z-index:10;
+}
+
+#header-name a:hover {
+    text-decoration: underline;
+}
+
+#container-inner {
+    background-attachment:fixed;
+    background-image:url(headline.jpg);
+    background-position:center 1px;
+    background-repeat:no-repeat;
+    margin:0 auto;
+    padding:0;
+    width:938px;
+}
+
+h2  {
+    font-size:26px;
+    line-height:24px;
+}
+
+h2, h3 {
+    font-family:Verdana,Arial,Sans-Serif;
+    font-weight:normal;
+    text-align:left;
+}
+
+#container-inner a {
+    color:#F7F5F0;
+}
+
+#alpha-inner a {
+    text-decoration:underline;
+}
+
+#beta a {
+    text-decoration: none;
+}
+
+.byline, #beta {
+    color:#999966;
+}
+
+.layout-wm #alpha {
+    margin:0;
+    padding:0 0 16px 0px;
+    width:680px;
+}
+
+.layout-wm #beta {
+    font:1em Verdana,Arial,Sans-Serif;
+    width:255px;
+}
+
+.transparent-box {
+    background:none repeat scroll 0 0 #000000;
+    bottom:0;
+    height:100%;
+    left:0;
+    opacity:0.5;
+    filter: alpha(opacity=50);
+    position:absolute;
+    top:0;
+    width:100%;
+}
+
+.widget-header {
+    color:#EAEADF;
+    font-size:22px;
+    margin:8px 0;
+    padding:0;
+    position: relative;
+}
+
+blockquote  {
+    border-left:5px solid #DDDDDD;
+    margin:15px 30px 0 10px;
+    padding-left:20px;
+    color:#999966;
+}
+
+#alpha p {
+    font-size:11px;
+    letter-spacing:1px;
+    line-height:18px;
+    margin:26px 9px;
+}
+
+.widget {
+    margin-bottom:20px;
+    padding:8px;
+}
+
+.widget li, .archive-content li {
+    margin:0 0 0 22px;
+    padding:6px 0;
+}
+
+.layout-wm #footer {
+    text-align:center;
+    clear:both;
+
+    background:none repeat scroll 0 0 #000000;
+    border:1px solid #070707;
+    color:#DFDFDF;
+    margin:0 0 10px;
+    padding:15px;
+}
+
+#comment-text 
+{
+    background:none repeat scroll 0 0 #2E2421;
+    color:#EEEEEE;
+    padding:2px;
+    font:0.9em 'Lucida Grande',Verdana,Arial,Sans-Serif;
+}
+
+#comment-author, #comment-email, #comment-url {
+    margin:5px 5px 1px 0;
+    padding:2px;
+    width:170px;
+}
+
+#comment-form-name label, #comment-form-email label, #comment-form-url label {
+    color:#999966;
+    float: right;
+    width:450px;
+    padding-top:10px;
+}
+
+#comments-form input[type=submit], #comments-form input[type=button]
+{
+    padding:2px;
+    width:170px;
+    font:0.9em 'Lucida Grande',Verdana,Arial,Sans-Serif;
+}

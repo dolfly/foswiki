@@ -1,0 +1,171 @@
+/*
+name: Tender
+designer: Converted by Mike Thomsen. Original WordPress theme Juicy 2.0 by Dandyna
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+*/
+
+/*
+	This Movable Type theme is inspired by Juicy 2.0, a WordPress theme that can be downloaded here:
+	http://themes.wordpress.net/columns/2-columns/1147/juicy-20/
+
+*/
+
+.widget-header a {
+	color: #B3D826
+}
+
+.archive-list-item a {
+	color: #B3D826
+}
+
+#header-name {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	background-color:#B3D826;
+	border-radius: 10px;
+	padding:5px
+}
+
+#header-name a{
+	color:black;
+	font-size:24pt;
+	font-weight: bolder;
+}
+
+body
+{
+	background-color: #222;
+	color: #ccc
+}
+
+.asset-body {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	background-color:black;
+	padding: 5px;
+}
+
+.asset-body a {
+	color: #B3D826;
+}
+
+a:visited {
+	color: #888;
+}
+
+.asset-meta {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	background-color:black;
+	padding: 5px;
+	font-style: italic;
+}
+.asset-name a {
+	color: #B3D826;
+	font-size: 14pt;
+	font-style: italic;
+	font-weight: bold;
+}
+.asset-meta a {
+	color:#19ccff
+}
+
+
+.widget-content a {
+	color:#B3D826;
+}
+.widget-content li {
+	padding: 3px;
+	margin-bottom:5px;
+}
+
+.entry-title a {
+	color: #19ccff
+}
+
+.entry-title {
+	background-color:black;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding-left:5px;
+
+}
+
+li {
+	color:#ccc;
+	background: #000;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+
+#header-description {
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background-color: #B3D826;
+	color:black;
+	padding-left:5px;
+	font-style: italic;
+}
+
+.content-nav
+{
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background-color: black;
+}
+
+.content-nav a
+{
+	color: #B3D826;
+}
+
+.widget-header {
+-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background-color: #111;
+	padding: 5px 5px 5px 5px;
+	font-size: 14pt;
+	font-weight: bolder;
+	text-transform: uppercase;
+}
+
+.trackbacks-info a
+{
+	color: #B3D826;
+}
+
+.entry-tag a
+{
+	color: #B3D826;
+}
+
+.entry-category a
+{
+	color: #B3D826;
+}
+
+
+.comment-header a
+{
+	color: #B3D826;
+}
+
+.comment-footer a
+{
+	color: #B3D826;
+}
+
+.comments-open-content a
+{
+	color: #B3D826;
+}
+
+.asset-name {
+	font-size: 16pt;
+}
+

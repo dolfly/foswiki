@@ -1,0 +1,22 @@
+#sbi{
+	background: url(tparent2.png);
+	height: 17px;
+	width: 180px;
+	margin: 6px 5px 0px 10px;
+	padding: 3px 7px 2px 5px;
+	color: #4e545b;
+	border: none;
+	content: 'Search';
+}
+#comments-form input:focus, #comments-form textarea:focus, #sbi:focus { border: 3px #00ade5 solid; }
+
+.widget-google-search input[type=submit]
+{
+background: url(search-btn.png) no-repeat left top;
+	height: 25px;
+	width: 25px;
+	border: none;
+	text-indent: -999%;
+	line-height: 1px;
+	margin-top: 6px;
+}

@@ -1,0 +1,85 @@
+/*
+name: Mad Meg
+designer: Converted by Mike Thomsen. Original work by Broken Crust (http://not-a-sheep.com/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wm
+*/
+
+body { background-color: #282222;margin: 0; padding: 0; line-height: 1; color: #FFFF99; }
+
+html { background-color: #282222; font-size: 16px; font-family: Garamond, "Times New Roman", Times, serif; }
+
+#header { background-image: url('images/header.jpg'); height: 280px; min-height: 280px; background-repeat: no-repeat; }
+
+#header-name a {
+padding: 20px 0 0 10px; color: #FFFF99; text-decoration: none; border: 0 none; font-size: 3.0em; font-weight: bold; font-variant: small-caps; }
+
+#header-description {
+font-style: italic; font-size: 1.7em; margin: 15px 0 0 25px; font-weight:300;}
+
+
+#footer { background-image: url('images/footer.jpg'); height: 60px; min-height: 60px; background-repeat: no-repeat; }
+
+#container-inner{ margin: 0px auto; background-color: #382E26; min-width: 980px; max-width: 1000px; border-left: 8px solid #2E2E2E; border-right: 8px solid #2E2E2E; }
+
+/* Links */
+
+a { color: #FFFFFF; text-decoration: none; }
+
+a:hover { border-bottom: 1px dashed #FFFFFF; }
+
+
+/* Entry */
+
+.entry-asset { padding-bottom: 30px; }
+
+.entry-asset blockquote { left: 5%; color: #FCD27C; background: url(images/quote.png) no-repeat top left; font-style: italic; margin: 15px 30px 30px 10px; padding-left: 60px; min-height: 40px; }
+
+.entry-asset ul li { margin-left: 50px; }
+
+.entry-asset ul { list-style-type: disc; padding-left: 2em; }
+
+.entry-asset ol { list-style-type: decimal; padding-left: 2em; }
+
+.asset-meta { font-size:16px; border-bottom: 1px solid #724526; color: #FCD27C; padding-top: 2px; }
+
+/* Headings */
+
+.entry-title { 
+	display: block;
+	font-size: 1.7em;
+	border-bottom: 1px solid #FCD27C;
+	margin-bottom: 10px;
+}
+
+.entry-title a { color: #DD5500; text-decoration: none; font-weight:600; }
+
+h1, h2, h3, h4, h5, h6 { margin-bottom: 0.8em; margin-top: 0px; padding-top: 0px; line-height: 1.3em; }
+
+#beta-inner
+{
+	background-color: #57100A;
+	background-image: url('images/sidebar.jpg'); 
+	background-repeat: no-repeat; 
+	background-position: bottom left; 
+	margin: 20px 0;
+	padding-right:0px; 
+	padding-bottom: 290px;
+	padding-top:10px;
+	border-left: 20px solid #382E26;
+	border-right: 20px solid #382E26; 
+	idth:270px;
+
+}
+
+#page-title, .widget-header, .archive-header, .widget-header a { font-size: 1.2em; text-decoration: none; }
+.widget-list { list-style-type: none; padding: 0; margin: 0; }
+.recent-comments-list { margin: 0px; }
+#page-title, .widget h2, h3, h4, h5, h6 { color: #FFFFAA; font-weight: bold; font-variant: small-caps; }
+
+
+/* Inputs */
+input { border: 1px solid #FCD27C; background-color: #BC8C44; color: #282222; padding: 3px;}
+input[type=text] { width: 170px;}
+input:hover { color: #BC8C44; background-color: #282222; border: 1px solid #FCD27C; }
+

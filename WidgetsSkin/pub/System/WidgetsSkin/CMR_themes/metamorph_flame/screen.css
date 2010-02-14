@@ -1,0 +1,219 @@
+/*
+name: Metamorph Flame
+designer: Metamorphosis Design
+designer_url: http://www.metamorphozis.com/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wt
+*/
+
+#container{
+	background: #000000 url(bg.gif) repeat-x;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	color: #c0c0c0;
+}
+
+blockquote {
+	padding: 0 3em;
+	background: url(images/img05.gif) no-repeat 1em 0;
+	font-style: italic;
+}
+
+a:link {
+	text-decoration: none;
+	color: #dd6300;
+}
+
+a:hover, a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+
+a:visited {
+	color: #dd6300;
+}
+
+
+#header {
+	width: 710px;
+	height: 305px;
+	margin: 0 auto;
+	padding: 0 25px 10px 25px;
+	background: url(img01.jpg) no-repeat center top;
+}
+.layout-wt #alpha
+{
+	width:500px;
+	margin-left: 110px;
+	border-right: 3px #dd6300 solid;
+}
+
+.layout-wt #alpha-inner
+{
+	background: #000;
+padding-top:20px;
+}
+
+.layout-wt #beta
+{
+	width:210px;
+	margin-left:px;
+	background: #000 url(img04.gif) no-repeat;
+}
+.widget-header {
+	height: 33px;
+	margin: 0;
+	padding: 10px 0 0 20px;
+	background: url(img09.gif) repeat-x;
+	font-size:18px;
+}
+
+.widget-header, .widget-header a, .entry-title a
+{
+	text-decoration:none;
+	margin-bottom: 15px;
+	text-transform: lowercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	color: #dd6300;
+	font-size:18px;
+}
+
+.widget-calendar .widget-content table { font-size:1.0em; }
+
+.widget-calendar .widget-content td, .widget-calendar .widget-content th { padding:0px 3px 3px 3px; text-align:cen
+ter; }
+
+#beta .widget-powered img { background: white; padding:3px; }
+
+.entry-title {
+	font-size: 18px;
+	padding: 0 0 5px 0;
+	background: url(img08.gif) repeat-x left bottom;
+
+}
+
+#footer {
+	margin-left: 110px;
+	width: 710px;
+	text-align: center;
+	border: 3px solid #dd6300;
+}
+#footer-inner {
+
+	text-align: center;
+	border: 2px solid white;
+}
+
+#footer p {
+	margin: 0;
+	padding: 0px;
+	line-height: normal;
+	font-size: 77%;
+	color: #ffffff;
+}
+
+#footer a {
+	color: #ffffff;
+}
+
+#footer a:hover {
+	text-decoration: underline;
+}
+
+h1, h2, h3 {
+	margin-bottom: 15px;
+	text-transform: lowercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	color: #dd6300;
+}
+#header-content a { text-decoration:none; text-transform: lowercase; }
+
+#header-name {
+	margin: 0;
+	padding: 200px 0 0 40px;
+	font-size: 24px;
+
+}
+#header-name a {
+	color: #FFFFFF;
+}
+#header-description {
+	margin: 0;
+	padding: 0 0 0 75px;
+	font: bold 10px Arial, Helvetica, sans-serif;
+	width:185px;
+	color: #dd6300;
+}
+
+.widget-content ul
+{
+	margin: 20px;
+	padding: 0;
+	list-style: none;
+}
+
+.widget-content li
+{
+	padding: 5px 0;
+	background: url(img10.gif) repeat-x bottom;
+}
+
+.widget-content li.first {
+	background: none;
+}
+
+
+.widget-content li a {
+	padding-left: 10px;
+	background: url(img11.gif) no-repeat 0 5px;
+
+}
+
+
+.asset-meta {
+	padding: 5px;
+	background: #242424;
+	margin-top: 10px;
+	margin-bottom: 10px
+
+}
+
+/**Comments and Trackbacks **/
+
+#comment-text
+{
+	width: 93%;
+	border:4px solid #dd6300;
+	padding:10px;
+}
+
+input[type=submit]
+{
+	width: 120px;
+	height: 27px;
+	text-align: center;
+	text-decoration: none;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 12px;
+	text-transform: uppercase;
+	background: url(img09.gif) repeat-x bottom;
+	overflow:hidden;
+        vertical-align: top;
+	border:none;
+
+}
+
+.comments-header, .trackbacks-header
+{
+	font-size: 18px;
+	padding: 0 0 5px 0;
+	margin-bottom: 15px;
+	text-transform: lowercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: normal;
+	color: #dd6300;
+}

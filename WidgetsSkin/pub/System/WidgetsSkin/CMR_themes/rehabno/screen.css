@@ -1,0 +1,146 @@
+/*
+name: RehabNo
+designer: Converted by Mike Thomsen. Original work by Sly Zane (http://www.wordpresstemplate.org/)
+designer_url: http://www.codemonkeyramblings.com
+layouts: layout-wt
+*/
+
+#header{
+	background: url(img/header.jpg) no-repeat;
+	background-color: black;
+	height:250px;
+	text-align:right;
+}
+
+#header-name
+{
+}
+
+#header-name a {
+	text-align: left;
+	font-weight: bold;
+	color: white;
+	text-decoration: none;
+	font-family: "Trebuchet MS";
+	font-size: 2em;
+	font-weight: bold;
+	
+}
+
+#header-description
+{
+	color: #777777;
+	text-align:right;
+	width:300px;
+	margin-left:600px;
+}
+
+
+
+body
+{
+	font-size: 12px;
+	margin: auto;
+	text-align: center;
+	color: #595959;
+	background-image:url(img/bg.jpg); background-repeat:repeat-x; background-color:#292929;
+		 
+	font-family:  Verdana, "Times New Roman", Times;}
+}
+
+a:visited { color: #6c6c6c; }
+
+.content-nav a { color: #585858;}
+.entry-content a { color: #585858;}
+ 
+.asset-more-link a  { color: #585858;}
+
+.archive a { color: #585858;}
+
+.widget a { color: #585858;}
+
+.asset-meta a { color: #585858;}
+
+#container-inner
+{
+	background-color:white;
+	width:940px;
+}
+
+#footer
+{
+	background-color:black;
+	color:white;
+	text-align:center;
+}
+#footer a { color:white; }
+
+blockquote{
+	margin: 0px 0px 0px 30px;
+	padding: 5px 25px 5px 0px;
+	color: #202020;}
+
+.entry-title
+{
+	font-family: Arial, sans-serif; 
+	font-size: 18px;
+	font-weight: bold;
+	height:28px;
+	padding: 2px 0 0px 25px;
+	margin-top: 3px;
+	margin-left: 0px;
+	border-bottom: 1px solid #939393;
+ 	background: url("img/pt.jpg") left  no-repeat;
+}
+.entry-title a
+{
+	font-size: 18px;
+    	padding-top: 10px;
+	color: #353535;
+	font-weight: bold;
+}
+
+.widget-header
+{
+	font-family: Arial, sans-serif; 
+	display: block;
+	font-size: 16px;
+	font-weight: bold;
+	padding: 5px 0 0 0px;
+	margin: 5px 0 6px 0px;
+	text-align: left; 
+	color: #b8b8b8;
+}
+
+#page-title, .archive-header
+{
+	font-size:15pt;
+	color: black;
+}
+
+.widget
+{
+	color:white;
+}
+
+li
+{
+	border-bottom: 1px dotted #1d1d1d;
+	padding: 3px 0 5px 0px;
+	display: block;
+}
+
+#container-inner
+{
+	background:url(img/container.gif);
+}
+
+.widget ul li a:link
+{
+	color: #6c6c6c;
+}
+
+.widget ul li a:hover
+{
+	color: #b8b8b8;
+}

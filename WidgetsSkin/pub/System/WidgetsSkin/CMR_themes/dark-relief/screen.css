@@ -1,0 +1,232 @@
+/*
+
+name: Dark Relief
+designer: Designer Relief  
+designer_url: http://designer-relief.com/
+developer: Mike Thomsen (converter)
+developer_url: http://www.codemonkeyramblings.com/themes/
+layouts: layout-wm
+*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+
+	/*font-size: 62.5%; /* Resets 1em to 10px */
+	font-family: Arial, Helvetica, Sans-Serif;
+	background: url(background.jpg) top no-repeat #020202;
+	color: #fff;
+	font-size: .8em;
+	line-height: 1.4em;
+}
+
+#header {
+	background: url(gray-opaque-header.png) repeat;
+	}
+
+
+
+#header-name {
+    padding-top: 10px;
+	font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+h1, h2, h3 {
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-weight: bold;
+}
+
+
+h1, h2, h3 {
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-weight: bold;
+}
+
+
+#header-description {
+
+	font-size: 1em;
+
+	text-align: center;
+	padding-top: 10px;
+
+	}
+
+
+
+h2 {
+
+	font-size: 1.6em;
+
+	}
+
+
+
+.entry-title {
+    color:#FB9B00;
+	font-size: 1.6em;
+}
+
+.entry-title a {
+    text-decoration: none;
+}
+
+
+.widget-header {
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size: 1.2em;
+}
+
+
+
+h3 {
+
+	font-size: 1.3em;
+
+	}
+
+
+a:link, a:visited, a h2, h2 a:hover, h2 a:visited, h3, h3 a:hover, h3 a:visited, #sidebar h2, cite,#header-description  {
+	text-decoration: none;
+    color: #fb9b00;
+}
+	
+a:hover {
+    color:#FFFF02;
+}
+
+#content {
+    padding-top: 200px;
+}
+
+.entry-asset .asset-meta {
+    color:#FFFF02;
+    font-family:Arial,Helvetica,Sans-Serif;
+    font-size:0.9em;
+    line-height:1.5em;
+}
+
+
+blockquote  {
+    border-left:2px solid #585858;
+    color:#999999;
+    margin:15px 30px 0 10px;
+    padding-left:20px;
+}
+
+blockquote p {
+    padding-top:10px;
+}
+
+#footer  {
+    background-image:url(footer.png);
+    clear:both;
+    height:75px;
+    width:1000px;
+}
+
+
+#footer .widget-content {
+    margin:0;
+    padding:10px 0;
+    text-align:center;
+}
+
+
+.layout-wm #beta {
+    margin:0 0 30px;
+    width:220px;
+    background:url(gray-opaque.png) repeat scroll 0 0 transparent;
+    border-left:1px solid #9E4601;
+    font:1em 'Lucida Grande',Verdana,Arial,Sans-Serif;
+    padding:10px;
+}
+
+.layout-wm #alpha {
+    margin-bottom:30px;
+    width:630px;
+}
+
+.widget-tag-cloud .rank-1 { font-size: 20pt; }
+.widget-tag-cloud .rank-2 { font-size: 18pt; }
+.widget-tag-cloud .rank-3 { font-size: 15pt; }
+.widget-tag-cloud .rank-4 { font-size: 12pt; }
+.widget-tag-cloud .rank-5 { font-size: 10pt; }
+.widget-tag-cloud .rank-6 { font-size: 8pt; }
+
+
+.widget-content ul, .widget-content ol {
+    margin:5px 0 0 10px;
+}
+
+.widget-content ul ul li, .widget-content ul ol li {
+    margin:3px 0 0;
+    padding:0;
+}
+
+.widget-content li:before {
+    content: "\00BB \0020";
+    color:#FFFF02;
+}
+.widget-tag-cloud li:before {
+    content: ''
+}
+
+.comment, .trackback {
+    border: 1px solid #FFFF00;
+}
+
+.comment .comment-header, .trackback .trackback-header {
+    list-style:none outside none;
+    padding:5px 5px 10px 10px;
+    color:#E82710;
+    font-weight:bold;
+    font:1.1em 'Lucida Grande',Verdana,Arial,Sans-Serif;
+}
+
+.comment .byline a {
+    color:#CB9D27;
+    font-size:1.1em;
+    font-style:normal;
+    font-weight:bold;
+}
+
+.comment-content, .trackback-content {
+    margin:10px 5px 10px 10px;
+}
+
+.comments-open-header { color:#FB9B00; }
+
+#comment-form-name label, #comment-form-email label, #comment-form-url label {
+    float: right;
+    padding-top: 3px;
+    color: #FFFF00;
+    width: 400px;
+}
+
+#comment-author, #comment-email, #comment-url, #comment-text {
+    background:url(gray-opaque.png) repeat scroll 0 0 transparent;
+    color:#FFFFFF;
+    font:0.9em 'Lucida Grande',Verdana,Arial,Sans-Serif;
+}
+
+#comment-author, #comment-email, #comment-url
+{
+    width:170px;
+}
+
+#comment-form-remember-me { clear: both; }
+
+input[type=submit], input[type=button] {
+    background:none repeat scroll 0 0 #020202;
+    font:0.9em 'Lucida Grande',Verdana,Arial,Sans-Serif;
+    padding:2px;
+    width:150px;
+    color: #ffffff;
+}

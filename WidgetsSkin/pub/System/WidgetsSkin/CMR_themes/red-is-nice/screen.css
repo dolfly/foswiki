@@ -1,0 +1,169 @@
+/*
+name: Red is Nice
+designer: Andre Deminiac
+designer_url: http://winnopeg.com/
+developer: Mike Thomsen (Converted to Movable Type by)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wt
+*/
+
+a:link {
+	color: #DE3A3A;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #DE3A3A;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+
+blockquote {
+	color: #336633;
+	font-style: italic;
+}
+
+body {
+	background-attachment: fixed;
+	background-color: #F3F4E6;
+	background-image: url(images/bg.PNG);
+	background-position: center;
+	color: #3D3D3D;
+	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	font-size: 11px;
+	margin: 0px auto;
+	padding: 0px;
+	text-align: center;
+}
+
+#header
+{
+	background-image: url(images/header.jpg);
+	background-repeat: no-repeat;
+	font-family: "Trebuchet MS", verdana, arial, helvetica;
+	height: 264px;
+	margin-left: 15px;
+	padding-top: 1px;
+	text-align: left;
+	vertical-align: bottom;
+	color:white;
+}
+
+#header a:link, #header a:visited {
+	color: #ffffff;
+	font-size: 24px;
+}
+
+#header a:hover {
+	color: #ffffff;
+}
+
+#header-name {
+	margin-top:180px;
+}
+
+#footer {
+	background-image: url(images/footer.jpg);
+	background-repeat: no-repeat;
+	background-position: center;
+	border-bottom-color: #CCCCCC;
+	border-bottom-width: 5px;
+	border-top-color: #CCCCCC;
+	border-top-width: 1px;
+	clear: both;
+	color: #ffffff;
+	font-size: 10px;
+	font-variant: normal;
+	font-weight: normal;
+	margin: 0px;
+	text-align: center;
+}
+
+#footer a:link, #footer a:visited {
+	color: #cccccc;
+	text-decoration: underline;
+}
+
+#footer a:hover {
+	color: #cccccc;
+	text-decoration: none;
+}
+
+.entry-title
+{
+	background-position: left;
+	background-repeat: no-repeat;
+	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	font-size: 18px;
+	font-weight: bold;
+	margin-bottom: 5px;
+	padding-left: 2px;
+	padding-top: 2px;
+	text-align: left;
+
+}
+
+.asset-meta
+{
+	border-bottom: 1px dotted #999999;
+	color: #3D3D3D;
+	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	font-size: 10px;
+
+}
+
+.widget-header, .widget-header a, .archive-header, .archive-header a
+{
+	color: #666666;
+	font-family: Georgia, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	height: 30px;
+	margin: 0px;
+	padding-bottom: 2px;
+	padding-right: 10px;
+	padding-top: 12px;
+	text-align: right;
+
+}
+
+.recent-comments-list { margin:0px; }
+
+.widget-content ul li{
+	list-style-type: none;
+	text-align: right;
+}
+
+input[type=submit] {
+	border-bottom-color: #999999;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #999999;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #666666;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #666666;
+	border-top-style: solid;
+	border-top-width: 1px;
+}
+
+input[type=submit]:hover {
+	border-bottom-color: #666666;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-left-color: #666666;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-right-color: #999999;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-top-color: #999999;
+	border-top-style: solid;
+	border-top-width: 1px;
+}

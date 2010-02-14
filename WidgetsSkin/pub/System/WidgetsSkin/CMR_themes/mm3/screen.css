@@ -1,0 +1,174 @@
+/*
+name: MM3
+designer: Michael Martine
+designer_url: http://www.michaelmartine.com/
+developer: Mike Thomsen (Movable Type conversion)
+developer_url: http://www.codemonkeyramblings.com/
+layouts: layout-wm
+*/
+
+
+body {
+	font-size: 62.5%; /* Resets 1em to 10px */
+	font-family: Georgia, Times, Serif;
+	color: #000;
+	text-align: center;
+	margin: 0;
+	padding: 0; 
+	background: url(mm3-body-tile.jpg);
+}
+
+#header {
+	background: url(mm3-mh1.jpg) no-repeat center;
+	height:281px;
+}
+
+#container-inner{
+	background: url(mm3-body-narrow.jpg) repeat-y top;}
+.widget
+{
+	width:200px;
+}
+.entry-asset
+{
+	margin-left:100px;
+	width:440px;
+}
+
+.asset-body
+{
+	width:440px;
+}
+
+#footer-content
+{
+	margin-left:100px;
+color:black;
+text-align:center;
+}
+
+#header-name
+{
+	margin-left:100px;
+	margin-top:203px;
+	font-size: 2.3em;
+}
+
+#header-name a { color:white; }
+
+#header-description
+{
+	font-size:1.3em;
+	text-decoration: none;
+	color: white;
+	margin-left:100px
+}
+
+blockquote {
+	margin: 15px 30px 0 10px;
+	padding: 10px 20px;
+	border: 1px dotted #300;
+	text-align: justify;
+	font-style: italic;
+	color:black;
+	}
+a, h2 a:hover, h3 a:hover {
+	color: #c60;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #f90;
+	text-decoration: underline;
+}
+.entry-title {
+	margin: 0px 0 5px 0;
+	font-size: 1.5em;
+	padding-bottom: 3px;
+	border-bottom: 1px dotted #300;
+	font-weight:bolder;
+	}
+
+.entry-title a { color: #300; }
+
+
+
+.widget-header, .widget-header a{
+	font-family: Georgia, Serif;
+	font-size: 1.2em;
+	margin: 15px 0 10px 0;
+	padding: 0;
+	color: #eee;
+	border-color: #eee;
+	border-bottom: 1px dotted #eee;
+}
+
+.recent-comments-list { margin:0px;}
+
+.widget-list li, .recent-comments-list li { 	
+	display: block;
+	list-style-type: none;
+	list-style-image: none;
+	margin-bottom: 5px;
+}
+
+.widget-list li, li > a
+{
+	color:white;
+}
+
+
+.asset-body
+{
+	font-family: Georgia, serif;
+	font-size: 1.2em;
+	line-height: 1.6;
+	text-align: justify;
+
+}
+
+.archive-title {
+	margin-left: 100px;
+	color: #300;
+	font-size:2.2em;
+}
+
+.archive { 
+	margin-left: 100px;
+	width:440px;
+}
+
+.archive-header, .archive-header a
+{
+	font-family: Georgia, Serif;
+	font-size: 1.2em;
+	margin: 15px 0 10px 0;
+	padding: 0;
+	color: #c60;
+	border-color: #c60;
+	border-bottom: 1px dotted #c60;
+}
+
+.trackbacks, .comments { 
+	margin-left: 100px; 
+	width: 450px;
+	font-size:1.1em;
+}
+
+.archive-list-item a
+{
+	color: #300;
+}
+
+.widget-content { color: #ccc; }
+
+.mt-comment-preview div.comment, .mt-comment-preview div.comments-open, .mt-page-archive div.asset-body, .mt-page-archive div.asset-header, .mt-comment-confirmation #alpha-inner {
+	margin-left:100px;
+}
+
+.mt-page-archive #page-title {
+	color: #300;
+	font-size:2.2em;
+}
+
+.entry-asset li, .entry-asset li a { color: black; }
