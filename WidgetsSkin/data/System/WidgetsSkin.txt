@@ -467,10 +467,10 @@ from http://github.com/mikert/Movable-Type-Styles - see http://www.codemonkeyram
 <div align="center" eestyle="margin:12px;padding:12px;">
 <div align="left" style="color:black;opacity:0.8;width:80%;background-color:#ffffdd;border:1px solid;margin:6px;padding:6px;overflow:hidden;">
 A selection of thumbnails from styles distributed with this Skin:
-| %PUBURL%/%BASEWEB%/WidgetsSkin/hills-dusk.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/disciple.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/cityscape-sydney.gif |
-| %PUBURL%/%SYSTEMWEB%/WidgetsSkin/bloggers-cafe.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/aeros.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/gray-gets-green.gif |
-| %PUBURL%/%SYSTEMWEB%/WidgetsSkin/hightech.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/imokay.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/painted-desert.gif |
-| %PUBURL%/%SYSTEMWEB%/WidgetsSkin/poetry.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/shadedgrey.gif | %PUBURL%/%SYSTEMWEB%/WidgetsSkin/talian.gif |
+| %PUBURL%/%BASEWEB%/WidgetsSkin/hills-dusk.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/disciple.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/cityscape-sydney.gif |
+| %PUBURL%/%BASEWEB%/WidgetsSkin/bloggers-cafe.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/aeros.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/gray-gets-green.gif |
+| %PUBURL%/%BASEWEB%/WidgetsSkin/hightech.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/imokay.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/painted-desert.gif |
+| %PUBURL%/%BASEWEB%/WidgetsSkin/poetry.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/shadedgrey.gif | %PUBURL%/%BASEWEB%/WidgetsSkin/talian.gif |
 </div>
 </div></div>
 %ENDSECTION{"thumbnails"}%
