@@ -26,25 +26,42 @@ use strict;
 
 # $VERSION is referred to by Foswiki, and is the only global variable that
 # *must* exist in this package
-use vars qw( $VERSION $RELEASE $debug $pluginName
-  $VARIABLES_TO_REMOVE
-  $format $shouldRenderTableData @isoMonth %mon2num %columnType
+use vars qw( 
+  @isoMonth %mon2num %columnType
   %regex );
 
 # This should always be $Rev: 11069$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
-$VERSION = '$Rev: 11069$';
+our $VERSION = '$Rev: 11069$';
 
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '2.0-beta';
+our $RELEASE = '2.0-beta';
 
-# Name of this Plugin, only used in this module
-$pluginName = 'RenderTableDataPlugin';
+# Short description of this plugin
+# One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
+our $SHORTDESCRIPTION = 'Extract and render table data in an alternate format';
 
-$VARIABLES_TO_REMOVE = '(EDITCELL|CALC)';
+# You must set $NO_PREFS_IN_TOPIC to 0 if you want your plugin to use
+# preferences set in the plugin topic. This is required for compatibility
+# with older plugins, but imposes a significant performance penalty, and
+# is not recommended. Instead, leave $NO_PREFS_IN_TOPIC at 1 and use
+# =$Foswiki::cfg= entries, or if you want the users
+# to be able to change settings, then use standard Foswiki preferences that
+# can be defined in your %USERSWEB%.SitePreferences and overridden at the web
+# and topic level.
+#
+# %SYSTEMWEB%.DevelopingPlugins has details of how to define =$Foswiki::cfg=
+# entries so they can be used with =configure=.
+our $NO_PREFS_IN_TOPIC = 1;
+
+
+my $VARIABLES_TO_REMOVE = '(EDITCELL|CALC)';
+my $debug;
+my $shouldRenderTableData;
+my $format;
 
 BEGIN {
     @isoMonth = (
@@ -66,16 +83,14 @@ BEGIN {
 sub initPlugin {
     my ( $topic, $web, $user, $installWeb ) = @_;
 
-    #print STDERR "RENDERTABLEDATA INIT \n";
-
     # check for Plugins.pm versions
     if ( $Foswiki::Plugins::VERSION < 1.026 ) {
         Foswiki::Func::writeWarning(
-            "Version mismatch between $pluginName and Plugins.pm");
+            "Version mismatch between RenderTableDataPlugin and Plugins.pm");
         return 0;
     }
 
-    $debug = 1;    # Foswiki::Func::getPluginPreferencesFlag("DEBUG");
+    $debug =  Foswiki::Func::getPluginPreferencesFlag("RENDERTABLEDATAPLUGIN_DEBUG");
     Foswiki::Func::registerTagHandler( 'TABLEDATA', \&_parseTableRows );
 
     # Plugin correctly initialized
