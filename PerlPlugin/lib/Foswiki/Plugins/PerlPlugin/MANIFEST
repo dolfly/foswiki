@@ -1,5 +1,7 @@
 # Release manifest for PerlPlugin
 data/System/PerlPlugin.txt 0644 Documentation
+data/System/VarPERL.txt 0644 Documentation
 lib/Foswiki/Plugins/PerlPlugin.pm 0644 Perl module
+lib/Foswiki/Plugins/PerlPlugin/Config.spec 0644 Perl module
 pub/System/PerlPlugin/logo.gif 0644
 pub/System/PerlPlugin/wikiringlogo20x20.png 0644

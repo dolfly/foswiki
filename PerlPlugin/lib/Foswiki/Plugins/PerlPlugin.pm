@@ -29,12 +29,15 @@ package Foswiki::Plugins::PerlPlugin;
 
 use strict;
 
-use Safe;
+use Assert;
+use Safe ();
+use File::Spec;
 
-use Foswiki::Func;
+use Foswiki::Func ();
+use Foswiki::Sandbox ();
 
 our $VERSION = '$Rev$';
-our $RELEASE = 'Foswiki-4.2';
+our $RELEASE = '1.1.2';
 our $SHORTDESCRIPTION = 'Embed perl scripts in Foswiki topics';
 our $NO_PREFS_IN_TOPIC = 1;
 
@@ -53,16 +56,33 @@ sub initPlugin {
 }
 
 sub _PERL {
-    my ($session, $params, $theTopic, $theWeb) = @_;
+    my ($session, $params, $topic, $web) = @_;
 
     my $expr = $params->{_DEFAULT};
+
+    if (defined $params->{topic}) {
+        my ($w, $t) = Foswiki::Func::normalizeWebTopicName(
+            $web, $params->{topic});
+        if (!Foswiki::Func::checkAccessPermission(
+            'VIEW', Foswiki::Func::getWikiName(), undef, $t, $w)) {
+            return "<pre class='foswikiAlert'>%PERL error: Access to $w.$t denied</pre>";
+        }
+        (my $meta, $expr) = Foswiki::Func::readTopic($w, $t);
+        if ($expr =~ /%CODE(?:{\s*"perl".*?})?%(.*?)%ENDCODE%/s) {
+            $expr = $1; # implicit untaint
+        } else {
+            $expr = Foswiki::Sandbox::untaintUnchecked($expr);
+        }
+        ASSERT(UNTAINTED($expr)) if DEBUG;
+    }
+    return "<pre class='foswikiAlert'>%PERL error: no code to execute</pre>"
+      unless defined $expr;
 
     if (!defined($compartment)){
         $compartment = new Safe();
 
         # The compartment is created with ':default' ops enabled
         # :default = :base_core :base_mem :base_loop :base_orig :base_thread
-
         if ($Foswiki::cfg{Plugins}{PerlPlugin}{Opcodes}{Permit}) {
             $compartment->permit(
                 @{$Foswiki::cfg{Plugins}{PerlPlugin}{Opcodes}{Permit}});
@@ -90,12 +110,21 @@ sub _PERL {
         die "Alarm!";
     };
 
+    # Override monkey-patched warn and die, specifically to
+    # disable CGI::Carp which otherwise masks the errors because it
+    # can't get to File::Spec
     my $result;
-    $result = $compartment->reval($expr);
+    {
+        local $SIG{'__DIE__'} = 'DEFAULT';
+        local $SIG{'__WARN__'} = 'DEFAULT';
+
+        $result = $compartment->reval($expr, 1);
+    }
+
     # The doc says a blocked opcode will set $@, but in perl 5.10 this
     # doesn't happen and reval just gives an undef. But this is what
     # should really trap errors.
-    $result = "<span class='foswikiAlert'>Error: $@</span>" if $@;
+    $result = "<pre class='foswikiAlert'>%PERL error: $@</pre>" if $@;
     $result = '' unless defined $result;
     return $result;
 }

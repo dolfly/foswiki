@@ -23,22 +23,17 @@ The range of permitted operations can easily be customised from the
 =configure= interface.
 
 ---++ Usage
-   * =%<nop>PERL{"perl expression"}%=
-Expands to the result of the perl expression, evaluated in a Safe container.
-
-The constraints imposed by the container are defined in the Foswiki
-configuration.
-
+%INCLUDE{"VarPERL"}%
 Because the perl expression is entered as a parameter to a Foswiki macro, the
 usual constraints on characters apply. Note especially that double-quotes have to be escaped using \" e.g =%<nop>PERL{"my $meal=\"fish";\"I ate a $meal\""}%=
 
----++ Examples
-If the plugin is installed, the text after 'expands to' will show the result of the example.
-   * =%<nop>PERL{"'A String'"}%= expands to %PERL{"'A String'"}%
-   * =%<nop>PERL{"101 - 59"}%= expands to %PERL{"101 - 59"}%
-
 Note that the same container is used for each %<nop>PERL call made during rendering. As a result, a perl function defined in one %<nop>PERL will be available in other %<nop>PERLs that are evaluated later.
-   * =%<nop>PERL{"sub x{95};x()"}%...%<nop>PERL{"x()+164"}%= expands to %PERL{"sub x{95};x()"}%...%PERL{"x()+164"}%
+   * =%<nop>PERL{"sub x{95};x()"}%...%<nop>PERL{"x()+164"}%= expands to % PERL{"sub x{95};x()"}%...% PERL{"x()+164"}%
+
+The =%CODE...%ENDCODE%= delimiters are compatible with !SyntaxHighlightingPlugin, should you want to use it. Note that Foswiki macros are not available inside %CODE sections.
+
+Because Foswiki::Func runs outside Foswiki access controls, this has to be
+use with care.
 
 ---++ WARNING
 The default configuration is designed for the following
@@ -75,7 +70,7 @@ Check the plugin is working:
 =%<nop>PERL{"'Cushty'"}%= expands to %PERL{"'Cushty'"}%
 
 ---++ Plugin Info
-Another great Foswiki extension from the <a style="text-decoration:none" href="http://wikiring.com"><img src="%ATTACHURLPATH%/wikiring.png" alt="" /> *WikiRing* </a> - working together to improve your wiki experience!
+Another great Foswiki extension from the <a style="text-decoration:none" href="http://wikiring.com"><img src="%ATTACHURLPATH%/wikiringlogo20x20.png" alt="" /> *WikiRing* </a> - working together to improve your wiki experience!
 
 |  Author(s): | Crawford Currie http://c-dot.co.uk |
 |  Copyright: | &copy; 2008 Crawford Currie |
@@ -83,6 +78,7 @@ Another great Foswiki extension from the <a style="text-decoration:none" href="h
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|    1.1.1 15th Feb 2010 | First full release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home: | http://foswiki.org/Extensions/PerlPlugin |
 |  Support: | http://foswiki.org/Support/PerlPlugin |
