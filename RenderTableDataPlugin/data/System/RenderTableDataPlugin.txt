@@ -15,7 +15,7 @@ Main features:
 Our intranet shows an introductory page with all new employees. Each person is listed with a picture and a personally written message. I wanted these 'person' blocks to be nicely formatted in HTML and CSS, while at the same time keeping the data very easy to update.
      
 So data entry and data display are separated, leading to:
-   * less bugs caused by mistyping or messing up complex variable blocks - anyone not familiar with TWiki can type some text in a table cell
+   * less bugs caused by mistyping or messing up complex variable blocks - anyone not familiar with Foswiki can type some text in a table cell
    * small display modules that can be moved around, for instance to the homepage
 
 <div class="foswikiHelp">
@@ -29,7 +29,7 @@ The same principle illustrated with information about Vermeer's paintings:
 ---++ Limitations
 The current implementation has the following caveats:
    * Tables need to be uniform: merged cells (rowspans and colspans) are not supported
-   * Only tables created by TWiki syntax are supported
+   * Only tables created by Foswiki syntax are supported
    
 ---++ Usage
 
@@ -76,7 +76,7 @@ Any one of the parameters is optional.
 Start counting from the end by using a negative number: =show="-5.."= will start 5 positions from the end counting up to the end. %BR% \
 Likewise use =show="..-5"= to show results up to the fifth item from the end. | =none= (show all results) | =show="2"=, =show="2..6"=, =show="2.."=, =show="-5.."=, =show="..-5"= |
 | =preservespaces= | By default leading and trailing spaces of table cells are trimmed. Use =on= to preserve spaces. | =none= (spaces are trimmed) | =preservespaces="on"= |
-| =preservevariables= | By default TWiki variables =EDITCELL= and =CALC= are removed. Use =preservevariables="on"= to keep these variables in the rendered text. | =none= (variables are removed) | =preservevariables="on"= |
+| =preservevariables= | By default Foswiki variables =EDITCELL= and =CALC= are removed. Use =preservevariables="on"= to keep these variables in the rendered text. | =none= (variables are removed) | =preservevariables="on"= |
 | =escapequotes=   | Will not escape double quotes and single quotes if set to =off=. By default quotes are escaped. If you are using the output text in html it is adviced to have quotes escaped. If you render out to xml set the parameter to =off=. | =on= | =escapequotes="off"= |
 | =sortdirection= | The sort direction of the parsed data corresponding to the original table data. %BR% If no =sortcolumn= is passed and the direction is ="descending"=, the results are simply reversed. | =none= (no sorting) | =sortdirection="ascending"= (default direction), =sortdirection="descending"= |
 | =sortcolumn= | The table column data to sort upon. You may use a column with dates or sequential numbers to sort the results without showing that order data in the results. %BR% The first column is numbered 1. The column number always refers to the original table, even if cells are omitted with parameter =rows= or =cols=. | =none= (no sorting) | =sortcolumn="1"= |
@@ -85,7 +85,7 @@ Likewise use =show="..-5"= to show results up to the fifth item from the end. | 
 | =aftertext= | Text to display after the rendered data. | =none= | =aftertext="For more information see..."= |
 
 ---+++ Format tokens
-If you use TWiki variables inside TABLEDATA parameters chances are it will mess up the variable, or the rendered html. Use format tokens to 'delay' rendering of these variables until the TABLEDATA parameters are parsed.
+If you use Foswiki variables inside TABLEDATA parameters chances are it will mess up the variable, or the rendered html. Use format tokens to 'delay' rendering of these variables until the TABLEDATA parameters are parsed.
 
 The format tokens are the same as with %SYSTEMWEB%.FormattedSearch:
 
@@ -100,7 +100,7 @@ The format tokens are the same as with %SYSTEMWEB%.FormattedSearch:
 
 See also: [[Sandbox.RenderTableDataPluginExample]]
 
-%IF{"context RenderTablePluginEnabled" then="" else="!RenderTablePlugin is not installed. To see the examples below follow the installation instructions."}%
+%IF{"context RenderTableDataPluginEnabled" then="" else="!RenderTableDataPlugin is not installed. To see the examples below follow the installation instructions."}%
 
 ---+++ Data from a table in this topic
 
@@ -131,28 +131,28 @@ separator="$n()"
 ---+++ Data from another topic
 <verbatim>
 %TABLEDATA{
-topic="%SYSTEMWEB%.TWikiMetaData"
+topic="%SYSTEMWEB%.MetaData"
 rows="2.."
 format="   * *$C1*
       * _$C2_"
 separator="$n()"      
 sortcolumn="1"
 beforetext="---+++!! TOPICINFO $n()"
-aftertext="From [[%SYSTEMWEB%.TWikiMetaData#META_TOPICINFO][TWikiMetaData]]"
+aftertext="From [[%SYSTEMWEB%.MetaData#META_TOPICINFO][MetaData]]"
 }%
 </verbatim>
 
 Results in:
 
 %TABLEDATA{
-topic="%SYSTEMWEB%.TWikiMetaData"
+topic="%SYSTEMWEB%.MetaData"
 rows="2.."
 format="   * *$C1*
       * _$C2_"
 separator="$n()"      
 sortcolumn="1"
 beforetext="*TOPICINFO* $n()"
-aftertext="From [[%SYSTEMWEB%.TWikiMetaData#META_TOPICINFO][TWikiMetaData]]"
+aftertext="From [[%SYSTEMWEB%.MetaData#META_TOPICINFO][MetaData]]"
 }%
 
 ---+++ Evaluating values
@@ -198,19 +198,16 @@ format="   * $C1$C3(\"isempty\" then=\" $C4\" else=\" [[$C3][$C4]]\") %BR%   $C2
 
 ---++ Installation Instructions
 
-   * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your ($TWIKI_ROOT) directory.
-   * Alternatively,
-      * Manually resolve the dependencies listed below.
-      %$DEPENDENCIES%
-      
+%$INSTALL_INSTRUCTIONS%
+
 ---++ Plugin Info
 
-| Authors: | TWiki:Main.ArthurClemens |
+| Authors: | Foswiki:Main.ArthurClemens |
 | Copyright &copy;: | 2007-2008 Arthur Clemens |
 | License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
 | Dependencies: | %$DEPENDENCIES% |
-| Plugin&nbsp;Version: | 24 Mar 2008 (version 1.2.1)  |
+| Plugin&nbsp;Release: | %$RELEASE%  |
+| Plugin&nbsp;Version: | %$VERSION%  |
 | 24 Mar 2008 | Arthur Clemens: 1.2.1 Added parameter =preservevariables= |
 | 27 Feb 2008 | Arthur Clemens: 1.2 Added cell value evaluation. Added unit tests. |
 | 25 Jan 2008 | Arthur Clemens: 1.1 Adds parameters =id=, =separator= and =escapequotes=. |
@@ -223,8 +220,8 @@ format="   * $C1$C3(\"isempty\" then=\" $C4\" else=\" [[$C3][$C4]]\") %BR%   $C2
 | 04 Mar 2007 | Arthur Clemens: 1.0 First release.  |
 | Demo url:  |   |
 | Home: | http://foswiki.org/Extensions/%TOPIC% |
-| Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-| Appraisal: | http://foswiki.org/Extensions/%TOPIC%Appraisal |
+| Feedback: | http://foswiki.org/Development/%TOPIC% |
+| Support:: | http://foswiki.org/Support/%TOPIC% |
 
 
 %META:FILEATTACHMENT{name="renderTableDataExample.png" attachment="renderTableDataExample.png" attr="" comment="Edit and render example" date="1173012452" path="renderTableDataExample.png" size="217811" stream="renderTableDataExample.png" user="Main.ProjectContributor" version="1"}%

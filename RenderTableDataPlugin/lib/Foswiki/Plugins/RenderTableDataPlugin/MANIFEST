@@ -1,0 +1,7 @@
+data/System/RenderTableDataPlugin.txt 0644 Documentation
+data/Sandbox/RenderTableDataPluginExample.txt 0644 Documentation
+lib/Foswiki/Plugins/RenderTableDataPlugin.pm 0644 Perl module
+pub/System/RenderTableDataPlugin/renderTableDataExample_thumb.gif 0644 Documentation image
+pub/System/RenderTableDataPlugin/renderTableDataExample.png 0644 Documentation image
+pub/System/RenderTableDataPluginExample/wmn_blue.jpg 0644 Documentation image
+pub/System/RenderTableDataPluginExample/view_delft.jpg 0644 Documentation image

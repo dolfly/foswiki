@@ -2,12 +2,10 @@ use strict;
 
 package RenderTableDataPluginTests;
 
-use base qw( FoswikiFnTestCase! );
+use base qw( FoswikiFnTestCase );
 
-use strict;
-use TWiki::UI::Save;
+use Foswiki;
 use Error qw( :try );
-use TWiki::Plugins::RenderTableDataPlugin;
 
 sub new {
     my $self = shift()->SUPER::new( 'RenderTableDataPluginFunctions', @_ );
@@ -19,28 +17,21 @@ sub set_up {
 
     $this->SUPER::set_up();
 
-    # $this->{sup} = $this->{twiki}->getScriptUrl(0, 'view');
-    $TWiki::cfg{AntiSpam}{RobotsAreWelcome} = 1;
-    $TWiki::cfg{AllowInlineScript} = 0;
     $ENV{SCRIPT_NAME} = '';    #  required by fake sort URLs in expected text
 }
 
-# This formats the text up to immediately before <nop>s are removed, so we
-# can see the nops.
-sub do_testHtmlOutput {
-    my ( $this, $expected, $actual, $doRender ) = @_;
-    my $session   = $this->{twiki};
-    my $webName   = $this->{test_web};
-    my $topicName = $this->{test_topic};
+sub setLocalSite {
+}
 
-    if ($doRender) {
-        $actual =
-          TWiki::Func::expandCommonVariables( $actual, $webName, $topicName );
-        $actual =
-          $session->renderer->getRenderedVersion( $actual, $webName,
-            $topicName );
-    }
-    $this->assert_html_equals( $expected, $actual );
+sub loadExtraConfig {
+    my $this = shift;
+    $Foswiki::cfg{AntiSpam}{RobotsAreWelcome}              = 1;
+    $Foswiki::cfg{AllowInlineScript}                       = 0;
+    $Foswiki::cfg{Plugins}{RenderTableDataPlugin}{Enabled} = 1;
+    $Foswiki::cfg{Plugins}{RenderTableDataPlugin}{Module} =
+      'Foswiki::Plugins::RenderTableDataPlugin';
+    $this->SUPER::loadExtraConfig();
+    setLocalSite();
 }
 
 sub createTestTable {
@@ -68,23 +59,27 @@ We do not read tables after the first one...
 END
 }
 
-sub doTest
-{
-    my ($this, $raw_text, $expected ) = @_;
-    $this->setupTestTopic();
-    my $result =
-      $this->{twiki}->handleCommonTags( $raw_text, $this->{test_web}, $this->{test_topic} );
-    $this->assert_str_equals( $expected, $result, 0 );
+sub doTest {
+    my ( $this, $actual, $expected ) = @_;
+    my $session   = $this->{session};
+    my $webName   = $this->{test_web};
+    my $topicName = $this->{test_topic};
 
-    #$raw_text =~ s/(\s)/ord($1)/ge; print $raw_text,"\n";
-    #$result =~ s/(\s)/ord($1)/ge; print $result,"\n";
+    $this->setupTestTopic();
+
+    $actual =
+      Foswiki::Func::expandCommonVariables( $actual, $topicName, $webName );
+
+    #$actual = Foswiki::Func::renderText( $actual, $webName, $topicName );
+
+    $this->assert_html_equals( $expected, $actual, 0 );
+
 }
 
-sub setupTestTopic
-{
+sub setupTestTopic {
     my $this = shift;
-    $this->{twiki}->{store}->saveTopic(
-        $this->{twiki}->{user}, $this->{test_web}, $this->{test_topic}, createTestTable());
+    Foswiki::Func::saveTopicText( $this->{test_web}, $this->{test_topic},
+        createTestTable() );
 }
 
 =pod
@@ -94,21 +89,20 @@ Col 1
 
 =cut
 
-sub test_Cols1
-{    
+sub test_Cols1 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{cols="1" format="   * \$C1\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * *Text*
    * ABC
    * DEF
    * GHI
    * JKL
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -118,21 +112,20 @@ cols="1..2"
 
 =cut
 
-sub test_Cols1To2
-{    
+sub test_Cols1To2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{cols="1..2" format="   * \$C1 \$C2\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * *Text* *Number*
    * ABC 123
    * DEF 456
    * GHI 789
    * JKL 999
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -143,21 +136,20 @@ Only column 2
 
 =cut
 
-sub test_Cols2
-{    
+sub test_Cols2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{cols="2" format="   * \$C2\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * *Number*
    * 123
    * 456
    * 789
    * 999
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -168,21 +160,20 @@ END_EXPECTED
 
 =cut
 
-sub test_Cols2To2
-{    
+sub test_Cols2To2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{cols="2..2" format="   * \$C2\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * *Number*
    * 123
    * 456
    * 789
    * 999
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -195,21 +186,20 @@ Columns 2 and higher
 
 =cut
 
-sub test_Cols2AndHigher
-{    
+sub test_Cols2AndHigher {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{cols="2.." format="   * \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * *Number* *Date*
    * 123 30 Dec 2006
    * 456 01 Jan 2007
    * 789 01 Apr 2005
    * 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -221,17 +211,16 @@ Only row 1
 
 =cut
 
-sub test_Rows1
-{    
+sub test_Rows1 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{rows="1" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * *Text* *Number* *Date*
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -243,17 +232,16 @@ Only row 2
 
 =cut
 
-sub test_Rows2
-{    
+sub test_Rows2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{rows="2" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * ABC 123 30 Dec 2006
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -265,18 +253,17 @@ Rows 2 and 3
 
 =cut
 
-sub test_Rows2To3
-{    
+sub test_Rows2To3 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{rows="2..3" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * ABC 123 30 Dec 2006
    * DEF 456 01 Jan 2007
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -288,20 +275,19 @@ Rows 2 and higher
 
 =cut
 
-sub test_Rows2AndHigher
-{    
+sub test_Rows2AndHigher {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{rows="2.." format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * ABC 123 30 Dec 2006
    * DEF 456 01 Jan 2007
    * GHI 789 01 Apr 2005
    * JKL 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -314,17 +300,16 @@ Only row 3
 
 =cut
 
-sub test_Rows3To3
-{    
+sub test_Rows3To3 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{rows="3..3" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * DEF 456 01 Jan 2007
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -337,17 +322,16 @@ One cell at (2,2)
 
 =cut
 
-sub test_Cols2Rows2
-{    
+sub test_Cols2Rows2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{cols="2" rows="2" format="   * \$C2\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * 123
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -360,18 +344,17 @@ Should display the last 2 rows.
 
 =cut
 
-sub test_WrapRowsMinus2
-{    
+sub test_WrapRowsMinus2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{show="-2.." format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * GHI 789 01 Apr 2005
    * JKL 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -384,20 +367,19 @@ Should display the first 4 rows.
 
 =cut
 
-sub test_WrapRowsToMinus2
-{    
+sub test_WrapRowsToMinus2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{show="..-2" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * *Text* *Number* *Date*
    * ABC 123 30 Dec 2006
    * DEF 456 01 Jan 2007
    * GHI 789 01 Apr 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -411,40 +393,39 @@ END_EXPECTED
 
 =cut
 
-sub test_OutOfRange
-{    
+sub test_OutOfRange {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="30.." format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
 END_EXPECTED
-);
+    );
 
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="25..30" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
 END_EXPECTED
-);
+    );
 
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ show="30.." format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
 END_EXPECTED
-);
+    );
 
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ show="25..30" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -455,20 +436,19 @@ END_EXPECTED
 
 =cut
 
-sub test_SortColumn1
-{    
+sub test_SortColumn1 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="1" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * ABC 123 30 Dec 2006
    * DEF 456 01 Jan 2007
    * GHI 789 01 Apr 2005
    * JKL 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -479,20 +459,19 @@ END_EXPECTED
 
 =cut
 
-sub test_SortColumn1Descending
-{    
+sub test_SortColumn1Descending {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="1" sortdirection="descending" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * JKL 999 31 Mar 2005
    * GHI 789 01 Apr 2005
    * DEF 456 01 Jan 2007
    * ABC 123 30 Dec 2006
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -503,20 +482,19 @@ END_EXPECTED
 
 =cut
 
-sub test_SortColumn2Number
-{    
+sub test_SortColumn2Number {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="2" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * ABC 123 30 Dec 2006
    * DEF 456 01 Jan 2007
    * GHI 789 01 Apr 2005
    * JKL 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -527,20 +505,19 @@ END_EXPECTED
 
 =cut
 
-sub test_SortColumn2NumberDescending
-{    
+sub test_SortColumn2NumberDescending {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="2" sortdirection="descending" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * JKL 999 31 Mar 2005
    * GHI 789 01 Apr 2005
    * DEF 456 01 Jan 2007
    * ABC 123 30 Dec 2006
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -551,20 +528,19 @@ END_EXPECTED
 
 =cut
 
-sub test_SortColumn3Date
-{    
+sub test_SortColumn3Date {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="3" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * JKL 999 31 Mar 2005
    * GHI 789 01 Apr 2005
    * ABC 123 30 Dec 2006
    * DEF 456 01 Jan 2007
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -575,20 +551,19 @@ END_EXPECTED
 
 =cut
 
-sub test_SortColumn3DateDescending
-{    
+sub test_SortColumn3DateDescending {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="3" sortdirection="descending" format="   * \$C1 \$C2 \$C3\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * DEF 456 01 Jan 2007
    * ABC 123 30 Dec 2006
    * GHI 789 01 Apr 2005
    * JKL 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -601,20 +576,19 @@ The order of the table column cells is reversed on purpose.
 
 =cut
 
-sub test_SortColumn4Hidden
-{    
+sub test_SortColumn4Hidden {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="4" format="   * \$C1 \$C2 \$C3 \$C4\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * JKL 999 31 Mar 2005 1
    * GHI 789 01 Apr 2005 2
    * DEF 456 01 Jan 2007 3
    * ABC 123 30 Dec 2006 4
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -627,20 +601,19 @@ The order of the table column cells is reversed on purpose.
 
 =cut
 
-sub test_SortColumn4HiddenDescending
-{    
+sub test_SortColumn4HiddenDescending {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{ rows="2.." sortcolumn="4" sortdirection="descending" format="   * \$C1 \$C2 \$C3 \$C4\$n()" }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * ABC 123 30 Dec 2006 4
    * DEF 456 01 Jan 2007 3
    * GHI 789 01 Apr 2005 2
    * JKL 999 31 Mar 2005 1
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -653,18 +626,17 @@ Should display 2 rows (4 and 5) only.
 
 =cut
 
-sub test_Show4ToEnd
-{    
+sub test_Show4ToEnd {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{format="   * \$C1 \$C2 \$C3\$n()" show="4.." }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * GHI 789 01 Apr 2005
    * JKL 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -677,18 +649,17 @@ Should display 2 rows (4 and 5) only.
 
 =cut
 
-sub test_Show4ToEndSorted4
-{    
+sub test_Show4ToEndSorted4 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{sortcolumn="4" format="   * \$C1 \$C2 \$C3\$n()" show="4.." }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * DEF 456 01 Jan 2007
    * ABC 123 30 Dec 2006
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -699,18 +670,17 @@ END_EXPECTED
 
 =cut
 
-sub test_Show4ToEndSorted4Descending
-{    
+sub test_Show4ToEndSorted4Descending {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{sortcolumn="4" sortdirection="descending" format="   * \$C1 \$C2 \$C3\$n()" show="4.." }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * JKL 999 31 Mar 2005
    * *Text* *Number* *Date*
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -721,18 +691,17 @@ END_EXPECTED
 
 =cut
 
-sub test_CombineRowsAndShow
-{    
+sub test_CombineRowsAndShow {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{rows="2.." format="   * \$C1 \$C2 \$C3\$n()" show="3.." }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * GHI 789 01 Apr 2005
    * JKL 999 31 Mar 2005
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -743,18 +712,17 @@ END_EXPECTED
 
 =cut
 
-sub test_CombineRowsAndShowSortDescending
-{    
+sub test_CombineRowsAndShowSortDescending {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{rows="2.." sortdirection="descending" format="   * \$C1 \$C2 \$C3\$n()" show="3.." }%
 END_RAW
-<<END_EXPECTED . "\n"
+        <<END_EXPECTED . "\n"
    * DEF 456 01 Jan 2007
    * ABC 123 30 Dec 2006
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -765,17 +733,16 @@ END_EXPECTED
 
 =cut
 
-sub test_Separator
-{    
+sub test_Separator {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{cols="2..2" separator="," }%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 *Number*,123,456,789,999
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -786,17 +753,16 @@ END_EXPECTED
 
 =cut
 
-sub test_Id
-{    
+sub test_Id {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="2" cols="1" }%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 -1
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -807,19 +773,17 @@ END_EXPECTED
 
 =cut
 
-sub test_PreserveSpaces
-{    
+sub test_PreserveSpaces {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="2" cols="1" preservespaces="on"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
  -1   
 END_EXPECTED
-);
+    );
 }
-
 
 =pod
 
@@ -829,17 +793,16 @@ END_EXPECTED
 
 =cut
 
-sub test_EscapeQuotesDefault
-{    
+sub test_EscapeQuotesDefault {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="3" cols="2" }%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 read \\"this\\"
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -850,17 +813,16 @@ END_EXPECTED
 
 =cut
 
-sub test_EscapeQuotesOff
-{    
+sub test_EscapeQuotesOff {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="3" cols="2" escapequotes="off"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 read "this"
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -871,18 +833,17 @@ END_EXPECTED
 
 =cut
 
-sub test_BeforeText
-{    
+sub test_BeforeText {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="2" cols="2" beforetext="Results:\$n()"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 Results:
 Do not
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -893,18 +854,17 @@ END_EXPECTED
 
 =cut
 
-sub test_AfterText
-{    
+sub test_AfterText {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="2" cols="2" aftertext="\$n()For more information see..."}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 Do not
 For more information see...
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -915,17 +875,16 @@ END_EXPECTED
 
 =cut
 
-sub test_Limit2
-{    
+sub test_Limit2 {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="2" cols="2" format="\$C2(2)"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 Do
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -936,17 +895,16 @@ END_EXPECTED
 
 =cut
 
-sub test_Limit2Placeholder
-{    
+sub test_Limit2Placeholder {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="2" cols="2" format="\$C2(2,...)"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 Do...
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -959,25 +917,24 @@ END_EXPECTED
 
 =cut
 
-sub test_CellIsEmpty
-{    
+sub test_CellIsEmpty {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="4" format="\$C2(\\"isempty\\" then=\\"empty\\" else=\\"not empty\\")"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 empty
 END_EXPECTED
-);
+    );
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="4" format="\$C1(\\"isempty\\" then=\\"empty\\" else=\\"not empty\\")"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 not empty
 END_EXPECTED
-);
+    );
 }
 
 =pod
@@ -988,25 +945,24 @@ END_EXPECTED
 
 =cut
 
-sub test_CellValue
-{    
+sub test_CellValue {
     my $this = shift;
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="4" format="\$C1(\\"='xxx'\\" then=\\"true\\" else=\\"false\\")"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 true
 END_EXPECTED
-);
+    );
     $this->doTest(
-<<END_RAW,
+        <<END_RAW,
 %TABLEDATA{id="last" rows="4" format="\$C1(\\"='yyy'\\" then=\\"true\\" else=\\"false\\")"}%
 END_RAW
-<<END_EXPECTED
+        <<END_EXPECTED
 false
 END_EXPECTED
-);
+    );
 }
 
 1;

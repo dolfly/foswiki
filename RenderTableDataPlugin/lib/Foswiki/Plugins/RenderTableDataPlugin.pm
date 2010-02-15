@@ -1,7 +1,7 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # Copyright (c) 2006 by Meredith Lesly, Kenneth Lavrsen
-# and TWiki Contributors. All Rights Reserved. TWiki Contributors
+# and Foswiki Contributors. All Rights Reserved. Foswiki Contributors
 # are listed in the AUTHORS file in the root of this distribution.
 # NOTE: Please extend that file, not this notice.
 #
@@ -15,23 +15,23 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
-# For licensing info read LICENSE file in the TWiki root.
+# For licensing info read LICENSE file in the Foswiki root.
 
-package TWiki::Plugins::RenderTableDataPlugin;
+package Foswiki::Plugins::RenderTableDataPlugin;
 
 use Time::Local;
 
 # Always use strict to enforce variable scoping
 use strict;
 
-# $VERSION is referred to by TWiki, and is the only global variable that
+# $VERSION is referred to by Foswiki, and is the only global variable that
 # *must* exist in this package
 use vars qw( $VERSION $RELEASE $debug $pluginName
   $VARIABLES_TO_REMOVE
   $format $shouldRenderTableData @isoMonth %mon2num %columnType
   %regex );
 
-# This should always be $Rev: 11069$ so that TWiki can determine the checked-in
+# This should always be $Rev: 11069$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev: 11069$';
@@ -39,7 +39,7 @@ $VERSION = '$Rev: 11069$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.2.1';
+$RELEASE = '2.0-beta';
 
 # Name of this Plugin, only used in this module
 $pluginName = 'RenderTableDataPlugin';
@@ -66,17 +66,23 @@ BEGIN {
 sub initPlugin {
     my ( $topic, $web, $user, $installWeb ) = @_;
 
+    #print STDERR "RENDERTABLEDATA INIT \n";
+
     # check for Plugins.pm versions
-    if ( $TWiki::Plugins::VERSION < 1.026 ) {
-        TWiki::Func::writeWarning(
+    if ( $Foswiki::Plugins::VERSION < 1.026 ) {
+        Foswiki::Func::writeWarning(
             "Version mismatch between $pluginName and Plugins.pm");
         return 0;
     }
 
-    $debug = TWiki::Func::getPluginPreferencesFlag("DEBUG");
-    TWiki::Func::registerTagHandler( 'TABLEDATA', \&_parseTableRows );
+    $debug = 1;    # Foswiki::Func::getPluginPreferencesFlag("DEBUG");
+    Foswiki::Func::registerTagHandler( 'TABLEDATA', \&_parseTableRows );
 
     # Plugin correctly initialized
+    Foswiki::Func::writeDebug(" RenderTableDataPlugin is initialized ")
+      if $debug;
+
+    #print "RenderTableDataPlugin is initialized \n";
     return 1;
 }
 
@@ -107,7 +113,7 @@ i.e. value 1 refers to the first element in the array
 sub _parseTableRows {
     my ( $session, $params, $inTopic, $inWeb ) = @_;
 
-    TWiki::Func::writeDebug("- RenderTableDataPlugin::_parseTableRows")
+    Foswiki::Func::writeDebug("- RenderTableDataPlugin::_parseTableRows")
       if $debug;
 
     $shouldRenderTableData = 0;
@@ -185,7 +191,7 @@ sub _parseTableRows {
 
     my $filter = $params->{'filter'} || $params->{'condition'} || '';
 
-    my $text = TWiki::Func::readTopicText( $web, $topic );
+    my $text = Foswiki::Func::readTopicText( $web, $topic );
 
     my $result      = '';
     my $tableResult = '';
@@ -203,7 +209,8 @@ sub _parseTableRows {
     $text =~ s/\r//go;
     $text =~ s/\\\n//go;                            # Join lines ending in "\"
     $text =~ s/%$VARIABLES_TO_REMOVE({.*?})*%//go
-      unless TWiki::Func::isTrue($preserveVariables);   # Remove TWiki variables
+      unless Foswiki::Func::isTrue($preserveVariables)
+    ;                                               # Remove Foswiki variables
     $text .= '\n'
       ; # Help to find the end of the table if the table is the last item in the topic
 
@@ -220,7 +227,7 @@ sub _parseTableRows {
             if (/$regex{table_plugin}/) {
 
                 # match with a TablePlugin line
-                my %tablePluginParams = TWiki::Func::extractParameters($1);
+                my %tablePluginParams = Foswiki::Func::extractParameters($1);
                 my $currentTableId = $tablePluginParams{'id'} || '';
                 if ( defined $tableId ) {
                     $atTableToParse = 0 if ( $tableId ne $currentTableId );
@@ -369,14 +376,14 @@ s/\$C$cellNum(\(([0-9]*),*(.*?)\))*/_getCellContents($cell,$2,$3)/ges;
             $tableResult =~ s/\$set/$set/go;
             $tableResult =~ s/\$set/$set/go;
 
-            TWiki::Func::writeDebug(
+            Foswiki::Func::writeDebug(
 "- RenderTableDataPlugin::_parseTableRows - result A=$tableResult"
             ) if $debug;
 
             return $result . $tableResult;
         }
     }
-    TWiki::Func::writeDebug(
+    Foswiki::Func::writeDebug(
         "- RenderTableDataPlugin::_parseTableRows - result B=$tableResult")
       if $debug;
 
@@ -528,21 +535,21 @@ sub _stripHtml {
 sub _decodeFormatTokens {
     my $text = shift;
     return
-      defined(&TWiki::Func::decodeFormatTokens)
-      ? TWiki::Func::decodeFormatTokens($text)
+      defined(&Foswiki::Func::decodeFormatTokens)
+      ? Foswiki::Func::decodeFormatTokens($text)
       : _expandStandardEscapes($text);
 }
 
 =pod
 
-For TWiki versions that do not implement TWiki::Func::decodeFormatTokens.
+For Foswiki versions that do not implement Foswiki::Func::decodeFormatTokens.
 
 =cut
 
 sub _expandStandardEscapes {
     my $text = shift;
     $text =~ s/\$n\(\)/\n/gos;    # expand '$n()' to new line
-    my $alpha = TWiki::Func::getRegularExpression('mixedAlpha');
+    my $alpha = Foswiki::Func::getRegularExpression('mixedAlpha');
     $text =~ s/\$n([^$alpha]|$)/\n$1/gos;    # expand '$n' to new line
     $text =~ s/\$nop(\(\))?//gos;      # remove filler, useful for nested search
     $text =~ s/\$quot(\(\))?/\"/gos;   # expand double quote
