@@ -204,25 +204,25 @@ format="   * $C1$C3(\"isempty\" then=\" $C4\" else=\" [[$C3][$C4]]\") %BR%   $C2
 
 ---++ Plugin Info
 
-| Authors: | Foswiki:Main.ArthurClemens |
-| Copyright &copy;: | 2007-2008 Arthur Clemens |
-| License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
-| Release: | %$RELEASE%  |
-| Version: | %$VERSION%  |
-| 14 Feb 2010 | Foswikitask:Item8526 - Convert to Foswiki |
-| 24 Mar 2008 | Arthur Clemens: 1.2.1 Added parameter =preservevariables= |
-| 27 Feb 2008 | Arthur Clemens: 1.2 Added cell value evaluation. Added unit tests. |
-| 25 Jan 2008 | Arthur Clemens: 1.1 Adds parameters =id=, =separator= and =escapequotes=. |
-| 24 Nov 2007 | Arthur Clemens: 1.0.6 Use standard TWiki function for format tokens. Change: instead of =$n= use =$n()=. |
-| 07 Apr 2007 | Arthur Clemens: 1.0.5 Added the option to use negative numbers for =show=, for instance =show="-n.."= to start n positions from the end. Deprecated =condition="random"=; from now on use =filter="random"=. |
-| 12 Mar 2007 | Arthur Clemens: 1.0.4 Added limit parameter syntax to format. |
-| 11 Mar 2007 | Arthur Clemens: 1.0.3 Added =$nop= token. |
-| 08 Mar 2007 | Arthur Clemens: 1.0.2 Fixed sorting bug. Added params =beforetext=, =aftertext=, =show= and =condition="random"=.  |
-| 07 Mar 2007 | Arthur Clemens: 1.0.1 Fixed CSS bug in Win Explorer 6 in example.  |
-| 04 Mar 2007 | Arthur Clemens: 1.0 First release.  |
-| Home: | http://foswiki.org/Extensions/%TOPIC% |
-| Development: | http://foswiki.org/Development/%TOPIC% |
-| Support:: | http://foswiki.org/Support/%TOPIC% |
+|  Authors: | Foswiki:Main.ArthurClemens |
+|  Copyright &copy;: | 2007-2008 Arthur Clemens |
+|  License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
+|  14 Feb 2010 | Foswikitask:Item8526 - Convert to Foswiki |
+|  24 Mar 2008 | Arthur Clemens: 1.2.1 Added parameter =preservevariables= |
+|  27 Feb 2008 | Arthur Clemens: 1.2 Added cell value evaluation. Added unit tests. |
+|  25 Jan 2008 | Arthur Clemens: 1.1 Adds parameters =id=, =separator= and =escapequotes=. |
+|  24 Nov 2007 | Arthur Clemens: 1.0.6 Use standard TWiki function for format tokens. Change: instead of =$n= use =$n()=. |
+|  07 Apr 2007 | Arthur Clemens: 1.0.5 Added the option to use negative numbers for =show=, for instance =show="-n.."= to start n positions from the end. Deprecated =condition="random"=; from now on use =filter="random"=. |
+|  12 Mar 2007 | Arthur Clemens: 1.0.4 Added limit parameter syntax to format. |
+|  11 Mar 2007 | Arthur Clemens: 1.0.3 Added =$nop= token. |
+|  08 Mar 2007 | Arthur Clemens: 1.0.2 Fixed sorting bug. Added params =beforetext=, =aftertext=, =show= and =condition="random"=.  |
+|  07 Mar 2007 | Arthur Clemens: 1.0.1 Fixed CSS bug in Win Explorer 6 in example.  |
+|  04 Mar 2007 | Arthur Clemens: 1.0 First release.  |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Development: | http://foswiki.org/Development/%TOPIC% |
+|  Support:: | http://foswiki.org/Support/%TOPIC% |
 
 
 %META:FILEATTACHMENT{name="renderTableDataExample.png" attachment="renderTableDataExample.png" attr="" comment="Edit and render example" date="1173012452" path="renderTableDataExample.png" size="217811" stream="renderTableDataExample.png" user="Main.ProjectContributor" version="1"}%
