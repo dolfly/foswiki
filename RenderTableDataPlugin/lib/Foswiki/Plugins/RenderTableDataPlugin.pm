@@ -26,7 +26,7 @@ use strict;
 
 # $VERSION is referred to by Foswiki, and is the only global variable that
 # *must* exist in this package
-use vars qw( 
+use vars qw(
   @isoMonth %mon2num %columnType
   %regex );
 
@@ -56,7 +56,6 @@ our $SHORTDESCRIPTION = 'Extract and render table data in an alternate format';
 # %SYSTEMWEB%.DevelopingPlugins has details of how to define =$Foswiki::cfg=
 # entries so they can be used with =configure=.
 our $NO_PREFS_IN_TOPIC = 1;
-
 
 my $VARIABLES_TO_REMOVE = '(EDITCELL|CALC)';
 my $debug;
@@ -90,7 +89,8 @@ sub initPlugin {
         return 0;
     }
 
-    $debug =  Foswiki::Func::getPluginPreferencesFlag("RENDERTABLEDATAPLUGIN_DEBUG");
+    $debug =
+      Foswiki::Func::getPluginPreferencesFlag("RENDERTABLEDATAPLUGIN_DEBUG");
     Foswiki::Func::registerTagHandler( 'TABLEDATA', \&_parseTableRows );
 
     # Plugin correctly initialized
