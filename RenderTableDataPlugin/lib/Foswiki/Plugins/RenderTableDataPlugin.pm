@@ -38,7 +38,7 @@ our $VERSION = '$Rev: 11069$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '2.0-beta';
+our $RELEASE = '2.0-RC1';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
