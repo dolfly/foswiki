@@ -31,7 +31,7 @@ After installing this add-on, there are a few additional steps needed before it 
       * Set TCAOWEB = TCAO
       * Set HELP_BACKGROUND_COLOR = #E0B9A6
 </verbatim>
-   * Go to %USERWEB%.WikiGroups and create a new group called ==ModeratorGroup==. This group can add new classifications within webs where TCAO is enabled. 
+   * [[%SCRIPTURL{"edit"}%/%USERSWEB%/?topic=ModeratorGroup&templatetopic=GroupTemplate&topicparent=WikiGroups&onlywikiname=on&onlynewtopic=on][Go to %USERSWEB%.WikiGroups and create a new group called ==ModeratorGroup==]]. This group can add new classifications within webs where TCAO is enabled. 
    * Add the following %SYSTEMWEB%.CommentPlugin templates definitions to %SYSTEMWEB%.UserCommentsTemplate (create this topic if you have not already).
 <verbatim>
 %TMPL:INCLUDE{"TCAO.TCAOComments"}%
@@ -40,7 +40,7 @@ After installing this add-on, there are a few additional steps needed before it 
 ---+++ Enabling %TOPIC% in a particular web
 
 %TOPIC% is designed to organize content within individual webs.To install the TCAO framework within a web, use the form below.
-%INCLUDE{"%TCAOWEB%.RenderInstallTopicClassification" warm="Only displays if prior installation steps have been completed."}%
+%INCLUDE{"%TCAOWEB%.RenderInstallTopicClassification" warn="Only displays if prior installation steps have been completed."}%
 
 ---+++ Setting up Topic Classification within a web
 Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes* and *SubjectAreas* to be used in that web. To do this, go to those respective topics (e.g. go to !TopicType to add new !TopicTypes) and use form at bottom that is only visible to members of !ModeratorGroup (or %USERWEB%.AdminGroup, of course).
@@ -52,6 +52,7 @@ Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes
 |  Copyright: | &copy; |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  15 Feb 2010 | Foswikibug:Item1624: doc repairs |
 |  05 Feb 2010 | Foswikibug:Item1624: update to CSRF requirements |
 |  15431 | TWikibug:Item1715 - Fix !TableSearchResults |
 |  15158 | TWikibug:Item1715 - Updated !Weblog and added new Task Topic Type |
