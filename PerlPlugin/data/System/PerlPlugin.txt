@@ -2,7 +2,7 @@
 ---+!! !PerlPlugin
 <!--
 One line description, required for extensions repository catalog.
-   * Set SHORTDESCRIPTION = Embed perl scripts in topics
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 %SHORTDESCRIPTION%
 
@@ -77,16 +77,17 @@ Check the plugin is working:
 
 =%<nop>PERL{"'Cushty'"}%= expands to %PERL{"'Cushty'"}%
 
----++ Plugin Info
+---++ Info
 Another great Foswiki extension from the <a style="text-decoration:none" href="http://wikiring.com"><img src="%ATTACHURLPATH%/wikiringlogo20x20.png" alt="" /> *WikiRing* </a> - working together to improve your wiki experience!
 
 |  Author(s): | Crawford Currie http://c-dot.co.uk |
-|  Copyright: | &copy; 2008 Crawford Currie |
+|  Copyright: | &copy; 2008-2010 Crawford Currie |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|    1.1.1 15th Feb 2010 | First full release |
+|    1.1.2 | Add STDOUT and STDERR support |
+|    1.1.1 | First full release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home: | http://foswiki.org/Extensions/PerlPlugin |
 |  Support: | http://foswiki.org/Support/PerlPlugin |
