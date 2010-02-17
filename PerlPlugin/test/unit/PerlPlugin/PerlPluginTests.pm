@@ -14,13 +14,11 @@ sub loadExtraConfig {
 
 sub test_simpleWorkingExprs {
     my $this = shift;
-    my $t = Foswiki::Plugins::PerlPlugin::_PERL(
-        $this->{session},
-        { _DEFAULT => "'A String'"});
+    my $t = Foswiki::Func::expandCommonVariables(
+        "%PERL{\"'A String'\"}%");
     $this->assert_equals('A String', $t);
-    $t = Foswiki::Plugins::PerlPlugin::_PERL(
-        $this->{session},
-        { _DEFAULT => "101 - 59"});
+    $t = Foswiki::Func::expandCommonVariables(
+        "%PERL{\"101 - 59\"}%");
     $this->assert_equals(42, $t);
     $t = Foswiki::Func::expandCommonVariables(
         "%PERL{\"sub x{95};x()\"}%...%PERL{\"x()+164\"}%");
@@ -28,18 +26,19 @@ sub test_simpleWorkingExprs {
 }
 
 # Disabled due to a bug in the heredoc parser
-sub detest_hereDoc {
+sub test_hereDoc {
     my $this = shift;
-    my $t = <<'BEDRAGONS';
-%PERL{<<HERE}%
+    my $t = <<'DRAGONS';
+HERE%PERL{<<HERE}%DRAGONS
 my %x = ( a=>'%TOPIC%' );
 $x{a} =~ s/%/x/g;
-"$x{a}\n";
+$x{'a'} =~ s/xTOPICx/ BE /g;
+"$x{a}";
 HERE
-X
-BEDRAGONS
+!
+DRAGONS
     $t = Foswiki::Func::expandCommonVariables($t);
-    $this->assert_equals("xTOPICxX", $t);
+    $this->assert_equals("HERE BE DRAGONS!\n", $t);
 }
 
 sub test_syntaxError {
@@ -65,6 +64,30 @@ sub test_die {
         '%PERL{"die \'pig dog rabbit\'"}%');
     $this->assert_matches(
         qr/class='foswikiAlert'>%PERL error: pig dog rabbit/, $t);
+}
+
+sub test_warn {
+    my $this = shift;
+    my $t = Foswiki::Func::expandCommonVariables(
+        '%PERL{"warn(\'pig\', \'dog\'); 2"}%');
+    $this->assert_matches(
+        qr/2\s*<.*?class='foswikiAlert'>pigdog at line 1/s, $t);
+}
+
+sub test_STDOUT {
+    my $this = shift;
+    my $t = Foswiki::Func::expandCommonVariables(
+        '%PERL{"print STDOUT \'pig dog rabbit\';\'\'"}%');
+    $this->assert_matches(
+        qr/pig dog rabbit/s, $t);
+}
+
+sub test_STDERR {
+    my $this = shift;
+    my $t = Foswiki::Func::expandCommonVariables(
+        '%PERL{"print STDERR \'were wolf\';666"}%');
+    $this->assert_matches(
+        qr/666\s*<.*?class='foswikiAlert'>were wolf<\/pre>/s, $t);
 }
 
 sub test_arithmeticError {

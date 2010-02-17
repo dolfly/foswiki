@@ -35,12 +35,20 @@ The =%CODE...%ENDCODE%= delimiters are compatible with !SyntaxHighlightingPlugin
 Because Foswiki::Func runs outside Foswiki access controls, this has to be
 use with care.
 
+Note that =STDOUT= and =STDERR= are automatically appended to the result of the %PERL macro. Errors and warnings, and STDERR, are output after the normal result.
+So =%<nop>PERL{"print '{{this}}'; print STDERR 'ouch'; 'that'"}%= expands to:
+
+%PERL{"print '{{this}}'; print STDERR 'ouch'; 'that'"}%
+
+(You cannot suppress errors. Instead, fix your perl)
+
 ---++ WARNING
 The default configuration is designed for the following
 requirements:
    * Basic Perl,
    * Can use loops, define and call functions, 
    * Can call Foswiki::Func functions (except readFile and saveFile),
+   * =print= (but not open)
 *This provides the user with enough rope to hang your server!*
 
 For example, an infinite loop may (in some server configurations) 

@@ -29,10 +29,10 @@ package Foswiki::Plugins::PerlPlugin;
 
 use strict;
 
-use Assert;
 use Safe ();
-use File::Spec;
+use IO::Scalar ();
 
+use Assert;
 use Foswiki::Func ();
 use Foswiki::Sandbox ();
 
@@ -43,6 +43,7 @@ our $NO_PREFS_IN_TOPIC = 1;
 
 # The Safe container
 our $compartment;
+our $stderr;
 
 sub initPlugin {
     my( $topic, $web, $user, $installWeb ) = @_;
@@ -114,18 +115,38 @@ sub _PERL {
     # disable CGI::Carp which otherwise masks the errors because it
     # can't get to File::Spec
     my $result;
+    $compartment->permit('print');
+    $compartment->share_from('main', [ '*STDOUT', '*STDERR' ]);
+
+    my $stdout = '';
+    my $stderr = '';
+    tie *STDERR, 'IO::Scalar', \$stderr;
+    tie *STDOUT, 'IO::Scalar', \$stdout;
+
     {
         local $SIG{'__DIE__'} = 'DEFAULT';
-        local $SIG{'__WARN__'} = 'DEFAULT';
+        local $SIG{'__WARN__'} = sub {
+            my $mess = shift;
+            $mess =~ s/ at \(eval \d+\)( line \d+.*)$/ at$1/;
+            $stderr .= $mess;
+        };
 
         $result = $compartment->reval($expr, 1);
     }
+    untie *STDOUT;
+    untie *STDERR;
 
     # The doc says a blocked opcode will set $@, but in perl 5.10 this
     # doesn't happen and reval just gives an undef. But this is what
     # should really trap errors.
     $result = "<pre class='foswikiAlert'>%PERL error: $@</pre>" if $@;
     $result = '' unless defined $result;
+    if (length($stdout) > 0) {
+        $result .= $stdout;
+    }
+    if (length($stderr)) {
+        $result .= "<pre class='foswikiAlert'>$stderr</pre>";
+    }
     return $result;
 }
 

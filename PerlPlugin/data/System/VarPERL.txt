@@ -4,7 +4,8 @@
    * Expands to the result of the perl expression, evaluated in a Safe container.
 =%<nop>PERL{topic="topic name"}%=
    * Expands to the result of the perl program contained between %<nop>CODE{}% and %<nop>ENDCODE% in the named topic.
-   * You can only use a subset of perl, as defined in the Foswiki configuration.
+   * You can only use a subset of perl, as defined in the Foswiki
+     configuration.
 
 ---++++ Examples
 If the plugin is installed, the text after 'expands to' will show the result of the example.
