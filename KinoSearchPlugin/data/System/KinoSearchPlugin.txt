@@ -56,7 +56,7 @@ __Warning__ this can cause topic saves and attachments to become unacceptably sl
       * Set SHORTDESCRIPTION = A plugin wrapper around the KinoSearchContrib
 -->
 
-|  Plugin Author: | TWiki:Main.DavidGuest and Foswikii:Main.SvenDowideit|
+|  Plugin Author: | TWiki:Main.DavidGuest and Foswiki:Main.SvenDowideit |
 |  Copyright: | &copy; 2007, TWiki:Main.DavidGuest; &copy; 2009, Foswiki Contributors |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Release: | %$RELEASE% |
