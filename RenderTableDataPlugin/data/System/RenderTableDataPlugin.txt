@@ -2,8 +2,7 @@
 ---+!! !RenderTableDataPlugin
 <img src="%ATTACHURLPATH%/renderTableDataExample_thumb.gif" alt="RenderTableData Logo" title="RenderTableData Logo" style="float:right" />
 
-
-*Separate data storage from display: render table data in any different way.*
+%SHORTDESCRIPTION%
 
 Main features:
    * Pass a custom format to render the table data
@@ -195,14 +194,19 @@ format="   * $C1$C3(\"isempty\" then=\" $C4\" else=\" [[$C3][$C4]]\") %BR%   $C2
 
 ---++ Settings
 
-   * Set SHORTDESCRIPTION = Separate data storage from display: render table data in any different way
-   * Set DEBUG = 0
+Settings are not read from this topic.   To enable debug, copy the following
+setting to your %USERSWEB%.SitePreferences or to the topic being debugged.
+
+   * Set RENDERTABLEDATAPLUGIN_DEBUG = 0
 
 ---++ Installation Instructions
 
 %$INSTALL_INSTRUCTIONS%
 
 ---++ Plugin Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
 
 |  Authors: | Foswiki:Main.ArthurClemens |
 |  Copyright &copy;: | 2007-2008 Arthur Clemens |
