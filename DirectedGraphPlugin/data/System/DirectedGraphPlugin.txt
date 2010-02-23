@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1265144070" format="1.1" version="1.32"}%
+%META:TOPICINFO{author="ProjectContributor"  date="1266770762" format="1.1" version="1.32"}%
 <!--
 This topic is part of the documentation for DirectedGraphPlugin and is
 automatically generated from Subversion. Do not edit it! Your edits
@@ -9,10 +9,13 @@ http://foswiki.org/view/Tasks/DirectedGraphPlugin
 -->
 ---+!! Directed Graph Plugin
 <!--
-
-   PLEASE DO NOT EDIT THIS TOPIC
-
--->
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
+prefer.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+--> 
+%SHORTDESCRIPTION%
 <div style="float:right">
 <img src="%ATTACHURLPATH%/graphsample2_antialiased.png" alt="Directed Graph Plugin Logo" title="Directed Graph Plugin Logo" />
 </div>
@@ -385,22 +388,24 @@ digraph G { size="2,3!"; dpi="100";
 ---++++ Description of the settings
 Changes to the settings marked %X% will cause changes to the file hash. This will result in the attached graphcs being regenerated on the next view
 
+*All settings are prefixed with =DIRECTEDGRAPHPLUGIN_= as shown above*  _The prefix is ommited from this table to improve layout_
+
 | *Setting* | *Description* | *dot override* | *Default* |
-| DIRECTEDGRAPHPLUGIN_ENGINE | %X% Layout engine to use per default. Can be one of =dot=, =neato=, =twopi=, =circo= or =fdp= | engine="dot" | =dot= |
-| DIRECTEDGRAPHPLUGIN_ANTIALIAS | %X% Antialias option. If set to =on= the plugin will use the =convert= binary from the imagemagick package to pretty print graphs. This option should not be used with clientside maps as pixel dimensions are usually altered in this process and therefore the "hot spot" locations will not match the generated image. With antialiasing off, rendering size is controlled by =dot= (can be effected by an eventual size parameter in the digraph description), with antialiasing on you set the final image size in pixels explicitly with the size parameter. (If you must use an image map with this option, take care manually that the two generated pixel sizes match). | antialias="off" | =off= |
-| DIRECTEDGRAPHPLUGIN_DENSITY | %X% Default density (dpi) for antialias option. 300 dpi should be sufficient for most purposes (if your graphs look blurred at large image sizes try using a higher value). | density="300" | =300= |
-| DIRECTEDGRAPHPLUGIN_HIDEATTACHMENTS | %X% Set whether or not attached files should be automatically hidden in the attachments table. (n/a for direct file I/O) | hideattachments="on" | =on= |
-| DIRECTEDGRAPHPLUGIN_INLINEATTACHMENT | %X% Set the format for inline attachment files. png, jpg or svg | inline="png" | =png= |
-| DIRECTEDGRAPHPLUGIN_SVGFALLBACK | Set a fallback image type for older browsers when SVG inline is set. Set to =png= or =jpg= | svgfallback="png" | =png= |
-| DIRECTEDGRAPHPLUGIN_SVGLINKTARGET | Modify the generated SVG with a =target="_top"= attribute. This makes link behaviour compatible between IE and Firefox | svglinktarget="on" | =on= |
-| DIRECTEDGRAPHPLUGIN_LINKATTACHMENTS | Include links for other attachment types if specified. Generates links in the format of =[ps]=, =[pdf]= following the inline image. | linkattachments="on" | =on= |
-| DIRECTEDGRAPHPLUGIN_DELETEATTACHMENTS | If enabled, the plugin will delete any remaining attachments when a =&lt;dot&gt;= is removed or modified. | [n/a] | =off= |
-| DIRECTEDGRAPHPLUGIN_LEGACYCLEANUP | If enabled, the plugin will attempt to convert older TWiki style attachments and hash entries into the new Foswiki format. Only enable if migrating topics and the working directory from a TWiki installation. | [n/a] | =off= |
-| DIRECTEDGRAPHPLUGIN_FORCEATTACHAPI | If enabled, the plugin will ignore the "configure" settings of =attachPath= and =attachUrlPath=. Forcing use of the attachment API can be used to create topics that are portable across Foswiki installations. (for example, the HowtoDirectedGraphs topic) It can be also used to get standard attachment revision history handling on the generated attachments. [This parameter is ignored and the Foswiki attachment API always used if the configure settings =attachPath= and =attachUrlPath= are not supplied. | forceattachapi="off" | =off= |
-| DIRECTEDGRAPHPLUGIN_SIZE | %X% Default image size (pixels, =widthxheight=) for antialias option (keeps aspect ratio; enlarges until max of one of the dimensions is reached). | size="800x600" | =800x600= |
-| DIRECTEDGRAPHPLUGIN_VECTORFORMATS | %X% Additional output formats to create per default. Displayed version defaults to PNG, others are attached. Options are =ps= and =svg= (space separated). Any output format supported by !GraphViz can be specified. The =ps= format is useful to have handy if you are later converting your document to <nop>LaTeX or other typesetting / publication utility. The =svg= format has inline clickable map if used. | vectorformats="png,jpg" | =none= |
-| DIRECTEDGRAPHPLUGIN_LIBRARY | %X% Default topic to read library icons (shapefiles) from | library="Web.Topic" | (this topic) |
-| DIRECTEDGRAPHPLUGIN_DEBUG | Debug plugin: (See output in =data/debug.txt=) | [n/a] | =0= |
+| ENGINE | %X% Layout engine to use per default. Can be one of =dot=, =neato=, =twopi=, =circo= or =fdp= | engine="dot" | =dot= |
+| ANTIALIAS | %X% Antialias option. If set to =on= the plugin will use the =convert= binary from the imagemagick package to pretty print graphs. This option should not be used with clientside maps as pixel dimensions are usually altered in this process and therefore the "hot spot" locations will not match the generated image. With antialiasing off, rendering size is controlled by =dot= (can be effected by an eventual size parameter in the digraph description), with antialiasing on you set the final image size in pixels explicitly with the size parameter. (If you must use an image map with this option, take care manually that the two generated pixel sizes match). | antialias="off" | =off= |
+| DENSITY | %X% Default density (dpi) for antialias option. 300 dpi should be sufficient for most purposes (if your graphs look blurred at large image sizes try using a higher value). | density="300" | =300= |
+| HIDEATTACHMENTS | %X% Set whether or not attached files should be automatically hidden in the attachments table. (n/a for direct file I/O) | hideattachments="on" | =on= |
+| INLINEATTACHMENT | %X% Set the format for inline attachment files. png, jpg or svg | inline="png" | =png= |
+| SVGFALLBACK | Set a fallback image type for older browsers when SVG inline is set. Set to =png= or =jpg= | svgfallback="png" | =png= |
+| SVGLINKTARGET | Modify the generated SVG with a =target="_top"= attribute. This makes link behaviour compatible between IE and Firefox | svglinktarget="on" | =on= |
+| LINKATTACHMENTS | Include links for other attachment types if specified. Generates links in the format of =[ps]=, =[pdf]= following the inline image. | linkattachments="on" | =on= |
+| DELETEATTACHMENTS | If enabled, the plugin will delete any remaining attachments when a =&lt;dot&gt;= is removed or modified. | [n/a] | =off= |
+| LEGACYCLEANUP | If enabled, the plugin will attempt to convert older TWiki style attachments and hash entries into the new Foswiki format. Only enable if migrating topics and the working directory from a TWiki installation. | [n/a] | =off= |
+| FORCEATTACHAPI | If enabled, the plugin will ignore the "configure" settings of =attachPath= and =attachUrlPath=. Forcing use of the attachment API can be used to create topics that are portable across Foswiki installations. (for example, the HowtoDirectedGraphs topic) It can be also used to get standard attachment revision history handling on the generated attachments. [This parameter is ignored and the Foswiki attachment API always used if the configure settings =attachPath= and =attachUrlPath= are not supplied. | forceattachapi="off" | =off= |
+| SIZE | %X% Default image size (pixels, =widthxheight=) for antialias option (keeps aspect ratio; enlarges until max of one of the dimensions is reached). | size="800x600" | =800x600= |
+| VECTORFORMATS | %X% Additional output formats to create per default. Displayed version defaults to PNG, others are attached. Options are =ps= and =svg= (space separated). Any output format supported by !GraphViz can be specified. The =ps= format is useful to have handy if you are later converting your document to <nop>LaTeX or other typesetting / publication utility. The =svg= format has inline clickable map if used. | vectorformats="png,jpg" | =none= |
+| LIBRARY | %X% Default topic to read library icons (shapefiles) from | library="Web.Topic" | (this topic) |
+| DEBUG | Debug plugin: (See output in =data/debug.txt=) | [n/a] | =0= |
 
 ---+++ Foswiki bin/configure settings
 All settings start with =$Foswiki::cfg{Plugins}{DirectedGraphPlugin}=, and on many systems, these are optional.

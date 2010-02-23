@@ -44,7 +44,7 @@ our $VERSION = '$Rev$';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.7-RC2';
+our $RELEASE = '1.7-RC3';
 
 #
 # # Short description of this plugin
@@ -771,13 +771,16 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                     "attaching $attachFile{$key} using direct file I/O  ");
                 _make_path( $topic, $web );
                 umask(002);
-                copy( "$tempFile{$key}", "$attachPath/$web/$topic/$fname" );
+                my $tempoutfile = "$attachPath/$web/$topic/$fname";
+                $tempoutfile = Foswiki::Sandbox::untaintUnchecked($tempoutfile);  #untaint - fails in Perl 5.10
+                copy( "$tempFile{$key}", $tempoutfile );
             }
             else {
                 my @stats    = stat $tempFile{$key};
                 my $fileSize = $stats[7];
                 my $fileDate = $stats[9];
-                &_writeDebug("attaching $fname using Foswiki API ");
+                &_writeDebug("attaching $fname using Foswiki API - Web = $web,  Topic = $topic, File=$tempFile{$key} Type = $key Size $fileSize date $fileDate");
+                $fname = Foswiki::Sandbox::untaintUnchecked($fname);  #untaint - fails on trunk
                 Foswiki::Func::saveAttachment(
                     $web, $topic, "$fname",
                     {
@@ -856,9 +859,13 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                     "$outFilename.cmapx" );
             }
         }
-        $mapfile =~
+        if ($mapfile) {   #If mapfile is empty for some reason, these will fail
+            $mapfile =~
 s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
-        $mapfile =~ s/[\n\r]/ /go;
+            $mapfile =~ s/[\n\r]/ /go;
+        } else {
+            $mapfile = '';
+        }
     }
 
     my $loc        = $urlPath . "/$web/$topic";
@@ -1143,6 +1150,8 @@ sub wrapupTagsHandler {
 sub _deleteAttach {
 
     my $fn = Foswiki::Sandbox::normalizeFileName( $_[0] );
+     
+   &_writeDebug (" DELETE ATTACHMENT entered for $fn");
 
     if ( _attachmentExists( $web, $topic, $fn ) ) {
 
