@@ -1,0 +1,110 @@
+@charset "UTF-8";
+/**
+ * (en) Contains CSS definitions for foswiki specific content components and buttons
+ * (de) Enthält CSS Definitionen für Foswiki spezifische Seiteninhalte und Buttons
+ *
+ * @revision        $Revision:1 $
+ * @lastmodified    $Date:2010-02-10 22:00:40  $
+ */
+
+@media all
+{
+
+/** TOC
+---------------------------------------------------*/
+.foswikiToc  {
+	margin: 1.5em 0.75em;
+	padding:20px;
+	border-top:1px solid #f2f2f2;
+	border-bottom:1px solid #f2f2f2;
+	background:#ffffEf;
+	color:#666;
+	width:50%;
+	font-weight:bold;
+}
+.foswikiToc ul {
+	padding:0;
+	margin:0 0 0 15px;
+}
+.foswikiToc ul li {
+	padding:.25em 0;
+	list-style-image: url(../foswiki_images/bullet-toc.gif);
+}
+
+.foswikiToc ul li a{
+	color:#00759F;
+	font-weight:normal;
+	text-decoration:none;
+}
+
+.foswikiToc ul li a:hover{
+	color:#64BF00;
+	text-decoration:underline;
+}
+
+/** BUTTONS
+---------------------------------------------------*/
+
+.foswikiButton, .foswikiButtonSecondary {
+	border-style:solid;
+	border-width:1px;
+	background-position:top;
+	font-weight: bold; 
+	color: #FEFEFE; 
+	outline: none;
+	padding: 0.325em;
+	margin-right:1.5em;
+	letter-spacing:0.02em;
+}
+.foswikiButton {
+	border-color:#eee #007298 #007298 #eee;
+	background: #018ebf url(../foswiki_images/bg_button.png) 50% 50% repeat-x; 
+}
+.foswikiButton:hover {
+	background: #007fac url(../foswiki_images/bg_button_active.png) 50% 50% repeat-x; 
+}
+.foswikiButton:active{
+	background: #007fac url(../foswiki_images/bg_button_active.png) 50% 50% repeat-x; 
+	border-color:#007298 #eee #eee #007298;
+}
+.foswikiButtonSecondary {
+	color:#999;
+	border-color:#eee #dadada #dadada #eee;
+	background:url(../foswiki_images/ui-bg_highlight-soft_20_eeeeee_1x100.png);
+}
+.foswikiButtonSecondary:hover {
+	color:#eeeeee;
+	background: #aaaaaa url(../foswiki_images/ui-bg_highlight-hard_20_ccc_1x100.png) 50% 50% repeat-x;
+}
+.foswikiButtonSecondary:active{
+	background: #aaaaaa url(../foswiki_images/ui-bg_highlight-hard_20_ccc_1x100.png) 50% 50% repeat-x; 
+	border-color:#007298 #eee #eee #007298;
+}
+#foswikiTopic .foswikiButton  img , #foswikiTopic .foswikiButtonSecondary  img{
+	border:none;
+	padding:0;
+	background:none;
+	margin:0 0 -3px 0;
+}
+
+/** TOPIC CONTENT
+---------------------------------------------------*/
+
+#foswikiTopic {
+	font-size:1.1em;
+}
+
+#foswikiTopic img {
+	padding:.75em;
+	background:#fafafa;
+	border:1px solid #ccc;
+	margin:.75em;
+}
+.wikiNameSignature {
+	text-decoration:none;
+}
+.wikiNameSignature:hover{
+	color:#00759F;
+}
+
+}

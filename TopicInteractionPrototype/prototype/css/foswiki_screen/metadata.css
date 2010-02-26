@@ -1,0 +1,288 @@
+@charset "UTF-8";
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Styles for accessible tabs plugin
+ * (de) Gestaltung des Plugins für barrierefreie Tabreiter
+ *
+ * @copyright       Copyright 2005-2010, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.2.1
+ * @revision        $Revision: 443 $
+ * @lastmodified    $Date: 2009-12-31 18:05:05 +0100 (Do, 31. Dez 2009) $
+ */
+
+@media screen, projection
+{
+.jquery_tabs {
+	font-size:0.9em;
+	display:table;
+	margin:0;
+	width:100%;
+}
+.jquery_tabs h3, .jquery_tabs h4 {
+	margin:0;
+}
+.jquery_tabs h4 {
+	font-size:140%;
+	margin-bottom:.75em;
+	font-weight:normal;
+	font-family:Arial, Helvetica, Sans-Serif;
+	word-spacing:-1px;
+	}
+	
+.jquery_tabs h4 img{
+	vertical-align:bottom;
+	padding-right:.325em;
+	}
+
+.jquery_tabs ul.tabs-list {
+	display:block;
+	font-size:1em;
+	line-height:1em;
+	list-style-type:none;
+	margin:1.5em 0 0 3em;
+	position:relative;
+	z-index:1; 
+}
+
+.jquery_tabs ul.tabs-list li a {
+	font-size:0.95em;
+	line-height:1em;
+	padding:0.75em 1.5em
+}
+
+
+.jquery_tabs ul.tabs-list li {
+	border:0 none;
+	display:inline;
+	float:left;
+	margin:0 1.5em 0 0;
+	padding:0;
+}
+
+.jquery_tabs ul.tabs-list li a {
+	color:#666;
+	text-decoration:none;
+	display:block;
+	float:left;
+	font-weight:bold;
+	margin:0;
+}
+
+.jquery_tabs ul.tabs-list li a:focus,
+.jquery_tabs ul.tabs-list li a:hover,
+.jquery_tabs ul.tabs-list li a:active { 
+	background:transparent;
+	color:#00759F;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+.jquery_tabs ul.tabs-list li.current a,
+.jquery_tabs ul.tabs-list li.current a:focus,
+.jquery_tabs ul.tabs-list li.current a:hover,
+.jquery_tabs ul.tabs-list li.current a:active {
+	background:transparent url(../foswiki_images/bg_active_tab.png) repeat-x scroll 0 0;
+	border-bottom:0 none;
+	border-left:1px solid #eee;
+	border-right:1px solid #eee;
+	border-top:1px solid #eee;
+	color:#666;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+.js .jquery_tabs .current-info,
+.js .jquery_tabs .accessibletabsanchor{
+    left:-999em;
+    position:absolute;
+}
+
+ /**
+  * Avoid margin collapsing to enable correct sync of all tabs
+  *
+  * @workaround
+  * @affected all browsers
+  * @css-for all browsers
+  * @valid yes
+  */
+
+.jquery_tabs .tab-content {
+	border-bottom: 1px transparent solid;
+	border-top: 1px transparent solid;
+}
+
+.jquery_tabs .content {
+	border-bottom:1px solid #bbb;
+	color:#666;
+	clear:both;
+	padding:3em 3em 1.5em;
+	position:relative;
+	background:#FAFAFA url(../foswiki_images/bg_meta_box.png) repeat-x scroll 0 0;}
+}
+.tab-content .foswikiButton, .tab-content .foswikiButtonSecondary  {
+	font-size:0.9em;
+}
+.tab-content .foswikiButton img, .tab-content .foswikiButtonSecondary img{
+	margin:0 0 -3px 0;
+}
+
+.metaHelpLink{
+	color:#00759F;
+	text-decoration:underline;
+	font-weight:normal;
+	padding-right:1.5em;
+}
+.metaHelpLink:hover{
+	color:#64BF00;
+}
+.metaDataInfo {
+	width:75%;
+	margin:1.5em 0;
+}
+.tab-content  h4{
+	display:inline;
+	padding-right:1.5em;
+}
+.tab-content{
+	width:75%;
+}
+.tab-content  table {
+	border:none;
+	width:90%;
+}
+.tab-content  table thead th{
+	background:none;
+	border:none;
+	vertical-align:top;
+	text-align:left;
+	padding:0 0 1.5em;
+}
+.tab-content  table tbody {
+	border:1px solid #eee;
+}
+.tab-content  table tbody th{
+	text-align:right;
+}
+.tab-content  table tbody td {
+	line-height:1.5em;
+}
+.tab-content  table tbody td a{
+	text-decoration:none;
+}
+
+/** ATTACHMENT TABLE
+---------------------------------------------------*/
+.tab-content#attachTab  table tbody td{
+	padding-top:1.5em;
+}
+.tab-content#attachTab  table{
+	width:90%;
+}
+.tab-content  table tbody th#sortOptions{
+	text-align:left;
+	border-right:none;
+	color:#999;
+}
+.tab-content  table tbody th#displayOptions{
+	text-align:right;
+	border-left:none;
+	color:#999
+}
+.tab-content  table tbody th#sortOptions a, .tab-content  table tbody th#displayOptions a{
+	color:#4D87C7;
+	text-decoration:none;
+	font-weight:normal;
+	padding:0 .75em;
+}
+.tab-content  table tbody th#sortOptions a:hover, .tab-content  table tbody th#displayOptions a:hover{
+	text-decoration:underline;
+}
+.tab-content  table tbody th#sortOptions a.optionsCurrent, .tab-content  table tbody th#displayOptions a.optionsCurrent {
+	font-weight:bold;
+}
+.tab-content  table tbody th#sortOptions a.optionsCurrent:hover, .tab-content  table tbody th#displayOptions a.optionsCurrent:hover {
+	text-decoration:none;
+	color:#4D87C7;
+}
+.tab-content  table tbody th#sortOptions a.optionsCurrent img, .tab-content  table tbody th#displayOptions a.optionsCurrent  img{
+	vertical-align:middle;
+	margin-left:-5px;
+}
+.mimeTypeIcon, .attachmentInfo {
+	float:left;
+}
+.mimeTypeIcon img{
+	margin-right:1.5em;
+}
+.fileName {
+	padding-right:.75em;
+}
+.fileName a{
+	font-size:1.2em;
+	text-decoration:none;
+	color:#64BF00;
+}
+.fileName a:hover{
+	text-decoration:underline;
+}
+.fileSize, .fileDate{
+	color:#999;
+}
+.fileDescription{
+	
+}
+.fileAuthor a{
+	text-decoration:none;
+	padding-right:.75em;	
+}
+.fileAuthor a:hover{
+	text-decoration:underline;
+	color:#00759F;
+}
+.tab-content  table tbody td  span.fileActions a{
+    display:none;
+}
+.tab-content  table tbody tr:hover td  span.fileActions a{
+	display:inline;
+	color:#00759F;
+	padding-left:.75em;	
+}
+.tab-content  table tbody tr:hover td  span.fileActions a:hover{
+	color:#64BF00;
+}
+
+/** PERMISSIONS
+---------------------------------------------------*/
+
+
+
+
+
+/* IE < 7 don't support transparent borders */
+* html .jquery_tabs .tab-content {
+	border-bottom: 1px #fff solid;
+	border-top: 1px #fff solid;
+}
+
+ /**
+  * Containing floats adjustment and stability fixes for Internet Explorer
+  *
+  * @workaround
+  * @affected IE 5.x/Win, IE6, IE7
+  * @css-for IE 5.x/Win, IE6, IE7
+  * @valid no
+  */
+
+* html .jquery_tabs .content { z-index:-1; }
+
+* html .jquery_tabs { zoom:1; width:auto; position:relative; } 
+*+html .jquery_tabs { zoom:1; width:auto; } 
+
+.jquery_tabs * { zoom:1; }
+}
+

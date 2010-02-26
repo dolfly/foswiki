@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS framework
+ * (en) central stylesheet
+ * (de) zentrales Stylesheet
+ *
+ * @creator       YAML Builder V1.2 (http://builder.yaml.de)
+ * @file          my_layout.css
+ * @-yaml-minver  3.2
+ * 
+ */
+ 
+ /* import cie hacks | IE Hacks einbinden */
+@import url(../yaml/core/base.css);
+
+/* import core styles | Basis-Stylesheets einbinden */
+@import url(../yaml/core/iehacks.css);
+
+/* import screen layout | Screen-Layout einbinden 
+
+CSS is split up in multiple files to ease overview while still developing. Files should be merged when shifitng to production.
+
+*/
+@import url(foswiki_screen/basemod.css);
+@import url(foswiki_screen/html.css);
+@import url(foswiki_screen/header.css);
+@import url(foswiki_screen/navbar.css);
+@import url(foswiki_screen/sidebar.css);
+@import url(foswiki_screen/footer.css);
+@import url(foswiki_screen/metadata.css);
+@import url(foswiki_screen/content.css);
+@import url(../yaml/add-ons/jquery-ui-1.7.2.custom/css/custom-theme/jquery-ui-1.7.2.custom.css);
+
+
+/* import print layout | Druck-Layout einbinden */
+@import url(print/print_draft.css);

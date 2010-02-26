@@ -1,0 +1,795 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<title>Example topic with real content</title>
+<!-- add your meta tags here -->
+<link href="css/foswiki_layout.css" rel="stylesheet" type="text/css" />
+<!--[if lte IE 7]>
+<link href="css/foswiki_patches/patch_accessible_tabs.css" rel="stylesheet" type="text/css" />
+<link href="css/foswiki_patches/patch_foswiki_layout.css" rel="stylesheet" type="text/css" />
+<![endif]-->
+<!-- embedded styles for dynamic layout options -->
+<style type="text/css">
+  #js-info { display:block; padding: 10px 20px; background: #fee; color: #800; margin: 0 0 10px 0; }
+  .js #js-info { display:none; }
+</style>
+<!-- JavaScript Detection -->
+<script type="text/javascript">document.documentElement.className += " js";</script>
+<!-- jQuery & Plugins -->
+<script src="yaml/js/lib/jquery-1.3.2.js" type="text/javascript"></script>
+<script src="yaml/add-ons/accessible-tabs/jquery.tabs.js" type="text/javascript"></script>
+<script src="yaml/add-ons/hoverIntent/jquery.hoverIntent.js" type="text/javascript"></script>
+<script src="yaml/add-ons/syncheight/jquery.syncheight.js" type="text/javascript"></script>
+<script src="yaml/add-ons/jquery-ui-1.7.2.custom/js/jquery-ui-1.7.2.custom.min.js" type="text/javascript" ></script>
+<script src="yaml/add-ons/searchfield/searchfield.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	$(".example1").accessibleTabs({fx:"show",fxspeed: '', syncheights: false, tabbody:'.tab-content'});
+	$(".example2").accessibleTabs({fx:"show",fxspeed: '', syncheights: true, tabbody:'.tab-content'});
+});
+</script>
+<script type="text/javascript" charset="utf-8">
+//<![CDATA[
+    $(document).ready(function() {
+      
+      function addMega(){
+        $(this).addClass("hovering");
+        }
+
+      function removeMega(){
+        $(this).removeClass("hovering");
+        }
+
+    var megaConfig = {
+         interval: 350,
+         sensitivity: 4,
+         over: addMega,
+         timeout: 600,
+         out: removeMega
+    };
+
+    $("li.mega").hoverIntent(megaConfig)
+
+      
+    });
+
+
+    //]]>
+</script>
+<script type="text/javascript">
+			$(function(){
+
+				// Accordion
+				$("#accordion").accordion({ header: "h3" });
+				
+				//hover states on the static widgets
+				$('#dialog_link, ul#icons li').hover(
+					function() { $(this).addClass('ui-state-hover'); }, 
+					function() { $(this).removeClass('ui-state-hover'); }
+				);
+				
+			});
+</script>
+  </head>
+<body>
+	<div class="page_margins">
+		<!-- start: skip link navigation -->
+		<a class="skip" title="skip link" href="#navigation">Skip to the navigation</a><span class="hideme">.</span>
+		<a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
+		<!-- end: skip link navigation -->
+		<div class="page">
+<!-- --------------------- HEADER ---------------------------------------------------- -->
+	      <div id="header">
+			<div class="c50l">
+	            <div class="subcl">
+<!-- --------------------- LOGO -->
+					<div id="logoSection"><img alt="" src="css/foswiki_images/new-foswiki-logo3.png" /></span><span id="tagLine"></span></div>
+	            </div>
+	        </div>
+	        <div class="c251">
+<!-- --------------------- not used -->
+	            <div class="subc"> 
+					&nbsp;
+	            </div>
+	        </div>
+	        <div class="c25r">
+	            <div class="subcr">
+<!-- --------------------- SEARCH -->
+					<div id="searchBox">
+						<form id="searchform" action="" method="">
+							<input type="text" id="searchfield" name="searchfield" value="" />
+							<button type="submit" id="searchbutton" title="Search Foswiki"><img alt="" src="css/foswiki_images/search_24.png" /></button>
+						</form>
+					</div>
+				</div>
+	        </div>
+	      </div>
+<!-- --------------------- end of HEADER ---------------------------------------------------- -->
+	      <div id="nav">
+	        <!-- skiplink anchor: navigation -->
+	        <a id="navigation" name="navigation"></a>
+<!-- --------------------- MAIN HORIZONTAL NAVIGATION ---------------------------------------------------- -->
+	        <div class="hlist">
+	          <ul>
+	            <li><a href="#">Home</a></li>
+	            <li><a href="#">About</a></li>
+	            <li><a href="#">Extensions</a></li>
+	            <li class="active"><a href="#">Development</a></li>
+	            <li><a href="#">Community</a></li>
+				<li><a href="#">Support</a></li>
+	          </ul>
+	        </div>
+<!-- --------------------- end of MAIN HORIZONTAL NAVIGATION --------------------------------------------- -->
+	      </div>
+	      <div id="subHeader">
+	        <div class="subcolumns">
+		        <div class="c75l">
+				  	<div class="subcl" id="breadCrumbs">
+<!-- --------------------- BREADCRUMBS ----------------------------------------------------------------- -->
+			            <p>
+							<strong>You are here:</strong><span class="breadCrumbSeperator"></span><a href="#">Development Web</a><span class="breadCrumbSeperator">></span><a href="#">ReleaseProcess</a><span class="breadCrumbSeperator">></span><a href="#">FeatureRequest</a><span class="breadCrumbSeperator">></span><a href="#">AddPARENTWEBMacro</a>
+						</p>
+		            </div>
+<!-- --------------------- end of BREADCRUMBS  ----------------------------------------------------------------- -->
+		            <div class="subcl">
+<!-- --------------------- TOPIC INTERACTIONS  ----------------------------------------------------------------- -->
+
+	<ul id="menu">
+<!-- --------------------- EDIT ACTIONS -->
+        <li class="mega">
+          <h2>
+			<a href="#">Edit</a>
+          </h2>
+			<div>
+				<ul>
+					<li><h3>Edit Content</h3></li>
+					<li><img alt="" src="css/foswiki_images/pencil.png" /><a href="#"><strong>Edit</strong> this topic</a></li>
+					<li><img alt="" src="css/foswiki_images/page_white_code_edit.png" /><a href="#"><strong>Raw edit</strong> (Wiki markup)</a></li>
+					<li><img alt="" src="css/foswiki_images/attach.png" /><a href="#"><strong>Attach</strong> files or images</a></li>					
+				</ul>
+				<ul>	
+					<li><h3>Edit Meta Data</h3></li>
+					<li><img alt="" src="css/foswiki_images/application_form.png" /><a href="#"><strong>Modify form data</strong></a></li>
+					<li><img alt="" src="css/foswiki_images/page_white_gear.png" /><a href="#"><strong>Edit settings</strong> for this topic</a></li>
+					<li><img alt="" src="css/foswiki_images/tag_blue.png" /><a href="#"><strong>Edit tags</strong> for this topc</a></li>
+					<li><img alt="" src="css/foswiki_images/textfield_rename.png" /><a href="#"><strong>Change name identifier</strong></a></li>
+				</ul>
+				<ul>
+					<li><h3>Edit Location</h3></li>
+					<li><img alt="" src="css/foswiki_images/application_home.png" /><a href="#"><strong>Set new parent</strong></a></li>
+					<li><img alt="" src="css/foswiki_images/arrow_right.png" /><a href="#"><strong>Move</strong> to different Web</a></li>
+					<li><img alt="" src="css/foswiki_images/bin.png" /><a href="#"><strong>Trash</strong> this topic</a></li>	
+				</ul>
+			</div>
+        </li>
+<!-- --------------------- CREATE ACTIONS -->
+        <li class="mega">
+          <h2>
+            <a href="#">Create</a>
+          </h2>
+          <div>
+			<ul>
+				<li><h3>Create New Topics</h3></li>
+				<li><img alt="" src="css/foswiki_images/page_add.png" /><a href="#"><strong>Create new topic</strong> (default template)</a></li>	
+				<li><img alt="" src="css/foswiki_images/page_white_add.png" /><a href="#">Create <strong>blank topic</strong></a></li>
+				<li><img alt="" src="css/foswiki_images/page_white_copy.png" /><a href="#"><strong>Copy</strong> this topic</a></li>
+			</ul>
+			<ul>
+				<li><h3>Use a Template</h3></li>
+				<li><img alt="" src="css/foswiki_images/bug_add.png" /><a href="#">Create <strong>Bug report</strong></a></li>			
+				<li><img alt="" src="css/foswiki_images/newspaper_add.png" /><a href="#">Create <strong>Blog post</strong></a></li>
+				<li><img alt="" src="css/foswiki_images/lightning_add.png" /><a href="#">Create <strong>Feature request</strong></a></li>						
+			</ul>	
+          </div>
+        </li>
+<!-- --------------------- VIEW ACTIONS -->
+        <li class="mega">
+          <h2>
+            <a href="#">View</a>
+          </h2>
+          <div>
+			<ul>
+				<li><h3>Topic Views and Information</h3></li>
+				<li><img alt="" src="css/foswiki_images/page.png" /><a href="#"><strong>Normal</strong> view</a></li>
+				<li><img alt="" src="css/foswiki_images/page_white_code.png" /><a href="#"><strong>Raw</strong> view (wiki markup)</a></li>				
+				<li><img alt="" src="css/foswiki_images/attach.png" /><a href="#">View <strong>attached files</strong></a></li>
+				<li><img alt="" src="css/foswiki_images/application_form.png" /><a href="#">View <strong>form data</strong></a></li>
+				<li><img alt="" src="css/foswiki_images/page_white_gear.png" /><a href="#">View <strong>topic settings</strong></a></li>
+			</ul>
+			<ul>
+				<li><h3>Print and Exports</h3></li>
+				<li><img alt="" src="css/foswiki_images/printer.png" /><a href="#"><strong>Print</strong> version</a></li>		
+				<li><img alt="" src="css/foswiki_images/page_white_acrobat.png" /><a href="#"><strong>PDF</strong> version</a></li>		
+			</ul>
+			<ul>
+				<li><h3>Connections</h3></li>
+				<li><img alt="" src="css/foswiki_images/arrow_in.png" /><a href="#">View <strong>pages that link to here</strong></a></li>
+				<li><img alt="" src="css/foswiki_images/sitemap.png" /><a href="#">View <strong>child pages</strong></a></li>
+			</ul>	
+          </div>
+        </li>
+<!-- --------------------- HISTORY ACTIONS -->
+		<li class="mega" >
+          <h2>
+            <a href="#">History</a>
+          </h2>
+          <div>
+			<ul class="interactionItems">
+				<li><h3>View or Restore an Old Version of This Topic</h3></li>
+				<li><img alt="" src="css/foswiki_images/page_clock.png" /><a href="#"><strong>Last Changes</strong> made to this topic</a></li>
+				<li><img alt="" src="css/foswiki_images/arrow_undo.png" /><a href="#"><strong>Restore previous version</strong> of this topic</a></li>
+				<li><img alt="" src="css/foswiki_images/page_white_copy.png" /><a href="#"><strong>Compare two versions</strong> of this topic</a></li>
+				<li><img alt="" src="css/foswiki_images/help.png" /><a href="#"><strong>Help</strong> with Foswikis versioning system</a></li>
+			</ul>	
+          </div>
+        </li>
+<!-- --------------------- HELP ACTIONS -->
+		<li class="mega">
+          <h2>
+            <a href="#">Help</a>
+          </h2>
+          <div>			 
+				<ul class="interactionItems multipleColumns">
+					<li><h3>General Help</h3></li>
+					<li><a href="#"><strong>Getting Started</strong></a></li>
+					<li><a href="#"><strong>FAQs</strong></a></li>
+					<li><a href="#"><strong>Tips and best practices</strong></a></li>
+					<li><a href="#"><strong>Sandbox</strong> - play and test</a></li>
+				</ul>
+				<ul class="interactionItems multipleColumns">
+					<li><h3>Documentations</h3></li>
+					<li><a href="#"><strong>User</strong> docs</a></li>
+					<li><a href="#"><strong>Developer</strong> docs</a></li>
+					<li><a href="#"><strong>Admin</strong> docs</a></li>
+					<li> &nbsp; </li>
+				</ul>
+				<ul class="interactionItems multipleColumns">
+					<li><h3>Problem Solving</h3></h3></li>
+					<li><a href="#"><strong>Foswiki support forum</strong></a></li>
+					<li><a href="#"><strong>Foswiki chat</strong> (IRC)</a></li>
+					<li><a href="#"><strong>Login and password</strong></a></li>
+					<li> &nbsp; </li>
+				</ul>				
+				<div>					
+					<ul class="interactionItems multipleColumns">
+						<li><h3>Become a Foswiki pro</h3></h3></li>
+						<li><a href="#"><strong>Macros</strong> the basis to create programmable pages</a> - Quick links: <a href="#"><strong>SEARCH</strong></a>, <a href="#"><strong>IF</strong></a>, <a href="#"><strong>INCLUDE</strong></a>, <a href="#"><strong>TOC</strong></a> </li>
+						<li><a href="#"><strong>Data Forms</strong> - Add structured data to topics</a></li>
+						<li><a href="#"><strong>Wiki Applications</strong> - Learn how to create applications using built-in Foswiki tools </a></li>
+						<li><a href="#"><strong>Templates</strong> - Topics that define the default text for new topics </a></li>
+						<li><a href="#"><strong>Skins</strong> - Templates overlay for regular templates to give different looks and feels </a></li>
+					</ul>
+				</div>
+          </div>
+        </li>
+    </ul>
+
+
+<!-- --------------------- end of TOPIC INTERACTIONS  ----------------------------------------------------------------- --> 						
+					</div>
+				</div>
+	          <div class="c25r">
+	            <div class="subcr">
+<!-- --------------------- MY ACCOUNT -----------------------------------------------------------------  -->
+		            <div class="subcolumns MyAccount">
+						<p>
+							Hello <span id="accountGreeter"><a href="#" alt="My Wiki Homepage" title="My Wiki Homepage">Kenneth Lavrsen</a></span>
+						</p>
+		                <div class="c50l">
+							<div class="subcl MyAccountItems">
+			                    <ul>
+									<li><a href="#">My Homepage</a></li>
+									<li><a href="#">My Groups</a></li>
+			                    </ul>
+							</div>
+		                </div>
+						<div class="c50r">
+							<div class="subcr MyAccountItems">
+								<ul>
+									<li><a href="#">My Notifications</a></li>
+									<li><a href="#">My Contributions</a><li>
+								</ul>
+							</div>
+		                </div>
+		            </div>
+<!-- --------------------- end of MY ACCOUNT -----------------------------------------------------------------  -->
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+		    <div id="main">
+				<div id="revisionInfo">
+					<span>Updated: <a href="#" title="See the latest modifications" alt="">29 Sep 2009 (r18) by: Arthur Clemens</a></span>
+				</div>
+				<div id="col1">
+					<div id="col1_content" class="clearfix">
+<!-- --------------------- SIDE BAR  -----------------------------------------------------------------  -->
+						<div class="sideBar">
+							<div id="accordion">
+								<h3><a href="#">Development Links</a></h3>
+								<div>
+									<ul>
+										<li><a href="#">Tasks and Bugs</a></li>
+										<li><a href="#">Developers Bible</a></li>
+										<li><a href="#">Release Plan</a></li>
+										<li><a href="#">Feature Proposals</a></li>
+										<li><a href="#">Topic Classification</a></li>
+									</ul>	
+								</div>
+								<h3><a href="#">Recent Changes</a></h3>
+								<div>
+									<p>
+										Last 10 Changes in the Development Web :
+									</p>
+									<ul>
+										<li><a href="#">WebStatistics</a><br /><span class="changeInfo">06 Feb 2010 by: AdminGroup</span></li>
+										<li><a href="#">GenPDFAddOn</a><br /><span class="changeInfo">06 Feb 2010 by: GeorgeClark</span></li>
+										<li><a href="#">ImprovePageLoadTime</a><br /><span class="changeInfo">06 Feb 2010 by: CrawfordCurrie</span></li>
+										<li><a href="#">MoveLogsToWorking</a><br /><span class="changeInfo">06 Feb 2010 by: MartinCleaver</span></li>
+										<li><a href="#">GoogleDocsIntegration</a><br /><span class="changeInfo">06 Feb 2010 by: CrawfordCurrieAndMartinCleaver</span></li>
+										<li><a href="#">SvnRepository</a><br /><span class="changeInfo">06 Feb 2010 by: AdminGroup</span></li>
+										<li><a href="#">GoogleDocsIntegration</a><br /><span class="changeInfo">06 Feb 2010 by: AdminGroup</span></li>
+										<li><a href="#">AddContainsComparitorForQuerySearch</a><br /><span class="changeInfo">06 Feb 2010 by: AdminGroup</span></li>
+										<li><a href="#">AllowingQuotesInSearchFormat</a><br /><span class="changeInfo">06 Feb 2010 by: AdminGroup</span></li>
+										<li><a href="#">ProblemsWithHereDocuments</a><br /><span class="changeInfo">06 Feb 2010 by: AdminGroup</span></li>
+										<li><a href="#">HereDocumentSyntaxForMacros</a><br /><span class="changeInfo">06 Feb 2010 by: AdminGroup</span></li>
+									</ul>	
+									<p>
+										(<a href="#">more changes</a>)
+									</p>
+								</div>
+								<h3><a href="#">Foswiki Webs</a></h3>
+								<div>
+									<ul>
+										<li><a href=#">About</a></li>
+										<li><a href=#">System</a></li>
+										<li><a href=#">Community</a></li>
+										<li><a href=#">Development</a></li>
+										<li><a href=#">Extensions</a></li>
+										<li><a href=#">Home</a></li>
+										<li><a href=#">Input</a></li>
+										<li><a href=#">International</a></li>
+										<li><a href=#">International.BR</a></li>
+										<li><a href=#">International.DE</a></li>
+										<li><a href=#">LegacyBugs</a></li>
+										<li><a href=#">LegacyPlugins</a></li>
+										<li><a href=#">OldSystem</a></li>
+										<li><a href=#">Sandbox</a></li>
+										<li><a href=#">Support</a></li>
+										<li><a href=#">Tasks</a></li>
+										<li><a href=#">TestCases</a></li>
+									</ul>
+								</div>
+								<h3><a href="#">Tools</a></h3>
+								<div>
+									<ul>
+										<li><a href=#">Sandbox</a></li>
+										<li><a href=#">Index</a></li>
+										<li><a href=#">Statistics</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+<!-- --------------------- end of SIDE BAR  -----------------------------------------------------------------  -->						
+					</div>
+				</div>
+		        <div id="col3">
+		          <div id="col3_content" class="clearfix">
+<!-- --------------------- CONTENT  ----------------------------------------------------------------- -->	
+					<div id="foswikiTopic">
+
+<h1>Feature Proposal: It should be easier to get a definitive overview of the Access Controls present on a given topic. </h1>
+<div class="foswikiToc"> <ul>
+<li> <a href="#Motivation"> Motivation</a>
+
+</li> <li> <a href="#Description_and_Documentation"> Description and Documentation</a>
+</li> <li> <a href="#Examples"> Examples</a> <ul>
+<li> <a href="#Access_Controls"> Access Controls</a>
+</li></ul> 
+</li> <li> <a href="#Impact"> Impact</a>
+
+</li> <li> <a href="#Implementation"> Implementation</a>
+</li> <li> <a href="#Discussion"> Discussion</a>
+</li></ul> 
+</div>
+<p />
+<h2><a name="Motivation"></a> Motivation </h2>
+<p />
+
+Contributors in private/protected areas have in the past been burnt by misunderstanding the access control situation in their web or individual topics.
+<p />
+Even those that haven't been burnt, are given better piece of mind and are more likely to use the wiki if they can see a good accurate overview of who can and can't view/change their topics.
+<p />
+Also, <span class="foswikiNewLink">WebPermissionsPlugin<a href="/bin/edit/Development/WebPermissionsPlugin?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  is a good start for users to add colleagues into a protected topic by themselves, but could do with some improvements.
+<p />
+<h2><a name="Description_and_Documentation"></a> Description and Documentation </h2>
+<p />
+<span class="foswikiNewLink">ShowAccessPlugin<a href="/bin/edit/Development/ShowAccessPlugin?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  was a good start for our installation. I modified it to use _getACLs in <span class="foswikiNewLink">WebPermissionsPlugin<a href="/bin/edit/Development/WebPermissionsPlugin?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span> ::Core, so that it would properly display any ACLs embedded in topic metadata via that plugin.
+
+<p />
+I also modified it to generate a list of users that can change (TWiki release version only shows users that can view).
+<p />
+Really, this is still not entirely everything I'd like to do with ACLs: it'd be very useful to render a table of users with their profile metadata where desired. Examples soon...
+<p />
+<h2><a name="Examples"></a> Examples </h2>
+<p />
+With some new tag handlers that would take a <code>format=""</code> string, and maybe some work on the <code>%USERINFO{}%</code> handler, I'd like to build a topic for our users such as this:
+<p />
+
+<blockquote>Assume in Development/WebPreferences:
+<p /> 
+	<ul>
+		<li> #Set ALLOWWEBVIEW = <span class="foswikiNewLink">HomerSimpson<a href="/bin/edit/Development/HomerSimpson?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span> , <span class="foswikiNewLink">EverybodyLikesNedFlanders<a href="/bin/edit/Development/EverybodyLikesNedFlanders?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span></li>
+		<li> #Set ALLOWWEBCHANGE = <span class="foswikiNewLink">EnemiesOfChaos<a href="/bin/edit/Development/EnemiesOfChaos?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span></li>
+	</ul> 
+</blockquote>
+<h3><a name="Access_Controls"></a> Access Controls </h3>
+<p>For this web (Development), <em>default</em> permissions are as follows:  </p>
+<ul>
+	<li> Who can view? <strong>Users:</strong> <span class="foswikiNewLink">HomerSimpson<a href="/bin/edit/Development/HomerSimpson?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  <strong>and Members of:</strong> <span class="foswikiNewLink">EverybodyLikesNedFlanders<a href="/bin/edit/Development/EverybodyLikesNedFlanders?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span></li> 
+	<li> Who can <strong>change</strong>? <strong>Users:</strong> <span class="foswikiNewLink">AmbassadorKosh<a href="/bin/edit/Development/AmbassadorKosh?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span></li>
+</ul> 
+<p>For <a href="/Development/AccessControlQuery" class="foswikiCurrentTopicLink">AccessControlQuery</a>:</p>
+<table>
+	<thead>
+		<tr>
+			<th>User </th>
+			<th>View</th>
+			<th>Change</th>
+
+			<th>Instititution</th>
+			<th>Via groups</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+
+			<td> <span class="foswikiNewLink">AmbassadorKosh<a href="/bin/edit/Development/AmbassadorKosh?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  </td>
+			<td>YES</span> </td>
+			<td> <span style="color:green">YES</span> </td>
+			<td> <span class='externalLink'><a href="http://www.frostjedi.com/vex/html/vorlon.html" target="_top">Vorlon Empire</a></span> </td>
+
+			<td> <span class="foswikiNewLink">EnemiesOfChaos<a href="/bin/edit/Development/EnemiesOfChaos?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span> , <span class="foswikiNewLink">EverybodyLikesNedFlanders<a href="/bin/edit/Development/EverybodyLikesNedFlanders?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  </td>
+		</tr>
+		<tr>
+			<td> <span class="foswikiNewLink">NedFlanders<a href="/bin/edit/Development/NedFlanders?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  </td>
+
+			<td> <span style="color:green">YES</span> </td>
+			<td> <span style="color:red">NO</span> </td>
+			<td> <span class='externalLink'><a href="http://www.thesimpsons.com/bios/bios_townspeople_ned.htm" target="_top">The Nedstitution</a></span> </td>
+			<td> <span class="foswikiNewLink">EverybodyLikesNedFlanders<a href="/bin/edit/Development/EverybodyLikesNedFlanders?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  </td>
+
+		</tr>
+		<tr>
+			<td> <span class="foswikiNewLink">HomerSimpson<a href="/bin/edit/Development/HomerSimpson?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  </td>
+			<td> <span style="color:green">YES</span> </td>
+			<td> <span style="color:red">NO</span> </td>
+
+			<td> <span class='externalLink'><a href="http://simpsons.wikia.com/wiki/Duff_Beer" target="_top">Duffaholics Anonymous</a></span> </td>
+			<td> <span class="foswikiNewLink">AgentOfChaos<a href="/bin/edit/Development/AgentOfChaos?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span> , <span class="foswikiNewLink">DuffFans<a href="/bin/edit/Development/DuffFans?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span>  </td>
+		</tr>
+	</tbody>
+</table>
+<h2><a name="Impact"></a> Impact </h2>
+<p>
+As mentioned by CDot, this work could drastically degrade performance on sites with many users or auth schemes other than the built-in arrangements (such as LDAP, Shibboleth, etc). The site I maintain has 300 users and already if somebody queries the Main page (which everybody can view, so 300 records returned), there's a 6-10 second wait at the server (1GB/1GHz VM host running a few other things).
+CDot had some ideas for caching ACLs (extending <a href="/Development/DBCacheContrib">DBCacheContrib</a>?) which could alleviate the problem somewhat (What about webcrawlers that will try to hit every single "view access controls" button that might be in a site's template?). Maybe this sort of functionality should limit itself to the first 100 results (the usage scenarios I'm thinking of are for small groups of say 1 to 20 paranoid contributors to check that their small group of colleagues can view or change some topics anyway).
+</p>
+<table>
+	<tbody>
+		<tr>
+			<td bgcolor="#ffffff" align="right" valign="top" class="foswikiTableCol0 foswikiFirstCol foswikiLast"> <span class="foswikiNewLink">WhatDoesItAffect<a href="/bin/edit/Development/WhatDoesItAffect?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span> : </td>
+			<td bgcolor="#ffffff" align="right" valign="top" class="foswikiTableCol1 foswikiLastCol foswikiLast"> %WHATDOESITAFFECT% </td>
+
+		</tr>
+	</tbody></table>
+<input class="editTableEditImageButton" type="image" src="http://foswiki.org/pub/System/EditTablePlugin/edittable.gif" alt="Edit this table" /> </form>
+<h2><a name="Implementation"></a> Implementation </h2>
+-- <strong><em>Contributors:</em></strong> <a class="wikiNameSignature"  href="/Main/PaulHarvey">PaulHarvey</a> - 24 Jun 2009
+<h2><a name="Discussion"></a> Discussion </h2>
+<p>I am still working on this topic... will document the new taghandlers I have in mind and the UI tweaks for <span class="foswikiNewLink">WebPermissionsPlugin<a href="/bin/edit/Development/WebPermissionsPlugin?topicparent=Development.AccessControlQuery" rel="nofollow" title="Create this topic">?</a></span> . 
+	<br /><br /><br />-- <a class="wikiNameSignature"  href="/Main/PaulHarvey">PaulHarvey</a> - 24 Jun 2009
+</p>
+<p>
+Hey there. Here's a screenshot of the upcoming <a href="/Development/NatEditPlugin">NatEditPlugin</a> that makes use of <a href="/Development/SetVariablePlugin">SetVariablePlugin</a> to edit permission settings of a topic during <code>edit</code>:
+
+<img width="828" alt="NatEditSnap1.png" src="css/foswiki_images/NatEditSnap1.png" height="620" />
+While that's only on a per topic base, it shows how to ease setting permissions substantially by <em>informal description</em> of permissions to be set behind the scene. The list of rules for <code>view</code> and <code>change</code> roughly outline the most frequently use cases, afaik.
+<br /><br />-- <a class="wikiNameSignature"  href="/Main/MichaelDaum">MichaelDaum</a> - 24 Jun 2009
+</p>
+<p>
+I've been working on a similar thing. I've updated WebPermissionsPlugin for topic ACLs so that it correctly takes any permissions inherited from the web into account as well instead of just the settings in the topic. I've also created a 'simple options' page with the options that you can see in the screenshot below (plus, when <code>ALLOWWEBVIEW</code> is set, there is a Group read/write access option). I don't have the predictive username input field, yet. The Custom ACLs page is the one you already know from WebPermissionsPlugin for topic ACLs.
+</p>
+<p>
+The only 'issue' is that it is written in (tm)wiki for now (until I've got the time to migrate I'm still doing development on twiki 4.2.3 . yeah, I know, I never will have the time so just do it!). I can attach the files to the WebPermissionsPlugin dev topic and you can have a look.
+
+
+<br /><br />-- <a class="wikiNameSignature"  href="/Main/DavidPatterson">DavidPatterson</a> - 24 Jun 2009
+</p>
+<p>
+OK, the WebPermissionsPlugin hasn't been released on f.o yet so there's no dev topic. You can find a ported version (completed?) of it in the svn with a rest handler upgrade to the Web Permissions table.
+
+<a href="http://foswiki.org/pub/Development/AccessControlQuery/WebPermissionsPluginUpdates.zip" target="_top">Here</a> is a zip of my updated files of the (tm)wiki version of WebPermissionsPlugin. I've only updated the topic side of things so there are no overlaps apart from the code which commits the changes to the web ACLs (to be found in both versions under the comment "# Commit changes to ACLs").
+
+<br /><br />-- <a class="wikiNameSignature"  href="/Main/DavidPatterson">DavidPatterson</a> - 24 Jun 2009
+
+</p>
+ 					
+
+					</div>
+<!-- --------------------- end of CONTENT  ----------------------------------------------------------------- -->	
+				</div>
+		          <!-- IE Column Clearing -->
+		          <div id="ie_clearing"> &#160; </div>
+		        </div>
+		    </div>
+<!-- --------------------- META DATA BOX  ----------------------------------------------------------------- -->	
+			          <div class="jquery_tabs example1">
+<!-- --------------------- DATA FORM -->
+			            <h3>Data Form</h3>
+			            <div class="tab-content">				
+								<table border=0>
+								  <thead>
+									<tr>
+										<th colspan="2">
+											<h4> RequestAccessToSubversionForm </h4><button type="submit" class="foswikiButton"><img alt="" src="css/foswiki_images/pencil.png" /> Edit Form</button> <a class="metaHelpLink" href="#">Read more about Data Forms</a>
+										</th>
+									</tr>
+								  </thead>
+								  <tbody>
+								    <tr>
+								      <th>Summary:</th>
+								      <td>Race condition in updating htpasswd can cause truncated htpasswd file</td>
+								    </tr>
+								    <tr>
+								      <th>ReportedBy:</th>
+								      <td>KennethLavrsen</td>
+								    </tr>
+								    <tr>
+								      <th>SVN Range:</th>
+								      <td>1.0.8, trunk</td>
+								    </tr>
+								    <tr>
+								      <th>AppliesTo:</th>
+								      <td>Engine</td>
+								    </tr>
+								    <tr>
+								      <th>Component:</th>
+								      <td></td>
+								    </tr>
+								    <tr>
+								      <th>Priority:</th>
+								      <td>Urgent</td>
+								    </tr>
+								    <tr>
+								      <th>CurrentState:</th>
+								      <td>Waiting for Feedback</td>
+								    </tr>
+								    <tr>
+								      <th>WaitingFor:</th>
+								      <td>KennethLavrsen, GilmarSantosJr, CrawfordCurrie, SvenDowideit</td>
+								    </tr>
+								    <tr>
+								      <th>Checkins:</th>
+								      <td>Foswikirev:5881 Foswikirev:5882 Foswikirev:5891</td>
+								    </tr>
+								    <tr>
+								      <th>TargetRelease:</th>
+								      <td>patch</td>
+								    </tr>
+								    <tr>
+								      <th>ReleasedIn:</th>
+								      <td>1.0.9, 1.1.0 </td>
+								    </tr>
+								  </tbody>
+								</table>
+			            </div>
+<!-- --------------------- ATTACHMENTS -->
+			            <h3>Attachments (4)</h3>
+			            <div class="tab-content" id="attachTab">
+								<table border=0>
+								  <thead>
+									<tr>
+										<th colspan="2">
+											<h4> Attachments on this topic:</h4><button type="submit" class="foswikiButton"><img alt="" src="css/foswiki_images/attach.png" /> Attach a file</button> <a class="metaHelpLink" href="#">Edit multiple attachments</a><a class="metaHelpLink" href="#">Read more about attachments</a>
+										</th>
+									</tr>
+								  </thead>
+								  <tbody>
+								  	<tr>
+										<th id="sortOptions">
+											Sort by: <a href="#">A-Z</a> | <a href="#" class="optionsCurrent"><img alt="" src="css/foswiki_images/bullet_arrow_right.png" />Date</a> | <a href="#">Author</a> | <a href="#">Size</a>
+										</th>										
+										<th id="displayOptions">
+											Display as: <a href="#" class="optionsCurrent"><img alt="" src="css/foswiki_images/bullet_arrow_right.png" />List</a> | <a href="#">Table</a>
+										</th>
+									</tr>
+								    <tr>
+								      <td colspan="2">
+										  <div class="mimeTypeIcon">
+											<img alt="" src="css/foswiki_images/picture.png" />
+										  </div>
+										  <div class="attachmentInfo">
+											  <p><span class="fileName"><a href="#">New_topic_interaction_2-1.png</a></span><span class="fileSize">(Size: 112.8 K)</span></p>
+											  <p><span class="fileDescription">Description: An desktop application oriented user interface - default</span><span class="fileActions"><a href="#">Edit description</a></span></p>
+											  <p><span class="fileAuthor"><a href="#">Arthur Clemens</a></span><span class="fileDate">08 Oct 2009 - 22:16</span><span class="fileActions"><a href="#">Upload new version</a><a href="#">Move</a><a href="#">Delete</a><a href="#">Display Options</a></span></p>
+										  </div>
+									  </td>
+								    </tr>
+								    <tr>
+								      <td colspan="2">
+										  <div class="mimeTypeIcon">
+											<img alt="" src="css/foswiki_images/picture.png" />
+										  </div>  
+										  <div class="attachmentInfo">
+											  <p><span class="fileName"><a href="#">Wireframes_2010-01-06_View_screen_with_comments.png</a></span><span class="fileSize">(Size: 76.1 K)</span></p>
+											  <p><span class="fileDescription">Description: wireframes for view screen with side bar navigation </span><span class="fileActions"><a href="#">Edit description</a></span></p>
+											  <p><span class="fileAuthor"><a href="#">Carlo Schulz</a></span><span class="fileDate">07 Oct 2009 - 12:46</span><span class="fileActions"><a href="#">Upload new version</a><a href="#">Move</a><a href="#">Delete</a><a href="#">Display Options</a></span></p>
+										  </div>
+									  </td>
+								    </tr>
+								    <tr>
+								      <td colspan="2">
+										  <div class="mimeTypeIcon">
+											<img alt="" src="css/foswiki_images/picture.png" />
+										  </div>
+										  <div class="attachmentInfo">
+											  <p><span class="fileName"><a href="#">SamePage.png</a></span><span class="fileSize">(Size: 202.4 K)</span></p>
+											  <p><span class="fileDescription">Description: </span><span class="fileActions"><a href="#">Edit description</a></span></p>
+											  <p><span class="fileAuthor"><a href="#">Michael Daum</a></span><span class="fileDate">05 Oct 2009 - 09:34</span><span class="fileActions"><a href="#">Upload new version</a><a href="#">Move</a><a href="#">Delete</a><a href="#">Display Options</a></span></p>
+										  </div>
+									  </td>
+								    </tr>
+									<tr>
+								      <td colspan="2">
+										  <div class="mimeTypeIcon">
+											<img alt="" src="css/foswiki_images/picture.png" />
+										  </div>
+										  <div class="attachmentInfo">
+											  <p><span class="fileName"><a href="#">bing_reference.png</a></span><span class="fileSize">(Size: 80 K)</span></p>
+											  <p><span class="fileDescription">Description: An desktop application oriented user interface - default</span><span class="fileActions"><a href="#">Edit description</a></span></p>
+											  <p><span class="fileAuthor"><a href="#">ArthurClemens</a></span><span class="fileDate">04 Oct 2009 - 22:16</span><span class="fileActions"><a href="#">Upload new version</a><a href="#">Move</a><a href="#">Delete</a><a href="#">Display Options</a></span></p>
+										  </div>
+									  </td>
+								    </tr>
+								  </tbody>
+								</table>
+			            </div>
+<!-- --------------------- PERMISSIONS -->
+			            <h3>Permissions</h3>
+			            <div class="tab-content">
+						    <table>
+								<thead>
+									<tr>
+										<th colspan="2">
+											<h4> Permissions for viewing and editing this topic </h4><button type="submit" class="foswikiButton"><img alt="" src="css/foswiki_images/lock.png" /> Edit Permissions</button> <a class="metaHelpLink" href="#">Read more about Permissions</a>
+										</th>
+									</tr>
+								  </thead>
+								<tbody>
+									<tr>
+										<th>
+											Viewing is allowed to:
+										</th>
+										<td>
+											<a href="#">MaintainGroup</a>, <a href="#">SecurityGroup</a>
+										</td>
+									</tr>						
+									<tr>
+										<th>
+											Editing is allowed to:
+										</th>
+										<td>
+											<a href="#">AndreUlrich</a>, <a href="#">ArthurClemens</a>, <a href="#">CarloSchulz</a>, <a href="#">ColasNahaboo</a>, <a href="#">CrawfordCurrie</a>, <a href="#">EugenMayer</a>, <a href="#">GilmarSantosJr</a>, <a href="#">KennethLavrsen</a>, <a href="#">KoenMartens</a>, <a href="#">KwangErnLiew</a>, <a href="#">LynnwoodBrown</a>, <a href="#">MarkusUeberall</a>, <a href="#">MartinCleaver</a>, <a href="#">MartinSeibert</a>, <a href="#">MichaelDaum</a>, <a href="#">OliverKrueger</a>, <a href="#">OlivierRaginel</a>, <a href="#">RafaelAlvarez</a>, <a href="#">SebastianKlus</a>, <a href="#">StephaneLenclud</a>, <a href="#">SvenDowideit</a>, <a href="#">TravisBarker</a>, <a href="#">WillNorris</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>							
+			            </div>
+<!-- --------------------- TOPIC SETTINGS -->
+						<h3>Topic Settings</h3>
+			            <div class="tab-content">
+			              <h4>Topic settings allow you to modify display options for normal page view and edit mode</h4>
+						  <p class="metaDataInfo">Topic settings allow you to show or hide different parts of a topic (like breadcrumbs or the sidebar), or apply a special <a href="#">ViewTemplate</a> or <a href="#">EditTemplate</a>. You can also specify which editor you want to use for modifiying this topic.
+						  </p>
+							<p>
+								<form name="" action="" method="">
+								<button type="submit" class="foswikiButton"><img alt="" src="css/foswiki_images/page_white_gear.png" /> Change topic settings</button> <a class="metaHelpLink" href="#">Read more about topic settings</a>
+								</form>
+							</p>
+			            </div>
+			          </div>
+<!-- --------------------- end of META DATA BOX  ----------------------------------------------------------------- -->	
+<!-- --------------------- FOOTER  ----------------------------------------------------------------- -->
+			<div id="footer">
+		        <div class="subcolumns">
+		          <div class="c75l">
+		            <div class="subcl">
+<!-- --------------------- BOTTOM INTERACTION LIST  ----------------------------------------------------------------- -->
+		              <div class="subcolumns">
+		                <div class="c25l">
+		                  <div class="subcl interactionListBottom">
+<!-- --------------------- EDIT ACTIONS -->
+							<p><strong>Edit</strong></p>
+		                    <ul>
+								<li><a href="#">Edit this topic</a></li>
+								<li><a href="#">Edit raw (Wiki Text)</a></li>
+								<li><a href="#">Attach files or images</a></li>
+								<li><a href="#">Modify form data</a></li>
+								<li><a href="#">Edit settings</a></li>
+								<li><a href="#">Edit tags</a></li>
+								<li><a href="#">Set new parent</a></li>
+								<li><a href="#">Change name identifier</a></li>
+								<li><a href="#">Move to different Web</a></li>
+								<li><a href="#">Trash this topic</a></li>
+		                    </ul>
+		                  </div>
+		                </div>
+		                <div class="c25l">
+		                  <div class="subc interactionListBottom">
+<!-- --------------------- CREATE ACTIONS -->
+							<p><strong>Create</strong></p>
+		                    <ul>
+		                      <li><a href="#">New topic</a></li>
+		                      <li><a href="#">Copy this topic</a></li>
+		                      <li><a href="#">Bug report</a></li>
+		                      <li><a href="#">Feature request</a></li>
+		                      <li><a href="#">Blog post</a></li>
+							  <li><a href="#">Help with new topics</a></li>						
+		                    </ul>
+		                  </div>
+		                </div>
+		                <div class="c25l">
+		                  <div class="subc interactionListBottom">
+<!-- --------------------- HISTORY ACTIONS -->
+							<p><strong>History</strong></p>
+		                    <ul>
+		                      <li><a href="#">Last Changes</a></li>
+		                      <li><a href="#">Restore previous version</a></li>
+		                      <li><a href="#">Compare two versions</a></li>
+		                    </ul>
+		                  </div>
+		                </div>
+		                <div class="c25r">
+		                  <div class="subcr interactionListBottom">
+<!-- --------------------- VIEW ACTIONS -->
+							<p><strong>View</strong></p>
+		                    <ul>
+		                      <li><a href="#">Raw view (wiki formatting)</a></li>
+		                      <li><a href="#">Print version</a></li>
+		                      <li><a href="#">Attached files</a></li>
+		                      <li><a href="#">Form data</a></li>
+		                      <li><a href="#">Topic settings</a></li>
+							  <li><a href="#">Pages that link to here</a></li>
+							  <li><a href="#">Child pages</a></li>
+		                    </ul>
+		                  </div>
+		                </div>
+		              </div>
+<!-- --------------------- end of BOTTOM INTERACTION LIST  ----------------------------------------------------------------- -->
+		            </div>
+		          </div>
+		          <div class="c25r">
+		            <div class="subcr">
+		              &nbsp;
+		            </div>
+		          </div>
+		        </div>
+		    </div>
+<!-- --------------------- end of FOOTER  ----------------------------------------------------------------- -->
+<!-- --------------------- COPYRIGHT NOTE  ----------------------------------------------------------------- -->		
+			<div id="subFooter" class="clearfix">
+						<p> This is <a href="#">Foswiki 2.0</a>, build: 62442, released 18. November 2010. <br />
+							The copyright of the content on this website is held by the contributing authors, except where stated elsewhere. See <a href="#">CopyrightStatment</a>.<br />
+						The layout of this site is based on <a href="http://www.yaml.de/">YAML</a></p>
+						<p>
+						<img alt="search" src="css/foswiki_images/sourceforge.png" />
+						<img alt="search" src="css/foswiki_images/creativecommons.png" />
+						</p>
+			</div>
+<!-- --------------------- end of COPYRIGHT NOTE  ----------------------------------------------------------------- -->
+		</div>
+	</div>
+</body>
+</html>

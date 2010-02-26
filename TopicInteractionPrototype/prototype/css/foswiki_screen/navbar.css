@@ -1,0 +1,85 @@
+@charset "UTF-8";
+/**
+ * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
+ *
+ * (en) Horizontal list navigation 
+ * (de) Horizontale Navigationsliste
+ *
+ * @copyright       Copyright 2005-2010, Dirk Jesse
+ * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+ *                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+ * @link            http://www.yaml.de
+ * @package         yaml
+ * @version         3.2.1
+ * @revision        $Revision:392 $
+ * @lastmodified    $Date:2009-07-05 12:18:40 +0200 (So, 05. Jul 2009) $
+ */
+
+@media all
+{
+  .hlist {
+    /* (en) containing floats in IE */
+    /* (de) Einfassen der Floats im IE */
+    width:100%;
+    overflow:hidden;
+    /* (en) containing floats in all other browsers */
+    /* (de) Einfassen der Floats in allen anderen Browsern */
+    float:left;
+    display:inline;
+    /* (en|de) Bugfix:IE - collapsing horizontal margins */
+    position:relative;
+    /* (en) Repeat the main color from the image */
+    /* (de) Wiederholung der Hauptfarbe aus der Bilddatei */
+    background:#5b5b5b url(../foswiki_images/bg_nav_bar.png) repeat-x scroll right center;
+	background-position: bottom;
+    line-height:0;
+	margin-left:-.5em;
+	padding-right:.5em;
+	border-top:1px solid #EEE;
+	border-bottom:1px solid #BBB;
+	z-index:10;
+  }
+
+  .hlist ul {
+    margin:0;
+    padding:0;
+    /* (en|de) Bugfix:IE - Doubled Float Margin Bug */
+    display:inline;
+    float:left; /* LTR */
+    /* (en) Left margin of the first button  */
+    /* (de) Abstand des ersten Buttons vom linken Rand  */
+  }
+
+  .hlist ul li {
+    /* (en|de) Bugfix:IE - Doubled Float Margin Bug */
+    display:inline;
+    float:left; /* LTR */
+    font-size:1em;
+    line-height:1em;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+  }
+
+  .hlist ul li a,
+  .hlist ul li strong {
+    background:transparent;
+    color:#fff;
+    display:block;
+    font-size:1em;
+    font-weight:bold;
+    margin:0;
+    padding:1.1em 2.375em;
+    text-decoration:none;
+    width:auto;
+  }
+
+  .hlist ul li a:focus,
+  .hlist ul li a:hover,
+  .hlist ul li a:active  { color:#64BF00; text-decoration:none; outline: 0 none; }
+
+  .hlist ul li.active a,
+  .hlist ul li.active a:focus,
+  .hlist ul li.active a:hover,
+  .hlist ul li.active a:active { background:transparent; color:#00B0F0; text-decoration:none; }
+}

@@ -1,0 +1,78 @@
+@charset "UTF-8";
+/**
+ * (en) Contains CSS definitions for footer components
+ * (de) Enthält CSS Definitionen für Fusszeilenkomponenten
+ *
+ * @revision        $Revision:1 $
+ * @lastmodified    $Date:2010-02-10 22:00:40  $
+ */
+
+@media all
+{
+/** FOOTER SECTION 
+---------------------------------------------------*/
+#footer {
+	font-size:0.9em;
+	color:#666;
+	padding:3em;
+	background:#ededed url(../foswiki_images/bg_footer_interactions.png) repeat-x scroll 0 0;
+	border-top:1px solid #eee;
+	border-bottom:1px solid #bbb;
+	}
+
+
+
+/** TOPIC INTERACTIONS BOTTOM MENU 
+---------------------------------------------------*/
+.interactionListBottom  img{
+	margin-bottom:-10px;
+	margin-left:-5px;
+	margin-right:5px;
+}
+.interactionListBottom  p{
+	font-size:1.1em;
+	margin-bottom:0;
+}
+.interactionListBottom ul {
+    margin:0;
+    /* (en|de) Bugfix:IE - Doubled Float Margin Bug */
+  }
+
+.interactionListBottom ul li {
+    /* (en|de) Bugfix:IE - Doubled Float Margin Bug */
+    font-size:1.0em;
+    line-height:1em;
+    list-style-type:none;
+    margin:0;
+    padding:5px 0;
+  }
+
+.interactionListBottom ul li a {
+    color:#666;
+    text-decoration:none;
+  }
+
+.interactionListBottom ul li a:focus,
+.interactionListBottom ul li a:hover,
+.interactionListBottom ul li a:active  {color:#00759F; text-decoration:underline; outline: 0 none; }
+
+
+#subFooter {
+	font-size:0.9em;
+	color:#666;
+	padding:3em 3em 1em;
+	margin:0;
+	border-top:1px solid #fff;
+	background:#ededed;
+}
+#subFooter a {
+	color: #00759F;
+}
+#subFooter a:hover {
+	text-decoration:underlined;
+}
+#subFooter img{
+	padding:1em 1em 0 0;
+}
+
+}

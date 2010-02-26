@@ -1,0 +1,362 @@
+@charset "UTF-8";
+/**
+ * (en) Contains CSS definitions for header components: "logo", "tagline", "search box", "navigation", "topic interactions" and "my account"
+ * (de) Enthält CSS Definitionen für Kopfzeilenkomponenten: "logo", "tagline", "search box", "navigation", "topic interactions" und "my account"
+ *
+ * @revision        $Revision:1 $
+ * @lastmodified    $Date:2010-02-10 22:00:40  $
+ */
+
+@media all
+{
+/** HEADER  SECTION - above navigation
+---------------------------------------------------*/
+#header {
+	padding:0.5em 3em;
+	margin:0;
+	background:#EAEAEA url("../foswiki_images/bg_logo_bar.png");
+	height:60px;
+	background-repeat: repeat-x;
+	letter-spacing:0.01em;
+	border-top:2px solid white;
+}
+#header a{
+	text-decoration:none;
+}
+#logoSection {
+	padding:0;
+	margin:0;
+	line-height:1.5em;
+}
+#logoSection img{
+	padding:0 1.5em 0 0;
+}
+
+/** LOGO
+---------------------------------------------------*/
+
+
+
+/** TAGLINE
+---------------------------------------------------*/
+#tagLine {
+	color:#666;
+	font-size:.9em;
+	font-weight:bold;
+}
+
+/** SEARCH BOX 
+---------------------------------------------------*/
+
+#searchBox {
+	padding-left:0.75em;
+	height:28px;
+	text-align:left;
+}
+#searchBox  button img{
+	margin-top:-1px;
+}
+#searchfield {
+    vertical-align: top;
+    margin: 0 !important;
+	padding:1px;
+    line-height: .9em;
+    outline:0 !important;
+	width:76%;
+	height:24px;
+	font-size:.9em;
+	border:1px solid #ddd;
+}
+#searchfield:hover{
+	border:1px #bbb solid;
+	background:#fff;
+	color:#333;
+}
+
+
+#searchbutton {
+	height:28px;
+	width:20%;
+	padding:0 2px;
+	margin:0 0 0 -5px;
+	border:1px solid #ddd;
+	background:url(../foswiki_images/ui-bg_highlight-hard_20_aaaaaa_1x100.png);
+}
+#searchbutton:hover {
+	border:1px #bbb solid;
+}
+#searchbutton:active {
+	background:url(../foswiki_images/ui-bg_highlight-hard_20_008DBF_1x100.png);
+	border-top:1px solid #333;
+	border-right:1px solid #bbb;
+	border-bottom:1px solid #bbb;
+	border-left:1px solid #333;
+}
+/* default (inactive field) */
+.sf_inactive{
+	border:1px #bbb solid;
+	background:#fcfcfc;
+	color:#999;
+}
+/* on focus (when field is clicked on)  */
+.sf_active {
+	border:1px #ddd solid;
+	background:#fff;
+	color:#333;
+}
+
+/* suggestions box */
+/* js code generates unordered list */
+.sf_suggestion{
+	position:relative;
+}
+.sf_suggestion ul{
+	position:absolute;
+	margin:0;
+	padding:0 0 5px 0;
+	background:#FFFFEF;
+	top:-2px;
+	left:0;
+	z-index:30;
+	border:1px solid #bbb;
+}
+.sf_suggestion li{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.sf_suggestion li a{
+	display:block;
+	text-indent:5px;
+	color:#00759F;
+}
+.sf_suggestion li.selected a{
+	background:#1e9ac6;
+	color:#fff;
+	text-decoration:none;
+}
+
+/** SUB HEADER  SECTION - below navigation
+---------------------------------------------------*/
+#subHeader {
+	background: #f9f9f9 url("../foswiki_images/bg_subheader_bar.png") repeat-x;
+	border-top:1px solid #FEFEFE;
+	border-bottom:1px solid #FFFFFF;
+	padding:1.825em 3em;
+	margin:0 0 -10px;
+	font-size:.9em;
+}
+#subHeader p{
+	margin-bottom:.75em;
+}
+
+/** BREADCRUMBS
+---------------------------------------------------*/
+#breadCrumbs, #breadCrumbs a {
+	color:#666;
+	text-decoration:none;
+}
+#breadCrumbs a:hover {
+	color:#00759F;
+	text-decoration:underline;
+}
+.breadCrumbSeperator {
+	padding:0 5px;
+	color:#666;
+}
+
+
+/** TOPIC INTERACTIONS 
+---------------------------------------------------*/
+
+ul#menu {
+	margin: 0;
+	padding: 0.75em 0;
+	position:absolute;
+	z-index:99;
+}
+
+
+ul#menu li {
+	display: inline;
+	margin: 0 1.5em 0 0;
+}
+
+ul#menu h2, ul#menu h3 {
+	font-size: 100%;
+	font-weight: normal;
+	display: inline;
+	font-family:Arial, Helvetica;
+}
+ul#menu h3 {
+	color:#F5E175;
+	letter-spacing:0px;
+}
+
+ul#menu li a {
+	color: #666;
+	text-decoration: none;
+	border-top:1px solid #eee;
+	border-bottom:1px solid #dadada;
+	border-left:1px solid #eee;
+	border-right:1px solid #dadada;
+	padding: 0.5em 1.1em;
+	letter-spacing:0px;
+	background:url(../foswiki_images/ui-bg_highlight-soft_20_eeeeee_1x100.png);
+	z-index:98;
+}
+
+ul#menu li a:hover {
+	text-decoration: none;
+	border-bottom:1px solid #aaa;
+	border-right:1px solid #aaa;
+	color:#00759F;
+}
+ul#menu li a:active {
+	border:1px solid #aaa;
+	border-bottom:1px solid #dedede;
+	border-left:1px solid #aaa;
+	border-right:1px solid #dedede;
+}
+
+ul#menu li.mega p a {
+	background:transparent;
+	border:none;
+}
+
+ul#menu li.mega a:hover {
+text-decoration: none;
+}
+
+ul#menu div {
+display: none;
+}
+
+ul#menu li.mega div {
+	border-top:1px solid #aaa;
+	border-left: 1px solid #eee;
+	border-right: 1px solid #eee;
+	border-bottom: 1px solid #aaa;
+	position: absolute;
+	top: 0;
+	left:-3em;
+	margin-top:5em;
+	padding: 0.75em 3em 1.5em 3em;
+	background: #30a2ca url(../foswiki_images/bg_interactions2.png) repeat-x scroll 0 0;
+	background-position:bottom;
+	color: #ddd;
+	z-index:97;
+	width: 110em;
+	overflow:hidden;
+}
+
+
+ul#menu li.mega div.leftList, {
+	float:left;
+}
+
+ul#menu li.hovering div {
+	display: block;
+}
+
+ul#menu li.mega div a {
+	color: #ddd;
+	padding: 0;
+	background-image: none;
+	text-decoration: none;
+}
+ul#menu li.mega div ul {
+	margin:.75em 6em 1em 0;
+	float:left;
+}
+	
+}
+ul#menu li.mega div ul li{
+	display:block;
+	list-style-type:none;
+	padding-bottom:1.5em;
+}
+ul#menu li.mega div ul li img{
+	margin-right:1em;
+}
+ul#menu li.mega div ul li a{
+	border:none;
+	background:none;
+}
+ul#menu li.mega div ul li a strong{
+	color:#fff;
+}
+ul#menu li.mega div ul li a:hover, ul#menu li.mega div ul li a:hover strong{
+	text-decoration:underline;
+	color:#fff;
+}
+
+ul#menu li.mega div div {
+	border:none;
+	position:relative;
+	background:transparent;
+	margin:0;
+	clear:both;
+}
+
+ul#menu div h3 {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+ul#menu div p {
+	margin: 0 0 0.8em 0;
+	padding: 0;
+}
+
+
+
+/** MY ACCOUNT
+---------------------------------------------------*/
+.MyAccount {
+	padding-left:10px;
+	font-weight:bold;
+}
+#accountGreeter a{
+	color:#00759F;
+	text-decoration:none;
+}
+#accountGreeter a:hover, .MyAccountItems ul li a:hover{
+	text-decoration:underline;
+}
+
+
+.MyAccountItems ul {
+	margin:0;
+    padding:0;
+}
+.MyAccountItems ul li {
+	list-style-type:none;
+	margin:0;
+    padding:0;
+}
+.MyAccountItems ul li a{
+	font-weight:normal;
+	color:#00759F;
+	text-decoration:none;
+}
+
+
+/**  REVISON INFO
+---------------------------------------------------*/
+#revisionInfo {
+	background:#fff;
+	border-top:1px solid #EEEEEE;
+	padding: 2.235em 3em 1.5em;
+	color:#666;
+	font-size:0.9em;
+}
+#revisionInfo a{
+	color:#666;
+	text-decoration:none;
+}
+#revisionInfo a:hover {
+	color:#00759F;
+	text-decoration:underlined;
+}
+
+}
