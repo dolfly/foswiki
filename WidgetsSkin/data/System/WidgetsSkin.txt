@@ -159,6 +159,7 @@ You can use this technique to create a skin that matches closely the HTML of you
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  27 Feb 2010: | fix REVINFO bug in the widget-history - so that it shows the requested topic's history |
 |  13 Feb 2010: | bring in styles from http://www.codemonkeyramblings.com/themes/ and fix bugs |
 |  18 Jan 2010: | documentation cleanup |
 |  22 Jul 2009: | general fixes and cleanups of HTML output |
