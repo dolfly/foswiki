@@ -1,0 +1,97 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+ Delay Macro Plugin
+
+%SHORTDESCRIPTION%
+
+---++ Examples
+
+This plugin enables the use of a more clear syntax when building applications where you need to delay the expansion of macros inside the format parameter of another macro which supports the tokens $percnt and $quot. The most typical usecase is inside the format of a SEARCH.
+
+The classic example is the nested SEARCH
+
+<verbatim>
+%SEARCH{
+    "culture"
+    web="System"
+    format="   * $topic is referenced by:$n      * $percntSEARCH{ $quot$topic$quot format=$quot$dollartopic$quot nonoise=$quoton$quot separator=$quot, $quot }$percnt"
+    nonoise="on"
+}%
+</verbatim>
+
+The !DelayMacroPlugin can make this syntax much clearer minimizing the need to use tokens $percnt and $quot.
+
+<verbatim>
+%SEARCH{
+    "culture"
+    web="System"
+    format="   * $topic is referenced by:$n      * %DELAY{macro="SEARCH" "$topic" format="$dollartopic" nonoise="on" separator=", " }%"
+    nonoise="on"
+}%
+</verbatim>
+
+
+Note that we still need to use $dollar to delay the expansion of $topic. The Delay Macro Plugin cannot know if the $topic should belong to the inner or outer loop. In this case we want it to belong to the inner loop and delay it as $dollartopic
+
+---++ Plugin Use
+
+You can delay the expansion of any macro using DELAY
+
+The syntax is simple
+
+=%<nop>DELAY{macro="MACRONAME" delay="depth" "default param for MACRONAME" param1="blabla" param2="blable"}%=
+
+Ie. You replace the macro name you want to delay by DELAY and put the macro name as the parameter macro. The delay indicates how many times you want to delay the expansion. The default is 1 so if you have a nested SEARCH with a SEARCH within another SEARCH, you can ommit the delay parameter.
+
+If you ommit the macro parameter DELAY will default to SEARCH.
+
+The plugin supports the alias DELAYSEARCH which does exactly the same as DELAY. It is recommended to use DELAYSEARCH when you want to ommit the macro parameter and default to SEARCH. It makes the application you write easier to understand for yourself and for others. Ie. the example from above could be simplified to
+
+<verbatim>
+%SEARCH{
+    "culture"
+    web="System"
+    format="   * $topic is referenced by:$n      * %DELAYSEARCH{"$topic" format="$dollartopic" nonoise="on" separator=", " }%"
+    nonoise="on"
+}%
+</verbatim>
+
+---++ How does the plugin work?
+
+The plugin has two modes depending on the value of delay
+
+   * When delay is not zero (1 or larger, or omitted) the DELAY/DELAYSEARCH returns itself with the leading and trailing %-sign replaced by $percnt and all quotes around its own parameters replaced by $quot. It does not replace the $-sign by $dollar as this would limit the use of the plugin. The delay parameter is decremented. If the delay parameter was omitted it is added with the value 0.
+   * When the delay reaches zero the DELAY/DELAYSEARCH replaces itself by the macro parameter (SEARCH by default) and removes the delay setting and without any replacement of %-sign and quotes. This way the delayed macro gets expanded normally.
+   
+Note that the use of the plugin gives a small performance hit compared to manually escaping with $percnt/$quot. However with a nested SEARCH with delay of 1 the DELAY macro is only expanded once while the resulting SEARCH may be expanded many many times. In comparison these searches will take magnitudes longer than the simple operation of the initial DELAY. You will most likely not notice the delay. But you will notice that it is much easier to get those nasty nested searches right.
+
+---++ Plugin Test
+
+If the plugin is installed and works you should see the result of the example above
+
+%SEARCH{
+    "culture"
+    web="System"
+    format="   * $topic is referenced by:$n      * %DELAYSEARCH{"$topic" format="$dollartopic" nonoise="on" separator=", " }%"
+    nonoise="on"
+}%
+
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+|  Author: | Foswiki:Main.KennethLavrsen |
+|  Copyright: | &copy; 2009, Kenneth Lavrsen |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  02 Mar 2010 (1.0) | Initial release |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+
