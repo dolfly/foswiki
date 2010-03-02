@@ -25,13 +25,13 @@
 # Access is via object oriented Perl and is as follows.
 #
 # Constructor
-#    new($params)		- Create a 'Parameters' object which
-#    				  contains data from '$params'
+#    new($params)                - Create a 'Parameters' object which
+#                                      contains data from '$params'
 # Getters/Setters
-#    getAllParameters		- Returns hash containing all set parameters
+#    getAllParameters                - Returns hash containing all set parameters
 #    getParameter($param,$default) - Get the value of the parameter $param.
-#    				  If not found, then return $default as the
-#    				  default value for the parameter
+#                                      If not found, then return $default as the
+#                                      default value for the parameter
 
 # =========================
 package Foswiki::Plugins::ChartPlugin::Parameters;
@@ -67,35 +67,35 @@ sub _parseParameters
     my $field = "";
     my $index = 0;
     for (my $i = 0; $i < $length; $i++) {
-	# Get character
-	$char = substr( $parameterList, $i, 1 );
-	if( $char eq '"' ) {
-	    if( $in_quote ) {	# If a " and already in a quote, then the end
-		$in_quote = 0;
-	    } else {		# Beginning of quoted field
-		$in_quote = 1;
-	    }
-	} else {
-	    if( $char =~ /[,\s]+/ ) {	# A field separator only if not in quote
-		if( $in_quote ) {
-		    $field .= $char;
-		} else {
-		    $field[$index++] = $field if( $field ne "" );
-		    $field = "";
-		}
-	    } else {
-		$field .= $char;
-	    }
-	}
+        # Get character
+        $char = substr( $parameterList, $i, 1 );
+        if( $char eq '"' ) {
+            if( $in_quote ) {        # If a " and already in a quote, then the end
+                $in_quote = 0;
+            } else {                # Beginning of quoted field
+                $in_quote = 1;
+            }
+        } else {
+            if( $char =~ /[,\s]+/ ) {        # A field separator only if not in quote
+                if( $in_quote ) {
+                    $field .= $char;
+                } else {
+                    $field[$index++] = $field if( $field ne "" );
+                    $field = "";
+                }
+            } else {
+                $field .= $char;
+            }
+        }
     }
     # Deal with last field
     $field[$index++] = $field if( $field ne "" );
 
     # Now break each parameter into a key=value pair.
     for (my $i = 0; $i < $index; $i++) {
-	my ( $key, $value ) = split(/=/, $field[$i]);
-	#print "field[$i] = [$field[$i]]\n";
-	$parameters{$key} = $value;
+        my ( $key, $value ) = split(/=/, $field[$i]);
+        #print "field[$i] = [$field[$i]]\n";
+        $parameters{$key} = $value;
     }
     $this->_setParameters(\%parameters);
 }
@@ -120,19 +120,19 @@ sub getParameter
 {
     my ( $this, $var_name, $default ) = @_;
     my $parametersRef = $$this{"PARAMETERS"};
-    my $value = delete $$parametersRef{$var_name};		# Delete since already parsed.
+    my $value = delete $$parametersRef{$var_name};                # Delete since already parsed.
     if( defined $value && $value ne "" ) {
-	return $value;
+        return $value;
     } else {
-	return $default;
+        return $default;
     }
 }
 sub printParameters {
     my ($this) = @_;
     my %parameters = $this->getAllParameters();
     for my $key (keys %parameters) {
-	my $val = $parameters{$key};
-	&Foswiki::Func::writeDebug( "- Foswiki::Plugins::ChartPlugin::Parameters::[$key]=[$val]");
+        my $val = $parameters{$key};
+        &Foswiki::Func::writeDebug( "- Foswiki::Plugins::ChartPlugin::Parameters::[$key]=[$val]");
     }
 }
 

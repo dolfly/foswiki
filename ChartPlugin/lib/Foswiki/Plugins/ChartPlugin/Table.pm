@@ -25,21 +25,21 @@
 # Access is via object oriented Perl and is as follows.
 #
 # Constructor
-#    new($topicContents)	- Create a 'Table' object from topic contents
+#    new($topicContents)        - Create a 'Table' object from topic contents
 # Getters/Setters
-#    checkTableExists($name)	- Check if the specified table name exists
-#    getTable($num)		- Return the specified table
-#    getTableInfo		- DEBUG purposes only.  Print out contents
-#    				  of tables in table object
-#    getRow($row,$c1,$c2)	- Return the data at the specified row
-#    				  starting at column 1 and ending at column 2
-#    getData($tblnum,$range)	- Return the data at the specified range.
-#    				  If a single row or single column, then
-#    				  return the data.  If multiple
-#    				  rows/columns, then return the data in row
-#    				  format.
-#    getRowColumnCount($range)	- Return the number of rows/columns
-#    				  specified in the range
+#    checkTableExists($name)        - Check if the specified table name exists
+#    getTable($num)                - Return the specified table
+#    getTableInfo                - DEBUG purposes only.  Print out contents
+#                                      of tables in table object
+#    getRow($row,$c1,$c2)        - Return the data at the specified row
+#                                      starting at column 1 and ending at column 2
+#    getData($tblnum,$range)        - Return the data at the specified range.
+#                                      If a single row or single column, then
+#                                      return the data.  If multiple
+#                                      rows/columns, then return the data in row
+#                                      format.
+#    getRowColumnCount($range)        - Return the number of rows/columns
+#                                      specified in the range
 
 # =========================
 package Foswiki::Plugins::ChartPlugin::Table;
@@ -142,8 +142,8 @@ sub getTableInfo {
 # in the array represents the second table found on the topic page, etc.
 sub _parseOutTables {
     my ($this, $topic) = @_;
-    my $tableNum = 1;		# Index in the same way users will ref tables
-    my $tableName = "";		# If a named table.
+    my $tableNum = 1;                # Index in the same way users will ref tables
+    my $tableName = "";                # If a named table.
     my @tableMatrix;            # Currently parsed table.
     my $nCols = 0;              # Number of columns in current table
 
@@ -173,7 +173,7 @@ sub _parseOutTables {
                 # inside | table |
                 $insideTABLE = 1;
                 $line = $_;
-                $line =~ s/^(\s*\|)(.*)\|\s*$/$2/o;	# Remove starting '|'
+                $line =~ s/^(\s*\|)(.*)\|\s*$/$2/o;        # Remove starting '|'
                 @row  = split( /\|/o, $line, -1 );
                 _trim(\@row);
                 push (@tableMatrix, [ @row ]);
@@ -211,8 +211,8 @@ sub _parseOutTables {
 sub _trim {
     my ($totrim) = @_;
     for my $element (@$totrim) {
-        $element =~ s/^[\s\*]+//;	# Strip of leading white/*
-        $element =~ s/[\s\*]+$//;	# Strip of trailing white/*
+        $element =~ s/^[\s\*]+//;        # Strip of leading white/*
+        $element =~ s/[\s\*]+$//;        # Strip of trailing white/*
     }
 }
 
