@@ -3,6 +3,8 @@
 
 %SHORTDESCRIPTION%
 
+%ATTACHURL%/delaylogo.png
+
 ---++ Examples
 
 This plugin enables the use of a more clear syntax when building applications where you need to delay the expansion of macros inside the format parameter of another macro which supports the tokens $percnt and $quot. The most typical usecase is inside the format of a SEARCH.
@@ -32,13 +34,35 @@ The !DelayMacroPlugin can make this syntax much clearer minimizing the need to u
 
 Note that we still need to use $dollar to delay the expansion of $topic. The Delay Macro Plugin cannot know if the $topic should belong to the inner or outer loop. In this case we want it to belong to the inner loop and delay it as $dollartopic
 
+Here is an example where we have a nested search and inside the inner loop we want to delay the ENCODE to run after the outer SEARCH is complete
+
+<verbatim>
+%SEARCH{
+    "culture"
+    web="System"
+    format="   * $topic is referenced by:$n      * $percntSEARCH{$quot$topic$quot format=$quot$dollarpercntENCODE{$dollarquot$dollartopic$dollarquot type=$dollarquoturl$dollarquot}$dollarpercnt$quot nonoise=$quoton$quot separator=$quot, $quot }$percnt"
+    nonoise="on"
+}%
+</verbatim>
+
+and the same much simpler and much easier to get to work using this plugin
+
+<verbatim>
+%SEARCH{
+    "culture"
+    web="System"
+    format="   * $topic is referenced by:$n      * %DELAYSEARCH{"$topic" format="%DELAY{macro="ENCODE" delay="2" "$dollartopic" type="url"}%" nonoise="on" separator=", " }%"
+    nonoise="on"
+}%
+</verbatim>
+
 ---++ Plugin Use
 
 You can delay the expansion of any macro using DELAY
 
 The syntax is simple
 
-=%<nop>DELAY{macro="MACRONAME" delay="depth" "default param for MACRONAME" param1="blabla" param2="blable"}%=
+=%<nop>DELAY{macro="MACRONAME" delay="depth" "default param for MACRONAME" param1="blabla" param2="blabla"}%=
 
 Ie. You replace the macro name you want to delay by DELAY and put the macro name as the parameter macro. The delay indicates how many times you want to delay the expansion. The default is 1 so if you have a nested SEARCH with a SEARCH within another SEARCH, you can ommit the delay parameter.
 
@@ -75,6 +99,10 @@ If the plugin is installed and works you should see the result of the example ab
     nonoise="on"
 }%
 
+---++ Plugin Settings
+
+The plugin has no settings at all.
+
 <!--
 One line description, required for extensions repository catalog.
    * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
@@ -91,7 +119,8 @@ One line description, required for extensions repository catalog.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
-|  02 Mar 2010 (1.0) | Initial release |
+|  03 Mar 2010 (1.0) | Initial release |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 
+%META:FILEATTACHMENT{name="delaylogo.png" attachment="delaylogo.png" attr="h" comment="" date="1267605968" path="delaylogo.png" user="ProjectContributor" version="1"}%
