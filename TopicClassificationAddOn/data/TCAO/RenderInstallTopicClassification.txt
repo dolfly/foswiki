@@ -36,7 +36,7 @@ function setWeb(theWeb) {
 <form name="installTCAO" action="%SCRIPTURL{save}%/" method="post" >
 <input type="hidden" name="templatetopic" value="%TCAOWEB%/Installs.TopicClassification" />
 <input type="hidden" name="topic" value="TopicClassification" />
-*Select web to install !TopicClassification framework:* <select name="selectWeb" onchange="setWeb(this.value);" ><option> Select web... </option>%WEBLIST{"<option>$name</option>" separator=" " }% </select> %BR% 
+*Select web to install !TopicClassification framework:* <select name="selectWeb" onchange="setWeb(this.value);" ><option> Select web... </option>%WEBLIST{"<option value='$name'>$name</option>" separator=" " }% </select> %BR% 
 <input type="submit" value=" Install !TopicClassificationAddOn " /> <br /> _You will be sent immediately to the !TopicClassification topic in the choosen web and presented further instructions for setting up TCAO within the web._ 
 </form>
 </div><!--/foswikiFormStep-->
