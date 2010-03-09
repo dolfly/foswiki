@@ -129,7 +129,7 @@ my $identifyCmd = 'identify %INFILE|F%';
 #   xxxHashArray{GRNUM} - Counts the unnamed graphs for the page
 #   xxxHashArray{FORMATS}{<filename>} - contains the list of output file types for the input file
 #   xxxHashArray{MD5HASH}{<filename>} - contains the hash of the input used to create the files
-#   xxxHashArray{IMAGESIZE}{<filename>} - contains the image size of the file for rendering 
+#   xxxHashArray{IMAGESIZE}{<filename>} - contains the image size of the file for rendering
 
 # =========================
 sub initPlugin {
@@ -598,7 +598,8 @@ sub _handleDot {
     foreach my $key ( split( ' ', $vectorFormats ) ) {
         if ( $key ne 'none' ) {    # skip the bogus default
             $attachFile{$key} = "$outFilename.$key";
-            $newHashArray{IMAGESIZE}{$outFilename.$key} = $oldHashArray{IMAGESIZE}{$outFilename.$key}
+            $newHashArray{IMAGESIZE}{ $outFilename . $key } =
+              $oldHashArray{IMAGESIZE}{ $outFilename . $key }
               || '';               # Copy the image size
         }    ### if ($key ne 'none'
     }    ### foreach my $key
@@ -746,7 +747,7 @@ sub _handleDot {
 s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                 &_writeDebug(" _____MODIFIED $imgSize");
                 chomp $imgSize;
-                $newHashArray{IMAGESIZE}{$outFilename.$key} = $imgSize;
+                $newHashArray{IMAGESIZE}{ $outFilename . $key } = $imgSize;
             }
 
 #  As of IE 7 / FF 3.0 and 3.5,  the only way to get consistent link behavior for
@@ -772,15 +773,19 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                 _make_path( $topic, $web );
                 umask(002);
                 my $tempoutfile = "$attachPath/$web/$topic/$fname";
-                $tempoutfile = Foswiki::Sandbox::untaintUnchecked($tempoutfile);  #untaint - fails in Perl 5.10
+                $tempoutfile = Foswiki::Sandbox::untaintUnchecked($tempoutfile)
+                  ;    #untaint - fails in Perl 5.10
                 copy( "$tempFile{$key}", $tempoutfile );
             }
             else {
                 my @stats    = stat $tempFile{$key};
                 my $fileSize = $stats[7];
                 my $fileDate = $stats[9];
-                &_writeDebug("attaching $fname using Foswiki API - Web = $web,  Topic = $topic, File=$tempFile{$key} Type = $key Size $fileSize date $fileDate");
-                $fname = Foswiki::Sandbox::untaintUnchecked($fname);  #untaint - fails on trunk
+                &_writeDebug(
+"attaching $fname using Foswiki API - Web = $web,  Topic = $topic, File=$tempFile{$key} Type = $key Size $fileSize date $fileDate"
+                );
+                $fname = Foswiki::Sandbox::untaintUnchecked($fname)
+                  ;    #untaint - fails on trunk
                 Foswiki::Func::saveAttachment(
                     $web, $topic, "$fname",
                     {
@@ -859,11 +864,12 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                     "$outFilename.cmapx" );
             }
         }
-        if ($mapfile) {   #If mapfile is empty for some reason, these will fail
+        if ($mapfile) {    #If mapfile is empty for some reason, these will fail
             $mapfile =~
 s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
             $mapfile =~ s/[\n\r]/ /go;
-        } else {
+        }
+        else {
             $mapfile = '';
         }
     }
@@ -883,7 +889,7 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
         $fbtype = "$svgFallback";
         $returnData .=
           "<object data=\"$src\" type=\"image/svg+xml\" border=\"0\" "
-          . $newHashArray{IMAGESIZE}{$outFilename.$inlineAttach};
+          . $newHashArray{IMAGESIZE}{ $outFilename . $inlineAttach };
         $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
         $returnData .= "> \n";
     }
@@ -894,10 +900,12 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
         || ( $inlineAttach ne 'svg' ) )
     {
         my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
-        $returnData .= "<img src=\"$srcfb\" type=\"image/$fbtype\" "
-          . $newHashArray{IMAGESIZE}{$outFilename.$fbtype};    #Embedded img tag for fallback
+        $returnData .=
+          "<img src=\"$srcfb\" type=\"image/$fbtype\" "
+          . $newHashArray{IMAGESIZE}
+          { $outFilename . $fbtype };    #Embedded img tag for fallback
         $returnData .= " usemap=\"#$hashCode\""
-          if ($doMap);    #Include the image map if required
+          if ($doMap);                   #Include the image map if required
         $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
         $returnData .= "> \n";
     }
@@ -1150,8 +1158,8 @@ sub wrapupTagsHandler {
 sub _deleteAttach {
 
     my $fn = Foswiki::Sandbox::normalizeFileName( $_[0] );
-     
-   &_writeDebug (" DELETE ATTACHMENT entered for $fn");
+
+    &_writeDebug(" DELETE ATTACHMENT entered for $fn");
 
     if ( _attachmentExists( $web, $topic, $fn ) ) {
 
