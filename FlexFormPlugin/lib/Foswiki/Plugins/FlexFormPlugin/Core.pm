@@ -102,7 +102,7 @@ sub handleRENDERFORDISPLAY {
   ($thisWeb, $thisTopic) = Foswiki::Func::normalizeWebTopicName($thisWeb, $thisTopic);
   my $topicObj = getTopicObject($session, $thisWeb, $thisTopic); 
 
-  $theForm = $topicObj->getFormName || $theForm;
+  $theForm = $topicObj->getFormName unless defined $theForm;
   return '' unless $theForm;
 
   my $theFormWeb = $thisWeb;
@@ -110,7 +110,12 @@ sub handleRENDERFORDISPLAY {
 
   my $form = new Foswiki::Form($session, $theFormWeb, $theForm);
   return '' unless $form;
-  my $formTitle = $form->getPath();
+  my $formTitle;
+  if ($form->can('getPath')) {
+    $formTitle = $form->getPath;
+  } else {
+    $formTitle = $form->{web}.'.'.$form->{topic};
+  }
   $formTitle =~ s/\//./g; # normalize web names
 
   $theHeader =~ s/\$title/$formTitle/g;
@@ -144,6 +149,34 @@ sub handleRENDERFORDISPLAY {
     my $fieldAttrs = $field->{attributes};
     my $fieldDescription = $field->{tooltip};
     my $fieldTitle = $field->{title};
+    my $fieldDefiningTopic = $field->{definingTopic};
+    my $fieldAllowedValues = $field->{value};
+
+    $fieldSize = $params->{$fieldName.'_size'} if defined $params->{$fieldName.'_size'};
+    $fieldAttrs = $params->{$fieldName.'_attributes'} if defined $params->{$fieldName.'_attributes'};
+    $fieldDescription = $params->{$fieldName.'_tooltip'} if defined $params->{$fieldName.'_tooltip'};
+    $fieldDescription = $params->{$fieldName.'_description'} if defined $params->{$fieldName.'_description'};
+    $fieldTitle = $params->{$fieldName.'_title'} if defined $params->{$fieldName.'_title'}; # see also map
+    $fieldAllowedValues = $params->{$fieldName.'_values'} if defined $params->{$fieldName.'_values'};
+
+    # temporarily remap field to another type
+    my $fieldClone;
+    if (defined $params->{$fieldName.'_type'}) {
+      $fieldType = $params->{$fieldName.'_type'};
+      $fieldClone = $form->createField(
+	$fieldType,
+	name          => $fieldName,
+	title         => $fieldTitle,
+	size          => $fieldSize,
+	value         => $fieldAllowedValues,
+	tooltip       => $fieldDescription,
+	attributes    => $fieldAttrs,
+	definingTopic => $fieldDefiningTopic,
+	web           => $topicObj->web,
+	topic         => $topicObj->topic,
+      );
+      $field = $fieldClone;
+    } 
 
     #writeDebug("reading fieldName=$fieldName");
 
@@ -164,9 +197,13 @@ sub handleRENDERFORDISPLAY {
       $line = $theLabelFormat;
     }
 
-
-    my $fieldDisplay = $field->renderForDisplay($line, $fieldValue); # SMELL what about the attrs param in Foswiki::Form
+    $line = $field->renderForDisplay($line, $fieldValue, {
+      bar=>'|', # SMELL: keep bars
+      newline=>'$n', # SMELL: keep newlines
+    }); # SMELL what about the attrs param in Foswiki::Form
+        # SMELL wtf is this attr anyway
     $fieldTitle = $fieldTitles->{$fieldName} if $fieldTitles && $fieldTitles->{$fieldName};
+
 
     $line =~ s/\$name\b/$fieldName/g;
     $line =~ s/\$type\b/$fieldType/g;
@@ -183,6 +220,9 @@ sub handleRENDERFORDISPLAY {
     $line =~ s/\$dollar/\$/g;
 
     push @result, $line;
+
+    # cleanup
+    $fieldClone->finish() if defined $fieldClone;
   }
 
   return $theHeader.join($theSep, @result).$theFooter;
@@ -233,7 +273,7 @@ sub handleRENDERFOREDIT {
   $session->{plugins}->dispatch('beforeEditHandler', $text, $thisTopic, $thisWeb, $topicObj);
   $topicObj->text($text);
 
-  $theForm = $topicObj->getFormName || $theForm;
+  $theForm = $topicObj->getFormName unless defined $theForm;
   return '' unless $theForm;
 
   my $theFormWeb = $thisWeb;
@@ -276,9 +316,37 @@ sub handleRENDERFOREDIT {
     my $fieldType = $field->{type};
     my $fieldSize = $field->{size};
     my $fieldAttrs = $field->{attributes};
-    my $fieldAllowedValues = $field->{value};
     my $fieldDescription = $field->{tooltip};
     my $fieldTitle = $field->{title};
+    my $fieldAllowedValues = $field->{value};
+    my $fieldDefiningTopic = $field->{definingTopic};
+
+    $fieldSize = $params->{$fieldName.'_size'} if defined $params->{$fieldName.'_size'};
+    $fieldAttrs = $params->{$fieldName.'_attributes'} if defined $params->{$fieldName.'_attributes'};
+    $fieldDescription = $params->{$fieldName.'_tooltip'} if defined $params->{$fieldName.'_tooltip'};
+    $fieldDescription = $params->{$fieldName.'_description'} if defined $params->{$fieldName.'_description'};
+    $fieldTitle = $params->{$fieldName.'_title'} if defined $params->{$fieldName.'_title'}; # see also map
+    $fieldAllowedValues = $params->{$fieldName.'_values'} if defined $params->{$fieldName.'_values'};
+
+    # temporarily remap field to another type
+    my $fieldClone;
+    if (defined $params->{$fieldName.'_type'}) {
+      $fieldType = $params->{$fieldName.'_type'};
+      $fieldClone = $form->createField(
+	$fieldType,
+	name          => $fieldName,
+	title         => $fieldTitle,
+	size          => $fieldSize,
+	value         => $fieldAllowedValues,
+	tooltip       => $fieldDescription,
+	attributes    => $fieldAttrs,
+	definingTopic => $fieldDefiningTopic,
+	web           => $topicObj->web,
+	topic         => $topicObj->topic,
+      );
+      $field = $fieldClone;
+    } 
+
 
     #writeDebug("reading fieldName=$fieldName");
 
@@ -357,6 +425,9 @@ sub handleRENDERFOREDIT {
     $line =~ s/\$dollar/\$/g;
 
     push @result, $line;
+
+    # cleanup
+    $fieldClone->finish() if defined $fieldClone;
   }
 
   return '<noautolink>'.$theHeader.join($theSep, @result).$theFooter.'</noautolink>';

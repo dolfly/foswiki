@@ -1,3 +1,4 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1268228083" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! %TOPIC%
 %$SHORTDESCRIPTION%
 
@@ -27,6 +28,12 @@ to render the input form in a more dynamic way while still customizing the overa
 | form="..." | topic name containing the !DataForm definition | form found at the base topic |
 | value="..." | value to be inserted into the edit interface; makes sense for single-field calls only | stored value in the base topic |
 | &lt;fieldname>_value="..." | value to be inserted into the edit interface of the named field | looks for urlparam &lt;fieldname>, defaults to stored value |
+| &lt;fieldname>_title="..." %BR% \
+  &lt;fieldname>_type="..." %BR% \
+  &lt;fieldname>_size="..." %BR% \
+  &lt;fieldname>_attributes="..." %BR% \
+  &lt;fieldname>_description="..." %BR% \
+  &lt;fieldname>_values="..." %BR% | these parameters allow to override the formfield properties as specified in the !DataForm definition; for example a =Teaser_type="text"= , =Teaser_size="30"= will override a definition of a =Teaser= formfield that otherwise is a =textarea= of size =80x25=; &lt;fieldname>_values redefines the list of allowed values for that field | values as defined in the !DataForm definition and the current topic |
 | format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
 | header="..." | header string to be put in front of the output | &lt;empty string> |
 | footer="..." | footer string to apped to the output | &lt;empty string> |
@@ -34,8 +41,8 @@ to render the input form in a more dynamic way while still customizing the overa
 | separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
 | include="..." | regular expression fieldnames must match to be included in the output | undefined |
 | exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
-| hidden="..." | those fields that match this regular expression will be rendered hidden |
-| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string in the edit interface | original fieldnames are used as title string |
+| hidden="..." | those fields that match this regular expression will be rendered hidden | undefined |
+| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string in the edit interface (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
 
 ---+++ RENDERFORDISPLAY
 
@@ -43,14 +50,21 @@ to render the input form in a more dynamic way while still customizing the overa
 | "..." or topic="..." | name of a topic to display the form for | the base topic of the current url |
 | fields="&lt;fieldname1>, &lt;fieldname2>, ..." | list of formfields to be displayed | all known formfields |
 | form="..." | topic name containing the !DataForm definition | form found at the base topic |
+| &lt;fieldname>_value="..." %BR% \
+  &lt;fieldname>_title="..." %BR% \
+  &lt;fieldname>_type="..." %BR% \
+  &lt;fieldname>_size="..." %BR% \
+  &lt;fieldname>_attributes="..." %BR% \
+  &lt;fieldname>_description="..." %BR% \
+  &lt;fieldname>_values="..." %BR% | see above | defaults as defined in the !DataForm definition and the current topic |
 | format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
 | header="..." | header string to be put in front of the output | &lt;empty string> |
 | footer="..." | footer string to apped to the output | &lt;empty string> |
 | separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
 | include="..." | regular expression fieldnames must match to be included in the output | undefined |
 | exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
-| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string | original fieldnames are used as title string |
-| labelformat="..." | format string used for labels exclusively; labels aren't real input fields; they are part of the form definition but carry read-only values only if at all  |
+| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
+| labelformat="..." | format string used for labels exclusively; labels aren't real input fields; they are part of the form definition but carry read-only values only if at all  | same as =format= |
 
 If all three =format=, =header= and =footer= are undefined a =foswikiFormSteps= block will be rendered as illustrated in the example below.
 
@@ -63,7 +77,7 @@ The =format= parameter may contain the following pseudo-variables:
    * =$name=: the original fieldname
    * =$size=: size parameter of the formfield as given in the !DataForm definition
    * =$title=: the fieldtitle derived from the fieldname and remapped as specified in the =map= parameter
-   * =$tooltip=: formfield description in !DataForm (deprecated: use =$description= instead)
+   * =$tooltip=: formfield description in !DataForm (*deprecated*: use =$description= instead)
    * =$type=: type of formfield as given in the !DataForm definition
    * =$values=: list of all allowed values for the formfield as defined in the !DataForm definition
 
@@ -92,6 +106,7 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  10 Mar 2010: | added fine-grained control over each formfield, i.e. remapping of the formfield type |
 |  08 Mar 2010: | initial release |
 |  Dependencies: | None |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
