@@ -1,6 +1,6 @@
 %META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1268228083" format="1.1" reprev="1.2" version="1.2"}%
 ---+!! %TOPIC%
-%$SHORTDESCRIPTION%
+Flexible way to render %SYSTEMWEB%.DataForms
 
 %TOC%
 
@@ -18,6 +18,9 @@ by creating an HTML input form manually. When you decide to extend or modify a f
 you will always have to maintain these HTML forms in an EDIT_TEMPLATE as well. This redundancy can
 be avoided by using a %<nop>RENDERFOREDIT macro that loops over all formfields in your !DataForm
 to render the input form in a more dynamic way while still customizing the overall output.
+
+In addition, !FlexFormPlugin facilitates the extraction of field default values (such as valid schema options) from 
+!DataForm. See http://foswiki.org/Development/MacroForRetreivingFieldDefaultValues for background.
 
 ---++ Usage
 ---+++ RENDERFOREDIT
@@ -61,6 +64,7 @@ to render the input form in a more dynamic way while still customizing the overa
 | header="..." | header string to be put in front of the output | &lt;empty string> |
 | footer="..." | footer string to apped to the output | &lt;empty string> |
 | separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
+| optionsSeparator="..." | string to be put between each formatted option | , |
 | include="..." | regular expression fieldnames must match to be included in the output | undefined |
 | exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
 | map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
@@ -80,9 +84,21 @@ The =format= parameter may contain the following pseudo-variables:
    * =$tooltip=: formfield description in !DataForm (*deprecated*: use =$description= instead)
    * =$type=: type of formfield as given in the !DataForm definition
    * =$values=: list of all allowed values for the formfield as defined in the !DataForm definition
+   * =$options=: list of schema default values for the formfield as defined in the !DataForm definition
 
 
 ---++ Examples
+
+<verbatim>
+%RENDERFOREDIT{
+  form="%USERSWEB%.UserForm"
+  exclude="Email|Comment|State"
+  FirstName_value="Horst"
+  LastName_value="Buchholz"
+  map="VoIP=Skype"
+}%
+</verbatim>
+
 %RENDERFOREDIT{
   form="%USERSWEB%.UserForm"
   exclude="Email|Comment|State"
@@ -91,9 +107,16 @@ The =format= parameter may contain the following pseudo-variables:
   map="VoIP=Skype"
 }%
 
+---+++ Show just the field default values ("options") of one field
+
+<verbatim>
+%RENDERFORDISPLAY{
+  form="ValueTransactionForm" field="FromRole" format="!$title=$options" optionsSeparator=","
+}%
+</verbatim>
+
 ---++ Installation Instructions
 %$INSTALL_INSTRUCTIONS%
-
 
 ---++ Info
 
@@ -106,6 +129,7 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  11 Mar 2010: | added $options to provide extraction of field default values |
 |  10 Mar 2010: | added fine-grained control over each formfield, i.e. remapping of the formfield type |
 |  08 Mar 2010: | initial release |
 |  Dependencies: | None |

@@ -75,6 +75,7 @@ sub handleRENDERFORDISPLAY {
   my $theHeader = $params->{header};
   my $theFooter = $params->{footer};
   my $theSep = $params->{separator} || '';
+  my $theOptionsSep = $params->{optionsSeparator} || ',';
   my $theInclude = $params->{include};
   my $theExclude = $params->{exclude};
   my $theMap = $params->{map} || '';
@@ -203,6 +204,11 @@ sub handleRENDERFORDISPLAY {
     }); # SMELL what about the attrs param in Foswiki::Form
         # SMELL wtf is this attr anyway
     $fieldTitle = $fieldTitles->{$fieldName} if $fieldTitles && $fieldTitles->{$fieldName};
+
+    # Calling this $options is counterintuitive, but that's what the core calls it
+    # probably because it was used to fill HTML Form options
+    my $options = getOptions($field, $topicObj,$theOptionsSep);   
+    $line =~ s/\$options\b/$options/g;
 
 
     $line =~ s/\$name\b/$fieldName/g;
@@ -432,5 +438,16 @@ sub handleRENDERFOREDIT {
 
   return '<noautolink>'.$theHeader.join($theSep, @result).$theFooter.'</noautolink>';
 }
+
+
+sub getOptions {
+    my ($fieldDef, $topicObject, $sep) = @_;
+
+    my $options = $fieldDef->getOptions();
+    my $ans = join($sep, @$options);
+    return $ans;
+    
+}
+
 
 1;
