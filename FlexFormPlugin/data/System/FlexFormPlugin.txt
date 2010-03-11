@@ -111,7 +111,7 @@ The =format= parameter may contain the following pseudo-variables:
 
 <verbatim>
 %RENDERFORDISPLAY{
-  form="ValueTransactionForm" field="FromRole" format="!$title=$options" optionsSeparator=","
+  form="ValueTransactionForm" field="FromRole" format="!$title=$options" optionsseparator=","
 }%
 </verbatim>
 
@@ -129,7 +129,7 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  11 Mar 2010: | added $options to provide extraction of field default values |
+|  11 Mar 2010: | Foswiki:Main.MartinCleaver - added $options to provide extraction of field default values |
 |  10 Mar 2010: | added fine-grained control over each formfield, i.e. remapping of the formfield type |
 |  08 Mar 2010: | initial release |
 |  Dependencies: | None |

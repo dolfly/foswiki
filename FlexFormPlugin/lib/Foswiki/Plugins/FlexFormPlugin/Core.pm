@@ -75,7 +75,7 @@ sub handleRENDERFORDISPLAY {
   my $theHeader = $params->{header};
   my $theFooter = $params->{footer};
   my $theSep = $params->{separator} || '';
-  my $theOptionsSep = $params->{optionsSeparator} || ',';
+  my $theOptionsSep = $params->{optionsseparator} || ',';
   my $theInclude = $params->{include};
   my $theExclude = $params->{exclude};
   my $theMap = $params->{map} || '';
