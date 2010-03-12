@@ -75,7 +75,7 @@ sub handleRENDERFORDISPLAY {
   my $theHeader = $params->{header};
   my $theFooter = $params->{footer};
   my $theSep = $params->{separator} || '';
-  my $theOptionsSep = $params->{optionsseparator} || ',';
+  my $theValueSep = $params->{valueseparator} || ', ';
   my $theInclude = $params->{include};
   my $theExclude = $params->{exclude};
   my $theMap = $params->{map} || '';
@@ -90,6 +90,9 @@ sub handleRENDERFORDISPLAY {
     $theFormat = $templates->expandTemplate('FORM:display:row');
   }
 
+  $theHeader ||= '';
+  $theFooter ||= '';
+  $theFormat ||= '';
 
   # make it compatible
   $theHeader =~ s/%A_TITLE%/\$title/g;
@@ -151,7 +154,19 @@ sub handleRENDERFORDISPLAY {
     my $fieldDescription = $field->{tooltip};
     my $fieldTitle = $field->{title};
     my $fieldDefiningTopic = $field->{definingTopic};
-    my $fieldAllowedValues = $field->{value};
+
+    my $fieldAllowedValues = '';
+    if ($field->can('getOptions')) {
+      my $options = $field->getOptions();
+      if ($options) {
+        $fieldAllowedValues = join($theValueSep, @$options);
+      }
+    }
+
+    my $fieldDefault = '';
+    if ($field->can('getDefault')) {
+      $fieldDefault = $field->getDefault() || '';
+    }
 
     $fieldSize = $params->{$fieldName.'_size'} if defined $params->{$fieldName.'_size'};
     $fieldAttrs = $params->{$fieldName.'_attributes'} if defined $params->{$fieldName.'_attributes'};
@@ -159,6 +174,7 @@ sub handleRENDERFORDISPLAY {
     $fieldDescription = $params->{$fieldName.'_description'} if defined $params->{$fieldName.'_description'};
     $fieldTitle = $params->{$fieldName.'_title'} if defined $params->{$fieldName.'_title'}; # see also map
     $fieldAllowedValues = $params->{$fieldName.'_values'} if defined $params->{$fieldName.'_values'};
+    $fieldDefault = $params->{$fieldName.'_default'} if defined $params->{$fieldName.'_default'};
 
     # temporarily remap field to another type
     my $fieldClone;
@@ -187,7 +203,7 @@ sub handleRENDERFORDISPLAY {
       $fieldName = Foswiki::Form::fieldTitle2FieldName($fieldName);
       $metaField = $topicObj->get('FIELD', $fieldName );
     }
-    my $fieldValue = $metaField?$metaField->{value}:'';
+    my $fieldValue = $metaField?$metaField->{value}:$fieldDefault;
 
     next if $theInclude && $fieldName !~ /^($theInclude)$/;
     next if $theExclude && $fieldName =~ /^($theExclude)$/;
@@ -198,6 +214,9 @@ sub handleRENDERFORDISPLAY {
       $line = $theLabelFormat;
     }
 
+    # some must be expanded before renderForDisplay
+    $line =~ s/\$values\b/$fieldAllowedValues/g;
+
     $line = $field->renderForDisplay($line, $fieldValue, {
       bar=>'|', # SMELL: keep bars
       newline=>'$n', # SMELL: keep newlines
@@ -205,17 +224,12 @@ sub handleRENDERFORDISPLAY {
         # SMELL wtf is this attr anyway
     $fieldTitle = $fieldTitles->{$fieldName} if $fieldTitles && $fieldTitles->{$fieldName};
 
-    # Calling this $options is counterintuitive, but that's what the core calls it
-    # probably because it was used to fill HTML Form options
-    my $options = getOptions($field, $topicObj,$theOptionsSep);   
-    $line =~ s/\$options\b/$options/g;
-
-
     $line =~ s/\$name\b/$fieldName/g;
     $line =~ s/\$type\b/$fieldType/g;
     $line =~ s/\$size\b/$fieldSize/g;
     $line =~ s/\$attrs\b/$fieldAttrs/g;
     $line =~ s/\$value\b/$fieldValue/g;
+    $line =~ s/\$default\b/$fieldDefault/g;
     $line =~ s/\$tooltip\b/$fieldDescription/g;
     $line =~ s/\$description\b/$fieldDescription/g;
     $line =~ s/\$title\b/$fieldTitle/g;
@@ -249,6 +263,7 @@ sub handleRENDERFOREDIT {
   my $theFooter = $params->{footer};
   my $theSep = $params->{separator} || '';
   my $theInclude = $params->{include};
+  my $theValueSep = $params->{valueseparator} || ', ';
   my $theExclude = $params->{exclude};
   my $theMap = $params->{map} || '';
   my $theMandatory = $params->{mandatory};
@@ -324,8 +339,22 @@ sub handleRENDERFOREDIT {
     my $fieldAttrs = $field->{attributes};
     my $fieldDescription = $field->{tooltip};
     my $fieldTitle = $field->{title};
-    my $fieldAllowedValues = $field->{value};
     my $fieldDefiningTopic = $field->{definingTopic};
+
+    # get the list of all allowed values
+    my $fieldAllowedValues = '';
+    if ($field->can('getOptions')) {
+      my $options = $field->getOptions();
+      if ($options) {
+        $fieldAllowedValues = join($theValueSep, @$options);
+      }
+    }
+
+    # get the default value
+    my $fieldDefault = '';
+    if ($field->can('getDefault')) {
+      $fieldDefault = $field->getDefault() || '';
+    }
 
     $fieldSize = $params->{$fieldName.'_size'} if defined $params->{$fieldName.'_size'};
     $fieldAttrs = $params->{$fieldName.'_attributes'} if defined $params->{$fieldName.'_attributes'};
@@ -333,6 +362,7 @@ sub handleRENDERFOREDIT {
     $fieldDescription = $params->{$fieldName.'_description'} if defined $params->{$fieldName.'_description'};
     $fieldTitle = $params->{$fieldName.'_title'} if defined $params->{$fieldName.'_title'}; # see also map
     $fieldAllowedValues = $params->{$fieldName.'_values'} if defined $params->{$fieldName.'_values'};
+    $fieldDefault = $params->{$fieldName.'_default'} if defined $params->{$fieldName.'_default'};
 
     # temporarily remap field to another type
     my $fieldClone;
@@ -375,8 +405,9 @@ sub handleRENDERFOREDIT {
         $fieldName = Foswiki::Form::fieldTitle2FieldName($fieldName);
         $metaField = $topicObj->get('FIELD', $fieldName );
       }
-      $fieldValue = $metaField?$metaField->{value}:'';
     }
+
+    $fieldValue = $fieldDefault unless defined $fieldValue;
 
     next if $theInclude && $fieldName !~ /^($theInclude)$/;
     next if $theExclude && $fieldName =~ /^($theExclude)$/;
@@ -408,6 +439,7 @@ sub handleRENDERFOREDIT {
     }
 
     $fieldEdit =~ s/\0//g;
+    $fieldValue =~ s/\0//g;
 
     my $line = $isHidden?$theHiddenFormat:$theFormat;
     $fieldTitle = $fieldTitles->{$fieldName} if $fieldTitles && $fieldTitles->{$fieldName};
@@ -420,7 +452,9 @@ sub handleRENDERFOREDIT {
     $line =~ s/\$type\b/$fieldType/g;
     $line =~ s/\$size\b/$fieldSize/g;
     $line =~ s/\$attrs\b/$fieldAttrs/g;
-    $line =~ s/\$values?\b/$fieldAllowedValues/g;
+    $line =~ s/\$values\b/$fieldAllowedValues/g;
+    $line =~ s/\$value\b/$fieldValue/g;
+    $line =~ s/\$default\b/$fieldDefault/g;
     $line =~ s/\$tooltip\b/$fieldDescription/g;
     $line =~ s/\$description\b/$fieldDescription/g;
     $line =~ s/\$title\b/$fieldTitle/g;
@@ -437,16 +471,6 @@ sub handleRENDERFOREDIT {
   }
 
   return '<noautolink>'.$theHeader.join($theSep, @result).$theFooter.'</noautolink>';
-}
-
-
-sub getOptions {
-    my ($fieldDef, $topicObject, $sep) = @_;
-
-    my $options = $fieldDef->getOptions();
-    my $ans = join($sep, @$options);
-    return $ans;
-    
 }
 
 

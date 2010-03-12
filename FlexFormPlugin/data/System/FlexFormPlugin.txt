@@ -36,6 +36,7 @@ In addition, !FlexFormPlugin facilitates the extraction of field default values 
   &lt;fieldname>_size="..." %BR% \
   &lt;fieldname>_attributes="..." %BR% \
   &lt;fieldname>_description="..." %BR% \
+  &lt;fieldname>_default="..." %BR% \
   &lt;fieldname>_values="..." %BR% | these parameters allow to override the formfield properties as specified in the !DataForm definition; for example a =Teaser_type="text"= , =Teaser_size="30"= will override a definition of a =Teaser= formfield that otherwise is a =textarea= of size =80x25=; &lt;fieldname>_values redefines the list of allowed values for that field | values as defined in the !DataForm definition and the current topic |
 | format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
 | header="..." | header string to be put in front of the output | &lt;empty string> |
@@ -59,12 +60,13 @@ In addition, !FlexFormPlugin facilitates the extraction of field default values 
   &lt;fieldname>_size="..." %BR% \
   &lt;fieldname>_attributes="..." %BR% \
   &lt;fieldname>_description="..." %BR% \
+  &lt;fieldname>_default="..." %BR% \
   &lt;fieldname>_values="..." %BR% | see above | defaults as defined in the !DataForm definition and the current topic |
 | format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
 | header="..." | header string to be put in front of the output | &lt;empty string> |
 | footer="..." | footer string to apped to the output | &lt;empty string> |
 | separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
-| optionsSeparator="..." | string to be put between each formatted option | , |
+| valueseparator="..." | string to be put between each allowed value as defined in the form schema | , |
 | include="..." | regular expression fieldnames must match to be included in the output | undefined |
 | exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
 | map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
@@ -83,9 +85,9 @@ The =format= parameter may contain the following pseudo-variables:
    * =$title=: the fieldtitle derived from the fieldname and remapped as specified in the =map= parameter
    * =$tooltip=: formfield description in !DataForm (*deprecated*: use =$description= instead)
    * =$type=: type of formfield as given in the !DataForm definition
+   * =$value=: current value of the formfield
    * =$values=: list of all allowed values for the formfield as defined in the !DataForm definition
-   * =$options=: list of schema default values for the formfield as defined in the !DataForm definition
-
+   * =$default=: this is the default value if no value is specified in the topic itself
 
 ---++ Examples
 
@@ -107,11 +109,13 @@ The =format= parameter may contain the following pseudo-variables:
   map="VoIP=Skype"
 }%
 
----+++ Show just the field default values ("options") of one field
+---+++ Display the allowed values of one field and its default
 
 <verbatim>
 %RENDERFORDISPLAY{
-  form="ValueTransactionForm" field="FromRole" format="!$title=$options" optionsseparator=","
+  form="ValueTransactionForm" 
+  field="FromRole" 
+  format="allowed values for $title are $values, default is '$default'"
 }%
 </verbatim>
 
@@ -130,7 +134,8 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  11 Mar 2010: | Foswiki:Main.MartinCleaver - added $options to provide extraction of field default values |
+|  12 Mar 2010: | cleaned up =$value= and =$values= variable in both RENDERFOREDIT and RENDERFORIDPLSAY;\
+                  added =$default= |
 |  10 Mar 2010: | added fine-grained control over each formfield, i.e. remapping of the formfield type |
 |  08 Mar 2010: | initial release |
 |  Dependencies: | None |
