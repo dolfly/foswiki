@@ -169,6 +169,10 @@ package Foswiki::Plugins::ChartPlugin::Chart;
 
 use Exporter;
 use GD;
+# http://foswiki.org/Tasks/Item1322 - prevent taint issue on 
+gdBrushed; gdDashSize; gdMaxColors; gdStyled; gdStyledBrushed; gdTiled; gdTransparent; gdAntiAliased; 
+gdArc; gdChord; gdPie; gdNoFill; gdEdged; 
+gdTinyFont; gdSmallFont; gdMediumBoldFont; gdLargeFont; gdGiantFont; gdAlphaMax; gdAlphaOpaque; gdAlphaTransparent;
 use POSIX;
 @ISA = ();
 @EXPORT = qw(
