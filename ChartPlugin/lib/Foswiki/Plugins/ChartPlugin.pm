@@ -51,7 +51,7 @@ use vars qw(
 
 $VERSION = '$Rev: 13790 $';
 
-$RELEASE = '07 Jan 2010';
+$RELEASE = '13 Mar 2010';
 
 $pluginInitialized = 0;
 $initError = '';
@@ -94,6 +94,11 @@ sub _init_defaults {
             return;
         }
     }
+
+    # http://foswiki.org/Tasks/Item1322 - prevent taint issue on certain combinations of perl/gd/cpan
+    gdBrushed; gdDashSize; gdMaxColors; gdStyled; gdStyledBrushed; gdTiled;
+    gdTransparent; gdAntiAliased; gdArc; gdChord; gdPie; gdNoFill; gdEdged;
+    gdTinyFont; gdSmallFont; gdMediumBoldFont; gdLargeFont; gdGiantFont; gdAlphaMax; gdAlphaOpaque; gdAlphaTransparent;
 
     # Get default chart type
     $defaultType = Foswiki::Func::getPreferencesValue( "CHARTPLUGIN_TYPE" ) || 'line';
