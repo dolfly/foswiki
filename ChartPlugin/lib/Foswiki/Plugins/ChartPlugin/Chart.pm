@@ -169,7 +169,7 @@ package Foswiki::Plugins::ChartPlugin::Chart;
 
 use Exporter;
 use GD;
-# http://foswiki.org/Tasks/Item1322 - prevent taint issue on 
+# http://foswiki.org/Tasks/Item1322 - prevent taint issue with certain combinations of perl/gd/cpan
 gdBrushed; gdDashSize; gdMaxColors; gdStyled; gdStyledBrushed; gdTiled; gdTransparent; gdAntiAliased; 
 gdArc; gdChord; gdPie; gdNoFill; gdEdged; 
 gdTinyFont; gdSmallFont; gdMediumBoldFont; gdLargeFont; gdGiantFont; gdAlphaMax; gdAlphaOpaque; gdAlphaTransparent;
