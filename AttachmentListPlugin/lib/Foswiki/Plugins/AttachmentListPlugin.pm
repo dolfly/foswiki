@@ -42,7 +42,7 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.3.3';
+$RELEASE = '1.3.4';
 
 $pluginName = 'AttachmentListPlugin';
 
@@ -128,8 +128,12 @@ sub _handleFileList {
     $files = _sortFiles( $files, $inParams ) if defined $inParams->{'sort'};
 
     # limit files if param limit is defined
-    splice @$files, $inParams->{'limit'}
-      if defined $inParams->{'limit'};
+    my $limit = $inParams->{'limit'};
+    $limit =~ m/([0-9]+)/;
+    $limit = $1;
+    if ($limit && $limit <= scalar(@$files)) {
+        splice @$files, $inParams->{'limit'}
+    }
 
     # format
     my $formatted = _formatFileData( $session, $files, $inParams );
