@@ -24,6 +24,7 @@ my $errFile = $ARGV[4];    # Error file
 my $logFile = $ARGV[5];    # Debug file if debug enabled, otherwise null
 
 my $debug = 1 if $logFile;
+my $verbose = ( $debug ? '-v' : '' );
 
 if ($debug) {
     open( DEBUGFILE, ">>$logFile" );
@@ -60,7 +61,7 @@ close ERRFILE;
 
 # GV_FILE_PATH need to be set for dot to load custom icons (shapefiles)
 $ENV{'GV_FILE_PATH'} = "$libDir" . "/";
-my $execCmd = "$runCmd $inFile $ioStr 2> $errFile ";
+my $execCmd = "$runCmd $verbose $inFile $ioStr 2> $errFile ";
 
 if ($debug) {
     open( DEBUGFILE, ">>$logFile" );
