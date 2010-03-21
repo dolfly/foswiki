@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-my $runCmd  = "$ARGV[0]";    # Command to be executed
-my $libDir  = "$ARGV[1]";    # Library directory
-my $inFile  = "$ARGV[2]";    # Input file
-my $ioStr   = "$ARGV[3]";    # Parameters
-my $errFile = "$ARGV[4]";    # Error file
-my $logFile = "$ARGV[5]";    # Debug file if debug enabled, otherwise null
+my $runCmd  = $ARGV[0];    # Command to be executed
+my $libDir  = $ARGV[1];    # Library directory
+my $inFile  = $ARGV[2];    # Input file
+my $ioStr   = $ARGV[3];    # Parameters
+my $errFile = $ARGV[4];    # Error file
+my $logFile = $ARGV[5];    # Debug file if debug enabled, otherwise null
 
 my $debug = 1 if $logFile;
 
