@@ -42,7 +42,7 @@ if ( $#ARGV != 5 ) {
 "Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile\n";
 }
 
-open( ERRFILE, "$errFile" );
+open( ERRFILE, ">>$errFile" );
 print ERRFILE "";
 close ERRFILE;
 
