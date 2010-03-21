@@ -33,13 +33,18 @@ if ($debug) {
 }
 
 if ( $#ARGV != 5 ) {
-    open( DEBUGFILE, ">>$logFile" );
-    print DEBUGFILE "Received $#ARGV parameters \n";
-    print DEBUGFILE
-"Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile\n";
-    close DEBUGFILE;
-    die
-"Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile\n";
+    my $usage = <<EOT;
+Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile logfile
+
+EOT
+
+    if ($debug) {
+        open( DEBUGFILE, ">>$logFile" );
+        print DEBUGFILE "Received $#ARGV parameters \n";
+        print DEBUGFILE $usage;
+        close DEBUGFILE;
+    }
+    die $usage;
 }
 
 open( ERRFILE, ">>$errFile" );
