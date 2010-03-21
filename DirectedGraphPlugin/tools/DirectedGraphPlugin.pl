@@ -80,13 +80,42 @@ if ( $? != 0 ) {
         );
     }
     else {
-        $execError = sprintf( "child exited with value %d\n", $? >> 8 );
+        if ( $? >> 8 == 1 ) {
+
+            # dot could be signalling warnings rather than fatal errors so
+            # check if it actually created the output files before we die
+            my @dotfiles = $ioStr =~ /-o(\S+)/g;
+            foreach my $dotfile (@dotfiles) {
+                unless ( -s $dotfile ) {
+                    $execError =
+                      sprintf( "child exited with value %d\n", $? >> 8 );
+                    last;
+                }
+            }
+        }
+        else {
+            $execError = sprintf( "child exited with value %d\n", $? >> 8 );
+        }
     }
 
-    open( ERRFILE, ">>$errFile" );
-    print ERRFILE
-      "Problem executing dot command: '$execCmd', got:\n $execError\n ";
-    close ERRFILE;
-    die "Problem executing dot command";
+    if ($execError) {
+        if ($debug) {
+            open( DEBUGFILE, ">>$logFile" );
+            print DEBUGFILE "$execError\n";
+            close DEBUGFILE;
+        }
+
+        open( ERRFILE, ">>$errFile" );
+        print ERRFILE "Problem executing dot command: '$execCmd', got:\n";
+        print ERRFILE "$execError\n ";
+        close ERRFILE;
+        die "Problem executing dot command";
+    }
+}
+
+if ($debug) {
+    open( DEBUGFILE, ">>$logFile" );
+    print DEBUGFILE "dot exited with value ".($? >> 8)."\n";
+    close DEBUGFILE;
 }
 1;
