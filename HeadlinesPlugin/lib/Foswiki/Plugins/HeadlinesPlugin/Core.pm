@@ -3,7 +3,7 @@
 # Copyright (C) 2002-2006 Peter Thoeny, peter@thoeny.org
 # Copyright (C) 2005-2006 Michael Daum <micha@nats.informatik.uni-hamburg.de>
 # Copyright (C) 2005 TWiki Contributors
-# Copyright (C) 2009 Foswiki Contributors 
+# Copyright (C) 2009,2010 Foswiki Contributors 
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -305,16 +305,18 @@ sub doInit {
   $isInitialized = 1;
 
   # Get plugin preferences
-  $defaultRefresh = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_REFRESH') || 60;
-  $defaultLimit   = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_LIMIT') || 100;
+  $defaultRefresh = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_REFRESH');
+  $defaultRefresh = 60 unless length $defaultRefresh;
+  $defaultLimit   = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_LIMIT');
+  $defaultLimit   = 100 unless length $defaultLimit;
   $defaultHeader  = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_HEADER') ||
     '| *[[$link][$title ]]* |';
   $defaultFormat  = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_FORMAT') ||
     '| [[$link][$title]] |';
   $useLWPUserAgent = Foswiki::Func::getPreferencesValue('HEADLINESPLUGIN_USELWPUSERAGENT') 
     || 'on';
-  $userAgentTimeout = Foswiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTTIMEOUT")
-    || 20;
+  $userAgentTimeout = Foswiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTTIMEOUT");
+  $userAgentTimeout = 20 unless length $userAgentTimeout;
   $userAgentName = Foswiki::Func::getPreferencesValue("HEADLINESPLUGIN_USERAGENTNAME") ||
     'FoswikiHeadlinesPlugin/' . $Foswiki::Plugins::HeadlinesPlugin::RELEASE;
 

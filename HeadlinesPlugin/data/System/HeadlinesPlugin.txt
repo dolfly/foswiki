@@ -126,9 +126,9 @@ Plugin settings are stored as preferences variables. To reference a plugin setti
    * Timeout fetching a feed using the LWP::UserAgent. Default: =20=
       * Set USERAGENTTIMEOUT = 20
 
-   * Name of user agent. Default: =FoswikiHeadlinesPlugin/2.21.1=
+   * Name of user agent. Default: =FoswikiHeadlinesPlugin/2.21.2=
 <verbatim>
-      * Set USERAGENTNAME = FoswikiHeadlinesPlugin/2.21.1
+      * Set USERAGENTNAME = FoswikiHeadlinesPlugin/2.21.2
 </verbatim>
 
    * Default header: (variables are explained in the syntax rules)
@@ -179,6 +179,7 @@ Check if above examples show a news feed instead of variable.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
+|  09 Mar 2010: | can now use =0= properly with =HEADLINESPLUGIN_REFRESH=, =HEADLINESPLUGIN_LIMIT=, =HEADLINESPLUGIN_USERAGENTTIMEOUT= |
 |  08 Mar 2009: | Ported without changes to Foswiki namespace by Kenneth Lavrsen and put under "Feel Free To Modify" in Foswiki context. |
 |  12 Feb 2009: | {PROXY}{HOST} supports domain with and without protocol -- Peter Thoeny |
 |  06 Feb 2009: | added {PROXY}{SkipProxyForDomains} configure setting, added USERAGENTNAME plugin setting -- Peter Thoeny |
