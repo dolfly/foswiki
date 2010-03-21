@@ -5,7 +5,7 @@ File::Path,>=0,cpan,Required
 File::Temp,>=0,cpan,Required if Foswiki configure is missing tempfile setting 
 File::Spec,>=0,cpan,Required 
 Storable,>=0,cpan,Required for saving attachment hash values and parameters 
-htmldoc,,external,Required 
+graphviz,>=0,external,Required
 msttcorefonts,,external,Optional - truetype font support.
 imagemagick,,external,Optional - may be required for antialias support
 ghostscript,,external,Optional - may be required for antialias support
