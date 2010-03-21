@@ -25,12 +25,13 @@ my $logFile = $ARGV[5];    # Debug file if debug enabled, otherwise null
 
 my $debug = 1 if $logFile;
 my $verbose = ( $debug ? '-v' : '' );
+my $log;
 
 if ($debug) {
-    open( DEBUGFILE, ">>$logFile" );
-    print DEBUGFILE "\n----\nCalling dot; got parameters:\n";
-    print DEBUGFILE join( "\n", @ARGV ) . "\n";
-    close DEBUGFILE;
+    open( $log, '>>', $logFile ) ||
+        die "Could not open $logFile for writing: $!";
+    print $log "\n----\nCalling $runCmd; got parameters:\n";
+    print $log join( "\n", @ARGV ) . "\n";
 }
 
 if ( $#ARGV != 5 ) {
@@ -40,17 +41,11 @@ Usage: DirectedGraphPlugin.pl dot_executable working_dir infile iostring errfile
 EOT
 
     if ($debug) {
-        open( DEBUGFILE, ">>$logFile" );
-        print DEBUGFILE "Received $#ARGV parameters \n";
-        print DEBUGFILE $usage;
-        close DEBUGFILE;
+        print $log "Received $#ARGV parameters \n";
+        print $log $usage;
     }
     die $usage;
 }
-
-open( ERRFILE, ">>$errFile" );
-print ERRFILE "";
-close ERRFILE;
 
 # SERVER_NAME and GV_FILE_PATH need to be set for dot to load custom icons
 # (shapefiles)
@@ -59,10 +54,8 @@ $ENV{'GV_FILE_PATH'} = "$libDir" . "/";
 my $execCmd = "$runCmd $verbose $inFile $ioStr 2> $errFile ";
 
 if ($debug) {
-    open( DEBUGFILE, ">>$logFile" );
-    print DEBUGFILE "Built command line: " . $execCmd . "\n";
-    print DEBUGFILE "  Env GV_FILE_PATH: " . $ENV{'GV_FILE_PATH'} . "\n";
-    close DEBUGFILE;
+    print $log "Built command line: $execCmd\n";
+    print $log "  Env GV_FILE_PATH: " . $ENV{'GV_FILE_PATH'} . "\n";
 }
 
 my $execError = "";
@@ -70,11 +63,11 @@ system("$execCmd");    # Execute the command
 
 if ( $? != 0 ) {
     if ( $? == -1 ) {
-        $execError = "failed to execute: $!\n";
+        $execError = "$runCmd failed to execute: $!";
     }
     elsif ( $? & 127 ) {
         $execError = sprintf(
-            "child died with signal %d, %s coredump\n",
+            "$runCmd died with signal %d, %s coredump\n",
             ( $? & 127 ),
             ( $? & 128 ) ? 'with' : 'without'
         );
@@ -86,36 +79,36 @@ if ( $? != 0 ) {
             # check if it actually created the output files before we die
             my @dotfiles = $ioStr =~ /-o(\S+)/g;
             foreach my $dotfile (@dotfiles) {
+                if ($debug) {
+                    print $log "Confirming generated file $dotfile, len=".(-s $dotfile)."\n";
+                }
                 unless ( -s $dotfile ) {
-                    $execError =
-                      sprintf( "child exited with value %d\n", $? >> 8 );
+                    $execError = "$runCmd exited with rc=".($? >> 8);
                     last;
                 }
             }
         }
         else {
-            $execError = sprintf( "child exited with value %d\n", $? >> 8 );
+            $execError = "$runCmd exited with rc=".($? >> 8);
         }
     }
 
     if ($execError) {
         if ($debug) {
-            open( DEBUGFILE, ">>$logFile" );
-            print DEBUGFILE "$execError\n";
-            close DEBUGFILE;
+            print $log "$execError\n";
+            close $log;
         }
 
-        open( ERRFILE, ">>$errFile" );
-        print ERRFILE "Problem executing dot command: '$execCmd', got:\n";
-        print ERRFILE "$execError\n ";
-        close ERRFILE;
-        die "Problem executing dot command";
+        open( my $err, '>>', $errFile ) ||
+            die "Problem executing $runCmd: $execError";
+        print $err "Problem executing $runCmd: '$execCmd', got:\n";
+        print $err "$execError\n ";
+        close $err;
+        die "Problem executing $runCmd: $execError";
     }
 }
 
 if ($debug) {
-    open( DEBUGFILE, ">>$logFile" );
-    print DEBUGFILE "dot exited with value ".($? >> 8)."\n";
-    close DEBUGFILE;
+    print $log "$runCmd exited with rc=".($? >> 8)."\n";
+    close $log;
 }
-1;
