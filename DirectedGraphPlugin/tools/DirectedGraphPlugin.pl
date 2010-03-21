@@ -11,7 +11,7 @@
 # implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 # Support script for sandbox security mechanism for DirectedGraphPlugin
-# Sets the proper working dir and calls dot
+# Sets environment variables GV_FILE_PATH and SERVER_NAME and calls dot
 
 use strict;
 use warnings;
@@ -52,14 +52,9 @@ open( ERRFILE, ">>$errFile" );
 print ERRFILE "";
 close ERRFILE;
 
-#unless ( chdir "$libDir" ) {
-#    open( ERRFILE, ">>$errFile" );
-#    print ERRFILE "Couldn't change working dir to $libDir: $!\n";
-#    close ERRFILE;
-#    die "Couldn't change working dir to $libDir: $!\n";
-#}
-
-# GV_FILE_PATH need to be set for dot to load custom icons (shapefiles)
+# SERVER_NAME and GV_FILE_PATH need to be set for dot to load custom icons
+# (shapefiles)
+$ENV{'SERVER_NAME'} = "localhost" unless ( $ENV{'SERVER_NAME'} );
 $ENV{'GV_FILE_PATH'} = "$libDir" . "/";
 my $execCmd = "$runCmd $verbose $inFile $ioStr 2> $errFile ";
 
