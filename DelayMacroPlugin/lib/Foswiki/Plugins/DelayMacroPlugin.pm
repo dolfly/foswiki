@@ -27,7 +27,7 @@ use Foswiki::Plugins ();    # For the API version
 our $VERSION = '$Rev: 5771 $';
 
 # $RELEASE is used in the "Find More Extensions" automation in configure.
-our $RELEASE = '1.0';
+our $RELEASE = '1.1';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
@@ -114,7 +114,7 @@ sub _delayMacro {
     my $delay = defined $params->{delay} ? $params->{delay} : 1;
     $delay = 1 unless $delay =~ /\d+/;
     my $macro = $params->{macro} || 'SEARCH';
-    my $default = $params->{_DEFAULT};
+    my $default = defined $params->{_DEFAULT} ? $params->{_DEFAULT} : '';
     my $result = '';
 
     if ( $delay-- > 0 ) {

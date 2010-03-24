@@ -119,6 +119,7 @@ One line description, required for extensions repository catalog.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  24 Mar 2010 (1.1) | Fixed the code so it does not fail showing runtime errors if you forget to give it a macro text to delay. It now defaults to '' |
 |  03 Mar 2010 (1.0) | Initial release |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
