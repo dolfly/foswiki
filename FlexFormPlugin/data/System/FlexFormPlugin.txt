@@ -134,9 +134,10 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  24 Mar 2010: | fixed error where topic values were not inserted into the edit form properly |
 |  12 Mar 2010: | cleaned up =$value= and =$values= variable in both RENDERFOREDIT and RENDERFORIDPLSAY;\
                   added =$default= |
-|  11 Mar 2010: | Foswiki:Main.MartinCleaver - added ability to provide extraction of field default values Foswiki:Tasks.Item8671 | 
+|  11 Mar 2010: | Foswiki:Main.MartinCleaver - added ability to extract allowed values of a field Foswiki:Tasks.Item8671 | 
 |  10 Mar 2010: | added fine-grained control over each formfield, i.e. remapping of the formfield type |
 |  08 Mar 2010: | initial release |
 |  Dependencies: | None |

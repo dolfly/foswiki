@@ -405,6 +405,7 @@ sub handleRENDERFOREDIT {
         $fieldName = Foswiki::Form::fieldTitle2FieldName($fieldName);
         $metaField = $topicObj->get('FIELD', $fieldName );
       }
+      $fieldValue = $metaField->{value} if $metaField;
     }
 
     $fieldValue = $fieldDefault unless defined $fieldValue;
