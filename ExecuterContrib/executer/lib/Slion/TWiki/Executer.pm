@@ -6,7 +6,8 @@ use strict;
 use warnings;
 
 package Slion::TWiki::Executer;
-use base 'Slion::TWiki::Client';
+use Slion::TWiki::Client;
+our @ISA = qw( Slion::TWiki::Client );
 
 use vars qw($VERSION);
 $VERSION = '1.00';

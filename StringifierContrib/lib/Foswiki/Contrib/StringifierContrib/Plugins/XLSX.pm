@@ -14,7 +14,8 @@
 # For licensing info read LICENSE file in the Foswiki root.
 
 package Foswiki::Contrib::StringifierContrib::Plugins::XLSX;
-use base 'Foswiki::Contrib::StringifierContrib::Base';
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 __PACKAGE__->register_handler("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", ".xlsx");
 
 use Text::Iconv;

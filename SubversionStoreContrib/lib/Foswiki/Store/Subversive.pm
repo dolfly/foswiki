@@ -2,7 +2,8 @@
 
 # Equivalent of RcsWrap and RcsLite for a subversion checkout area
 package Foswiki::Store::Subversive;
-use base 'Foswiki::Store::RcsFile';
+use Foswiki::Store::RcsFile;
+our @ISA = qw( Foswiki::Store::RcsFile );
 
 use strict;
 use Assert;

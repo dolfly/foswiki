@@ -13,7 +13,8 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::StringifierContrib::Plugins::DOC_wv;
-use base 'Foswiki::Contrib::StringifierContrib::Base';
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use File::Temp qw/tempdir/;
 
 my $wvHtml = $Foswiki::cfg{StringifierContrib}{wvHtmlCmd} || 'wvHtml';

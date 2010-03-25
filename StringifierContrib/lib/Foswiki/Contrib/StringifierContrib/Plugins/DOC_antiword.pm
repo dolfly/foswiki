@@ -13,7 +13,8 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::StringifierContrib::Plugins::DOC_antiword;
-use base 'Foswiki::Contrib::StringifierContrib::Base';
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use File::Temp qw/tmpnam/;
 use Encode;
 use CharsetDetector;

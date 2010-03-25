@@ -14,7 +14,8 @@
 # For licensing info read LICENSE file in the Foswiki root.
 
 package Foswiki::Contrib::StringifierContrib::Plugins::DOCX;
-use base 'Foswiki::Contrib::StringifierContrib::Base';
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use File::Temp qw/tmpnam/;
 use Encode;
 use CharsetDetector;

@@ -13,7 +13,8 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::StringifierContrib::Plugins::XLS;
-use base 'Foswiki::Contrib::StringifierContrib::Base';
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 __PACKAGE__->register_handler("application/excel", ".xls");
 use File::Temp qw/tmpnam/;
 use Encode;

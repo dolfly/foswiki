@@ -14,7 +14,8 @@
 
 
 package Foswiki::Contrib::StringifierContrib::Plugins::HTML;
-use base 'Foswiki::Contrib::StringifierContrib::Base';
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use HTML::TreeBuilder;
 use Encode;
 use CharsetDetector;
