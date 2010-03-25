@@ -2,7 +2,8 @@ package DistributionContribSuite;
 use TWiki::Contrib::DistributionContrib;
 use TWiki::Contrib::DistributionContrib::TWikiReleaseNames;
 
-use base qw(Test::Unit::TestCase);
+use Test::Unit::TestCase;
+our @ISA = qw( Test::Unit::TestCase );
 
 sub new {
  my $self = shift()->SUPER::new(@_);

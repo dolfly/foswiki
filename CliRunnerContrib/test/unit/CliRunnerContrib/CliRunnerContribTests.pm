@@ -2,7 +2,8 @@ use strict;
 
 package CliRunnerContribTests;
 
-use base qw(FoswikiTestCase);
+use FoswikiTestCase;
+our @ISA = qw( FoswikiTestCase );
 
 use TWiki::Contrib::CliRunnerContrib;
 

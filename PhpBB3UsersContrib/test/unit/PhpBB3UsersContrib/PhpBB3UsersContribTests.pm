@@ -2,7 +2,8 @@ use strict;
 
 package PhpBB3UsersContribTests;
 
-use base qw(FoswikiTestCase);
+use FoswikiTestCase;
+our @ISA = qw( FoswikiTestCase );
 
 use strict;
 use Foswiki;

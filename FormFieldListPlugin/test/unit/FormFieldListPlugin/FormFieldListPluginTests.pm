@@ -1,7 +1,8 @@
 use strict;
 
 package FormFieldListPluginTests;
-use base qw(FoswikiFnTestCase);
+use FoswikiFnTestCase;
+our @ISA = qw( FoswikiFnTestCase );
 
 use Foswiki;
 use Foswiki::Meta;

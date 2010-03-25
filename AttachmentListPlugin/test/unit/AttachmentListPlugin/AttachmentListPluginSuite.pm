@@ -1,6 +1,7 @@
 package AttachmentListPluginSuite;
 
-use base qw(Unit::TestSuite);
+use Unit::TestSuite;
+our @ISA = qw( Unit::TestSuite );
 
 sub name { 'AttachmentListPluginSuite' };
 

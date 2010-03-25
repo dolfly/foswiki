@@ -137,7 +137,8 @@ sub uploadFile
 {
     package UploadToTWiki::UserAgent;
 
-    use base qw(LWP::UserAgent);
+    use LWP::UserAgent;
+    our @ISA = qw( LWP::UserAgent );
 
     sub new {
         my ($class, $id) = @_;
