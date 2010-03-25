@@ -17,7 +17,8 @@
 
 package Foswiki::Contrib::StringifierContrib;
 use strict;
-use base "Foswiki::Contrib::StringifierContrib::Base";
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use Carp;
 use File::MMagic;
 use File::Spec::Functions qw(rel2abs);
