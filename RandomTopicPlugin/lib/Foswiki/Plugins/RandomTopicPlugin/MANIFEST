@@ -1,2 +1,2 @@
 ./lib/Foswiki/Plugins/RandomTopicPlugin.pm Plugin code
-./data/Foswiki/RandomTopicPlugin.txt Plugin topic
+./data/System/RandomTopicPlugin.txt Plugin topic
