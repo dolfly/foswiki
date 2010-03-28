@@ -61,19 +61,19 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main/MichaelSparks |
+|  Plugin Author: | Foswiki:Main.MichaelSparks |
 |  Plugin Version: | %$VERSION% |
 | Change History: <!-- Most recent first --> ||
+|  28 Mar 2010 | 1.3.0 port to Foswiki -- Foswiki:Main.WillNorris |
 |  27 Dec 2005 | 1.201 TWiki:Main.WillNorris - changed =INCLUDE= and =EXCLUDE= preferences (to =INCLUDETOPICS= and =EXCLUDETOPICS=) for Dakar compatability |
 |  15 Nov 2004 | 1.200 Crawford Currie - removed non-functional persist option, added exclude and include parameters, ported to Cairo & BuildContrib build system, add to CVS. |
 |  10 Jul 2003 | 1.010 Initial version |
 |  Dependencies: | %$DEPENDENCIES% |
-|  Perl Version: | 5.005 |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
 __Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
 
 -- TWiki:Main/MichaelSparks - 10 Jul 2003 <br />
 -- TWiki:Main/CrawfordCurrie - 15 Nov 2004 <br />
--- TWiki:Main/WillNorris - 27 Dec 2005
+-- TWiki:Main/WillNorris - 27 Dec 2005, 28 Mar 2010

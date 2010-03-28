@@ -13,7 +13,7 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package TWiki::Plugins::RandomTopicPlugin;
+package Foswiki::Plugins::RandomTopicPlugin;
 
 use strict;
 
@@ -21,7 +21,7 @@ use vars qw(
             $VERSION $RELEASE @topicList $defaultIncludes $defaultExcludes
     );
 
-# This should always be $Rev$ so that TWiki can determine the checked-in
+# This should always be $Rev$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
 $VERSION = '$Rev$';
@@ -29,16 +29,16 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Dakar';
+$RELEASE = '20100328';
 
 
 sub initPlugin {
     my ( $topic, $web, $user, $installWeb ) = @_;
 
-    $defaultIncludes = TWiki::Func::getPreferencesValue( "RANDOMTOPICPLUGIN_INCLUDE" );
-    $defaultExcludes = TWiki::Func::getPreferencesValue( "RANDOMTOPICPLUGIN_EXCLUDE" );
+    $defaultIncludes = Foswiki::Func::getPreferencesValue( "RANDOMTOPICPLUGIN_INCLUDE" );
+    $defaultExcludes = Foswiki::Func::getPreferencesValue( "RANDOMTOPICPLUGIN_EXCLUDE" );
 
-    @topicList = TWiki::Func::getTopicList( $web );
+    @topicList = Foswiki::Func::getTopicList( $web );
 
     return 1;
 }
@@ -52,17 +52,17 @@ sub handleRandomPage {
     my $excludes;
 
     $format =
-      TWiki::Func::extractNameValuePair( $attr, "format" ) ||
+      Foswiki::Func::extractNameValuePair( $attr, "format" ) ||
           "\$t* \$topic\$n";
     $topics =
-      TWiki::Func::extractNameValuePair( $attr, "topics" ) || 1;
+      Foswiki::Func::extractNameValuePair( $attr, "topics" ) || 1;
 
     $includes =
-      TWiki::Func::extractNameValuePair( $attr, "include" ) ||
+      Foswiki::Func::extractNameValuePair( $attr, "include" ) ||
           $defaultIncludes || "^.+\$";
 
     $excludes =
-      TWiki::Func::extractNameValuePair( $attr, "exclude" ) ||
+      Foswiki::Func::extractNameValuePair( $attr, "exclude" ) ||
           $defaultExcludes || "^\$";
 
     my @pickFrom = grep { /$includes/ && !/$excludes/ } @topicList;
