@@ -1,12 +1,6 @@
 %META:TOPICINFO{author="ProjectContributor"  date="1266770762" format="1.1" version="1.32"}%
-<!--
-This topic is part of the documentation for DirectedGraphPlugin and is
-automatically generated from Subversion. Do not edit it! Your edits
-will be lost the next time the topic is uploaded!
+%META:TOPICPARENT{name="Plugins"}%
 
-If you want to report an error in the topic, please raise a report at
-http://foswiki.org/view/Tasks/DirectedGraphPlugin
--->
 ---+!! Directed Graph Plugin
 <!--
 One line description, required for extensions repository catalog.
@@ -561,9 +555,8 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  01 Jul 2004: | Initial version |
 |  Dependencies: | %$DEPENDENCIES% |
 
-__Related Topics:__ System.DefaultPreferences, %USERSWEB%.SitePreferences, [[System.Plugins][Plugins]]
-
--- TWiki:Main.ColeBeck - 01 Jul 2004
+__Related Topics:__ 
+%SYSTEMWEB%.HowtoDirectedGraphs
 
 %META:FILEATTACHMENT{name="graphsample2.png" attr="h" autoattached="1" comment="Sample DOT graph" date="1172906345" path="graphsample2.png" size="1364" user="ProjectContributor" version=""}%
 %META:FILEATTACHMENT{name="graphsample2_antialiased.png" attr="h" autoattached="1" comment="Antialiased sample" date="1172906345" path="graphsample2_antialiased.png" size="12577" user="Main.ProjectContributor" version="1"}%
