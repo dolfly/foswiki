@@ -28,8 +28,8 @@ my $verbose = ( $debug ? '-v' : '' );
 my $log;
 
 if ($debug) {
-    open( $log, '>>', $logFile ) ||
-        die "Could not open $logFile for writing: $!";
+    open( $log, '>>', $logFile )
+      || die "Could not open $logFile for writing: $!";
     print $log "\n----\nCalling $runCmd; got parameters:\n";
     print $log join( "\n", @ARGV ) . "\n";
 }
@@ -80,16 +80,17 @@ if ( $? != 0 ) {
             my @dotfiles = $ioStr =~ /-o(\S+)/g;
             foreach my $dotfile (@dotfiles) {
                 if ($debug) {
-                    print $log "Confirming generated file $dotfile, len=".(-s $dotfile)."\n";
+                    print $log "Confirming generated file $dotfile, len="
+                      . ( -s $dotfile ) . "\n";
                 }
                 unless ( -s $dotfile ) {
-                    $execError = "$runCmd exited with rc=".($? >> 8);
+                    $execError = "$runCmd exited with rc=" . ( $? >> 8 );
                     last;
                 }
             }
         }
         else {
-            $execError = "$runCmd exited with rc=".($? >> 8);
+            $execError = "$runCmd exited with rc=" . ( $? >> 8 );
         }
     }
 
@@ -99,8 +100,8 @@ if ( $? != 0 ) {
             close $log;
         }
 
-        open( my $err, '>>', $errFile ) ||
-            die "Problem executing $runCmd: $execError";
+        open( my $err, '>>', $errFile )
+          || die "Problem executing $runCmd: $execError";
         print $err "Problem executing $runCmd: '$execCmd', got:\n";
         print $err "$execError\n ";
         close $err;
@@ -109,6 +110,6 @@ if ( $? != 0 ) {
 }
 
 if ($debug) {
-    print $log "$runCmd exited with rc=".($? >> 8)."\n";
+    print $log "$runCmd exited with rc=" . ( $? >> 8 ) . "\n";
     close $log;
 }
