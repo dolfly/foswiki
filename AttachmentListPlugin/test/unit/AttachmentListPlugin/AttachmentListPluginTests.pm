@@ -1,14 +1,16 @@
-use strict;
 
 package AttachmentListPluginTests;
 use FoswikiFnTestCase;
 our @ISA = qw( FoswikiFnTestCase );
+
+use strict;
 
 use Foswiki;
 use Foswiki::Meta;
 use Error qw( :try );
 use Foswiki::UI::Save;
 use Foswiki::OopsException;
+use Foswiki::Plugins::AttachmentListPlugin;
 use Devel::Symdump;
 use Data::Dumper;
 
@@ -119,6 +121,14 @@ sub set_up {
 
     $this->SUPER::set_up();
     $this->_createAttachments();
+    $this->{plugin_name} = 'AttachmentListPlugin';
+    
+    $Foswiki::cfg{Plugins}{ $this->{plugin_name} }{Enabled} = 1;
+    $Foswiki::cfg{Plugins}{ $this->{plugin_name} }{Module} =
+      "Foswiki::Plugins::$this->{plugin_name}";
+    $this->{session}->finish();
+    $this->{session} = new Foswiki();    # default user
+    $Foswiki::Plugins::SESSION = $this->{session};
 }
 
 # This formats the text up to immediately before <nop>s are removed, so we
@@ -388,12 +398,9 @@ sub test_param_format_fileIcon {
     my $source =
 "%ATTACHMENTLIST{topic=\"$testTopic\" web=\"$this->{test_web}\" format=\"$format\" limit=\"1\"}%";
 
-    my $expected =
-        '<img width="16" alt="txt" align="top" src="'
-      . $pubUrlPath
-      # SMELL: hardcoded %SYSTEMWEB%
-      . '/System/DocumentGraphics/txt.gif" height="16" border="0" />';
+    my $expected = "<span class=\"foswikiIcon\"><img src=\"%PUBURL%/%SYSTEMWEB%/DocumentGraphics/txt.png\" width=\"16px\" height=\"16px\" alt=\"txt\" /></span>";
 
+    $expected = Foswiki::Func::expandCommonVariables( $expected );
     $this->_do_test( $this->{test_topic}, $expected, $source );
 }
 

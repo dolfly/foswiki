@@ -1,7 +1,7 @@
 %META:TOPICINFO{author="AdminGroup" date="1245704236" format="1.1" version="1.2"}%
 ---+!! Attachment List Plugin
 
-*Displays a formattable list of topic attachments - from any topic - anywhere in a topic.*
+%$SHORTDESCRIPTION%.
 
 View permissions are honored: if the user is not allowed to view the referring topic, the attachments are not displayed.
 
@@ -199,13 +199,8 @@ You may specify image height and width parameters - this will read the imaage fi
 | =DEBUG=  | If set to =1=, writes debugging info to =data/debug.txt= | 0 |
 
 
----++ Plugin Installation Instructions
-You do not need to install anything in the browser to use this extension. The following instructions are for the administrator who installs the extension on the server.
-
-Open configure, and open the "Extensions" section. Use "Find More Extensions" to get a list of available extensions. Select "Install".
-
-If you have any problems, or if the extension isn't available in =configure=, then you can still install manually from the command-line. See http://foswiki.org/Support/ManuallyInstallingExtensions for more help.
-
+---++ Installation Instructions
+%$INSTALL_INSTRUCTIONS%
 
 
 
@@ -214,11 +209,10 @@ If you have any problems, or if the extension isn't available in =configure=, th
 |  Authors: | TWiki:Main.VinodKulkarni, TWiki:Main.SopanShewale (2006), Foswiki:Main.ArthurClemens (2006-2009) |
 |  Copyright &copy;: | TWiki:Main.VinodKulkarni, TWiki:Main.SopanShewale (2006), Foswiki:Main.ArthurClemens (2006-2009) |
 |  License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
-|  Dependencies: | <table class="foswikiTable" border="1"><tr><th>Name</th><th>Version</th><th>Description</th></tr><tr><td align="left">Foswiki::Plugins::TopicDataHelperPlugin</td><td align="left"></td><td align="left">Required</td></tr></table> |
-|  Plugin Version: | 22 Jun 2009 (V1.3.3)  |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  19 Mar 2010 | V.1.3.5 Antonio Terceiro: completing the fix for the handling of the "limit" parameter. |
-|  19 Mar 2010 | V.1.3.4 Antonio Terceiro: correct handling of the "limit" parameter. |
+|  01 Apr 2010 | V.1.3.4 Arthur Clemens: Fixed unit tests. |
 |  22 Jun 2009 | V.1.3.3 Arthur Clemens: Fixed call to unreleased internal function =openAttachment=. |
 |  20 Jun 2009 | V.1.3.2 Arthur Clemens: Fixed unit tests; for performance, plugin settings must now be done in %MAINWEB%.SitePreferences. |
 |   8 Jun 2009 | V.1.3.1 ported to Foswiki  -- Foswiki:Main.WillNorris |
@@ -237,5 +231,6 @@ If you have any problems, or if the extension isn't available in =configure=, th
 |  17 Dec 2006 | V.0.8 Arthur Clemens: reworked for TWiki 4.1 and optimized; activated =filter= parameter, added topic view permission check. |
 |  03 Mar 2006 | V.0.7 TWiki:Main.SopanShewale: reworked for TWiki 4 |
 |  11 Apr 2005 | V.0.6 TWiki:Main.VinodKulkarni: Initial version |
+|  Dependencies: | %$DEPENDENCIES% |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |

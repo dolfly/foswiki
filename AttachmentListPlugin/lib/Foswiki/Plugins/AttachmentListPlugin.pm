@@ -1,7 +1,7 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # Copyright (C) 2006 Vinod Kulkarni, Sopan Shewale
-# Copyright (C) 2006-2009 Arthur Clemens, arthur@visiblearea.com
+# Copyright (C) 2006-2010 Arthur Clemens, arthur@visiblearea.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -22,9 +22,20 @@ use Foswiki::Meta;
 use Foswiki::Plugins::AttachmentListPlugin::FileData;
 use Foswiki::Plugins::TopicDataHelperPlugin;
 
-use vars qw($VERSION $RELEASE $pluginName
-  $debug $defaultFormat $imageFormat
-);
+our $VERSION = '$Rev$';
+our $RELEASE = '1.3.4';
+our $SHORTDESCRIPTION =
+'Displays a formattable list of topic attachments - from any topic - anywhere in a topic';
+our $NO_PREFS_IN_TOPIC = 1;
+
+my $topic;
+my $web;
+my $user;
+my $installWeb;
+my $pluginName = 'AttachmentListPlugin';
+my $debug;
+my $defaultFormat;
+my $imageFormat;
 
 my %sortInputTable = (
     'none' => $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'},
@@ -33,20 +44,6 @@ my %sortInputTable = (
     'descending' =>
       $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'DESCENDING'},
 );
-
-# This should always be $Rev$ so that Foswiki can determine the checked-in
-# status of the plugin. It is used by the build automation tools, so
-# you should leave it alone.
-$VERSION = '$Rev$';
-
-# This is a free-form string you can use to "name" your own plugin version.
-# It is *not* used by the build automation tools, but is reported as part
-# of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.3.5';
-
-$pluginName = 'AttachmentListPlugin';
-
-our $NO_PREFS_IN_TOPIC = 1;
 
 =pod
 
@@ -66,16 +63,17 @@ sub initPlugin {
 
     # Get plugin preferences
     $defaultFormat =
-         Foswiki::Func::getPreferencesValue('ATTACHMENTLISTPLUGIN_FORMAT')
+      Foswiki::Func::getPreferencesValue('ATTACHMENTLISTPLUGIN_FORMAT')
       || $defaultFormat;
 
     $defaultFormat =~ s/^[\\n]+//;    # Strip off leading \n
 
-    $imageFormat = '<img src=\'$fileUrl\' alt=\'$fileComment\' title=\'$fileComment\' />';
+    $imageFormat =
+      '<img src=\'$fileUrl\' alt=\'$fileComment\' title=\'$fileComment\' />';
 
     # Get plugin preferences
     $imageFormat =
-         Foswiki::Func::getPreferencesValue('ATTACHMENTLISTPLUGIN_IMAGE_FORMAT')
+      Foswiki::Func::getPreferencesValue('ATTACHMENTLISTPLUGIN_IMAGE_FORMAT')
       || $imageFormat;
 
     $imageFormat =~ s/^[\\n]+//;      # Strip off leading \n
@@ -89,8 +87,8 @@ sub initPlugin {
 
     # Plugin correctly initialized
     Foswiki::Func::writeDebug(
-        "- Foswiki::Plugins::${pluginName}::initPlugin( $inWeb.$inTopic ) is OK")
-      if $debug;
+        "- Foswiki::Plugins::${pluginName}::initPlugin( $inWeb.$inTopic ) is OK"
+    ) if $debug;
 
     return 1;
 }
@@ -102,9 +100,11 @@ sub initPlugin {
 sub _handleFileList {
     my ( $session, $inParams, $inTopic, $inWeb ) = @_;
 
-	use Data::Dumper;
-	_debug("AttachmentListPlugin::_handleFileList -- topic=$inWeb.$inTopic; params=" . Dumper($inParams));
-	
+    use Data::Dumper;
+    _debug(
+"AttachmentListPlugin::_handleFileList -- topic=$inWeb.$inTopic; params="
+          . Dumper($inParams) );
+
     my $webs   = $inParams->{'web'}   || $inWeb   || '';
     my $topics = $inParams->{'topic'} || $inTopic || '';
     my $excludeTopics = $inParams->{'excludetopic'} || '';
@@ -128,12 +128,8 @@ sub _handleFileList {
     $files = _sortFiles( $files, $inParams ) if defined $inParams->{'sort'};
 
     # limit files if param limit is defined
-    my $limit = $inParams->{'limit'};
-    $limit =~ m/([0-9]+)/;
-    $limit = $1;
-    if ($limit && $limit <= scalar(@$files)) {
-        splice @$files, $limit;
-    }
+    splice @$files, $inParams->{'limit'}
+      if defined $inParams->{'limit'};
 
     # format
     my $formatted = _formatFileData( $session, $files, $inParams );
@@ -168,10 +164,10 @@ sub _createFileData {
     # has META:FILEATTACHMENT data
     my $attachments = _getAttachmentsInTopic( $inWeb, $inTopic );
 
-	_debug("AttachmentListPlugin::_createFileData");
-	use Data::Dumper;
-	_debug("\t attachments=" . Dumper($attachments));
-	
+    _debug("AttachmentListPlugin::_createFileData");
+    use Data::Dumper;
+    _debug( "\t attachments=" . Dumper($attachments) );
+
     if ( scalar @$attachments ) {
         $inTopicHash->{$inTopic} = ();
 
@@ -241,7 +237,7 @@ sub _filterTopicData {
             \%topicData, 'name', 1, $inParams->{'file'},
             $inParams->{'excludefile'} );
     }
-    
+
     # filter filenames by regular expression
     if (   defined $inParams->{'includefilepattern'}
         || defined $inParams->{'excludefilepattern'} )
@@ -297,13 +293,15 @@ sub _sortFiles {
         if ( defined $sortKey && $sortKey eq 'date' ) {
 
             # exception for dates: newest on top
-            $sortOrder = $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{
+            $sortOrder =
+              $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{
                 'DESCENDING'};
         }
         else {
 
             # otherwise sort by default ascending
-            $sortOrder = $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{
+            $sortOrder =
+              $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{
                 'ASCENDING'};
         }
     }
@@ -311,8 +309,8 @@ sub _sortFiles {
       if ( $sortOrderParam eq 'reverse' );
 
     $files =
-      Foswiki::Plugins::TopicDataHelperPlugin::sortObjectData( $files, $sortOrder,
-        $sortKey, $compareMode, 'name' )
+      Foswiki::Plugins::TopicDataHelperPlugin::sortObjectData( $files,
+        $sortOrder, $sortKey, $compareMode, 'name' )
       if defined $sortKey;
 
     return $files;
@@ -486,43 +484,54 @@ sub _formatDate {
 sub _retrieveImageSize {
     my ( $session, $inFileData ) = @_;
 
-	_debug("AttachmentListPlugin::_retrieveImageSize");
-	
+    _debug("AttachmentListPlugin::_retrieveImageSize");
+
     my $imgWidth  = undef;
     my $imgHeight = undef;
 
-	my $topicObject = Foswiki::Meta->new( $session, $inFileData->{web}, $inFileData->{topic} );
-	
-	
-	if (!Foswiki::Func::attachmentExists( $inFileData->{web}, $inFileData->{topic}, $inFileData->{name}) ) {
-		debug("\t cannot read attachment");
-		return ( undef, undef );
-	}
-	if ( $Foswiki::Plugins::VERSION < 2.1 ) {
-        # sorry, no check
-    } else {
-    	if ( !$topicObject->testAttachment($inFileData->{name}, 'r') ) {
-	    	_debug("\t use is not allowed to read attachment");
-		    return ( undef, undef );
-	    }
-	}
-	
-	my $stream;
-	if ( $Foswiki::Plugins::VERSION < 2.1 ) {
-	    $stream =
-          $session->{store}->getAttachmentStream( $inFileData->{user}, $inFileData->{web}, $inFileData->{topic}, $inFileData->{name} );
-	} else {
-        $stream = $topicObject->openAttachment( $inFileData->{name}, '<' );
-	}
-	
-	_debug("\t opened stream=$stream");
-	
-	use Foswiki::Attach;
-	( $imgWidth, $imgHeight ) = Foswiki::Attach::_imgsize( $stream, $inFileData->{name} );
-	$stream->close();
+    my $topicObject =
+      Foswiki::Meta->new( $session, $inFileData->{web}, $inFileData->{topic} );
 
-	_debug("\t width=$imgWidth; height=$imgHeight");
-	
+    if (
+        !Foswiki::Func::attachmentExists(
+            $inFileData->{web}, $inFileData->{topic}, $inFileData->{name}
+        )
+      )
+    {
+        debug("\t cannot read attachment");
+        return ( undef, undef );
+    }
+    if ( $Foswiki::Plugins::VERSION < 2.1 ) {
+
+        # sorry, no check
+    }
+    else {
+        if ( !$topicObject->testAttachment( $inFileData->{name}, 'r' ) ) {
+            _debug("\t use is not allowed to read attachment");
+            return ( undef, undef );
+        }
+    }
+
+    my $stream;
+    if ( $Foswiki::Plugins::VERSION < 2.1 ) {
+        $stream = $session->{store}->getAttachmentStream(
+            $inFileData->{user},  $inFileData->{web},
+            $inFileData->{topic}, $inFileData->{name}
+        );
+    }
+    else {
+        $stream = $topicObject->openAttachment( $inFileData->{name}, '<' );
+    }
+
+    _debug("\t opened stream=$stream");
+
+    use Foswiki::Attach;
+    ( $imgWidth, $imgHeight ) =
+      Foswiki::Attach::_imgsize( $stream, $inFileData->{name} );
+    $stream->close();
+
+    _debug("\t width=$imgWidth; height=$imgHeight");
+
     return ( $imgWidth, $imgHeight );
 }
 
@@ -547,9 +556,9 @@ sub _expandStandardEscapes {
 =cut
 
 sub _debug {
-    my ($inText, $inDebug) = @_;
+    my ( $inText, $inDebug ) = @_;
 
-	my $doDebug = $inDebug || $Foswiki::Plugins::AttachmentListPlugin::debug;
+    my $doDebug = $inDebug || $Foswiki::Plugins::AttachmentListPlugin::debug;
     Foswiki::Func::writeDebug($inText)
       if $doDebug;
 }
