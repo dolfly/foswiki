@@ -14,31 +14,30 @@ package Beautifier::HFile;
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-sub new
-{
-	my( $class ) = @_;
-	$self = {};
-	bless $self, $class;
+sub new {
+    my ($class) = @_;
+    $self = {};
+    bless $self, $class;
 
-	$self->{config}		= ();
-	$self->{validkeys}	= ();
-	$self->{indent}		= ();
-	$self->{unindent}	= ();
-	$self->{blockcommenton}	= ();
-	$self->{blockcommentoff}= ();
-	$self->{linecommenton}	= ();
-	$self->{preprocessors}	= ();
-	$self->{zones}		= ();
-	$self->{keywords}	= ();
-	$self->{keypats}	= ();
-	$self->{stringchars}	= ();
-	$self->{delimeters}	= ();
-	$self->{escchar}	= "\\";
-	$self->{perl}		= 0;
-	$self->{notrim}		= 0;
-	$self->{nocase}		= 0;
+    $self->{config}          = ();
+    $self->{validkeys}       = ();
+    $self->{indent}          = ();
+    $self->{unindent}        = ();
+    $self->{blockcommenton}  = ();
+    $self->{blockcommentoff} = ();
+    $self->{linecommenton}   = ();
+    $self->{preprocessors}   = ();
+    $self->{zones}           = ();
+    $self->{keywords}        = ();
+    $self->{keypats}         = ();
+    $self->{stringchars}     = ();
+    $self->{delimeters}      = ();
+    $self->{escchar}         = "\\";
+    $self->{perl}            = 0;
+    $self->{notrim}          = 0;
+    $self->{nocase}          = 0;
 
-	return $self;
+    return $self;
 }
 
 1;

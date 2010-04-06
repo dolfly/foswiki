@@ -12,7 +12,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
+# GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 #
 # =========================
@@ -29,26 +29,25 @@
 #   insidePREHandler     ( $text )
 #   endRenderingHandler  ( $text )
 #
-# initPlugin is required, all other are optional. 
+# initPlugin is required, all other are optional.
 # For increased performance, all handlers except initPlugin are
 # disabled. To enable a handler remove the leading DISABLE_ from
 # the function name.
-# 
+#
 # NOTE: To interact with TWiki use the official TWiki functions
 # in the &TWiki::Func module. Do not reference any functions or
 # variables elsewhere in TWiki!!
 
-
 # =========================
-package TWiki::Plugins::BeautifierPlugin; 	# change the package name!!!
+package TWiki::Plugins::BeautifierPlugin;    # change the package name!!!
 use Beautifier::Core;
 use Output::HTML;
 
 # =========================
 
 use vars qw(
-        $web $topic $user $installWeb $VERSION $RELEASE $debug %langs
-    );
+  $web $topic $user $installWeb $VERSION $RELEASE $debug %langs
+);
 
 # This should always be $Rev$ so that TWiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
@@ -62,32 +61,33 @@ $RELEASE = 'Dakar';
 
 # =========================
 
-sub initPlugin
-{
+sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
     %langs = ();
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1 ) {
-        &TWiki::Func::writeWarning( "Version mismatch between BeautifierPlugin and Plugins.pm" );
+    if ( $TWiki::Plugins::VERSION < 1 ) {
+        &TWiki::Func::writeWarning(
+            "Version mismatch between BeautifierPlugin and Plugins.pm");
         return 0;
     }
 
     # Get plugin debug flag
-    $debug = &TWiki::Func::getPreferencesFlag( "BEAUTIFIERPLUGIN_DEBUG" );
+    $debug = &TWiki::Func::getPreferencesFlag("BEAUTIFIERPLUGIN_DEBUG");
 
     # Plugin correctly initialized
-    &TWiki::Func::writeDebug( "- TWiki::Plugins::BeautifierPlugin::initPlugin( $web.$topic ) is OK" ) if $debug;
+    &TWiki::Func::writeDebug(
+        "- TWiki::Plugins::BeautifierPlugin::initPlugin( $web.$topic ) is OK")
+      if $debug;
     return 1;
 }
 
 # =========================
 
-sub commonTagsHandler
-{
+sub commonTagsHandler {
 ### my ( $text, $topic, $web ) = @_;   # do not uncomment, use $_[0], $_[1]... instead
 
-    # &TWiki::Func::writeDebug( "- BeautifierPlugin::commonTagsHandler( $_[2].$_[1] )" ) if $debug;
+# &TWiki::Func::writeDebug( "- BeautifierPlugin::commonTagsHandler( $_[2].$_[1] )" ) if $debug;
 
     # This is the place to define customized tags and variables
     # Called by sub handleCommonTags, after %INCLUDE:"..."%
@@ -98,32 +98,37 @@ sub commonTagsHandler
 
 # =========================
 
-sub handleCode
-{
+sub handleCode {
     my ( $args, $codeFragment ) = @_;
 
-    TWiki::Func::addToHEAD( BEAUTIFIERPLUGIN_CODEFRAGMENT_CSS => '<link rel="stylesheet" href="%PUBURL%/%SYSTEMWEB%/BeautifierPlugin/style.css" type="text/css" media="all" />' );
+    TWiki::Func::addToHEAD( BEAUTIFIERPLUGIN_CODEFRAGMENT_CSS =>
+'<link rel="stylesheet" href="%PUBURL%/%SYSTEMWEB%/BeautifierPlugin/style.css" type="text/css" media="all" />'
+    );
 
-    my $lang = TWiki::Func::extractNameValuePair( $args );	# || default language (eg, TWiki::Func::getPreferencesValue(uc 'BEAUTIFIERPLUGIN_LANGUAGE' ) 
-    unless ($langs->{$lang})
-    {
+    my $lang = TWiki::Func::extractNameValuePair($args)
+      ; # || default language (eg, TWiki::Func::getPreferencesValue(uc 'BEAUTIFIERPLUGIN_LANGUAGE' )
+    unless ( $langs->{$lang} ) {
         local $SIG{__DIE__};
         eval "use HFile::HFile_$lang";
-        if ($@)
-        {
-            return qq{<b>BeautifierPlugin Error: Unable to handle "$lang" language.</b>}
-		. _formatBeautifierOutput( $codeFragment );
+        if ($@) {
+            return
+qq{<b>BeautifierPlugin Error: Unable to handle "$lang" language.</b>}
+              . _formatBeautifierOutput($codeFragment);
         }
         my $hfile = eval "new HFile::HFile_$lang";
-        $langs->{$lang} = new Beautifier::Core($hfile, new Output::HTML);
+        $langs->{$lang} = new Beautifier::Core( $hfile, new Output::HTML );
     }
-    return _formatBeautifierOutput( $langs->{$lang}->highlight_text( $codeFragment ) );
+    return _formatBeautifierOutput(
+        $langs->{$lang}->highlight_text($codeFragment) );
 }
 
 # =========================
 
 sub _formatBeautifierOutput {
-    return '<div class="BeautifierPlugin"><div class="fragment"><pre>' . shift() . '</pre></div></div>';
+    return
+        '<div class="BeautifierPlugin"><div class="fragment"><pre>'
+      . shift()
+      . '</pre></div></div>';
 }
 
 # =========================
