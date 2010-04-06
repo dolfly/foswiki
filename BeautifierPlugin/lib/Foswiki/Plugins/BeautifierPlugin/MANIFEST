@@ -1,0 +1,28 @@
+data/System/BeautifierPlugin.txt 0644 Plugin documentation topic
+data/System/VarCODE.txt 0644 Syntax summary for the CODE macro
+pub/System/BeautifierPlugin/style.css 0644 Code fragment stylesheet
+lib/Foswiki/Plugins/BeautifierPlugin.pm 0444 Plugin module
+lib/Foswiki/Plugins/BeautifierPlugin/ANSI.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/Context.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/Core.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/DocBook.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HTML.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/Magic.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/MagicConfig.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_bash.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_cpp.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_csharp.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_html.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_java.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_javascript.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_lua.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_makefile.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_perl.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_php3.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_plsql.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_python.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_scheme.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_tcl.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_vhdl.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_xml.pm 0444
