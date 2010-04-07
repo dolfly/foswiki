@@ -90,24 +90,24 @@ div#header-name {
     text-decoration:none;
 }
 
-.layout-wm #alpha {
+.layout-wm #alpha, .mt-dynamic-error #alpha {
     background:none repeat scroll 0 0 #FFFFFF;
     border:1px solid #CCCCCC;
     float:left;
     overflow:hidden;
     padding:5px 15px 15px;
-    width:595px;
+    width: 595px;    
 }
 
-.layout-wm #content {
+.layout-wm #content, .mt-dynamic-error #content  {
     width: 935px;
 }
 
-.layout-wm #content-inner {
+.layout-wm #content-inner, .mt-dynamic-error #content-inner {
     padding-top: 0px;
 }
 
-.layout-wm #beta {
+.layout-wm #beta, .mt-dynamic-error #beta {
     font-size:95%;
     float:right;
     font-size:95%;
@@ -116,7 +116,7 @@ div#header-name {
     width:305px;   
 }
 
-.layout-wm #beta-inner {
+.layout-wm #beta-inner, .mt-dynamic-error #beta {
     width: 300px;
     padding-right: 0px;
     padding-left: 5px;
@@ -255,4 +255,54 @@ input[type=submit],input[type=button] {
 .widget-calendar td {
     padding:2px 0;
     text-align:center;
+}
+
+/*** Navigation ***/
+
+#homepage-image {
+    display: none;
+}
+
+#main-navigation {
+    background:url(nav.gif) no-repeat scroll center bottom transparent;
+    height:30px;
+    margin-top:-60px;
+    margin-bottom:20px;
+    opacity:0.85;
+    width:934px;
+}
+
+#main-navigation li {
+    background:url(nav_img.gif) no-repeat scroll right top transparent;
+    float:left;
+    height:30px;
+    line-height:30px;
+    list-style:none outside none;
+    padding:0 15px;
+    text-align:center;
+    width:auto;
+}
+
+#main-navigation li.on, #main-navigation li:hover {
+    background:url(nav_hover.gif) no-repeat scroll center top transparent;
+    height:30px;
+    width:auto;
+}
+
+#main-navigation a {
+    color:#FFFFFF;
+    display:block;
+    line-height:30px;
+    text-decoration:none;
+}
+
+#main-navigation .widget-search { padding: 0px; margin: 0px; position: relative; float: right; top: -4px; right: -75px;}
+#main-navigation .widget-search input[type=submit] { height: 20px; margin-top: 2px; }
+#main-navigation .widget-search .widget-content { padding-top: 0px; }
+#header .widget-sign-in, #main-navigation .widget-search { background: url(); border:0px; height:40px; margin:0px; padding:0px;  }
+#header .widget-sign-in { position: absolute; right: -150px; top: 0px; }
+#header .widget-sign-in .widget-header, #main-navigation .widget-search .widget-header { display: none; }
+
+#main-navigation-inner ul {
+    margin-left: 0px;
 }

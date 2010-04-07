@@ -18,7 +18,7 @@ This is a revised version of the WidgetsSkin, updated to match the changes made 
 There are some CSS id and class changes, that will need to be applied to any theme from MT3.
 
 I have now included the 38 styles included in the Open source version of Moveable Type, 
-and another 46 from http://www.codemonkeyramblings.com/themes/ .
+and another 47 from http://www.codemonkeyramblings.com/themes/ .
 
 There is a set of reasonably easy upgrade steps to modify your CSS and =*Design= topic to work with this upgrade. 
 
@@ -159,6 +159,7 @@ You can use this technique to create a skin that matches closely the HTML of you
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|   7 Apr 2010: | update iblog2 and poetry CMR themes - add jarrah |
 |  27 Feb 2010: | fix REVINFO bug in the widget-history - so that it shows the requested topic's history |
 |  13 Feb 2010: | bring in styles from http://www.codemonkeyramblings.com/themes/ and fix bugs |
 |  18 Jan 2010: | documentation cleanup |
@@ -166,7 +167,7 @@ You can use this technique to create a skin that matches closely the HTML of you
 |  11 May 2009: | removed bonus BANANANA in WidgetsSampleDesign |
 |  27 Jan 2009: | added header and footer widgets, and some more sectional include magic |
 |  30 Dec 2008: | update to Foswiki |
-|  7 Dec 2007:  | stop the demo images from overflowing the design, other Skin fixes |
+|   7 Dec 2007:  | stop the demo images from overflowing the design, other Skin fixes |
 |  15 Oct 2007: | Doc rewrite - Foswiki:Main.CrawfordCurrie |
 |  30 Mar 2007: | initial release of Skin | 
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
@@ -453,12 +454,14 @@ from http://github.com/mikert/Movable-Type-Styles - see http://www.codemonkeyram
    * Set CSS134 = %PUBURL%/%SYSTEMWEB%/WidgetsSkin/CMR_themes/universo/screen.css
    * Set NAME135 = zFirst
    * Set CSS135 = %PUBURL%/%SYSTEMWEB%/WidgetsSkin/CMR_themes/zFirst/screen.css
+   * Set NAME136 = jarrah
+   * Set CSS136 = %PUBURL%/%SYSTEMWEB%/WidgetsSkin/CMR_themes/jarrah/screen.css
 
 
 
 
 
-   * Set LASTCSS = 135
+   * Set LASTCSS = 136
 </div>
 %ENDSECTION{"css-browser"}%
 

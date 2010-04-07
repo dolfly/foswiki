@@ -26,7 +26,7 @@ h4 {font-size:130%;}
 h5 {font-size:110%;}
 h6 {font-size:100%;}
 
-a {
+#alpha a, #header a, #beta a {
 	color:#2970A6;
 	text-decoration:none;
 }
@@ -83,12 +83,12 @@ a:hover {
     display: none;
 }
 
-.layout-wm #content{
+.layout-wm #content, .mt-dynamic-error #content{
 	background:#FFF;
 	width:936px;
 }
 
-.layout-wm #alpha
+.layout-wm #alpha, .mt-dynamic-error #alpha
 {
 	margin-top:-20px;
 	width:635px;
@@ -121,7 +121,7 @@ a:hover {
 }
 
 
-.layout-wm #beta
+.layout-wm #beta, .mt-dynamic-error #beta
 {
 	background:#F7F7F7 none repeat scroll 0 0;
 	font-size:95%;
@@ -130,7 +130,7 @@ a:hover {
 	margin-top:-20px;
 	border-left: 1px solid #ccc;
 }
-.layout-wm #beta .widget
+.layout-wm #beta .widget, .mt-dynamic-error #beta .widget
 {
 	background:transparent url(widgetsep.png) no-repeat scroll center bottom;
 	padding:10px 15px 19px;
@@ -308,3 +308,46 @@ input[type=submit],input[type=button] {
 	text-align:center;
 	width:936px;
 }
+/**
+Calendar widget
+**/
+
+.widget-calendar table {
+    width: 100%;
+}
+
+.widget-calendar table th {
+    background:none repeat scroll 0 0 #999999;
+    color:#FFFFFF;
+}
+
+.widget-calendar table th, .widget-calendar table td {
+    text-align:center;
+}
+
+.widget-calendar table td {
+    border:1px solid #CCCCCC;
+}
+
+.widget-calendar tbody a {
+    font-weight:bold;
+}
+
+#container {
+    background: #BEC3C6 url(bg.jpg) repeat-x scroll 0 0 ;
+}
+
+#container-inner {
+    background: url(light.gif) no-repeat;
+    padding-left: 110px;
+    padding-right: 110px;
+}
+
+/*** Tag Cloud ***/
+
+.widget-tag-cloud .rank-1 { font-size: 20pt; }
+.widget-tag-cloud .rank-2 { font-size: 17pt; }
+.widget-tag-cloud .rank-3 { font-size: 14pt; }
+.widget-tag-cloud .rank-4 { font-size: 11pt; }
+.widget-tag-cloud .rank-5 { font-size: 9pt; }
+.widget-tag-cloud .rank-6 { font-size: 7pt; }
