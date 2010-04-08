@@ -49,9 +49,9 @@ use vars qw(
             $defaultBarLeadingSpace $defaultBarTrailingSpace $defaultBarSpace
            );
 
-$VERSION = '$Rev: 13790 $';
-
-$RELEASE = '13 Mar 2010';
+our $VERSION = '$Rev: 13790 $';
+our $RELEASE = '1.5.0 (7 Apr 2010)';
+our $SHORT_DESCRIPTION = 'Create area, bar, line and scatter charts to visualize table data';
 
 $pluginInitialized = 0;
 $initError = '';

@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2004-2006 Peter Thoeny, Peter@Thoeny.org
 # Plugin written by http://TWiki.org/cgi-bin/view/Main/TaitCyrus
-# Copyright (C) 2008 Foswiki Contributors
+# Copyright (C) 2008,2010 Foswiki Contributors
 #
 # For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
@@ -365,11 +365,21 @@ sub getDataLabels { my ($this) = @_; return @{$$this{DATA_LABELS}}; }
 sub setLegend { my ($this, @legend) = @_; $$this{LEGEND} = \@legend; }
 sub getLegend { my ($this) = @_; return @{$$this{LEGEND}}; }
 
-sub setImageWidth { my ($this, $imageWidth) = @_; $$this{IMAGE_WIDTH} = $imageWidth; }
+sub setImageWidth { my ($this, $imageWidth) = @_; $$this{IMAGE_WIDTH} = _getInt( $imageWidth ); }
 sub getImageWidth { my ($this) = @_; return $$this{IMAGE_WIDTH}; }
 
-sub setImageHeight { my ($this, $imageHeight) = @_; $$this{IMAGE_HEIGHT} = $imageHeight; }
+sub setImageHeight { my ($this, $imageHeight) = @_; $$this{IMAGE_HEIGHT} = _getInt( $imageHeight ); }
 sub getImageHeight { my ($this) = @_; return $$this{IMAGE_HEIGHT}; }
+
+# Return first integer number found in a string
+sub _getInt {
+    my ( $str ) = @_;
+    $str = '0' unless( $str );
+    if( $str =~ s/^.*?(\-?)0*([0-9]+).*$/$1$2/o ) {
+	return int( $str );
+    }
+    return 0;
+}
 
 sub setAreaColors
 {

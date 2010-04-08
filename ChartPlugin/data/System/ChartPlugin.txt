@@ -1,6 +1,6 @@
 %META:TOPICINFO{author="ProjectContributor" date="1100674597" format="1.0" version="1.0"}%
 <!--
-   * Set SHORTDESCRIPTION = Create PNG or GIF charts to visualize Foswiki tables
+   * Set SHORTDESCRIPTION = Create area, bar, line and scatter charts to visualize table data
 -->
 
 ---+!! Chart Plugin
@@ -185,6 +185,7 @@ If the required parameters are not defined, then an error message is returned or
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
+|   07 Apr 2010: | Foswiki:Main.WillNorris: better parameter validation, minor doc updates |
 |   13 Mar 2010: | Foswiki:Main.WillNorris: work around "insecure dependency" error with certain perl/gd/cpan combinations (Foswikitask:Item1322) |
 |   07 Jan 2010: | Foswiki:Main.AndrewJones, Foswiki:Main.SvenDowideit: Add dependencies (Foswikitask:Item8381) |
 |   13 Oct 2009: | Kenneth Lavrsen: Fixed problem where the plugin could not chart the contents of a table if the table is at the end of a topic |
