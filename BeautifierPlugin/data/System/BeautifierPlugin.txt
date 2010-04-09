@@ -1,78 +1,114 @@
-%META:TOPICINFO{author="ProjectContributor" date="1177766845" format="1.1" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1270832927" format="1.1" version="1.3"}%
 %META:TOPICPARENT{name="Plugins"}%
 
----+ <nop>%TOPIC%
+---+!! Beautifier Plugin
 
-This plugin allows you to have code fragments automatically formatted and highlighted. It uses the [[http://www.beautifier.org/][Beautifier library]] (included) written by Mike Jewell.
+<!--
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+--> 
+%SHORTDESCRIPTION%
 
+%TOC{title="On this page:" depth="2"}%
 
----++ Syntax Rules
+__Related topics:__ 
+%STARTSECTION{"related"}%[[Foswiki:Extensions.DpSyntaxHighlighterPlugin][dp.SyntaxHighlighter]]%ENDSECTION{"related"}%
 
-   * Insert the code between =%<nop>CODE{"<i>language</i>"}%= and =%ENDCODE%=.  The following table indicates the values used for the different languages:
+---++ Introduction
 
-<blockquote>
-| *Language* | *Syntax* |
-| bash | =%<nop>CODE{"bash"}%= ... =%ENDCODE%= |
-| C++ | =%<nop>CODE{"cpp"}%= ... =%ENDCODE%= |
-| C# | =%<nop>CODE{"csharp"}%= ... =%ENDCODE%= |
-| Java | =%<nop>CODE{"java"}%= ... =%ENDCODE%= |
-| <nop>JavaScript | =%<nop>CODE{"javascript"}%= ... =%ENDCODE%= |
-| Lua | =%<nop>CODE{"lua"}%= ... =%ENDCODE%= |
-| Makefile | =%<nop>CODE{"makefile"}%= ... =%ENDCODE%= |
-| Perl | =%<nop>CODE{"perl"}%= ... =%ENDCODE%= |
-| PL/SQL | =%<nop>CODE{"plsql"}%= ... =%ENDCODE%= |
-| Python | =%<nop>CODE{"python"}%= ... =%ENDCODE%= |
-| PHP3 | =%<nop>CODE{"php3"}%= ... =%ENDCODE%= |
-| Scheme | =%<nop>CODE{"scheme"}%= ... =%ENDCODE%= |
-| TCL | =%<nop>CODE{"tcl"}%= ... =%ENDCODE%= |
-| HTML | =%<nop>CODE{"html"}= ... =%ENDCODE%= |
-| XML | =%<nop>CODE{"xml"}%= ... =%ENDCODE%= |
-| Verilog | =%<nop>CODE{"verilog"}%= ... =%ENDCODE%= |
-| VHDL | =%<nop>CODE{"vhdl"}%= ... =%ENDCODE%= |
-</blockquote>
+Use the %<nop>CODE% and %<nop>ENDCODE% macros to enclose fragments of code in
+your topic that you wish to have displayed with appropriate syntax hightlighting
+and formatting for better readability and presentation.
 
-Additional languages can be added since the Beautifier library is flexible and can support a wide range of language families.  Other languages can be added with relative ease by downloading the full PHP dist from http://www.beautifier.org and converting the relevant language file from PHP to Perl.
+This plugin was derived from Mike Jewell's popular 
+__Beautifier: Flexible Syntax Highlighter__ package.  The original PHP code of
+the Beautifier library has been ported to Perl for use with Foswiki and this 
+plugin.
 
----+++ Display Customisation
+---++ Syntax
 
-The code fragments are formaated using CSS. To change the look, upload a new version of [[%PUBURL%/%WEB%/%TOPIC%/style.css][style.css]] to this topic.
-
+%STARTSECTION{"syntax"}%   * Syntax: =%<nop>CODE%= &hellip; =%<nop>ENDCODE%= 
+     or =%<nop>CODE{&hellip;}%= &hellip; =%<nop>ENDCODE%=
+   * =%<nop>CODE%= &hellip; =%<nop>ENDCODE%= encapsulates a code fragment to be
+     displayed using the default language syntax and CSS styling
+   * =%<nop>CODE{&hellip;}%= &hellip; =%<nop>ENDCODE%= encapsulates a code 
+     fragment to be displayed allowing the language syntax and CSS styling to be 
+     overridden according to any parameters supplied
+   * Supported parameters:
+     | *Parameter:* | *Description:* |  *Default*  |
+     | ="language"= | The language syntax identifier |  ="cpp"=  |
+     | =css="URL"= | The URL of a CSS stylesheet that extends the plugin's default styling for code fragments |   |
+   * Supported language syntaxes:
+     |  *Language:*  |  *Identifier:*  |  **  |  *Language:*  |  *Identifier:*  |  **  |  *Language:*  |  *Identifier:*  |
+     | bash | ="bash"= |  | Lua | ="lua"= |  | Scheme | ="scheme"= |
+     | C++ | ="cpp"= |  | Makefile | ="makefile"= |  | TCL | ="tcl"= |
+     | C# | ="csharp"= |  | Perl | ="perl"= |  | Verilog | ="verilog"= |
+     | HTML | ="html"= |  | PHP3 | ="php3"= |  | VHDL | ="vhdl"= |
+     | Java | ="java"= |  | PL/SQL | ="plsql"= |  | XML | ="xml"= |
+     | !JavaScript | ="javascript"= |  | Python | ="python"= |  |  |  |
+      * The Beautifier package supports many, many
+        [[http://trac.foswiki.org/browser/trunk/BeautifierPlugin/php/HFile][more language syntaxes]] 
+        but only the languages above have been ported to Foswiki at this point.
+        If you need support for an additional syntax, please open an 
+        [[Foswikitask:BeautifierPlugin][Enhancement Request]] to request the
+        syntax you require.
+   * DOM Structure:
+     The beautified code fragment is encapsulated within a &lt;pre&gt; element
+     which, in turn, is encapulated within a &lt;div&gt; element which has two
+     CSS class selectors, "fragment" and the language syntax identifier, which
+     is itself encapsulated within a &lt;div&gt; element with the CSS class
+     selector "BeautifierPlugin" as illustrated below.
+     <ul style="list-style-type:none;background:#edf4f9">
+       <li>&lt;div class="BeautifierPlugin"&gt;
+         <ul style="list-style-type:none;background:#ffffcc">
+           <li>&lt;div class=" =language= fragment"&gt;
+             <ul style="list-style-type:none;;background:#dddddd">
+               <li>&lt;pre&gt;
+                 <ul style="list-style-type:none;background:white">
+                   <li>&hellip; beautified code fragment &hellip;</li>
+                 </ul>
+               </li>
+               <li>&lt;/pre&gt;</li>
+             </ul>
+           </li>       
+           <li>&lt;/div&gt;</li>
+         </ul>
+       </li>
+       <li>&lt;/div&gt;</li>
+     </ul>
+      * Language-specific CSS styling can be applied to the beautified code 
+        fragment using CSS selectors of the form
+        =div.BeautifierPlugin div.<i>language</i>.fragment=
+      * Only one extended stylesheet may be supplied for a given topic using 
+        either the =css="URL"= macro parameter or the =BEAUTIFIERPLUGIN_CSS= 
+        preference setting.  The final stylesheet specified is the one that will
+        be used.  If you wish to specify multiple customizations, combine all
+        the CSS rules into a single stylesheet.
+%ENDSECTION{"syntax"}%
 
 ---++ Examples
 
-<blockquote>
-<pre>
-%<nop>CODE{"cpp"}%
-   void foo() {
-     print("Do stuff.\n");
-   }
-%ENDCODE%
-</pre>
-</blockquote> 
+The following examples illustrate the basic operation of the plugin and the
+%<nop>CODE% and %<nop>ENDCODE% macros.
 
+__Current default settings:__
+   * BEAUTIFIERPLUGIN_LANGUAGE is: %IF{"defined ''" then="%BEAUTIFIERPLUGIN_LANGUAGE%" else="cpp"}%
+   * BEAUTIFIERPLUGIN_CSS is: %IF{"defined 'BEAUTIFIERPLUGIN_CSS'" then="%BEAUTIFIERPLUGIN_CSS%" else="=null="}%
 
----++ <nop>%TOPIC% Global Settings
+---+++ C++ Syntax
 
-Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>BEAUTIFIERPLUGIN_SHORTDESCRIPTION%==
+This example illustrates the basic use of the plugin to beautify a code 
+fragment.  The default language syntax is assumed to be C++ unless otherwise
+specified by the %<nop>CODE% macro or the =BEAUTIFIERPLUGIN_LANGUAGE= preference
+setting.
 
-   * One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-      * Set SHORTDESCRIPTION = Highlights and formats code fragments
+%TWISTY{mode="div" showlink="Show example" hidelink="Hide example" showimgleft="%ICONURLPATH{toggleopen-small}%" hideimgleft="%ICONURLPATH{toggleclose-small}%"}%
+For the following code fragment:
 
-
----++ Plugin Installation Instructions
-
-__Note:__ You do not need to install anything on the browser to use this plugin. The following instructions are for the administrator who installs the plugin on the server where TWiki is running. 
-
-   * Download the ZIP file from the Plugin web (see below)
-   * Unzip ==%TOPIC%.zip== in your twiki installation directory, this will also install the Beautifier library by default. Content:
-   * (Dakar) Visit =configure= in your TWiki installation, and enable the plugin in the {Plugins} section.
-   * To install the Beautifier library, either install it in the Perl library folder or unpack it into the twiki directory.  For the latter, the following files are installed:
-     | *File:* | *Description:* |
-%$MANIFEST%
-
-   * Test if the installation was successful:
-
-%CODE{"cpp"}%
+<!--
+%STARTSECTION{"cpp"}%
 #include <nworld.h>
 
 /**
@@ -81,50 +117,276 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 void nWorld::StepSim()
 {
     // Iterate simulation loop
-    for (node = entityList.GetHead(); node != NULL; node = node->GetSucc())
+    for (node = entityList.GetHead(); node != NULL && j == 53; node = node->GetSucc())
     {
         entity = (nEntity*)node->GetPtr();
         entity->Trigger(this, this->stepSize);
     }
 }
-%ENDCODE%
+%ENDSECTION{"cpp"}%
+-->
 
-%CODE{"unknown"}%
-	testing an invalid language setting...
-%ENDCODE%
+<blockquote>
+  <pre>
+%<nop>CODE{"cpp"}%%INCLUDE{"%TOPIC%" section="cpp"}%%<nop>ENDCODE%
+  </pre>
+</blockquote> 
+
+You would get (simulated):
+
+<div class="BeautifierPlugin"><div class="cpp fragment" style="background: #FFFFCC; border: 1px solid #CCCCCC; margin-left: 2em; margin-right: 2em; padding: 4px;">
+<pre>
+<font color="navy">#include</font> &lt;nworld.h&gt;
+
+<font color="green">/**
+@brief Advance the simulation by one timeslice.
+*/</font>
+<font color="brown">void</font> nWorld::StepSim()
+{
+        <font color="green">// Iterate simulation loop</font>
+        <font color="brown">for</font> (node = entityList.GetHead(); node != NULL; node = node-&gt;GetSucc())
+        {
+                entity = (nEntity*)node-&gt;GetPtr();
+                entity-&gt;Trigger(<font color="brown">this</font>, <font color="brown">this</font>-&gt;stepSize);
+        }
+}
+</pre>
+</div></div>
+
+You would get (actual):
+
+%IF{ "context BeautifierPluginEnabled" then='$percntCODE{"cpp"}$percnt$percntINCLUDE{"%TOPIC%" section="cpp"}$percnt$percntENDCODE$percnt' else='$percntDISABLED$percnt' }%
+%ENDTWISTY%
+
+---+++ Lua Syntax With Custom CSS Styling
+
+This example illustrates using the Lua syntax highlighting rules and also
+demonstrates how to modify the styling of display elements to define additional
+language-specific styling of the beautified code fragment.  The URL of a custom
+stylesheet may be specified by the =css= paraemter of %<nop>CODE% macro or the 
+=BEAUTIFIERPLUGIN_CSS= preference setting.
+
+%TWISTY{mode="div" showlink="Show example" hidelink="Hide example" showimgleft="%ICONURLPATH{toggleopen-small}%" hideimgleft="%ICONURLPATH{toggleclose-small}%"}%
+The extension stylesheet adds the following CSS styling rules to alter the 
+outer border from pale yellow to pale pink and to make any colorized text bold.
+
+<blockquote>
+<pre>
+div.BeautifierPlugin div.lua.fragment {
+        background: #FFCCFF;
+}
+div.BeautifierPlugin div.lua.fragment font {
+        font-weight: bold;
+}
+</pre>
+</blockquote>
+
+For the following code fragment:
+
+<!--
+%STARTSECTION{"lua"}%
+Account = {}
+Account.__index = Account
+
+function Account.create(balance)
+   local acnt = {}             -- our new object
+   setmetatable(acnt,Account)  -- make Account handle lookup
+   acnt.balance = balance      -- initialize our object
+   return acnt
+end
+
+function Account:withdraw(amount)
+   self.balance = self.balance - amount
+end
+
+-- create and use an Account
+acc = Account.create(1000)
+acc:withdraw(100)
+%ENDSECTION{"lua"}%
+-->
+
+<blockquote>
+  <pre>
+%<nop>CODE{"lua" css="%<nop>ATTACHURL%/style_extension.css"}%%INCLUDE{"%TOPIC%" section="lua"}%%<nop>ENDCODE%
+  </pre>
+</blockquote> 
+
+You would get (simulated):
+
+<div class="BeautifierPlugin"><div class="lua fragment" style="background: #FFCCFF; border: 1px solid #CCCCCC; margin-left: 2em; margin-right: 2em; padding: 4px;">
+<pre>
+Account = {}
+Account.__index = Account
+
+<font style="font-weight:bold;" color="brown">function</font> Account.create(balance)
+   <font style="font-weight:bold;" color="brown">local</font> acnt = {}             <font style="font-weight:bold;" color="green">-- our new object</font>
+   setmetatable(acnt,Account)  <font style="font-weight:bold;" color="green">-- make Account handle lookup</font>
+   acnt.balance = balance      <font style="font-weight:bold;" color="green">-- initialize our object</font>
+   <font style="font-weight:bold;" color="brown">return</font> acnt
+<font style="font-weight:bold;" color="brown">end</font>
+
+<font style="font-weight:bold;" color="brown">function</font> Account:withdraw(amount)
+   self.balance = self.balance - amount
+<font style="font-weight:bold;" color="brown">end</font>
+
+<font style="font-weight:bold;" color="green">-- create and use an Account</font>
+acc = Account.create(1000)
+acc:withdraw(100)
+</pre>
+</div></div>
+
+You would get (actual):
+
+%IF{ "context BeautifierPluginEnabled" then='$percntCODE{"lua" css="%ATTACHURL%/style_extension.css"}$percnt$percntINCLUDE{"%TOPIC%" section="lua"}$percnt$percntENDCODE$percnt' else='$percntDISABLED$percnt' }%
+%ENDTWISTY%
+
+---+++ Unknown Syntax
+
+If a language syntax is specified that the plugin doesn't know how to handle,
+it will simply display an error message and display the code fragment without 
+any additional formatting or highighting applied.
+
+%TWISTY{mode="div" showlink="Show example" hidelink="Hide example" showimgleft="%ICONURLPATH{toggleopen-small}%" hideimgleft="%ICONURLPATH{toggleclose-small}%"}%
+For the following code fragment:
+
+<blockquote>
+  <pre>
+%<nop>CODE{"klingon"}%
+	Heghlu'meH QaQ jajvam
+%<nop>ENDCODE%
+  </pre>
+</blockquote>
+
+You would get (simulated):
+
+<div class="BeautifierPlugin"><div class=" fragment" style="background: #FFFFCC; border: 1px solid #CCCCCC; margin-left: 2em; margin-right: 2em; padding: 4px;">
+<img width="16" alt="bomb" align="top" src="/pub/System/DocumentGraphics/bomb.gif" height="16" border="0" /> <font color="#ff0000">Language 'klingon' not supported</font>
+<p />
+<pre>
+	Heghlu'meH QaQ jajvam
+</pre>
+<p />
+</div></div>
+
+You would get (actual):
+
+%IF{ "context BeautifierPluginEnabled" then='$percntCODE{"klingon"}$percnt	Heghlu&#39;meH QaQ jajvam$percntENDCODE$percnt' else='$percntDISABLED$percnt' }%
+%ENDTWISTY%
+
+#PreferenceSettings
+---++ Preference Settings
+
+The default expansion of the %<nop>CODE% macro may be altered by setting 
+[[%SYSTEMWEB%.PreferenceSettings][Foswiki preference settings]]. These settings 
+can be placed in your wiki's [[%LOCALSITEPREFS%][Site Preferences topic]], your 
+web's [[WebPreferences][Web Preferences topic]], your own 
+[[%WIKIUSERNAME%][User Preferences topic]], or the topic in which the
+%<nop>CODE% macro is used.
+
+| *Setting* | *Description* |  *Default*  |
+| CSS | The URL of an optional CSS stylesheet to use for styling display elements generated by the plugin |    |
+| DEBUG | Enable/disable logging of debug traces to the Foswiki Debug Log |  =off=  |
+| LANGUAGE | The default language syntax to use when beautifying a code fragment |  =cpp=  |
+
+__Note:__ 
+In the table above, the "BEAUTIFIERPLUGIN_" prefix has been omitted from each of 
+the setting names for brevity. In order to make use of a setting, you must use 
+the full name of the setting including the prefix 
+(e.g., "BEAUTIFIERPLUGIN_CSS").
+
+%ICON{warning}% Only one extended stylesheet may be supplied for a given topic 
+using either the =css="URL"= macro parameter or the =BEAUTIFIERPLUGIN_CSS= 
+preference setting. The final stylesheet specified is the one that will be 
+used.  If you wish to specify multiple customizations, combine all the CSS 
+rules into a single stylesheet.
 
 
----++ History
 
-| *Date* | *Change* | *Name* |
-| 20 May 2007 | added <nop>JavaScript language file, removed legacy CODE_<i>lang</i> construct | TWiki:Main.WillNorris |
-| 30 Apr 2007 | warnings cleanup; no functional changes | TWiki:Main.WillNorris |
-| 27 Apr 2007 | automatically adds CSS for formatting code fragments | TWiki:Main.WillNorris |
-|  1 Jan 2006 | upgraded to TWiki::Func::extractNameValuePair for better parameter parsing, upgraded Foswiki:Extensions.BuildContrib support | TWiki:Main.WillNorris |
-| 26 Jul 2003 | Syntax fixes from TWiki:Main/WillNorris  | TWiki:Main/LingLo |
-| 10 Feb 2003 | Syntax fix from TWiki:Main/JoshMore  | TWiki:Main/LingLo |
-| 28 Dec 2002 | Accepts mixed case language names | TWiki:Main/LingLo |
-| 20 Dec 2002 | Changed syntax to allow for simpler addition of new languages | TWiki:Main/LingLo |
-| 16 Oct 2002 | Added nebula nodes and links to Python scripts, but it doesn't work since the node names are usually in strings | TWiki:Main/LeafGarland |
-| 30 Jul 2002 | Added nebula nodes and links to TCL scripts | TWiki:Main/LeafGarland |
-| 30 Jul 2002 | Changed Beautifier::Core to use 'linkscripts' | TWiki:Main/LeafGarland |
-| 28 Jul 2002 | Created | TWiki:Main/LingLo |
+---+++ Setting Plugin Preferences
 
+Use TML assignment statements in the body content or the topic preferences of 
+a topic to set the value of a plugin preference. You can copy one or more of 
+the example assignment statements below to set the desired preference value.
 
+<pre>
+   %ASTERISK% Set BEAUTIFIERPLUGIN_CSS = %<nop>ATTACHURL%/style.css
+   %ASTERISK% Set BEAUTIFIERPLUGIN_DEBUG = off
+   %ASTERISK% Set BEAUTIFIERPLUGIN_LANGUAGE = cpp
+</pre>
+
+---++ Installation
+
+You do not need to install anything in the browser to use this extension. 
+The following instructions are for the site administrator who installs the 
+extension on the server.
+
+%TWISTY{mode="div" link="Installation instructions" showimgleft="%ICONURLPATH{toggleopen-small}%" hideimgleft="%ICONURLPATH{toggleclose-small}%"}%
+
+%ICON{warning}% __Warning!__ This plugin and the 
+[[Foswiki:Extensions.DpSyntaxHighlighterPlugin][dp.SyntaxHighlighter]] plugin
+conflict and are __not__ compatible as they both implement the %<nop>CODE% and
+%<nop>ENDCODE% macros.
+
+%$INSTALL_INSTRUCTIONS%
+
+---+++ Manual Installation 
+
+This plugin may be installed manually by downloading the distribution package 
+attached to the Foswiki:Extensions.BeautifierPlugin topic.
+   1. Install/upgrade any packages listed in [[#PluginInfo][Dependencies]] below
+   1. Download the .zip or .tgz distribution package and place it in the root 
+      directory of your Foswiki installation.
+   1. Unpack the distribution package
+   1. Using the Foswiki configuration utility, enable 
+      the plugin. (If using an accellerator such as mod_perl, it may be 
+      necessary to restart your server before your configuration changes will 
+      take effect.)
+   1. Set any default [[#PreferenceSettings][preference values]] in 
+      [[%LOCALSITEPREFS%][Site]], Web, and User Preference topics as desired.
+ 
+---+++ Installation Test
+
+%IF{ "context BeautifierPluginEnabled" then='$percntCODE{"cpp"}$percnt$percntINCLUDE{"%TOPIC%" section="cpp"}$percnt$percntENDCODE$percnt' else='$percntDISABLED$percnt' }%
+
+---+++ Manifest
+
+   | *File:* | *Description:* |
+%$MANIFEST%
+%ENDTWISTY%
+
+#PluginInfo
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main/LingLo |
-|  Plugin Version: | 27 Apr 2007 |
-|  CPAN Dependencies: | none |
-|  Other Dependencies: | [[http://www.beautifier.org][Beautifier]] (supplied) |
-|  Perl Version: | 5.005 |
-|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
-|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Author: | TWiki:Main.LingLo, Foswiki:Main.WillNorris, & Foswiki:Main.BryanThale |
+|  Copyright: | &copy; 2010, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License, Version 2]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Home: | Foswiki:Extensions.%TOPIC% |
+|  Support: | Foswiki:Support.%TOPIC% |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  09 Apr 2010 (1.0): | [[Foswikitask:Item8844]] - Port to Foswiki |
+|  20 May 2007: | added <nop>JavaScript language file, removed legacy CODE_<i>lang</i> construct |
+|  30 Apr 2007: | warnings cleanup; no functional changes |
+|  27 Apr 2007: | automatically adds CSS for formatting code fragments |
+|  01 Jan 2006 (Dakar): | upgraded to TWiki::Func::extractNameValuePair for better parameter parsing, upgraded TWiki:Plugins.BuildContrib support |
+|  26 Jul 2003: | Syntax fixes from TWiki:Main/WillNorris  |
+|  <span style="white-space:pre;">10 Feb 2003 (Beijing):</span> | Syntax fix from TWiki:Main/JoshMore  |
+|  28 Dec 2002: | Accepts mixed case language names |
+|  20 Dec 2002: | Changed syntax to allow for simpler addition of new languages |
+|  16 Oct 2002: | Added nebula nodes and links to Python scripts, but it doesn't work since the node names are usually in strings |
+|  30 Jul 2002: | Added nebula nodes and links to TCL scripts |
+|  30 Jul 2002: | Changed Beautifier::Core to use 'linkscripts' |
+|  <span style="white-space:pre;">28 Jul 2002 (Athens):</span> | Created |
 
-__Related Topics:__ %SYSTEMWEB%.DefaultPreferences, %USERSWEB%.SitePreferences, [[%SYSTEMWEB%.Plugins][Plugins]]
 
--- TWiki:Main.LingLo - 18 Dec 2002
+__Related Topics:__ 
+%INCLUDE{"%TOPIC%" section="related"}%
 
+%META:PREFERENCE{name="ASTERISK" title="ASTERISK" type="Set" value="*"}%
+%META:PREFERENCE{name="DISABLED" title="DISABLED" type="Set" value="%RED%<nobr>%ICON{plugin}% Plugin disabled</nobr>%ENDCOLOR%"}%
 
 
 %META:FILEATTACHMENT{name="style.css" attr="" autoattached="1" comment="CSS to format code fragments" date="1177765269" path="style.css" size="182" user="ProjectContributor" version=""}%
+%META:FILEATTACHMENT{name="style_extension.css" attr="" autoattached="1" comment="Example of an extension to the base CSS for code fragments" date="1177765269" path="style_extension.css" size="99" user="ProjectContributor" version=""}%

@@ -15,7 +15,6 @@ package Foswiki::Plugins::BeautifierPlugin::Core;
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 use Foswiki::Plugins::BeautifierPlugin::Context;
-use Data::Dumper;
 
 #use warnings;
 #use strict;

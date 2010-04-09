@@ -1,0 +1,9 @@
+%META:TOPICINFO{author="ProjectContributor" date="1270832927" format="1.1" version="1.0"}%
+%META:TOPICPARENT{name="Macros"}%
+#VarENDCODE
+---+++ ENDCODE -- end a code fragment
+   * The =%<nop>ENDCODE%= macro and its companion =%<nop>CODE%= macro are
+     provided by the %SYSTEMWEB%.BeautifierPlugin and are used together to mark
+     the beginning and ending of a code fragment to be beautifully displayed.
+%INCLUDE{"%SYSTEMWEB%.BeautifierPlugin" section="syntax"}%
+   * Related: [[%SYSTEMWEB%.Macros#VarCODE][CODE{&hellip;}]]

@@ -1,7 +1,10 @@
 data/System/BeautifierPlugin.txt 0644 Plugin documentation topic
 data/System/VarCODE.txt 0644 Syntax summary for the CODE macro
+data/System/VarENDCODE.txt 0644 Syntax summary for the ENDCODE macro
 pub/System/BeautifierPlugin/style.css 0644 Code fragment stylesheet
+pub/System/BeautifierPlugin/style_extension.css 0644 Code fragment stylesheet extension
 lib/Foswiki/Plugins/BeautifierPlugin.pm 0444 Plugin module
+lib/Foswiki/Plugins/BeautifierPlugin/LICENSE 0444 GNU GPLv2
 lib/Foswiki/Plugins/BeautifierPlugin/ANSI.pm 0444
 lib/Foswiki/Plugins/BeautifierPlugin/Context.pm 0444
 lib/Foswiki/Plugins/BeautifierPlugin/Core.pm 0444
@@ -24,5 +27,6 @@ lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_plsql.pm 0444
 lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_python.pm 0444
 lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_scheme.pm 0444
 lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_tcl.pm 0444
+lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_verilog.pm 0444
 lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_vhdl.pm 0444
 lib/Foswiki/Plugins/BeautifierPlugin/HFile/HFile_xml.pm 0444

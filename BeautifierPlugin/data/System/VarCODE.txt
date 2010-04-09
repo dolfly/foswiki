@@ -1,7 +1,9 @@
-%META:TOPICINFO{author="ProjectContributor" date="1180825069" format="1.0" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1270832927" format="1.1" version="1.2"}%
 %META:TOPICPARENT{name="Macros"}%
 #VarCODE
----+++ CODE{"language"} -- format and syntax highlight code fragments
-	* Syntax: =%<nop>CODE{"language"}%=
-		* where <i>language</i> is one of =bash=, =c++=, =c#=, =java=, =javascript=, =lua=, =makefile=, =perl=, =plsql=, =php3=, =phython=, =scheme=, =tcl=, =html=, =xml=, =verilog=, =vhdl=
-	* Related: BeautifierPlugin
+---+++ CODE{&hellip;} -- format and highlight syntax for displaying code fragments
+   * The =%<nop>CODE%= macro and its companion =%<nop>ENDCODE%= macro are
+     provided by the %SYSTEMWEB%.BeautifierPlugin and are used together to mark
+     the beginning and ending of a code fragment to be beautifully displayed.
+%INCLUDE{"%SYSTEMWEB%.BeautifierPlugin" section="syntax"}%
+   * Related: [[%SYSTEMWEB%.Macros#VarENDCODE][ENDCODE]]
