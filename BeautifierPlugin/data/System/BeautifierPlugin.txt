@@ -386,7 +386,7 @@ __Related Topics:__
 
 %META:PREFERENCE{name="ASTERISK" title="ASTERISK" type="Set" value="*"}%
 %META:PREFERENCE{name="DISABLED" title="DISABLED" type="Set" value="%RED%<nobr>%ICON{plugin}% Plugin disabled</nobr>%ENDCOLOR%"}%
-
+%META:PREFERENCE{name="NOWYSIWYG" title="NOWYSIWYG" type="Set" value="1"}%
 
 %META:FILEATTACHMENT{name="style.css" attr="" autoattached="1" comment="CSS to format code fragments" date="1177765269" path="style.css" size="182" user="ProjectContributor" version=""}%
 %META:FILEATTACHMENT{name="style_extension.css" attr="" autoattached="1" comment="Example of an extension to the base CSS for code fragments" date="1177765269" path="style_extension.css" size="99" user="ProjectContributor" version=""}%
