@@ -1,0 +1,45 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+ Empty Plugin
+
+%SHORTDESCRIPTION%
+
+---++ Plugin Preferences
+
+Preferences set here have no affect. They must be set in WebPreferences or Main.SitePreferences
+
+*TMCE settings*
+   * Set TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS = mcegooglemaps
+   * Set TINYMCEPLUGIN_BUTTONS2 = tablecontrols,separator,attach,image,charmap,hr,separator,code,hide,googlemaps,googlemapsdel,fullscreen
+*Google Maps API Key*
+   * Set TINYMCEGOOGLEMAPSPLUGIN_APIKEY = ABQIAAAA7ltbMKLNc_hIU2n7fJkPcBQZFz9WxqGaJMqBcUWOJRqT_EZNshQbNysGF7jvJd51ctR2kA8cHZRG1Q
+
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+Foswiki:Extensions.PleaseFeelFreeToModify
+
+|  Author: | Foswiki:Main.PaulHarvey |
+|  Copyright: | &copy; 2010, Paul.W.Harvey@csiro.au <br/>\
+                Developing the [[http://taxonomy.org.au][Taxonomic Research Information Network]] for<br/>\
+                the [[http://www.anbg.gov.au/cpbr/][Centre for Plant Biodiversity Research]] at [[http://www.csiro.au/pi][CSIRO Plant Industry]]<br/>\
+<p>This plugin for Foswiki packages mcegooglemap plugin, found at [[http://mcegooglemap.sourceforge.net/]].</p>\
+<p>The original copyright notice reads as follows:</p>\
+<blockquote>\
+   Copyright: Cees Rijken, Christian Ladewig, Jeroen van der Stijl<br/>\
+   License: GPL<br/>\
+   (c)2009 All rights reserved.\
+</blockquote> |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  15 Apr 2010 | Foswiki:Main.PaulHarvey: Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |

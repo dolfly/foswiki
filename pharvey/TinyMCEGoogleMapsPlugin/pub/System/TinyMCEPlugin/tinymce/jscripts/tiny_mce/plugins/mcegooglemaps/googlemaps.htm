@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Googlemaps</title>
+
+    <script type="text/javascript" src="../../tiny_mce_popup.js?v=307"></script>
+
+    <script type="text/javascript" src="../../utils/mctabs.js"></script>
+
+    <script type="text/javascript" src="js/dialog.js?v=307"></script>
+
+    <script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=false&amp;key=API-KEY"
+        type="text/javascript"></script>
+
+</head>
+<body onload="load()" onunload="GUnload()">
+    <form onsubmit="ExampleDialog.insert();return false;" action="#">
+    <input type="hidden" name="akey" id="akey" value="" />
+    <input type="hidden" name="zoomLevel" id="zoomLevel" value="" />
+    <input type="hidden" name="mapType" id="mapType" value="" />
+    <div class="tabs">
+        <ul>
+            <li id="general_tab" class="current"><span><a href="javascript:mcTabs.displayTab('general_tab','general_panel');"
+                onmousedown="return false;">General</a></span></li>
+            <li id="advanced_tab"><span><a href="javascript:mcTabs.displayTab('advanced_tab','advanced_panel');"
+                onmousedown="return false;">Advanced</a></span></li>
+        </ul>
+    </div>
+    <div class="panel_wrapper">
+        <div id="general_panel" class="panel current" style="height: 420px">
+            <fieldset>
+                <legend>Map</legend>
+                <table border="0" cellspacing="0" cellpadding="4">
+                    <tr>
+                        <td colspan="2">
+                            <div id="map" style="width: 575px; height: 300px; overflow: hidden">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div id="divLookup">
+                <fieldset id="fsLookup" style="margin-top: 10px">
+                    <legend>Location</legend>
+                    <div id="divAddress" style="position: relative; clear: both; padding: 4px; text-align: left">
+                        <div style="position: relative; float: left; width: 80px; height: 100%; text-align: left">
+                            Address:
+                        </div>
+                        <div style="position: relative; float: left; width: 505px; height: 100%">
+                            <input size="60" id="address" name="address" value="" type="text"><input
+                                type="button" onclick="showAddress(document.getElementById('address').value);return false;"
+                                style="border: 1px solid #555; background: white; margin-left: 10px;" value="Search" />
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div id="advanced_panel" class="panel">
+            <fieldset>
+                <legend>Map-Size</legend>
+                <table border="0" cellspacing="0" cellpadding="4">
+                    <tr>
+                        <td colspan="2">
+                            <table border="0" cellspacing="0" cellpadding="0" width="575">
+                                <td width="50%">
+                                    Width:
+                                    <input style="width: 180px;" id="width" name="width" type="text" class="text" value="300" />
+                                    Pixel
+                                </td>
+                                <td align="right" width="50%">
+                                    Height:
+                                    <input style="width: 180px;" id="height" name="height" type="text" class="text" value="300" />
+                                    Pixel
+                                </td>
+                            </table>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+            <fieldset id="fsCoordinates">
+                <legend>Current location on map</legend>
+                <div id="divCoordinates" style="position: relative; clear: both; padding: 4px;">
+                    <div style="position: relative; float: left; width: 80px; height: 100%; text-align: left">
+                        Coordinates:
+                    </div>
+                    <div style="position: relative; float: left; width: 505px; height: 100%">
+                        <input style="width: 450px;" id="Text1" name="coords" type="text" class="text" />
+                        <input id="btnSetCoords" type="button" onclick="setCoords(document.getElementById('coords').value);return false;"
+                            style="border: 1px solid #555; background: white; margin-left: 10px;" value="Set" />
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Map options</legend>
+                <div id="div1" style="position: relative; clear: both; padding: 4px;">
+                    <div style="position: relative; float: left; width: 80px; height: 100%; text-align: left">
+                        HUD type:
+                    </div>
+                    <div style="position: relative; float: left; width: 505px; height: 100%">
+                        <select id="cmbHud" name="cmbHud" onchange="setHud(this.value);">
+                            <option value="GLargeMapControl3D">GLargeMapControl3D</option>
+                            <option value="GLargeMapControl">GLargeMapControl</option>
+                            <option value="GSmallMapControl">GSmallMapControl</option>
+                            <option value="GSmallZoomControl3D">GSmallZoomControl3D</option>
+                            <option value="GSmallZoomControl">GSmallZoomControl</option>
+                            <option value="">No control</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="div2" style="position: relative; clear: both; padding: 4px;">
+                    <div style="position: relative; float: left; width: 80px; height: 100%; text-align: left">
+                        Show:
+                    </div>
+                    <div style="position: relative; float: left; width: 505px; height: 100%">
+                        <div style="position: relative; float: left; width: 80px; height: 100%">
+                            Scale:
+                            <input type="checkbox" id="chkScale" onclick="toggleScale(this.checked);" />
+                        </div>
+                        <div style="position: relative; float: left; width: 80px; height: 100%">
+                            Overview:
+                            <input type="checkbox" id="chkOverview" onclick="toggleOverview(this.checked);" />
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="mceActionPanel">
+        <div style="float: left">
+            <input type="button" id="insert" name="insert" value="{#insert}" onclick="ExampleDialog.insert();" />
+        </div>
+        <div style="float: right">
+            <input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        //<![CDATA[
+
+        var intialCoordinates;
+        var isDraggable;
+
+        function dialogInit(apiKey, coords, showCoords, locationLookupEnabled) {
+
+            var head = document.getElementsByTagName("head")[0];
+
+            for (var i = 0; i < head.children.length; i++) {
+                var h = head.children[i];
+
+                if (h.src != undefined) {
+                    if (h.src.indexOf('maps.google.com') != -1) {
+                        h.src.replace('API-KEY', apiKey);
+                    }
+                }
+            }
+
+            if (coords == '')
+                initialCoordinates = '48.123351, 11.54353';
+            else
+                initialCoordinates = coords;
+
+            document.forms[0].akey.value = apiKey;
+            document.forms[0].coords.value = initialCoordinates;
+
+            if (showCoords.toLowerCase() == 'false') {
+                // var divCoords = document.getElementById('divCoordinates');
+                // divCoords.style.display = "none";
+            }
+
+            if (locationLookupEnabled.toLowerCase() == 'false') {
+                isDraggable = false;
+
+                var divLookup = document.getElementById('divLookup');
+                divLookup.style.display = "none";
+
+                var divMap = document.getElementById('map');
+                divMap.style.height = "390px"; //390
+
+                var cmdSetCoords = document.getElementById('btnSetCoords');
+                cmdSetCoords.disabled = true;
+                
+            }
+            else {
+                isDraggable = true;
+            }
+        }
+
+        var map;
+        var marker;
+
+        var mapControl = new GLargeMapControl3D();
+
+        function setHud(value) {
+            map.removeControl(mapControl);
+
+            // in case of option 'no control' do nothing, we just removed the control
+            switch (value) {
+                case "GLargeMapControl3D":
+                    mapControl = new GLargeMapControl3D();
+                    map.addControl(mapControl);
+                    break;
+                case "GLargeMapControl":
+                    mapControl = new GLargeMapControl();
+                    map.addControl(mapControl);
+                    break;
+                case "GSmallMapControl":
+                    mapControl = new GSmallMapControl();
+                    map.addControl(mapControl);
+                    break;
+                case "GSmallZoomControl3D":
+                    mapControl = new GSmallZoomControl3D();
+                    map.addControl(mapControl);
+                    break;
+                case "GSmallZoomControl":
+                    mapControl = new GSmallZoomControl();
+                    map.addControl(mapControl);
+                    break;
+            }
+
+        }
+
+        var scaleControl = new GScaleControl();
+
+        function toggleScale(value) {
+            if (value)
+                map.addControl(scaleControl);
+            else
+                map.removeControl(scaleControl);
+        }
+
+        var overviewControl = new GOverviewMapControl();
+
+        function toggleOverview(value) {
+            if (value)
+                map.addControl(overviewControl);
+            else
+                map.removeControl(overviewControl);
+        }
+
+        function setCoords(coords) {
+            var point = new GLatLng.fromUrlValue(coords);
+
+            if (isNaN(point.x) || isNaN(point.y)) {
+                alert("Invalid coordinates specified");
+            }
+            else {
+                marker.setPoint(point);
+                map.setCenter(point);
+            }
+        }
+
+        function showAddress(address) {
+            geocoder = new GClientGeocoder();
+            if (geocoder) {
+                geocoder.getLatLng(address, function(point) {
+                    if (!point) {
+                        alert(address + " not found");
+                    } else {
+                        map.setCenter(point);                       
+                        marker.setPoint(point);
+                        document.forms[0].coords.value = marker.getPoint().lat() + "," + marker.getPoint().lng();
+                    }
+                });
+            }
+        }
+
+        function getCurrentMapType() {
+            switch (map.getCurrentMapType()) {
+                case G_NORMAL_MAP:
+                    document.forms[0].mapType.value = "G_NORMAL_MAP";
+                    break;
+                case G_SATELLITE_MAP:
+                    document.forms[0].mapType.value = "G_SATELLITE_MAP";
+                    break;
+                case G_HYBRID_MAP:
+                    document.forms[0].mapType.value = "G_HYBRID_MAP";
+                    break;
+                case G_PHYSICAL_MAP:
+                    document.forms[0].mapType.value = "G_PHYSICAL_MAP";
+                    break;
+            }
+        }
+
+        function load() {
+            if (GBrowserIsCompatible()) {
+                map = new GMap2(document.getElementById("map"));
+                map.setCenter(new GLatLng.fromUrlValue(initialCoordinates), 4);
+
+                setHud("GLargeMapControl3D");
+
+                var mapTypeControl = new GHierarchicalMapTypeControl();
+                map.addControl(mapTypeControl);
+
+                map.addMapType(G_PHYSICAL_MAP);
+
+                map.enableContinuousZoom();
+                map.enableDoubleClickZoom();
+
+                document.forms[0].zoomLevel.value = map.getZoom();
+
+                getCurrentMapType();
+
+                GEvent.addListener(map, 'zoomend', function() {
+                    document.forms[0].zoomLevel.value = map.getZoom();
+                });
+
+                GEvent.addListener(map, 'maptypechanged', function() {
+                    getCurrentMapType();
+                });
+
+                // "tiny" marker icon
+                var icon = new GIcon();
+                icon.image = "http://labs.google.com/ridefinder/images/mm_20_red.png";
+                icon.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png";
+                icon.iconSize = new GSize(12, 20);
+                icon.shadowSize = new GSize(22, 20);
+                icon.iconAnchor = new GPoint(6, 20);
+                icon.infoWindowAnchor = new GPoint(5, 1);
+
+                //Draggable markers
+                var point = new GLatLng.fromUrlValue(initialCoordinates);
+                marker = new GMarker(point, { icon: G_DEFAULT_ICON, draggable: isDraggable });
+                map.addOverlay(marker);
+
+                GEvent.addListener(marker, "drag", function() {
+                    document.forms[0].coords.value = marker.getPoint().lat() + "," + marker.getPoint().lng();
+                });
+
+            }
+        }
+
+        //]]>
+    </script>
+
+    </form>
+</body>
+</html>

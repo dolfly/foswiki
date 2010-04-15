@@ -1,0 +1,35 @@
+# DRAFT /usr/local/src/svn.foswiki.org/trunk/TinyMCEGoogleMapsPlugin/lib/Foswiki/Plugins/TinyMCEGoogleMapsPlugin/MANIFEST follows:
+################################################
+TinyMCEGoogleMapsPlugin_installer 0770
+TinyMCEGoogleMapsPlugin_installer.pl 0644
+lib/Foswiki/Plugins/TinyMCEGoogleMapsPlugin.pm 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/ReadMe.txt 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/editor_plugin.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/editor_plugin.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/editor_plugin_src.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/editor_plugin.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/editor_plugin.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/googlemaps.htm 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/img/map.gif 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/img/map_add.gif 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/img/map_delete.gif 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/js/dialog.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/js/dialog.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/de.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/de.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/de_dlg.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/de_dlg.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/en.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/en.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/en_dlg.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/en_dlg.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/nl.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/nl.js.gz 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/nl_dlg.js 0644
+pub/System/TinyMCEPlugin/tinymce/jscripts/tiny_mce/plugins/mcegooglemaps/langs/nl_dlg.js.gz 0644
+################################################
+# Copy and paste the text between the ###### lines into the file
+# /usr/local/src/svn.foswiki.org/trunk/TinyMCEGoogleMapsPlugin/lib/Foswiki/Plugins/TinyMCEGoogleMapsPlugin/MANIFEST
+# to create an initial manifest. Remove any files
+# that should _not_ be released, and add a
+# description of each file at the end of each line.
