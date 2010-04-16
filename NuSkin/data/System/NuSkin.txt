@@ -1,11 +1,10 @@
-%META:TOPICINFO{author="DavidPatterson" date="1220446581" format="1.1" reprev="1.1" version="1.1"}%
 ---+ Nu Skin
 
 An overlay to the default PatternSkin (currently just a view template) inspired by the examples and discussion at TWiki:Codev.TWikiForNormalUsers (hence the name) and, with !JavaScript enabled on the client, code adapted from the Foswiki:Extensions.QuickMenuSkin is used to provide a highly customisable JS menu system. A functional UI for "normal users" persists even when !JavaScript is disabled on the client.
 
 ---++ Screen Shot
 
-%SEARCH{ "NuSkin" scope="topic" nosearch="on" nototal="on" format="$pattern(.*\| *Screenshot\:[^\|]*\|([^\|]*).*)" }%
+%SEARCH{ "Screenshot" topic="%TOPIC%" nonoise="on" format="$pattern(.*\| *Screenshot\:[^\|]*\|([^\|]*).*)" }%
 
 ---++ Installation
 
@@ -154,7 +153,5 @@ Four variables are provided for this:
 |  Dependencies: | %$DEPENDENCIES% |
 |  Skin Home: | http://Foswiki.org/Extensions/NuSkin |
 |  Support: | http://Foswiki.org/Support/NuSkin |
-
--- %MAINWEB%.DavidPatterson - 3 Sep 2008
 
 %META:FILEATTACHMENT{name="nuskin_screenshot_without_banner.PNG" attr="" comment="" date="1220445468" size="116924" user="ProjectContributor" version="1"}%
