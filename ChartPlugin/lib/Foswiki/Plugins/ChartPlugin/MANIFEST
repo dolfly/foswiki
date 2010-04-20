@@ -1,7 +1,6 @@
 data/System/ChartPlugin.txt 0644
 data/System/ChartPluginTests.txt 0644
 data/System/ChartPluginTestsRemote.txt 0644
-data/System/VarCHART.txt 0644
 lib/Foswiki/Plugins/ChartPlugin.pm 0444
 lib/Foswiki/Plugins/ChartPlugin/Chart.pm 0444
 lib/Foswiki/Plugins/ChartPlugin/Parameters.pm 0444
