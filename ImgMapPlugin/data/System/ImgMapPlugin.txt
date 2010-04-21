@@ -1,0 +1,46 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+ Empty Plugin
+
+%SHORTDESCRIPTION%
+
+---++ Plugin Preferences
+
+Preferences set here have no affect. They must be set in WebPreferences or Main.SitePreferences
+
+Enable by setting =TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS= to include =imgmap,= and also adjust the =TINYMCEPLUGIN_BUTTONS2= to include =imgmap=, Eg.:
+%JQREQUIRE{"chili"}%<verbatim class="tml">
+   * Set TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS = imgmap, wordcount
+   * Set TINYMCEPLUGIN_BUTTONS2 = tablecontrols,separator,attach,image,imgmap,charmap,hr,separator,code,hide,fullscreen
+</verbatim>
+
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+Foswiki:Extensions.PleaseFeelFreeToModify
+
+|  Author: | Foswiki:Main.PaulHarvey |
+|  Copyright: | &copy; 2010, Paul.W.Harvey@csiro.au <br/>\
+                Developing the [[http://taxonomy.org.au][Taxonomic Research Information Network]] for<br/>\
+                the [[http://www.anbg.gov.au/cpbr/][Centre for Plant Biodiversity Research]] at [[http://www.csiro.au/pi][CSIRO Plant Industry]]<br/>\
+<p>This plugin for Foswiki packages imgmap plugin, found at [[http://code.google.com/p/imgmap]].</p>\
+<p>The original copyright notice reads in part:</p>\
+<blockquote>\
+Image Map Editor (imgmap) - in-browser imagemap editor<br/>\
+Copyright (C) 2006 - 2008 Adam Maschek (adam.maschek @ gmail.com)\
+</blockquote>\
+<p>See [[%ATTACHURLPATH%/imgmap_src.js][source code]] comments for full copyright header including GPL terms</p>\
+<p> =imgmap= uses Google's [[http://code.google.com/p/explorercanvas/][excanvas]] code for Internet Explorer compatibility. See [[%ATTACHURLPATH%/excanvas_src.js][excanvas source code]] comments for full copyright header including APL license terms</p> |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  21 Apr 2010 | Foswiki:Main.PaulHarvey: Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
