@@ -1,0 +1,44 @@
+---+ <nop>%TOPIC%
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+This plugin shows the local time of a city embedded in a topic.
+
+*Requires BSD or Linux zoneinfo files and date command*
+
+---++ Usage
+
+Add the =%<nop>LOCALCITYTIME{"timezone"}%= macro anywhere in your topic.
+="timezone"= is a Continent/City combination.
+
+Examples:
+
+| *What:* | *You type:* | *You get: (static text for demo)* |
+| Time in Zurich: | =%<nop>LOCALCITYTIME{"Europe/Zurich"}%= | Sun, 15 Jul 2001, 02:03:50 CEST (Europe/Zurich) |
+| Incorrect timezone: | =%<nop>LOCALCITYTIME{"Not/There"}%= | %TOPIC% warning: Invalid Timezone. Use a Continent/City timezone code e.g. %<nop>LOCALCITYTIME{"Europe/Zurich"}% |
+| Help: | =%<nop>LOCALCITYTIME%= | %LOCALCITYTIME% |
+
+---++ Installation Instructions
+%$INSTALL_INSTRUCTIONS%
+
+If the installation worked, you should see expanded times below:
+| Europe/London | %LOCALCITYTIME{"Europe/London"}% |
+| America/Havana | %LOCALCITYTIME{"America/Havana"}% |
+| Asia/Tokyo | %LOCALCITYTIME{"Asia/Tokyo"}% |
+| Asia/Tel_Aviv | %LOCALCITYTIME{"Asia/Tel_Aviv"}% |
+
+---++ Info
+
+|  Author: | Peter Thoeny 19 Nov 2004 |
+|  Change History: | &nbsp; |
+|  26 Apr 2010: | Ported and rewritten to use a tag handler by Foswiki:Main.CrawfordCurrie. Simplified by dumping the gateway - that sort of service is better done using an AJAX component. |
+|  19 Nov 2004: | Minor code cleanup; added benchmarks |
+|  23 Nov 2003: | New URL for gateway (www.bsdi.com is decommissioned); choice of internal date calculation |
+|  14 Jul 2001: | Changed to plug & play |
+|  26 Apr 2001: | initPlugin returns 1; fixed uninitialized value warning |
+|  25 Apr 2001: | Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
