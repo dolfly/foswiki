@@ -11,21 +11,23 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
-This contrib contains a rather wonderful work of 1,755 icons made by Yusuke Kamiyamane taht can be found at http://www.pinvoke.com/.
+This contrib contains a rather wonderful work of 2,757 icons made by Yusuke Kamiyamane that can be found at http://p.yusukekamiyamane.com/.
 
 It contains not only 16x16 png icons, but also 48x48 source =.psd= files that can be used to extend, combine and customise.
 <verbatim>
 Fugue Icons
-================================================================================
-Copyright (C) 2009 Yusuke Kamiyamane. All rights reserved.
-The icons are licensed under a Creative Commons Attribution 3.0 license.
-<http://creativecommons.org/licenses/by/3.0/>
---------------------------------------------------------------------------------
-If you can't or don't want to place link back, please purchase a royalty-free license.
-<http://www.pinvoke.com/>
---------------------------------------------------------------------------------
-I'm unavailable for custom icon design work. But your suggestions are always welcome!
-<mailto:yusuke.kamiyamane@gmail.com>
+
+Copyright (C) 2010 Yusuke Kamiyamane. All rights reserved.
+The icons are licensed under a Creative Commons Attribution
+3.0 license. <http://creativecommons.org/licenses/by/3.0/>
+
+If you can't or don't want to provide a link back, please
+purchase a royalty-free license.
+<http://p.yusukekamiyamane.com/>
+
+I'm unavailable for custom icon design work. But your
+suggestions are always welcome!
+<mailto:p@yusukekamiyamane.com>
 </verbatim>
 
 ---++ Examples
@@ -71,7 +73,8 @@ I'm unavailable for custom icon design work. But your suggestions are always wel
 |  License: | [[http://creativecommons.org/licenses/by/3.0/][Creative Commons Attribution 3.0 license.]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-| march 2009 | initial version using 1.7.2 | 
+|  Apr 2010: | updated to 2.7.2 |
+|  Mar 2009: | initial version using 1.7.2 | 
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/bin/view/Extensions/FugueIconsContrib |
 |  Support: | http://foswiki.org/bin/view/Support/FugueIconsContrib |
