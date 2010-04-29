@@ -1,0 +1,256 @@
+Version 2.7.1 (April 26, 2010)
+- Add <blue-folder*>.
+- Add <blue-folders*>.
+- Add <24/blue-folder*>.
+- Add <32/blue-folder*>.
+------------------------------------------------------------
+Version 2.7 (April 25, 2010)
+- Add <balloons-box>, <balloons-facebook-box> and
+  <balloons-twitter-box>.
+- Add <globe-share>.
+- Add <image-share>.
+- Add <mail-share>.
+- Add <map-share>.
+- Add <moneys>.
+- Add <network-firewall>.
+- Add <notebook-share>.
+- Add <plate*>.
+- Add <plates>.
+- Add <receipt-share>.
+- Add <store-share>.
+- Add <table-share>.
+- Add <telephone-share>.
+- Add <terminal-network>.
+- Add <ui-text-field-password-*>.
+- Add <ui-tooltip-balloon-bottom>.
+- Add <user-share>.
+- Add <webcam-share>.
+- Add <zone-label>.
+- Add <24/thumb*>.
+------------------------------------------------------------
+Version 2.6.6 (April 23, 2010)
+- Add <book-open-list> and <book-open-text*>.
+- Add <desktop-share>.
+- Add <disc-share>.
+- Add <disk-share>.
+- Add <dummy-small>.
+- Add <envelope-share>.
+- Add <globe-network-ethernet>.
+- Add <layout-4> and <layout-6>.
+- Add <24/image-export> and <24/image-import>.
+- Add <32/document-horizontal>.
+- Add <32/folder-horizontal>.
+------------------------------------------------------------
+Version 2.6.5 (April 18, 2010)
+- Add <asterisk-small>.
+- Add <bookmarks>.
+- Add <calendar-share>.
+- Add <currency-ruble>.
+- Add <cutleries>.
+- Add <dashboard-network>.
+- Add <document-node>.
+- Add <drive-share>.
+- Add <home-share>.
+- Add <inbox-download> and <inbox-upload>.
+- Add <printer-share>.
+- Add <speaker-network>.
+- Add <spectacle-3d>.
+- Add <system-monitor-network>.
+- Add <telephone-network>.
+- Add <user-medical*>.
+- Add <32/application>.
+- Add <32/document>.
+- Add <32/folder>.
+------------------------------------------------------------
+Version 2.6.4 (April 14, 2010)
+- Add <beer>.
+- Add <glass-narrow> and <glass-wide>.
+- Add <odata*>.
+- Add <table-join-column>, <table-join-row>,
+  table-split-column> and <table-split-row>.
+- Add <ui-layered-pane>.
+- Add <ui-panel>.
+- Add <ui-separator*>.
+- Add <ui-split-panel*>.
+- Add <ui-textarea>.
+- Add <ui-text-field-format>.
+- Add <24/application-sidebar*>.
+- Add <24/table-export> and <24/table-import>.
+------------------------------------------------------------
+Version 2.6.3e (April 8, 2010)
+- Add <24/battery-charge>, <24/battery-empty>,
+  <24/battery-full>, <24/battery-low>, <24/battery-plug>.
+- Add <24/inbox-document*>, <24/inbox-film>,
+  <24/inbox-image>, <24/inbox-slide> and <24/inbox-table>.
+- Add <24/magnifier-left> and <24/magnifier-zoom*>.
+- Add <24/smiley-lol>.
+------------------------------------------------------------
+Version 2.6.3d (March 27, 2010)
+- Add <24/application-export> and <24/application-import>.
+- Add <24/arrow*>.
+- Add <24/calendar-export> and <24/calendar-import>.
+- Add <24/database-export> and <24/database-import>.
+- Add <24/document-export> and <24/document-import>.
+- Add <24/folder-export> and <24/folder-import>.
+- Add <24/inbox>.
+- Add <24/marker>.
+- Add <24/newspaper>.
+- Add <24/printer>.
+- Add <24/receipt-export> and <24/receipt-import>.
+- Add <24/scissors*>.
+- Add <24/script-export> and <24/script-import>.
+- Add <24/vise>.
+------------------------------------------------------------
+Version 2.6.3c (March 20, 2010)
+- Add <24/battery>.
+- Add <24/eraser>.
+- Add <24/jar*>.
+- Add <24/keyboard*>.
+- Add <24/lifebuoy>.
+- Add <24/magnifier>.
+- Add <24/mail-open>.
+- Add <24/notebook>.
+- Add <24/paper-bag*>.
+- Add <24/service-bell>.
+- Add <24/sitemap>.
+- Add <24/soap>.
+- Add <24/table-sheet>.
+- Add <24/universal>.
+- Add <24/wall>.
+- Add <24/wand*>.
+- Add <24/water>.
+- Add <24/webcam>.
+- Add <24/yin-yang>.
+------------------------------------------------------------
+Version 2.6.3b (March 18, 2010)
+- Add <xfn*>.
+- Add <24/bin*>.
+- Add <24/light-bulb*>.
+- Add <24/ticket>.
+------------------------------------------------------------
+Version 2.6.3a (March 17, 2010)
+- Add <24/bell>.
+- Add <24/folder-horizontal-open> and <24/folder-open>.
+- Add <24/star-empty> and <24/star-half>.
+- Add <24/television>.
+- Add <24/wooden-box-label>.
+------------------------------------------------------------
+Version 2.6.3 (March 14, 2010)
+- Add <fruit*>.
+- Add <pencil-field>.
+- Add <24/calculator>.
+- Add <24/camera*>.
+- Add <24/fire>.
+- Add <24/media-player*>.
+- Add <24/monitor*>.
+- Add <24/pencil>.
+- Add <24/photo-album*>.
+- Add <24/point>.
+- Add <24/socket>.
+- Add <24/stamp>.
+------------------------------------------------------------
+Version 2.6.2d (March 10, 2010)
+- Add <24/alarm-clock*>.
+- Add <24/balloon-facebook> and <24/balloon-twitter>.
+- Add <24/box-label>.
+- Add <24/disc-blue>.
+- Add <24/magnet>.
+- Add <24/ruler>.
+- Add <24/store-label>.
+- Add <24/tag-label>.
+------------------------------------------------------------
+Version 2.6.2c (March 9, 2010)
+- Add <24/briefcase>.
+- Add <24/drive>.
+- Add <24/equalizer>.
+- Add <24/map>.
+- Add <24/sofa>.
+- Add <24/sort>.
+- Add <24/star>.
+- Add <24/system-monitor>.
+- Add <24/target>.
+- Add <24/terminal>.
+------------------------------------------------------------
+Version 2.6.2b (March 8, 2010)
+- Add <24/card-address>.
+- Add <24/clock>.
+- Add <24/color-swatch>.
+- Add <24/feed>.
+- Add <24/home>.
+- Add <24/megaphone>.
+- Add <24/microphone>.
+- Add <24/mobile-phone>.
+- Add <24/store>.
+------------------------------------------------------------
+Version 2.6.2a (March 8, 2010)
+- Add <24/address-book*>.
+- Add <24/calendar-day>.
+- Add <24/switch>.
+- Add <24/wooden-box>.
+------------------------------------------------------------
+Version 2.6.2 (March 8, 2010)
+- Add <24/bookmark>.
+- Add <24/book-brown>.
+- Add <24/disk*>.
+- Add <24/edit>.
+- Add <24/image*>.
+- Add <24/receipt-text>.
+- Add <24/script-text>.
+- Add <24/tag>.
+- Add <24/zone>.
+------------------------------------------------------------
+Version 2.6.1 (March 4, 2010)
+------------------------------------------------------------
+Version 2.6 (March 1, 2010)
+------------------------------------------------------------
+Version 2.5 (January 3, 2010)
+------------------------------------------------------------
+Version 2.4 (November 6, 2009)
+------------------------------------------------------------
+Version 2.3 (October 16, 2009)
+------------------------------------------------------------
+Version 2.2 (July 3, 2009)
+------------------------------------------------------------
+Version 2.1 (June 13, 2009)
+------------------------------------------------------------
+Version 2.0 (May 13, 2009)
+------------------------------------------------------------
+Version 1.9 (May 4, 2009)
+------------------------------------------------------------
+Version 1.8 (April 29, 2009)
+------------------------------------------------------------
+Version 1.7 (April 15, 2009)
+------------------------------------------------------------
+Version 1.6 (April 6, 2009)
+------------------------------------------------------------
+Version 1.5 (March 17, 2009)
+------------------------------------------------------------
+Version 1.4 (January 28, 2009)
+------------------------------------------------------------
+Version 1.3 (January 22, 2009)
+------------------------------------------------------------
+Version 1.2 (January 11, 2009)
+------------------------------------------------------------
+Version 1.1 (January 2, 2009)
+------------------------------------------------------------
+Version 1.0 (October 12, 2008)
+* Initial non-beta release.
+------------------------------------------------------------
+Version 0.9 (August 4, 2008)
+------------------------------------------------------------
+Version 0.8 (July 28, 2008)
+------------------------------------------------------------
+Version 0.7 (July 22, 2008)
+------------------------------------------------------------
+Version 0.6 (July 14, 2008)
+------------------------------------------------------------
+Version 0.5 (July 13, 2008)
+------------------------------------------------------------
+Version 0.4 (July 9, 2008)
+------------------------------------------------------------
+Version 0.3 (June 29, 2008)
+------------------------------------------------------------
+Version 0.2 (June 27, 2008)
+------------------------------------------------------------
+Version 0.1 (June 17, 2008)
+* Initial beta release.
