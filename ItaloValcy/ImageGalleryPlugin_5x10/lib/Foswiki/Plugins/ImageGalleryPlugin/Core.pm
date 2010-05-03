@@ -98,8 +98,7 @@ sub new {
     $this->{igpDir} = $this->normalizeFileName("$topicPubDir/$this->{id}");
     mkdir $this->{igpDir} unless -d $this->{igpDir};
 
-    $this->{imagesPubUrl} = $this->{pubUrlPath} .
-      "/images/$this->{web}/$this->{topic}/$this->{id}";
+    $this->{thumbnailsPubUrl} = "$this->{pubUrlPath}/images";
     $this->{infoFile} = $this->normalizeFileName("$this->{igpDir}/info.txt");
   }
 
@@ -252,20 +251,18 @@ sub render {
       }
     }
     next if $found;
-    my $img = "$this->{igpDir}/$entry->{name}";
-    my $thumb = "$this->{igpDir}/thumb_$entry->{name}";
+    my $thumb = "$this->{imagesDir}/$entry->{web}/$entry->{topic}/".
+                "thumb_$entry->{thumbwidth}x$entry->{thumbheight}_$entry->{name}";
     if ($entry->{name} =~ /\.svgz?$/) {
-      $img .= 'png'; 
       $thumb .= 'png'; 
     }
 
-    $img = $this->normalizeFileName($img);
     $thumb = $this->normalizeFileName($thumb);
 
-    unlink $img;
     unlink $thumb;
 
-    delete $this->{info}{$entry->{name}};
+    delete $this->{info}{"$entry->{web}/$entry->{topic}/$entry->{name}"};
+    $this->{infoChanged} = 1;
   }
 
 
@@ -336,7 +333,7 @@ sub renderImage {
   foreach my $image (@{$this->{images}}) {
     $state = 3 if $state == 2;
     $state = 2 if $state == 1;
-    $state = 1 if $image->{name} eq $filename; 
+    $state = 1 if "$image->{IGP_web}/$image->{IGP_topic}/$image->{name}" eq $filename; 
     
     $firstImg = $image unless $firstImg;
     $prevImg = $image if $state == 0;
@@ -352,39 +349,39 @@ sub renderImage {
       "<link rel='parent' href='".
        $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic}).
       "' title='Thumbnails' />\n";
-    if ($firstImg && $firstImg->{name} ne $filename) {
+    if ($firstImg && "$firstImg->{IGP_web}/$firstImg->{IGP_topic}/$firstImg->{name}" ne $filename) {
       $result .=
         "<link rel='first' href='".
         $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
           'id'=>$this->{id},
-          'filename'=>$firstImg->{name},
+          'filename'=>"$firstImg->{IGP_web}/$firstImg->{IGP_topic}/$firstImg->{name}",
           '#'=>"igp$this->{id}"
         )."' title='$firstImg->{name}' />\n";
     }
-    if ($lastImg && $lastImg->{name} ne $filename) {
+    if ($lastImg && "$lastImg->{IGP_web}/$lastImg->{IGP_topic}/$lastImg->{name}" ne $filename) {
       $result .=
           "<link rel='last' href='".
           $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
             'id'=>$this->{id},
-            'filename'=>$lastImg->{name},
+            'filename'=>"$lastImg->{IGP_web}/$lastImg->{IGP_topic}/$lastImg->{name}",
             '#'=>"igp$this->{id}"
           )."' title='$lastImg->{name}' />\n";
     }
-    if ($nextImg && $nextImg->{name} ne $filename) {
+    if ($nextImg && "$nextImg->{IGP_web}/$nextImg->{IGP_topic}/$nextImg->{name}" ne $filename) {
       $result .=
           "<link rel='next' href='".
           $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
             'id'=>$this->{id},
-            'filename'=>$nextImg->{name},
+            'filename'=>"$nextImg->{IGP_web}/$nextImg->{IGP_topic}/$nextImg->{name}",
             '#'=>"igp$this->{id}"
           )."' title='$nextImg->{name}' />\n";
     }
-    if ($prevImg && $prevImg->{name} ne $filename) {
+    if ($prevImg && "$prevImg->{IGP_web}/$prevImg->{IGP_topic}/$prevImg->{name}" ne $filename) {
       $result .=
         "<link rel='previous' href='".
         $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
           'id'=>$this->{id},
-          'filename'=>$prevImg->{name},
+          'filename'=>"$prevImg->{IGP_web}/$prevImg->{IGP_topic}/$prevImg->{name}",
           '#'=>"igp$this->{id}"
         )."' title='$prevImg->{name}' />\n";
     }
@@ -392,9 +389,6 @@ sub renderImage {
 
   # collect image information
   $this->computeImageSize($thisImg);
-  if (!$this->processImage($thisImg)) {
-    return renderError($this->{errorMsg});
-  }
 
   # layout img table
   $result .= "<table class='igpPicture' cellspacing='0' cellpadding='0'><tr><td colspan='2'>\n";
@@ -416,11 +410,11 @@ sub renderImage {
   # navi
   $result .= "<td class='igpNavi'>";
 
-  if ($firstImg && $firstImg->{name} ne $filename) {
+  if ($firstImg && "$firstImg->{IGP_web}/$firstImg->{IGP_topic}/$firstImg->{name}" ne $filename) {
     $result .= "<a class='igpNaviFirst' title='go to first' href='".
     $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
       'id'=>$this->{id},
-      'filename'=>$firstImg->{name},
+      'filename'=>"$firstImg->{IGP_web}/$firstImg->{IGP_topic}/$firstImg->{name}",
       '#'=>"igp$this->{id}"
     )."'><span>first</span></a>";
   } else {
@@ -430,7 +424,7 @@ sub renderImage {
     $result .= "<a class='igpNaviPrev' title='go to previous' href='".
     $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
       'id'=>$this->{id},
-      'filename'=>$prevImg->{name},
+      'filename'=>"$prevImg->{IGP_web}/$prevImg->{IGP_topic}/$prevImg->{name}",
       '#'=>"igp$this->{id}"
     )."'><span>prev</span></a>";
   } else {
@@ -440,17 +434,17 @@ sub renderImage {
     $result .= "<a class='igpNaviNext' title='go to next' href='".
     $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
       'id'=>$this->{id},
-      'filename'=>$nextImg->{name},
+      'filename'=>"$nextImg->{IGP_web}/$nextImg->{IGP_topic}/$nextImg->{name}",
       '#'=>"igp$this->{id}"
     )."'><span>next</span></a>";
   } else {
     $result .= "<span class='igpNaviNext igpNaviDisabled '><span>next</span></span>";
   }
-  if ($lastImg && $lastImg->{name} ne $filename) {
+  if ($lastImg && "$lastImg->{IGP_web}/$lastImg->{IGP_topic}/$lastImg->{name}" ne $filename) {
     $result .= "<a class='igpNaviLast' title='go to last' href='".
     $this->{session}->getScriptUrl(0, 'view', $this->{web}, $this->{topic},
       'id'=>$this->{id},
-      'filename'=>$lastImg->{name},
+      'filename'=>"$lastImg->{IGP_web}/$lastImg->{IGP_topic}/$lastImg->{name}",
       '#'=>"igp$this->{id}"
     )."'><span>last</span></a>";
   } else {
@@ -495,10 +489,7 @@ sub renderFormatted {
     $imageNr++;
 
     $this->computeImageSize($image);
-    if (!$this->processImage($image)) {
-      return renderError($this->{errorMsg});
-    }
-    if (!$this->processImage($image, 1)) {
+    if (!$this->processThumbnail($image)) {
       return renderError($this->{errorMsg});
     }
 
@@ -541,9 +532,10 @@ sub renderThumbnails {
       . "style='width:".($this->{thumbwidth}+15)."px; height:".($this->{thumbheight}+15)."px;'>"
       . "<tr><td >"
       . "<a href='".Foswiki::Func::getViewUrl($this->{web}, $this->{topic})
-      . "?id=$this->{id}&filename=$image->{name}#igp$this->{id}' "
+      . "?id=$this->{id}&filename=$image->{IGP_web}/$image->{IGP_topic}/$image->{name}#igp$this->{id}' "
       . ">"
-      . "<img src='$this->{imagesPubUrl}/thumb_$image->{name}"
+      . "<img src='$this->{thumbnailsPubUrl}/$image->{IGP_web}/$image->{IGP_topic}/"
+      . "thumb_$image->{IGP_thumbwidth}x$image->{IGP_thumbheight}_$image->{name}"
       . (($image->{name} =~ /\.svgz?$/ )?'.png':'')
       . "' title='$image->{IGP_comment}' alt='$image->{name}'/></a></td></tr>";
 
@@ -555,7 +547,7 @@ sub renderThumbnails {
     }
     $line .= "</table></td>\n";
 
-    if (!$this->processImage($image, 1)) {
+    if (!$this->processThumbnail($image)) {
       return renderError($this->{errorMsg});
     }
 
@@ -636,6 +628,9 @@ sub getImages {
         next;
       }
 
+      # rewrite the image name to avoid overwrite - italo
+      #$image->{name} = $theWeb . '_' . $theTopic . '_' . $image->{name};
+
       push @images, $image;
     }
   }
@@ -709,7 +704,7 @@ sub computeImageSize {
   
   #writeDebug("computeImageSize($image->{name})");
 
-  my $entry = $this->{info}{$image->{name}};
+  my $entry = $this->{info}{"$image->{IGP_web}/$image->{IGP_topic}/$image->{name}"};
   if (!$this->{doRefresh} && $entry) {
     
     # look up igp info
@@ -796,6 +791,8 @@ sub computeImageSize {
   }
 
   $entry->{name} = $image->{name};
+  $entry->{web} = $image->{IGP_web};
+  $entry->{topic} = $image->{IGP_topic};
   $entry->{version} = $image->{version};
   $entry->{type} = 'image';
   $entry->{width} = $image->{IGP_width};
@@ -805,7 +802,7 @@ sub computeImageSize {
   $entry->{thumbwidth} = $image->{IGP_thumbwidth};
   $entry->{thumbheight} = $image->{IGP_thumbheight};
   $entry->{imgChanged} = $imgChanged;
-  $this->{info}{$entry->{name}} = $entry;
+  $this->{info}{"$entry->{web}/$entry->{topic}/$entry->{name}"} = $entry;
 
   #writeDebug("done computeImageSize");
 }
@@ -835,8 +832,8 @@ sub replaceVars {
     $format =~ s/\$size/$image->{size}/gos;
     $format =~ s/\$wikiusername/$image->{user}/gos;
     $format =~ s/\$username/Foswiki::Func::wikiToUserName($image->{user})/geos;
-    $format =~ s/\$thumburl/$this->{imagesPubUrl}\/thumb_$imageName/gos;
-    $format =~ s/\$imageurl/$this->{imagesPubUrl}\/$imageName/gos;
+    $format =~ s/\$thumburl/$this->{thumbnailsPubUrl}\/$image->{IGP_web}\/$image->{IGP_topic}\/thumb_$image->{IGP_thumbwidth}x$image->{IGP_thumbheight}_$imageName/gos;
+    $format =~ s/\$imageurl/$this->{pubUrlPath}\/$image->{IGP_web}\/$image->{IGP_topic}\/$image->{name}/gos;
     $format =~ s/\$origurl/$image->{IGP_url}/gos;
     $format =~ s/\$web/$image->{IGP_web}/gos;
     $format =~ s/\$topic/$image->{IGP_topic}/gos;
@@ -856,18 +853,27 @@ sub replaceVars {
 # (2) the thumbnail is older than the source image
 # (3) it should be resized
 # returns 1 on success and 0 on an error (see errorMsg)
-sub processImage {
-  my ($this, $image, $thumbMode) = @_;
+# TODO: what does we should do if the image was changed?
+#   - update all thumbnails
+#   - remove old thumbnails
+#   - does nothing
+sub processThumbnail {
+  my ($this, $image) = @_;
   
-  #writeDebug("processImage($image->{name}) called");
+  #writeDebug("processThumbnail($image->{name}) called");
   
-  my $prefix = ($thumbMode)?'thumb_':'';
+  my $target = $this->{imagesDir};
+  mkdir $target unless -d $target;
+  $target .= "/$image->{IGP_web}";
+  mkdir $target unless -d $target;
+  $target .= "/$image->{IGP_topic}";
+  mkdir $target unless -d $target;
 
-  my $target = "$this->{igpDir}/$prefix$image->{name}".
-               (($image->{name} =~ /\.svgz?$/)?'.png':'');
+  $target .= "/thumb_$image->{IGP_thumbwidth}x$image->{IGP_thumbheight}_".
+               $image->{name} . (($image->{name} =~ /\.svgz?$/)?'.png':'');
   $target = $this->normalizeFileName($target);
 
-  my $entry = $this->{info}{$image->{name}};
+  my $entry = $this->{info}{"$image->{IGP_web}/$image->{IGP_topic}/$image->{name}"};
   return 1 if !$this->{doRefresh} && -e $target && !$entry->{imgChanged};
 
   $this->{errorMsg} = '';
@@ -883,15 +889,10 @@ sub processImage {
   }
 
   # compute
-  if ($thumbMode) {
-    $error = 
-      $this->{mage}->Resize(geometry=>"$image->{IGP_thumbwidth}x$image->{IGP_thumbheight}")." ".
-      $this->{mage}->Crop(width=>$this->{thumbwidth}, height=>$this->{thumbheight})." ".
-      $this->{mage}->Set(page=>"0x0+0+0");
-  } else {
-    $error = 
-      $this->{mage}->Resize(geometry=>"$image->{IGP_width}x$image->{IGP_height}");
-  }
+  $error = 
+    $this->{mage}->Resize(geometry=>"$image->{IGP_thumbwidth}x$image->{IGP_thumbheight}")." ".
+    $this->{mage}->Crop(width=>$this->{thumbwidth}, height=>$this->{thumbheight})." ".
+    $this->{mage}->Set(page=>"0x0+0+0");
   if ($error =~ /(\d+):/) {
     #writeDebug("Transform(): error=$error");
     $this->{errorMsg} .= " $error";
@@ -996,17 +997,19 @@ sub readInfo {
   my $text = Foswiki::Func::readFile($this->{infoFile});
   foreach my $line (split(/\n/, $text)) {
     my $entry;
-    if ($line =~ /^name=(.*), version=(.*), origwidth=(.*), origheight=(.*), width=(.*), height=(.*), thumbwidth=(.*), thumbheight=(.*)$/) {
+    if ($line =~ /^name=(.*), web=(.*), topic=(.*), version=(.*), origwidth=(.*), origheight=(.*), width=(.*), height=(.*), thumbwidth=(.*), thumbheight=(.*)$/) {
       $entry = {
         name=>$1,
-        version=>$2,
+        web=>$2,
+        topic=>$3,
+        version=>$4,
         type=>'image',
-        origwidth=>$3,
-        origheight=>$4,
-        width=>$5,
-        height=>$6,
-        thumbwidth=>$7,
-        thumbheight=>$8,
+        origwidth=>$5,
+        origheight=>$6,
+        width=>$7,
+        height=>$8,
+        thumbwidth=>$9,
+        thumbheight=>$10,
       };
     } elsif ($line =~ /^(thumbwidth|thumbheight|topics|web)=(.*)$/) {
       $entry = {
@@ -1017,7 +1020,8 @@ sub readInfo {
     } else {
       next;
     }
-    $this->{info}{$entry->{name}} = $entry;
+    $this->{info}{(($entry->{type} eq 'image') ? 
+            "$entry->{web}/$entry->{topic}/":'') . $entry->{name}} = $entry;
   }
 
   $this->{infoChanged} = 0;
@@ -1039,6 +1043,8 @@ sub writeInfo {
     next if $entry->{type} eq 'global';
     $text .= 
       "name=$entry->{name}, " .
+      "web=$entry->{web}, " .
+      "topic=$entry->{topic}, " .
       "version=$entry->{version}, " .
       "origwidth=$entry->{origwidth}, " .
       "origheight=$entry->{origheight}, " .
