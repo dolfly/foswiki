@@ -1,15 +1,15 @@
 ---+!! !SubversionStoreContrib
 <!--
 One line description, required for extensions repository catalog.
-   * Set SHORTDESCRIPTION = Implements a data store using the Subversion revision-control system
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 %SHORTDESCRIPTION%
 
 %TOC%
 
----++ Usage
-
----++ Examples
+A plug-in replacement for the default RCS-based database used under Foswiki.
+This Contrib uses Subversion commands to access files stored in a
+subversion repository.
 
 ---++ Installation Instructions
 
@@ -17,15 +17,11 @@ One line description, required for extensions repository catalog.
 
 ---++ Contrib Info
 
-Many thanks to the following sponsors for supporting this work:
-   * Acknowledge any sponsors here
-
 |  Contrib Author(s): | Crawford Currie http://c-dot.co.uk |
 |  Copyright: | &copy; |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Contrib Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  Dependencies: | %$DEPENDENCIES% |
-
 
 <!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the feedback topic on twiki.org instead. -->
