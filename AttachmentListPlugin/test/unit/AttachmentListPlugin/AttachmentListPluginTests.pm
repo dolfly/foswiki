@@ -432,7 +432,7 @@ sub test_param_format_fileIcon {
     my $source =
 "%ATTACHMENTLIST{topic=\"$testTopic\" web=\"$this->{test_web}\" format=\"$format\" limit=\"1\"}%";
 
-    my $expected = "<span class=\"foswikiIcon\"><img src=\"%PUBURL%/%SYSTEMWEB%/DocumentGraphics/txt.png\" width=\"16px\" height=\"16px\" alt=\"txt\" /></span>";
+    my $expected = "<span class=\"foswikiIcon\"><img src=\"%PUBURL%/%SYSTEMWEB%/DocumentGraphics/txt.png\" width=\"16\" height=\"16\" alt=\"txt\" /></span>";
 
     $expected = Foswiki::Func::expandCommonVariables( $expected );
     $this->_do_test( $this->{test_topic}, $expected, $source );
