@@ -13,6 +13,7 @@ use Foswiki::OopsException;
 use Foswiki::Plugins::AttachmentListPlugin;
 use Devel::Symdump;
 use Data::Dumper;
+use File::Path qw(mkpath);
 
 my %testAttachments = (
     topic1 => {
@@ -190,6 +191,39 @@ sub test_param_topic {
     $this->_do_test( $testTopic1, $expected, $source );
 }
 
+=pod
+
+Test retrieval of attachments autoattached, and not in metadata.
+
+=cut
+
+sub test_Item9015 {
+    my $this = shift;
+
+    my $testTopic1 = $testAttachments{topic1}{name};
+    my $testTopic2 = $testAttachments{topic2}{name};
+
+    my $source =
+"%ATTACHMENTLIST{topic=\"$testTopic1,$testTopic2\" format=\"\$fileName\" separator=\",\" sort=\"\$fileName\"}%";
+
+    my $expected =
+'A_important_salary_raise.txt,AutoAttachedFile.blah,B_contract_negotiations.txt,C_image.jpg,D_photo.PNG';
+
+
+    my $content = "datadata\n"; 
+    my $path = $Foswiki::cfg{PubDir} . '/' . $this->{test_web} . '/' . $testTopic1;
+    my $file = 'AutoAttachedFile.blah';
+
+    mkpath($path);
+    open( my $fh, '>', "$path/$file" )
+      or die "Unable to open $path/$file for writing: $!\n";
+    print $fh "$content \n";
+    close($fh);
+
+    $this->_do_test( $testTopic1, $expected, $source );
+
+    unlink "$path/$file";
+}
 =pod
 
 TODO:
