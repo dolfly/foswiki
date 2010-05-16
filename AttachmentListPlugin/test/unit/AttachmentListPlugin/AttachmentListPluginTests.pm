@@ -202,6 +202,7 @@ sub test_Item9015 {
 
     my $testTopic1 = $testAttachments{topic1}{name};
     my $testTopic2 = $testAttachments{topic2}{name};
+    $Foswiki::cfg{RCS}{AutoAttachPubFiles} = 1;
 
     my $source =
 "%ATTACHMENTLIST{topic=\"$testTopic1,$testTopic2\" format=\"\$fileName\" separator=\",\" sort=\"\$fileName\"}%";

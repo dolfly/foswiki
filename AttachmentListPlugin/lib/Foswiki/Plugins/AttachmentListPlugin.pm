@@ -163,7 +163,10 @@ sub _createFileData {
     # define value for topic key only if topic
     # has META:FILEATTACHMENT data
     my $attachments = _getAttachmentsInTopic( $inWeb, $inTopic );
-    my $attach_files = _getAttachmentList( $inWeb, $inTopic );
+    my $attach_files = _getAttachmentList( $inWeb, $inTopic ) if ($Foswiki::cfg{RCS}{AutoAttachPubFiles}) ;
+
+    #print STDERR "attachments = " . scalar @$attachments . "\n";
+    #print STDERR "files = " . scalar @$attach_files . "\n" ;
 
     _debug("AttachmentListPlugin::_createFileData");
     use Data::Dumper;
@@ -180,12 +183,14 @@ sub _createFileData {
             $inTopicHash->{$inTopic}{$fileName} = \$fd;
         }
 
-        foreach my $fileName (@$attach_files) {
-            unless ($inTopicHash->{$inTopic}{$fileName}) {
-                my $fd =
-                  Foswiki::Plugins::AttachmentListPlugin::FileData->new( $inWeb,
-                    $inTopic, { name => $fileName, path => $fileName, autoattached => 1}  );
-                $inTopicHash->{$inTopic}{$fileName} = \$fd;
+        if ($Foswiki::cfg{RCS}{AutoAttachPubFiles} && defined $attach_files && (scalar @$attachments != scalar @$attach_files)) {
+            foreach my $fileName (@$attach_files) {
+                unless ($inTopicHash->{$inTopic}{$fileName}) {
+                    my $fd =
+                      Foswiki::Plugins::AttachmentListPlugin::FileData->new( $inWeb,
+                        $inTopic, { name => $fileName, path => $fileName, autoattached => 1}  );
+                    $inTopicHash->{$inTopic}{$fileName} = \$fd;
+                }
             }
         }
     }
@@ -349,6 +354,7 @@ Returns array of attached files independent of metadata
 sub _getAttachmentList {
     my ($web, $topic) = @_;
 
+    #print STDERR "getAttachmentList entered for $web $topic\n";
     my $dir  = "$Foswiki::cfg{PubDir}/$web/$topic";
     my $dh;
     my @files;
