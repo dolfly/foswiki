@@ -28,16 +28,6 @@ imgName="%FORMFIELD{"Picture" web="%MAINWEB%" topic="%FORMFIELD{"Author"}%"}%" i
 
 %TMPL:DEF{"form"}%%TMPL:END%
 
-%TMPL:DEF{"breadcrumb:wikitoolname"}%[[%MAINWEB%.%HOMETOPIC%][Home]]%TMPL:END%
-
-%TMPL:DEF{"breadcrumb:currenttopic"}%%TMPL:P{"breadcrumb:separator"}%%TMPL:P{"breadcrumb:topic"}%%TMPL:P{"breadcrumb:annotation"}%%TMPL:END%
-
-%TMPL:DEF{"breadcrumb"}%%TMPL:P{"breadcrumb:title"}%%IF{"defined 'IS_HOME'" then="Home" else="%TMPL:P{"breadcrumb:wikitoolname"}%%TMPL:P{"breadcrumb:currentweb"}%%TMPL:P{"breadcrumb:parents"}%%TMPL:P{"breadcrumb:currenttopic"}%"}%%TMPL:END%
-
-%TMPL:DEF{"breadcrumb:subweblink"}%%TMPL:P{"breadcrumb:separator"}%<a href='%SCRIPTURLPATH{view}%/%WEB%/%HOMETOPIC%'>%IF{"defined 'WEBNAME'" then="%WEBNAME%" else="%WEB%"}%</a>%TMPL:END%
-
-%TMPL:DEF{"breadcrumb:currentweb"}%%IF{"'%TOPIC%'!='WebHome' and $WEB!='%MAINWEB%'" then="%TMPL:P{"breadcrumb:subweblink"}%"}%%TMPL:END%
-
 %TMPL:DEF{"toptoolbar:webname"}%
 ---++!! [[%WEB%.%HOMETOPIC%][%IF{"defined WEBNAME" then="%WEBNAME%" else="%WEB%"}%]]
 %TMPL:END%
