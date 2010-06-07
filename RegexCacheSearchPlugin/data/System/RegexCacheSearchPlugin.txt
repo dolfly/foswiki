@@ -12,7 +12,8 @@ The support in this plugin is to flush the cache when a topic is saved or rename
 
 For Windows users which currently use !PurePerl the benefits are quite significant.
 
-This plugin is compatible with Foswiki 1.0.8 and probably from 1.0 thru to 1.0.9. However, it will need to be changed to support the enhanced searching that arrives with Foswiki 1.1.
+This plugin is compatible with Foswiki 1.0.8 and probably from 1.0 thru to 1.0.9. 
+However, it will need to be changed to support the enhanced searching that arrives with Foswiki 1.1.
 
 ---++ Plugin Preferences
 No preferences currently defined for this plugin.
@@ -20,21 +21,29 @@ No preferences currently defined for this plugin.
    * Set SHORTDESCRIPTION = Support Regex Cache Search Algorithms: e.g. !PurePerlCached
 
 ---++ Installation
-You do not need to install anything in the browser to use this extension. The following instructions are for the administrator who installs the extension on the server.
+You do not need to install anything in the browser to use this extension. 
+The following instructions are for the administrator who installs the extension on the server.
 
-This plugin is not yet availble for automatic install. However, it consists of only three text files which can easily be unzipped and placed into your Foswiki installation. The plugin should then be available via configure where you can enable the plugin.
+This plugin is not yet availble for automatic install. 
+However, it consists of only three text files which can easily be unzipped and placed into your Foswiki installation. 
+The plugin should then be available via configure where you can enable the plugin.
 
-You will also need to install DB_File from [[http://search.cpan.org/~pmqs/DB_File-1.820/DB_File.pm][CPAN]] and [[http://www.oracle.com/technology/products/berkeley-db/index.html][Berkeley DB]] which is a free download.
+You will also need to install DB_File from [[http://search.cpan.org/~pmqs/DB_File-1.820/DB_File.pm][CPAN]] 
+and [[http://www.oracle.com/technology/products/berkeley-db/index.html][Berkeley DB]] which is a free download.
 
-In addition while in configure, you will need to select a search algorithm that supports the cache method discussed here. Currently the only one available is !PurePerlCached which is provided with this plugin.
+In addition while in configure, you will need to select a search algorithm that supports the cache method discussed here. 
+Currently the only one available is !PurePerlCached which is provided with this plugin.
 
-Once enabled you may wish to view a number of common topics especially those with built in searches as that will build the cache for all your Foswiki users. Over time it will become even more richly populated to speed topic access.  
+Once enabled you may wish to view a number of common topics especially those with built in searches as that 
+will build the cache for all your Foswiki users. Over time it will become even more richly populated to speed topic access.  
 
 ---++ Performance
 
-These tests were performed on a 2.5GHz Xeon machine running Windows Server 2003 with 1GB memory. We currently only have around 1000 topics in our main web and a few thousand in our project web.
+These tests were performed on a 2.5GHz Xeon machine running Windows Server 2003 with 1GB memory. 
+We currently only have around 1000 topics in our main web and a few thousand in our project web.
 
-All the following timings are for reloading the relevant topic in seconds. The timing was performed manually by stopwatch over a few iterations and an average taken.
+All the following timings are for reloading the relevant topic in seconds. 
+The timing was performed manually by stopwatch over a few iterations and an average taken.
 
 | *Topic/Application* | *Pure Perl* | *Native* | *Pure Perl Cached* |
 | List company applications databases |  11.38 |  8.27 |  4.65 |
@@ -42,34 +51,55 @@ All the following timings are for reloading the relevant topic in seconds. The t
 | List active projects |  19.61 |  17.18 |  14.51 |
 | Main !WebHome |  4.85 |  3.09 |  2.38 |
 
-By logging the actual search times on the server I was able to determine that the raw search on my server was taking between 6-8 seconds which then improved by a factor of 10, i.e 0.6 to 0.8 seconds with a loaded cache. This in turn explains the drop of around 6 seconds on many pages between !PurePerl and !PurePerlCached.
+By logging the actual search times on the server I was able to determine that the raw search 
+on my server was taking between 6-8 seconds which then improved by a factor of 10, i.e 0.6 to 0.8 seconds with a loaded cache. 
+This in turn explains the drop of around 6 seconds on many pages between !PurePerl and !PurePerlCached.
 
-This is not the whole story our !WebHome (a simple page) needed a raw search of 2.62 seconds which dropped to only 0.06 seconds with the cache loaded. Bringing the page load time to just over 2 seconds is a significant step towards feeling that Foswiki is responsive.
+This is not the whole story our !WebHome (a simple page) needed a raw search of 2.62 seconds 
+which dropped to only 0.06 seconds with the cache loaded. Bringing the page load time to just over 2 seconds 
+is a significant step towards feeling that Foswiki is responsive.
 
-Conversely, loading the cache for the 'listing active projects' topic which is a complex topic. (i.e. viewing the page for the first time with !PurePerlCached) took around 25 seconds an extra cost of around 5 seconds. This is a complex application page with a lot of cache to build. Subsequent page views were of course much faster.
+Conversely, loading the cache for the 'listing active projects' topic which is a complex topic. 
+(i.e. viewing the page for the first time with !PurePerlCached) took around 25 seconds an extra 
+cost of around 5 seconds. This is a complex application page with a lot of cache to build. 
+Subsequent page views were of course much faster.
 
 For most topics there was no noticeable extra cost in building the cache.
 
 ---++ Alternative Cache Searches
-I did not obtain timings for the Forking grep search algorithm, which is broken on Windows. I believe I managed to fix this code for Windows, but performance was even slower than !PurePerl. The reason for this poor performance is that Windows has a maximum command line length on only 8KB whereas linux is around 128KB. This means that a single Forking search on Windows is limited to about 64 topics rather than 512 on linux. In other words on a site with 10240 topics this will take about 20 searches of 512 topics at a time for linux, but 160 searches of 64 topics at a time on Windows. The real problem is that there is quite an overhead of initiating a fork to run grep. So with a large set of topics to scan in one go performance is gained overall. However, if the size of that set falls below a certain threshold, then the overhead negates the benefit.
+I did not obtain timings for the Forking grep search algorithm, which is broken on Windows. 
+I believe I managed to fix this code for Windows, but performance was even slower than !PurePerl. 
+The reason for this poor performance is that Windows has a maximum command line length on only 8KB whereas linux is around 128KB. 
+This means that a single Forking search on Windows is limited to about 64 topics rather than 512 on linux. 
+In other words on a site with 10240 topics this will take about 20 searches of 512 topics at a time for linux, 
+but 160 searches of 64 topics at a time on Windows. The real problem is that there is quite an overhead of initiating a fork to run grep. 
+So with a large set of topics to scan in one go performance is gained overall. 
+However, if the size of that set falls below a certain threshold, then the overhead negates the benefit.
 
 It is this that motivated my search for an alternative approach in the first place.
 
-I used Foswiki:Extensions.NativeSearchContrib for comparison as this has grep built in. Therefore it does not need to fork and I believe it can scan all the topics in one go. I doubt that regex searches across all topics could be made any faster.
+I used Foswiki:Extensions.NativeSearchContrib for comparison as this has grep built in. 
+Therefore it does not need to fork and I believe it can scan all the topics in one go. 
+I doubt that regex searches across all topics could be made any faster.
 
 A combination of Native with Caching may well be the best of both worlds.
 
-Another alternative would of course be to use a relational database rather than !BerkeleyDB, but the principle would be the same.
+Another alternative would of course be to use a relational database 
+rather than !BerkeleyDB, but the principle would be the same.
 
 ---++ How it Works
-Let's discuss a simple search example. Lets say you have 10240 topics on your Foswiki site and 200 users. Of these users 20 of them belong to a !ParticularTeam.
+Let's discuss a simple search example. 
+Lets say you have 10240 topics on your Foswiki site and 200 users. 
+Of these users 20 of them belong to a !ParticularTeam.
 
-You have a topic that will search the user forms for people belonging to a particular team. Therefore your regex search looks something like this:
+You have a topic that will search the user forms for people belonging to a particular team. 
+Therefore your regex search looks something like this:
 <verbatim>
     %META:FORM.*?name=\"UserForm\";%META:FIELD.*?name=\"TeamName\".*?value=\"ParticularTeam\"
 </verbatim>
 
-Foswiki will break that down as two searches. First find all topics that have a UserForm and then only scan those topics to see if there is a field called !TeamName with a value of '!ParticularTeam'.
+Foswiki will break that down as two searches. First find all topics that have a UserForm 
+and then only scan those topics to see if there is a field called !TeamName with a value of '!ParticularTeam'.
 
 Processing of this initial request will then procees as follows:
 
@@ -84,7 +114,8 @@ If you now reload this topic and search, then the following occurs:
 
    1 The cache finds 200 topics marked as found against !UserForm. No topics needed to be scanned
    1 The cache finds 20 topics marked as found against !ParticularTeam. No topics needed to be scanned
-Some time passes, 30 new topics have been added, 20 non-UserForm topics have been updated, and one UserForm has been updated. This user was in !AnotherTeam and has now moved to !ParticularTeam.
+Some time passes, 30 new topics have been added, 20 non-UserForm topics have been updated, 
+and one UserForm has been updated. This user was in !AnotherTeam and has now moved to !ParticularTeam.
 
 All 51 of the above topics will have been flushed from the cache by this plugin.
 
