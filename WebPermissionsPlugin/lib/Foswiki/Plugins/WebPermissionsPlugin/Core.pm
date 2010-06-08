@@ -399,7 +399,7 @@ sub beforeSaveHandler {
         # SMELL: canceling out from, or just stopping a save seems
         # to be quite difficult
         Foswiki::Func::redirectCgiQuery( $query,
-            &Foswiki::Func::getScriptUrl( $web, $topic . 'view' ) );
+            &Foswiki::Func::getScriptUrl( $web, $topic , 'view' ) );
         throw Error::Simple('cancel permissions action');
     }
 
@@ -411,8 +411,6 @@ sub beforeSaveHandler {
     my @topicEditors    = $query->param('topiceditors');
     my @topicViewers    = $query->param('topicviewers');
     my @disallowedUsers = $query->param('disallowedusers');
-
-    $antiBeforeSaveRecursion = 0;
 
     if ( ( @topicEditors || @topicViewers || @disallowedUsers ) ) {
 
