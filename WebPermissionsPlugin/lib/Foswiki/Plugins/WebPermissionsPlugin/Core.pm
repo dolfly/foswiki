@@ -18,7 +18,7 @@
 #
 # For licensing info read LICENSE file in the Foswiki root.
 #
-# Author: Crawford Currie http://c-dot.co.uk
+# Authors: Crawford Currie http://c-dot.co.uk
 # Author: Sven Dowideit http://fosiki.com
 # Author: Eugen Mayer http://impressimpressive-media.de
 #
@@ -37,8 +37,6 @@ use Foswiki::Meta ();
 
 # =========================
 our $antiBeforeSaveRecursion;
-
-my $debug = $Foswiki::Plugins::WebPermissionsPlugin::debug;
 
 # =========================
 
@@ -316,11 +314,6 @@ sub changeHandler {
 sub TOPICPERMISSIONS {
     my ( $session, $params, $topic, $web ) = @_;
 
-    # this is to redirect to the "no access" page if this tag is used
-    # in a non-view template.
-    Foswiki::UI::checkAccess( $session, $web, $topic, 'view',
-        $session->{user} );
-
     my $disableSave = 'Disabled';
     $disableSave = ''
       if Foswiki::Func::checkAccessPermission( 'CHANGE',
@@ -356,13 +349,8 @@ sub TOPICPERMISSIONS {
 
     my $acls = _getACLs( [ 'VIEW', 'CHANGE' ], $web, $topic );
     foreach my $user ( sort ( keys %$acls ) ) {
-        my $isGroup;
-        if ( defined &Foswiki::Func::isGroup ) {
-            $isGroup = Foswiki::Func::isGroup($user);
-        }
-        else {
-            $isGroup = ( $user =~ /Group$/ );
-        }
+        my $isGroup = Foswiki::Func::isGroup($user);
+
         if ( $acls->{$user}->{CHANGE} ) {
             $topicEditors .= '<OPTION>' . $user . '</OPTION>'
               unless $isGroup;
@@ -400,14 +388,14 @@ sub beforeSaveHandler {
     my $action = $query->param('topic_permissions_action');
     return unless ( defined($action) );    #nothing to do with this plugin
 
-    &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::beforeSaveHandler: action=" . $action ) if ( $debug );
+    Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::beforeSaveHandler: action=" . $action ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
 
     if ( $action ne 'Save' ) {
 
         # SMELL: canceling out from, or just stopping a save seems
         # to be quite difficult
         Foswiki::Func::redirectCgiQuery( $query,
-            &Foswiki::Func::getScriptUrl( $web, $topic , 'view' ) );
+            Foswiki::Func::getScriptUrl( $web, $topic , 'view' ) );
         throw Error::Simple('cancel permissions action');
     }
 
@@ -578,7 +566,7 @@ sub _getACLs {
         $context = 'WEB';
         $topic   = $Foswiki::cfg{WebPrefsTopicName};
     }
-    &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: GET $context $web.$topic" ) if ( $debug );
+    Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: GET $context $web.$topic" ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
     my @knownusers = _getListOfUsers();
     push( @knownusers, _getListOfGroups() );
 
@@ -601,9 +589,9 @@ sub _getACLs {
                 "$perm$context$mode" );
 
             if (defined $users) {
-                &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: $perm$context$mode=$users" ) if ( $debug );
+                Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: $perm$context$mode=$users" ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
             } else {
-                &Foswiki::Func::writeWarning( "WebPermissionsPlugin::Core::_getACLs: no $perm$context$mode defined" ); 
+                Foswiki::Func::writeWarning( "WebPermissionsPlugin::Core::_getACLs: no $perm$context$mode defined" ); 
             }
 
             next unless $users;
@@ -620,14 +608,7 @@ sub _getACLs {
             my @users;
             while ( scalar(@lusers) ) {
                 my $user = pop(@lusers);
-                my $isGroup;
-                if ( defined &Foswiki::Func::isGroup ) {
-                    $isGroup = Foswiki::Func::isGroup($user);
-                }
-                else {
-                    $isGroup = $user =~ /Group$/;
-                }
-                if ($isGroup) {
+                if (Foswiki::Func::isGroup($user)) {
                     # expand groups and add individual users
                     my $it = Foswiki::Func::eachGroupMember($user);
                     while ( $it && $it->hasNext() ) {
@@ -643,19 +624,19 @@ sub _getACLs {
                 # so change the default for all other users to 0.
                 foreach my $user (@knownusers) {
 
-                    &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: Disallow $mode $user" ) if ( $debug );
+                    Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: Disallow $mode $user" ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
                     $acls{$user}->{$mode} = 0;
                 }
                 foreach my $user (@users) {
 
-                    &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: Allow $mode $user" ) if ( $debug );
+                    Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: Allow $mode $user" ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
                     $acls{$user}->{$mode} = 1;
                 }
             }
             else {
                 foreach my $user (@users) {
 
-                    &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: Deny $mode $user " ) if ( $debug );
+                    Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_getACLs: Deny $mode $user " ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
                     $acls{$user}->{$mode} = 0;
                 }
             }
@@ -697,7 +678,7 @@ sub _setACLs {
         $topic   = $Foswiki::cfg{WebPrefsTopicName};
     }
 
-    &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_setACLs: SET $context $web.$topic " ) if ( $debug );
+    Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_setACLs: SET $context $web.$topic " ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
     my ( $meta, $text ) = Foswiki::Func::readTopic( $web, $topic );
 
     my @knownusers = _getListOfUsers();
@@ -739,7 +720,7 @@ sub _setACLs {
                     }
                 );
             }
-            &Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_setACLs: $name = " . join( ' ', @$set ) ) if ( $debug );
+            Foswiki::Func::writeDebug( "WebPermissionsPlugin::Core::_setACLs: $name = " . join( ' ', @$set ) ) if ( Foswiki::Plugins::WebPermissionsPlugin::TRACE );
         }
     }
 

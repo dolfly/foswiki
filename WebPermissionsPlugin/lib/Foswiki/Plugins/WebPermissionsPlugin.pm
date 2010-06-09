@@ -24,20 +24,19 @@
 # permissions in a big table that can easily be edited. It updates WebPreferences
 # in each affected web.
 
-# ========================
 package Foswiki::Plugins::WebPermissionsPlugin;
 
 use strict;
 
-# ========================
 use Foswiki::Func ();
 
-our $debug = 0;
 our $VERSION    = '$Rev: 160$';
-our $RELEASE    = '21 Apr 2009';
+our $RELEASE    = '9 Jun 2010';
 our $SHORTDESCRIPTION = 'View and edit web permissions';
+our $NO_PREFS_IN_TOPIC = 1;
 
-# ========================
+use constant TRACE => 0;
+
 sub initPlugin {
     my ( $topic, $web, $user, $installWeb ) = @_;
 
@@ -58,9 +57,6 @@ sub initPlugin {
     Foswiki::Func::registerTagHandler( 'USERSLIST', \&_USERSLIST );
 
     Foswiki::Func::registerRESTHandler( 'change', \&_changeHandler );
-
-    # Get preferences values
-    $debug = &Foswiki::Func::getPreferencesFlag( "WEBPERMISSIONSPLUGIN_DEBUG" );
 
     return 1;
 }

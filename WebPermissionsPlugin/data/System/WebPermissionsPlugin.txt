@@ -147,7 +147,7 @@ settings (not available on all Foswiki versions).
 ---+++ =TOPICPERMISSIONS=
 The topic permissions tool can be viewed (and edited) by entering =%<nop>TOPICPERMISSIONS%= anywhere in a topic. 
 
-To add  an "Edit ACLS" option to the "More topic actions" screen  add =webpermissions= to the front of the SKIN setting (e.g. =Set SKIN=webpermissions,pattern=)
+To add  an "Edit ACLS" option to the "More topic actions" screen  add =webpermissions= to the front of the SKIN setting (e.g. =Set SKIN = webpermissions,pattern=)
 
 ---++ Plugin Settings
 <!--
@@ -176,19 +176,14 @@ Many thanks to the following sponsors for supporting this work:
    * This plugin was developed on behalf of <a href="http://www.evolvedmedianetwork.com">Evolved Media Network</a>
    * Further work supported by [[http://www.spanlink.com/][Spanlink Communications]]
 
-|  Author: | Foswiki:Main.CrawfordCurrie & :Main.SvenDowideit, http://wikiring.com |
+|  Author: | Foswiki:Main.CrawfordCurrie & Foswiki:Main.SvenDowideit, http://wikiring.com |
 |  Copyright: | &copy; 2006, Evolved Media Network, Spanlink Communications and WikiRing |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | |
+|  9 Jun 2010 | Foswikitask:Item1484: Aaron Scamehorn finished porting |
 |  21 Apr 2009 | Foswikitask:Item1484: Sven Dowideit, Crawford Currie, ported to Foswiki |
-|  4 Dec 2007 | TWikibug:Item4901 fixed templates TWikibug:Item5072 added users parameter to select a subset of users/groups in the web permissions interface |
-|  8 Sep 2007 | Updated for TWiki-4.2.0 |
-|  July 2006 | add Topic ACLs user interface via More topic actions - SvenDowideit@WikiRing.com |
-|  10216 | TWikibug:Item2291 - Added repeatheads and webs parameters |
-|  9048 | TWikibug:Item1766 - corrected problems with passing incorrect parameters to setACLs and not interpreting values from the form correctly. |
-|  8877 | TWikibug:Item1701 - first release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
