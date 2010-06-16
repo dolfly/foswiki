@@ -430,8 +430,10 @@ sub _handleDot {
     $forceAttachAPI      =~ s/\s+$//;
 
     # Make sure outFilename is clean
-    $outFilename = Foswiki::Sandbox::sanitizeAttachmentName($outFilename)
-      if ( $outFilename ne '' );
+    if ( $outFilename ne '' ) {
+        $outFilename = Foswiki::Sandbox::sanitizeAttachmentName($outFilename);
+        $outFilename = Foswiki::Sandbox::untaint($outFilename, \&Foswiki::Sandbox::validateAttachmentName );
+    }
 
     # clean up parms
     if ( $antialias =~ m/off/o ) {
@@ -562,6 +564,7 @@ sub _handleDot {
     if ( $outFilename eq '' ) {    #no filename?  Create a new name
         $grNum++;                  # increment graph number.
         $outFilename = 'DirectedGraphPlugin_' . "$grNum";
+        $outFilename = Foswiki::Sandbox::untaintUnchecked($outFilename);
     }
 
     # Make sure vectorFormats includes all required file types
@@ -763,7 +766,6 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
 
 # the "dot" suffix use for the directed graph input will be detected as a msword template
 # by most servers/browsers.  Rename the dot file to dot.txt suffix.
-#
             my $fname = "$attachFile{$key}";
             $fname .= '.txt' if ( $key eq 'dot' );
 
