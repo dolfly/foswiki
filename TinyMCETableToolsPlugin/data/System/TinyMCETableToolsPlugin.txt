@@ -1,0 +1,39 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+ !TinyMCE Table Tools Plugin
+
+%SHORTDESCRIPTION%
+
+---++ Plugin Preferences
+Provides the [[TinyMCEPlugin][TinyMCE]] plugin =tabletools=, which should be enabled by listing it in the [[TinyMCEPlugin#Settings][ =TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS= ]] preference setting. It provides the following toolbar buttons:
+
+    * =tabletoolscopy= - copy the currently selected table's contents to clipboard as tab-delimited data for pasting into spreadsheet programs such as MS Excel, OpenOffice etc.
+    * =tabletoolsclean= - clean the currently selected table of any decorative attributes that would make it fail html2tml conversion. Toolbar icon state uses a sad-face if the selected table would not successfully convert to TML. 
+
+The TinyMCEPlugin toolbar may be customised to include these buttons by listing them in the [[TinyMCEPlugin#Settings][ =TINYMCEPLUGIN_ADDITIONAL_BUTTONS1=, =TINYMCEPLUGIN_ADDITIONAL_BUTTONS2= ]], etc. preference settings.
+
+Alternatively, %TOPIC% will automatically:
+   * Add itself to the =TINYMCEPLUGIN_ADDITIONAL_PLUGINS= variable
+      * Inhibit this behaviour by setting =TINYMCEPLUGIN_NO_AUTOLOAD = on=
+   * Insert the toolbar buttons to the right of the =tablecontrols= button, wherever that appears among the =TINYMCEPLUGIN_BUTTONSn= and =TINYMCEPLUGIN_ADDITIONAL_BUTTONSn= variables.  
+      * Inhibit this behaviour by setting =TINYMCETABLETOOLSPLUGIN_NO_AUTOTOOLBAR= on=
+
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+|  Author: | Foswiki:Main.PaulHarvey - http://trin.org.au |
+|  Copyright: | &copy; 2010, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  01 Jul 2010 | Foswikitask:Item9235: Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+|  Development: | http://foswiki.org/Development/%TOPIC% |

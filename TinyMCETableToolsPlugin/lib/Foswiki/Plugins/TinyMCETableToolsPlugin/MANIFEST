@@ -1,0 +1,3 @@
+data/System/TinyMCETableToolsPlugin.txt 0644
+lib/Foswiki/Plugins/TinyMCETableToolsPlugin.pm 0644
+lib/Foswiki/Plugins/TinyMCETableToolsPlugin/Core.pm 0644
