@@ -29,11 +29,85 @@ sub setup {
         qw(ADDITIONAL_BUTTONS1 ADDITIONAL_BUTTONS2 ADDITIONAL_BUTTONS3)
     );
     my $buttons_near = 'tablecontrols';
+    my %stickybits   = %{ _getWysiwygStickybits() };
 
-    _ensure( \@plugin_ensure,  \@plugin_prefs,  $plugin_near );
-    _ensure( \@buttons_ensure, \@buttons_prefs, $buttons_near );
+    if (
+        not Foswiki::Func::getPreferencesFlag(
+            'TINYMCETABLETOOLSPLUGIN_NO_AUTOLOAD')
+      )
+    {
+        _ensure( \@plugin_ensure, \@plugin_prefs, $plugin_near );
+    }
+    if (
+        not Foswiki::Func::getPreferencesFlag(
+            'TINYMCETABLETOOLSPLUGIN_NO_AUTOTOOLBAR')
+      )
+    {
+        _ensure( \@buttons_ensure, \@buttons_prefs, $buttons_near );
+    }
+    Foswiki::Func::addToZone( 'head', 'TinyMCETableToolsPlugin',
+        _genMeta( \%stickybits ) );
 
     return;
+}
+
+sub _genMetaMarkup {
+    my ( $key, $value ) = @_;
+
+    return CGI::meta(
+        {
+            -name    => 'foswiki.TinyMCETableToolsPlugin.' . $key,
+            -content => $value
+        }
+    ) . "\n";
+}
+
+sub _genMeta {
+    my ($stickybits) = @_;
+    my $markup       = '';
+    my $index        = 0;
+
+    while ( my ( $tagname, $attributes ) = each %{$stickybits} ) {
+        my @attributePatterns = ();
+        my @attributeLiterals = ();
+        my $attributeLiteralString;
+        my $tagType;
+        $tagname =~ s/[\r\n\ ]//g;
+        if ( $tagname =~ /[^a-zA-Z0-9]/ ) {
+            $tagType = 'tagpattern';
+        }
+        else {
+            $tagType = 'tag';
+        }
+        $markup .= _genMetaMarkup( "$index.$tagType", $tagname );
+        foreach my $attribute ( @{$attributes} ) {
+            $attribute =~ s/[\r\n\ ]//g;
+            if ( $attribute =~ /[^a-zA-Z0-9]/ ) {
+                push( @attributePatterns, $attribute );
+            }
+            else {
+                push( @attributeLiterals, $attribute );
+            }
+        }
+        $attributeLiteralString = join( ', ', @attributeLiterals );
+        $markup .=
+          _genMetaMarkup( "$index.attributes", $attributeLiteralString );
+        my $attributePatternIndex = 0;
+        foreach my $attributePattern (@attributePatterns) {
+            $markup .=
+              _genMetaMarkup( "$index.attributePatterns.$attributePatternIndex",
+                $attributePattern );
+            $attributePatternIndex = $attributePatternIndex + 1;
+        }
+        if ( scalar(@attributePatterns) ) {
+            $markup .= _genMetaMarkup( "$index.attributePatterns.size",
+                $attributePatternIndex );
+        }
+        $index = $index + 1;
+    }
+    $markup .= _genMetaMarkup( 'size', $index );
+
+    return $markup;
 }
 
 # Ensure that items in $ensurelist appear in the values of $preflist,
@@ -58,16 +132,33 @@ sub _ensure {
                 push( @absentlist, $item );
             }
         }
-        print STDERR "before, $target_pref is $setpref ensuring $ensurenear";
         foreach my $item (@absentlist) {
             $setpref =~ s/$ensurenear/$ensurenear, $item/;
         }
-        print STDERR "after, $target_pref is $setpref";
         Foswiki::Func::setPreferencesValue( 'TINYMCEPLUGIN_' . $target_pref,
             $setpref );
     }
 
     return ( $target_pref and 1 );
+}
+
+sub _getWysiwygStickybits {
+    my $preftopic =
+      Foswiki::Func::getPreferencesValue('WYSIWYGPLUGIN_STICKYBITS')
+      || $Foswiki::cfg{SystemWebName} . '.WysiwygPluginSettings';
+    my $preftext = Foswiki::Func::expandCommonVariables(<<"HERE");
+%INCLUDE{"$preftopic" section="WYSIWYGPLUGIN_STICKYBITS" warn="off"}%
+HERE
+    my %stickybits = ();
+
+    # Copied from Foswiki::Plugins::WysiwygPlugin::Handlers::protectedByAttr();
+    foreach my $def ( split( /;\s*/s, $preftext ) ) {
+        my ( $re, $attributes ) = split( /\s*=\s*/s, $def, 2 );
+        my @attributelist = split( /\s*,\s*/, $attributes );
+        $stickybits{ lc($re) } = \@attributelist;
+    }
+
+    return \%stickybits;
 }
 
 # Try to get a TinyMCEPlugin preference value; if not set, then try to get the

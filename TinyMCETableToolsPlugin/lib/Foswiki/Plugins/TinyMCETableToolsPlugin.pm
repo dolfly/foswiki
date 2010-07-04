@@ -54,7 +54,6 @@ sub initPlugin {
         )
       )
     {
-
         # Lazy-load to help CGI compile times
         require Foswiki::Plugins::TinyMCETableToolsPlugin::Core;
         Foswiki::Plugins::TinyMCETableToolsPlugin::Core::setup();
