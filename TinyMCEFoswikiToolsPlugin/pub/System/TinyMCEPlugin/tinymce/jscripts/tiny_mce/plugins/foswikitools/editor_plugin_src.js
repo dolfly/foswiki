@@ -16,9 +16,9 @@
 */
 'use strict';
 (function() {
-    tinymce.PluginManager.requireLangPack('tabletools');
+    tinymce.PluginManager.requireLangPack('foswikitools');
 
-    tinymce.create('tinymce.plugins.TableTools', {
+    tinymce.create('tinymce.plugins.FoswikiTools', {
         init: function(ed, url) {
             this._setupCleanButton(ed, url);
             //this._setupCopyButton(ed, url);
@@ -28,7 +28,7 @@
         },
 
         _getPref: function (key) {
-            return foswiki.getPreference('TinyMCETableToolsPlugin.' + key);
+            return foswiki.getPreference('TinyMCEFoswikiToolsPlugin.' + key);
         },
 
         // Populates a single tag literal/pattern item with 
@@ -39,7 +39,7 @@
                     attributesNotSticky: {},
                     attributePatterns: []
                 },
-                _getPref = ed.plugins.tabletools._getPref,
+                _getPref = ed.plugins.foswikitools._getPref,
                 attributeString = _getPref(index + '.attributes'),
                 attributePatternsSize = 
                     _getPref(index + '.attributePatterns.size'),
@@ -70,7 +70,7 @@
                    tagsPatternTested: {},
                    tagsNotSticky: {}
                },
-               _getPref = ed.plugins.tabletools._getPref,
+               _getPref = ed.plugins.foswikitools._getPref,
                size = _getPref('size'),
                i,
                tag,
@@ -79,7 +79,7 @@
            for (i = 0; i < size; i = i + 1) {
                tag = _getPref(i + '.tag');
                attributes =
-                   ed.plugins.tabletools._loadStickyAttributes(ed, i);
+                   ed.plugins.foswikitools._loadStickyAttributes(ed, i);
                /* Populate literal tags */
                if (tag) {
                    stickybits.tags[tag] = attributes;
@@ -101,10 +101,10 @@
 
         getInfo: function() {
             return {
-                longname: 'Table Tools Plugin',
+                longname: 'Foswiki Tools Plugin',
                 author: 'Paul.W.Harvey@csiro.au',
                 authorurl: 'http://trin.org.au/HubRIS',
-                infourl: 'http://foswiki.org/Extensions/TinyMCETableToolsPlugin',
+                infourl: 'http://foswiki.org/Extensions/TinyMCEFoswikiToolsPlugin',
                 version: 1
             };
         },
@@ -113,19 +113,19 @@
             /* Register a "is it a table?" format with TinyMCE's formatter,
             ** which isn't available during plugin init */
             ed.onInit.add(function(ed) {
-                ed.formatter.register('TableToolsTable',
+                ed.formatter.register('FoswikiToolsTable',
                     { selector: 'table,thead,tbody,tfoot,cols,td,th' });
 
                 return;
             });
-            ed.addCommand('tabletoolsclean', function() {
-                this.plugins.tabletools.cleanTable(ed, this.selection.getNode());
+            ed.addCommand('foswikitoolsclean', function() {
+                this.plugins.foswikitools.cleanTable(ed, this.selection.getNode());
 
                 return;
             });
-            ed.addButton('tabletoolsclean', {
-                title: 'tabletools.clean_desc',
-                cmd: 'tabletoolsclean',
+            ed.addButton('foswikitoolsclean', {
+                title: 'foswikitools.clean_desc',
+                cmd: 'foswikitoolsclean',
                 image: url + '/img/clean.png'
             });
             // Register nodeChange event to update button state
@@ -168,10 +168,10 @@
         // Remove sticky attributes from all descendent nodes and the node
         // passed in
         _removeStickyAttributes: function (ed, node) {
-            ed.plugins.tabletools._removeStickyAttributesFromNode(
-                ed, matchingNode);
+            ed.plugins.foswikitools._removeStickyAttributesFromNode(
+                ed, node);
             jQuery(node).find('*').each(function (index, matchingNode) {
-                ed.plugins.tabletools._removeStickyAttributesFromNode(
+                ed.plugins.foswikitools._removeStickyAttributesFromNode(
                     ed, matchingNode);
             });
 
@@ -182,13 +182,13 @@
         // be sticky
         _removeStickyAttributesFromNode: function(ed, node) {
             var tagName = node.nodeName.toLowerCase(),
-                tabletools = ed.plugins.tabletools,
+                foswikitools = ed.plugins.foswikitools,
                 nodeattr;
             for (i in node.attributes) {
                 if (!isNaN(i)) {
                     nodeattr = node.attributes[i];
-                    if (nodeattr && tabletools.stickybits.tags[tagName] &&
-                        tabletools.stickybits.tags[tagName].
+                    if (nodeattr && foswikitools.stickybits.tags[tagName] &&
+                        foswikitools.stickybits.tags[tagName].
                         attributes[nodeattr.nodeName]) {
                         jQuery(node).removeAttr(nodeattr.nodeName);
                     }
@@ -198,15 +198,15 @@
 
         _setupCopyButton: function(ed, url) {
             // Register commands
-            ed.addCommand('tabletoolscopy', function() {
+            ed.addCommand('foswikitoolscopy', function() {
 
                 return;
             });
 
             // Register buttons
-            ed.addButton('tabletoolscopy', {
-                title: 'tabletools.copy_desc',
-                cmd: 'tabletoolscopy',
+            ed.addButton('foswikitoolscopy', {
+                title: 'foswikitools.copy_desc',
+                cmd: 'foswikitoolscopy',
                 image: url + '/img/copy.png'
             });
 
@@ -214,20 +214,20 @@
         },
 
         _nodeChangeClean: function(ed, cm, node, collapsed) {
-            var is_clean_title = ed.getLang('tabletools.is_clean'),
-                is_unclean_title = ed.getLang('tabletools.is_unclean'),
-                clean_desc_title = ed.getLang('tabletools.clean_desc'),
-                tabletools = cm.editor.plugins.tabletools;
+            var is_clean_title = ed.getLang('foswikitools.is_clean'),
+                is_unclean_title = ed.getLang('foswikitools.is_unclean'),
+                clean_desc_title = ed.getLang('foswikitools.clean_desc'),
+                foswikitools = cm.editor.plugins.foswikitools;
             if (!node) return;
 
-            if ( ed.formatter.match('TableToolsTable') ) {
-                if ( tabletools.isSticky(ed, jQuery(node).closest('table')[0]) ) {
-                    tabletools._setCleanButtonState(cm, false, false, false, 'tabletools.is_unclean');
+            if ( ed.formatter.match('FoswikiToolsTable') ) {
+                if ( foswikitools.isSticky(ed, jQuery(node).closest('table')[0]) ) {
+                    foswikitools._setCleanButtonState(cm, false, false, false, 'foswikitools.is_unclean');
                 } else {
-                    tabletools._setCleanButtonState(cm, true, true, true, 'tabletools.is_clean');
+                    foswikitools._setCleanButtonState(cm, true, true, true, 'foswikitools.is_clean');
                 }
             } else {
-                tabletools._setCleanButtonState(cm, null, true, false, 'tabletools.clean_desc');
+                foswikitools._setCleanButtonState(cm, null, true, false, 'foswikitools.clean_desc');
             }
 
             return true;
@@ -261,11 +261,11 @@
         // Check that just the node given is sticky
         isStickyNode: function (ed, node) {
             var tagName = node.nodeName.toLowerCase(),
-                tabletools = ed.plugins.tabletools,
+                foswikitools = ed.plugins.foswikitools,
                 sticky = false;
 
-            if (tabletools._hasStickyNodeName(node, tagName) &&
-                tabletools._hasStickyAttributes(node, tagName)) {
+            if (foswikitools._hasStickyNodeName(node, tagName) &&
+                foswikitools._hasStickyAttributes(node, tagName)) {
                 sticky = true;
             }
             
@@ -386,13 +386,13 @@
 
             // Skip these checks if the state hasn't changed
             if ( (this.cleanbutton_state !== skipstate) ) {
-                buttonId = '#' + cm.prefix + 'tabletoolsclean';
+                buttonId = '#' + cm.prefix + 'foswikitoolsclean';
                 title_value = cm.editor.getLang(title_key);
                 this.cleanbutton_state = skipstate;
-                cm.setDisabled('tabletoolsclean', disabled);
-                cm.setActive('tabletoolsclean', active);
+                cm.setDisabled('foswikitoolsclean', disabled);
+                cm.setActive('foswikitoolsclean', active);
                 jQuery(buttonId).attr('title', title_value);
-                cm.controls[cm.prefix + 'tabletoolsclean'].settings.title = title_value;
+                cm.controls[cm.prefix + 'foswikitoolsclean'].settings.title = title_value;
             }
 
             return;
@@ -400,5 +400,5 @@
     });
 
     // Register plugin
-    tinymce.PluginManager.add('tabletools', tinymce.plugins.TableTools);
+    tinymce.PluginManager.add('foswikitools', tinymce.plugins.FoswikiTools);
 })();

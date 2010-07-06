@@ -33,7 +33,7 @@ our @ISA = qw( Foswiki::Contrib::Build );
 
 sub new {
     my $class = shift;
-    return bless( $class->SUPER::new( "TinyMCETableToolsPlugin" ), $class );
+    return bless( $class->SUPER::new( "TinyMCEFoswikiToolsPlugin" ), $class );
 }
 
 # Example: Override the build target

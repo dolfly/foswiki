@@ -2,11 +2,11 @@
 
 =begin TML
 
----+ package TinyMCETableToolsPlugin
+---+ package TinyMCEFoswikiToolsPlugin
 
 =cut
 
-package Foswiki::Plugins::TinyMCETableToolsPlugin;
+package Foswiki::Plugins::TinyMCEFoswikiToolsPlugin;
 
 # Always use strict to enforce variable scoping
 use strict;
@@ -48,15 +48,15 @@ sub initPlugin {
         Foswiki::Func::getContext()->{'edit'}
         and not(
             Foswiki::Func::getPreferencesFlag(
-                'TINYMCETABLETOOLSPLUGIN_NO_AUTOTOOLBAR')
+                'TINYMCEFOSWIKITOOLSPLUGIN_NO_AUTOTOOLBAR')
             and Foswiki::Func::getPreferencesFlag(
-                'TINYMCETABLETOOLSPLUGIN_NO_AUTOLOAD')
+                'TINYMCEFOSWIKITOOLSPLUGIN_NO_AUTOLOAD')
         )
       )
     {
         # Lazy-load to help CGI compile times
-        require Foswiki::Plugins::TinyMCETableToolsPlugin::Core;
-        Foswiki::Plugins::TinyMCETableToolsPlugin::Core::setup();
+        require Foswiki::Plugins::TinyMCEFoswikiToolsPlugin::Core;
+        Foswiki::Plugins::TinyMCEFoswikiToolsPlugin::Core::setup();
     }
 
     return $init;

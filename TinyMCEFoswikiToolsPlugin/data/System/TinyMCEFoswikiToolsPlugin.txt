@@ -4,10 +4,10 @@
 %SHORTDESCRIPTION%
 
 ---++ Plugin Preferences
-Provides the [[TinyMCEPlugin][TinyMCE]] plugin =tabletools=, which should be enabled by listing it in the [[TinyMCEPlugin#Settings][ =TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS= ]] preference setting. It provides the following toolbar buttons:
+Provides the [[TinyMCEPlugin][TinyMCE]] plugin =foswikitools=, which should be enabled by listing it in the [[TinyMCEPlugin#Settings][ =TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS= ]] preference setting. It provides the following toolbar buttons:
 
-   * =tabletoolscopy= - copy the currently selected table's contents to clipboard as tab-delimited data for pasting into spreadsheet programs such as MS Excel, OpenOffice etc.
-   * =tabletoolsclean= - clean the currently selected table of any decorative attributes that would make it fail html2tml conversion. This is achieved in part by exporting the [[WysiwygPluginSettings][ =WYSIWYGPLUGIN_STICKYBITS= ]] preference variable to the =tabletoolsclean= plugin in !TinyMCE. The =tabletoolsclean= toolbar icon state changes to an alert icon if the selected table would not successfully convert to TML.
+   * =foswikitoolstablecopy= - copy the currently selected table's contents to clipboard as tab-delimited data for pasting into spreadsheet programs such as MS Excel, OpenOffice etc.
+   * =foswikitoolsclean= - clean the currently selected table of any decorative attributes that would make it fail html2tml conversion. This is achieved in part by exporting the [[WysiwygPluginSettings][ =WYSIWYGPLUGIN_STICKYBITS= ]] preference variable to the =foswikitoolsclean= plugin in !TinyMCE. The =foswikitoolsclean= toolbar icon state changes to an alert icon if the selected table would not successfully convert to TML.
 
 The TinyMCEPlugin toolbar may be customised to include these buttons by listing them in the [[TinyMCEPlugin#Settings][ =TINYMCEPLUGIN_ADDITIONAL_BUTTONS1=, =TINYMCEPLUGIN_ADDITIONAL_BUTTONS2= ]], etc. preference settings.
 
@@ -15,7 +15,7 @@ Alternatively, %TOPIC% will automatically:
    * Add itself to the =TINYMCEPLUGIN_ADDITIONAL_PLUGINS= variable
       * Inhibit this behaviour by setting =TINYMCEPLUGIN_NO_AUTOLOAD = on=
    * Insert the toolbar buttons to the right of the =tablecontrols= button, wherever that appears among the =TINYMCEPLUGIN_BUTTONSn= and =TINYMCEPLUGIN_ADDITIONAL_BUTTONSn= variables.  
-      * Inhibit this behaviour by setting =TINYMCETABLETOOLSPLUGIN_NO_AUTOTOOLBAR = on=
+      * Inhibit this behaviour by setting =TINYMCEFOSWIKITOOLSPLUGIN_NO_AUTOTOOLBAR = on=
 
 <!--
 One line description, required for extensions repository catalog.
@@ -26,6 +26,8 @@ One line description, required for extensions repository catalog.
 %$INSTALL_INSTRUCTIONS%
 
 ---++ Plugin Info
+This plugin uses icons from [[http://www.famfamfam.com/lab/icons/silk/]]
+(see also: Foswiki:Extensions.FamFamFamContrib).
 
 |  Author: | Foswiki:Main.PaulHarvey - http://trin.org.au |
 |  Copyright: | &copy; 2010, Foswiki Contributors |

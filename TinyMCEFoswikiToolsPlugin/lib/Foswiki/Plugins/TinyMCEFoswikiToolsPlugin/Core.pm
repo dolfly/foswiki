@@ -2,11 +2,11 @@
 
 =begin TML
 
----+ package TinyMCETableToolsPlugin::Core
+---+ package TinyMCEFoswikiToolsPlugin::Core
 
 =cut
 
-package Foswiki::Plugins::TinyMCETableToolsPlugin::Core;
+package Foswiki::Plugins::TinyMCEFoswikiToolsPlugin::Core;
 
 use strict;
 use warnings;
@@ -20,10 +20,10 @@ use Foswiki::Func();
 =cut
 
 sub setup {
-    my @plugin_ensure  = qw(tabletools);
+    my @plugin_ensure  = qw(foswikitools);
     my @plugin_prefs   = qw(MCEPLUGINS ADDITIONAL_MCEPLUGINS);
     my $plugin_near    = 'table';
-    my @buttons_ensure = qw(tabletoolscopy tabletoolsclean);
+    my @buttons_ensure = qw(foswikitoolstablecopy foswikitoolsclean);
     my @buttons_prefs  = (
         qw(BUTTONS1 BUTTONS2 BUTTONS3),
         qw(ADDITIONAL_BUTTONS1 ADDITIONAL_BUTTONS2 ADDITIONAL_BUTTONS3)
@@ -33,19 +33,19 @@ sub setup {
 
     if (
         not Foswiki::Func::getPreferencesFlag(
-            'TINYMCETABLETOOLSPLUGIN_NO_AUTOLOAD')
+            'TINYMCEFOSWIKITOOLSPLUGIN_NO_AUTOLOAD')
       )
     {
         _ensure( \@plugin_ensure, \@plugin_prefs, $plugin_near );
     }
     if (
         not Foswiki::Func::getPreferencesFlag(
-            'TINYMCETABLETOOLSPLUGIN_NO_AUTOTOOLBAR')
+            'TINYMCEFOSWIKITOOLSPLUGIN_NO_AUTOTOOLBAR')
       )
     {
         _ensure( \@buttons_ensure, \@buttons_prefs, $buttons_near );
     }
-    Foswiki::Func::addToZone( 'head', 'TinyMCETableToolsPlugin',
+    Foswiki::Func::addToZone( 'head', 'TinyMCEFoswikiToolsPlugin',
         _genMeta( \%stickybits ) );
 
     return;
@@ -56,7 +56,7 @@ sub _genMetaMarkup {
 
     return CGI::meta(
         {
-            -name    => 'foswiki.TinyMCETableToolsPlugin.' . $key,
+            -name    => 'foswiki.TinyMCEFoswikiToolsPlugin.' . $key,
             -content => $value
         }
     ) . "\n";
