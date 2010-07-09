@@ -155,10 +155,10 @@ You can use this technique to create a skin that matches closely the HTML of you
 |  Screenshot: | <a href="%ATTACHURL%/iconic.gif"><img class="demoImage" src="%ATTACHURL%/iconic_preview.gif" alt="Click for full screen image" width="600" height="130" /></a> |
 |  Preview: | [[%SCRIPTURL%/view%SCRIPTSUFFIX%/%WEB%/%TOPIC%][Preview with this topic]] |
 |  Base Name: | Widget |
-|  Skin Version: | %$VERSION% |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|   9 Jul 2010: | prepare for uploading |
 |   7 Apr 2010: | update iblog2 and poetry CMR themes - add jarrah |
 |  27 Feb 2010: | fix REVINFO bug in the widget-history - so that it shows the requested topic's history |
 |  13 Feb 2010: | bring in styles from http://www.codemonkeyramblings.com/themes/ and fix bugs |
@@ -457,11 +457,16 @@ from http://github.com/mikert/Movable-Type-Styles - see http://www.codemonkeyram
    * Set NAME136 = jarrah
    * Set CSS136 = %PUBURL%/%SYSTEMWEB%/WidgetsSkin/CMR_themes/jarrah/screen.css
 
-
-
-
-
    * Set LASTCSS = 136
+
+   * Set NAME137 = twentyten
+   * Set CSS137 = %PUBURL%/%SYSTEMWEB%/WidgetsSkin/CMR_themes/twentyten/screen.css
+   * Set NAME138 = ink-and-wash
+   * Set CSS138 = %PUBURL%/%SYSTEMWEB%/WidgetsSkin/CMR_themes/ink-and-wash/screen.css
+   * Set NAME139 = twentyten-forestfloor
+   * Set CSS139 = %PUBURL%/%SYSTEMWEB%/WidgetsSkin/CMR_themes/twentyten-forestfloor/screen.css
+
+
 </div>
 %ENDSECTION{"css-browser"}%
 

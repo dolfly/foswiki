@@ -1,0 +1,84 @@
+/*
+
+name: Unstyled
+designer: Movable Type
+designer_url: http://www.movabletype.org
+layouts: layout-wtt, layout-twt, layout-wt, layout-tw, layout-wm, layout-mw
+
+This theme has now Styles, but via StyleCatcher it does include base blog styles for layout and typography.
+
+*/
+
+body   {
+        font-size: 12px; font-family: Microsoft YaHei,Tahoma, Helvetica, Arial, sans-serif; color: #222222;
+	background:#e3ddcd url(http://www.codemonkeyramblings.com/wordpress/wp-content/themes/ink-and-wash/images/bg.jpg); 
+height:800px;
+}
+
+#container {
+    background:url(http://www.codemonkeyramblings.com/wordpress/wp-content/themes/ink-and-wash/images/topbg.jpg) no-repeat scroll center top transparent;
+height:471px;
+}
+
+#header {
+    background:transparent;
+float:left;
+width:950px;
+}
+
+#header-inner {
+    margin:50px 0 0 100px;
+}
+
+#header-name, #header-name a {
+    color:#000000;
+font-size:35px;
+font-weight:700;
+    text-decoration: none;
+}
+
+#main-navigation ul {
+    padding:25px 0 0 60px;
+}
+
+#main-navigation ul li {
+    background:url(http://www.codemonkeyramblings.com/mt/mt-static/themes/ink-and-wash/abgl.png) no-repeat scroll left 0 transparent;
+display:block;
+float:left;
+height:40px;
+margin:0 7px 0 0;
+}
+
+#main-navigation ul li a {
+    background:url(http://www.codemonkeyramblings.com/mt/mt-static/themes/ink-and-wash/abgr.png) no-repeat scroll right 0 transparent;
+color:#F4F0E8;
+display:block;
+float:left;
+font-size:14px;
+padding:11px 30px 11px 30px;
+text-align:center;
+}
+
+#header .widget-sign-in {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    text-align: right;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+#header .widget-sign-in a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#header .widget-sign-in .widget-header {
+    display: none;
+}
+
+#main-navigation .widget-search {
+    display: none;
+}

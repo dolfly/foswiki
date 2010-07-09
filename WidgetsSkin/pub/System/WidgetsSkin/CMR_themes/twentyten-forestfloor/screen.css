@@ -1,0 +1,264 @@
+/*
+
+name: TwentyTen (Forest Floor Header)
+designer: Movable Type
+designer_url: http://www.movabletype.org
+layouts: layout-wm
+
+This theme has now Styles, but via StyleCatcher it does include base blog styles for layout and typography.
+
+*/
+
+#container, textarea {
+	color:#666666;
+	font-size:12px;
+	line-height:18px;
+}
+
+#header-name, .widget-header, .entry-title, #page-title, #comments-form {
+	font-family:"Helvetica Neue",Arial,Helvetica,"Nimbus Sans L",sans-serif;
+}
+
+body, input, textarea {
+    font-family: Georgia, "Bitstream Charter", serif;
+
+}
+
+#alpha p {
+	margin-bottom:24px;
+}
+
+#alpha {
+	color:#444444;
+	font-size:16px;
+	line-height:24px;
+}
+
+blockquote {
+	font-style:italic;
+	padding:0 3em;
+	quotes:none;
+}
+a {
+	color:#0066CC;  
+}
+/** Header widgets **/
+
+#main-navigation .widget-search {
+	display: none;
+}
+
+#header .widget-sign-in {
+	display: none;
+}
+
+/** Layouts **/
+
+#container, body {
+	background:none repeat scroll 0 0 #F1F1F1;
+}
+
+#container-inner {
+	background:none repeat scroll 0 0 #FFFFFF;
+	padding:0 20px;
+}
+
+#header {
+	margin-top:20px;
+	padding:30px 0 0;
+}
+
+#header-name {
+	float:left;
+	font-size:30px;
+	line-height:36px;
+	margin:0 0 18px;
+	width:700px;
+}
+
+#header-name, #header-name a {
+	color:#000000;
+	font-weight:bold;
+	text-decoration:none;
+}
+
+#header-content {
+	float: left; 
+	width: 960px;
+        height: 68px;
+	border-bottom: 4px solid black;
+}
+#header-inner {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	background-image: url(forestfloor.jpg);
+	background-repeat: no-repeat;
+	background-position: 0px 72px;
+	height: 250px;
+}
+
+#header-description {
+	clear:right;
+	float:right;
+	font-style:italic;
+	margin:14px 10px 18px;
+	width:220px;
+}
+
+#homepage-image {
+	display: none;
+}
+
+.layout-wm #alpha, .layout-wm #beta {
+	margin-top: 45px;
+}
+
+/** Navigation **/
+
+#main-navigation {
+	background:none repeat scroll 0 0 #000000;
+	display:block;
+	float:left;
+	margin:0 auto;
+	width:940px;
+}
+
+#main-navigation ul {
+	font-size:13px;
+	margin-left:12px;
+	list-style:none outside none;
+	margin:0;
+}
+
+#main-navigation li {
+	float:left;
+	position:relative;
+}
+
+#main-navigation li a {
+	color:#AAAAAA;
+	display:block;
+	line-height:38px;
+	padding:0 10px;
+	text-decoration:none;
+}
+
+#content {
+	position: static;
+}
+
+/** Entry **/
+
+.entry-title a, #page-title, #page-title a {
+	color:#000000;
+	font-size:21px;
+	font-weight:bold;
+	margin-bottom:0;
+	text-decoration: none;
+}
+
+#professional-website.mt-main-index #page-title {
+	padding-bottom: 12px;
+}
+
+.entry-asset .asset-body {
+	clear:both;
+	padding:12px 0 0;
+}
+
+.entry-asset .asset-header, .entry-asset .asset-footer {
+	color:#888888;
+	font-size:12px;
+}
+
+.entry-asset .asset-meta a, .entry-asset .asset-footer a, .admin-edit-link a {
+	color:#888888;
+}
+
+/** Widgets **/
+
+#beta .widget-header, #beta .widget-header a {
+	color:#222222;
+	font-weight:bold;
+	text-decoration: none;
+}
+
+#beta .widget ul, #footer .widget ul {
+	border:medium none;
+	margin-left:1.3em;
+	padding:0;
+	list-style:square outside none;
+}
+
+#beta .widget a, #footer .widget a {
+	text-decoration:none; 
+}
+
+a:active, a:hover {
+	color:#FF4B33;
+}
+
+.widget-header {
+	margin-bottom: 0px;
+}
+
+.widget-content {
+	margin-top: 0px;
+}
+
+/** Footer **/
+
+#footer
+{
+	border-top: 4px solid black;
+}
+
+#footer .widget {
+	float: left;
+    width: 220px;
+    padding-right:30px;
+}
+
+#footer .widget-powered {
+	width: 100%;
+	text-align: right;
+	padding-bottom: 25px;
+}
+
+/** Comments **/
+
+.comments-header, .trackbacks-header {
+	color:#000000;
+	font-size:20px;
+	font-weight:bold;
+	margin-bottom:0;
+}
+
+.byline, .trackback .asset-meta {
+    font-weight: bold;
+}
+
+.comment .asset-meta, .trackback .asset-meta {
+    font-size: 16px;
+}
+
+#comment-author, #comment-url, #comment-email, #comment-text {
+    width: 99%
+
+}
+
+#comments-form {
+color:#888888;
+font-size:12px;
+}
+
+#comments-form input[type=submit], #comments-form input[type=reset], #comments-form input[type=button] #comments-form button {
+    color: #444;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    margin:0 0 9px;
+}
+
+
