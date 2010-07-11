@@ -146,7 +146,7 @@
             // A selection is collapsed when start = end; ie. selection is the
             // node where the cursor happens to be
             if (ed.selection.isCollapsed()) {
-                _removeStickyAttributes(ed, ed.selection.getNode());
+                this._removeStickyAttributes(ed, ed.selection.getNode());
             } else {
                 // Eg. the user has highlighted something, so use TinyMCE's
                 // DOM range walker to iterate over nodes within the range
@@ -292,10 +292,11 @@
 
             // See comments in cleanSelection()
             if (ed.selection.isCollapsed()) {
-                isStickyNode(ed, ed.selection.getNode());
+                sticky = isStickyNode(ed, ed.selection.getNode());
             } else {
                 rangeUtils.walk(range, isStickyCollection);
             }
+
             return sticky;
         },
         
