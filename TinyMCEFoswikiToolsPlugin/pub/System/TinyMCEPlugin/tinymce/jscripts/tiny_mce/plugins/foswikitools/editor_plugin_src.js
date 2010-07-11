@@ -110,16 +110,9 @@
         },
 
         _setupCleanButton: function(ed, url) {
-            /* Register a "is it a table?" format with TinyMCE's formatter,
-            ** which isn't available during plugin init */
-            ed.onInit.add(function(ed) {
-                ed.formatter.register('FoswikiToolsTable',
-                    { selector: 'table,thead,tbody,tfoot,cols,td,th' });
 
-                return;
-            });
             ed.addCommand('foswikitoolsclean', function() {
-                this.plugins.foswikitools.cleanTable(ed, this.selection.getNode());
+                this.plugins.foswikitools.cleanSelection(ed);
 
                 return;
             });
@@ -130,6 +123,35 @@
             });
             // Register nodeChange event to update button state
             ed.onNodeChange.add(this._nodeChangeClean, this);
+
+            return;
+        },
+
+        /* Remove all sticky attributes from all selected elements and all
+           their descendents
+         */
+        cleanSelection: function(ed) {
+            var range = ed.selection.getRng(true),
+                rangeUtils = new tinyMCE.dom.RangeUtils(ed.dom),
+                _ed = ed,
+                cleanCollection = function(nodes) {
+                    jQuery.each(nodes, function(index, node) {
+                        tinyMCE.activeEditor.plugins.foswikitools.
+                            _removeStickyAttributes(_ed, node);
+
+                        return;
+                    });
+                };
+
+            // A selection is collapsed when start = end; ie. selection is the
+            // node where the cursor happens to be
+            if (ed.selection.isCollapsed()) {
+                _removeStickyAttributes(ed, ed.selection.getNode());
+            } else {
+                // Eg. the user has highlighted something, so use TinyMCE's
+                // DOM range walker to iterate over nodes within the range
+                rangeUtils.walk(range, cleanCollection);
+            }
 
             return;
         },
@@ -214,47 +236,66 @@
         },
 
         _nodeChangeClean: function(ed, cm, node, collapsed) {
-            var is_clean_title = ed.getLang('foswikitools.is_clean'),
-                is_unclean_title = ed.getLang('foswikitools.is_unclean'),
-                clean_desc_title = ed.getLang('foswikitools.clean_desc'),
-                foswikitools = cm.editor.plugins.foswikitools;
-            if (!node) return;
+            var foswikitools = cm.editor.plugins.foswikitools;
+            if (!node) {
+                return;
+            }
 
-            if ( ed.formatter.match('FoswikiToolsTable') ) {
-                if ( foswikitools.isSticky(ed, jQuery(node).closest('table')[0]) ) {
-                    foswikitools._setCleanButtonState(cm, false, false, false, 'foswikitools.is_unclean');
-                } else {
-                    foswikitools._setCleanButtonState(cm, true, true, true, 'foswikitools.is_clean');
-                }
+            if ( foswikitools.edSelectionIsSticky(ed) ) {
+                foswikitools._setCleanButtonState(cm, false, false, false,
+                   'foswikitools.unclean_desc',
+                   '/plugins/foswikitools/img/unclean.png');
             } else {
-                foswikitools._setCleanButtonState(cm, null, true, false, 'foswikitools.clean_desc');
+                foswikitools._setCleanButtonState(cm, true, true, true,
+                   'foswikitools.clean_desc',
+                   '/plugins/foswikitools/img/clean.png');
             }
 
             return true;
 
         },
 
-        // Checks that a node and all its descendents are free of sticky
-        // attributes
-        isSticky: function (ed, node) {
+        // Checks that the nodes in the current selection and all its
+        // descendents are free of sticky attributes
+        edSelectionIsSticky: function (ed) {
             var isStickyNode = this.isStickyNode,
                 descendents,
                 sticky = false,
-                i;
+                i, j,
+                range = ed.selection.getRng(true),
+                rangeUtils = new tinyMCE.dom.RangeUtils(ed.dom),
+                isStickyCollection = function (nodes) {
+                    if (!sticky) {
+                        for (i in nodes) {
+                            if (!isNaN(i) && nodes[i]) {
+                                if (isStickyNode(ed, nodes[i])) {
+                                    sticky = true;
+                                } else {
+                                    descendents = jQuery(nodes[i]).find('*');
+                                    for (j in descendents) {
+                                        if (!isNaN(j) && descendents[j] &&
+                                            isStickyNode(ed, descendents[j])) {
+                                            sticky = true;
+                                            break;
+                                        }
+                                    }
+                                }
+                                if (sticky) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
 
-            // Check the node passed in
-            if (isStickyNode(ed, node)) {
-                return true;
-            }
-            // Check all descendents of the node passed in
-            descendents = jQuery(node).find('*');
-            for (i in descendents) {
-                if (!isNaN(i) && isStickyNode(ed, descendents[i])) {
-                    sticky = true;
-                    break;
-                }
-            }
+                    return sticky;
+                };
 
+            // See comments in cleanSelection()
+            if (ed.selection.isCollapsed()) {
+                isStickyNode(ed, ed.selection.getNode());
+            } else {
+                rangeUtils.walk(range, isStickyCollection);
+            }
             return sticky;
         },
         
@@ -381,7 +422,7 @@
             return sticky;
         },
 
-        _setCleanButtonState: function(cm, skipstate, disabled, active, title_key) {
+        _setCleanButtonState: function(cm, skipstate, disabled, active, title_key, img) {
             var buttonId, title_value;
 
             // Skip these checks if the state hasn't changed
@@ -392,7 +433,10 @@
                 cm.setDisabled('foswikitoolsclean', disabled);
                 cm.setActive('foswikitoolsclean', active);
                 jQuery(buttonId).attr('title', title_value);
-                cm.controls[cm.prefix + 'foswikitoolsclean'].settings.title = title_value;
+                cm.controls[cm.prefix + 'foswikitoolsclean'].settings.title = 
+                    title_value;
+                jQuery(buttonId + ' img').attr('src',
+                        cm.editor.baseURI.directory + img);
             }
 
             return;
