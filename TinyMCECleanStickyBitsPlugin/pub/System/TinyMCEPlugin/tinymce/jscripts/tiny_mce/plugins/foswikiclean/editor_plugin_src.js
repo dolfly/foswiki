@@ -16,9 +16,9 @@
 */
 'use strict';
 (function() {
-    tinymce.PluginManager.requireLangPack('foswikitools');
+    tinymce.PluginManager.requireLangPack('foswikiclean');
 
-    tinymce.create('tinymce.plugins.FoswikiTools', {
+    tinymce.create('tinymce.plugins.FoswikiClean', {
         init: function(ed, url) {
             this._setupCleanButton(ed, url);
             //this._setupCopyButton(ed, url);
@@ -28,7 +28,7 @@
         },
 
         _getPref: function (key) {
-            return foswiki.getPreference('TinyMCEFoswikiToolsPlugin.' + key);
+            return foswiki.getPreference('TinyMCECleanStickyBitsPlugin.' + key);
         },
 
         // Populates a single tag literal/pattern item with 
@@ -39,7 +39,7 @@
                     attributesNotSticky: {},
                     attributePatterns: []
                 },
-                _getPref = ed.plugins.foswikitools._getPref,
+                _getPref = ed.plugins.foswikiclean._getPref,
                 attributeString = _getPref(index + '.attributes'),
                 attributePatternsSize = 
                     _getPref(index + '.attributePatterns.size'),
@@ -70,7 +70,7 @@
                    tagsPatternTested: {},
                    tagsNotSticky: {}
                },
-               _getPref = ed.plugins.foswikitools._getPref,
+               _getPref = ed.plugins.foswikiclean._getPref,
                size = _getPref('size'),
                i,
                tag,
@@ -79,7 +79,7 @@
            for (i = 0; i < size; i = i + 1) {
                tag = _getPref(i + '.tag');
                attributes =
-                   ed.plugins.foswikitools._loadStickyAttributes(ed, i);
+                   ed.plugins.foswikiclean._loadStickyAttributes(ed, i);
                /* Populate literal tags */
                if (tag) {
                    stickybits.tags[tag] = attributes;
@@ -101,24 +101,24 @@
 
         getInfo: function() {
             return {
-                longname: 'Foswiki Tools Plugin',
+                longname: 'Foswiki Clean Sticky Bits Plugin',
                 author: 'Paul.W.Harvey@csiro.au',
                 authorurl: 'http://trin.org.au/HubRIS',
-                infourl: 'http://foswiki.org/Extensions/TinyMCEFoswikiToolsPlugin',
+                infourl: 'http://foswiki.org/Extensions/TinyMCECleanStickyBitsPlugin',
                 version: 1
             };
         },
 
         _setupCleanButton: function(ed, url) {
 
-            ed.addCommand('foswikitoolsclean', function() {
-                this.plugins.foswikitools.cleanSelection(ed);
+            ed.addCommand('foswikiclean', function() {
+                this.plugins.foswikiclean.cleanSelection(ed);
 
                 return;
             });
-            ed.addButton('foswikitoolsclean', {
-                title: 'foswikitools.clean_desc',
-                cmd: 'foswikitoolsclean',
+            ed.addButton('foswikiclean', {
+                title: 'foswikiclean.clean_desc',
+                cmd: 'foswikiclean',
                 image: url + '/img/clean.png'
             });
             // Register nodeChange event to update button state
@@ -136,7 +136,7 @@
                 _ed = ed,
                 cleanCollection = function(nodes) {
                     jQuery.each(nodes, function(index, node) {
-                        tinyMCE.activeEditor.plugins.foswikitools.
+                        tinyMCE.activeEditor.plugins.foswikiclean.
                             _removeStickyAttributes(_ed, node);
 
                         return;
@@ -190,10 +190,10 @@
         // Remove sticky attributes from all descendent nodes and the node
         // passed in
         _removeStickyAttributes: function (ed, node) {
-            ed.plugins.foswikitools._removeStickyAttributesFromNode(
+            ed.plugins.foswikiclean._removeStickyAttributesFromNode(
                 ed, node);
             jQuery(node).find('*').each(function (index, matchingNode) {
-                ed.plugins.foswikitools._removeStickyAttributesFromNode(
+                ed.plugins.foswikiclean._removeStickyAttributesFromNode(
                     ed, matchingNode);
             });
 
@@ -204,13 +204,13 @@
         // be sticky
         _removeStickyAttributesFromNode: function(ed, node) {
             var tagName = node.nodeName.toLowerCase(),
-                foswikitools = ed.plugins.foswikitools,
+                foswikiclean = ed.plugins.foswikiclean,
                 nodeattr;
             for (i in node.attributes) {
                 if (!isNaN(i)) {
                     nodeattr = node.attributes[i];
-                    if (nodeattr && foswikitools.stickybits.tags[tagName] &&
-                        foswikitools.stickybits.tags[tagName].
+                    if (nodeattr && foswikiclean.stickybits.tags[tagName] &&
+                        foswikiclean.stickybits.tags[tagName].
                         attributes[nodeattr.nodeName]) {
                         jQuery(node).removeAttr(nodeattr.nodeName);
                     }
@@ -218,37 +218,20 @@
             }
         },
 
-        _setupCopyButton: function(ed, url) {
-            // Register commands
-            ed.addCommand('foswikitoolscopy', function() {
-
-                return;
-            });
-
-            // Register buttons
-            ed.addButton('foswikitoolscopy', {
-                title: 'foswikitools.copy_desc',
-                cmd: 'foswikitoolscopy',
-                image: url + '/img/copy.png'
-            });
-
-            return;
-        },
-
         _nodeChangeClean: function(ed, cm, node, collapsed) {
-            var foswikitools = cm.editor.plugins.foswikitools;
+            var foswikiclean = cm.editor.plugins.foswikiclean;
             if (!node) {
                 return;
             }
 
-            if ( foswikitools.edSelectionIsSticky(ed) ) {
-                foswikitools._setCleanButtonState(cm, false, false, false,
-                   'foswikitools.unclean_desc',
-                   '/plugins/foswikitools/img/unclean.png');
+            if ( foswikiclean.edSelectionIsSticky(ed) ) {
+                foswikiclean._setCleanButtonState(cm, false, false, false,
+                   'foswikiclean.unclean_desc',
+                   '/plugins/foswikiclean/img/unclean.png');
             } else {
-                foswikitools._setCleanButtonState(cm, true, true, true,
-                   'foswikitools.clean_desc',
-                   '/plugins/foswikitools/img/clean.png');
+                foswikiclean._setCleanButtonState(cm, true, true, true,
+                   'foswikiclean.clean_desc',
+                   '/plugins/foswikiclean/img/clean.png');
             }
 
             return true;
@@ -303,11 +286,11 @@
         // Check that just the node given is sticky
         isStickyNode: function (ed, node) {
             var tagName = node.nodeName.toLowerCase(),
-                foswikitools = ed.plugins.foswikitools,
+                foswikiclean = ed.plugins.foswikiclean,
                 sticky = false;
 
-            if (foswikitools._hasStickyNodeName(node, tagName) &&
-                foswikitools._hasStickyAttributes(node, tagName)) {
+            if (foswikiclean._hasStickyNodeName(node, tagName) &&
+                foswikiclean._hasStickyAttributes(node, tagName)) {
                 sticky = true;
             }
             
@@ -428,13 +411,13 @@
 
             // Skip these checks if the state hasn't changed
             if ( (this.cleanbutton_state !== skipstate) ) {
-                buttonId = '#' + cm.prefix + 'foswikitoolsclean';
+                buttonId = '#' + cm.prefix + 'foswikiclean';
                 title_value = cm.editor.getLang(title_key);
                 this.cleanbutton_state = skipstate;
-                cm.setDisabled('foswikitoolsclean', disabled);
-                cm.setActive('foswikitoolsclean', active);
+                cm.setDisabled('foswikiclean', disabled);
+                cm.setActive('foswikiclean', active);
                 jQuery(buttonId).attr('title', title_value);
-                cm.controls[cm.prefix + 'foswikitoolsclean'].settings.title = 
+                cm.controls[cm.prefix + 'foswikiclean'].settings.title = 
                     title_value;
                 jQuery(buttonId + ' img').attr('src',
                         cm.editor.baseURI.directory + img);
@@ -445,5 +428,5 @@
     });
 
     // Register plugin
-    tinymce.PluginManager.add('foswikitools', tinymce.plugins.FoswikiTools);
+    tinymce.PluginManager.add('foswikiclean', tinymce.plugins.FoswikiClean);
 })();

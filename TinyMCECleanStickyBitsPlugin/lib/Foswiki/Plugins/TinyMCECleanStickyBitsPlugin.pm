@@ -2,11 +2,11 @@
 
 =begin TML
 
----+ package TinyMCEFoswikiToolsPlugin
+---+ package TinyMCECleanStickyBitsPlugin
 
 =cut
 
-package Foswiki::Plugins::TinyMCEFoswikiToolsPlugin;
+package Foswiki::Plugins::TinyMCECleanStickyBitsPlugin;
 
 # Always use strict to enforce variable scoping
 use strict;
@@ -16,9 +16,9 @@ use Foswiki::Func    ();    # The plugins API
 use Foswiki::Plugins ();    # For the API version
 
 our $VERSION = '$Rev$';
-our $RELEASE = '01 Jul 2010';
+our $RELEASE = '11 Jul 2010';
 our $SHORTDESCRIPTION =
-  'Adds toolbar buttons to aid in copy/pasting tables to/from spreadsheets';
+'Toolbar button to clean a selection of sticky attributes that would prevent a clean conversion to WikiText';
 our $NO_PREFS_IN_TOPIC = 1;
 
 =begin TML
@@ -55,8 +55,8 @@ sub initPlugin {
       )
     {
         # Lazy-load to help CGI compile times
-        require Foswiki::Plugins::TinyMCEFoswikiToolsPlugin::Core;
-        Foswiki::Plugins::TinyMCEFoswikiToolsPlugin::Core::setup();
+        require Foswiki::Plugins::TinyMCECleanStickyBitsPlugin::Core;
+        Foswiki::Plugins::TinyMCECleanStickyBitsPlugin::Core::setup();
     }
 
     return $init;
