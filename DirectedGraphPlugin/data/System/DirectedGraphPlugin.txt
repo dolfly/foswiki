@@ -518,13 +518,15 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main/ColeBeck, TWiki:Main/GeorgeClark |
+|  Plugin Author: | TWiki:Main/ColeBeck, Foswiki:Main.GeorgeClark |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Copyright: | Copyright (C) 2004-2005 Cole Beck, cole.beck@vanderbilt.edu %BR% Copyright (C) 2006-2008 TWiki Contributors %BR% Copyright (C) 2009-2010 George Clark and other Foswiki Contributors |
 |  Plugin Version: | %$VERSION% |
 |  Plugin Release: | %$RELEASE% |
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
+| 14 Jul 2010 (1.9): | Foswikitask:Item9163 - Taint errors, Foswikitask:9319 - Files written with incorrect permissions |
 |  <span style="white-space:nowrap">28 Mar 2010 (1.8):</span> | Foswikitask:Item8710 - Add support for Graphviz 2.26<br/> Foswikitask:Item8711 - Add support for mod_perl2<br/> |
 |  8 Mar 2010 (1.7): | Foswikitask:Item8604 - Resolve some taint issues.  Release as 1.7 |
 |  12 Feb 2010: | Foswikitask:Item8495 - Insert image size in &lt/img> and &lt;object tags |

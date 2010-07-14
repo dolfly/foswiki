@@ -1,6 +1,8 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
 # Copyright (C) 2004-2005 Cole Beck, cole.beck@vanderbilt.edu
+# Copyright (C) 2006-2008 TWiki Contributors
+# Copyright (C) 2009-2010 George Clark and other Foswiki Contributors
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
