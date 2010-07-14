@@ -773,7 +773,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                 &_writeDebug(
                     "attaching $attachFile{$key} using direct file I/O  ");
                 _make_path( $topic, $web );
-                umask(002);
+                umask( oct(777) - $Foswiki::cfg{RCS}{filePermission} );
                 my $tempoutfile = "$attachPath/$web/$topic/$fname";
                 $tempoutfile = Foswiki::Sandbox::untaintUnchecked($tempoutfile)
                   ;    #untaint - fails in Perl 5.10
@@ -1224,8 +1224,11 @@ sub _make_path {
     foreach my $val (@webs) {         # Process each subweb in the web path
         $dir .= '/' . $val;
         if ( !-e $dir ) {
-            umask(002);
-            mkdir( $dir, 0775 );
+            umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
+            eval { File::Path::mkpath( $dir, 0, $Foswiki::cfg{RCS}{dirPermission} ); };
+            if ($@) {
+                throw Error::Simple("Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
+            }
         }                             # if (! -e $dir
     }    # foreach
 
@@ -1233,8 +1236,11 @@ sub _make_path {
     # it.
     $dir .= '/' . $topic;
     if ( !-e "$dir" ) {
-        umask(002);
-        mkdir( $dir, 0775 );
+        umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
+        eval { File::Path::mkpath( $dir, 0, $Foswiki::cfg{RCS}{dirPermission} ); };
+        if ($@) {
+            throw Error::Simple("Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
+        }
     }
 
     # Return the complete path to target directory
