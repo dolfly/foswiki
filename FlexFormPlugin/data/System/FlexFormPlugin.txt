@@ -138,6 +138,11 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  22 Jul 2010: | fixed not try to load a non-existing form definition; \
+                  providing fallback method for retrieving default values from form definition for those formfield types that can't do that by themselves; \
+                  fixed expanding field title before the formfield does; \
+                  fixed expanding standard escapes at the very end of the rendering process; \
+                  added better default format for RENDERFOREDIT |
 |  07 Jun 2010: | added =includeattr=, =excludeattr= to filter formfields by their attributes |
 |  24 Mar 2010: | fixed error where topic values were not inserted into the edit form properly |
 |  12 Mar 2010: | cleaned up =$value= and =$values= variable in both RENDERFOREDIT and RENDERFORIDPLSAY;\

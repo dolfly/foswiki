@@ -111,11 +111,19 @@ sub handleRENDERFORDISPLAY {
   $theForm = $topicObj->getFormName unless defined $theForm;
   return '' unless $theForm;
 
+  #writeDebug("theForm=$theForm");
+
   my $theFormWeb = $thisWeb;
   ($theFormWeb, $theForm) = Foswiki::Func::normalizeWebTopicName($theFormWeb, $theForm);
 
+  if (!Foswiki::Func::topicExists($theFormWeb, $theForm)) {
+    return '';
+  }
+  #writeDebug("theFormWeb=$theFormWeb");
+
   my $form = new Foswiki::Form($session, $theFormWeb, $theForm);
   return '' unless $form;
+
   my $formTitle;
   if ($form->can('getPath')) {
     $formTitle = $form->getPath;
@@ -157,13 +165,23 @@ sub handleRENDERFORDISPLAY {
     my $fieldTitle = $field->{title};
     my $fieldDefiningTopic = $field->{definingTopic};
 
+    writeDebug("fieldName=$fieldName, fieldType=$fieldType");
+
     my $fieldAllowedValues = '';
     if ($field->can('getOptions')) {
       my $options = $field->getOptions();
       if ($options) {
         $fieldAllowedValues = join($theValueSep, @$options);
       }
+    } else {
+      # fallback to field->value
+      my $options = $field->{value};
+      if ($options) {
+        $fieldAllowedValues = join($theValueSep, split(/\s*,\s*/, $options));
+      }
     }
+
+    writeDebug("fieldAllowedValues=$fieldAllowedValues");
 
     my $fieldDefault = '';
     if ($field->can('getDefault')) {
@@ -197,8 +215,6 @@ sub handleRENDERFORDISPLAY {
       $field = $fieldClone;
     } 
 
-    #writeDebug("reading fieldName=$fieldName");
-
     my $metaField = $topicObj->get('FIELD', $fieldName);
     unless ($metaField) {
       # Not a valid field name, maybe it's a title.
@@ -218,16 +234,17 @@ sub handleRENDERFORDISPLAY {
       $line = $theLabelFormat;
     }
 
+    $fieldTitle = $fieldTitles->{$fieldName} if $fieldTitles && $fieldTitles->{$fieldName};
+
     # some must be expanded before renderForDisplay
     $line =~ s/\$values\b/$fieldAllowedValues/g;
+    $line =~ s/\$title\b/$fieldTitle/g;
 
     $line = $field->renderForDisplay($line, $fieldValue, {
       bar=>'|', # SMELL: keep bars
       newline=>'$n', # SMELL: keep newlines
     }); # SMELL what about the attrs param in Foswiki::Form
         # SMELL wtf is this attr anyway
-
-    $fieldTitle = $fieldTitles->{$fieldName} if $fieldTitles && $fieldTitles->{$fieldName};
 
     $line =~ s/\$name\b/$fieldName/g;
     $line =~ s/\$type\b/$fieldType/g;
@@ -239,10 +256,6 @@ sub handleRENDERFORDISPLAY {
     $line =~ s/\$description\b/$fieldDescription/g;
     $line =~ s/\$title\b/$fieldTitle/g;
     $line =~ s/\$form\b/$formTitle/g;
-    $line =~ s/\$nop//g;
-    $line =~ s/\$n/\n/g;
-    $line =~ s/\$percnt/%/g;
-    $line =~ s/\$dollar/\$/g;
 
     push @result, $line;
 
@@ -250,7 +263,13 @@ sub handleRENDERFORDISPLAY {
     $fieldClone->finish() if defined $fieldClone;
   }
 
-  return $theHeader.join($theSep, @result).$theFooter;
+  my $result = $theHeader.join($theSep, @result).$theFooter;
+  $result =~ s/\$nop//g;
+  $result =~ s/\$n/\n/g;
+  $result =~ s/\$percnt/%/g;
+  $result =~ s/\$dollar/\$/g;
+
+  return $result;
 }
 
 ##############################################################################
@@ -279,7 +298,7 @@ sub handleRENDERFOREDIT {
 
   if (!defined($theFormat) && !defined($theHeader) && !defined($theFooter)) {
     $theHeader = '<div class=\'foswikiFormSteps\'>';
-    $theFormat = '<div class=\'foswikiFormStep\'><h3>$title:$mandatory</h3>$edit</div>';
+    $theFormat = '<div class=\'foswikiFormStep\'><h3>$title:$mandatory</h3>$edit<div class=\'foswikiFormDescription\'>$description</div></div>';
     $theFooter ='</div>';
   } else {
     $theFormat = '$edit$mandatory' unless defined $theFormat;
@@ -308,6 +327,10 @@ sub handleRENDERFOREDIT {
   ($theFormWeb, $theForm) = Foswiki::Func::normalizeWebTopicName($theFormWeb, $theForm);
 
   writeDebug("theForm=$theForm"); 
+
+  if (!Foswiki::Func::topicExists($theFormWeb, $theForm)) {
+    return '';
+  }
 
   my $form = new Foswiki::Form($session, $theFormWeb, $theForm);
   return '' unless $form;
@@ -354,6 +377,12 @@ sub handleRENDERFOREDIT {
       my $options = $field->getOptions();
       if ($options) {
         $fieldAllowedValues = join($theValueSep, @$options);
+      }
+    } else {
+      # fallback to field->value
+      my $options = $field->{value};
+      if ($options) {
+        $fieldAllowedValues = join($theValueSep, split(/\s*,\s*/, $options));
       }
     }
 
@@ -469,10 +498,6 @@ sub handleRENDERFOREDIT {
     $line =~ s/\$description\b/$fieldDescription/g;
     $line =~ s/\$title\b/$fieldTitle/g;
     $line =~ s/\$extra\b/$fieldExtra/g;
-    $line =~ s/\$nop//g;
-    $line =~ s/\$n/\n/g;
-    $line =~ s/\$percnt/%/g;
-    $line =~ s/\$dollar/\$/g;
 
     push @result, $line;
 
@@ -480,7 +505,14 @@ sub handleRENDERFOREDIT {
     $fieldClone->finish() if defined $fieldClone;
   }
 
-  return '<noautolink>'.$theHeader.join($theSep, @result).$theFooter.'</noautolink>';
+
+  my $result = $theHeader.join($theSep, @result).$theFooter;
+  $result =~ s/\$nop//g;
+  $result =~ s/\$n/\n/g;
+  $result =~ s/\$percnt/%/g;
+  $result =~ s/\$dollar/\$/g;
+
+  return '<noautolink>'.$result.'</noautolink>';
 }
 
 
