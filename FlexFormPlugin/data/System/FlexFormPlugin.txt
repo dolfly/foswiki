@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1268228083" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1279819493" format="1.1" reprev="2" version="2"}%
 ---+!! %TOPIC%
 %$SHORTDESCRIPTION% 
 
@@ -20,7 +20,7 @@ be avoided by using a %<nop>RENDERFOREDIT macro that loops over all formfields i
 to render the input form in a more dynamic way while still customizing the overall output.
 
 In addition, !FlexFormPlugin facilitates the extraction of field default values (such as valid schema options) from 
-!DataForm. See http://foswiki.org/Development/MacroForRetreivingFieldDefaultValues for background.
+!DataForm. See http://foswiki.org/Development/MacroForRetrievingFieldDefaultValues for background.
 
 ---++ Usage
 ---+++ RENDERFOREDIT
@@ -125,7 +125,6 @@ The =format= parameter may contain the following pseudo-variables:
 
 ---++ Installation Instructions
 %$INSTALL_INSTRUCTIONS%
-
 
 ---++ Info
 
