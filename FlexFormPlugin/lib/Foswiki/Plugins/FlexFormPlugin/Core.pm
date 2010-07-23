@@ -463,7 +463,17 @@ sub handleRENDERFOREDIT {
       if ($isHidden) {
 	# sneak in the value into the topicObj
         my $metaField = $topicObj->get('FIELD', $fieldName);
-        $metaField->{value} = $fieldValue if $metaField;
+        if ($metaField) {
+          $metaField->{value} = $fieldValue;
+        } else {
+          # temporarily add metaField for rendering it as hidden field
+          $metaField = { 
+            name => $fieldName, 
+            title => $fieldName, 
+            value => $fieldValue
+          }; 
+          $topicObj->putKeyed('FIELD', $metaField);
+        }
 	$fieldEdit = $field->renderHidden($topicObj);
       } else {
 	if ($Foswiki::Plugins::VERSION > 2.0) {

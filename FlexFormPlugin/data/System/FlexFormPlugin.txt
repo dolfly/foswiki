@@ -137,6 +137,7 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  23 Jul 2010: | fixed rendering hidden fields when creating a new topic (Foswiki:Main/PasiHaekkinen) |
 |  22 Jul 2010: | fixed not try to load a non-existing form definition; \
                   providing fallback method for retrieving default values from form definition for those formfield types that can't do that by themselves; \
                   fixed expanding field title before the formfield does; \
