@@ -642,16 +642,18 @@ sub handleFormatList {
 
 ###############################################################################
 sub getAnchorName {
-  my ($session, $anchorName) = @_;
+  my ($session, $text) = @_;
 
-  $anchorName = $anchorName.'_'.$makeIndexCounter;
-  return '' if $seenAnchorNames{$anchorName};
-  $seenAnchorNames{$anchorName} = 1;
+  $text = $text.'_'.$makeIndexCounter;
+  return '' if $seenAnchorNames{$text};
+  $seenAnchorNames{$text} = 1;
 
   if ($Foswiki::Plugins::VERSION > 2.0) {
-    return $session->renderer->_makeAnchorName($anchorName);
+    require Foswiki::Render::Anchors;
+    my $anchor = Foswiki::Render::Anchors::make($text);
+    return Foswiki::urlEncode($anchor);
   } else {
-    return $session->renderer->makeAnchorName($anchorName);
+    return $session->renderer->makeAnchorName($text);
   }
 }
 
