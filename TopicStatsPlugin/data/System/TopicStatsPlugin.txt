@@ -1,36 +1,79 @@
----+!! !TopicStatsPlugin
 <!--
-One line description, required for extensions repository catalog.
-BuildContrib will fill in the SHORTDESCRIPTION with the value of
-$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
-prefer.
-   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
--->
-%SHORTDESCRIPTION%
 
+   PLEASE DO NOT EDIT THIS TOPIC
+
+   It is automatically generated from the subversion repository, and any changes
+   you make will simply be overwritten the next time a release is generated.
+
+   Instead, you could check your fix in, raise a bug in the Bugs web, or mail the author.
+-->
+---+!! <nop>%TOPIC%
 %TOC%
 
----++ Usage
+---++ Description
 
----++ Examples
+This Plugin returns a list of users who have viewed or edited to wiki topic. This plugin can be combined with the [[Extensions/TagCloudPlugin][TagCloud Plugin]] to get a tag-cloud of the users.
 
----++ Installation Instructions
+---++ Syntax Rules
+*Syntax*: 
+<verbatim>
+%TOPICSTATS{attributes}%
+</verbatim>
 
-%$INSTALL_INSTRUCTIONS%
+renders a list of users who have viewed or saved a wiki topic.
 
----++ Info
+Parameters:
+   * =logdate=: the month for which you want the data, specified as =yyyymm=
+     (default: =current month=)
+   * =web=: the web which has the topic
+     (default: =current web=)
+   * =topic=: the topic whose stats will be displayed
+     (default: =current topic=)
+   * =script=: the action whose stats you want to capture, can be one of =view, save or all=
+     (default: =all=)
 
-Many thanks to the following sponsors for supporting this work:
-   * Acknowledge any sponsors here
+---++ Example
 
-|  Author(s): | |
-|  Copyright: | &copy; |
-|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-|  Release: | %$RELEASE% |
-|  Version: | %$VERSION% |
-|  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  Dependencies: | %$DEPENDENCIES% |
-|  Home page: | http://foswiki.org/bin/view/Extensions/TopicStatsPlugin |
-|  Support: | http://foswiki.org/bin/view/Support/TopicStatsPlugin |
+Users who have viewed the current topic (combined with the [[Extensions/TagCloudPlugin][TagCloud Plugin]]):
 
-<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
+*You type*:
+<verbatim>
+%TAGCLOUD{%TOPICSTATS{script="view"}%}%
+</verbatim>
+
+*You get*:
+%TAGCLOUD{%TOPICSTATS{script="view"}%}%
+
+---++ Plugin Preferences
+
+Settings specific to your plugin can be stored as [[%SYSTEMWEB%.PreferenceSettings][preference settings]]. Default values for these preferences can be set in plugin topics; for example:
+   * One line description, used by other tools:
+      * Set SHORTDESCRIPTION = <nop>TopicStats plugin used to display the users who have viewed or edited a wiki topic
+This is then referenced using ==%<nop>TOPICSTATSPLUGIN_SHORTDESCRIPTION%==.
+
+---++ Known Issues
+
+This plugin will not respect access restrictions set in the wiki. For e.g. you can see a list of users who have edited a wiki topic even if you do not have view access to that page.
+
+---++ Performance Issues
+
+Use of this plugin in a topic will slow down the rendering of this page considerably, so please use it sparingly. Do not put in every topic of your Web.
+
+---++ Installation
+You do not need to install anything in the browser to use this extension. The following instructions are for the administrator who installs the extension on the server.
+
+Open configure, and open the "Extensions" section. Use "Find More Extensions" to get a list of available extensions. Select "Install".
+
+If you have any problems, or if the extension isn't available in =configure=, then you can still install manually from the command-line. See http://foswiki.org/Support/ManuallyInstallingExtensions for more help.
+
+
+---++ Plugin Info
+
+|  Author | Main.GuruprasadIyer|
+|  Copyright | &copy; 2010, Guruprasad Iyer (guruprasad_iyer@infosys.com) |
+|  License | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Version |  |
+|  Release | $Date: 2010/07/20 04:31:12 $ | 
+|  Home |  |
+|  Support |  |
+
