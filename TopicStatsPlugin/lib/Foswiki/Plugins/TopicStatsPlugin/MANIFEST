@@ -1,0 +1,4 @@
+# Release manifest for TopicStatsPlugin
+data/System/TopicStatsPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/TopicStatsPlugin.pm 0644 Perl module
+
