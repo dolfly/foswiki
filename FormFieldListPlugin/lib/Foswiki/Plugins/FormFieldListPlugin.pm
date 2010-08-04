@@ -121,6 +121,7 @@ sub _handleFormFieldList {
     my $properties = {};
     $properties->{includeMissingFields} = $inParams->{'doIncludeMissingFields'},
       $properties->{formFields}         = $formFieldsHash;
+      $properties->{sortParam}          = $inParams->{'sort'};
 
     Foswiki::Plugins::TopicDataHelperPlugin::insertObjectData( $topicData,
         \&_createFormFieldData, $properties );
@@ -144,6 +145,29 @@ sub _handleFormFieldList {
     return $formatted;
 }
 
+sub _populateOrderingFromFormDefinition {
+  my ( $web, $topic, $existing ) = @_;
+
+  my $topicObject = new Foswiki::Meta($Foswiki::Plugins::SESSION, $web, $topic);
+  my $startPosition = 1;
+  my %orderedFields = %$existing;
+  $topicObject->reload();
+  while ( my ($field, $order) = each %$existing ) {
+      if ($order >= $startPosition) {
+          $startPosition = $order + 1;
+      }
+  }
+  my @fields = $topicObject->find('FIELD');
+  my $index = $startPosition;
+  foreach my $fieldref (@fields) {
+      my %field = %$fieldref;
+      $orderedFields{$field{name}} = $index;
+      $index = $index + 1;
+  }
+
+  return \%orderedFields;
+}
+
 =pod
 
 Called from Foswiki::Plugins::TopicDataHelperPlugin::insertObjectData.
@@ -165,6 +189,11 @@ sub _createFormFieldData {
 	
     my $formFieldsHash       = $inProperties->{formFields};
     my $includeMissingFields = $inProperties->{includeMissingFields};
+
+    if ( defined $inProperties->{sortParam} and ($inProperties->{sortParam} eq '$fieldDefinition' ) ) {
+        $formFieldsHash = 
+            _populateOrderingFromFormDefinition($inWeb, $inTopic, $formFieldsHash);
+    }
 
     # define value for topic key only if topic
     # has META:FIELD data
@@ -460,9 +489,9 @@ sub _sortFields {
 
     # translate input to sort parameters
     my $sortOrderParam = $inParams->{'sortorder'} || 'none';
-    my $sortOrder = $sortInputTable{$sortOrderParam}
-      || $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'};
-
+    my $sortOrder = $sortInputTable{$sortOrderParam} ||
+        $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'};
+    
     # set default sort order for sort modes
     if ( $sortOrder ==
         $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{'NONE'} )
@@ -474,8 +503,7 @@ sub _sortFields {
             # exception for dates: newest on top
             $sortOrder = $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{
                 'DESCENDING'};
-        }
-        else {
+        } else {
 
             # otherwise sort by default ascending
             $sortOrder = $Foswiki::Plugins::TopicDataHelperPlugin::sortDirections{

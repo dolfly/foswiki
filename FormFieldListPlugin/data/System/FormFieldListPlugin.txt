@@ -54,14 +54,15 @@ This plugin uses Foswiki:Extensions/TopicDataHelperPlugin
 ---+++ Sort options
 %TABLE{columnwidths="20%,30%,15%,40%"}%
 | *Parameter* | *Comment* | *Default value* | *Example* |
-| =sort=      | Sorts the retrieved form fields on: %BR%\
-name (=$name=) %BR%\
-value (=$value=) %BR%\
-containing topic (=$topicName=) %BR%\
-date (=$fieldDate=) (when field has changed, this is checked against a cache)  %BR%\
-topic date (=$topicDate=) %BR%\
-user (=$topicUser=) %BR%\
-The sort order can be specified with parameter =sortorder=. | =$topicName= | =sort="$name"= |
+| =sort=      | Sorts the retrieved form fields on: <ul>\
+<li>name (=$name=)</li>\
+<li>value (=$value=)</li>\
+<li>containing topic (=$topicName=)</li>\
+<li>date (=$fieldDate=) (when field has changed, this is checked against a cache)</li>\
+<li>position in form definition (=$fieldDefinition=)</li>\
+<li>topic date (=$topicDate=)</li>\
+<li>user (=$topicUser=)</li>\
+</ul>The sort order can be specified with parameter =sortorder=. | =$topicName= | =sort="$name"= |
 | =sortorder= | Lists sorted attachments: ascending or descending. The default sort order depends on the =sort= type: %BR%\
 =descending=: default for =$date= (latest file first) %BR%\
 =ascending=: default for =$fieldName=, =$fieldValue= and =$topicName= (alphabetically) | see left | =sortorder="ascending"= |
@@ -171,8 +172,9 @@ Use the notation =NAMEOFPLUGIN_NAMEOFSETTING=, for example: =FORMFIELDLISTPLUGIN
 
 |  Authors: | TWiki:Main/BerndRaichle (2004), Foswiki:Main/ArthurClemens (2008, 2009) |
 |  Copyright &copy;: | TWiki:Main/BerndRaichle (2004), Foswiki:Main/ArthurClemens (2008, 2009) |
-|  Plugin Version: | 20 Jun 2009 (v2.1) |
+|  Plugin Version: | 03 Aug 2009 (%$RELEASE%) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  03 Aug 2010: | v.2.2 [[Foswiki:Main.PaulHarvey][Paul Harvey]]: [[Foswikitask:8392][Item8392]] added =$fieldDefinition= sort attribute to sort fields by their order of appearance in the [[DataForms][DataForm]] definition |
 |  20 Jun 2009: | v.2.1 Arthur Clemens: ported to Foswiki. Changed =FORMAT= setting to =DEFAULT_FORMAT=. |
 |  25 Oct 2008: | v.2.010 Arthur Clemens: Added param =includemissingfields= to explicitly generate field substitutes. |
 |  24 Oct 2008: | v.2.000 Arthur Clemens: Major code refactoring with the addition of numerous parameters. Created unit tests.  |

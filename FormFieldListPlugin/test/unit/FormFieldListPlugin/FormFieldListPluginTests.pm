@@ -1,6 +1,8 @@
-use strict;
-
 package FormFieldListPluginTests;
+
+use strict;
+use warnings;
+
 use FoswikiFnTestCase;
 our @ISA = qw( FoswikiFnTestCase );
 
@@ -108,14 +110,17 @@ my $allTopics =
 "$testForms{topic1}{name}, $testForms{topic2}{name}, $testForms{topic3}{name}, $testForms{topic4}{name}, $testForms{topic5}{name}";
 
 sub new {
-    my $self = shift()->SUPER::new( 'FormFieldListPluginTests', @_ );
+    my $self = shift()->SUPER::new( @_ );
     return $self;
 }
 
 sub set_up {
-    my $this = shift;
+    my ($this) = @_;
 
     $this->SUPER::set_up();
+    $Foswiki::cfg{Plugins}{FormFieldListPlugin}{Enabled} = 1;
+    $this->{session}->finish();
+    $this->{session} = Foswiki::new('Foswiki');
     $this->_createForms();
 }
 
@@ -1770,7 +1775,7 @@ sub _simulate_view {
 sub _makeDelay {
     my ($inDelaySeconds) = @_;
 
-    sleep($inDelaySeconds);
+    #sleep($inDelaySeconds);
 }
 
 =pod

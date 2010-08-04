@@ -18,6 +18,7 @@ use strict;
 use overload ( '""' => \&as_string );
 
 my %sortKeys = (
+    '$fieldDefinition' => [ 'fieldDefinition',  'string' ],
     '$name'      => [ 'name',  'string' ],
     '$value'     => [ 'value', 'string' ],
     '$fieldDate' => [ 'fieldDate',  'integer' ],
