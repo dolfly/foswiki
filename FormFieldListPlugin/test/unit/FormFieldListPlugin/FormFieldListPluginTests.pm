@@ -19,7 +19,7 @@ my %testForms = (
     topic1 => {
         name   => 'FormFieldListTestTopic1',
         user   => 'ScumBag',
-        date   => time() - 4000,
+        date   => time() - 4004,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -41,7 +41,7 @@ my %testForms = (
     topic2 => {
         name   => 'FormFieldListTestTopic2',
         user   => 'ProjectContributor',
-        date   => time() - 3000,
+        date   => time() - 3003,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -62,7 +62,7 @@ my %testForms = (
     topic3 => {
         name   => 'FormFieldListTestTopic3',
         user   => 'WikiGuest',
-        date   => time() - 2000,
+        date   => time() - 2002,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -83,7 +83,7 @@ my %testForms = (
     topic4 => {
         name   => 'FormFieldListTestTopic4',
         user   => 'AdminUser',
-        date   => time() - 1000,
+        date   => time() - 1001,
         form   => 'ProjectForm',
         field1 => {
             name      => 'Author',
@@ -1601,6 +1601,48 @@ sub test_param_footer_no_results {
     $this->_do_test( $testTopic, $expected, $source );
 }
 
+sub test_param_sort_fieldDefinition {
+    my $this = shift;
+    my $testTopic = 'sortFieldDefinition';
+    my $source = <<"HERE";
+---+ Sorted
+%FORMFIELDLIST{sort="\$fieldDefinition" format="   * \$name: \$value"}%
+---+ Unsorted
+%FORMFIELDLIST{format="   * \$name: \$value"}%
+HERE
+    my $expected = <<"HERE";
+---+ Sorted
+   * Zfield: 1
+   * Bfield: 1
+   * Cfield: 1
+---+ Unsorted
+   * Zfield: 1
+   * Cfield: 1
+   * Bfield: 1
+HERE
+
+    $this->_set_up_topic($testTopic, <<'HERE');
+TestForm doesn't exist
+
+For now we just test that the order of appearance of the META:FIELD macros
+are preserved by FORMFIELDLIST{sort="$fieldDefinition"}. One day we will
+be able to properly query the form's idea of field ordering instead of
+relying on how it happens to be serialised in the topic... The $fieldDefinition
+sort feature will be broken on any store implementation that doesn't behave
+this way :-/
+
+Item8392
+
+%META:FORM{name="TestForm"}%
+%META:FIELD{name="Zfield" attributes="" title="Zfield" value="1"}%
+%META:FIELD{name="Bfield" attributes="" title="Bfield" value="1"}%
+%META:FIELD{name="Cfield" attributes="" title="Cfeild" value="1"}%
+HERE
+    $this->_do_test( $testTopic, $expected, $source );
+
+    return;
+}
+
 =pod
 
 =cut
@@ -1687,6 +1729,9 @@ sub _addForm {
     $options{author}  = $cUID;
     $options{format}  = '1.1';
     $options{version} = '1.1913';
+    # Added for Item8392; seems the topic isn't saved with correct date
+    # otherwise
+    $options{forcedate} = $formData{date} if $formData{date};
 
     $topicObject->save(%options);
 }
