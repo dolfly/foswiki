@@ -148,10 +148,11 @@ sub _handleFormFieldList {
 sub _populateOrderingFromFormDefinition {
   my ( $web, $topic, $existing ) = @_;
 
-  my $topicObject = new Foswiki::Meta($Foswiki::Plugins::SESSION, $web, $topic);
+  my $topicObject = Foswiki::Meta->load(
+      $Foswiki::Plugins::SESSION, $web, $topic);
   my $startPosition = 1;
   my %orderedFields = %$existing;
-  $topicObject->reload();
+
   while ( my ($field, $order) = each %$existing ) {
       if ($order >= $startPosition) {
           $startPosition = $order + 1;
