@@ -46,7 +46,7 @@ our $VERSION = '$Rev$';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.8';
+our $RELEASE = '1.9';
 
 #
 # # Short description of this plugin
@@ -434,7 +434,8 @@ sub _handleDot {
     # Make sure outFilename is clean
     if ( $outFilename ne '' ) {
         $outFilename = Foswiki::Sandbox::sanitizeAttachmentName($outFilename);
-        $outFilename = Foswiki::Sandbox::untaint($outFilename, \&Foswiki::Sandbox::validateAttachmentName );
+        $outFilename = Foswiki::Sandbox::untaint( $outFilename,
+            \&Foswiki::Sandbox::validateAttachmentName );
     }
 
     # clean up parms
@@ -1227,9 +1228,13 @@ sub _make_path {
         $dir .= '/' . $val;
         if ( !-e $dir ) {
             umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
-            eval { File::Path::mkpath( $dir, 0, $Foswiki::cfg{RCS}{dirPermission} ); };
+            eval {
+                File::Path::mkpath( $dir, 0,
+                    $Foswiki::cfg{RCS}{dirPermission} );
+            };
             if ($@) {
-                throw Error::Simple("Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
+                throw Error::Simple(
+                    "Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
             }
         }                             # if (! -e $dir
     }    # foreach
@@ -1239,9 +1244,12 @@ sub _make_path {
     $dir .= '/' . $topic;
     if ( !-e "$dir" ) {
         umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
-        eval { File::Path::mkpath( $dir, 0, $Foswiki::cfg{RCS}{dirPermission} ); };
+        eval {
+            File::Path::mkpath( $dir, 0, $Foswiki::cfg{RCS}{dirPermission} );
+        };
         if ($@) {
-            throw Error::Simple("Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
+            throw Error::Simple(
+                "Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
         }
     }
 
