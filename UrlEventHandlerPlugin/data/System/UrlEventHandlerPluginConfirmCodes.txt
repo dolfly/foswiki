@@ -1,7 +1,0 @@
-%STARTSECTION{"attachok"}%
-%MAKETEXT{The file has been successfully attached to the topic}%
-%ENDSECTION{"attachok"}%
-
-<!--
-   * Set ALLOWTOPICCHANGE = AdminGroup
- -->

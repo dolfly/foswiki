@@ -1,4 +1,0 @@
-%INCLUDE{"WebsitesGeo"}%
-
-%ICON{info}% [[AboutWebsitesGeo]]
-
