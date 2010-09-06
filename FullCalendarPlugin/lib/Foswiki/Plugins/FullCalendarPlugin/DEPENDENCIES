@@ -1,3 +1,0 @@
-# Dependencies for FullCalendarPlugin
-Date::Calc,>=6.13,cpan,Required.
-Foswiki::Plugins::ObjectPlugin,>=1.0,perl,Required.

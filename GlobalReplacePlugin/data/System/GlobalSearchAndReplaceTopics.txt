@@ -1,9 +1,0 @@
-%META:TOPICPARENT{name="GlobalSearchAndReplace"}%
----+ Result of Global Search And Replace 
-
-Back to GlobalSearchAndReplace.
-
-%GLOBALREPLACE{ func="%URLPARAM{"func"}%" rSearchString="%URLPARAM{"rSearchString" encode="entity" }%" rString="%URLPARAM{"rString" encode="entity" }%" caseSensitive="%URLPARAM{"caseSensitive"}%" }%
-
-	* Set ALLOWTOPICCHANGE = %USERSWEB%.AdminGroup 
-

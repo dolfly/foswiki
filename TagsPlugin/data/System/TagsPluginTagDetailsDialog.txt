@@ -1,9 +1,0 @@
-%META:TOPICINFO{author="BaseUserMapping_333" date="1276557569" format="1.1" version="1.1"}%
-%META:TOPICPARENT{name="TagsPlugin"}%
-%INCLUDE{
-  "%WEB%.%TOPIC%%URLPARAM{"dialog" default="Simple" encode="safe"}%" 
-  TAGNAME = "%URLPARAM{"tag" default="undef" encode="safe"}%" 
-  TAGNAMEURL = "%URLPARAM{"tag" default="undef" encode="url"}%"
-  TAGWEB = "%URLPARAM{"tagweb" default="undef" encode="safe"}%"
-  TAGTOPIC = "%URLPARAM{"tagtopic" default="undef" encode="safe"}%"
-}%

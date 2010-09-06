@@ -1,4 +1,0 @@
-# Release manifest for GetAWebPlugin
-data/System/GetAWebPlugin.txt 0644 Documentation
-lib/Foswiki/Plugins/GetAWebPlugin.pm 0644 Perl module
-

@@ -1,2 +1,0 @@
-XML::Stream,,cpan,Optional. Used by Jabber.  Available from CPAN:XML::Stream
-Net::XMPP,>=1.02,cpan,Optional. Used by Jabber.  Available from CPAN:Net::XMPP

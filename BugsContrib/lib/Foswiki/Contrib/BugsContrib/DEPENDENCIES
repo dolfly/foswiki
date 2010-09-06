@@ -1,2 +1,0 @@
-# Dependencies for BugsContrib wiki application
-Foswiki::Contrib::MailerContrib,>0,perl,Optional.

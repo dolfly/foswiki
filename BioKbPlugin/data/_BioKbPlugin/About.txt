@@ -1,3 +1,0 @@
-<h1>About [[%WEB%/WebHome][%WEB%]]</h1>
-
-GO TO [[About][this page]] and add a description of your resource

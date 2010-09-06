@@ -1,3 +1,0 @@
-DBI,>0,cpan,Required
-#optional
-DBD::SQLite,>0,cpan,Optional

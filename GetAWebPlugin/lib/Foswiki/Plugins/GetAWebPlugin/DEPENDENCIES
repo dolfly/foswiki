@@ -1,5 +1,0 @@
-# Dependencies for GetAWebPlugin
-# Example:
-# Time::ParseDate,>=2003.0211,cpan,Required.
-Archive::Tar,>=1,cpan,Required
-#IO::Zlib,>=1,cpan,needed to create tar.gz files

@@ -1,3 +1,0 @@
-# Dependencies for GeoPlugin
-Geo::IP,,cpan,Optional. Required to lookup location based on IP address
-Geo::GeoNames,,cpan,Optional. Required to lookup location based on geographic name

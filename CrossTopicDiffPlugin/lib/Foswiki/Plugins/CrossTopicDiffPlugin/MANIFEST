@@ -1,3 +1,0 @@
-data/System/CrossTopicDiffPlugin.txt 0644 Plugin doc page
-lib/Foswiki/Plugins/CrossTopicDiffPlugin.pm 0444 Plugin Perl module
-pub/System/CrossTopicDiffPlugin/update_topic_diff_status.js 0444 Plugin javascript 

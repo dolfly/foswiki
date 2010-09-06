@@ -1,2 +1,0 @@
-Foswiki::Plugins::JQueryPlugin,>=6308,perl,optional
-Foswiki::Plugins::FilterPlugin,>=3491,perl,optional

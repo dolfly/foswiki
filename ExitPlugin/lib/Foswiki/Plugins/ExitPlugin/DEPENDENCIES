@@ -1,3 +1,0 @@
-# Dependencies for ExitPlugin
-URI::Escape,>=3.28,cpan,Required.
-

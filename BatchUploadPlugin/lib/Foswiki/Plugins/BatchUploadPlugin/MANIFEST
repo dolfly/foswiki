@@ -1,3 +1,0 @@
-data/System/BatchUploadPlugin.txt 0644 Documentation
-lib/Foswiki/Plugins/BatchUploadPlugin.pm 0644 Perl module
-lib/Foswiki/Plugins/BatchUploadPlugin/Config.spec Configuration Items

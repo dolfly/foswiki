@@ -1,5 +1,0 @@
-%META:TOPICINFO{author="ProjectContributor" date="1235500717" format="1.1" version="1.3"}%
-%META:TOPICPARENT{name="PackageForm"}%
----+ Demo URL
-
-A URL where this extension can be seen in action.
