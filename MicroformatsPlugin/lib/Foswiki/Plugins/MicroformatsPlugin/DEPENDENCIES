@@ -1,5 +1,0 @@
-# Dependencies for MicroformatsPlugin
-# Example:
-# Time::ParseDate,>=2003.0211,cpan,Required.
-# Foswiki::Plugins,>=1.15,perl,Foswiki 1.0 release.
-Time::ParseDate,>=2006.0814,cpan,Required

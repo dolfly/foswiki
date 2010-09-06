@@ -1,7 +1,0 @@
-# Release manifest for SubversionStoreContrib
-data/System/SubversionStoreContrib.txt 0644 Documentation
-lib/Foswiki/Contrib/SubversionStoreContrib.pm 0644
-lib/Foswiki/Contrib/SubversionStoreContrib/Config.spec 0644
-lib/Foswiki/Store/SVN.pm 0644
-lib/Foswiki/Store/VC/SVNHandler.pm 0644
-
