@@ -1,6 +1,6 @@
 %TMPL:INCLUDE{"edit"}%
 
-%TMPL:DEF{"formstart"}%<div class="patternFormHolder twistyMakeHidden" id="formHolder">
+%TMPL:DEF{"formstart"}%<div class="patternFormHolder" id="formHolder">
 <form name="main" action="%SCRIPTURLPATH{"savesection"}%/%WEB%/%TOPIC%" method="post">%TMPL:END%
 
 %TMPL:DEF{"textarea"}%<textarea class="twikiEditboxStyleProportional" id="topic" name="text" rows="%SECTIONEDITBOXHEIGHT%" cols="%SECTIONEDITBOXWIDTH%" style='%SECTIONEDITBOXSTYLE%' onkeydown='handleKeyDown(event)'>%TEXT%</textarea><script type="text/javascript">initTextAreaHeight();</script>%TMPL:END%
