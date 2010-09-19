@@ -179,11 +179,11 @@ sub initPlugin {
 
     # path to dot, neato, twopi, circo and fdp (including trailing /)
     $enginePath = $Foswiki::cfg{DirectedGraphPlugin}{enginePath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{enginePath};
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{enginePath} || '';
 
     # path to imagemagick convert routine
     $magickPath = $Foswiki::cfg{DirectedGraphPlugin}{magickPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{magickPath};
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{magickPath} || '';
 
     # path to Plugin helper script
     $toolsPath =
@@ -213,11 +213,11 @@ sub initPlugin {
 
 # path to store attachments - optional.  If not provided, Foswiki attachment API is used
     $attachPath = $Foswiki::cfg{DirectedGraphPlugin}{attachPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachPath};
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachPath} || '';
 
 # URL to retrieve attachments - optional.  If not provided, Foswiki pub path is used.
     $attachUrlPath = $Foswiki::cfg{DirectedGraphPlugin}{attachUrlPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachUrlPath};
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachUrlPath} || '';
 
     # path to perl interpreter
     $perlCmd =
