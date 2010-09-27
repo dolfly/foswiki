@@ -1,0 +1,4 @@
+# Release manifest for Item9699Contrib
+data/System/Item9699Contrib.txt 0644 Documentation
+lib/Foswiki/Contrib/Item9699Contrib.pm 0644 Perl module
+lib/Foswiki/Configure/FoswikiCfg.pm 0644 Perl module

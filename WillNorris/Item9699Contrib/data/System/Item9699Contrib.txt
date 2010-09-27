@@ -1,0 +1,32 @@
+---+!! !Item9699Contrib
+<!--
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
+prefer.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+<noautolink>
+%SHORTDESCRIPTION%
+</noautolink>
+
+%TOC%
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author(s): | Foswiki:Main.GeorgeClark, packaged by Foswiki:Main.WillNorris |
+|  Copyright: | &copy; 2010 |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  26 Sep 2010 | packaged Foswiki:Tasks/Item9699 into something installable from =configure=  --&nbsp;Foswik:Main.WillNorris |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home: | http://foswiki.org/Extensions/Item9699Contrib |
+|  Support: | http://foswiki.org/Support/Item9699Contrib |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
