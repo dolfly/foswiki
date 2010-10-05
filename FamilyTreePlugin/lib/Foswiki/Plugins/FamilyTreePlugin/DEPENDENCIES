@@ -1,0 +1,2 @@
+Foswiki::Plugins::DirectedGraphPlugin,>=0,perl,Optional, used to generate graphical family trees.
+
