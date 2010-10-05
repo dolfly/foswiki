@@ -86,23 +86,25 @@ The web is configured as a simple bug tracker, but can easily be customised to m
    
 ----
 
-   * Set SHORTDESCRIPTION = Item Tracking system implemented as a Foswiki Application
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 
 |  Authors: | Foswiki:Main.SvenDowideit of [[http://distributedINFORMATION.com][distributedINFORMATION.com]], %PUBURL%/%WEB%/%TOPIC%/wikiring.png http://wikiring.com partners & others |
 | Plasticbug logo | by [[http://liquisoft.com][Ryan Ford]] |
 |  Dependencies: | None |
-|  Version: | 2085 (22 Jan 2009) |
 |  License: | GPL |
-|  Change History: | |
-|         | 15 Oct 2009 - Foswiki:Main.SvenDowideit - Foswiki:Bugs.Item2252 - remove twiki css |
-|         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item5669 - dashboard cleanup |
-|         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item8158 - add edit %ICON{edittopic}% to each result row |
-|         | 16 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item8156 - change to template web architecture, to allow more than one bug base per installation |
-|         | 15 May 2009 - Foswiki:Main.WillNorris - Foswiki:Bugs.Item1576 - fix hard-coded =/Bugs/= web directory name |
-|         | 22 Jan 2009 - Foswiki:Main.WillNorris - support to email users when a report they have created, or are expected to provide feedback for, has changed |
-|  15447 | 1 Nov 2007 - Foswiki:Main.SvenDowideit - updated to fix bugs reported in the Dev topic (4.2 query release to come later) |
-|  12856 | 13 Feb 2007 - Foswiki:Main.SvenDowideit - update with lessons learned from longer term use |
-|  9804 | Foswiki:Main.CrawfordCurrie - packaged for Release |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+| Change&nbsp;History: | |
+|   3 Oct 2010: | Foswikitask:Item9785: Add BugsContrib.pm dummy module and document requirement. | 
+|  15 Oct 2009: | Foswiki:Main.SvenDowideit - Foswiki:Bugs.Item2252 - remove twiki css |
+|  16 May 2009: | Foswiki:Main.WillNorris - Foswiki:Bugs.Item5669 - dashboard cleanup |
+|  16 May 2009: | Foswiki:Main.WillNorris - Foswiki:Bugs.Item8158 - add edit %ICON{edittopic}% to each result row |
+|  16 May 2009: | Foswiki:Main.WillNorris - Foswiki:Bugs.Item8156 - change to template web architecture, to allow more than one bug base per installation |
+|  15 May 2009: | Foswiki:Main.WillNorris - Foswiki:Bugs.Item1576 - fix hard-coded =/Bugs/= web directory name |
+|  22 Jan 2009: | Foswiki:Main.WillNorris - support to email users when a report they have created, or are expected to provide feedback for, has changed |
+|   1 Nov 2007: | Foswiki:Main.SvenDowideit - updated to fix bugs reported in the Dev topic (4.2 query release to come later) |
+|  13 Feb 2007: | Foswiki:Main.SvenDowideit - update with lessons learned from longer term use |
+|  | Foswiki:Main.CrawfordCurrie - packaged for Release |
 |  Home: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
 

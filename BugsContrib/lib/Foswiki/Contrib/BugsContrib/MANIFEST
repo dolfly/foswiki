@@ -35,6 +35,7 @@ data/_BugsContrib/WebStatistics.txt 0770
 data/_BugsContrib/WebTopicEditTemplate.txt 0770
 data/_BugsContrib/WebTopicList.txt 0770
 data/System/BugsContrib.txt 0770
+lib/Foswiki/Contrib/BugsContrib.pm 0444
 pub/_BugsContrib/HideTextarea/hidetextarea.css  0770
 pub/_BugsContrib/WebPreferences/favicon.ico  0770
 pub/_BugsContrib/WebPreferences/logo.png  0770
