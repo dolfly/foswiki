@@ -1,4 +1,5 @@
 lib/Foswiki/Contrib/BlogAddOn/Config.spec 0444 Spec file for =configure=
+lib/Foswiki/Contrib/BlogAddOn.pm 0644 Stub module for Version/Release strings
 data/System/BlogAddOn.txt 0660
 data/_BlogAddOn/BlogAddOnHome.txt 0660
 data/_BlogAddOn/BlogAddOnStyles.txt 0660
@@ -10,5 +11,6 @@ data/_BlogAddOn/BlogPostExample.txt 0660
 data/_BlogAddOn/BlogPostForm.txt 0660
 data/_BlogAddOn/BlogPostTemplate.txt 0660
 data/_BlogAddOn/BlogPostViewTemplate.txt 0660
+data/_BlogAddOn/WebPreferences.txt 0660
 pub/System/BlogAddOn/screenshot_list.png 0660
 pub/System/BlogAddOn/screenshot_post.png 0660
