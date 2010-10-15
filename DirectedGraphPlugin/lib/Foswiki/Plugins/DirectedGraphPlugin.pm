@@ -46,7 +46,7 @@ our $VERSION = '$Rev$';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.9';
+our $RELEASE = '1.10';
 
 #
 # # Short description of this plugin
@@ -434,8 +434,14 @@ sub _handleDot {
     # Make sure outFilename is clean
     if ( $outFilename ne '' ) {
         $outFilename = Foswiki::Sandbox::sanitizeAttachmentName($outFilename);
+
+        # Validate the filename if the Sandbox *can* validate filenames
+        # (older Foswikis cannot) otherwise just untaint
+        my $validator = defined( &Foswiki::Sandbox::validateAttachmentName )
+            ? \&Foswiki::Sandbox::validateAttachmentName
+            : sub { return shift @_; };
         $outFilename = Foswiki::Sandbox::untaint( $outFilename,
-            \&Foswiki::Sandbox::validateAttachmentName );
+            $validator );
     }
 
     # clean up parms
