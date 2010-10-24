@@ -16,7 +16,6 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::HTML;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-use HTML::TreeBuilder;
 use Encode;
 use CharsetDetector;
 
@@ -28,6 +27,12 @@ sub stringForFile {
     # check it is a text file
     return '' unless ( -T $filename );
     
+    try {
+	use HTML::TreeBuilder;
+    } catch Error with {
+	return '';
+    }
+
     my $tree = HTML::TreeBuilder->new;
     open(my $fh, "<", $filename) || return "";
 

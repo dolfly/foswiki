@@ -19,12 +19,17 @@ our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 __PACKAGE__->register_handler("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", ".xlsx");
 
 use Text::Iconv;
-use Spreadsheet::XLSX;
 use Encode;
 use Error qw(:try);
 
 sub stringForFile {
   my ($self, $file) = @_;
+
+  try {
+      require Spreadsheet::XLSX;
+  } catch Error with {
+      return '';
+  }
 
   my $converter = Text::Iconv->new("utf-8", "windows-1251");
   my $book;

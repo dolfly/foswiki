@@ -42,11 +42,12 @@ To index =.pdf= files you need to install =xpdf-utils=.
 
 To index =.ppt= files you need to install =ppthtml=.
 
----++ Backends for DOCX, PPTX
+---++ Backends for DOCX, PPTX, XLSX
 
 To index these file types, you will need to install the following tools from Sourceforge:
    * [[http://sourceforge.net/projects/docx2txt/][docx2txt]] for =.docx=
    * [[http://sourceforge.net/projects/pptx2txt/][pptx2txt]] for =.pptx=
+   * CPAN:Spreadsheet::XLSX for =.xlsx=
 
 Then set the command path to these tools in =configure=.
 
@@ -61,19 +62,16 @@ There are a number of settings that need to be set in =configure= before you can
 ---++ Test of the Installation
 
    * Test if the installation was successful:
-      * Check that =antiword=, =abiword= or =wvHtml= is in place: Type =antiword=,  =abiword= or =wvHtml= on the prompt and check that the command exists.
+      * Check that =antiword=, =abiword= or =wvHtml= is in place: Type =antiword=, =abiword= or =wvHtml= on the prompt and check that the command exists.
       * Check that =pdftotext= is in place: Type =pdftotext= on the prompt and check that the command exists.
       * Check that =ppthtml= is in place: Type =ppthtml= on the prompt and check that the command exists.
-      * Change the working directory to the =kinosearch/bin= Foswiki installation directory.
-      * Run =./kinoindex=
-      * Once finished, open a browser window and point it to the =[[System.KinoSearch]]= topic.
-      * Just type a query and check the results.
+      * =stringify= some files (see below)
 
 ---++ Test of Stringification with =stringify=
 
 Some users report problems with the stringification: The stringifier scipts
 fails, takes too long on attachments. Some times this may result from
-installation errors esp. of the installation of the backends for the
+installation errors, especially of the installation of the backends for the
 stringification.
 
 =stringify= give you the opportunity to test the stringification in advance.
@@ -125,6 +123,7 @@ See Foswiki:Tasks/StringifierContrib for currently open tasks.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  23 Oct 2010: | (v1.12) made system fault-tolerant in case of missing dependencies for a given file type; doc cleanup -- Foswiki:Main.WillNorris |
 |  12 Feb 2010: | robust parsing of password protected XLS files |
 |  02 Oct 2009: | extracted from Foswiki:Extensions/KinoSearchContrib (MD) |
 |  Dependencies: | %$DEPENDENCIES% |
