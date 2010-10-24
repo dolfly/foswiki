@@ -33,11 +33,12 @@ $magic = File::MMagic->new();
 
 sub stringFor {
   my ($class, $filename, $encoding) = @_;
+
   return unless -r $filename;
   my $mime = $magic->checktype_filename($filename);
-
-  #print STDERR "filename=$filename, mime=$mime\n";
   my $self = $class->handler_for($filename, $mime)->new();
+
+  #print STDERR "file $filename is a $mime ... using $self\n";
 
   return $self->stringForFile($filename);
 }

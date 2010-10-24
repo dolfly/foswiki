@@ -45,6 +45,7 @@ sub stringForFile {
     $text = Foswiki::Contrib::StringifierContrib->stringFor($tmp_file);
 
     # Deletes temp files (main html and images)
+    unlink($tmp_file);
     $self->rmtree($tmp_dir);
 
     return $text;

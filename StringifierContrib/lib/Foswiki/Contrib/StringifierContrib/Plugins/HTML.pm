@@ -16,8 +16,8 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::HTML;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-use Encode;
-use CharsetDetector;
+
+my $html2text = $Foswiki::cfg{StringifierContrib}{html2text} || 'html2text';
 
 __PACKAGE__->register_handler("text/html", ".html");
 
@@ -26,53 +26,13 @@ sub stringForFile {
     
     # check it is a text file
     return '' unless ( -T $filename );
+
+    my $cmd = $html2text . ' -ascii %FILENAME|F%';
+    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
     
-    try {
-	use HTML::TreeBuilder;
-    } catch Error with {
-	return '';
-    }
-
-    my $tree = HTML::TreeBuilder->new;
-    open(my $fh, "<", $filename) || return "";
-
-    my $text = "";
-    while (<$fh>) {
-        my $aux_text = "";
-        my $charset = CharsetDetector::detect1($_);
-        if ($charset =~ "utf") {
-            $aux_text = encode("iso-8859-15", decode("utf-8", $_));
-            $aux_text = $_ unless (defined($aux_text));
-        } else {
-            $aux_text = $_;
-        }
-
-        $text .= $aux_text;
-    }
-    close($fh);
-
-    $tree->parse($text);
-
-    $text = "";
-    for($tree->look_down(_tag => "meta")) {
-        next if $_->attr("http-equiv");
-        next unless $_->attr("value");
-
-        $text .=  $_->attr("value");
-        $text .=  " ";
-    }
-    for (@{$tree->extract_links("a")}) {
-
-        $text .=  $_->[0];
-        $text .=  " ";
-    }
-
-    $text .= $tree->as_text;
-    $text = encode("iso-8859-15", $text);
-
-    $tree->delete();
-
-    return $text;
+    # encode text
+    $text =~ s/<\?xml.*?\?>\s*//g;
+    return $self->fromUtf8($text);
 }
 
 1;

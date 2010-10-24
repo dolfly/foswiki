@@ -16,9 +16,6 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::DOCX;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-use File::Temp qw/tmpnam/;
-use Encode;
-use CharsetDetector;
 
 my $docx2txt = $Foswiki::cfg{StringifierContrib}{docx2txtCmd} || 'docx2txt.pl';
 
@@ -31,24 +28,10 @@ sub stringForFile {
     my ($self, $filename) = @_;
     
     my $cmd = $docx2txt . ' %FILENAME|F% -';
-    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
-    
+    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
+
     return '' unless ($exit == 0);
-   
-    # encode text
-    my $text = "";
-    foreach( split( "\n", $output ) ){
-        my $charset = CharsetDetector::detect1($_);
-        my $aux_text = "";
-        if ($charset =~ "utf") {
-            $aux_text = encode("iso-8859-15", decode($charset, $_));
-            $aux_text = $_ unless($aux_text);
-        } else {
-            $aux_text = $_;
-        }
-        $text .= "\n" . $aux_text;
-    }
-    return $text;
+    return $self->fromUtf8($text);
 }
 
 1;

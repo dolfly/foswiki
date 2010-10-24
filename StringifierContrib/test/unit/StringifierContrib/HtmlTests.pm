@@ -38,8 +38,8 @@ sub test_stringForFile {
     my $ok = $text =~ /Cern/;
     $this->assert($ok, "Text Cern not included");
 
-    $ok = $text =~ /geˆffnet/;
-    $this->assert($ok, "Text geˆffnet not included");
+    $ok = $text =~ /ge√∂ffnet/;
+    $this->assert($ok, "Text ge√∂ffnet not included");
 }
 
 sub test_SpecialCharacters {
@@ -50,7 +50,7 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.html');
 
-    $this->assert_matches('geˆffnet', $text, "Text geˆffnet not found.");
+    $this->assert_matches('ge√∂ffnet', $text, "Text ge√∂ffnet not found.");
 }
 
 # test what would happen if someone uploaded a png and called it a .html

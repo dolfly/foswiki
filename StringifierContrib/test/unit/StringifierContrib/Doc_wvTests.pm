@@ -20,7 +20,7 @@ sub set_up {
     $this->SUPER::set_up();
     # Use RcsLite so we can manually gen topic revs
     $Foswiki::cfg{StoreImpl} = 'RcsLite';
-    $Foswiki::cfg{StringifierContrib}{WordIndexer} = 'wvHtml';
+    $Foswiki::cfg{StringifierContrib}{WordIndexer} = 'wvText';
 
     $this->registerUser("TestUser", "User", "TestUser", 'testuser@an-address.net');
 
@@ -62,7 +62,7 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
 
-    $this->assert(($text =~ m\Grˆﬂer\)==1, "Text Grˆﬂer not found.");
+    $this->assert(($text =~ m/Gr√∂sser/)==1, "Text Gr√∂sser not found.");
 }
 
 1;

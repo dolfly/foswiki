@@ -59,7 +59,7 @@ sub test_passwordedFile {
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Passworded_example.ppt');
     
     # not too sure what to test... This is the default from pptHtml
-    $this->assert_equals('http://chicago.sf.net/xlhtml '.$this->{attachmentDir}.'Passworded_example.ppt  Created with pptHtml  ', $text);#, "Protected file generated some text?");
+    $this->assert_matches('Created with pptHtml', $text);#, "Protected file generated some text?");
 }
 
 # test what would happen if someone uploaded a png and called it a .ppt

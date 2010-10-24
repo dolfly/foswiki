@@ -7,6 +7,7 @@ use strict;
 use Spreadsheet::ParseExcel ();
 use Spreadsheet::ParseExcel::FmtUnicode (); 
 use Error qw(:try);
+use Encode ();
 
 my $file = $ARGV[0];
 
@@ -20,7 +21,7 @@ unless (-e $file) {
   exit 1;
 }
 
-my $format = Spreadsheet::ParseExcel::FmtUnicode->new();
+my $format = Spreadsheet::ParseExcel::FmtDefault->new();
 my $book;
 
 try {
@@ -57,7 +58,7 @@ foreach my $sheet (@{ $book->{Worksheet} }) {
     }
     $text .= "\n";
   }
-  $text .= "\n\n";
+  $text .= "\n";
 }
-
+$text = Encode::encode('iso-8859-1', $text, 0) if utf8::is_utf8($text);
 print $text;

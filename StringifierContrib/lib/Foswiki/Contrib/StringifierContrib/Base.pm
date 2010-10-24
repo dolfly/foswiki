@@ -14,6 +14,8 @@
 
 package Foswiki::Contrib::StringifierContrib::Base;
 use strict;
+use utf8;
+use Encode ();
 
 use Module::Pluggable (require => 1, search_path => [qw/Foswiki::Contrib::StringifierContrib::Plugins/]);
 
@@ -87,6 +89,16 @@ sub rmtree {
     closedir DIR;
     rmdir($dir);
     return 1;
+}
+
+sub fromUtf8 {
+    my ( $self, $text ) = @_;
+
+    $text = Encode::encode( "iso-8859-15", $text, 0 ) if utf8::is_utf8($text);
+    $text =~ s/^\s+//;
+    $text =~ s/\s+$//;
+
+    return $text;
 }
 
 1;

@@ -28,16 +28,24 @@ sub tear_down {
 
 sub test_stringForFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOC_antiword->new();
+    my $stringifier1 = Foswiki::Contrib::StringifierContrib::Plugins::DOC_antiword->new();
+    my $stringifier2 = Foswiki::Contrib::StringifierContrib::Plugins::DOC_abiword->new();
 
-    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
-    my $text2 = Foswiki::Contrib::StringifierContrib->stringFor($this->{attachmentDir}.'Simple_example.doc');
+    my $fileName = $this->{attachmentDir}.'Simple_example.doc';
 
-    $this->assert(defined($text) && $text ne "", "No text returned.");
-    $this->assert_str_equals($text, $text2, "DOC_antiword stringifier not well registered.");
+    my $text1 = $stringifier1->stringForFile($fileName);
+    my $text2  = $stringifier2->stringForFile($fileName);
 
-    my $ok = $text =~ /dummy/;
-    $this->assert($ok, "Text dummy not included")
+    $this->assert(defined($text1) && $text1 ne "", "No text returned.");
+    $this->assert(defined($text2) && $text2 ne "", "No text returned.");
+
+    $this->assert_str_equals($text1, $text2, "DOC_antiword != DOC_abiword");
+
+    my $ok = $text1 =~ /dummy/;
+    $this->assert($ok, "Text dummy not included in text1");
+
+    $ok = $text2 =~ /dummy/;
+    $this->assert($ok, "Text dummy not included in text2");
 }
 
 sub test_SpecialCharacters {
@@ -48,7 +56,7 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
 
-    $this->assert_matches('Grˆﬂer', $text, "Text Grˆﬂer not found.");
+    $this->assert_matches('Gr√∂√üer', $text, "Text Gr√∂√üer not found.");
 }
 
 # test for Passworded_example.doc

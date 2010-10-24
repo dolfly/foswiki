@@ -47,7 +47,7 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.pptx');
 
-    $this->assert_matches('Übergang', $text, "Text Übergang not found.");
+    $this->assert_matches('Ãœbergang', $text, "Text Ãœbergang not found.");
 }
 
 # test for Passworded_example.pptx

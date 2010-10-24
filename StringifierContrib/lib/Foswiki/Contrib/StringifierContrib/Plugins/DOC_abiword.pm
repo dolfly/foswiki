@@ -16,7 +16,6 @@ package Foswiki::Contrib::StringifierContrib::Plugins::DOC_abiword;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use File::Temp qw/tmpnam/;
-use Encode;
 use Foswiki;
 
 my $abiword = $Foswiki::cfg{StringifierContrib}{abiwordCmd} || 'abiword';

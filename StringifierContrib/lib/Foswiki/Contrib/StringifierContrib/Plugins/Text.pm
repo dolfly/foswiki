@@ -15,35 +15,22 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::Text;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-use Encode;
-use CharsetDetector;
+use Encode ();
 
 # Note: I need not do any register, because I am the default handler for stringification!
 
 sub stringForFile {
-  my ($self, $file) = @_;
-  my $in;
+    my ( $self, $file ) = @_;
+    my $in;
 
-  # check it is a text file
-  return '' unless (-T $file);
+    # check it is a text file
+    return '' unless ( -T $file );
 
-  open $in, $file or return "";
+    open $in, $file or return "";
+    local $/ = undef;    # set to read to EOF
+    my $text = <$in>;
+    close($in);
 
-  my $text = "";
-  while (<$in>) {
-    my $charset = CharsetDetector::detect1($_);
-    my $aux_text = "";
-    if ($charset =~ "utf") {
-      $aux_text = encode("iso-8859-15", decode($charset, $_));
-      $aux_text = $_ unless ($aux_text);
-    } else {
-      $aux_text = $_;
-    }
-    $text .= $aux_text;
-  }
-
-  close($in);
-
-  return $text;
+    return $self->fromUtf8($text);
 }
 1;

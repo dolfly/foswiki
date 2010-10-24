@@ -29,9 +29,10 @@ sub test_stringForFile {
     my $this = shift;
     my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOCX->new();
 
-    my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.docx');
-    my $text2 = Foswiki::Contrib::StringifierContrib->stringFor($this->{attachmentDir}.'Simple_example.docx');
-    
+    my $fileName = $this->{attachmentDir}.'Simple_example.docx';
+    my $text  = $stringifier->stringForFile($fileName);
+    my $text2 = Foswiki::Contrib::StringifierContrib->stringFor($fileName);
+
     $this->assert(defined($text) && $text ne "", "No text returned.");
     $this->assert_str_equals($text, $text2, "DOCX stringifier not well registered.");
 
@@ -47,7 +48,7 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.docx');
 
-    $this->assert_matches('Grˆﬂer', $text, "Text Grˆﬂer not found.");
+    $this->assert_matches('Gr√∂√üer', $text, "Text Gr√∂√üer not found.");
 }
 
 # test for Passworded_example.docx
