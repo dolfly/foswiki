@@ -20,6 +20,7 @@ __PACKAGE__->register_handler("application/vnd.openxmlformats-officedocument.spr
 
 use Text::Iconv;
 use Encode ();
+use Spreadsheet::XLSX;
 use Error qw(:try);
 
 sub stringForFile {
