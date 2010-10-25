@@ -20,7 +20,6 @@ __PACKAGE__->register_handler("application/vnd.openxmlformats-officedocument.spr
 
 use Text::Iconv;
 use Encode ();
-use Spreadsheet::XLSX;
 use Error qw(:try);
 
 sub stringForFile {
@@ -30,10 +29,15 @@ sub stringForFile {
     my $book;
 
     try {
+	require Spreadsheet::XLSX;
+    } catch Error with {
+	return '';
+    }
+
+    try {
         $book = Spreadsheet::XLSX->new($file);
     }
     catch Error with {
-
         # file not opened, possibly passworded
         return '';
     };
