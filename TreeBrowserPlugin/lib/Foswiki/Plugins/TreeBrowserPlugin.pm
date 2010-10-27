@@ -40,7 +40,7 @@ use vars qw(
     );
 
 $VERSION = '$Rev$';
-$RELEASE = 'v2.0';
+$RELEASE = '2.1';
 $pluginName = 'TreeBrowserPlugin';
 
 # =========================
