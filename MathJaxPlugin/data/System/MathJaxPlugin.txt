@@ -1,0 +1,64 @@
+---+!! !MathJaxPlugin
+<!--
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
+prefer.
+   * Set SHORTDESCRIPTION = Macros for embedding <nop>MathJax (an open source <nop>JavaScript display engine for mathematics)
+-->
+%SHORTDESCRIPTION%
+
+<noautolink>
+<a href="http://www.mathjax.org/">
+  <img title="Powered by MathJax" src="http://www.mathjax.org/badge.gif" border="0" alt="Powered by MathJax" />
+</a>
+</noautolink>
+
+%TOC%
+
+---++ Usage
+
+---++ Examples
+
+---+++ Maxwell's Equations
+
+%MATHMODE{
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t}  = \frac{4\pi}{c}\vec{\mathbf{j}} 
+   \nabla \cdot \vec{\mathbf{E}}  = 4 \pi \rho
+}%
+
+%MATHMODE{
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t}  = \vec{\mathbf{0}} 
+}%
+
+%MATHMODE{
+\nabla \cdot \vec{\mathbf{B}}  = 0
+}%
+
+
+---+++ Example
+%MATHMODE{x \times y}%
+
+
+---++ Installation Instructions
+
+You do not need to install anything in the browser to use this extension. The following instructions are for the administrator who installs the extension on the server.
+
+Open configure, and open the "Extensions" section. Use "Find More Extensions" to get a list of available extensions. Select "Install".
+
+If you have any problems, or if the extension isn't available in =configure=, then you can still install manually from the command-line. See http://foswiki.org/Support/ManuallyInstallingExtensions for more help.
+
+
+---++ Info
+
+|  Author(s): | Foswiki:Main.WillNorris |
+|  Copyright: | MathJax &copy; 2009-2010 Design Science, Inc., &copy; 2010 WillNorris |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | 0.9.0 |
+|  Version: | 2083 (2010-10-27) |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | None |
+|  Home: | http://foswiki.org/bin/view/Extensions/MathJaxPlugin |
+|  Support: | http://foswiki.org/bin/view/Support/MathJaxPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
