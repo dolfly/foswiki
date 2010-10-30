@@ -46,7 +46,7 @@ our $VERSION = '$Rev$';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.10';
+our $RELEASE = '1.11';
 
 #
 # # Short description of this plugin
@@ -782,7 +782,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                 &_writeDebug(
                     "attaching $attachFile{$key} using direct file I/O  ");
                 _make_path( $topic, $web );
-                umask( oct(777) - $Foswiki::cfg{RCS}{filePermission} );
+                umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
                 my $tempoutfile = "$attachPath/$web/$topic/$fname";
                 $tempoutfile = Foswiki::Sandbox::untaintUnchecked($tempoutfile)
                   ;    #untaint - fails in Perl 5.10

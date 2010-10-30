@@ -526,6 +526,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
+| 30 Oct 2010 (1.11): | Foswikitask:Item9875 - Change permissions management so that other plugins may also create directories |
 | 15 Oct 2010 (1.10): | Foswikitask:Item9832 - Restore compatibility with Foswiki 1.0.x |
 | 14 Jul 2010 (1.9): | Foswikitask:Item9163 - Taint errors, Foswikitask:9319 - Files written with incorrect permissions |
 |  <span style="white-space:nowrap">28 Mar 2010 (1.8):</span> | Foswikitask:Item8710 - Add support for Graphviz 2.26<br/> Foswikitask:Item8711 - Add support for mod_perl2<br/> |
