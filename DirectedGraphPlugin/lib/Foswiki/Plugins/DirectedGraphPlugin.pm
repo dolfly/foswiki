@@ -30,10 +30,12 @@ use strict;
 use Digest::MD5 qw( md5_hex );
 use Storable qw(store retrieve freeze thaw);
 
-use File::Path;
-use File::Temp;
-use File::Spec;
-use File::Copy;    # Used for Foswiki attach API bypass
+use File::Path ();
+use File::Temp ();
+use File::Spec ();
+use File::Copy ();    # Used for Foswiki attach API bypass
+
+use Foswiki::Func ();
 
 # $VERSION is referred to by Foswiki, and is the only global variable that
 # # *must* exist in this package.
@@ -137,7 +139,7 @@ my $identifyCmd = 'identify %INFILE|F%';
 sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
 
-    &_writeDebug(' >>> initPlugin Entered');
+    _writeDebug(' >>> initPlugin Entered');
 
     #  Disable the plugin if a topic revision is requested in the query.
     my $query;
@@ -152,7 +154,7 @@ sub initPlugin {
         if ( !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}
             {generateRevAttachments} )
         {
-            &_writeDebug('DirectedGraphPlugin - Disabled  - revision provided');
+            _writeDebug('DirectedGraphPlugin - Disabled  - revision provided');
             return 0;
         }
     }
@@ -162,7 +164,7 @@ sub initPlugin {
         if ( !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}
             {generateDiffAttachments} )
         {
-            &_writeDebug('DirectedGraphPlugin - Disabled  - diff context');
+            _writeDebug('DirectedGraphPlugin - Disabled  - diff context');
             return 0;
         }
     }
@@ -178,12 +180,16 @@ sub initPlugin {
     }
 
     # path to dot, neato, twopi, circo and fdp (including trailing /)
-    $enginePath = $Foswiki::cfg{DirectedGraphPlugin}{enginePath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{enginePath} || '';
+    $enginePath =
+         $Foswiki::cfg{DirectedGraphPlugin}{enginePath}
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{enginePath}
+      || '';
 
     # path to imagemagick convert routine
-    $magickPath = $Foswiki::cfg{DirectedGraphPlugin}{magickPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{magickPath} || '';
+    $magickPath =
+         $Foswiki::cfg{DirectedGraphPlugin}{magickPath}
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{magickPath}
+      || '';
 
     # path to Plugin helper script
     $toolsPath =
@@ -212,12 +218,16 @@ sub initPlugin {
     }
 
 # path to store attachments - optional.  If not provided, Foswiki attachment API is used
-    $attachPath = $Foswiki::cfg{DirectedGraphPlugin}{attachPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachPath} || '';
+    $attachPath =
+         $Foswiki::cfg{DirectedGraphPlugin}{attachPath}
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachPath}
+      || '';
 
 # URL to retrieve attachments - optional.  If not provided, Foswiki pub path is used.
-    $attachUrlPath = $Foswiki::cfg{DirectedGraphPlugin}{attachUrlPath}
-      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachUrlPath} || '';
+    $attachUrlPath =
+         $Foswiki::cfg{DirectedGraphPlugin}{attachUrlPath}
+      || $Foswiki::cfg{Plugins}{DirectedGraphPlugin}{attachUrlPath}
+      || '';
 
     # path to perl interpreter
     $perlCmd =
@@ -313,7 +323,7 @@ sub initPlugin {
 
         # Check if addXMLTag is defined, so that DirectedGraphPlugin
         # continues to work with older versions of WysiwygPlugin
-        &_writeDebug(" DISAABLE the dot tag in WYSIWYIG ");
+        _writeDebug(" DISABLE the dot tag in WYSIWYIG ");
         Foswiki::Plugins::WysiwygPlugin::addXMLTag( 'dot', sub { 1 } );
 
 # Some older versions of the plugin used upper-case DOT tags - protect these as well.
@@ -321,7 +331,7 @@ sub initPlugin {
     }
 
     # Plugin correctly initialized
-    &_writeDebug(
+    _writeDebug(
 "- Foswiki::Plugins::DirectedGraphPlugin::initPlugin( $web.$topic ) initialized OK"
     );
 
@@ -339,25 +349,25 @@ sub commonTagsHandler {
     $usWeb = $web;
     $usWeb =~ s/\//_/g;    #Convert any subweb separators to underscore
 
-    &_writeDebug("- DirectedGraphPlugin::commonTagsHandler( $_[2].$_[1] )");
+    _writeDebug("- DirectedGraphPlugin::commonTagsHandler( $_[2].$_[1] )");
 
-    #pass everything within <dot> tags to handleDot function
+    #pass everything within <dot> tags to _handleDot function
 
     ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/(DOT)>/&_handleDot($2,$1)/giseo );
 
 # $3 will be left set if any matches were found in the topic.  If found, do cleanup processing
     if ( $3 && ( $3 eq 'dot' ) ) {
-        &_writeDebug("DirectedGraphPlugin - FOUND MATCH  -  $3");
+        _writeDebug("DirectedGraphPlugin - FOUND MATCH  -  $3");
         wrapupTagsHandler();
     }
 
-    &_writeDebug(' <<< EXIT  commonTagsHandler  ');
+    _writeDebug(' <<< EXIT  commonTagsHandler  ');
 
 }    ### sub commonTagsHandler
 
 # =========================
 sub _handleDot {
-    &_writeDebug(' >>> _handleDot Entered ');
+    _writeDebug(' >>> _handleDot Entered ');
 
   # Retrieve new attachments hash from the session variable from previous passes
     my %newHashArray = ();
@@ -366,7 +376,7 @@ sub _handleDot {
         %newHashArray = %{$newHashRef};
     }
     else {
-        &_writeDebug(' _handleDot is initializing the newHashArray');
+        _writeDebug(' _handleDot is initializing the newHashArray');
         $newHashArray{SET} =
           1;    # Tell afterCommonTagsHandler that commonTagsHandler has run.
         $newHashArray{GRNUM} = 0;    # Initialize graph count
@@ -437,11 +447,11 @@ sub _handleDot {
 
         # Validate the filename if the Sandbox *can* validate filenames
         # (older Foswikis cannot) otherwise just untaint
-        my $validator = defined( &Foswiki::Sandbox::validateAttachmentName )
-            ? \&Foswiki::Sandbox::validateAttachmentName
-            : sub { return shift @_; };
-        $outFilename = Foswiki::Sandbox::untaint( $outFilename,
-            $validator );
+        my $validator =
+          defined(&Foswiki::Sandbox::validateAttachmentName)
+          ? \&Foswiki::Sandbox::validateAttachmentName
+          : sub { return shift @_; };
+        $outFilename = Foswiki::Sandbox::untaint( $outFilename, $validator );
     }
 
     # clean up parms
@@ -539,12 +549,12 @@ sub _handleDot {
         $doMap = 1;
     }
 
-    &_writeDebug(
+    _writeDebug(
 "incoming: $desc, $attr , antialias = $antialias, density = $density, size = $size, vectorformats = $vectorFormats, engine = $engine, library = $library, doMap = $doMap, hash = $dotHash \n"
     );
 
     foreach my $prm ( keys(%params) ) {
-        &_writeDebug("PARAMETER $prm value is $params{$prm}");
+        _writeDebug("PARAMETER $prm value is $params{$prm}");
     }
 
     # compute the MD5 hash of this string.  This used to detect
@@ -604,7 +614,7 @@ sub _handleDot {
     $newHashArray{FORMATS}{$outFilename} =
       $vectorFormats;    # output formats for eventual cleanup
 
-    &_writeDebug("$outFilename: oldhash = $oldHashCode  newhash = $hashCode");
+    _writeDebug("$outFilename: oldhash = $oldHashCode  newhash = $hashCode");
 
 # Initialize the attachment filenames and copy over image sizes from the old hash.
     foreach my $key ( split( ' ', $vectorFormats ) ) {
@@ -628,7 +638,7 @@ sub _handleDot {
         not _attachmentExists( $web, $topic, "$outFilename.$inlineAttach" ) )
     {
 
-        &_writeDebug(
+        _writeDebug(
 " >>> Processing changed dot tag or missing file $outFilename.$inlineAttach <<< "
         );
 
@@ -710,13 +720,13 @@ sub _handleDot {
               Foswiki::Sandbox->sysCommand( $magickPath . $identifyCmd,
                 INFILE => "$inlineType", );
 
-            &_writeDebug(" _____IDENTIFY_____ $output");
+            _writeDebug(" _____IDENTIFY_____ $output");
 
             #$size = "auto";
             if (   $size eq "auto"
                 && $output =~ m/.*\s([[:digit:]]+x[[:digit:]]+)\s.*/i )
             {
-                &_writeDebug(" ______________ size $1");
+                _writeDebug(" ______________ size $1");
                 $size = $1;
             }
 
@@ -727,7 +737,7 @@ sub _handleDot {
                 INFILE   => "$tempFile{'ps'}",
                 OUTFILE  => "$inlineType"
             );
-            &_writeDebug("dgp-antialias: output: $output \n status: $status");
+            _writeDebug("dgp-antialias: output: $output \n status: $status");
             if ($status) {
                 return &_showError( $status, $output,
                     "Processing $magickPath.$antialiasCmd <br />" . $desc );
@@ -736,7 +746,7 @@ sub _handleDot {
 
         ### Attach all of the files to the topic.  If a hard path is specified,
         ### then use perl file I/O, otherwise use Foswiki API.
-        &_writeDebug(
+        _writeDebug(
 "### forceAttachAPI = |$forceAttachAPI|  attachPath = |$attachPath| "
         );
 
@@ -752,12 +762,12 @@ sub _handleDot {
                     INFILE => "$tempFile{$key}",
                 );
 
-                &_writeDebug(
+                _writeDebug(
 " _____IDENTIFY_____ $tempFile{$key}: OBJSIZE  $imgSize - STATUS $status"
                 );
                 $imgSize =~
 s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
-                &_writeDebug(" _____MODIFIED $imgSize");
+                _writeDebug(" _____MODIFIED $imgSize");
                 chomp $imgSize;
                 $newHashArray{IMAGESIZE}{ $outFilename . $key } = $imgSize;
             }
@@ -779,20 +789,33 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
             $fname .= '.txt' if ( $key eq 'dot' );
 
             if ( ($attachPath) && !( $forceAttachAPI eq 'on' ) ) {
-                &_writeDebug(
+                _writeDebug(
                     "attaching $attachFile{$key} using direct file I/O  ");
                 _make_path( $topic, $web );
-                umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
                 my $tempoutfile = "$attachPath/$web/$topic/$fname";
                 $tempoutfile = Foswiki::Sandbox::untaintUnchecked($tempoutfile)
                   ;    #untaint - fails in Perl 5.10
-                copy( "$tempFile{$key}", $tempoutfile );
+                my $oldmask =
+                  umask( oct(777) - $Foswiki::cfg{RCS}{filePermission} );
+                my $success;
+                eval {
+                    $success =
+                      File::Copy::copy( "$tempFile{$key}", $tempoutfile );
+                };
+
+                if ( not $success ) {
+                    my $message =
+"Plugins:DirectedGraphPlugin: failed to create $tempoutfile: $!";
+                    umask($oldmask);
+                    throw Error::Simple($message);
+                }
+                umask($oldmask);
             }
             else {
                 my @stats    = stat $tempFile{$key};
                 my $fileSize = $stats[7];
                 my $fileDate = $stats[9];
-                &_writeDebug(
+                _writeDebug(
 "attaching $fname using Foswiki API - Web = $web,  Topic = $topic, File=$tempFile{$key} Type = $key Size $fileSize date $fileDate"
                 );
                 $fname = Foswiki::Sandbox::untaintUnchecked($fname)
@@ -812,7 +835,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
             unlink $tempFile{$key} unless $debugDefault;
         }    ### foreach my $key (keys...
 
-        &_writeDebug('attaching Files completed ');
+        _writeDebug('attaching Files completed ');
 
     }    ### else [ if ($oldHashCode ne $hashCode) |
 
@@ -862,7 +885,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
         {
             $mapfile = Foswiki::Func::readFile(
                 "$attachPath/$web/$topic/$outFilename.cmapx");
-            &_writeDebug("MAPFILE $outFilename.cmapx is  $mapfile");
+            _writeDebug("MAPFILE $outFilename.cmapx is  $mapfile");
         }
         else {
             if (
@@ -928,7 +951,7 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
 
     return $returnData;
 
-}    ### sub handleDot
+}    ### sub _handleDot
 
 ### sub _showError
 #
@@ -986,7 +1009,7 @@ sub afterRenameHandler {
     my $newtopic    = $_[4];
     my $workAreaDir = Foswiki::Func::getWorkArea('DirectedGraphPlugin');
 
-    &_writeDebug( "- DirectedGraphPlugin::afterRenameHandler( "
+    _writeDebug( "- DirectedGraphPlugin::afterRenameHandler( "
           . "$_[0].$_[1] $_[2] -> $_[3].$_[4] $_[5] )" );
 
     # Find all files in the workarea directory for the old topic
@@ -1011,7 +1034,7 @@ sub afterRenameHandler {
         else {
             my $newname = "${newweb}_${newtopic}-${suffix}";
             $newname = Foswiki::Sandbox::untaintUnchecked($newname);
-            &_writeDebug(" Renaming $workAreaDir/$f to $workAreaDir/$newname ");
+            _writeDebug(" Renaming $workAreaDir/$f to $workAreaDir/$newname ");
             rename( "$workAreaDir/$f", "$workAreaDir/$newname" );
         }
     }
@@ -1033,7 +1056,7 @@ sub _loadHashCodes {
     my %tempHash;
 
     if ( -e "$workAreaDir/${usWeb}_${topic}-filehash" ) {
-        &_writeDebug(' loading filehash  ');
+        _writeDebug(' loading filehash  ');
         my $hashref = retrieve("$workAreaDir/${usWeb}_${topic}-filehash");
         %tempHash = %$hashref;
         return %tempHash;
@@ -1049,16 +1072,16 @@ sub _loadHashCodes {
     my %typeHash;
 
     # Get all the attachments filenames and extract their types
-    &_writeDebug(' entering legacy cleanup routine  ');
+    _writeDebug(' entering legacy cleanup routine  ');
 
     my ( $met, $tex ) = Foswiki::Func::readTopic( $web, $topic );
     my @attachments = $met->find('FILEATTACHMENT');
-    &_writeDebug(' converting old filehash  ');
+    _writeDebug(' converting old filehash  ');
     foreach my $a (@attachments) {
         my $aname = $a->{name};
         my ( $n, $t ) = $aname =~ m/^(.*)\.(.*)$/;    # Split file name and type
         next unless $t;    # If no type, skip it, it's not ours.
-        &_writeDebug("    - Attach = |$aname| Name = |$n| Type = |$t| ");
+        _writeDebug("    - Attach = |$aname| Name = |$n| Type = |$t| ");
         $typeHash{$n} .= ' ' . $t;
         my ($on) = $n =~
           m/^graph([0-9a-f]{32})$/;   # old style attachment graph<hashcode>.xxx
@@ -1073,24 +1096,24 @@ sub _loadHashCodes {
 
     my $fPrefix = $usWeb . '_' . $topic . '_';
     my @wfiles = grep { /^$fPrefix/ } readdir(DIR);
-    &_writeDebug(" unlinking old hash files for $fPrefix");
+    _writeDebug(" unlinking old hash files for $fPrefix");
     foreach my $f (@wfiles) {
         my $key = Foswiki::readFile("$workAreaDir/$f");
         $f = Foswiki::Sandbox::untaintUnchecked($f);
         unlink "$workAreaDir/$f";    # delete the old style hash file
-        &_writeDebug(" unlinking old filehash $workAreaDir/$f  ");
+        _writeDebug(" unlinking old filehash $workAreaDir/$f  ");
         $f =~ s/^${usWeb}_${topic}_(.*)/$1/g
           ;                          # recover the original attachment filename
         $tempHash{FORMATS}{$f} =
           $typeHash{$f};    # insert hash of types found in attachment table
         $tempHash{MD5HASH}{$f} = $key;    # insert hash indexed by filename
-        &_writeDebug(
+        _writeDebug(
             "$f = |$tempHash{MD5HASH}{$f}| types |$tempHash{FORMATS}{$f}| ");
     }
 
     # Write out new hashfile
     if ( keys %tempHash ) {
-        &_writeDebug("    - Writing hashfile ");
+        _writeDebug("    - Writing hashfile ");
         store \%tempHash, "$workAreaDir/${usWeb}_${topic}-filehash";
     }
     return %tempHash;
@@ -1104,13 +1127,13 @@ sub _loadHashCodes {
 #
 sub wrapupTagsHandler {
 
-    &_writeDebug(' >>> wrapupTagsHandler  entered ');
+    _writeDebug(' >>> wrapupTagsHandler  entered ');
 
     my %newHash    = ();
     my $newHashRef = thaw( Foswiki::Func::getSessionValue('DGP_newhash') );
 
     if ($newHashRef) {    # DGP_newhash existed
-        &_writeDebug('     -- newHashRef existed in session - writing out ');
+        _writeDebug('     -- newHashRef existed in session - writing out ');
         %newHash = %{$newHashRef};
         my $workAreaDir = Foswiki::Func::getWorkArea('DirectedGraphPlugin');
         store \%newHash, "$workAreaDir/${usWeb}_${topic}-filehash";
@@ -1120,9 +1143,9 @@ sub wrapupTagsHandler {
             my $oldHashRef = thaw( Foswiki::Func::getSessionValue('DGP_hash') );
             if ($oldHashRef) { %oldHash = %{$oldHashRef}; }
 
-            &_writeDebug(" afterCommon - Value of SET s $newHash{SET} ");
-            &_writeDebug(" delete = $deleteAttachDefault");
-            &_writeDebug( ' keys = ' . ( keys %oldHash ) );
+            _writeDebug(" afterCommon - Value of SET s $newHash{SET} ");
+            _writeDebug(" delete = $deleteAttachDefault");
+            _writeDebug( ' keys = ' . ( keys %oldHash ) );
 
             if ( ($deleteAttachDefault) && ( keys %oldHash ) )
             {                     # If there are any old files to deal with
@@ -1130,8 +1153,8 @@ sub wrapupTagsHandler {
                 {                 # Extract filename
                     my $oldTypes = $oldHash{FORMATS}{$filename} || '';
                     if ($debugDefault) {
-                        &_writeDebug("old  $filename ... types= $oldTypes ");
-                        &_writeDebug(
+                        _writeDebug("old  $filename ... types= $oldTypes ");
+                        _writeDebug(
 "new  $filename ... types= $newHash{FORMATS}{$filename} "
                         );
                     }             ### if ($debugDefault
@@ -1170,14 +1193,14 @@ sub _deleteAttach {
 
     my $fn = Foswiki::Sandbox::normalizeFileName( $_[0] );
 
-    &_writeDebug(" DELETE ATTACHMENT entered for $fn");
+    _writeDebug(" DELETE ATTACHMENT entered for $fn");
 
     if ( _attachmentExists( $web, $topic, $fn ) ) {
 
         if ( ($attachPath) && !( $forceAttachAPI eq 'on' ) )
         {    # Direct file I/O requested
             unlink "$attachPath/$web/$topic/$fn";
-            &_writeDebug(" ### Unlinked $attachPath/$web/$topic/$fn ");
+            _writeDebug(" ### Unlinked $attachPath/$web/$topic/$fn ");
 
         }
         else {    # Foswiki attach API used
@@ -1189,14 +1212,14 @@ sub _deleteAttach {
                 )
               )
             {
-                &_writeDebug(' ### Creating missing TrashAttachment topic ');
+                _writeDebug(' ### Creating missing TrashAttachment topic ');
                 my $text =
                   "---+ %MAKETEXT{\"Placeholder for trashed attachments\"}%\n";
                 Foswiki::Func::saveTopic( "$Foswiki::cfg{TrashWebName}",
                     "TrashAttachment", undef, $text, undef );
             }    # if (! Foswiki::Func::topicExists
 
-            &_writeDebug(" >>> Trashing $web . $topic . $fn");
+            _writeDebug(" >>> Trashing $web . $topic . $fn");
 
             my $i  = 0;
             my $of = $fn;
@@ -1207,7 +1230,7 @@ sub _deleteAttach {
                 )
               )
             {
-                &_writeDebug(" ------ duplicate in trash  $of");
+                _writeDebug(" ------ duplicate in trash  $of");
                 $i++;
                 $of .= "$i";
             }    # while (Foswiki::Func
@@ -1233,30 +1256,36 @@ sub _make_path {
     foreach my $val (@webs) {         # Process each subweb in the web path
         $dir .= '/' . $val;
         if ( !-e $dir ) {
-            umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
+            my $oldmask = umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
             eval {
                 File::Path::mkpath( $dir, 0,
                     $Foswiki::cfg{RCS}{dirPermission} );
             };
             if ($@) {
-                throw Error::Simple(
-                    "Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
+                my $message =
+                  "Plugins:DirectedGraphPlugin: failed to create ${dir}: $!";
+                umask($oldmask);
+                throw Error::Simple($message);
             }
-        }                             # if (! -e $dir
+            umask($oldmask);
+        }    # if (! -e $dir
     }    # foreach
 
     # If the top level "pub/$web/$topic" directory doesn't exist, create
     # it.
     $dir .= '/' . $topic;
     if ( !-e "$dir" ) {
-        umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
+        my $oldmask = umask( oct(777) - $Foswiki::cfg{RCS}{dirPermission} );
         eval {
             File::Path::mkpath( $dir, 0, $Foswiki::cfg{RCS}{dirPermission} );
         };
         if ($@) {
-            throw Error::Simple(
-                "Plugins:DirectedGraphPlugin: failed to create ${dir}: $!");
+            my $message =
+              "Plugins:DirectedGraphPlugin: failed to create ${dir}: $!";
+            umask($oldmask);
+            throw Error::Simple($message);
         }
+        umask($oldmask);
     }
 
     # Return the complete path to target directory
