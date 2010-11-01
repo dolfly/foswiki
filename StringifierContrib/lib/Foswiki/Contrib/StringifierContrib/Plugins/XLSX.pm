@@ -30,16 +30,9 @@ sub stringForFile {
 
     try {
 	require Spreadsheet::XLSX;
+        $book = Spreadsheet::XLSX->new($file);
     } catch Error with {
 	return '';
-    }
-
-    try {
-        $book = Spreadsheet::XLSX->new($file);
-    }
-    catch Error with {
-        # file not opened, possibly passworded
-        return '';
     };
 
     return '' unless $book;
