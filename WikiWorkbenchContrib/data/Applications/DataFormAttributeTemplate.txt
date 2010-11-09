@@ -1,0 +1,16 @@
+%META:TOPICINFO{author="ProjectContributor" date="1273490361" format="1.1" version="2"}%
+%META:TOPICPARENT{name="TopicTemplate"}%
+---++ Value definition
+| *Name* | *Tooltip Message* |
+
+%STARTSECTION{type="templateonly"}%
+%RED%Note, this is only a template.%ENDCOLOR%
+
+See also: DataFormAttribute
+%ENDSECTION{type="templateonly"}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="DataFormAttributeTemplate"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Template to create DataFormAttributes"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

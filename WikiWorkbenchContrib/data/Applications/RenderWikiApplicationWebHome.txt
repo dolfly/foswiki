@@ -1,0 +1,135 @@
+%META:TOPICINFO{author="micha" comment="save topic" date="1283966479" format="1.1" reprev="10" version="15"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{name="documentation" type="section"}%
+Renders the WebHome of a WikiApplication subweb
+
+---+++++ Parameters
+None
+
+%ENDSECTION{name="documentation" type="section"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<!-- render wiki application webhome -->
+<div class="wwbBox wwbModel">
+---++ Data Model
+<img src='%PUBURLPATH%/%SYSTEMWEB%/WikiWorkbenchContrib/model.png' align='left' />
+   * TopicType
+   * DataForm
+   * DataFormAttribute
+   * TopicTemplate
+</div>
+<div class="wwbBox wwbControl">
+---++ Control
+<img src='%PUBURLPATH%/%SYSTEMWEB%/WikiWorkbenchContrib/exec.png'  align='left' />
+   * TopicView
+   * TopicFunction
+</div>
+<div class="wwbBox wwbBoxLast wwbDocu">
+---++ Documentation
+<img src='%PUBURLPATH%/%SYSTEMWEB%/WikiWorkbenchContrib/book.png'  align='left' />
+   * WikiApplication
+   * DocuTopic %IF{"istopic 'ApplicationLicense'" then="
+   * ApplicationLicense"}%
+</div>
+%CLEAR%
+
+%GRID{
+  query="WikiApplication=~'.+' %IF{"'%URLPARAM{"q"}%'!=''" then="AND TopicType=~'%URLPARAM{"q"}%'"}%"
+  web="%BASEWEB%"
+  columns="Topic,Summary,TopicType,WikiApplication,Changed"
+  rows="10"
+  filterbar="on"
+  toolbar="on"
+  rownumbers="on"
+  pager="on"
+  width="auto"
+  height="auto"
+  sort="Changed"
+  reverse="on"
+}%
+%ADDTOZONE{"head" section="css"}%<!-- -->
+<!-- //render wiki application webhome -->%STOPINCLUDE%
+</verbatim>
+
+<!-- %!ADDTOZONE{"script" section="js" requires="JQUERYPLUGIN::GRID"}% -->
+
+---++ Javascript
+<verbatim class="js">
+%STARTSECTION{"js"}%<literal>
+<script>
+jQuery(function($) {
+$(".wwbBox ul a").click(function(e) {
+  var $this = $(this);
+  var topicType = $this.text();
+  var myGrid = $(".ui-jqgrid-btable:first");
+  if (myGrid.length) {
+    var topicTypeInput = myGrid.parent().parent().parent().find("input[name=TopicType]");
+    if (topicTypeInput.length) {
+      topicTypeInput.val('\\b'+topicType+'\\b');
+      myGrid[0].triggerToolbar();
+    } else {
+      alert("topicType not found");
+    }
+  } else {
+    alert("grid not found");
+  }
+  e.preventDefault();
+  return false;
+}).attr('href', '#');
+});
+</script>
+</literal>%ENDSECTION{"js"}%
+</verbatim>
+
+---++ CSS
+<verbatim class="css">
+%STARTSECTION{"css"}%<literal>
+<style type="text/css">
+.natRevision {
+  display:none;
+}
+.wwbBox img {
+  width:80px;
+  margin-right:1em;
+}
+.wwbBox {
+  margin:0em 1em 0em 0em;
+  float:left;
+  width:30%;
+  height:11em;
+  border-right:1px solid #dedede;
+}
+.wwbBoxLast {
+  border-right:0px;
+}
+.wwbBox h2 {
+  margin-top:0px;
+}
+.wwbBox ul {
+  list-style:none;
+  margin:0px;
+}
+</style>
+</literal>%ENDSECTION{"css"}%
+</verbatim>
+
+---++ Test
+%DBCALL{"%TOPIC%"}%
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+---++ Copyright
+&copy; 2008-2010 Michael Daum http://michaeldaumconsulting.com
+
+%DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
+
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderWikiApplicationWebHome"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Renders a dashboard for an application web"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

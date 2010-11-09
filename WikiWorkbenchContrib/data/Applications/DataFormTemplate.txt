@@ -1,0 +1,19 @@
+%META:TOPICINFO{author="ProjectContributor" date="1265296897" format="1.1" version="1.2"}%
+%META:TOPICPARENT{name="TopicTemplate"}%
+| *Name:*| *Type:* | *Size:* | *Values:* | *Description:* | *Attributes:* |
+| TopicType | label | 1 | WikiTopic | Document type  | |
+| <nop>TopicTitle | text | 75 | | title | |
+| Summary | text | 75 | | Short description of the role of this topic | |
+
+See also: %SYSTEMWEB%.DataForms
+%STARTSECTION{type="templateonly"}%
+%RED%Note, this is only a template.%ENDCOLOR%
+
+See also: DataForm
+%ENDSECTION{type="templateonly"}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="DataFormTemplate"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Template to create DataForm topics"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

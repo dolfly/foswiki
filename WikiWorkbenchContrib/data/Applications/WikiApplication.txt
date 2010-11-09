@@ -1,0 +1,41 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1277825875" format="1.1" reprev="4" version="6"}%
+%META:TOPICPARENT{name="TopicType"}%
+---++ Documentation
+%STARTSECTION{"documentation"}%
+
+See also: WikiApplicationTemplate
+%ENDSECTION{"documentation"}%
+
+---++ Topis of type '%TOPIC%'
+%STARTINCLUDE%<!-- -->
+%DBCALL{"Applications.RenderSimpleTopicCreator" 
+  TEXT="New application topic" 
+  VALUE="...App"
+  TYPE="%TOPIC%"
+  TEMPLATE="Applications.WikiApplicationTemplate"
+  FORM="Applications.WikiApplication"
+}%
+
+%DBCALL{"Applications.RenderTopicsOfType"
+  FIELDS="Topic, Summary, Version"
+}%
+%STOPINCLUDE%
+
+---++ WikiApplication form
+| *Name:*| *Type:* | *Size:* | *Values:* | *Description:* | *Attributes:* |
+| TopicType | label | 1 | WikiApplication | Document type  | |
+| <nop>TopicTitle | text | 75 | | title of this topic | |
+| Summary | text | 75 | | short description of the role of this topic | c |
+| Version | text | 75 | | software release number/id/phase | |
+| Author | text | 75 | | Application author(s) | |
+| Copyright | text | 75 | | Application version |  |
+| License | select | 1 | %DBQUERY{"TopicType=~'\bApplicationLicense\b'" separator=", " web="Applications" format="$web.$topic" }% | License of this application | |
+| Dependencies | text | 75 |  | | |
+
+
+%META:FORM{name="Applications.TopicType"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicType, DataForm, DocuTopic"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WikiApplication"}%
+%META:FIELD{name="Inheritance" attributes="" title="Inheritance" value="ApplicationTopic"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="TopicType of a WikiApplication"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

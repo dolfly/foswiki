@@ -1,0 +1,55 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1277309049" format="1.1" reprev="3" version="3"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+---++ Documentation
+%STARTSECTION{"documentation"}%
+---+++++ Parameters
+   * NAME: application name, defaults to BASETOPIC
+   * THEWEB: web to search for docu, defaults to BASEWEB
+   * TYPE: extract documentation of topics of the given type
+   * NOTTYPE: don't list topics of that type
+
+---+++++ Css
+   * twbDocuHolder
+   * twbDocuSectionHolder
+   * twbDocuSectionSummary
+   * twbDocuSectionText
+%ENDSECTION{"documentation"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<!-- render application documentation -->
+%DBQUERY{
+   "WikiApplication='\b%IF{"defined NAME" then="%NAME%" else="%BASETOPIC%"}%\b'
+   AND TopicType=~'\b%TYPE%\b' 
+   %IF{"defined NOTTYPE" then=" AND !(TopicType=~'\b%NOTTYPE%\b')"}%"
+   web="%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%"
+   hidenull="on"
+   remote="off"
+   header="<div class='twbDocuHolder'>
+---+++ %TYPE%$n"
+   format="<div class='twbDocuSectionHolder'>
+---++++ <nop>$topic
+<div class='twbDocuSectionSummary'>$formfield(Summary)</div>
+<div class='twbDocuSectionText'>$expand(_sectiondocumentation) ... [[$web.$topic][read more]]</div>
+</div>"
+   separator="$n"
+  footer="</div>"
+}%
+<!-- //render application documentation -->%STOPINCLUDE%
+</verbatim>
+
+---++ Test
+%DBCALL{"%TOPIC%" NAME="WikiWorkbench" TYPE="TopicFunction"}%
+
+%DBCALL{"RenderFunctionCallers"}%
+
+---++ Copyright
+&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com
+
+%DBCALL{"GnuGeneralPublicLicense" section="notice"}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderApplicationDocumentation"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Extracts the documentation section from all parts of a WikiApplication"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

@@ -1,0 +1,34 @@
+%META:TOPICINFO{author="ProjectContributor" date="1271157511" format="1.1" version="1.2"}%
+%TOC%
+
+---+++ DataForms
+   * Set WEBFORMS = Applications.WikiTopic, Applications.TopicStub, Applications.WikiApplication, Applications.ApplicationTopic, Applications.TopicType
+
+---+++ Naming
+Text to be displayed on the sitemap and in the headerbar describing this web
+using a kind of tagline:
+   * Set WEBSUMMARY = Applications Library
+
+Color to be displayed in the sitemap representing this web:
+   * Set WEBBGCOLOR = #E2DCC8
+
+Flag to enable/disable listing this web on the sitemap:
+   * Set SITEMAPLIST = on
+
+---+++ Access rights
+   * Set #DENYWEBVIEW =
+   * Set #ALLOWWEBVIEW = 
+   * Set #DENYWEBCHANGE = 
+   * Set ALLOWWEBCHANGE = %USERSWEB%.AdminGroup
+   * Set ALLOWTOPICCHANGE = %USERSWEB%.AdminGroup
+
+__Related Topics__:
+   * [[%LOCALSITEPREFS%]]
+   * [[%SYSTEMWEB%.DefaultPreferences]]
+   * [[%USERSWEB%.SitePreferences]]
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="WebTool"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WebPreferences"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Preferences of the <nop>%25WEB%25 web"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

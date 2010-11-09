@@ -1,0 +1,74 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1283793063" format="1.1" reprev="5" version="5"}%
+%META:TOPICPARENT{name="TopicView"}%
+%{<verbatim class="tml">}%
+%TMPL:INCLUDE{"edit"}%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"firsttab"}%%IF{
+  "$'URLPARAM{action}'!='form'" 
+  then="$percntTMPL:P{\"firsttab::impl\"}$percnt"
+}%%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"firsttab::impl"}%<!-- firsttab::impl -->
+%TAB{"%MAKETEXT{"Text"}%"}%
+%TMPL:P{"topicmeta"}%<!-- topicmeta// -->
+%TMPL:P{"textarea"}%<!-- textarea// -->
+%ENDTAB%
+<!-- //firsttab::impl -->%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"topictype"}%topic%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"formdefinition"}%Applications.WikiTopic%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"editfields"}%TopicTitle, Summary%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"title"}%%TOPICTITLE% - (%MAKETEXT{"edit [_1]" args="%TMPL:P{"topictype"}%"}%) - %WIKITOOLNAME%%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"contenttitle"}%<!-- contenttitle -->
+<h1 class="natEditTitle">
+%IF{"istopic '%WEB%.%TOPIC%'"
+  then="[[%WEB%.%TOPIC%][%TMPL:P{"topictitle"}%]] (%MAKETEXT{"edit [_1]" args="%TMPL:P{"topictype"}%"}%)"
+  else="<nop>%TMPL:P{"topictitle"}% (%MAKETEXT{"new [_1]" args="%TMPL:P{"topictype"}%"}%)"
+}%
+</h1>
+<!-- //contenttitle -->%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"topicmeta"}%%DBCALL{
+  "Applications.RenderWikiTopicEditor"
+  FORM="%TMPL:P{"formdefinition"}%"
+  FIELDS="%TMPL:P{"editfields"}%"
+}%%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"formattop"}%<!-- formattop --><literal>
+%RENDERFOREDIT{
+  field="TopicType" 
+  header="" 
+  footer="" 
+  hidden="TopicType" 
+  form="%TMPL:P{"formdefinition"}%"
+}%
+</literal><!-- //formattop -->%TMPL:END%
+%{</verbatim>}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicView"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WikiTopicEditTemplate"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="TopicView to edit a WikiTopic"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

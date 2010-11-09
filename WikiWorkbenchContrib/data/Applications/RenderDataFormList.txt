@@ -1,0 +1,43 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1271157433" format="1.1" reprev="1.2" version="1.2"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{"documentation"}%
+---+++++ Parameters
+   * ATTR: DataFormAttribute to search for, defaults to BASETOPIC
+   * THEWEB: web to examin, defaults to BASEWEB
+%ENDSECTION{"documentation"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<noautolink>
+%DBQUERY{
+   "TopicType=~'\bDataForm\b' 
+    AND text=~'\n\| *.*\b%IF{"defined ATTR" then="%ATTR%" else="%BASETOPIC%"}%\b.* *\|'
+   "
+   web="%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%"
+   hidenull="on"
+   header="<h2><nop>DataForms %IF{"defined THEWEB" then=" in the %THEWEB% web"}% that use the '%IF{"defined ATTR" then="%ATTR%" else="%BASETOPIC%"}%' attribute</h2>
+| *#* | *Name* | *Summary* | *Application* |$n"
+   format="| $index | [[$web.$topic][$topic]] | $formfield(Summary) | [[$formfield(WikiApplication)]] |"
+}%
+</noautolink>%STOPINCLUDE%
+</verbatim>
+
+---++ Test
+<div class="alt">
+%DBCALL{"Applications.RenderDataFormList" ATTR="Summary"}%
+</div>
+
+<div class="alt">
+%DBCALL{"Applications.RenderDataFormList" ATTR="BaseRef"}%
+</div>
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderDataFormList"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Renders a list of DataForms that make use of the given DataFormAttribute"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

@@ -1,0 +1,53 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1283845742" format="1.1" reprev="6" version="7"}%
+%META:TOPICPARENT{name="TopicType"}%
+%DBCALL{"RenderTopicInstaller" TYPE="%TOPIC%" PARENT="TopicType"}%
+
+---++ Documentation
+%STARTSECTION{"documentation"}%
+<noautolink>
+The WikiTopic form can be used for a wide range of [[TopicTypes]] that only need to be marked
+as being of a given TopicType.
+If you need more structure then you have to define a specific form that 
+extends the attributes of the WikiTopic form. That is, the attributes defined here
+are a minimal set of attributes that all DataForms should share.
+
+Every TopicType is used in combination with one [[DataForm]], that is associated with it,
+either this generic WikiTopic form or a more specific one. 
+Multiple TopicTypes can share the same form. In this case such a form must allow to select from a _set_
+of TopicTypes to mark it properly. 
+A common case is where one TopicType uses one specific DataForm. 
+Note, that a topic can be of several TopicTypes which indicates that it fullfills several
+duties at once. So by marking a topic of being of types T<sub>a</sub> and type T<sub>b</sub>
+you indicate that the attached form contains all form attributes that are in form F<sub>a</sub> 
+and from F<sub>b</sub>, given that type T<sub>a</sub> comes with form F<sub>a</sub> and T<sub>b</sub> with
+F<sub>b</sub>.
+
+See also: [[WebTopicEditTemplate]]
+</noautolink>
+%ENDSECTION{"documentation"}%
+
+---++ Topics of type '%TOPIC%'
+%STARTINCLUDE%<!-- -->
+%DBCALL{"Applications.RenderSimpleTopicCreator" 
+  PARENT="WebHome"
+  FORM="Applications.WikiTopic"
+  TEMPLATE="WebTopicEditTemplate"
+  TYPE="WikiTopic"
+}%
+
+%DBCALL{"Applications.RenderTopicsOfType"}%
+%STOPINCLUDE%
+
+---++ WikiTopic form
+| *Name:*| *Type:* | *Size:* | *Values:* | *Description:* | *Attributes:* |
+| TopicType | label | 1 | WikiTopic | Document type  | |
+| <nop>TopicTitle | text | 75 | | title | c |
+| Summary | text | 75 | | short description of the role of this topic | c |
+
+
+%META:FORM{name="Applications.TopicType"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicType, DataForm, DocuTopic"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WikiTopic"}%
+%META:FIELD{name="Inheritance" attributes="" title="Inheritance" value="none"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="A normal topic for Foswiki"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

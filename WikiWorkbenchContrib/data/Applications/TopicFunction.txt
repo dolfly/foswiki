@@ -1,0 +1,33 @@
+%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1283845925" format="1.1" version="6"}%
+%META:TOPICPARENT{name="TopicType"}%
+---++ Documentation
+%STARTSECTION{"documentation"}%
+See also: %TOPIC%Template
+%ENDSECTION{"documentation"}%
+
+---++ Topics of type '%TOPIC%'
+%STARTINCLUDE%<!-- -->
+%DBCALL{"Applications.RenderSimpleTopicCreator" 
+  VALUE="Render..."
+  TYPE="%TOPIC%, DocuTopic"
+  TEMPLATE="Applications.TopicFunctionTemplate"
+  EDITOR="Applications.WikiTopicEdit"
+  FORM="Applications.ApplicationTopic"
+  EXTRA="%DBQUERY{
+      "TopicType='WikiApplication'" 
+      web="%BASEWEB%" 
+      limit="1"
+      format="<input type='hidden' name='Copyright' value='$encode(&copy;)$flatten($expand(Copyright))' />
+        <input type='hidden' name='License' value='$flatten($expand(License))' />"
+    }%"
+}%
+
+%DBCALL{"Applications.RenderTopicsOfType"}%
+%STOPINCLUDE%
+
+%META:FORM{name="Applications.TopicType"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicType, DocuTopic"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicFunction"}%
+%META:FIELD{name="Inheritance" attributes="" title="Inheritance" value="ApplicationTopic"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Function library"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

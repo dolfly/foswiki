@@ -1,0 +1,72 @@
+%META:TOPICINFO{author="micha" comment="reprev" date="1286564579" format="1.1" reprev="5" version="5"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{name="documentation" type="section"}%
+This function gets the first image attachment from a topic and creates
+a 48x48 thumbnail using <nop>ImagePlugin. The attachment taken must end
+with =jpeg, jpg, gif or png=. If there are multiple image attachments
+then the first one ordered by comment and name is taken. The empty string
+is returned if no image attachment is found.
+
+---+++++ Parameters
+   * OBJECT: topic to generate a thumbnail for
+   * ALIGN: optional alignment of image, defaults to right
+   * SIZE: optional size of thumbnail
+   * TYPE: image rendering type, see documentation of <nop>ImagePlugin, defaults to simple
+   * CROP
+
+%ENDSECTION{name="documentation" type="section"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%%ATTACHMENTS{
+   "%OBJECT%"
+   name=".*\.(jpe?g|gif|png|JE?PG|GIF|PNG)"
+   warn="off"
+   limit="1"
+   sort="comment:name"
+   hidenull="on"
+   format="$percntIMAGE{
+     \"$name\"
+     topic=\"$web.$topic\"
+     align=\"%IF{"defined ALIGN" then="%ALIGN%" else="right"}%\"
+     type=\"%IF{"defined TYPE" then="%TYPE%" else="simple"}%\"
+     size=\"%IF{"defined SIZE" then="%SIZE%" else="48x48>"}%\"
+     crop=\"%IF{"defined CROP" then="%CROP%" else="northwest"}%\"
+     title=\"\"
+     tooltip=\"on\"
+     warn=\"off\"
+   }$percnt"
+}%%STOPINCLUDE%
+</verbatim>
+
+---++ Test
+<div class="alt">
+%DBCALL{"%TOPIC%" OBJECT="%WIKIUSERNAME%"}%
+%CLEAR%
+<a name="sort"></a>
+%ATTACHMENTS{
+   "%WIKIUSERNAME%"
+   name=".*\.(jpe?g|gif|png|JE?PG|GIF|PNG)"
+   sort="%URLPARAM{"sort"}%"
+   hidenull="on"
+   header="| *#* | *Name* | *Date* | *Size*| *Comment* | *Image* |$n"
+   format="| $index | <nop>$name | $date | $size | $comment | <img src='$url' width='50' /> |"
+}%
+</div>
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+---++ Copyright
+&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com
+
+%DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
+
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Display thumbnail image for a topic"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

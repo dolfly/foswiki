@@ -1,0 +1,29 @@
+%META:TOPICINFO{author="ProjectContributor" date="1234265278" format="1.1" version="1.2"}%
+%META:TOPICPARENT{name="TopicTemplate"}%
+%STARTSECTION{type="templateonly"}%
+%RED%Note, this is only a template.%ENDCOLOR%
+
+See also: WikiApplication
+%ENDSECTION{type="templateonly"}%
+%TOC{depth="4"}%
+---++ Description
+...
+
+---++ Documentation
+%DBCALL{"Applications.RenderApplicationDocumentation" TYPE="TopicType" THEWEB="%WEB%"}%
+%DBCALL{"Applications.RenderApplicationDocumentation" TYPE="DataForm" NOTTYPE="TopicType" THEWEB="%WEB%"}%
+%DBCALL{"Applications.RenderApplicationDocumentation" TYPE="TopicTemplate" THEWEB="%WEB%"}%
+%DBCALL{"Applications.RenderApplicationDocumentation" TYPE="TopicView" THEWEB="%WEB%"}%
+%DBCALL{"Applications.RenderApplicationDocumentation" TYPE="TopicFunction" THEWEB="%WEB%"}%
+
+---++ Installation
+...
+
+---++ Manifest
+%DBCALL{"Applications.RenderApplicationManifest" THEWEB="%WEB%"}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="TopicTemplate to generate a WikiApplication topic"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

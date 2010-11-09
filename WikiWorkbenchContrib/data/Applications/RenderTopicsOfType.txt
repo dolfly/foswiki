@@ -1,0 +1,59 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1283794566" format="1.1" reprev="8" version="8"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{"documentation"}%
+---+++++ Parameters
+   * TYPE: the TopicType to be searched for, defaults to BASETOPIC
+   * FIELDS: columns of formfields to display, defaults to Topic, Summary, !WikiApplication, Changed
+   * ROWS: number of rows to display initially, defauts to 10
+   * FILTER: additional filter expression (optional)
+   * THEWEB: web to examin, defaults to BASEWEB
+   * &lt;field_name>_title: column title for the given field
+%ENDSECTION{"documentation"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<!-- render topics of type -->
+%GRID{ 
+  query="TopicType=~'\b%IF{"defined TYPE" then="%TYPE%" else="%BASETOPIC%"}%\b' 
+         %IF{"defined FILTER" then="AND %FILTER%"}%" 
+  web="%IF{"defined THEWEB and not isempty THEWEB" then="%THEWEB%" else="%BASEWEB%"}%"
+  columns="%IF{"defined FIELDS" then="%FIELDS%" else="Topic,Summary,WikiApplication,Changed"}%" 
+  rows="%IF{"defined ROWS" then="%ROWS%" else="10"}%"
+  filterbar="on" 
+  toolbar="on" 
+  rownumbers="on" 
+  pager="on" 
+  width="auto" 
+  height="auto" 
+  %FORMATLIST{"%IF{"defined FIELDS" then="%FIELDS%" else="Topic,Summary,WikiApplication,Changed"}%"
+    split="\s*,\s*"
+    format="$1_title=\"$percntIF{\"defined $1_title\" 
+                         then=\"$percnt$1_title$percnt\"
+                         else=\"$1\"
+                       }$percnt\""
+    separator="$n"
+  }%
+}% 
+<!-- //render topics of type -->%STOPINCLUDE%
+</verbatim>
+
+---++ Test
+%DBCALL{"%TOPIC%" TYPE="TopicType" 
+  WikiApplication_title="App"
+}%
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+---++ Copyright
+&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com
+
+%DBCALL{"GnuGeneralPublicLicense" section="notice"}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderTopicsOfType"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Display a table of topcis of a given type"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

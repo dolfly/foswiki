@@ -1,0 +1,9 @@
+%META:TOPICINFO{author="ProjectContributor" comment="Default revision information" date="1271843170" format="1.1" rev="2" version="1.2"}%
+%META:TOPICPARENT{name="TopicTemplate"}%
+
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicStubTemplate"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Template for TopicStubs"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

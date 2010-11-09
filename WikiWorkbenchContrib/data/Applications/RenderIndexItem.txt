@@ -1,0 +1,55 @@
+%META:TOPICINFO{author="ProjectContributor" date="1247871446" format="1.1" version="1.2"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{name="documentation" type="section"}%
+This method is called by Applications.ClassificationApp.RenderCategory to display
+a summary for an object. This method serves as a final fallback when no other TopicType-specific
+method was found.
+
+---+++++ Parameters
+   * OBJECT
+
+%ENDSECTION{name="documentation" type="section"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<!-- renderindexitem --><noautolink>
+%~~ DBQUERY{topic="%OBJECT%"
+~~~   format="<div class='clsIndexItem clsTopicItem'>[[$web.$topic][$expand(topictitle)]] $percntREDDOT{\"$web.$topic\"}$percnt
+~~~     <div class='foswikiTopicInfo'>$expand(Summary and ', ')
+~~~      <span class='clsAuthorDateInfo'>
+~~~        $formatTime(info.date),
+~~~        $percntGETTOPICTITLE{\"
+~~~             $percntUSERINFO{\"$expand(info.author)\"
+~~~               format=\"$wikiusername\"
+~~~             }$percnt\"
+~~~        }$percnt
+~~~      </span>
+~~~     </div></div></noautolink>
+~~~   "
+~~~ }%
+<!-- //renderindexitem -->%STOPINCLUDE%
+</verbatim>
+
+<!-- interrupt glue -->
+
+---++ Test
+<div class="alt">
+%DBCALL{"%TOPIC%"}%
+</div>
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+---++ Copyright
+&copy; 2008-2010 Michael Daum http://michaeldaumconsulting.com
+
+%DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
+
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="RenderIndexItem"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Fallback to render a summary for WikiTopic that does not have a type specific version of to render an index item"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

@@ -1,0 +1,25 @@
+%META:TOPICINFO{author="ProjectContributor" date="1271157559" format="1.1" version="1.2"}%
+%TOC%
+
+---+++ Appearance
+
+   * Set WEBBGCOLOR = #E2DCC8
+   * Set WEBSUMMARY = 
+   * Set SITEMAPLIST = on
+
+---+++ Access control
+   * Set #DENYWEBVIEW =
+   * Set #ALLOWWEBVIEW = 
+   * Set #DENYWEBCHANGE = 
+   * Set ALLOWWEBCHANGE = %USERSWEB%.AdminGroup
+   * Set ALLOWTOPICCHANGE = %USERSWEB%.AdminGroup
+
+---+++ Wiki application settings
+
+   * Set WEBFORMS = Applications.ApplicationTopic, Applications.TopicStub, Applications.WikiTopic
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" attributes="" title="TopicType" value=""}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WebPreferences"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value="Preferences of the <nop>%25WEB%25 web"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

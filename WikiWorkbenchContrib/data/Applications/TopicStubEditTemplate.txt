@@ -1,0 +1,11 @@
+%META:TOPICINFO{author="ProjectContributor" comment="Default revision information" date="1271843254" format="1.1" rev="1" version="1.1"}%
+%META:TOPICPARENT{name="TopicView"}%
+%{<verbatim class="tml">}%
+%TMPL:INCLUDE{"editform"}%
+%{</verbatim>}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicView"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicStubEditTemplate"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Editor for TopicStubs"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

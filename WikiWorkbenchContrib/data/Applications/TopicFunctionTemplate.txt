@@ -1,0 +1,41 @@
+%META:TOPICINFO{author="ProjectContributor" comment="Default revision information" date="1277308425" format="1.1" version="7"}%
+%META:TOPICPARENT{name="TopicTemplate"}%
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{"documentation"}%
+%RED%TODO%ENDCOLOR%
+
+---+++++ Parameters
+   * ...
+
+%ENDSECTION{"documentation"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<!-- -->
+<!-- -->%STOPINCLUDE%
+</verbatim>
+
+---++ Test
+%DBCALL{"%TOPIC%"}%
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+---++ Copyright
+%URLPARAM{"Copyright"}%
+
+%DBCALL{"%URLPARAM{"License"}%" section="notice"}%
+
+%STARTSECTION{type="templateonly"}%
+%RED%Note, this is only a template.%ENDCOLOR%
+
+See also: TopicFunction
+%ENDSECTION{type="templateonly"}%
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicFunctionTemplate"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Template to create TopicFunctions"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%
+%META:PREFERENCE{name="EDIT_TEMPLATE" title="EDIT_TEMPLATE" type="Set" value="Applications.WikiTopicEdit"}%

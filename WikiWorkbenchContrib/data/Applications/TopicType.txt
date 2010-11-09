@@ -1,0 +1,57 @@
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1283845499" format="1.1" reprev="8" version="12"}%
+%DBCALL{"RenderTopicInstaller" TYPE="TopicType" PARENT="TopicType"}%
+---++ Documentation
+%STARTSECTION{"documentation"}%
+The TopicType is the root of the type system of the <nop>WikiWorbench. Every WikiTopic has got one
+or more <nop>TopicTypes. <nop>TopicTypes often correlate with <nop>DataForms, where a type indicates the properties
+and use of the form being attached to a topic. However, there are also <nop>TopicTypes that only
+serve more as an additional marker to a generic <nop>DataForm being used in different applications.
+
+<nop>TopicTypes are able overcome Foswiki's limitation to only allow one form to be attached to a topic.
+If you'd like to attach a second form to a topic, create a new <nop>DataForm that mixes two others
+and indicate this by merging the resulting <nop>TopicType properties. This procedure is the recommended
+way to derive new <nop>TopicTypes from existing ones building on top of them, e.g. by augmenting a
+Applications.ClassificationApp.CategorizedTopic with additional formfields.
+
+<nop>TopicTypes have a special property that you might use to indicate a special way of 
+derivation by means of inheritance. There is no real inheritance in Foswiki but the way of thinking
+when dealing with objects and types can be clarified this way.
+
+When you start writing a WikiApplication, first think of the data objects you will need and
+create <nop>TopicTypes for each. You can double-mark a <nop>TopicType being a <nop>DataForm implementation
+in many cases, but you can also create a separate <nop>DataForm topic being distinct from the
+<nop>TopicType topic.
+
+The TopicType topic is the factory to create new <nop>TopicTypes as well.
+
+%ENDSECTION{"documentation"}%
+
+---++ Topics of type 'TopicType'
+%STARTINCLUDE%<!-- -->
+%DBCALL{"Applications.RenderSimpleTopicCreator" 
+  TEMPLATE="Applications.TopicTypeTemplate"
+  FORM="Applications.TopicType"
+  TYPE="TopicType, DataForm, DocuTopic, ApplicationTopic"
+}%
+
+%DBCALL{"Applications.RenderTopicsOfType"
+  FIELDS="Topic,Inheritance,Summary,WikiApplication,Changed"
+  ROWS="20"
+}%
+%STOPINCLUDE%
+
+---++ !TopicType form
+| *Name:*| *Type:* | *Size:* | *Values:* | *Description:* | *Attributes:* |
+| TopicType | checkbox | 4 | TopicType, DataForm, DocuTopic, ApplicationTopic | Document type  | |
+| <nop>TopicTitle | text | 75 | | title | |
+| Inheritance | checkbox | 4 |%DBCALL{"Applications.GetTopicTypes" remote="off"}%| TopicType whose properties are implemented here too (see java's interfaces)  | |
+| Summary | text | 75 | | Short description of the role of this topic | c |
+| WikiApplication| select | 1 |%FLEXWEBLIST{subwebs="Applications" header="none, " footer="WikiWorkbench" format="$name, "}%| Application this topic belongs to | |
+
+
+%META:FORM{name="Applications.TopicType"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicType, DataForm, DocuTopic"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicType"}%
+%META:FIELD{name="Inheritance" attributes="" title="Inheritance" value="ApplicationTopic"}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="TopicType of all TopicTypes"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%
