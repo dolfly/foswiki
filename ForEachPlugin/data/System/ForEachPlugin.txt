@@ -121,7 +121,6 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Plugin Author: | Original 2005: Magnus Lewis Smith - From 2009 Kenneth Lavrsen and put in Feel Free to Modify policy |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
-|  Plugin Version: | 04 Jun 2009 (1.100) |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  10 Nov 2010: | (1.101) Foswikitask:Item9993 - Fix Release Version  |
 |  04 Jun 2009: | (1.100) Ported unmodified to Foswiki by Kenneth Lavrsen |
