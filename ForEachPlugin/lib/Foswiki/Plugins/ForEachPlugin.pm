@@ -25,7 +25,7 @@ use vars qw(
   $web $topic $user $installWeb $VERSION $pluginName $debug
 );
 
-$VERSION    = '1.100';
+$VERSION    = '1.101';
 $pluginName = 'ForEachPlugin';    # Name of this Plugin
 
 # =========================
