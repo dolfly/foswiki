@@ -37,7 +37,7 @@ use Foswiki::Func ();
 use Foswiki::Sandbox ();
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.1.2';
+our $RELEASE = '1.1.3';
 our $SHORTDESCRIPTION = 'Embed perl scripts in Foswiki topics';
 our $NO_PREFS_IN_TOPIC = 1;
 

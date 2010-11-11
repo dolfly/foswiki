@@ -1,3 +1,6 @@
+# ---+ Extensions
+# ---++ PerlPlugin
+# This is the configuration used by the <b>PerlPlugin</b>.
 # **PERL**
 # Control what opcodes are permitted in the safe container.
 # See man Opcode for details of opcode names and opsets. The default set
