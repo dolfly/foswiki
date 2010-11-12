@@ -27,8 +27,8 @@ use File::stat;
 
 use vars qw($VERSION $RELEASE $magic);
 
-$VERSION = '$Rev: 4426 (2010-10-18) $';
-$RELEASE = '1.12';
+$VERSION = '$Rev: 9950 (2010-11-12) $';
+$RELEASE = '1.13';
 $magic = File::MMagic->new();
 
 sub stringFor {

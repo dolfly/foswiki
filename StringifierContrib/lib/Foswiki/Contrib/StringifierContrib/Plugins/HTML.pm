@@ -17,7 +17,7 @@ package Foswiki::Contrib::StringifierContrib::Plugins::HTML;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 
-my $html2text = $Foswiki::cfg{StringifierContrib}{html2text} || 'html2text';
+my $html2text = $Foswiki::cfg{StringifierContrib}{htmltotextCmd} || 'html2text';
 
 __PACKAGE__->register_handler("text/html", ".html");
 

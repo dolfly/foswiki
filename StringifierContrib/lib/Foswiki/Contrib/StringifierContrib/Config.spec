@@ -21,39 +21,47 @@ $Foswiki::cfg{StringifierContrib}{SkipTopics} = '';
 $Foswiki::cfg{StringifierContrib}{WordIndexer} = 'antiword';
 
 # **COMMAND**
-# abiword command
+# Path to your abiword command (used to convert MS word documents: .doc)
 $Foswiki::cfg{StringifierContrib}{abiwordCmd} = 'abiword';
 
 # **COMMAND**
-# antiword command
+# Path to your antiword command (used to convert MS word documents: .doc)<br />
+# On a hosted server, you might need to tell antiword where to look for
+# its mapping files using some environment directives:<br />
+# <code>/usr/bin/env ANTIWORDHOME=/home2/mydomain/.antiword /home2/mydomain/bin/antiword</code>
 $Foswiki::cfg{StringifierContrib}{antiwordCmd} = 'antiword';
 
 # **COMMAND**
-# wvHtml command
+# Path to your wvHtml command (used to convert MS word documents: .doc)
 $Foswiki::cfg{StringifierContrib}{wvHtmlCmd} = 'wvHtml';
 
 # **COMMAND**
-# ppthtml command
+# Path to your ppthtml command (used to convert MS powerpoint documents: .ppt)
 $Foswiki::cfg{StringifierContrib}{ppthtmlCmd} = 'ppthtml';
 
 # **COMMAND**
-# pdftotext command
+# Command used to convert HTML to text, also output of commands which output HTML, such as the ones above.<br />
+# Usually html2text from <a href="http://www.mbayer.de/html2text/">http://www.mbayer.de/html2text/</a>
+$Foswiki::cfg{StringifierContrib}{htmltotextCmd} = 'html2text';
+
+# **COMMAND**
+# Path to your pdftotext command (used to convert PDF files)
 $Foswiki::cfg{StringifierContrib}{pdftotextCmd} = 'pdftotext';
 
 # **COMMAND**
-# pptx2txt.pl command
+# Path to your pptx2txt.pl command (used to convert MS powerpoint recent documents: .pptx)
 $Foswiki::cfg{StringifierContrib}{pptx2txtCmd} = '../tools/pptx2txt.pl';
 
 # **COMMAND**
-# docx2txt.pl command
+# Path to your docx2txt.pl command (used to convert MS word recent documents: .docx)
 $Foswiki::cfg{StringifierContrib}{docx2txtCmd} = '../tools/docx2txt.pl';
 
 # **COMMAND**
-# xlsx2txt.pl command
+# Path to your xlsx2txt.pl command (used to convert MS excel recent documents: .xlsx)
 $Foswiki::cfg{StringifierContrib}{xls2txtCmd} = '../tools/xls2txt.pl';
 
 # **BOOLEAN**
 # Debug setting
-$Foswiki::cfg{StringifierContrib}{Debug} = '0';
+$Foswiki::cfg{StringifierContrib}{Debug} = 0;
 
 1;
