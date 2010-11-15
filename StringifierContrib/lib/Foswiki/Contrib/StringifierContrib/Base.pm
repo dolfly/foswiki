@@ -17,7 +17,7 @@ use strict;
 use utf8;
 use Encode ();
 
-use Module::Pluggable (require => 0, search_path => [qw/Foswiki::Contrib::StringifierContrib::Plugins/]);
+use Module::Pluggable (require => 1, search_path => [qw/Foswiki::Contrib::StringifierContrib::Plugins/]);
 
 __PACKAGE__->plugins;
 
