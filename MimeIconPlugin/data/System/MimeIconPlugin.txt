@@ -1,0 +1,80 @@
+%META:TOPICINFO{author="micha" comment="reprev" date="1290095970" format="1.1" reprev="2" version="2"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+This plugin tries to map known mime types commonly found on the internet to an icon set.
+There are not many icon sets that have a got coverage of mime types despite looking nicely,
+yet still coherent, not too exotic so that they can be used with a variety of web designs
+without too much of a problem.
+
+!MimeIconPlugin comes with two complete icon sets, namely =oxygen= and =crystal= provided in 
+several sizes.
+
+---++ Usage
+
+!MimeIconPlugin implements a single macro [[VarMIMEICON][%MIMEICON]] which returns the right icon
+in the desired size of an icon theme for a given file.
+
+For instance you type:
+<verbatim class="tml">
+%MIMEICON{
+  "screenshot.png" 
+  size="48" 
+  theme="oxygen"
+}%
+</verbatim>
+
+will give you:
+
+%MIMEICON{
+  "screenshot.png" 
+  size="48" 
+  theme="oxygen"
+}%
+
+
+if this plugin is installed.
+
+The idea is that you can pretty much throw any file at it and =%MIMEICON= will return the right icon for it
+reflecting the mimetype of this file. Well, obviously there is a fallback to a neutral icon in case some
+file extension is totally unknown.
+
+---++ Examples
+
+---+++ Oxygen
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/oxygen/16x16/application-pdf.png" width="16" heigh="16" title="16" /> 
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/oxygen/22x22/application-pdf.png" width="22" heigh="22" title="22" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/oxygen/32x32/application-pdf.png" width="32" heigh="32" title="32" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/oxygen/48x48/application-pdf.png" width="48" heigh="48" title="48" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/oxygen/64x64/application-pdf.png" width="64" heigh="64" title="64" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/oxygen/128x128/application-pdf.png" width="128" heigh="128" title="128" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/oxygen/256x256/application-pdf.png" width="256" heigh="256" title="256" />
+
+---+++ Crystal
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/crystal/16x16/pdf_document.png" width="16" heigh="16" title="16" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/crystal/22x22/pdf_document.png" width="22" heigh="22" title="22" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/crystal/24x24/pdf_document.png" width="24" heigh="24" title="24" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/crystal/32x32/pdf_document.png" width="32" heigh="32" title="32" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/crystal/48x48/pdf_document.png" width="48" heigh="48" title="48" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/crystal/64x64/pdf_document.png" width="64" heigh="64" title="64" />
+<img src="%PUBURLPATH%/%SYSTEMWEB%/MimeIconPlugin/crystal/128x128/pdf_document.png" width="128" heigh="128" title="128" />
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = Icon sets for mimetypes
+-->
+|  Author(s): | Michael Daum|
+|  Copyright: | &copy; 2010 Michael Daum http://michaeldaumconsulting.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
