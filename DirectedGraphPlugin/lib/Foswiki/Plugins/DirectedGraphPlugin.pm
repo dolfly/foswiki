@@ -902,6 +902,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
             $mapfile =~
 s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
             $mapfile =~ s/[\n\r]/ /go;
+            $mapfile =~ s/&#45;/-/go;
         }
         else {
             $mapfile = '';
