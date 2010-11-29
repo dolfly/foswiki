@@ -1,0 +1,22 @@
+%META:TOPICINFO{author="micha" comment="" date="1291041934" format="1.1" version="2"}%
+#VarWEBLINK
+---+++ WEBLINK
+   * create a link to a web
+   * Syntax: =%<nop>WEBLINK{web="..." name="..."}%=
+   * Supported parameters:
+     | *Parameter:* | *Description:* | *Default:* |
+     | ="web"= | name of the web to link to | BASEWEB |
+     | =name="..."= | name to display instead of the web name | BASEWEB (its tail in case it is a subweb) |
+     | =format="..."= | format string for the web link | <code>&lt;a class="webLink $marker" href="$url" title="%<nop>ENCODE{"$tooltip" type="html"}%">$title&lt;/a></code> |
+     | =marker="..."= | string to be inserted into the format string if the web link points to the current web | current |
+     | =class="..."= | css class used within the web link | webLink |
+
+The following variables can be used in the format string:
+   * $web: full qualified name of the web to link to
+   * $topic: name of the topic to link to, defaults to <nop>%HOMETOPIC%
+   * $title: title of the <nop>WebHome topic; this is either the topic name or its title as returned when Foswiki:Extensions/DBCachePlugin is installed
+   * $name: name of the web, that is the tail of the web specification with all parent webs stripped off
+   * $url: url for the link
+   * $marker: the marker set to the "marker" string if the link points to the current web
+   * $tooltip: tooltip for the link, mostly used in a =title= argument of an anchor
+
