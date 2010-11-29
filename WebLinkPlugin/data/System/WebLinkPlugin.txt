@@ -1,0 +1,37 @@
+%META:TOPICINFO{author="micha" comment="" date="1291041934" format="1.1" version="2"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+This plugin allows to render a link to a web. While linking to a topic is quite essential to wikis,
+linking to a web as an object of the wiki isn't that well supported. Most commonly a link to a web points
+to the !%HOMETOPIC% topic of a web which serves as the entry point for all of the web. That's
+what %WEBLINK does as well. In addition it supports formatting the link in a custom way to
+display a more meaningful link text than the normal !WebHome text. If you optionally installed
+Foswiki:Extensions/DBCachePlugin, the %WEBLINK will be displaying the !TopicTitle of the target topic.
+Otherwise the normal topic name will be displayed as link text.
+
+---++ Usage
+
+%INCLUDE{"VarWEBLINK"}%
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+|  Author(s): | Michael Daum|
+|  Copyright: | &copy; 2010 Michael Daum http://michaeldaumconsulting.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  29 Nov 2010 | externalized from !NatSkinPlugin |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
