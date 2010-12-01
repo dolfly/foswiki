@@ -6,7 +6,7 @@ our @ISA = qw( FoswikiFnTestCase );
 use strict;
 
 use Foswiki::Contrib::StringifierContrib::Base();
-use Foswiki::Contrib::StringifierContrib;
+use Foswiki::Contrib::Stringifier();
 
 sub set_up {
     my $this = shift;
@@ -30,7 +30,7 @@ sub test_stringForFile {
     my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::PPT->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.ppt');
-    my $text2 = Foswiki::Contrib::StringifierContrib->stringFor($this->{attachmentDir}.'Simple_example.ppt');
+    my $text2 = Foswiki::Contrib::Stringifier->stringFor($this->{attachmentDir}.'Simple_example.ppt');
 
     $this->assert(defined($text) && $text ne "", "No text returned.");
     $this->assert_str_equals($text, $text2, "PPT stringifier not well registered.");

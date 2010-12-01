@@ -14,8 +14,28 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package Foswiki::Contrib::StringifierContrib;
-our $VERSION = '$Rev: 9950 (2010-11-12) $';
-our $RELEASE = '1.20';
+
+package Foswiki::Contrib::Stringifier;
+use strict;
+use Foswiki::Contrib::StringifierContrib::Base;
+our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
+use Carp;
+use File::MMagic;
+use File::Spec::Functions qw(rel2abs);
+
+our $magic = File::MMagic->new();
+
+sub stringFor {
+  my ($class, $filename, $encoding) = @_;
+
+  return unless -r $filename;
+  my $mime = $magic->checktype_filename($filename);
+  my $self = $class->handler_for($filename, $mime)->new();
+
+  #print STDERR "file $filename is a $mime ... using $self\n";
+
+  return $self->stringForFile($filename);
+}
 
 1;
+

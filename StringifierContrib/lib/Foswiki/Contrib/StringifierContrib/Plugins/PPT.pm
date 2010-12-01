@@ -15,7 +15,7 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::PPT;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-use Foswiki::Contrib::StringifierContrib ();
+use Foswiki::Contrib::Stringifier  ();
 use File::Temp qw/tmpnam/;
 
 my $ppthtml = $Foswiki::cfg{StringifierContrib}{ppthtmlCmd} || 'ppthtml';
@@ -43,7 +43,7 @@ sub stringForFile {
     close(TMPFILE);
 
     # use the HTML stringifier to convert HTML to TXT
-    my $text = Foswiki::Contrib::StringifierContrib->stringFor($tmp_file);
+    my $text = Foswiki::Contrib::Stringifier->stringFor($tmp_file);
 
     unlink($tmp_file);
 

@@ -6,7 +6,7 @@ our @ISA = qw( FoswikiFnTestCase );
 use strict;
 
 use Foswiki::Contrib::StringifierContrib::Base();
-use Foswiki::Contrib::StringifierContrib();
+use Foswiki::Contrib::Stringifier();
 
 sub set_up {
     my $this = shift;
@@ -31,7 +31,7 @@ sub test_stringForFile {
 
     my $fileName = $this->{attachmentDir}.'Simple_example.docx';
     my $text  = $stringifier->stringForFile($fileName);
-    my $text2 = Foswiki::Contrib::StringifierContrib->stringFor($fileName);
+    my $text2 = Foswiki::Contrib::Stringifier->stringFor($fileName);
 
     $this->assert(defined($text) && $text ne "", "No text returned.");
     $this->assert_str_equals($text, $text2, "DOCX stringifier not well registered.");

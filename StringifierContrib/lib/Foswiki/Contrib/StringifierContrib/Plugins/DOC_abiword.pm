@@ -13,7 +13,8 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::StringifierContrib::Plugins::DOC_abiword;
-use Foswiki::Contrib::StringifierContrib::Base;
+use Foswiki::Contrib::StringifierContrib::Base ();
+use Foswiki::Contrib::Stringifier ();
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use File::Temp qw/tmpnam/;
 use Foswiki;
@@ -41,7 +42,7 @@ sub stringForFile {
     return '' unless ($exit == 0);
 
     # The I use the HTML stringifier to convert HTML to TXT
-    my $text = Foswiki::Contrib::StringifierContrib->stringFor($tmp_file);
+    my $text = Foswiki::Contrib::Stringifier->stringFor($tmp_file);
 
     unlink($tmp_file);
     $self->rmtree($tmp_file . '_files');

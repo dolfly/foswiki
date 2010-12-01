@@ -13,7 +13,8 @@
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::StringifierContrib::Plugins::DOC_wv;
-use Foswiki::Contrib::StringifierContrib::Base;
+use Foswiki::Contrib::StringifierContrib::Base ();
+use Foswiki::Contrib::Stringifier ();
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
 use File::Temp qw/tempdir/;
 
@@ -42,7 +43,7 @@ sub stringForFile {
     
     return '' unless ($exit == 0);
 
-    $text = Foswiki::Contrib::StringifierContrib->stringFor($tmp_file);
+    $text = Foswiki::Contrib::Stringifier->stringFor($tmp_file);
 
     # Deletes temp files (main html and images)
     unlink($tmp_file);

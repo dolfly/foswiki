@@ -26,16 +26,16 @@ BEGIN {
 
 use strict;
 use Foswiki ();
-use Foswiki::Contrib::StringifierContrib ();
-use Cwd;
+use Foswiki::Contrib::Stringifier ();
+use Cwd ();
 
 my $fileName = $ARGV[0] ;
 die "no filename" unless $fileName;
 die "can't read $fileName" unless -r $fileName;
 
-$fileName = abs_path($fileName);
+$fileName = Cwd::abs_path($fileName);
 
-my $stringifier = new Foswiki::Contrib::StringifierContrib();
+my $stringifier = new Foswiki::Contrib::Stringifier();
 my $text = $stringifier->stringFor($fileName);
 print $text."\n" if $text;
 

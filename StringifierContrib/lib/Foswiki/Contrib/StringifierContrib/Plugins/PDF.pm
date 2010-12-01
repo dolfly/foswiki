@@ -15,7 +15,7 @@
 package Foswiki::Contrib::StringifierContrib::Plugins::PDF;
 use Foswiki::Contrib::StringifierContrib::Base;
 our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-use Foswiki::Contrib::StringifierContrib ();
+use Foswiki::Contrib::Stringifier ();
 use File::Temp qw/tmpnam/;
 
 my $pdftotext = $Foswiki::cfg{StringifierContrib}{pdftotextCmd} || 'pdftotext';
@@ -39,7 +39,7 @@ sub stringForFile {
   return '' unless ($exit == 0);
 
   # Note: This way, the encoding of the text is reworked in the text stringifier.
-  $text = Foswiki::Contrib::StringifierContrib->stringFor($tmp_file);
+  $text = Foswiki::Contrib::Stringifier->stringFor($tmp_file);
 
   unlink($tmp_file);
 

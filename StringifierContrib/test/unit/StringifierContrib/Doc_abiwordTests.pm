@@ -6,7 +6,7 @@ our @ISA = qw( FoswikiFnTestCase );
 use strict;
 
 use Foswiki::Contrib::StringifierContrib::Base ();
-use Foswiki::Contrib::StringifierContrib ();
+use Foswiki::Contrib::Stringifier();
 
 sub set_up {
         my $this = shift;
@@ -42,7 +42,7 @@ sub test_stringForFile {
     my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOC_abiword->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
-    #my $text2 = Foswiki::Contrib::StringifierContrib->stringFor($this->{attachmentDir}.'Simple_example.doc');
+    #my $text2 = Foswiki::Contrib::Stringifier->stringFor($this->{attachmentDir}.'Simple_example.doc');
 
     #print "Test : $text\n";
     #print "Test2: $text2\n";
