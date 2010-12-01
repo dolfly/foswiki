@@ -12,10 +12,10 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package Foswiki::Contrib::StringifierContrib::Plugins::DOC_wv;
-use Foswiki::Contrib::StringifierContrib::Base ();
+package Foswiki::Contrib::Stringifier::Plugins::DOC_wv;
+use Foswiki::Contrib::Stringifier::Base ();
 use Foswiki::Contrib::Stringifier ();
-our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
+our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 use File::Temp qw/tempdir/;
 
 my $wvHtml = $Foswiki::cfg{StringifierContrib}{wvHtmlCmd} || 'wvHtml';

@@ -5,7 +5,7 @@ our @ISA = qw( FoswikiFnTestCase );
 
 use strict;
 
-use Foswiki::Contrib::StringifierContrib::Base();
+use Foswiki::Contrib::Stringifier::Base();
 use Foswiki::Contrib::Stringifier();
 
 sub set_up {
@@ -26,7 +26,7 @@ sub tear_down {
 
 sub test_stringForFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::XLSX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::XLSX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.xlsx');
     my $text2 = Foswiki::Contrib::Stringifier->stringFor($this->{attachmentDir}.'Simple_example.xlsx');
@@ -42,7 +42,7 @@ sub test_SpecialCharacters {
     # check that special characters are not destroyed by the stringifier
 
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::XLSX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::XLSX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.xlsx');
     
@@ -58,7 +58,7 @@ sub test_Numbers {
     # I check, that numbers are found
 
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::XLSX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::XLSX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.xlsx');
 
@@ -72,7 +72,7 @@ sub test_calculatedNumbers {
     # I check, that calculated numbers are found
 
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::XLSX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::XLSX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.xlsx');
 
@@ -84,7 +84,7 @@ sub test_calculatedNumbers {
 # Note that the password for that file is: foswiki
 sub DIStest_passwordedFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::XLSX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::XLSX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Passworded_example.xlsx');
     
@@ -94,7 +94,7 @@ sub DIStest_passwordedFile {
 # test what would happen if someone uploaded a png and called it a .xlsx
 sub DIStest_maliciousFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::XLSX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::XLSX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Im_a_png.xlsx');
 

@@ -12,16 +12,16 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package Foswiki::Contrib::StringifierContrib::Base;
+package Foswiki::Contrib::Stringifier::Base;
 use strict;
 use utf8;
 use Encode ();
 
-use Module::Pluggable (require => 1, search_path => [qw/Foswiki::Contrib::StringifierContrib::Plugins/]);
+use Module::Pluggable (require => 1, search_path => [qw/Foswiki::Contrib::Stringifier::Plugins/]);
 
 __PACKAGE__->plugins;
 
-use constant DEFAULT_HANDLER => "Foswiki::Contrib::StringifierContrib::Plugins::Text";
+use constant DEFAULT_HANDLER => "Foswiki::Contrib::Stringifier::Plugins::Text";
 {
     my %mime_handlers;
     my %extension_handlers;

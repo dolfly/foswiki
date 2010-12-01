@@ -97,7 +97,7 @@ Umlaute: Grober, Uberschall, Anderung
 
 In this extension, a plug-in mechanism is implemented, so that additional
 stringifiers can be added without changing the existing code. All stringifier
-plugins are stored in the directory =lib/Foswiki/Contrib/StringifierContrib/Plugins=. 
+plugins are stored in the directory =lib/Foswiki/Contrib/Stringifier/Plugins=. 
 
 You can add new stringifier plugins by just adding new files here. The minimum
 things to be implemented are:

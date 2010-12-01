@@ -12,25 +12,25 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
-package Foswiki::Contrib::StringifierContrib::Plugins::Text;
-use Foswiki::Contrib::StringifierContrib::Base;
-our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-use Encode ();
+package Foswiki::Contrib::Stringifier::Plugins::XLS;
+use Foswiki::Contrib::Stringifier::Base;
+our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 
-# Note: I need not do any register, because I am the default handler for stringification!
+my $xls2txt = $Foswiki::cfg{StringifierContrib}{xls2txtCmd} || 'xls2txt.pl';
+
+# Only if xls2txt.pl exists, I register myself.
+if (__PACKAGE__->_programExists($xls2txt)){
+    __PACKAGE__->register_handler("application/excel", ".xls");
+}
 
 sub stringForFile {
-    my ( $self, $file ) = @_;
-    my $in;
-
-    # check it is a text file
-    return '' unless ( -T $file );
-
-    open $in, $file or return "";
-    local $/ = undef;    # set to read to EOF
-    my $text = <$in>;
-    close($in);
-
+    my ($self, $filename) = @_;
+    
+    my $cmd = $xls2txt . ' %FILENAME|F% -';
+    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
+    
+    return '' unless ($exit == 0);
     return $self->fromUtf8($text);
 }
+
 1;

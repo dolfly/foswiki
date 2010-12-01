@@ -5,7 +5,7 @@ our @ISA = qw( FoswikiFnTestCase );
 
 use strict;
 
-use Foswiki::Contrib::StringifierContrib::Base();
+use Foswiki::Contrib::Stringifier::Base();
 use Foswiki::Contrib::Stringifier();
 
 sub set_up {
@@ -27,7 +27,7 @@ sub tear_down {
 
 sub test_stringForFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOCX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::DOCX->new();
 
     my $fileName = $this->{attachmentDir}.'Simple_example.docx';
     my $text  = $stringifier->stringForFile($fileName);
@@ -44,7 +44,7 @@ sub test_SpecialCharacters {
     # check that special characters are not destroyed by the stringifier
     
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOCX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::DOCX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.docx');
 
@@ -55,7 +55,7 @@ sub test_SpecialCharacters {
 # Note that the password for that file is: foswiki
 sub test_passwordedFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOCX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::DOCX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Passworded_example.docx');
 
@@ -65,7 +65,7 @@ sub test_passwordedFile {
 # test what would happen if someone uploaded a png and called it a .docx
 sub test_maliciousFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOCX->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::DOCX->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Im_a_png.docx');
 

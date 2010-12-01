@@ -5,7 +5,7 @@ our @ISA = qw( FoswikiFnTestCase );
 
 use strict;
 
-use Foswiki::Contrib::StringifierContrib::Base ();
+use Foswiki::Contrib::Stringifier::Base ();
 use Foswiki::Contrib::Stringifier();
 
 sub set_up {
@@ -39,7 +39,7 @@ sub tear_down {
 
 sub test_stringForFile {
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOC_abiword->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::DOC_abiword->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
     #my $text2 = Foswiki::Contrib::Stringifier->stringFor($this->{attachmentDir}.'Simple_example.doc');
@@ -58,7 +58,7 @@ sub test_SpecialCharacters {
     # check that special characters are not destroyed by the stringifier
     
     my $this = shift;
-    my $stringifier = Foswiki::Contrib::StringifierContrib::Plugins::DOC_abiword->new();
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::DOC_abiword->new();
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.doc');
 

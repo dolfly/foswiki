@@ -12,27 +12,25 @@
 # GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
+package Foswiki::Contrib::Stringifier::Plugins::Text;
+use Foswiki::Contrib::Stringifier::Base;
+our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
+use Encode ();
 
-package Foswiki::Contrib::StringifierContrib::Plugins::HTML;
-use Foswiki::Contrib::StringifierContrib::Base;
-our @ISA = qw( Foswiki::Contrib::StringifierContrib::Base );
-
-my $html2text = $Foswiki::cfg{StringifierContrib}{htmltotextCmd} || 'html2text';
-
-__PACKAGE__->register_handler("text/html", ".html");
+# Note: I need not do any register, because I am the default handler for stringification!
 
 sub stringForFile {
-    my ($self, $filename) = @_;
-    
-    # check it is a text file
-    return '' unless ( -T $filename );
+    my ( $self, $file ) = @_;
+    my $in;
 
-    my $cmd = $html2text . ' -ascii %FILENAME|F%';
-    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
-    
-    # encode text
-    $text =~ s/<\?xml.*?\?>\s*//g;
+    # check it is a text file
+    return '' unless ( -T $file );
+
+    open $in, $file or return "";
+    local $/ = undef;    # set to read to EOF
+    my $text = <$in>;
+    close($in);
+
     return $self->fromUtf8($text);
 }
-
 1;
