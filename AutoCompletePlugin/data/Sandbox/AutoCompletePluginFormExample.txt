@@ -1,0 +1,6 @@
+%META:TOPICINFO{author="ProjectContributor" date="1181772687" format="1.1" version="1.1"}%
+
+This is an example of using the System.AutoCompletePlugin inside a form. Edit the form below to see the auto complete field in action. See AutoCompletePluginFormDefinition for the form definition.
+
+%META:FORM{name="AutoCompletePluginFormDefinition"}%
+%META:FIELD{name="Username" attributes="" title="Username" value=""}%

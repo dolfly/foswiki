@@ -1,6 +1,7 @@
 # Release manifest for AutoCompletePlugin
 data/System/AutoCompletePlugin.txt 0644 Documentation
 lib/Foswiki/Plugins/AutoCompletePlugin.pm 0644 Perl module
-data/Sandbox/AutoCompletePluginTestData.txt 0644 Test Data
+data/Sandbox/AutoCompletePluginTestData.txt 0644 Test data
+data/Sandbox/AutoCompletePluginFormDefinition.txt 0644 Test form definition
+data/Sandbox/AutoCompletePluginFormExample.txt 0644 Example in a form
 pub/System/AutoCompletePlugin/AutoCompletePluginScreenshot.png 0644 Screenshot
-#lib/Foswiki/Plugins/AutoCompletePlugin/Config.spec 0444 Spec file for =configure=

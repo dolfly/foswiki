@@ -33,6 +33,8 @@ You can use many of same attributes as you would in topics, except the following
    * =class=
    * =formname=
 
+For a working example of this, see Sandbox.AutoCompletePluginFormExample.
+
 ---+++ Parameters
 
 | *Parameter* | *Comment* | *Default* | *Example* |
@@ -86,11 +88,12 @@ __Note:__ Setting it here will have no effect.
 ---++ Plugin Info
 
 |  Plugin Author(s): | Foswiki:Main.AndrewJones |
-|  Copyright: | &copy; 2007 - 2009, Foswiki:Main.AndrewJones |
+|  Copyright: | &copy; 2007 - 2010, Foswiki:Main.AndrewJones |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Plugin Release: | %$RELEASE% |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  05 Dec 2010 | Add a working example of using the plugin in a form |
 |  07 Sept 2009 | Foswikitask:Item2009 - Remove debug setting from =configure= |
 |  23 Mar 2009 | Foswikitask:Item1249 - Port to Foswiki as 1.0; Use latest YUI (2.7.0) |
 |  12 Sept 2008 | TWikibug:Item5745 - Updated to use latest YUI (2.5.2); Fixed forms for 4.2; Fixed Jump Form example for 4.2 |
