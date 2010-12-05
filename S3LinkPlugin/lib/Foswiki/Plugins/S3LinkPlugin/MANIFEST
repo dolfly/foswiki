@@ -1,0 +1,5 @@
+# Release manifest for S3LinkPlugin
+data/System/S3LinkPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/S3LinkPlugin.pm 0644 Perl module
+lib/Foswiki/Plugins/S3LinkPlugin/Config.spec 0444 Configuration module
+

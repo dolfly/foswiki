@@ -1,0 +1,4 @@
+# Dependencies for S3LinkPlugin
+URI,,cpan,Required.
+Digest::HMAC_SHA1,,cpan,Required.
+Encode,,cpan,Required.
