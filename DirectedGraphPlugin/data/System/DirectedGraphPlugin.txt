@@ -519,8 +519,6 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Copyright: | Copyright (C) 2004-2005 Cole Beck, cole.beck@vanderbilt.edu %BR% Copyright (C) 2006-2008 TWiki Contributors %BR% Copyright (C) 2009-2010 George Clark and other Foswiki Contributors |
 |  Plugin Version: | %$VERSION% |
 |  Plugin Release: | %$RELEASE% |
-|  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
-|  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
 | 06 Dec 2010 (1.12): | Foswikitask:Item8239 - Intermittent issues when using under !FastCGI -- Foswiki:Main.AndrewJones |
 | 30 Oct 2010 (1.11): | Foswikitask:Item9875 - Change permissions management so that other plugins may also create directories |
@@ -556,6 +554,8 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  25 Mar 2005: | Cleaner code |
 |  01 Jul 2004: | Initial version |
 |  Dependencies: | %$DEPENDENCIES% |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
 __Related Topics:__ 
 %SYSTEMWEB%.HowtoDirectedGraphs
