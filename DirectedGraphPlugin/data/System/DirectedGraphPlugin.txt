@@ -462,10 +462,6 @@ All settings start with =$Foswiki::cfg{Plugins}{DirectedGraphPlugin}=, and on ma
 | ==DirectedGraph Error (20):== on the antialias examples | Verify the =magickPath= in lib/LocalSite.cfg - convert utility was not found|
 | ==DirectedGraph Error (1):== on the antialias examples | Verify that !GhostScript is installed correctly. From a command prompt attempt to convert a .ps file to .gif format. If !ImageMagick reports =="Postscript delegate failed:"== error, then the problem is probably with !GhostScript |
 
----+++ Plugin zip content:
-| *File:* | *Description:* |
-%$MANIFEST%
-
 ---+++ Dependencies:
 | *Package:* | *Description:* ||
 | Graphviz dot | Preprocessor for drawing directed graphs | http://graphviz.org/ |
@@ -518,7 +514,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 
 ---++ Plugin Info
 
-|  Plugin Author: | TWiki:Main/ColeBeck, Foswiki:Main.GeorgeClark |
+|  Plugin Author: | TWiki:Main.ColeBeck, Foswiki:Main.GeorgeClark |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Copyright: | Copyright (C) 2004-2005 Cole Beck, cole.beck@vanderbilt.edu %BR% Copyright (C) 2006-2008 TWiki Contributors %BR% Copyright (C) 2009-2010 George Clark and other Foswiki Contributors |
 |  Plugin Version: | %$VERSION% |
@@ -526,6 +522,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Home: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 |  Change History: | <!-- versions below in reverse order --> |
+| 06 Dec 2010 (1.12): | Foswikitask:Item8239 - Intermittent issues when using under !FastCGI -- Foswiki:Main.AndrewJones |
 | 30 Oct 2010 (1.11): | Foswikitask:Item9875 - Change permissions management so that other plugins may also create directories |
 | 15 Oct 2010 (1.10): | Foswikitask:Item9832 - Restore compatibility with Foswiki 1.0.x |
 | 14 Jul 2010 (1.9): | Foswikitask:Item9163 - Taint errors, Foswikitask:9319 - Files written with incorrect permissions |
@@ -537,7 +534,7 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  8 Nov 2009: | Foswikitask:Item8234, Foswikitask:Item8239, Foswikitask:Item8241, Foswikitask:Item8314 - Add support for inline SVG objects. Fix issues with recursive rendering, CGI acceleration, diff and rev handling  |
 |  8 Nov 2009: | Foswikitask:Item8233 - Fix imagemaps when attachpath is used |
 |  8 Nov 2009: | Foswikitask:Item1202 - Add DEPENDENCIES on htmldoc and other external applications. |
-|  28 Jun 2009: | Foswikitask:Item1778 - Notify !WysiwygPlugin about &lt;dot&gt; markup so that it is protected in WYSIWYG editors --Foswiki:Main.MichaelTempest |
+|  28 Jun 2009: | Foswikitask:Item1778 - Notify !WysiwygPlugin about &lt;dot&gt; markup so that it is protected in WYSIWYG editors -- Foswiki:Main.MichaelTempest |
 |  5 Apr 2009: | Foswikitask:Item8102 - Improve defaults, configure settings now optional --Foswiki:Main.GeorgeClar |
 |  25 Mar 2009: | Foswikitask:Item1201, Foswikitask:Item1360 - Configure script fails on perl 5.10. %BR% Foswikitask:Item8086 - Direct File I/O failis. -- Foswiki:Main.GeorgeClark |
 |  8 Jan 2009: | Foswikitask:Item8035: Uninitialized variables reported in server Error log.-- Foswiki:Main.GeorgeClark |

@@ -48,7 +48,7 @@ our $VERSION = '$Rev$';
 # # This is a free-form string you can use to "name" your own plugin version.
 # # It is *not* used by the build automation tools, but is reported as part
 # # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.11';
+our $RELEASE = '1.12';
 
 #
 # # Short description of this plugin
@@ -353,7 +353,7 @@ sub commonTagsHandler {
 
     #pass everything within <dot> tags to _handleDot function
 
-    ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/(DOT)>/&_handleDot($2,$1)/giseo );
+    ( $_[0] =~ s/<DOT(.*?)>(.*?)<\/(DOT)>/&_handleDot($2,$1)/gise );
 
 # $3 will be left set if any matches were found in the topic.  If found, do cleanup processing
     if ( $3 && ( $3 eq 'dot' ) ) {
@@ -455,7 +455,7 @@ sub _handleDot {
     }
 
     # clean up parms
-    if ( $antialias =~ m/off/o ) {
+    if ( $antialias =~ m/off/ ) {
         $antialias = 0;
     }
 
@@ -463,63 +463,63 @@ sub _handleDot {
     ###  Validate all of the <dot ...> input parameters
     #
 
-    unless ( $density =~ m/^\d+$/o ) {
+    unless ( $density =~ m/^\d+$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: density parameter should be given as a number (was: $density)</font>";
     }
 
-    unless ( $size =~ m/^\d+x\d+|auto$/o ) {
+    unless ( $size =~ m/^\d+x\d+|auto$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: size parameter should be given in format: \"widthxheight\", or \"auto\" (was: $size)</font>";
     }
 
-    unless ( $engine =~ m/^(dot|neato|twopi|circo|fdp)$/o ) {
+    unless ( $engine =~ m/^(dot|neato|twopi|circo|fdp)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: engine parameter must be one of the following: dot, neato, twopi, circo or fdp (was: $engine)</font>";
     }
 
-    unless ( $dotHash =~ m/^(on|off)$/o ) {
+    unless ( $dotHash =~ m/^(on|off)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: dothash must be either \"off\" or \"on\" (was: $dotHash)</font>";
     }
 
-    unless ( $hideAttach =~ m/^(on|off)$/o ) {
+    unless ( $hideAttach =~ m/^(on|off)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: hideattachments  must be either \"off\" or \"on\" (was: $hideAttach)</font>";
     }
 
-    unless ( $linkFiles =~ m/^(on|off)$/o ) {
+    unless ( $linkFiles =~ m/^(on|off)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: links  must be either \"off\" or \"on\" (was: $linkFiles)</font>";
     }
 
-    unless ( $inlineAttach =~ m/^(png|jpg|svg)$/o ) {
+    unless ( $inlineAttach =~ m/^(png|jpg|svg)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: inline  must be either \"jpg\", \"png\" or \"svg\" (was: $inlineAttach)</font>";
     }
 
-    unless ( $svgFallback =~ m/^(png|jpg|none)$/o ) {
+    unless ( $svgFallback =~ m/^(png|jpg|none)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: svg fallback must be either \"png\" or \"jpg\", or set to \"none\" to disable (was: $svgFallback)</font>";
     }
 
-    unless ( $svgLinkTarget =~ m/^(on|off)$/o ) {
+    unless ( $svgLinkTarget =~ m/^(on|off)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error: svg Link Target must either be \"on\" or \"off\" (was: $svgLinkTarget)</font>";
     }
 
-    unless ( $deleteAttachDefault =~ m/^(on|off)$/o ) {
+    unless ( $deleteAttachDefault =~ m/^(on|off)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error in defaults: DELETEATTACHMENTS  must be either \"off\" or \"on\" (was: $deleteAttachDefault)</font>";
     }
 
-    unless ( $forceAttachAPI =~ m/^(on|off)$/o ) {
+    unless ( $forceAttachAPI =~ m/^(on|off)$/ ) {
         return
 "<font color=\"red\"><nop>DirectedGraph Error in defaults: FORCEATTACHAPI  must be either \"off\" or \"on\" (was: $forceAttachAPI)</font>";
     }
 
     my $hide = undef;
-    if ( $hideAttach =~ m/off/o ) {
+    if ( $hideAttach =~ m/off/ ) {
         $hide = 0;
     }
     else {
@@ -527,7 +527,7 @@ sub _handleDot {
     }
 
     my $chkHash = undef;
-    if ( $dotHash =~ m/off/o ) {
+    if ( $dotHash =~ m/off/ ) {
         $chkHash = 0;
     }
     else {
@@ -545,7 +545,7 @@ sub _handleDot {
     }
 
     # compatibility: check for old map indicator format (map=1 without quotes)
-    if ( $attr =~ m/map=1/o ) {
+    if ( $attr =~ m/map=1/ ) {
         $doMap = 1;
     }
 
@@ -900,9 +900,9 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
         }
         if ($mapfile) {    #If mapfile is empty for some reason, these will fail
             $mapfile =~
-s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/go;
-            $mapfile =~ s/[\n\r]/ /go;
-            $mapfile =~ s/&#45;/-/go;
+s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/g;
+            $mapfile =~ s/[\n\r]/ /g;
+            $mapfile =~ s/&#45;/-/g;
         }
         else {
             $mapfile = '';
