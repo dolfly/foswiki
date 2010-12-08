@@ -56,7 +56,7 @@ widgetscolumns = %TMPL:P{"widgetscolumns"}%
 
 %{ **************************************************************************************************************************************************************************** }%
 %{ ******************************************* }%
-%TMPL:DEF{"bodystart"}%<body class="layout-%TMPL:P{widgetscolumns}% %IF{"context authenticated" then="authenticated"}% %IF{"'%BASEWEB%.%BASETOPIC%' allows 'CHANGE'" then="foswikiCanChangeBaseTopic"}%">
+%TMPL:DEF{"bodystart"}%<body class="layout-%TMPL:P{widgetscolumns}% %IF{"context authenticated" then="authenticated"}% %IF{"context view" then="view"}% %IF{"'%BASEWEB%.%BASETOPIC%' allows 'CHANGE'" then="foswikiCanChangeBaseTopic"}%">
    <div id="container">
       <div id="container-inner" class="pkg">%TMPL:END%
 %{ ******************************************* }%
