@@ -1,10 +1,10 @@
 %TMPL:INCLUDE{"view"}%
-%TMPL:DEF{"top:toolbarbutton_edit"}%<span>
+%TMPL:DEF{"top:toolbarbutton_edit"}%<span class="foswikiRequiresChangePermission">
 	<a href="%SCRIPTURL{"edit"}%/%WEB%/%TOPIC%?t=%GMTIME{"$epoch"}%" title="Edit this topic">
 		<img alt="edit" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/pencil.png" width="16" height="16" />
 	</a></span>%TMPL:END%
 
-%TMPL:DEF{"top:toolbarbutton_attach"}%<span>
+%TMPL:DEF{"top:toolbarbutton_attach"}%<span class="foswikiRequiresChangePermission">
 	<a href="%SCRIPTURL{"attach"}%/%WEB%/%TOPIC%" title="Attach files and manage existing attachments">
 		<img alt="attach" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/attach.png" width="16" height="16" />
 	</a></span>%TMPL:END%
@@ -19,8 +19,8 @@
 		<img alt="raw" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/text_align_left.png" width="16" height="16" />
 	</a></span>%TMPL:END%
 
-%TMPL:DEF{"top:toolbarbutton_create"}%<span>
-	<a href="%SCRIPTURL{"view"}%/%MAINWEB%/WebCreateNewTopic?topicparent=%TOPIC%" title="Create new topic">
+%TMPL:DEF{"top:toolbarbutton_create"}%<span class="foswikiRequiresChangePermission">
+	<a href="%SCRIPTURL{"view"}%/%WEB%/WebCreateNewTopic?topicparent=%TOPIC%" title="Create new topic">
 		<img alt="new" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/page_white_add.png" width="16" height="16" />
 	</a></span>%TMPL:END%
 
@@ -33,6 +33,9 @@
 	<a href="%SCRIPTURL{"oops"}%/%WEB%/%TOPIC%?template=more" title="More actions">
 		<img alt="more" src="%PUBURL%/%SYSTEMWEB%/FamFamFamSilkIcons/wrench.png" width="16" height="16" />
 	</a></span>%TMPL:END%
+
+%TMPL:DEF{"top:toolbarbutton_logout"}%<span class="logoutLink">
+	%LOGOUT% </span>%TMPL:END%
 
 %TMPL:DEF{"top:toolbarbuttons_notauthenticated"}% %INCLUDE{"%TMPL:P{widgetstext}%" section="widget-login" warn="off"}% %TMPL:END%
 
@@ -50,7 +53,9 @@
 			"top:toolbarbutton_print"
 		}%%TMPL:P{
 			"top:toolbarbutton_more"
-		}% %LOGOUT% %TMPL:END%
+		}%%TMPL:P{
+			"top:toolbarbutton_logout"
+		}% %TMPL:END%
 
 %TMPL:DEF{"top:toolbarbuttons"}%<span class="foswikiToolBar foswikiRight">
 %TMPL:P{context="authenticated" then="top:toolbarbuttons_authenticated" else="top:toolbarbuttons_notauthenticated"}%
