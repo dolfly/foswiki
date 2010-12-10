@@ -172,9 +172,10 @@ Use the notation =NAMEOFPLUGIN_NAMEOFSETTING=, for example: =FORMFIELDLISTPLUGIN
 
 |  Authors: | TWiki:Main/BerndRaichle (2004), Foswiki:Main/ArthurClemens (2008, 2009) |
 |  Copyright &copy;: | TWiki:Main/BerndRaichle (2004), Foswiki:Main/ArthurClemens (2008, 2009) |
-|  Plugin Version: | 03 Aug 2009 (%$RELEASE%) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  03 Aug 2010: | v.2.2 [[Foswiki:Main.PaulHarvey][Paul Harvey]]: [[Foswikitask:8392][Item8392]] added =$fieldDefinition= sort attribute to sort fields by their order of appearance in the [[DataForms][DataForm]] definition |
+|  03 Aug 2010: | v.2.2 Paul Harvey: [[Foswikitask:8392][Item8392]] added =$fieldDefinition= sort attribute to sort fields by their order of appearance in the [[DataForms][DataForm]] definition |
 |  20 Jun 2009: | v.2.1 Arthur Clemens: ported to Foswiki. Changed =FORMAT= setting to =DEFAULT_FORMAT=. |
 |  25 Oct 2008: | v.2.010 Arthur Clemens: Added param =includemissingfields= to explicitly generate field substitutes. |
 |  24 Oct 2008: | v.2.000 Arthur Clemens: Major code refactoring with the addition of numerous parameters. Created unit tests.  |
