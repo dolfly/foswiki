@@ -185,6 +185,7 @@ If the required parameters are not defined, then an error message is returned or
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
+|  13 Dec 2010: | v1.5.2. Foswiki:Main.OliverKrueger fixed a problem with subwebs. |
 |  03 Nov 2010: | v1.5.1. Clarified the meaning of the data parameter for scatter diagrams |
 |  07 Apr 2010: | Foswiki:Main.WillNorris: better parameter validation, minor doc updates |
 |  13 Mar 2010: | Foswiki:Main.WillNorris: work around "insecure dependency" error with certain perl/gd/cpan combinations (Foswikitask:Item1322) |

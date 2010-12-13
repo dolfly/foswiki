@@ -50,7 +50,7 @@ use vars qw(
            );
 
 our $VERSION = '$Rev: 13790 $';
-our $RELEASE = '1.5.1';
+our $RELEASE = '1.5.2';
 our $SHORT_DESCRIPTION = 'Create area, bar, line and scatter charts to visualize table data';
 
 $pluginInitialized = 0;
