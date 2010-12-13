@@ -1,3 +1,4 @@
 gd,>0,c,Required.  Available from http://www.libgd.org/
 GD,>=0.01,cpan,Required.  Available from CPAN:GD
 POSIX,>0,cpan,Required.  Available from CPAN:POSIX
+File::Path,>0,cpan,Required 

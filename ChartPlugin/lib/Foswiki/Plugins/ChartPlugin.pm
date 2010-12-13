@@ -213,19 +213,10 @@ sub _make_filename {
     }
 
     # before save, create directories if they don't exist.
-    # If the top level "pub/$web" directory doesn't exist, create it.
-    my $dir = Foswiki::Func::getPubDir() . "/$web";
-    if( ! -e "$dir" ) {
-        umask( 002 );
-        mkdir( $dir, 0775 );
-    }
-    # If the top level "pub/$web/$topic" directory doesn't exist, create
-    # it.
-    my $tempPath = "$dir/$topic";
-    if( ! -e "$tempPath" ) {
-        umask( 002 );
-        mkdir( $tempPath, 0775 );
-    }
+    my $tempPath = Foswiki::Func::getPubDir() . "/$web/$topic";
+    use File::Path;
+    eval { File::Path::mkpath( $tempPath, 0, $Foswiki::cfg{RCS}{dirPermission} ); };
+
     # Return both the directory and the filename
     return ($tempPath, $fullname);
 }
