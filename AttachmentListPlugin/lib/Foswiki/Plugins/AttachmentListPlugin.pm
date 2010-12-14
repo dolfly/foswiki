@@ -455,11 +455,11 @@ sub _formatFileData {
         }
 
         my $webEnc = $fileData->{web};
-        $webEnc =~ s/([^-_.a-zA-Z0-9])/sprintf("%%%02x",ord($1))/eg;
+        $webEnc =~ s{([^-_/.a-zA-Z0-9])}{sprintf("%%%02x",ord($1))}eg;
         my $topicEnc = $fileData->{topic};
-        $topicEnc =~ s/([^-_.a-zA-Z0-9])/sprintf("%%%02x",ord($1))/eg;
+        $topicEnc =~ s{([^-_/.a-zA-Z0-9])}{sprintf("%%%02x",ord($1))}eg;
         my $fileEnc = $fileData->{name};
-        $fileEnc =~ s/([^-_.a-zA-Z0-9])/sprintf("%%%02x",ord($1))/eg;
+        $fileEnc =~ s{([^-_/.a-zA-Z0-9])}{sprintf("%%%02x",ord($1))}eg;
         my $fileUrl = "$pubUrl/$webEnc/$topicEnc/$fileEnc";
 
         $s =~ s/\$fileUrl/$fileUrl/g;
