@@ -1,0 +1,4 @@
+# Release manifest for JSONEditorJQueryPlugin
+data/System/JSONEditorJQueryPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/JSONEditorJQueryPlugin.pm 0644 Perl module
+
