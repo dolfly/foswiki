@@ -1,4 +1,20 @@
 # Release manifest for JSONEditorJQueryPlugin
-data/System/JSONEditorJQueryPlugin.txt 0644 Documentation
-lib/Foswiki/Plugins/JSONEditorJQueryPlugin.pm 0644 Perl module
-
+lib/Foswiki/Plugins/JSONEditorJQueryPlugin/JSONEDITOR.pm
+lib/Foswiki/Plugins/JSONEditorJQueryPlugin.pm
+data/System/JSONEditorJQueryPlugin.txt
+data/System/JQueryJSONEditor.txt
+pub/System/JSONEditorJQueryPlugin/jquery.json-2.2.min.js
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/icon-list-new.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/tree_folder-open.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/arrows.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/icon-list-new-green.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/icon-folder-new-green.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/tree_empty.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/icon-folder-new.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/icon-list.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/delete.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/images/tree_folder_closed.gif
+pub/System/JSONEditorJQueryPlugin/jsoneditor/jsoneditor.css
+pub/System/JSONEditorJQueryPlugin/jsoneditor/jquery.jsoneditor.js
+pub/System/JSONEditorJQueryPlugin/index.html
+pub/System/JSONEditorJQueryPlugin/json-editor-demo.js
