@@ -13,18 +13,17 @@
 
 %ENDSECTION{"summary"}%
 
----++ Example
+---++ Json Editor Demo
 
 %JQREQUIRE{jsoneditor}%
-%ADDTOZONE{"script" id="json-editor-demo" requires="JQUERYPLUGIN::JSONEDITOR" text="<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JSONEditorJQueryPlugin/json-editor-demo.js'></script>"}%
+%TMPL:P{"LIBJS" id="JSONEditorJQueryPlugin/json-editor-demo" requires="JQUERYPLUGIN::JSONEDITOR"}%
 
-<h3>Json Editor Demo</h3>
    
-   <input type="button" value="init" onclick="je.jsoneditor('init');" />
-   <input type="button" value="input" onclick="je.jsoneditor('input');" />
-   <input type="button" value="dump" onclick="je.jsoneditor('dump');" />
-    <input type="button" value="getjson" onclick="getjson();" />
- </p>
+  <input type="button" value="init" onclick="je.jsoneditor('init');" />
+  <input type="button" value="input" onclick="je.jsoneditor('input');" />
+  <input type="button" value="dump" onclick="je.jsoneditor('dump');" />
+  <input type="button" value="getjson" onclick="getjson();" />
+
 <div id="json_editor" style="border:solid 2px #88F; width:80%;">
 </div>
 
