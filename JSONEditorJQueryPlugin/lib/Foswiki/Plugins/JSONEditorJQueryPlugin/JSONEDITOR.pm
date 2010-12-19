@@ -31,12 +31,13 @@ sub new {
   my $this = bless($class->SUPER::new( 
     $session,
     name => 'jsoneditor',
-    version => '0.0.1',
-    author => 'The Author of the JQuery plugin',
-    homepage => 'jq module\'s URL',
+    version => '0.1',
+    author => 'jadesoul',
+    homepage => 'http://jadesoul.org/projects/jsoneditor/',
     documentation => "$Foswiki::cfg{SystemWebName}.JQueryJSONEditor",
     puburl => '%PUBURLPATH%/%SYSTEMWEB%/JSONEditorJQueryPlugin/jsoneditor',
-    javascript => ['jquery.jsoneditor.js']
+    javascript => ['../jquery.json-2.2.min.js', 'jquery.jsoneditor.js'],
+    css => ['jsoneditor.css']
   ), $class);
 
   return $this;

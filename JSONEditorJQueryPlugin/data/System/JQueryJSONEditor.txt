@@ -13,5 +13,25 @@
 
 %ENDSECTION{"summary"}%
 
----++ Examples
+---++ Example
 
+%JQREQUIRE{jsoneditor}%
+%ADDTOZONE{"script" id="json-editor-demo" requires="JQUERYPLUGIN::JSONEDITOR" text="<script type='text/javascript' src='%PUBURL%/%SYSTEMWEB%/JSONEditorJQueryPlugin/json-editor-demo.js'></script>"}%
+
+<h3>Json Editor Demo</h3>
+   
+   <input type="button" value="init" onclick="je.jsoneditor('init');" />
+   <input type="button" value="input" onclick="je.jsoneditor('input');" />
+   <input type="button" value="dump" onclick="je.jsoneditor('dump');" />
+    <input type="button" value="getjson" onclick="getjson();" />
+ </p>
+<div id="json_editor" style="border:solid 2px #88F; width:80%;">
+</div>
+
+This is a JSON Editor plugin for jQuery, it can init from a json object, transfroming from json to a visual tree , user can modify the tree by appending child node or leaf to a node, insert a brother node or leaf before a node or leaf, delete node or leaf , a json object can be parsed from the tree for programming.
+
+It has 3 state and could be changed easily:
+
+   * *init* : parse the json to a tree which could be modified just by mouse
+   * *input* : swith the UI to a texteare with the string format of the json object,  which is more convenient to edit
+   * *dump* : swith the UI to a div with the string format of the json object
