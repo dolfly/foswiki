@@ -62,6 +62,7 @@ At the moment the menu bar is built from %SYSTEMWEB%.JQueryMenuSkinBar (Though i
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  21 Dec 2010: | Added missing arrows (v0.0.2) |
 |  21 Dec 2010: | Initial version (v0.0.1) |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/bin/view/Extensions/JQueryMenuSkin |
