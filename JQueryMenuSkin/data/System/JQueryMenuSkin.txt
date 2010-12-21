@@ -1,0 +1,70 @@
+%META:TOPICINFO{author="ProjectContributor" date="1292936279" version="1.2"}%
+%META:TOPICPARENT{name="Skins"}%
+---+!! !JQueryMenuSkin
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Screen Shot
+
+%SEARCH{ "%TOPIC%" scope="topic" nosearch="on" nototal="on" format="$pattern(.*\| *Screenshot\:[^\|]*\|([^\|]*).*)" }%
+
+---++ Installation
+
+%X% Please note that this skin is still very much in its infancy
+
+*Note:* You do not need to install anything on the browser to use this skin. The following instructions are for the administrator who installs the skin on the server where Foswiki is running.
+
+   * Install the skin using the [[%SCRIPTURL{"configure"}%?action=FindMoreExtensions][Install and Update Extensions %ICON{"lock"}%]] (Admins only)
+   * Test if installed:
+      * Standalone:	%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?skin=jqmenu
+      * With <nop>PatternSkin:	%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?skin=jqmenu,pattern
+   * For skin activation see [[%SYSTEMWEB%.Skins]]
+
+---++ Settings
+
+To activate the skin you can use the following settings just add them to %USERSWEB%.SitePreferences, WebPreferences, or your personal page.
+
+<verbatim>
+---++ JQueryMenuSkin Settings
+   * Set USERSTYLEURL = %PUBURLPATH%/%SYSTEMWEB%/PatternSkinCssCookbookNoLeftBar/hideleftbar.css
+   * Set USERTHEMEURL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
+
+   * Global skin styles. To change the look of the site, point these variables to custom CSS attachments.
+      * Set FOSWIKI_STYLE_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/style.css
+      * Set FOSWIKI_COLORS_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/colors.css
+
+   * Themes that add upon the global skin styles. Choose from the Theme Browser at PatternSkin.
+      * Set PATTERNSKIN_THEME = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
+      * Set PATTERNSKIN_COLUMNS = %PUBURLPATH%/%SYSTEMWEB%/PatternSkin/column_left.css
+
+      * Set SKIN = jqmenu,pattern
+</verbatim>
+
+---++ Modifying Menus
+
+At the moment the menu bar is built from %SYSTEMWEB%.JQueryMenuSkinBar (Though it is hoped to extend this in future versions)You can edit these files to customize the menu. 
+
+%I% WYSIWYG editing is disabled on this topic by default to ensure the menu does not get corrupted. 
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author(s): | Padraig Lennon |
+|  Copyright: | &copy; Padraig Lennon |
+|  Screenshot: | <a href="%ATTACHURL%/screenshot.png"><img src="%ATTACHURL%/screenshot.png" style="border:1px solid #eee;" alt="Click for full screen image" width="600" /></a> |
+|  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=jqmenu][Preview with this skin]] |
+|  Base Name: | jqmenu |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  21 Dec 2010: | Initial version (v0.0.1) |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/JQueryMenuSkin |
+|  Support: | http://foswiki.org/bin/view/Support/JQueryMenuSkin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
