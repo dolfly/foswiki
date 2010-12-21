@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1292936279" version="1.2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1292936279" version="1.1"}%
 %META:TOPICPARENT{name="Skins"}%
 ---+!! !JQueryMenuSkin
 %SHORTDESCRIPTION%
@@ -25,21 +25,21 @@
 
 To activate the skin you can use the following settings just add them to %USERSWEB%.SitePreferences, WebPreferences, or your personal page.
 
-<verbatim>
+<pre>
 ---++ JQueryMenuSkin Settings
-   * Set USERSTYLEURL = %PUBURLPATH%/%SYSTEMWEB%/PatternSkinCssCookbookNoLeftBar/hideleftbar.css
-   * Set USERTHEMEURL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
+   * <nop>Set USERSTYLEURL = %PUBURLPATH%/%SYSTEMWEB%/PatternSkinCssCookbookNoLeftBar/hideleftbar.css
+   * <nop>Set USERTHEMEURL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
 
    * Global skin styles. To change the look of the site, point these variables to custom CSS attachments.
-      * Set FOSWIKI_STYLE_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/style.css
-      * Set FOSWIKI_COLORS_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/colors.css
+      * <nop>Set FOSWIKI_STYLE_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/style.css
+      * <nop>Set FOSWIKI_COLORS_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/colors.css
 
    * Themes that add upon the global skin styles. Choose from the Theme Browser at PatternSkin.
-      * Set PATTERNSKIN_THEME = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
-      * Set PATTERNSKIN_COLUMNS = %PUBURLPATH%/%SYSTEMWEB%/PatternSkin/column_left.css
+      * <nop>Set PATTERNSKIN_THEME = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
+      * <nop>Set PATTERNSKIN_COLUMNS = %PUBURLPATH%/%SYSTEMWEB%/PatternSkin/column_left.css
 
-      * Set SKIN = jqmenu,pattern
-</verbatim>
+      * <nop>Set SKIN = jqmenu,pattern
+</pre>
 
 ---++ Modifying Menus
 
@@ -67,4 +67,5 @@ At the moment the menu bar is built from %SYSTEMWEB%.JQueryMenuSkinBar (Though i
 |  Home page: | http://foswiki.org/bin/view/Extensions/JQueryMenuSkin |
 |  Support: | http://foswiki.org/bin/view/Support/JQueryMenuSkin |
 
+%META:FILEATTACHMENT{name="screenshot.png" attr="h" autoattached="1" comment="" date="1292936279" path="screenshot.png" size="8839" user="ProjectContributor" version=""}%
 <!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
