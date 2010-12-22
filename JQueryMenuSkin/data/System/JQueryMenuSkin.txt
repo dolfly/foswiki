@@ -1,17 +1,20 @@
 %META:TOPICINFO{author="ProjectContributor" date="1292936279" version="1.1"}%
 %META:TOPICPARENT{name="Skins"}%
 ---+!! !JQueryMenuSkin
+
 %SHORTDESCRIPTION%
 
 %TOC%
 
----++ Screen Shot
+---++ Overview
 
-%SEARCH{ "%TOPIC%" scope="topic" nosearch="on" nototal="on" format="$pattern(.*\| *Screenshot\:[^\|]*\|([^\|]*).*)" }%
+JQueryMenuSkin is a simple JQuery-based skin which utilises the <a href="http://users.tpg.com.au/j_birch/plugins/superfish" target="_blank">Superfish menu plugin</a> (which is supplied with the JQueryPlugin extension) to provide an alternative menu-based navigation system for Foswiki users. 
+
+This lightweight skin is designed to run on top of the default Pattern skin. (See [[%TOPIC%#Settings][Settings]] section below for details) 
 
 ---++ Installation
 
-%X% Please note that this skin is still very much in its infancy
+%X% Please note that this skin is still very much in its infancy and is subject to change. 
 
 *Note:* You do not need to install anything on the browser to use this skin. The following instructions are for the administrator who installs the skin on the server where Foswiki is running.
 
@@ -23,7 +26,7 @@
 
 ---++ Settings
 
-To activate the skin you can use the following settings just add them to %USERSWEB%.SitePreferences, WebPreferences, or your personal page.
+To activate the skin you can use the following settings just add them to [[%USERSWEB%.SitePreferences]], WebPreferences, or your personal page.
 
 <pre>
 ---++ JQueryMenuSkin Settings
@@ -41,11 +44,15 @@ To activate the skin you can use the following settings just add them to %USERSW
       * <nop>Set SKIN = jqmenu,pattern
 </pre>
 
----++ Modifying Menus
+---++ Customization
 
-At the moment the menu bar is built from %SYSTEMWEB%.JQueryMenuSkinBar (Though it is hoped to extend this in future versions)You can edit these files to customize the menu. 
+In order to be able to safely upgrade this skin it is recommended that you define your own menu by copying the topic [[%SYSTEMWEB%.JQueryMenuSkinBarDefault]] to something of your own preference. You can define the name of the topic using a preference setting in [[%USERSWEB%.SitePreferences]], WebPreferences, or your personal page. 
 
-%I% WYSIWYG editing is disabled on this topic by default to ensure the menu does not get corrupted. 
+<pre>
+   * <nop>Set JQUERYMENUSKINBAR = %<nop>USERSWEB%.MyMenuBar
+</pre>
+
+%I% WYSIWYG editing should be disabled on your personalized topic to ensure the menu does not get corrupted. See TinyMCEPlugin on how to do this.
 
 ---++ Installation Instructions
 
@@ -62,6 +69,7 @@ At the moment the menu bar is built from %SYSTEMWEB%.JQueryMenuSkinBar (Though i
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  22 Dec 2010: | Foswiki:Tasks.Item10180 (v0.0.3) |
 |  21 Dec 2010: | Added missing arrows (v0.0.2) |
 |  21 Dec 2010: | Initial version (v0.0.1) |
 |  Dependencies: | %$DEPENDENCIES% |
@@ -69,4 +77,4 @@ At the moment the menu bar is built from %SYSTEMWEB%.JQueryMenuSkinBar (Though i
 |  Support: | http://foswiki.org/bin/view/Support/JQueryMenuSkin |
 
 %META:FILEATTACHMENT{name="screenshot.png" attr="h" autoattached="1" comment="" date="1292936279" path="screenshot.png" size="8839" user="ProjectContributor" version=""}%
-<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
+%META:PREFERENCE{name="SHORTDESCRIPTION" title="SHORTDESCRIPTION" type="Set" value="A functional skin that replaces the left bar with a customizable menu system based on the JQuery Superfish plugin."}%

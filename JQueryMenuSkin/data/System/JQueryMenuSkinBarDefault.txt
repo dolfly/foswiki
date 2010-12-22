@@ -1,28 +1,12 @@
 %META:TOPICINFO{author="ProjectContributor" date="1292936279" format="1.1" version="1.1"}%
 %META:TOPICPARENT{name="JQueryMenuSkin"}%
 %STARTINCLUDE%
-<div style="clear: left;">
-%JQREQUIRE{"superfish" }%
-%JQREQUIRE{"bgiframe"}%
-%ADDTOZONE{ "head" text="<link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/menu.css' type='text/css'/>
-          <link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/JQueryPlugin/plugins/superfish/jquery.superfish-navbar.css' type='text/css'/>
-          <link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/JQueryPlugin/plugins/superfish/jquery.superfish-vertical.css' type='text/css'/>"
-}%
-%ADDTOZONE{ "script" text="<script type='text/javascript'>
-$(document).ready(function(){
-    $('sf-menu').superfish({
-        autoArrows:    true,
-        delay:  1000
-    });
-    $('sf-menu').bgIframe({opacity:false});
-});
-</script>"}%
 <ul class="sf-menu">
     <li><a href="%SCRIPTURLPATH{"view"}%/Main/WebHome">Home</a></li>
 	<li><a class="sf-with-ul" href="#a">User<span class="sf-sub-indicator"> &#187;</span></a>
 	<ul>
 %IF{"context authenticated" then='
-		<li><a href="%SCRIPTURLPATH{"view"}%/%MAINWEB%/%WIKINAME%">My Home Page</a></li>
+		<li><a href="%SCRIPTURLPATH{"view"}%/%USERSWEB%/%WIKINAME%">My Home Page</a></li>
 		<li><a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%?logout=1">Logout</a></li>
     	<li><a href="%SCRIPTURLPATH{"view"}%/%SYSTEMWEB%/ChangePassword">Change Password</a></li>
 ' else='
@@ -33,7 +17,7 @@ $(document).ready(function(){
 	</ul></li>
     <li><a class="sf-with-ul" href="#a">Webs<span class="sf-sub-indicator"> &#187;</span></a>
 	<ul>
-		<li><a href="%SCRIPTURLPATH{"view"}%/%MAINWEB%/WebHome">%MAINWEB%</a></li>
+		<li><a href="%SCRIPTURLPATH{"view"}%/%USERSWEB%/WebHome">%USERSWEB%</a></li>
 		<li><a href="%SCRIPTURLPATH{"view"}%/%SYSTEMWEB%/WebHome">%SYSTEMWEB%</a></li>
 		<li><a href="%SCRIPTURLPATH{"view"}%/Trash/WebHome">Trash</a></li>
 	</ul></li>
@@ -49,9 +33,9 @@ $(document).ready(function(){
     <li><a class="sf-with-ul" href="#a">View<span class="sf-sub-indicator"> &#187;</span></a>
 	<ul>
 		<li><a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%?cover=print">View Printable</a></li>
-		<li><a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%?raw=on">View wiki text</a></li>
-		<li><a href="%SCRIPTURLPATH{"view"}%/%MAINWEB%/WikiUsers">View Users</a></li>
-		<li><a href="%SCRIPTURLPATH{"view"}%/%MAINWEB%/WikiGroups">View Groups</a></li>
+		<li><a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%?raw=on">View Wiki Text</a></li>
+		<li><a href="%SCRIPTURLPATH{"view"}%/%USERSWEB%/WikiUsers">View Users</a></li>
+		<li><a href="%SCRIPTURLPATH{"view"}%/%USERSWEB%/WikiGroups">View Groups</a></li>
 		<li><a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebChanges">View '%BASEWEB%' Web Changes</a></li>
 		<li><a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebIndex">View '%BASEWEB%' Web Index</a></li>
 		<li><a href="%SCRIPTURLPATH{"view"}%/%SYSTEMWEB%/InstalledPlugins">View Installed Plugins</a></li>
@@ -63,7 +47,5 @@ $(document).ready(function(){
        	<li><a href="http://foswiki.org/Support/WebHome" target="_blank">Foswiki Support</a></li>
        	<li><a href="http://foswiki.org/About/WebHome" target="_blank">About Foswiki</a></li>
    </ul></li>
-</div><div style="clear: left;" />
 %STOPINCLUDE%
 %META:PREFERENCE{name="ALLOWTOPICCHANGE" title="ALLOWTOPICCHANGE" type="Set" value="AdminGroup"}%
-%META:PREFERENCE{name="TINYMCEPLUGIN_DISABLE" title="TINYMCEPLUGIN_DISABLE" type="Set" value="1"}%

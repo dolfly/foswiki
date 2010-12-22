@@ -1,8 +1,10 @@
 @import "../PatternSkinTheme/style.css";
 
-.menu {
-   	padding:5px;
-	width:100%;
+.menu_missing {
+     text-decoration: none;
+     color:red;
+     outline:none;
+     width:100%;
 }
 
 .breadcrumb_box {
@@ -34,83 +36,9 @@
 .patternTop .patternNoViewPage .foswikiTopic {
 	margin-top:.1em;
 }
-.sf-navbar ul li {
-    padding:  0px;
-    margin:  0px;
-    width:          130px;
-    float:          left;
-}
-.foswikiSubmit,
-.foswikiSubmitDisabled,
-.foswikiButton,
-.foswikiButtonDisabled,
-.foswikiButtonCancel,
-a.foswikiButton,
-a.foswikiSubmit,
-a.foswikiButtonCancel,
-.foswikiCheckbox {
-    border-width:1px;
-    border-style:solid;
-    padding:1px 1px;
-    text-align:center;
-}
-
-
-h1 {
-font-size:1.6923em;
-line-height:1.0909em;
-margin:0.5454em 0 0.8181em;
-}
-h2 {
-font-size:1.3846em;
-line-height:1em;
-margin-bottom:1em;
-margin-top:1em;
-}
-h3 {
-font-size:1.2308em;
-line-height:1.125em;
-margin-bottom:1.125em;
-margin-top:1.125em;
-}
-h4 {
-font-size:1.1538em;
-line-height:1.2em;
-margin-bottom:0;
-margin-top:1.2em;
-}
-h5 {
-font-size:1em;
-line-height:1.2857em;
-margin-top:1.2857em;
-}
-h6 {
-font-size:1em;
-line-height:1.5em;
-margin-bottom:0;
-margin-top:1.5em;
-}
-h1, h2, h3, h4, h5, h6 {
-font-weight:normal;
-}
-blockquote, q {
-quotes:none;
-}
-blockquote:before, blockquote:after, q:before, q:after {
-content:none;
-}
-:active, :focus {
-outline:0 none;
-}
-
-body {
-	font: 14px Arial, Helvetica, sans-serif;   
-}
 
 #breadcrumb {
     font: 11px Arial, Helvetica, sans-serif;
-    background-image:url('bc_bg.gif'); 
-    background-repeat:repeat-x;
 	height:30px;
     line-height:15px;
     color:#888;
@@ -130,18 +58,11 @@ body {
 
 #breadcrumb a {
 	display:inline-block;
-    background-image:url('bc_separator.gif'); 
-    background-repeat:no-repeat; 
     background-position:right;
     padding-right: 15px;
     text-decoration: none;
     color:#333333;
 	outline:none;
-}
-
-.home {
-    border:none;
-    margin: 7px 0px;
 }
 
 #breadcrumb a:hover {
