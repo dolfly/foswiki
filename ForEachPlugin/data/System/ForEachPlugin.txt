@@ -3,6 +3,8 @@
 
 This plugin provides basic =FOR= and =FOREACH= loop constructions.
 
+<blockquote class="foswikiHelp">%X% This plugin provides some macros which do not follow normal macro expansion rules and may behave strangely under some more advanced usage scenarios (such as when [[%SYSTEMWEB%.SpreadSheetPlugin][CALC]] is involved). Please consider replacing your usage of %TOPIC% with one of the alternatives described in Foswiki:Support.Faq39 </blockquote>
+
 %TOC%
 
 ------
@@ -122,6 +124,7 @@ __Note:__ You do not need to install anything on the browser to use this plugin.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  22 Dec 2010: | (1.102) Foswikitask:Item10183 - Add link to Foswiki:Support.Faq39 |
 |  10 Nov 2010: | (1.101) Foswikitask:Item9993 - Fix Release Version  |
 |  04 Jun 2009: | (1.100) Ported unmodified to Foswiki by Kenneth Lavrsen |
 |  28 Sep 2005: | (1.000) Initial version |

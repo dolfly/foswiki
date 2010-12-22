@@ -28,8 +28,8 @@ use vars qw(
 # This should always be $Rev: 12445$ so that Foswiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
 # you should leave it alone.
-$VERSION = '$Rev: 12445$';
-$RELEASE = '1.101';
+$VERSION = '$Rev$';
+$RELEASE = '1.102';
 
 $pluginName = 'ForEachPlugin';    # Name of this Plugin
 
