@@ -2,7 +2,7 @@
 %META:TOPICPARENT{name="Skins"}%
 ---+!! !JQueryMenuSkin
 
-%SHORTDESCRIPTION%
+A functional skin that replaces the left bar with a customizable menu system based on the JQuery Superfish plugin.
 
 %TOC%
 
@@ -10,15 +10,13 @@
 
 JQueryMenuSkin is a simple JQuery-based skin which utilises the <a href="http://users.tpg.com.au/j_birch/plugins/superfish" target="_blank">Superfish menu plugin</a> (which is supplied with the JQueryPlugin extension) to provide an alternative menu-based navigation system for Foswiki users. 
 
-This lightweight skin is designed to run on top of the default Pattern skin. (See [[%TOPIC%#Settings][Settings]] section below for details) 
+This lightweight skin is designed to run on top of the default Pattern skin. (See [[#Settings][Settings]] section below for details) 
 
 ---++ Installation
 
-%X% Please note that this skin is still very much in its infancy and is subject to change. 
-
 *Note:* You do not need to install anything on the browser to use this skin. The following instructions are for the administrator who installs the skin on the server where Foswiki is running.
 
-   * Install the skin using the [[%SCRIPTURL{"configure"}%?action=FindMoreExtensions][Install and Update Extensions %ICON{"lock"}%]] (Admins only)
+   * Install the skin using the [[%SCRIPTURL{"configure"}%?action=FindMoreExtensions][Install and Update Extensions]] %ICON{"lock"}% (Admins only)
    * Test if installed:
       * Standalone:	%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?skin=jqmenu
       * With <nop>PatternSkin:	%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?skin=jqmenu,pattern
@@ -30,17 +28,15 @@ To activate the skin you can use the following settings just add them to [[%USER
 
 <pre>
 ---++ JQueryMenuSkin Settings
-   * <nop>Set USERSTYLEURL = %PUBURLPATH%/%SYSTEMWEB%/PatternSkinCssCookbookNoLeftBar/hideleftbar.css
-   * <nop>Set USERTHEMEURL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
+   * User Style settings
+      * <nop>Set USERSTYLEURL = /foswiki/pub/System/PatternSkinCssCookbookNoLeftBar/hideleftbar.css
+      * <nop>Set USERTHEMEURL = /foswiki/pub/System/JQueryMenuSkin/theme.css
 
    * Global skin styles. To change the look of the site, point these variables to custom CSS attachments.
-      * <nop>Set FOSWIKI_STYLE_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/style.css
-      * <nop>Set FOSWIKI_COLORS_URL = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/colors.css
+      * <nop>Set FOSWIKI_STYLE_URL = /foswiki/pub/System/JQueryMenuSkin/style.css
+      * <nop>Set FOSWIKI_COLORS_URL = /foswiki/pub/System/JQueryMenuSkin/colors.css
 
-   * Themes that add upon the global skin styles. Choose from the Theme Browser at PatternSkin.
-      * <nop>Set PATTERNSKIN_THEME = %PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/theme.css
-      * <nop>Set PATTERNSKIN_COLUMNS = %PUBURLPATH%/%SYSTEMWEB%/PatternSkin/column_left.css
-
+   * Skins to apply
       * <nop>Set SKIN = jqmenu,pattern
 </pre>
 
@@ -69,6 +65,7 @@ In order to be able to safely upgrade this skin it is recommended that you defin
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  23 Dec 2010: | Foswiki:Tasks.Item10180 (v0.0.4) |
 |  22 Dec 2010: | Foswiki:Tasks.Item10180 (v0.0.3) |
 |  21 Dec 2010: | Added missing arrows (v0.0.2) |
 |  21 Dec 2010: | Initial version (v0.0.1) |
@@ -77,4 +74,3 @@ In order to be able to safely upgrade this skin it is recommended that you defin
 |  Support: | http://foswiki.org/bin/view/Support/JQueryMenuSkin |
 
 %META:FILEATTACHMENT{name="screenshot.png" attr="h" autoattached="1" comment="" date="1292936279" path="screenshot.png" size="8839" user="ProjectContributor" version=""}%
-%META:PREFERENCE{name="SHORTDESCRIPTION" title="SHORTDESCRIPTION" type="Set" value="A functional skin that replaces the left bar with a customizable menu system based on the JQuery Superfish plugin."}%
