@@ -2,7 +2,7 @@
 %META:TOPICPARENT{name="JQueryMenuSkin"}%
 %STARTINCLUDE%
 <ul class="sf-menu">
-    <li><a href="%SCRIPTURLPATH{"view"}%/Main/WebHome">Home</a></li>
+    <li><a href="%SCRIPTURLPATH{"view"}%">Home</a></li>
 	<li><a class="sf-with-ul" href="#a">User<span class="sf-sub-indicator"> &#187;</span></a>
 	<ul>
 %IF{"context authenticated" then='
