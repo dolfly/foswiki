@@ -65,6 +65,7 @@ In order to be able to safely upgrade this skin it is recommended that you defin
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  27 Dec 2010: | Foswiki:Tasks.Item10180 (v0.0.5) |
 |  23 Dec 2010: | Foswiki:Tasks.Item10180 (v0.0.4) |
 |  22 Dec 2010: | Foswiki:Tasks.Item10180 (v0.0.3) |
 |  21 Dec 2010: | Added missing arrows (v0.0.2) |

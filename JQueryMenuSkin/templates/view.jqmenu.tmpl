@@ -1,6 +1,8 @@
 %TMPL:INCLUDE{"view"}%
 %TMPL:DEF{"contentheader"}%
 <div style="clear: left;">
+%JQREQUIRE{"supersubs"}%
+%JQREQUIRE{"bgiframe"}%
 %ADDTOZONE{ "head" text="<link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/JQueryMenuSkin/menu.css' type='text/css'/>
           <link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/JQueryPlugin/plugins/superfish/jquery.superfish-navbar.css' type='text/css'/>
           <link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/JQueryPlugin/plugins/superfish/jquery.superfish-vertical.css' type='text/css'/>"
@@ -13,7 +15,8 @@ $(document).ready(function(){
     });
     $('sf-menu').bgIframe({opacity:false});
 });
-</script>"}%
+</script>"
+requires="JQUERYPLUGIN::SUPERSUBS,JQUERYPLUGIN::BGIFRAME"}%
 %INCLUDE{"%IF{"defined JQUERYMENUSKINBAR and $ JQUERYMENUSKINBAR" then="%JQUERYMENUSKINBAR%" else="%SYSTEMWEB%.JQueryMenuSkinBarDefault"}%" raw="on" warn="<div class='menu_missing'>The <nop>JQueryMenuSkin menu configuration topic could not be found</div>"}%</div>
 <div style="clear: left;" />%TMPL:END%
 %TMPL:DEF{"top"}%<span class="foswikiLeft breadcrumb">%TMPL:P{"breadcrumb"}%</span>%TMPL:END%
