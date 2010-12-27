@@ -29,12 +29,12 @@ To activate the skin you can use the following settings just add them to [[%USER
 <pre>
 ---++ JQueryMenuSkin Settings
    * User Style settings
-      * <nop>Set USERSTYLEURL = /foswiki/pub/System/PatternSkinCssCookbookNoLeftBar/hideleftbar.css
-      * <nop>Set USERTHEMEURL = /foswiki/pub/System/JQueryMenuSkin/theme.css
+      * <nop>Set USERSTYLEURL = !%PUBURL%/System/PatternSkinCssCookbookNoLeftBar/hideleftbar.css
+      * <nop>Set USERTHEMEURL = !%PUBURL%/System/JQueryMenuSkin/theme.css
 
    * Global skin styles. To change the look of the site, point these variables to custom CSS attachments.
-      * <nop>Set FOSWIKI_STYLE_URL = /foswiki/pub/System/JQueryMenuSkin/style.css
-      * <nop>Set FOSWIKI_COLORS_URL = /foswiki/pub/System/JQueryMenuSkin/colors.css
+      * <nop>Set FOSWIKI_STYLE_URL = !%PUBURL%/System/JQueryMenuSkin/style.css
+      * <nop>Set FOSWIKI_COLORS_URL = !%PUBURL%/System/JQueryMenuSkin/colors.css
 
    * Skins to apply
       * <nop>Set SKIN = jqmenu,pattern
