@@ -7,10 +7,10 @@
 	<ul>
 %IF{"context authenticated" then='
 		<li><a href="%SCRIPTURLPATH{"view"}%/%USERSWEB%/%WIKINAME%">My Home Page</a></li>
-		<li><a href="%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%?logout=1">Logout</a></li>
+		<li><a href="%LOGOUTURL%">Logout</a></li>
     	<li><a href="%SCRIPTURLPATH{"view"}%/%SYSTEMWEB%/ChangePassword">Change Password</a></li>
 ' else='
-    	<li><a href="%SCRIPTURLPATH{"login"}%/%BASEWEB%/%BASETOPIC%">Login</a></li>
+    	<li><a href="%LOGINURL%">Login</a></li>
     	<li><a href="%SCRIPTURLPATH{"view"}%/%SYSTEMWEB%/UserRegistration">Register</a></li>
     	<li><a href="%SCRIPTURLPATH{"view"}%/%SYSTEMWEB%/ResetPassword">Reset Password</a></li>
 '}%
