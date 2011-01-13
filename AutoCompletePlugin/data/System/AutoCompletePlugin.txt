@@ -88,11 +88,12 @@ __Note:__ Setting it here will have no effect.
 ---++ Plugin Info
 
 |  Plugin Author(s): | Foswiki:Main.AndrewJones |
-|  Copyright: | &copy; 2007 - 2010, Foswiki:Main.AndrewJones |
+|  Copyright: | &copy; 2007 - 2011, Foswiki:Main.AndrewJones |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Plugin Release: | %$RELEASE% |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  12 Jan 2011 | Fixed bug in generated CSS in case the form name was a wiki word. |
 |  05 Dec 2010 | Add a working example of using the plugin in a form |
 |  07 Sept 2009 | Foswikitask:Item2009 - Remove debug setting from =configure= |
 |  23 Mar 2009 | Foswikitask:Item1249 - Port to Foswiki as 1.0; Use latest YUI (2.7.0) |

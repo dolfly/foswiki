@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2007 - 2010 Andrew Jones, andrewjones86@googlemail.com
+# Copyright (C) 2007 - 2011 Andrew Jones, andrewjones86@googlemail.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -26,7 +26,7 @@ require CGI;
 use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN_TOPIC $id $doneYui $doneStyle @loadedData);
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.2';
+our $RELEASE = '1.2.1';
 our $SHORTDESCRIPTION = 'Provides an Autocomplete input field based on Yahoo\'s User Interface Library';
 our $NO_PREFS_IN_TOPIC = 1;
 our $pluginName = 'AutoCompletePlugin';
@@ -274,7 +274,7 @@ sub _addStyle {
 
     my $style = <<"EOT";
 <style type="text/css" media="all">
-$form {
+<nop>$form {
     position:relative;
 }
 $Results {
