@@ -1,0 +1,39 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+ A collection of Foswiki migration scripts
+
+%SHORTDESCRIPTION%
+
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+   * Foswiki:Extensions.PleaseFeelFreeToModify
+   * Please add your knowledge and examples to this contrib
+   * This is not intended to be 'released' as a downloadable extension at this time; rather, it's intended for site admins who have some data they need to get into Foswiki as a collection of structured topics.
+   * We still lack a contrib that allows any user without perl skills to dump a CSV file onto a rest handler and have Foswiki produce topic-per-row.
+
+---++ List of examples
+%SEARCH{
+    "parent.name='%TOPIC%'"
+    type="query"
+    nonoise="on"
+}%
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+|  Author: | Foswiki:Main.PaulHarvey |
+|  Copyright: | &copy; 2010-2011 Paul.W.Harvey@csiro.au, TRIN http://trin.org.au/ &amp; %BR%\
+                Centre for Australian National Biodiversity Research http://anbg.gov.au/cpbr %BR%\
+                &copy; 2011, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  15 Jan 2011 (0.1.1) | Foswikitask:Item10232 - initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+|  Development: | http://foswiki.org/Development/%TOPIC% |

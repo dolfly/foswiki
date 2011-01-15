@@ -1,0 +1,5 @@
+data/System/MigrationScriptsCSVDemo.txt 0644
+data/System/MigrationScriptsContrib.txt 0644
+lib/Foswiki/Contrib/MigrationScriptsContrib.pm 0644
+pub/System/MigrationScriptsCSVDemo/example.csv 0400
+tools/MigrationScriptsContrib/CSVDemo.pm 0755
