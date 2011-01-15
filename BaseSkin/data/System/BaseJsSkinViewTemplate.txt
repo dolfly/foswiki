@@ -1,0 +1,19 @@
+%{<verbatim class="tml">}%
+%TMPL:INCLUDE{"view"}%%{
+	View template that adds Javascript to Base skin.
+}%
+
+
+%TMPL:DEF{"head:script"}%%TMPL:P{"script"}%%RENDERZONE{"script"}%%TMPL:END%
+
+
+%TMPL:DEF{"script"}%%TMPL:P{
+	"LIBJS"
+	id="JavascriptFiles/foswikiPref"
+	requires="JQUERYPLUGIN::FOSWIKI"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BaseSkinJs/js"
+	requires=""
+}%%TMPL:END%
+%{</verbatim>}%

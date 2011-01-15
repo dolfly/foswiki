@@ -1,0 +1,16 @@
+%{<verbatim class="tml">}%
+%{
+	View template that adds (minimal) CSS to Base skin.
+}%
+%TMPL:INCLUDE{"view"}%
+
+
+%TMPL:DEF{"head:css"}%%TMPL:P{"css"}%%RENDERZONE{"head"}%%TMPL:END%
+
+
+%TMPL:DEF{"css"}%%TMPL:P{
+	"LIBCSS"
+	id="BaseSkinCss/base"
+	requires=""
+}%%TMPL:END%
+%{</verbatim>}%

@@ -1,0 +1,26 @@
+%{<verbatim class="tml">}%
+%{
+	View template that adds extra column grid and typographic CSS styles to Base skin.
+}%
+%TMPL:INCLUDE{"view"}%
+
+
+%TMPL:DEF{"css"}%%TMPL:P{"css:_PREV"}%%ADDTOZONE{
+	"head"
+	id="BaseSkinCss/html5"
+	text="<literal><!--[if lt IE 9]>
+<script src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/html5.js'></script>
+<![endif]--></literal>"
+	requires=""
+}%
+%TMPL:P{
+	"LIBCSS"
+	id="BaseSkinCss/typographic"
+	requires="BaseSkinCss/base"
+}%
+%TMPL:P{
+	"LIBCSS"
+	id="BaseSkinCss/columngrid"
+	requires="BaseSkinCss/typographic"
+}%%TMPL:END%
+%{</verbatim>}%

@@ -1,0 +1,224 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1294644357" format="1.1" version="1"}%
+Base skin test page
+
+---+ H1 header [[%TOPIC%][with link]]
+*Intro text.* Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+---++ H2 header [[%TOPIC%][with link]]
+*Intro text.* Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+---++ H2 header [[%TOPIC%][with link]]
+
+*Intro text.* Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+---+++ H3 header [[%TOPIC%][with link]]
+*Intro text.* Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+---++++ H4 header [[%TOPIC%][with link]]
+*Intro text.* Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+---+++++ H5 header [[%TOPIC%][with link]]
+*Intro text.* Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+---++++++ H6 header  [[%TOPIC%][with link]]
+*Intro text.* Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+[[%TOPIC%][link]]
+
+<div class="foswikiNotification">
+---+ h1 header in a block
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
+</div>
+
+<div class="foswikiNotification">
+---++ h2 header in a block
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
+</div>
+
+<div class="foswikiNotification">
+---+++ h3 header in a block
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
+</div>
+
+<div class="foswikiNotification">
+---++++ h4 header in a block
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
+</div>
+
+<div class="foswikiNotification">
+---+++++ h5 header in a block
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
+</div>
+
+<div class="foswikiNotification">
+---++++++ h6 header in a block
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
+</div>
+
+
+---++ Text sizes
+
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal 
+<span class="foswikiSmallish">Smallish text. Smallish text. Smallish text. Smallish text. Smallish text. Smallish text. Smallish text. Smallish text. Smallish text. </span>
+<span class="foswikiSmall">Small text. Small text. Small text. Small text. Small text. Small text. Small text. Small text. Small text. </span>
+
+---++ Text colors
+
+<span class="foswikiGrayText">Grayed out text.</span>
+
+<span class="foswikiAlert">Alert text.</span>
+
+---++ Rule
+---
+
+---++ Images
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+Text with :-) smilies and %ICON{info}% icons.
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+---++ Blockquote
+
+<blockquote>
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+</blockquote>
+
+---++ Table
+
+| *Numbers* | *Texts* |
+| 456  | uvw |
+| 123  | xyz |
+| 789  | rst |
+
+and text below the table
+
+---++ Verbatim
+
+<verbatim>
+verbatim text
+A lot more of verbatim text lot more of verbatim text lot more of verbatim text lot more of verbatim text lot more of verbatim text lot more of verbatim text lot more of verbatim text lot more of verbatim text 
+</verbatim>
+
+---++ Lists
+
+Bullet list:
+   * Item A
+   * Item B a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text
+      * Item B.1
+      * Item B.2
+   * Item C
+
+Numbered list:
+   1 Item 1
+   1 Item 2 a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text a very long list text
+      1 Item 2.1
+      1 Item 2.2
+   1 Item 3
+
+
+---++ Comment
+
+%COMMENT{}%
+
+---++ Links
+
+[[WebHome]] DoesNotExist
+
+---++ Form elements
+
+<input type="submit" class="foswikiButton" value="foswikiButton" />
+
+<input type="submit" class="foswikiSubmit" value="foswikiSubmit" />
+
+<input type="submit" class="foswikiButtonCancel" value="foswikiButtonCancel" />
+
+<input type="text" size="30" class="foswikiInputField" />
+
+<textarea class="foswikiInputField" cols="20" rows="4"></textarea>
+
+---++ Help text
+
+<div class="foswikiHelp"><ul>
+<li> <strong>Help:</strong> Please see %POPUPWINDOW{"%SYSTEMWEB%.FileAttachment" label="FileAttachment"}% for more information about attaching files.
+</li> <li> <strong>Bug:</strong> Internet Explorer 4.0 or earlier: If you get an "Internal Server Error" message when you upload a file, you need to try again. It should work the second time.
+</li></ul> 
+</div>
+
+---++ JQuery buttons
+
+%BUTTON{
+"Create a new topic"
+icon="add"
+}%
+%CLEAR%
+
+%BUTTON{
+"Cancel"
+icon="cross"
+class="foswikiButtonCancel"
+}%
+%CLEAR%
+
+%BUTTON{
+"Cyan"
+class="cyan"
+}%
+%CLEAR%
+
+%BUTTON{
+"Simple"
+class="simple"
+}%
+%CLEAR%
+
+---++ Table of Contents
+%TOC{title="On this page:"}%
+
+---++ Foswiki styles
+---+++ foswikiBroadcastMessage
+<div class="foswikiBroadcastMessage"> <strong>NOTE:</strong> Edit and Attach will be disabled today between 05:00 PM and 06:00 PM PDT (00:00 to 01:00 GMT) for a scheduled Foswiki maintenance.</div>
+
+---+++ foswikiNotification
+<div class="foswikiNotification">This is a notification.</div>
+
+---+++ foswikiMessage
+<div class="foswikiMessage">This is a message.</div>
+
+
+---+++ foswikiHorizontalList
+<div class="foswikiHorizontalList">
+   1 ordered item 1
+   1 ordered item 2
+   1 ordered item 3
+</div>
+
+<div class="foswikiHorizontalList">
+   * unordered item 1
+   * unordered item 2
+   * unordered item 3
+</div>
+
+<div class="foswikiHorizontalList">
+	<ul>
+		<li>unordered item 1</li>
+		<li>unordered item 2</li>
+		<li class="foswikiLast">unordered item 3</li>
+	</ul>
+	<div class="foswikiClear"></div>
+</div>
+
+---++ TablePlugin
+
+%TABLE{initsort="2"}%
+| *Header* | *Header* | 
+| abc | def |
+
+---++ Javascript
+---+++ TwistyPlugin
+%TWISTY{}%
+Inside a twisty
+%ENDTWISTY%
+
+---+++ JQuery Tabs
+%META:FORM{name="UserForm"}%
+%META:FIELD{name="FirstName" attributes="M" title="FirstName" value="Test"}%
+%META:FILEATTACHMENT{name="Lutra.lutra.standing.1.jpg" attachment="Lutra.lutra.standing.1.jpg" attr="" comment="" date="1270304614" path="Lutra.lutra.standing.1.jpg" size="110427" user="BaseUserMapping_333" version="1"}%
