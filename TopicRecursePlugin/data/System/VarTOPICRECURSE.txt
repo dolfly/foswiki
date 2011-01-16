@@ -1,0 +1,79 @@
+%META:TOPICINFO{author="ProjectContributor" date="1287902127" format="1.1" version="$Rev$"}%
+%META:TOPICPARENT{name="Macros"}%
+<blockquote class="foswikiHelp">%X% This plugin is incomplete. "%X%" against parameters, tokens means they aren't yet implemented. Lack of an %X% means the functionality exists or is untested...</blockquote>
+
+#VarTOPICRECURSE
+---+++ TOPICRECURSE{"&lt; topic &gt;" ...} -- traverse related topics
+   * Traverse topics related by some %SYSTEMWEB%.QuerySearch expression in a recursive (tree-like) pattern, Eg. =parent.name='$super'=
+   * Syntax: =%<nop>TOPICRECURSE{"&lt; topic &gt;" ...}%=
+   * Supported parameters:
+     | *Parameter:*                     | *Description:* | *Default:* |
+     | ="Web.SomeTopic"= %BR% \
+       =root="Web.SomeTopic"=           | 'Root', or starting topic. The initial value of =$super= in the =query= param on the first iteration. | =%<nop>BASETOPIC%= (current topic) |
+     | =query="&lt;= [[%SYSTEMWEB%.QuerySearch][QuerySearch expression]] =&gt;"= | %SYSTEMWEB%.QuerySearch expression to apply at each recursion step; may be thought of as generating a list of children for a given parent. See [[#QueryTokens][query tokens]] for a list of special tokens allowed in the query string. | =parent.name='$supertopic'= |
+     | =header="..."= %BR% \
+       =footer="..."=                   | Custom format results: see [[FormattedSearch]] for usage &amp; examples | =*Search: '$rootquery'*$n= %BR% =*Total: $ntopics*= |
+     | =format="..."= %BR% \
+       =formatbranch="..."= %BR% \
+       =formatleaf="..."=               | Custom format results: see [[FormattedSearch]] for usage &amp; examples; "branch" format is for nodes which have descendents; "leaf" format is for terminating nodes for which there are no others below. | =$indent* [<nop>[$web.<nop>$topic][$topic]]= |
+     | =separator="..."= | Separator _between_ search hits. See [[#FormatTokens]] | =$n= |
+     | =nodelimit= | Maximum number of nodes to be displayed. 0 = no limit. | =999= |
+     | =depthlimit= | Maximum depth to recurse to. 0 = no limit. | =0= |
+     | =breadthlimit= %X% | Maximum number of nodes to be displayed _at a given depth_. 0 = no limit. | =0= |
+
+#QueryTokens
+---++++ Query Tokens
+Each "iteration" is a query that produces a list of children under a particular parent which itself is a result of a query under some super-parent (and so-on). That query may have the following tokens:
+| *Name* | *Expands To* |
+| =$root=, =$rootweb=, =$roottopic= | =root= param |
+| =$super=, =$superweb=, =$supertopic= | The topic under consideration (which will be the parent to the topics in the query result) in a given iteration. Same as =$root[web%VBAR%topic]= on first iteration. |
+| =$depth= | The =$super= topic's zero-based depth below =$root=. |
+| =$nodeindex= | The =$super= topic's zero-based index among all rendered nodes of the entire =TOPICRECURSE= expression. |
+| =$siblingindex= | The =$super= topic's zero-based index among its siblings. |
+<blockquote class="foswikiHelp">%X% No other [[FormatTokens][tokens]] are supported in the =query= param</blockquote>
+
+#FormatTokens
+---++++ Standard Tokens
+| *Name* | *Expands To* |
+| =$web= | Name of the web |
+| =$topic= | Topic name |
+| =$parent= | Name of parent topic; empty if not set |
+| =$locked= %X% | LOCKED flag (if any) |
+| =$date= %X% epoch seconds | Time stamp of last topic update, e.g. =%GMTIME{"$day $mon $year - $hour:$min"}%= |
+| =$isodate= %X% | Time stamp of last topic update, e.g. =%GMTIME{"$year-$mo-$dayT$hour:$minZ"}%= |
+| =$index= | number of total results - can be used as a running counter in the =format=, or in the =footer=. This =$index= is not affected by web based partitioning of results. |
+| =$item= | the full name of a result item - in a SEARCH context, equivalent to =$web.$topic= |
+| =$rev= | Number of last topic revision, e.g. =4= |
+| =$username= | Login name of last topic update, e.g. =jsmith= |
+| =$wikiname= | Wiki user name of last topic update, e.g. =<nop>JohnSmith= |
+| =$wikiusername= | Wiki user name of last topic update, like =%USERSWEB%.<nop>JohnSmith= |
+| =$createdate= %X% epoch seconds | Time stamp of topic revision 1 |
+| =$createusername= | Login name of topic revision 1, e.g. =jsmith= |
+| =$createwikiname= | Wiki user name of topic revision 1, e.g. =<nop>JohnSmith= |
+| =$createwikiusername= | Wiki user name of topic revision 1, e.g. =%USERSWEB%.<nop>JohnSmith= |
+| =$summary= %X% | Topic summary, just the plain text, all formatting and line breaks removed; up to 162 characters |
+| =$formname= | The name of the form attached to the topic; empty if none |
+| =$formfield(name)= %X% =(works but bypasses Foswiki::Form::...renderFor*= | The field value of a form field; for example, if FAQWhatIsWikiWiki was a search hit, =$formfield(<nop>TopicClassification)= would get expanded to =%QUERY{"'FAQWhatIsWikiWiki'/TopicClassification"}%=. This applies only to topics that have a [[DataForms][DataForm]]. For multi-line textfields new lines are replace by an HTML &lt;br /&gt; |
+| =$ntopics= | Number of topics found in current web. This is the current topic count, not the total number of topics |
+| =$nhits= | Number of hits if =multiple="on"=. Cumulative across all topics in current web. Identical to =$ntopics= unless =multiple="on"= |
+%INCLUDE{"FormatTokens"}%
+
+---+++ =TOPICRECURSE= Format Tokens
+| *Name*       | *Expands To* |
+| =$depth=     | Branch depth, starting at 1 (the level below the root node) |
+| =$indent=    | 3 spaces per depth |
+| =$indent(&lt;string&gt;)= | Repeats =&lt;string&gt;= _depth_ times |
+| =$ntopicsdepth= %X% | Number of topics found in current web at the current _depth_ |
+| =$ntopicsbranch= %X% | Number of topics found in current web in the current branch |
+| =$indexdepth= %X% | Running counter of topics found in current web at the current _depth_ |
+| =$indexbranch= %X% | Running counter of topics found in current web in the current branch |
+| =$nodepath= %X% | Comma separated list of =$indexdepth= for all depths between the root node and current, representing the "path" by =$indexdepth= to the current node. |
+
+---++++ Separator tokens
+| *Name*       | *Expands To* |
+| =$nextweb=, =$nexttopic=, =$nextwebtopic= %X% | =$web.$topic= of the next node |
+| =$prevweb=, =$prevtopic=, =$prevwebtopic= %X% | =$web.$topic= of the previous node |
+%STOPINCLUDE%
+---
+*Related topics:* FormattedSearch, QuerySearch
+<!-- %JQREQUIRE{"chili"}% -->

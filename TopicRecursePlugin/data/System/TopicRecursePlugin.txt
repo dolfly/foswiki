@@ -1,0 +1,33 @@
+%META:TOPICPARENT{name="Plugins"}%
+---+ Topic Recurse Plugin
+
+%SHORTDESCRIPTION%
+
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+Aims to provide an alternative to:
+   * Foswiki:Extensions.TreePlugin, which is hard-wired to topic parent relationship, and doesn't allow delayed macros in the format string
+   * Foswiki:Extensions.DBCachePlugin DBRECURSE, which has a subtly different query syntax and bypasses the configured Query and Search implementations 
+
+%INCLUDE{"VarTOPICRECURSE"}%
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Plugin Info
+
+|  Author: | Foswiki:Main.PaulHarvey |
+|  Copyright: | &copy; 2010-2011, Paul.W.Harvey@csiro.au TRIN http://trin.org.au/ &amp; %BR%\
+                Centre for Australian National Biodiversity Research http://anbg.gov.au/cpbr %BR%\
+                &copy; 2008-2011, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  04 Nov 2010 (0.1) | Foswikitask:Item9874 - Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+|  Development: | http://foswiki.org/Development/%TOPIC% |
