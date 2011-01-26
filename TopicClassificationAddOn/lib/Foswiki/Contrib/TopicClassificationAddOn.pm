@@ -19,6 +19,6 @@ use strict;
 use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION );
 
 $VERSION = '$Rev$';
-$RELEASE = '27 Feb 2010';
+$RELEASE = '26 Jan 2011';
 $SHORTDESCRIPTION = 'Provides framework for organizing  content within a web according to different _types_ of topics (discussion, weblog, reference, etc) and hierarchical "categories". Includes sample topic types and categories. Provides basic framework to design and manage simple Foswiki Applications.';
 
