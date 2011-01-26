@@ -20,7 +20,7 @@ The following parameters allow customization of how specific Classification topi
    * INITSORT - Optionally set initial sort. Defaults to "modified".
    * INITLIMIT - Optionally set initial limit to # of results. Defaults to "all".
    * REVERSE - Optionally to reverse the search order. Defaults to "off."
-   * CREATELINK - Optionally set to "off" to over-ride default of having "Create New XX" button for !TopicType topics. Set to "yes" for force include button. In this case, their must be a section called "new" that defines the form for posting new topics. See !TopicType topics for example. If set to any other sting, that string will be displayed. If not defined (the default) then the button is included in !TopicType topics.
+   * CREATELINK - Optionally set to "no" to over-ride default of having "Create New XX" button for !TopicType topics. Set to "yes" for force include button. In this case, their must be a section called "new" that defines the form for posting new topics. See !TopicType topics for example. If set to any other sting, that string will be displayed. If not defined (the default) then the button is included in !TopicType topics.
 
 ---+++++ Css
    * None
@@ -89,6 +89,7 @@ $test
 %~~  DBCALL{"%TCAOWEB%.RenderTableSearchResults" 
 ~~~       remote="on"
 ~~~       FACETS="%FORMFIELD{"Facets" topic="%BASEWEB%.%BASETOPIC%"}%" 
+~~~       EXCLUDE="null"
 ~~~       BASESEARCH="%IFDEFINED{"%CLASS_NAME%" 
 ~~~               then="$test"
 ~~~               else="%FORMFIELD{"Classification" topic="%BASEWEB%.%BASETOPIC%"}%"}%

@@ -89,7 +89,7 @@ function checkName() {
 
 ---+++ Add New <nop>%TYPE% to the <nop>%BASEWEB% Web
 
-<form name="addType" action="%SCRIPTURLPATH%/save%SCRIPTSUFFIX%/%BASEWEB%/" onsubmit="return checkName()" >
+<form name="addType" action="%SCRIPTURLPATH%/save%SCRIPTSUFFIX%/%BASEWEB%/" method="post" onsubmit="return checkName()" >
 Add <select name="selectClass"  size="1"  
 ~~~          onchange="selectNewOrPre(this.value);" > 
 ~~~      <option value="new"> New <nop>%TYPE% </option>

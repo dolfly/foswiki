@@ -1,5 +1,4 @@
 %META:TOPICINFO{author="ProjectContributor" date="1160083626" format="1.1" version="1.4"}%
-%META:TOPICPARENT{name=""}%
 
 %TOPICCRE%NOP%ATE{ topic="CreateNewWebLog" template="%TCAOWEB%/Installs.CreateNewWebLog" }%
 %TOPICCRE%NOP%ATE{ topic="WebLogForm" template="%TCAOWEB%/Installs.WebLogForm" }%
