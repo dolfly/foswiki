@@ -52,6 +52,7 @@ Once %TOPIC% is enabled within a web, you're ready to start defining *TopicTypes
 |  Copyright: | &copy; |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  26 Jan 2011 | Foswikibug:Item10292: Accumulated fixes, Foswikibug:Item10293: Remove unnecesary files that break installer |
 |  27 Feb 2010 | Foswikibug:Item1624: fix CSRF patch |
 |  15 Feb 2010 | Foswikibug:Item1624: doc repairs |
 |  05 Feb 2010 | Foswikibug:Item1624: update to CSRF requirements |
