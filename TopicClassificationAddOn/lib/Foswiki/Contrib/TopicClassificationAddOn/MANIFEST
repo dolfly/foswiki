@@ -122,6 +122,4 @@ data/TCAO/WebRss.txt 0644
 data/TCAO/WebSearch.txt 0644
 data/TCAO/WebSearchAdvanced.txt 0644
 data/TCAO/WebTopicList.txt 0644
-data/TCAO/changes 0644
-data/TCAO/mailnotify 0644
 lib/Foswiki/Contrib/TopicClassificationAddOn.pm 0644
