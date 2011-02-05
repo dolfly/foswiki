@@ -116,8 +116,9 @@ sub text
   my ( $this ) = @_;
   my $n = $this->{"n"};
   my $label = $this->{"label"};
+  my $page = $this->{"page"};
   my $safetext = $this->{"safetext"};
-  return $this->anchor() . "<span class=\"FootNoteTextLink\" title=\"${safetext}\">[[#FootNote${n}note][(${label})]]</span>";
+  return $this->anchor() . "<span class=\"FootNoteTextLink\" title=\"${safetext}\">[[${page}#FootNote${n}note][(${label})]]</span>";
 }
 
 sub note
@@ -127,7 +128,8 @@ sub note
   $this->{"printed"} = 1;
   my $n = $this->{"n"};
   my $label = $this->{"label"};
-  return "<a name=\"FootNote${n}note\"></a><span class=\"FootNoteLabel\">[[#FootNote${n}text][ *${label}* ]]</span>";
+  my $page = $this->{"page"};
+  return "<a name=\"FootNote${n}note\"></a><span class=\"FootNoteLabel\">[[${page}#FootNote${n}text][ *${label}* ]]</span>";
 }
 
 sub printNotes
