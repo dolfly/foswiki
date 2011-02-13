@@ -5,6 +5,10 @@ See: BlogPost
 
 | *Name*  | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | Title | text | 80 | | Blog post title | M,H |
-| Category | select | 1 | , %SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" separator="," format="$pattern(.*   \*\s*([^\n]*).*)"}% | Edit values in BlogCategory | M,H |
+| Category | select | 1 | , %SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" separator="," format="$pattern(.*   \*\s*([^\n]*).*)"}% | Edit values in BlogCategory | H |
 | Author | text | 50 | %WIKINAME% | Blog post author | M,H |
+| Tags | text | 100 |  |  | H |
+| <nop>PublishingDate | date | 30 | %GMTIME{"$day $month $year"}% | | H |
+| <nop>CommentsDisabled | checkbox | 1 | disabled | | H |
+| <nop>CommentsClosed | checkbox | 1 | closed | | H |
 | <nop>TopicType | label | 50 | BlogPost | | H |

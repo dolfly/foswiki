@@ -6,11 +6,10 @@
 </verbatim>
 
 <verbatim>
-%TMPL:DEF{FORM:blogpost}%
-#BlogPostPrompt
+%TMPL:DEF{FORM:blogpost}%#BlogPostPrompt
 <form method="post" action="%SCRIPTURL{save}%/%BASEWEB%/%BASETOPIC%Comments" enctype="application/x-www-form-urlencoded" name="blogpostcomment" id="blogpostcomment">
 <input type="hidden" name="redirectto" value="%BASEWEB%.%BASETOPIC%" />
-<input type="hidden" name="topicparent" value="%TOPIC%" />
+<input type="hidden" name="topicparent" value="%BASETOPIC%" />
 %COMMENTPROMPT%
 </form>
 %TMPL:END%

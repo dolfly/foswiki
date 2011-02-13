@@ -1,0 +1,55 @@
+%META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.1" version="$Rev: 3942 $"}%
+<noautolink><channel rdf:about="%SCRIPTURL{"view"}%/%WEB%">
+%IF{"defined tag and $ tag != ''" then="
+	<title>%MAKETEXT{"[_1] blog posts tagged: [_2]" args="%WIKITOOLNAME%, %URLPARAM{"tag" encode="url"}%"}%</title>" else="%IF{"defined category and $ category != ''" then="<title>%MAKETEXT{"[_1] blog posts in category: [_2]" args="%WIKITOOLNAME%, %URLPARAM{
+	"category" encode="url"}%"}%</title>" else="<title>%MAKETEXT{"[_1] blog posts in [_2] Web" args="%WIKITOOLNAME%, %WEB%"}%</title>"}%"}%<link>%SCRIPTURL{"view"}%/%WEB%</link>
+<description></description>
+<image rdf:resource="%WIKILOGOIMG%" />
+<dc:language>en-us</dc:language>
+<dc:rights>%WEBRSSCOPYRIGHT%</dc:rights>
+<dc:publisher>%WIKIWEBMASTERNAME% [%WIKIWEBMASTER%]</dc:publisher>
+<dc:creator>The contributing authors of %WIKITOOLNAME%</dc:creator>
+<dc:source>%WIKITOOLNAME%</dc:source>
+<items>
+<rdf:Seq>%SEARCH{
+	"BlogPostForm%IF{"defined category and $ category != ''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $ tag != ''" then=" AND fields[name='Tags'].value=~'\b%URLPARAM{"tag" encode="entity" default="%tag%"}%\b'"}%"
+   type="query"
+   scope="all"
+   excludetopic="BlogPostTemplate,BlogPost"
+   order="topic"
+   limit="%URLPARAM{"limit" default="16"}%"
+   zeroresults="on"
+   nonoise="on"
+   reverse="on"
+   date="%URLPARAM{"date" encode="quote" default="" }%"
+   format="      <rdf:li rdf:resource=\"%SCRIPTURL{"view"}%/$web/$topic\" />"
+}%</rdf:Seq>
+</items>
+</channel>
+<image rdf:about="%WIKILOGOIMG%">
+<title>%WIKILOGOALT%.%BASEWEB%</title>
+<link>%SCRIPTURL{"view"}%/%BASEWEB%</link>
+<url>%WIKILOGOIMG%</url>
+</image>
+%SEARCH{
+	"BlogPostForm%IF{"defined category and $ category != ''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $ tag != ''" then=" AND fields[name='Tags'].value=~'\b%URLPARAM{"tag" encode="entity" default="%tag%"}%\b'"}%"
+   type="query"
+   scope="all"
+   excludetopic="BlogPostTemplate,BlogPost"
+   order="topic"
+   limit="%URLPARAM{"limit" default="16"}%"
+   zeroresults="on"
+   nonoise="on"
+   reverse="on"
+format="<item rdf:about=\"%SCRIPTURL{"view"}%/$web/$topic\">  <title>$formfield(Title)</title>
+<link>%SCRIPTURL{"view"}%/$web/$topic</link>
+<description>$summary (last changed by $wikiname)</description>
+<dc:date>$isodate</dc:date>
+<dc:contributor>
+<rdf:Description link=\"%SCRIPTURL{"view"}%?topic=$wikiusername\">      
+<rdf:value>$username</rdf:value>
+</rdf:Description>  </dc:contributor>$n</item>"
+}%<!--
+   * Set SKIN = rss
+   * Set COVER = rss
+--></noautolink>

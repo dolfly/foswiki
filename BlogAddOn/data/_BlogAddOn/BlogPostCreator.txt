@@ -1,9 +1,11 @@
 %META:TOPICINFO{author="ProjectContributor" date="1165850723" format="1.1" version="1.1"}%
 ---+!! %MAKETEXT{"Write a new blog post"}%
-
-<script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/JavascriptFiles/foswikiString.js"></script>
-<script type="text/javascript" src="%PUBURLPATH%/%SYSTEMWEB%/JavascriptFiles/foswikiStringUnicodeChars.js"></script>
-<script type="text/javascript">
+%ADDTOZONE{
+"script"
+id="blogPostCreator"
+text="<literal><script type=\"text/javascript\" src=\"%PUBURL%/%SYSTEMWEB%/JavascriptFiles/foswikiString.js\"></script>
+<script type=\"text/javascript\" src=\"%PUBURLPATH%/%SYSTEMWEB%/JavascriptFiles/foswikiStringUnicodeChars.js\"></script>
+<script type=\"text/javascript\">
 /* <![CDATA[ */
 var didSwitchToJsField = false;
 	
@@ -15,18 +17,17 @@ function canSubmit() {
 
   document.forms.newTopicForm.Title.value = inputTitle;
   
-  inputTitle = inputTitle.replace(/^\s+|\s+$/g,""); // trim spaces at ends
-  //var topicName = "%GMTIME{"$year-$mo-$day"}%_" + inputTitle;
+  inputTitle = inputTitle.replace(/^\s+|\s+$/g,''); // trim spaces at ends
   var topicName = inputTitle;
-  topicName = topicName.replace(/_/g, "BLOGPOSTADDONUNDERSCORE");
-  topicName = topicName.replace(/\./g, "BLOGPOSTADDONUNDERSCORE");
-  topicName = topicName.replace(/ /g, "BLOGPOSTADDONUNDERSCORE");
-  topicName = topicName.replace(/-/g, "BLOGPOSTADDONDASH");
+  topicName = topicName.replace(/_/g, 'BLOGPOSTADDONUNDERSCORE');
+  topicName = topicName.replace(/\./g, 'BLOGPOSTADDONUNDERSCORE');
+  topicName = topicName.replace(/ /g, 'BLOGPOSTADDONUNDERSCORE');
+  topicName = topicName.replace(/-/g, 'BLOGPOSTADDONDASH');
   topicName = foswiki.String.capitalize(topicName);  
   topicName = foswiki.String.removeSpaces(topicName);
   topicName = foswiki.String.removePunctuation(topicName);
-  topicName = topicName.replace(/BLOGPOSTADDONUNDERSCORE/g, "_");
-  topicName = topicName.replace(/BLOGPOSTADDONDASH/g, "-");
+  topicName = topicName.replace(/BLOGPOSTADDONUNDERSCORE/g, '_');
+  topicName = topicName.replace(/BLOGPOSTADDONDASH/g, '-');
   
   if (!topicName) return false;
   
@@ -43,8 +44,7 @@ function canSubmit() {
   return true;
 }
 /* ]]> */
-</script>
-
+</script></literal>"}%
 <form name="newTopicForm" id="newTopicForm" action="%SCRIPTURLPATH{edit}%/%BASEWEB%/" onsubmit="return canSubmit();">
 <div class="foswikiFormSteps">
 <div class="foswikiFormStep">
@@ -56,7 +56,7 @@ function canSubmit() {
 <select tabindex="2" name="Category" class="foswikiSelect">
 <option>%MAKETEXT{"Select..."}%</option>
 %SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" format="<option>$pattern(.*   \*\s*([^\n]*).*)</option>"}%
-</select> <span class="foswikiSmallish">[[BlogCategory][%MAKETEXT{"Add categories..."}%]]</span>
+</select> <span class="foswikiSmallish"><a href="%SCRIPTURLPATH{view}%/%WEB%/BlogCategory">%MAKETEXT{"Add categories..."}%</a></span>
 </div>
 <div class="foswikiFormStep">
 <input type="hidden" name="Title" />

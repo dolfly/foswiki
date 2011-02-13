@@ -1,34 +1,52 @@
 %META:TOPICINFO{author="ProjectContributor" date="1165851072" format="1.1" version="1.1"}%
 %TMPL:INCLUDE{"view"}%
 
-
-<verbatim>
-%TMPL:DEF{"postinfo"}%%MAKETEXT{"[_1] by [_2] in [_3]" args="%REVINFO{rev="1" format="$date - $time"}%, %SEARCH{"%FORMFIELD{"Author"}%" web="%MAINWEB%" scope="topic" topic="%FORMFIELD{"Author"}%" nonoise="on" format="[[$web.$topic][$formfield(FirstName) $formfield(LastName)]]"}%, [[%SCRIPTURL{view}%/%BASEWEB%/BlogPost?category=%FORMFIELD{"Category"}%][%FORMFIELD{"Category"}%]]"}%%TMPL:END%
-
-
-%TMPL:DEF{"picture"}%<div class="foswikiLeft foswikiImage blogPostAddOnPicture">%INCLUDE{"%MAINWEB%.PersonalInfoLayoutModules" section="image" imgWeb="%MAINWEB%" imgTopic="%FORMFIELD{"Author"}%" 
-imgName="%FORMFIELD{"Picture" web="%MAINWEB%" topic="%FORMFIELD{"Author"}%"}%" imgWidth="80"}%</div><!--/foswikiLeft foswikiImage-->%TMPL:END%
-
-
-%TMPL:DEF{"content"}%%INCLUDE{"BlogAddOnStyles"}%
-<div class="foswikiTopic">%BROADCASTMESSAGE%
-%IF{"{Plugins}{BlogAddOn}{ShowPersonalInfoAddOnPictures}" then="$percntTMPL:P{picture}$percnt"}% <h1 class="blogAddOnTitle"> %FORMFIELD{"Title"}% </h1>
-<div class="foswikiGrayText foswikiSmallish blogPostAddOnHeaderInfo">%TMPL:P{"postinfo"}%</div><br class="foswikiClear" />
+%TMPL:DEF{"content"}%%ADDTOZONE{
+"head"
+id="blogPostView"
+text="<literal><style type=\"text/css\" media=\"all\">
+.blogAddOnTitle {
+	margin-bottom:5px;
+	padding-bottom:0;
+}
+.blogPostAddOnHeaderInfo {
+	margin:0 0 10px 0;
+	padding:0 0 5px 0;
+	border-bottom:1px solid #eee;
+}
+.blogPostAddOnPicture {
+	float:left;
+	margin:0 10px 10px 0;
+}
+.blogPostAddOnHeaderInfo {%IF{
+"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+then="
+	padding-left:65px;
+"}%}
+</style></literal>"
+}%<div class="foswikiTopic">%IF{
+"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+then="%INCLUDE{
+"%WEB%.BlogPost" section="blogPostAuthorPicture"
+imgWeb="%USERSWEB%"
+imgTopic="%FORMFIELD{"Author"}%"
+imgWidth="50"
+}%"}%<div class="blogPostAddOnHeaderInfo"><h1 class="blogAddOnTitle"> %FORMFIELD{"Title"}% </h1>
+<div class="blogPostAddOnInfo foswikiUnvisited">%INCLUDE{"%WEB%.BlogPost" section="blogPostInfo" web="%BASEWEB%" topic="%BASETOPIC%"}%</div><div class="foswikiClear"></div></div>
 %TEXT%
----++ %MAKETEXT{"Comments"}% <span style="font-size:60%"><a href="%SCRIPTURL{edit}%/%WEB%/%TOPIC%Comments?topicparent=%TOPIC%;t=%GMTIME{"$epoch"}%" style="text-decoration:none;">%MAKETEXT{"(edit)"}%</a></span>
-#BlogPostComments
-%INCLUDE{"%TOPIC%Comments" warn="off"}%
-
-%COMMENT{rows="6" cols="100" noform="on" type="blogpost" templatetopic="BlogPostCommentTemplate" target="%TOPIC%" button="%MAKETEXT{"Add comment"}%" }%
-</div>
+%IF{"(lc(CommentsDisabled)!='disabled')" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%</div>
 #BlogPostEnd
 %TMPL:END%
 
+%TMPL:DEF{"comments"}%---++ %MAKETEXT{"Comments"}% <span style='font-size:60%'><a href='%SCRIPTURL{edit}%/%WEB%/%TOPIC%Comments?topicparent=%TOPIC%;t=%GMTIME{"$epoch"}%' style='text-decoration:none;'>%MAKETEXT{"(edit)"}%</a></span>
+#BlogPostComments
+%INCLUDE{"%TOPIC%Comments" warn="off"}%
 
+%IF{"(lc(CommentsClosed)='closed')" then="<span class='foswikiGrayText'>Comments are closed</span>" else="$percntTMPL:P{$quotaddComments$quot}$percnt"}%
+%TMPL:END%
+
+
+%TMPL:DEF{"addComments"}%---+++ %MAKETEXT{"Leave your comment"}%
+%COMMENT{noform="on" type="blogpost" templatetopic="BlogPostCommentTemplate" target="%TOPIC%Comments" button="%MAKETEXT{"Add comment"}%"}%%TMPL:END%
 
 %TMPL:DEF{"form"}%%TMPL:END%
-
-%TMPL:DEF{"toptoolbar:webname"}%
----++!! [[%WEB%.%HOMETOPIC%][%IF{"defined WEBNAME" then="%WEBNAME%" else="%WEB%"}%]]
-%TMPL:END%
-</verbatim>

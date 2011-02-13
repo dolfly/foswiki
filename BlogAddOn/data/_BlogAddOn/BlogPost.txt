@@ -1,26 +1,91 @@
-%META:TOPICINFO{author="ProjectContributor" date="1165927036" format="1.1" reprev="1.1" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1297530465" format="1.1" reprev="1.1" version="1.1"}%
 ---+!! Blog posts
 <form method="get" action="%SCRIPTURL{view}%/%WEB%/BlogPostCreator">
 <input type="submit" class="foswikiButton" value="%MAKETEXT{"Write a new blog post"}%" />
 </form>
 
-%STARTINCLUDE%%INCLUDE{"BlogAddOnStyles"}%
+%STARTINCLUDE%%ADDTOZONE{
+"head"
+id="blogPost"
+text="<literal><style type=\"text/css\" media=\"all\">
+.blogPostAddOnItem {
+	padding:10px 0;
+	height:1%; /* for IE */
+	border-bottom:1px solid #eee;
+}
+.blogPostAddOnExcerpt {%IF{
+"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+then="
+	margin-left:50px;
+	padding-left:15px;
+"}%}
+.blogPostAddOnItem h3 {
+	font-size:115%;
+	font-weight:bold;
+	padding:0 0 3px 0;
+	margin:0;
+	border:none;
+}
+.blogPostAddOnSummary {
+	margin:.5em 0 0 0;
+}
+.blogPostAddOnPicture {
+	float:left;
+	margin:0 10px 10px 0;
+}
+/* sort and filter options */
+.blogPostAddOnViewOptions {
+	font-size:94%;
+	border-bottom:1px solid #ddd;
+	margin:1em 0 0 0;
+	padding:.5em 0;
+	height:1%; /* for IE */
+}
+.blogPostAddOnViewOptions a:link,
+.blogPostAddOnViewOptions a:visited {
+	font-weight:bold;
+}
+.blogPostAddOnViewOptions a:hover {
+}
+.blogPostAddOnViewOptions select,
+#noJsUpdateButton {
+	margin:0 .25em 0 0;
+}
+.blogPostViewOptionsFilter {
+	padding:0 0 0 .7em;
+}
+a.blogPostAddOnViewOptionsSubscribeLink:link,
+a.blogPostAddOnViewOptionsSubscribeLink:visited {
+	text-decoration:none;
+	font-weight:normal;
+}
+.blogPostAddOnLatestComment {
+	margin:.5em 0 0 0;
+}
+.blogPostAddOnLatestCommentCount {}
+/* list of posts */
+.blogPostAddOnOverview {}
+.blogPostAddOnOverview .blogPostAddOnHeaderInfo {
+	margin:0;
+}
+</style></literal>"
+}%
 #BlogPosts
 <div class="blogPostAddOnViewOptions">
 <!-- Sort options --><div class="foswikiLeft">
 <strong>%MAKETEXT{"Sort by:"}%</strong>&nbsp;
-%IF{"$ sort='formfield(Title)'" then='<strong>%MAKETEXT{"Title"}%</strong>' else="[[%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined limit and $ limit != ''" then="limit=%URLPARAM{"limit"}%;"}%sort=formfield(Title);sortdirection=ascending#BlogPosts][%MAKETEXT{"Title"}%]]"}%
-&nbsp; %IF{"$ sort='formfield(Category)'" then='<strong>%MAKETEXT{"Category"}%</strong>' else="[[%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined limit and $ limit != ''" then="limit=%URLPARAM{"limit"}%;"}%sort=formfield(Category);sortdirection=ascending#BlogPosts][%MAKETEXT{"Category"}%]]"}%
-&nbsp; %IF{"$ sort='formfield(Author)'" then='<strong>%MAKETEXT{"Author"}%</strong>' else="[[%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined limit and $ limit != ''" then="limit=%URLPARAM{"limit"}%;"}%sort=formfield(Author);sortdirection=ascending#BlogPosts][%MAKETEXT{"Author"}%]]"}%
-&nbsp; %IF{"$ sort='created'" then='<strong>%MAKETEXT{"Date"}%</strong>' else="[[%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined limit and $ limit != ''" then="limit=%URLPARAM{"limit"}%;"}%sort=created;sortdirection=descending#BlogPosts][%MAKETEXT{"Date"}%]]"}%
-&nbsp; %IF{"$ sort='modified'" then='<strong>%MAKETEXT{"Last modified"}%</strong>' else="[[%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined limit and $ limit != ''" then="limit=%URLPARAM{"limit"}%;"}%sort=modified;sortdirection=descending#BlogPosts][%MAKETEXT{"Last modified"}%]]"}%
+%IF{"$ sort='formfield(Title)'" then='<strong>%MAKETEXT{"Title"}%</strong>' else="<span class='foswikiUnvisited'><a href='%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined pagesize and $ pagesize != ''" then="pagesize=%URLPARAM{"pagesize"}%;"}%sort=formfield(Title);sortdirection=ascending#BlogPosts'>%MAKETEXT{"Title"}%</a></span>"}%
+&nbsp; %IF{"$ sort='formfield(Category)'" then='<strong>%MAKETEXT{"Category"}%</strong>' else="<span class='foswikiUnvisited'><a href='%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined pagesize and $ pagesize != ''" then="pagesize=%URLPARAM{"pagesize"}%;"}%sort=formfield(Category);sortdirection=ascending#BlogPosts'>%MAKETEXT{"Category"}%</a></span>"}%
+&nbsp; %IF{"$ sort='formfield(Author)'" then='<strong>%MAKETEXT{"Author"}%</strong>' else="<span class='foswikiUnvisited'><a href='%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined pagesize and $ pagesize != ''" then="pagesize=%URLPARAM{"pagesize"}%;"}%sort=formfield(Author);sortdirection=ascending#BlogPosts'>%MAKETEXT{"Author"}%</a></span>"}%
+&nbsp; %IF{"$ sort='formfield(PublishingDate)'" then='<strong>%MAKETEXT{"Publishing date"}%</strong>' else="<span class='foswikiUnvisited'><a href='%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined pagesize and $ pagesize != ''" then="pagesize=%URLPARAM{"pagesize"}%;"}%sort=formfield(PublishingDate);sortdirection=descending#BlogPosts'>%MAKETEXT{"Publishing date"}%</a></span>"}%
+&nbsp; %IF{"$ sort='modified'" then='<strong>%MAKETEXT{"Last modified"}%</strong>' else="<span class='foswikiUnvisited'><a href='%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%?%IF{"defined category and $ category != ''" then="category=%URLPARAM{"category"}%;"}%%IF{"defined pagesize and $ pagesize != ''" then="pagesize=%URLPARAM{"pagesize"}%;"}%sort=modified;sortdirection=descending#BlogPosts'>%MAKETEXT{"Last modified"}%</a></span>"}%
 </div><!--/foswikiLeft-->
-<!-- Filter options --><form name="blogPostCategorySelection" action="%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%#BlogPosts" method="get"><div id="noJsUpdateButton" class="foswikiRight blogPostViewOptionsFilter">%BR%<input type="submit" class="foswikiButton" value='%MAKETEXT{"Update"}%' /></div>
+<!-- Filter options --><noautolink><form name="blogPostCategorySelection" action="%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%#BlogPosts" method="get"><div id="noJsUpdateButton" class="foswikiRight blogPostViewOptionsFilter">%BR%<input type="submit" class="foswikiButton" value='%MAKETEXT{"Update"}%' /></div>
 <div class="foswikiRight">%IF{"defined sort and $ sort != ''" then='<input type="hidden" name="sort" value="%URLPARAM{"sort" default="%sort%" encode="url"}%" />'}%<nop>
 %IF{"defined sortdirection and $ sortdirection != ''" then='<input type="hidden" name="sortdirection" value="%URLPARAM{"sortdirection" default="%sortdirection%" encode="url"}%" />'}%<nop>
 <div class="foswikiLeft blogPostViewOptionsFilter">
-<strong>%MAKETEXT{"Limit to:"}%</strong>&nbsp;
-<select class="foswikiSelect" name="limit" onchange="document.forms.blogPostCategorySelection.submit()">%IF{"defined limit and $ limit != '' and $ limit != 'no_limit'" then="<option selected>%URLPARAM{"limit" default="%limit%"}%</option><option disabled value=\"\">-----</option>"}%<option %IF{"defined limit and $ limit = ''" then="selected"}% value="no_limit">%MAKETEXT{"No limit"}%</option>
+<strong>%MAKETEXT{"Results per page:"}%</strong>&nbsp;
+<select class="foswikiSelect" name="pagesize" onchange="document.forms.blogPostCategorySelection.submit()">%IF{"defined pagesize and $ pagesize != '' and $ pagesize != 'no_pagesize'" then="<option selected>%URLPARAM{"pagesize" default="%pagesize%"}%</option><option disabled value=\"\">-----</option>"}%<option %IF{"defined pagesize and $ pagesize = ''" then="selected"}% value="no_pagesize">%MAKETEXT{"Show all"}%</option>
 <option>10</option>
 <option>25</option>
 <option>50</option>
@@ -30,15 +95,22 @@
 <div class="foswikiLeft blogPostViewOptionsFilter">
 <strong>%MAKETEXT{"Category:"}%</strong>&nbsp;
 <select class="foswikiSelect" name="category" onchange="document.forms.blogPostCategorySelection.submit()">%IF{"defined category and $ category != ''" then='<option selected>%URLPARAM{"category" default="%category%"}%</option><option disabled value="">-----</option>'"}%
-<option %IF{"defined category and $ category = ''" then="selected=\"selected\""}% value="">%MAKETEXT{"All categories"}%</option>
-%SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" format="<option>$pattern(.*   \*\s([^\n]*).*)</option>"}%
-</select>&nbsp;<noautolink><a class="blogPostAddOnViewOptionsSubscribeLink" title='%IF{"defined category and $ category != ''" then="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in category [_1]" args="%URLPARAM{"category" encode="entity"}%"}%" else="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in all categories"}%"}%' href='%SCRIPTURL{"view"}%/%BASEWEB%/WebRss?search=%ENCODE{"[T]opicType.*value\=.*(BlogPost);[C]ategory.*value\=.*(%URLPARAM{"category"}%)" type="url"}%;regex=on;casesensitive=on;excludetopic=BlogPostTemplate,BlogPost;limit=16;scope=text'>%MAKETEXT{"Subscribe"}%</a></noautolink>
+<option %IF{"defined category and $ category = ''" then="selected=\"selected\""}% value="">%MAKETEXT{"Any category"}%</option>
+%SEARCH{
+"   *\s*.*?"
+topic="BlogCategory"
+type="regex"
+multiple="on"
+casesensitive="on"
+nonoise="on"
+format="<option>$pattern(.*   \*\s([^\n]*).*)</option>"
+}%
+</select>&nbsp;<noautolink><a class="blogPostAddOnViewOptionsSubscribeLink" title='%IF{"defined category and $ category != ''" then="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in category [_1]" args="%URLPARAM{"category" encode="entity"}%"}%" else="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in all categories"}%"}%' href='%SCRIPTURL{"view"}%/%BASEWEB%/BlogRss?category=%URLPARAM{"category" encode="url"}%;tag=%URLPARAM{"tag" encode="url"}%'>%ICON{rss-small}% %MAKETEXT{"Subscribe"}%</a></noautolink>
 </div>
-<br class="foswikiClear" />
+<div class="foswikiClear"></div>
 </div>
-</form>
-<br class="foswikiClear" />
-<div class="blogPostAddOnViewOptionsDivider"></div>
+</form></noautolink>
+<div class="foswikiClear"></div>
 </div>
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -46,18 +118,93 @@
 document.getElementById("noJsUpdateButton").style.display = 'none';
 /* ]]> */
 </script>
-<div class="blogPostAddOnOverview">%STARTSECTION{"simple"}%
-%SEARCH{"[T]opicType.*value\=.*(BlogPost)%IF{"defined category and $ category != ''" then=";[C]ategory.*value\=.*(%URLPARAM{"category" encode="entity" default="%category%"}%)"}%" web="%WEB%" nonoise="on" excludetopic="*Template" type="regex" casesensitive="on" format="%INCLUDE{"%TOPIC%" section="blogPostAddOnItem"}%"  order="%IF{"defined sort" then="%URLPARAM{"sort" encode="url" default="%sort%"}%" else="created"}%" reverse="%IF{"defined sortdirection" then="%URLPARAM{"sortdirection" encode="url" default="%sortdirection%"}%" else=""}%" limit="%IF{"defined limit" then="%URLPARAM{"limit" encode="url" default="%limit%"}%" else="all"}%" "}%
-%ENDSECTION{"simple"}%</div>%STOPINCLUDE%
+<div class="blogPostAddOnOverview">%IF{
+"defined tag and $ tag != ''"
+then="<h2>%MAKETEXT{"Blog posts tagged: [_1]" args="%URLPARAM{"tag" encode="entity" default="%tag%"}%"}%</h2>"
+}%%IF{
+"defined category and $ category != ''"
+then="<h2>%MAKETEXT{"Blog posts in category: [_1]" args="%URLPARAM{"category" encode="entity" default="%category%"}%"}%</h2>"
+}%
+%SEARCH{
+type="query"
+"BlogPostForm%IF{"defined category and $ category != ''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $ tag != ''" then=" AND fields[name='Tags'].value=~'\b%URLPARAM{"tag" encode="entity" default="%tag%"}%\b'"}%"
+web="%WEB%"
+nonoise="on"
+excludetopic="*Template"
+casesensitive="on"
+format="%INCLUDE{"%TOPIC%" section="blogPostAddOnItem"}%"
+order="%IF{"defined sort" then="%URLPARAM{"sort" encode="" default="%sort%"}%" else="created"}%"
+reverse="%IF{"$sortdirection='descending'" then="on" else=""}%"
+pagesize="%IF{"defined pagesize" then="%URLPARAM{"pagesize" encode="" default="%pagesize%"}%" else="all"}%"
+pager="on"
+}%
+</div>%STOPINCLUDE%
 
 <verbatim style="display:none;">
-%STARTSECTION{"blogPostAddOnItem"}%<div class=\"blogPostAddOnItem\">
----+++!! [[$web.$topic][$formfield(Title)]]
-<div class=\"foswikiGrayText foswikiSmallish blogPostAddOnHeaderInfo\">%MAKETEXT{"[_1][_2] in [_3]" args="$createdate, 
-$percntSEARCH{$quot$formfield(Author)$quot scope=$quottopic$quot topic=$quot$formfield(Author)$quot web=$quot%MAINWEB%$quot nonoise=$quoton$quot format=$quot by [[$dollarweb.$dollartopic][$dollarformfield(FirstName) $dollarformfield(LastName)]]$quot}$percnt, <a href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?category=<nop>$formfield(Category);sort=<nop>%URLPARAM{"sort"}%;limit=%URLPARAM{"limit"}%#BlogPosts'><nop>$formfield(Category)</a>"}%</div>
-%IF{"{Plugins}{BlogAddOn}{ShowPersonalInfoAddOnPictures}" then="$percntINCLUDE{$quot$percntTOPIC$percnt$quot section=$quotblogPostAddOnItemPicture$quot}$percnt"}%<div class=\"blogPostAddOnSummary\">$summary(200)</div>$percnt$nopSEARCH{$quot$topicComments$quot scope=$quottopic$quot nonoise=$quoton$quot format=$quot<span class='blogPostAddOnLatestComment foswikiGrayText'>Comments: $dollarcount(.*?(#CommentDate).*) - <a href='$percntSCRIPTURL{view}$percnt/$web/$topic?r=$dollarrev#BlogPostPrompt'>latest comment by $percntSPACEOUT{$quot<nop>$dollarwikiname$quot}$percnt</a> - $dollardate</span>$quot}$percnt
-<br class=\"foswikiClear\" /></div><!--/blogPostAddOnItem-->%ENDSECTION{"blogPostAddOnItem"}%
 
-%STARTSECTION{"blogPostAddOnItemPicture"}%<div class=\"foswikiLeft foswikiImage\">$percntINCLUDE{$quot%MAINWEB%.PersonalInfoLayoutModules$quot section=$quotimage$quot imgWeb=$quot%MAINWEB%$quot imgTopic=$quot$formfield(Author)$quot
-imgName=$quot$percntFORMFIELD{$quotPicture$quot web=$quot$percntMAINWEB$percnt$quot topic=$quot$formfield(Author)$quot}$percnt$quot imgWidth=$quot40$quot}$percnt</div><!--/foswikiLeft foswikiImage-->%ENDSECTION{"blogPostAddOnItemPicture"}%
+<!--
+blogPostAddOnItem
+-->
+%STARTSECTION{"blogPostAddOnItem"}%<div class='blogPostAddOnItem'>
+%IF{
+"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+then="$percntINCLUDE{$quot%WEB%.BlogPost$quot section=$quotblogPostAuthorPicture$quot imgWeb=$quot%USERSWEB%$quot imgTopic=$quot$formfield(Author)$quot imgWidth=$quot50$quot}$percnt"
+}%<div class='blogPostAddOnExcerpt'><h3>[[$web.$topic][$formfield(Title)]]</h3>
+<div class='blogPostAddOnHeaderInfo foswikiUnvisited'>$percntINCLUDE{$quot%WEB%.BlogPost$quot section=$quotblogPostInfo$quot web=$quot$web$quot topic=$quot$topic$quot}$percnt</div>
+<div class='blogPostAddOnSummary'>$summary(200)</div>$percnt$nopSEARCH{$quot$topicComments$quot scope=$quottopic$quot nonoise=$quoton$quot format=$quot<span class='blogPostAddOnLatestComment foswikiGrayText'>Comments: $dollarcount(.*?(#CommentDate).*) - <a href='$percntSCRIPTURL{view}$percnt/$web/$topic?r=$dollarrev#BlogPostPrompt'>latest comment by $percntSPACEOUT{$quot<nop>$dollarwikiname$quot}$percnt</a> - $dollardate</span>$quot}$percnt
+</div><div class='foswikiClear'></div></div>%ENDSECTION{"blogPostAddOnItem"}%
+
+<!--
+blogPostInfo
+	params: web, topic
+-->
+%STARTSECTION{"blogPostInfo"}%%MAKETEXT{"[_1] [_2] [_3]" args="
+%FORMFIELD{
+"PublishingDate"
+topic="%web%.%topic%"
+default="%REVINFO{rev="1" format="$date" topic="%web%.%topic%"}%"
+alttext="%REVINFO{rev="1" format="$date" topic="%web%.%topic%"}%"
+}%
+,
+%IF{
+"istopic '%USERSWEB%.%FORMFIELD{"Author" topic="%web%.%topic%"}%' AND '%USERSWEB%/%FORMFIELD{"Author" topic="%web%.%topic%"}%'/fields[name='FirstName']"
+then="by [[%USERSWEB%.%FORMFIELD{"Author" topic="%web%.%topic%"}%][%QUERY{
+"'%USERSWEB%/%FORMFIELD{"Author" topic="%web%.%topic%"}%'/fields[name='FirstName'].value"
+}% %QUERY{"'%USERSWEB%/%FORMFIELD{"Author" topic="%web%.%topic%"}%'/fields[name='LastName'].value"
+}%]]"
+else="by <noautolink>%FORMFIELD{"Author" topic="%web%.%topic%"}%</noautolink>"}%
+,
+%FORMFIELD{
+"Category"
+topic="%web%.%topic%"
+format="in [[%SCRIPTURL{view}%/%web%/BlogPost?category=$value][$value]]"
+}%"
+}%%INCLUDE{"%WEB%.%TOPIC%" section="blogPostTags"}%%ENDSECTION{"blogPostInfo"}%
+
+<!--
+blogPostTags
+	params: web, topic
+-->
+%STARTSECTION{"blogPostTags"}%%FORMAT{
+"%FORMFIELD{"Tags" topic="%web%.%topic%"}%"
+header=" <img src='%ICONURLPATH{tag}%' width='16' alt='tagged' /> "
+type="string"
+format="[[%SCRIPTURL{view}%/%web%/BlogPost?tag=$item][$item]]"
+separator=", "
+}%%ENDSECTION{"blogPostTags"}%
+
+<!--
+authorPicture
+	params: imgWeb, imgTopic, imgWidth
+-->
+%STARTSECTION{"blogPostAuthorPicture"}%<div class='blogPostAddOnPicture'>%INCLUDE{
+"%TOPIC%"
+section="%IF{"context ImagePluginEnabled" then="imagePluginImage" else="pubImage"}%"
+}%
+</div>%ENDSECTION{"blogPostAuthorPicture"}%
+
+%STARTSECTION{"pubImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot<img src='%PUBURL%/%imgWeb%/%imgTopic%/$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt' width='%imgWidth%' />$quot else=$quot<img src='%PUBURL%/%SYSTEMWEB%/PersonalInfoAddOn/silhouette.gif' width='%imgWidth%' />$quot}$percnt%ENDSECTION{"pubImage"}%
+
+%STARTSECTION{"imagePluginImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot$percntIMAGE{web=\"%imgWeb%\" topic=\"%imgTopic%\" \"$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt\" align=\"none\" title=\"%MAKETEXT{"Enlarge"}%\" size=\"%imgWidth%\"}$percnt$quot else=$quot$percntIMAGE{web=\"%SYSTEMWEB%\" topic=\"PersonalInfoAddOn\" \"silhouette.gif\" align=\"none\" size=\"%imgWidth%\"}$percnt$quot}$percnt%ENDSECTION{"imagePluginImage"}%
+
 </verbatim>
