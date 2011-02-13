@@ -12,3 +12,4 @@ data/System/BlogAddOn.txt 0660
 lib/Foswiki/Contrib/BlogAddOn.pm 0644 Stub module for Version/Release strings
 pub/System/BlogAddOn/screenshot_list.png 0660
 pub/System/BlogAddOn/screenshot_post.png 0660
+pub/System/BlogAddOn/silhouette.gif 0660

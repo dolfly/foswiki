@@ -203,8 +203,8 @@ section="%IF{"context ImagePluginEnabled" then="imagePluginImage" else="pubImage
 }%
 </div>%ENDSECTION{"blogPostAuthorPicture"}%
 
-%STARTSECTION{"pubImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot<img src='%PUBURL%/%imgWeb%/%imgTopic%/$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt' width='%imgWidth%' />$quot else=$quot<img src='%PUBURL%/%SYSTEMWEB%/PersonalInfoAddOn/silhouette.gif' width='%imgWidth%' />$quot}$percnt%ENDSECTION{"pubImage"}%
+%STARTSECTION{"pubImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot<img src='%PUBURL%/%imgWeb%/%imgTopic%/$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt' width='%imgWidth%' />$quot else=$quot<img src='%PUBURL%/%SYSTEMWEB%/BlogAddOn/silhouette.gif' width='%imgWidth%' />$quot}$percnt%ENDSECTION{"pubImage"}%
 
-%STARTSECTION{"imagePluginImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot$percntIMAGE{web=\"%imgWeb%\" topic=\"%imgTopic%\" \"$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt\" align=\"none\" title=\"%MAKETEXT{"Enlarge"}%\" size=\"%imgWidth%\"}$percnt$quot else=$quot$percntIMAGE{web=\"%SYSTEMWEB%\" topic=\"PersonalInfoAddOn\" \"silhouette.gif\" align=\"none\" size=\"%imgWidth%\"}$percnt$quot}$percnt%ENDSECTION{"imagePluginImage"}%
+%STARTSECTION{"imagePluginImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot$percntIMAGE{web=\"%imgWeb%\" topic=\"%imgTopic%\" \"$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt\" align=\"none\" title=\"%MAKETEXT{"Enlarge"}%\" size=\"%imgWidth%\"}$percnt$quot else=$quot$percntIMAGE{web=\"%SYSTEMWEB%\" topic=\"BlogAddOn\" \"silhouette.gif\" align=\"none\" size=\"%imgWidth%\"}$percnt$quot}$percnt%ENDSECTION{"imagePluginImage"}%
 
 </verbatim>
