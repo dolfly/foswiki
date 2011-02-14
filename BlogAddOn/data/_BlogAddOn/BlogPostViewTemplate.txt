@@ -19,13 +19,13 @@ text="<literal><style type=\"text/css\" media=\"all\">
 	margin:0 10px 10px 0;
 }
 .blogPostAddOnHeaderInfo {%IF{
-"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+"defined BLOGPOSTADDON_AUTHOR_PICTURE_FIELD and $BLOGPOSTADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="
 	padding-left:65px;
 "}%}
 </style></literal>"
 }%<div class="foswikiTopic">%IF{
-"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+"defined BLOGPOSTADDON_AUTHOR_PICTURE_FIELD and $BLOGPOSTADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="%INCLUDE{
 "%WEB%.BlogPost" section="blogPostAuthorPicture"
 imgWeb="%USERSWEB%"

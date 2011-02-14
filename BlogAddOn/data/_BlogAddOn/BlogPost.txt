@@ -14,7 +14,7 @@ text="<literal><style type=\"text/css\" media=\"all\">
 	border-bottom:1px solid #eee;
 }
 .blogPostAddOnExcerpt {%IF{
-"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+"defined BLOGPOSTADDON_AUTHOR_PICTURE_FIELD and $BLOGPOSTADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="
 	margin-left:50px;
 	padding-left:15px;
@@ -147,7 +147,7 @@ blogPostAddOnItem
 -->
 %STARTSECTION{"blogPostAddOnItem"}%<div class='blogPostAddOnItem'>
 %IF{
-"$BLOGPOSTADDON_AUTHOR_PICTURE_FIELD" 
+"defined BLOGPOSTADDON_AUTHOR_PICTURE_FIELD and $BLOGPOSTADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="$percntINCLUDE{$quot%WEB%.BlogPost$quot section=$quotblogPostAuthorPicture$quot imgWeb=$quot%USERSWEB%$quot imgTopic=$quot$formfield(Author)$quot imgWidth=$quot50$quot}$percnt"
 }%<div class='blogPostAddOnExcerpt'><h3>[[$web.$topic][$formfield(Title)]]</h3>
 <div class='blogPostAddOnHeaderInfo foswikiUnvisited'>$percntINCLUDE{$quot%WEB%.BlogPost$quot section=$quotblogPostInfo$quot web=$quot$web$quot topic=$quot$topic$quot}$percnt</div>
@@ -203,8 +203,8 @@ section="%IF{"context ImagePluginEnabled" then="imagePluginImage" else="pubImage
 }%
 </div>%ENDSECTION{"blogPostAuthorPicture"}%
 
-%STARTSECTION{"pubImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot<img src='%PUBURL%/%imgWeb%/%imgTopic%/$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt' width='%imgWidth%' />$quot else=$quot<img src='%PUBURL%/%SYSTEMWEB%/BlogAddOn/silhouette.gif' width='%imgWidth%' />$quot}$percnt%ENDSECTION{"pubImage"}%
+%STARTSECTION{"pubImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot<img src='%PUBURL%/%imgWeb%/%imgTopic%/$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt' width='%imgWidth%' />$quot else=$quot<img src='%PUBURL%/%SYSTEMWEB%/PersonalInfoAddOn/silhouette.gif' width='%imgWidth%' />$quot}$percnt%ENDSECTION{"pubImage"}%
 
-%STARTSECTION{"imagePluginImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot$percntIMAGE{web=\"%imgWeb%\" topic=\"%imgTopic%\" \"$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt\" align=\"none\" title=\"%MAKETEXT{"Enlarge"}%\" size=\"%imgWidth%\"}$percnt$quot else=$quot$percntIMAGE{web=\"%SYSTEMWEB%\" topic=\"BlogAddOn\" \"silhouette.gif\" align=\"none\" size=\"%imgWidth%\"}$percnt$quot}$percnt%ENDSECTION{"imagePluginImage"}%
+%STARTSECTION{"imagePluginImage"}%$percntIF{$quot'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot$percntIMAGE{web=\"%imgWeb%\" topic=\"%imgTopic%\" \"$percntQUERY{\"'%imgWeb%/%imgTopic%'/%BLOGPOSTADDON_AUTHOR_PICTURE_FIELD%\"}$percnt\" align=\"none\" title=\"%MAKETEXT{"Enlarge"}%\" size=\"%imgWidth%\"}$percnt$quot else=$quot$percntIMAGE{web=\"%SYSTEMWEB%\" topic=\"PersonalInfoAddOn\" \"silhouette.gif\" align=\"none\" size=\"%imgWidth%\"}$percnt$quot}$percnt%ENDSECTION{"imagePluginImage"}%
 
 </verbatim>
