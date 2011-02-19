@@ -1,11 +1,12 @@
-%META:TOPICINFO{author="ProjectContributor" date="1165851072" format="1.1" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" version="1.1"}%
 
 
 %META:FORM{name="BlogPostForm"}%
 %META:FIELD{name="Title" attributes="M,H" title="Title" value="%25URLPARAM%7b%22Title%22%7d%25"}%
-%META:FIELD{name="Category" attributes="M,H" title="Category" value="%25URLPARAM%7b%22Categoty%22%7d%25"}%
-%META:FIELD{name="Author" attributes="M,H" title="Author" value=""}%
+%META:FIELD{name="Category" attributes="M,H" title="Category" value="%25URLPARAM%7b%22Category%22%7d%25"}%
+%META:FIELD{name="Author" attributes="M,H" title="Author" value="%25URLPARAM%7b%22Author%22%7d%25"}%
 %META:FIELD{name="Tags" attributes="" title="Tags" value=""}%
+%META:FIELD{name="PublishingDate" attributes="H" title="<nop>PublishingDate" value="%25DATE%25"}%
 %META:FIELD{name="TopicType" attributes="H" title="<nop>TopicType" value=""}%
 %META:FIELD{name="CommentsDisabled" attributes="" title="<nop>CommentsDisabled" value=""}%
 %META:FIELD{name="CommentsClosed" attributes="" title="<nop>CommentsClosed" value=""}%

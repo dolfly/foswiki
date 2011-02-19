@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1165850723" format="1.1" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" version="1.1"}%
 ---+!! %MAKETEXT{"Write a new blog post"}%
 %ADDTOZONE{
 "script"
@@ -55,11 +55,20 @@ function canSubmit() {
 *%MAKETEXT{"Category:"}%* %MAKETEXT{"(you may choose later)"}% %BR%
 <select tabindex="2" name="Category" class="foswikiSelect">
 <option>%MAKETEXT{"Select..."}%</option>
-%SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" format="<option>$pattern(.*   \*\s*([^\n]*).*)</option>"}%
+%SEARCH{
+"   *\s*.*?"
+topic="BlogCategory"
+type="regex"
+multiple="on"
+casesensitive="on"
+nonoise="on"
+format="<option>$pattern(.*   \*\s*([^\n]*).*)</option>"
+}%
 </select> <span class="foswikiSmallish"><a href="%SCRIPTURLPATH{view}%/%WEB%/BlogCategory">%MAKETEXT{"Add categories..."}%</a></span>
 </div>
 <div class="foswikiFormStep">
 <input type="hidden" name="Title" />
+<input type="hidden" name="Author" value="%WIKINAME%" />
 <input type="hidden" name="nonwikiword" value="on" />
 <input type="hidden" name="onlywikiname" value="off" />
 <input type="hidden" name="onlynewtopic" value="on" />

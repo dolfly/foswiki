@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1165851072" format="1.1" version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" version="1.1"}%
 %TMPL:INCLUDE{"view"}%
 
 %TMPL:DEF{"content"}%%ADDTOZONE{
@@ -19,20 +19,29 @@ text="<literal><style type=\"text/css\" media=\"all\">
 	margin:0 10px 10px 0;
 }
 .blogPostAddOnHeaderInfo {%IF{
-"defined BLOGPOSTADDON_AUTHOR_PICTURE_FIELD and $BLOGPOSTADDON_AUTHOR_PICTURE_FIELD!=''" 
+"defined BLOGADDON_AUTHOR_PICTURE_FIELD and $BLOGADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="
 	padding-left:65px;
 "}%}
 </style></literal>"
 }%<div class="foswikiTopic">%IF{
-"defined BLOGPOSTADDON_AUTHOR_PICTURE_FIELD and $BLOGPOSTADDON_AUTHOR_PICTURE_FIELD!=''" 
+"defined BLOGADDON_AUTHOR_PICTURE_FIELD and $BLOGADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="%INCLUDE{
-"%WEB%.BlogPost" section="blogPostAuthorPicture"
+"%WEB%.BlogPost"
+section="blogPostAuthorPicture"
 imgWeb="%USERSWEB%"
 imgTopic="%FORMFIELD{"Author"}%"
 imgWidth="50"
+context="post"
 }%"}%<div class="blogPostAddOnHeaderInfo"><h1 class="blogAddOnTitle"> %FORMFIELD{"Title"}% </h1>
-<div class="blogPostAddOnInfo foswikiUnvisited">%INCLUDE{"%WEB%.BlogPost" section="blogPostInfo" web="%BASEWEB%" topic="%BASETOPIC%"}%</div><div class="foswikiClear"></div></div>
+<div class="blogPostAddOnInfo foswikiUnvisited">%INCLUDE{
+"%WEB%.BlogPost"
+section="blogPostInfo"
+web="%BASEWEB%"
+topic="%BASETOPIC%"
+context="post"
+author="%FORMFIELD{"Author"}%"
+}%</div><div class="foswikiClear"></div></div>
 %TEXT%
 %IF{"(lc(CommentsDisabled)!='disabled')" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%</div>
 #BlogPostEnd

@@ -1,13 +1,14 @@
-%META:TOPICINFO{author="ProjectContributor" date="1297527484" format="1.1" reprev="1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1298151288" format="1.1" reprev="1" version="1"}%
 %META:TOPICPARENT{name="BlogPost"}%
 This is an example blog post. You may now delete this topic...
 
 %META:FORM{name="BlogPostForm"}%
 %META:FIELD{name="Title" attributes="M,H" title="Title" value="Blog post example"}%
-%META:FIELD{name="Category" attributes="M,H" title="Category" value="Interesting"}%
+%META:FIELD{name="Category" attributes="H" title="Category" value="Interesting"}%
 %META:FIELD{name="Author" attributes="M,H" title="Author" value="ProjectContributor"}%
-%META:FIELD{name="Tags" attributes="" title="Tags" value=""}%
+%META:FIELD{name="Tags" attributes="H" title="Tags" value=""}%
+%META:FIELD{name="PublishingDate" attributes="H" title="<nop>PublishingDate" value="15 Feb 2011"}%
+%META:FIELD{name="CommentsDisabled" attributes="H" title="<nop>CommentsDisabled" value=""}%
+%META:FIELD{name="CommentsClosed" attributes="H" title="<nop>CommentsClosed" value=""}%
 %META:FIELD{name="TopicType" attributes="H" title="<nop>TopicType" value="BlogPost"}%
-%META:FIELD{name="CommentsDisabled" attributes="" title="<nop>CommentsDisabled" value=""}%
-%META:FIELD{name="CommentsClosed" attributes="" title="<nop>CommentsClosed" value=""}%
 %META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Local" value="BlogPostView"}%

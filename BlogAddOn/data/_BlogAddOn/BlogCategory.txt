@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1297528377" format="1.1" reprev="1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" reprev="1" version="1"}%
 ---+!! %MAKETEXT{"Blog categories"}%
 
 %ICON{"info"}% %MAKETEXT{"Add new categories to the list below."}%

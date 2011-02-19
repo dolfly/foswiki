@@ -1,72 +1,205 @@
-%META:TOPICINFO{author="ProjectContributor" date="1207599636" format="1.1"  version="1.1"}%
+%META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" reprev="1" version="1"}%
 ---+!! Blog !AddOn
-
-A simple weblog application based on Data Forms.
+%SHORTDESCRIPTION%.
 
 %TOC%
 
 ---++ Screenshots
 <div class="foswikiHelp">
-Example list view (with Foswiki:Extensions/PersonalInfoAddOn pictures):
-
+<p>Example list view:</p>
 <div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_list.png" alt="screenshot_list.png" width='929' height='603' /></div>
-
-Example post:
-
+<p>Example post:</p>
 <div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_post.png" alt="screenshot_post.png" width='929' height='531' /></div> 
 </div>
 
 ---++ Features
-   * Integrates blog posts with Foswiki topics
+   * Integrates blog posts with Foswiki topics.
    * Uses editable categories to filter or group posts. Categories can also be used to distinguish multiple blogs with separate 'owners'.
-   * Provides a handy interface with sorting and filtering options that can be INCLUDEd in any topic in the same Web
-   * Optionally displays user pictures:
-      * (In !WebPreferences or !%USERSWEB%.SitePreferences) point preference setting =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD= to the field name of the user topic that contains the filename of the user picture. For example, for !PersonalInfoAddOn that field is named "Picture", so you would write: %BR%
-      <verbatim>   * Set BLOGPOSTADDON_AUTHOR_PICTURE_FIELD = Picture</verbatim>
-
-When installed, see _YourWebWithBlog_.BlogAddOnHome for additional details.
+   * Offers tags to further filter blog posts.
+   * Offers comments and options to hide or close comments.
+   * Provides a handy interface with sorting and filtering options that can be INCLUDEd in any topic in the same Web.
+   * Optionally displays user pictures; see [[#AddOnSettings][Settings]] below
 
 
+#WorkingWith
+---++ Working with !BlogAddOn
+<div class="foswikiHelp">
+To update the instructions on this page to point to your blog web, enter the name of the blog web:%BR%
+<form name="doc" action="%SCRIPTURL{view}%/%WEB%/%TOPIC%#WorkingWith" method="get">
+<input type="text" name="blogWeb" value="Blog" class="foswikiInputField" />&nbsp;<input type="submit" value="Update" class="foswikiButton" />
+</form>
+</div>
+Once you have copied the topics from _BlogAddOn (temporary) web to %URLPARAM{"blogWeb" default="the web you want the blog to appear"}%:
+   * Visit %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost for the overview of blog posts
+   * Visit %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPostCreator to create new blog entries
+   * Visit %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogCategories to edit the categories
+
+---+++ Putting the blog post list in a different topic
+To put the overview in a topic, write:
+<pre class="tml">
+%<nop>INCLUDE{"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"}%
+</pre>
+
+This will show all posts, grouped (paginated) by 10, the most recent first.
+
+It will also include the filter and sort options above the blog posts. If posts are filtered by category, it will show an additional title.
+
+---++++ List display options
+To show the blog posts *without filter/short controls*, write:
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+section="posts"
+}%
+</pre>
+
+To show *only the posts*, without filter/sort controls and without category title, write:
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+section="list"
+}%
+</pre>
+
+To add the *"Create a new post" button*, write:
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+section="createButton"
+}%
+</pre>
+Set a different button label with param =label=:
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+section="createButton"
+label="Write up!"
+}%
+</pre>
+
+---++++ Filtering and sorting options
+You may set display defaults, for example for category and sort field, using  additional parameters. Possible values are:
+
+%TABLE{sort="off" headeralign="left"}%
+| *Parameter* | *Possible values*  | *Default value*  |
+| =category=   | %SEARCH{"   *\s*.*?" topic="BlogCategory" web="%URLPARAM{"blogWeb" default="yourblogweb"}%" type="regex" multiple="on" casesensitive="on" nonoise="on" separator=", " format="=$pattern(.*   \*\s*([^\n]*).*)="}% (categories are defined in %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogCategory) | none |
+| =tag=       | Any tag (set in each blog post, comma separated) | none |
+| =sort=     | =formfield(Title)=, =formfield(Category)=, =formfield(Author)=, =formfield(<nop>PublishingDate)=, =modified=  | =created= (fallback) |
+| =sortdirection=   | =ascending=, =descending=  | =ascending=, when sorting on dates: =descending= |
+| =pagesize=     | How many posts are displayed per screen; can be any number  | =10= |
+
+---+++++ Showing the latests post, 15 posts per screen
+To show the latest posts (date defined by form field =PublishingDate=), latest post on top (is the default setting), 15 per screen, write:
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+sort="formfield(PublishingDate)"
+pagesize="15"
+}%
+</pre>
+
+---+++++ Showing blog posts in 1 category
+
+To show a list of blog posts in category "Interesting", write:
+<pre>
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+sort="formfield(PublishingDate)"
+category="Interesting"
+}%
+</pre>
+
+
+---+++ Creating filter links
+
+You may want to have a list of links that lead to a filtered blog post list. For instance, the link named "Interesting" would lead to a list of blog posts of that category.
+
+Here's how:
+<pre>
+<span class='foswikiUnvisited'>%<nop>SEARCH{"   *\s*.*?" topic="BlogCategory" web="%URLPARAM{"blogWeb" default="yourblogweb"}%" type="regex" multiple="on" casesensitive="on" nonoise="on" format="&lt;a href='%<nop>SCRIPTURL{view}%/%URLPARAM{"blogWeb" default="yourblogweb"}%/BlogPost?sort=created;pagesize=10;sortdirection=descending;category=$pattern(.*   \*\s*([^\n]*).*)'>$pattern(.*   \*\s*([^\n]*).*)&lt;/a>"}%</span>
+</pre>
+
+%IF{"defined blogWeb and $'blogWeb'!=''" then="This creates:%BR%
+<span class='foswikiUnvisited'>$percntSEARCH{$quot   *\s*.*?$quot topic=$quotBlogCategory$quot web=$quot%URLPARAM{"blogWeb" default="yourblogweb"}%$quot type=$quotregex$quot multiple=$quoton$quot casesensitive=$quoton$quot nonoise=$quoton$quot format=$quot<a href='%SCRIPTURL{view}%/%URLPARAM{"blogWeb" default="yourblogweb"}%/BlogPost?sort=created;pagesize=10;sortdirection=descending;category=$pattern(.*   \*\s*([^\n]*).*)'>$pattern(.*   \*\s*([^\n]*).*)</a>$quot}$percnt"}%</span>
+
+#AddOnSettings
 ---++ Settings
 
-   * Set SHORTDESCRIPTION = Simple blogging application
+   * To show user pictures:
+      * In WebPreferences or %USERSWEB%.SitePreferences: point preference setting =BLOGADDON_AUTHOR_PICTURE_FIELD= to the field name of the user topic that contains the filename of the user picture. For example, for !PersonalInfoAddOn that field is named "Picture", so you would write: %BR%
+      <pre class="tml">   * Set BLOGADDON_AUTHOR_PICTURE_FIELD = Picture</pre>
+   * To use a different list topic (default is %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost):
+      * In WebPreferences or %USERSWEB%.SitePreferences, or in the list topic itself, write: %BR%
+      <pre class="tml">   * Set BLOGADDON_LIST_TOPIC = %URLPARAM{"blogWeb" default="yourblogweb"}%.thelisttopic</pre>
+      * Note: if you wish to use the topic macro, write =BASETOPIC= instead of =TOPIC=; do not forget to add the Web. This is correct: =Set BLOGADDON_LIST_TOPIC = %<nop>BASEWEB%.%<nop>BASETOPIC%=
 
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+      
 ---++ Installation Instructions
 
    * Download the ZIP file from the Plugin web (see below)
    * Unzip ==%TOPIC%.zip== in your ($FOSWIKI_ROOT) directory.
-   * Copy the topics from =/data/_BlogAddOn= to the web you want the blog in
+   * Copy the topics from =/data/_BlogAddOn= to %URLPARAM{"blogWeb" default="the web you want the blog to appear"}%
    * Alternatively,
       * Manually resolve the dependencies listed below.
       %$DEPENDENCIES%
-      
+
+#AdminReference
+---++ Reference for administrators
+<div class="foswikiHelp">
+To update the instructions on this page to point to your blog web, enter the name of the blog web:%BR%
+<form name="doc" action="%SCRIPTURL{view}%/%WEB%/%TOPIC%#AdminReference" method="get">
+<input type="text" name="blogWeb" value="Blog" class="foswikiInputField" />&nbsp;<input type="submit" value="Update" class="foswikiButton" />
+</form>
+</div>
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost - overview of all posts with filtering and sorting options
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPostCreator - form to start new posts
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogCategory - editable list of blog categories
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPostForm - form definition with post data fields
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPostTemplate - every new post gets settings from this topic
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPostViewTemplate - every post is displayed through this view template
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPostCommentTemplate - form template for comment box (see %SYSTEMWEB%.CommentPlugin)
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogRss - RSS feed topic with filters for category, tags and author
+   * %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPostExample - example blog post; delete when everything works
+
+*Note:* Care must be taken when:
+   * Renaming post topics: the comment topic needs to be renamed as well
+      * The comment topic is created automatically when the first comment is submitted, using the syntax =topic name= + =Comment=.
+   * Renaming categories: the comment topics are not updated automatically
+   
+   
 ---++ !AddOn Info
 
-| Authors: | Foswiki:Main.ArthurClemens |
-| Copyright &copy;: | 2006-2011 Arthur Clemens |
-| License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
-| Dependencies: | %$DEPENDENCIES% |
-| Version: | %$VERSION% |
-| Release: | %$RELEASE% |
-| Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
+|  Authors: | Foswiki:Main.ArthurClemens |
+|  Copyright &copy;: | 2006-2011 Arthur Clemens |
+|  License: | [[http://www.gnu.org/copyleft/gpl.html][GPL]] |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
+|  Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
+|  19 Feb 2011 | 1.6.0 Re-arranged sort and filter options to fit on smaller screens. Improved filter interaction for categories, tags and authors. Moved documentation from !BlogAddOnHome to !BlogAddOn (this topic) and updated documentation. Added setting =BLOGADDON_LIST_TOPIC=. Changed =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD= to =BLOGADDON_AUTHOR_PICTURE_FIELD=. |
 |  13 Feb 2011 | 1.5.1 Simplified disply of author pictures: now use preference setting =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD=. Added options to close or hide comments, publishing date, tags and a blog specific rss feed. |
-|  6 Oct 2010 | 1.4 Foswikitask:Item9804 - Fix dependencies file and packaging issues on Foswiki 1.1 |
-| 10 Jan 2009 | 1.3 Foswiki release |
-| 07 Apr 2008 | 1.2 Added optional inclusion of author pictures from Foswiki:Extensions/PersonalInfoAddOn. *Important upgrade notice:* this version uses =WIKINAME= instead of  =WIKIUSERNAME= in the =Author= form field. This change is not compatible with existing blog topics. If you have existing posts, you must change all author names from =Main.<nop>UserName= to =<nop>UserName=. |
-| 26 Jan 2008 | 1.1 Adds the creation date to blog post topic names. Adds an Edit link to the Comments header in a blog post. Increases the height of the comment box. Bug fix: allow topic names with periods. |
-| 26 Jun 2007 | 1.0.9 Fixed html bug in !BlogPost; added comment count to !BlogPost; improved styling of form elements. |
-| 08 Apr 2007 | 1.0.8 Show link to latest comment in !BlogPost listing. Improved readability for comments. This version relies on CommentPlugin svn release number 13313 and PatternSkin svn release number 13320, but !BlogAddOn will now play nicely with other skins as well. | 
-| 06 Feb 2007 | 1.0.7 Added no-javascript fallback to !BlogPost and !BlogPostCreator (so that topic can actually be created without javascript). Fixed a javascript bug that was introduced when a Core function was renamed. |
-| 25 Feb 2007 | 1.0.6 URL param for limit setting now overrides INCLUDE parameter. |
-| 25 Feb 2007 | 1.0.5 Prevents recreation/overwriting of existing topics. Added "No limit" label to filter dropdown. |
-| 15 Feb 2007 | 1.0.4 Removed my name from the templates. |
-| 16 Dec 2006 | 1.0.3 The comment topic will automatically be created as child topic of the blog post. Changed parameter =reverse= to =sortdirection=.  |
-| 15 Dec 2006 | 1.0.2 RSS feed link to category filter, fixes to sorting/filtering.  |
-| 14 Dec 2006 | 1.0.1 Option to set defaults when including !BlogPost.  |
-| 12 Dec 2006 | 1.0 First release.  |
-| Home: | http://foswiki.org/Extensions/%TOPIC% |
-| Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
-| Support: | http://foswiki.org/Support/%TOPIC% |
+|  06 Oct 2010 | 1.4 Foswikitask:Item9804 - Fix dependencies file and packaging issues on Foswiki 1.1 |
+|  10 Jan 2009 | 1.3 Foswiki release |
+|  07 Apr 2008 | 1.2 Added optional inclusion of author pictures from Foswiki:Extensions/PersonalInfoAddOn. *Important upgrade notice:* this version uses =WIKINAME= instead of  =WIKIUSERNAME= in the =Author= form field. This change is not compatible with existing blog topics. If you have existing posts, you must change all author names from =Main.<nop>UserName= to =<nop>UserName=. |
+|  26 Jan 2008 | 1.1 Adds the creation date to blog post topic names. Adds an Edit link to the Comments header in a blog post. Increases the height of the comment box. Bug fix: allow topic names with periods. |
+|  26 Jun 2007 | 1.0.9 Fixed html bug in !BlogPost; added comment count to !BlogPost; improved styling of form elements. |
+|  08 Apr 2007 | 1.0.8 Show link to latest comment in !BlogPost listing. Improved readability for comments. This version relies on CommentPlugin svn release number 13313 and PatternSkin svn release number 13320, but !BlogAddOn will now play nicely with other skins as well. | 
+|  06 Feb 2007 | 1.0.7 Added no-javascript fallback to !BlogPost and !BlogPostCreator (so that topic can actually be created without javascript). Fixed a javascript bug that was introduced when a Core function was renamed. |
+|  25 Feb 2007 | 1.0.6 URL param for limit setting now overrides INCLUDE parameter. |
+|  25 Feb 2007 | 1.0.5 Prevents recreation/overwriting of existing topics. Added "No limit" label to filter dropdown. |
+|  15 Feb 2007 | 1.0.4 Removed my name from the templates. |
+|  16 Dec 2006 | 1.0.3 The comment topic will automatically be created as child topic of the blog post. Changed parameter =reverse= to =sortdirection=.  |
+|  15 Dec 2006 | 1.0.2 RSS feed link to category filter, fixes to sorting/filtering.  |
+|  14 Dec 2006 | 1.0.1 Option to set defaults when including !BlogPost.  |
+|  12 Dec 2006 | 1.0 First release.  |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
 
-%META:FILEATTACHMENT{name="screenshot_post.png" attr="" autoattached="1" comment="" date="1207599570" path="screenshot_post.png" size="51916" version=""}%
-%META:FILEATTACHMENT{name="screenshot_list.png" attr="" autoattached="1" comment="" date="1207599564" path="screenshot_list.png" size="92290" version=""}%
+%META:FILEATTACHMENT{name="icon_tag_delete_btn.png" attr="" autoattached="1" comment="" date="1297983721" path="icon_tag_delete_btn.png" size="3050" version=""}%
+%META:FILEATTACHMENT{name="screenshot_post.png" attr="" autoattached="1" comment="" date="1286420416" path="screenshot_post.png" size="51916" version=""}%
+%META:FILEATTACHMENT{name="screenshot_list.png" attr="" autoattached="1" comment="" date="1286420416" path="screenshot_list.png" size="92290" version=""}%
+%META:FILEATTACHMENT{name="silhouette.gif" attr="" autoattached="1" comment="" date="1225565135" path="silhouette.gif" size="1177" version=""}%

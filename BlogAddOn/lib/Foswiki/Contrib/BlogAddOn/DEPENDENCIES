@@ -1,3 +1,4 @@
 ONLYIF ( $Foswiki::Plugins::VERSION < 2.1)
 Foswiki::Plugins::ZonePlugin,>=3.1,perl,Required. required for Foswiki < 1.1
 Foswiki::Plugins::CommentPlugin,>=6512,perl,Required
+Foswiki::Plugins::SpreadSheetPlugin,>=1,perl,Required

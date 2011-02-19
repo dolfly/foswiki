@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.1" version="$Rev: 3942 $"}%
+%META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" version="$Rev: 3942 $"}%
 <noautolink><channel rdf:about="%SCRIPTURL{"view"}%/%WEB%">
 %IF{"defined tag and $ tag != ''" then="
 	<title>%MAKETEXT{"[_1] blog posts tagged: [_2]" args="%WIKITOOLNAME%, %URLPARAM{"tag" encode="url"}%"}%</title>" else="%IF{"defined category and $ category != ''" then="<title>%MAKETEXT{"[_1] blog posts in category: [_2]" args="%WIKITOOLNAME%, %URLPARAM{
@@ -12,7 +12,7 @@
 <dc:source>%WIKITOOLNAME%</dc:source>
 <items>
 <rdf:Seq>%SEARCH{
-	"BlogPostForm%IF{"defined category and $ category != ''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $ tag != ''" then=" AND fields[name='Tags'].value=~'\b%URLPARAM{"tag" encode="entity" default="%tag%"}%\b'"}%"
+	"BlogPostForm%IF{"defined category and $'category'!=''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $'tag'!= ''" then=" AND fields[name='Tags'].value=~'\b%URLPARAM{"tag" encode="entity" default="%tag%"}%\b'"}%%IF{"defined author and $'author'!= ''" then=" AND fields[name='Author'].value=~'\b%URLPARAM{"author" encode="entity" default="%author%"}%\b'"}%"
    type="query"
    scope="all"
    excludetopic="BlogPostTemplate,BlogPost"
@@ -32,7 +32,7 @@
 <url>%WIKILOGOIMG%</url>
 </image>
 %SEARCH{
-	"BlogPostForm%IF{"defined category and $ category != ''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $ tag != ''" then=" AND fields[name='Tags'].value=~'\b%URLPARAM{"tag" encode="entity" default="%tag%"}%\b'"}%"
+	"BlogPostForm%IF{"defined category and $ category != ''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $ tag != ''" then=" AND fields[name='Tags'].value=~'\b%URLPARAM{"tag" encode="entity" default="%tag%"}%\b'"}%%IF{"defined author and $'author'!= ''" then=" AND fields[name='Author'].value=~'\b%URLPARAM{"author" encode="entity" default="%author%"}%\b'"}%"
    type="query"
    scope="all"
    excludetopic="BlogPostTemplate,BlogPost"
