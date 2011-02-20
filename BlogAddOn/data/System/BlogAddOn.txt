@@ -1,16 +1,18 @@
 %META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" reprev="1" version="1"}%
 ---+!! Blog !AddOn
+<div class="foswikiNotification">
+Note: release 1.6 and onwards works on Foswiki 1.2 and newer. %BR%
+When upgrading, make sure not to overwrite !BlogCategory.
+</div>
 %SHORTDESCRIPTION%.
 
 %TOC%
 
 ---++ Screenshots
-<div class="foswikiHelp">
 <p>Example list view:</p>
-<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_list.png" alt="screenshot_list.png" width='929' height='603' /></div>
+<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_list.png" alt="screenshot_list.png" width='873' height='395' /></div>
 <p>Example post:</p>
-<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_post.png" alt="screenshot_post.png" width='929' height='531' /></div> 
-</div>
+<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_post.png" alt="screenshot_post.png" width='873' height='518' /></div> 
 
 ---++ Features
    * Integrates blog posts with Foswiki topics.
@@ -88,6 +90,16 @@ You may set display defaults, for example for category and sort field, using  ad
 | =sortdirection=   | =ascending=, =descending=  | =ascending=, when sorting on dates: =descending= |
 | =pagesize=     | How many posts are displayed per screen; can be any number  | =10= |
 
+<div class="foswikiNotification">
+If you are upgrading from a previous version (before 1.6.0), and your blog posts do not have the form field =<nop>PublishingDate=, set =sort= to =created= or =modified=:
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+sort="created"
+}%
+</pre>
+</div>
+
 ---+++++ Showing the latests post, 15 posts per screen
 To show the latest posts (date defined by form field =PublishingDate=), latest post on top (is the default setting), 15 per screen, write:
 <pre class="tml">
@@ -138,7 +150,10 @@ Here's how:
 -->
       
 ---++ Installation Instructions
-
+<div class="foswikiNotification">
+Note: release 1.6 and onwards works on Foswiki 1.2 and newer. %BR%
+When upgrading, make sure not to overwrite !BlogCategory.
+</div>
    * Download the ZIP file from the Plugin web (see below)
    * Unzip ==%TOPIC%.zip== in your ($FOSWIKI_ROOT) directory.
    * Copy the topics from =/data/_BlogAddOn= to %URLPARAM{"blogWeb" default="the web you want the blog to appear"}%
@@ -179,6 +194,7 @@ To update the instructions on this page to point to your blog web, enter the nam
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
+|  20 Feb 2011 | 1.6.1 Foswikitask:Item10378 - make sure the existing value of Category field is not lost. Documentation update. |
 |  19 Feb 2011 | 1.6.0 Re-arranged sort and filter options to fit on smaller screens. Improved filter interaction for categories, tags and authors. Moved documentation from !BlogAddOnHome to !BlogAddOn (this topic) and updated documentation. Added setting =BLOGADDON_LIST_TOPIC=. Changed =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD= to =BLOGADDON_AUTHOR_PICTURE_FIELD=. |
 |  13 Feb 2011 | 1.5.1 Simplified disply of author pictures: now use preference setting =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD=. Added options to close or hide comments, publishing date, tags and a blog specific rss feed. |
 |  06 Oct 2010 | 1.4 Foswikitask:Item9804 - Fix dependencies file and packaging issues on Foswiki 1.1 |

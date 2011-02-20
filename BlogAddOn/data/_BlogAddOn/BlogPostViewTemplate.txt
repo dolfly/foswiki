@@ -24,7 +24,7 @@ then="
 	padding-left:65px;
 "}%}
 </style></literal>"
-}%<div class="foswikiTopic">%IF{
+}%<div class="foswikiTopic"><noautolink>%IF{
 "defined BLOGADDON_AUTHOR_PICTURE_FIELD and $BLOGADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="%INCLUDE{
 "%WEB%.BlogPost"
@@ -41,7 +41,7 @@ web="%BASEWEB%"
 topic="%BASETOPIC%"
 context="post"
 author="%FORMFIELD{"Author"}%"
-}%</div><div class="foswikiClear"></div></div>
+}%</div><div class="foswikiClear"></div></div></noautolink>
 %TEXT%
 %IF{"(lc(CommentsDisabled)!='disabled')" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%</div>
 #BlogPostEnd

@@ -1,11 +1,11 @@
 %META:TOPICINFO{author="ProjectContributor" date="1298151080" format="1.1" reprev="1.1" version="1.1"}%
 ---+!! Form definition for blog posts
 
-See: BlogPost
+See: %SYSTEMWEB%.BlogAddOn
 
 | *Name*  | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | Title | text | 80 | | Blog post title | M,H |
-| Category | select | 1 | , %SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" separator="," format="$pattern(.*   \*\s*([^\n]*).*)"}% | Edit values in BlogCategory | H |
+| Category | select | 1 | %CALC{$LISTJOIN($comma,$LISTSORT($LISTUNIQUE(%FORMFIELD{"Category" topic="%BASEWEB%.%BASETOPIC%"}%, %SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" separator="," format="$pattern(.*   \*\s*([^\n]*).*)"}%)))}% | Edit values in BlogCategory | H |
 | Author | text | 50 | %WIKINAME% | Blog post author | M,H |
 | Tags | text | 100 |  |  | H |
 | <nop>PublishingDate | date | 30 | %GMTIME{"$day $month $year"}% | | H |
