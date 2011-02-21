@@ -3,7 +3,7 @@ BEGIN { unshift @INC, split( /:/, $ENV{FOSWIKI_LIBS} ); }
 use Foswiki::Contrib::Build;
 
 # Create the build object
-$build = new Foswiki::Contrib::Build('JEditablePlugin');
+$build = new Foswiki::Contrib::Build('JEditableAddOn');
 
 # (Optional) Set the details of the repository for uploads.
 # This can be any web on any accessible Foswiki installation.
