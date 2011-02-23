@@ -2,18 +2,72 @@
 ---+!! Blog posts
 %STARTINCLUDE%%INCLUDE{
 "%WEB%.%TOPIC%"
-section="blogpost"
-sort="%URLPARAM{"sort" encode="url" default="formfield(PublishingDate)"}%"
-sortdirection="%URLPARAM{"sortdirection" encode="url" default="descending"}%"
-pagesize="%URLPARAM{"pagesize" encode="url" default="10"}%"
-category="%URLPARAM{"category" encode="url"}%"
-tag="%URLPARAM{"tag" encode="url"}%"
+section="%IF{
+	"defined display"
+	then="%display%"
+	else="all"
+}%"
+psort="%URLPARAM{
+	"sort"
+	encode="entity"
+	default="formfield(PublishingDate)"
+}%"
+psortdirection="%URLPARAM{
+	"sortdirection"
+	encode="entity"
+	default="%IF{
+		"defined sortdirection"
+		then="%sortdirection%"
+		else="%IF{
+			"defined sort"
+			then="%IF{
+				"($sort='formfield(PublishingDate)') OR ($sort='formfield(modified)') OR ($sort='formfield(created)')"
+				then="descending"
+				else="ascending"
+			}%"
+			else="descending"
+		}%"
+	}%"
+}%"
+ppagesize="%URLPARAM{
+	"pagesize"
+	encode="entity"
+	default="%IF{
+		"defined pagesize and $pagesize!=''"
+		then="%pagesize%"
+		else="10"
+	}%"
+}%"
+pauthor="%URLPARAM{
+	"author"
+	encode="entity"
+	default="%IF{
+		"defined author"
+		then="%author%"
+	}%"
+}%"
+pcategory="%URLPARAM{
+	"category"
+	encode="entity"
+	default="%IF{
+		"defined category"
+		then="%category%"
+	}%"
+}%"
+ptag="%URLPARAM{
+	"tag"
+	encode="entity"
+	default="%IF{
+		"defined tag"
+		then="%tag%"
+	}%"
+}%"
 context="list"
-}%
-<verbatim style="display:none;">%STARTSECTION{"blogpost"}%<a name="BlogPosts"></a><noautolink><div class="blogAddOnViewOptions foswikiFormSteps">
+}%%STOPINCLUDE%
+<verbatim style="display:none;">%STARTSECTION{"all"}%<a name="BlogPosts"></a><noautolink><div class="blogAddOnViewOptions foswikiFormSteps">
 <div class="foswikiFormStep">
 <!-- Subscribe RSS -->
-<span class="foswikiRight"><a class="blogPostAddOnViewOptionsSubscribeLink" title='%IF{"defined category and $'category'!= ''" then="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in category [_1]" args="%URLPARAM{"category" encode="entity"}%"}%" else="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in all categories"}%"}%' href='%SCRIPTURL{"view"}%/%BASEWEB%/BlogRss?category=%URLPARAM{"category" encode="url"}%;tag=%URLPARAM{"tag" encode="url"}%;author=%URLPARAM{"author" encode="url"}%#BlogPosts'>%ICON{rss-small}% %MAKETEXT{"Subscribe"}%</a>
+<span class="foswikiRight">%ICON{rss-small}%<a class="blogPostAddOnViewOptionsSubscribeLink" title='%IF{"defined pcategory and $pcategory!=''" then="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in category [_1]" args="%pcategory%"}%" else="%MAKETEXT{"RSS newsfeed: subscribe to blog posts in all categories"}%"}%' href='%SCRIPTURL{"view"}%/%BASEWEB%/BlogRss?author=%pauthor%;category=%pcategory%;tag=%ptag%#BlogPosts'>%MAKETEXT{"Subscribe"}%</a>
 </span>
 <form name="blogAddOnViewOptionsForm" action="%SCRIPTURL{"view"}%/%BASEWEB%/%BASETOPIC%#BlogPosts" method="get">
 <!-- ###########################################################################
@@ -23,11 +77,10 @@ Filter options
 %MAKETEXT{"View category:"}%&nbsp;
 <select class="foswikiSelect" name="category" onchange="document.forms.blogAddOnViewOptionsForm.submit()">
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="category"
+paramname="pcategory"
 value=""
 label="%MAKETEXT{"any category"}%"
-}%
-%SEARCH{
+}%%SEARCH{
 "   *\s*.*?"
 topic="BlogCategory"
 web="%WEB%"
@@ -36,7 +89,7 @@ multiple="on"
 casesensitive="on"
 nonoise="on"
 format="$percntINCLUDE{$quot%TOPIC%$quot section=$quotfilterOption$quot
-select=$quotcategory$quot
+paramname=$quotpcategory$quot
 value=$quot$pattern(.*   \*\s([^\n]*).*)$quot
 label=$quot$pattern(.*   \*\s([^\n]*).*)$quot
 }$percnt"
@@ -48,27 +101,27 @@ label=$quot$pattern(.*   \*\s([^\n]*).*)$quot
 %MAKETEXT{"Results per page:"}%&nbsp;
 <select class="foswikiSelect" name="pagesize" onchange="document.forms.blogAddOnViewOptionsForm.submit()">
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="pagesize"
+paramname="ppagesize"
 value="10"
 label="%MAKETEXT{"10"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="pagesize"
+paramname="ppagesize"
 value="25"
 label="%MAKETEXT{"25"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="pagesize"
+paramname="ppagesize"
 value="50"
 label="%MAKETEXT{"50"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="pagesize"
+paramname="ppagesize"
 value="100"
 label="%MAKETEXT{"100"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="pagesize"
+paramname="ppagesize"
 value="all"
 label="%MAKETEXT{"everything"}%"
 }%
@@ -82,87 +135,68 @@ Sort options
 %MAKETEXT{"Sort by:"}%&nbsp;
 <select class="foswikiSelect" name="sort" onchange="document.forms.blogAddOnViewOptionsForm.submit()">
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="sort"
+paramname="psort"
 value="formfield(Title)"
 label="%MAKETEXT{"Title"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="sort"
+paramname="psort"
 value="formfield(Category)"
 label="%MAKETEXT{"Category"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="sort"
+paramname="psort"
 value="formfield(Author)"
 label="%MAKETEXT{"Author"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="sort"
+paramname="psort"
 value="formfield(PublishingDate)"
 label="%MAKETEXT{"Publishing date"}%"
 }%
 %INCLUDE{"%TOPIC%" section="filterOption"
-select="sort"
+paramname="psort"
 value="modified"
 label="%MAKETEXT{"Last modified"}%"
 }%
 </select>
 </span>
 <span class="foswikiMakeHidden blogAddOnViewOptionsFilter"> <input type="submit" class="foswikiButton" value='%MAKETEXT{"Update"}%' /></span>
-%INCLUDE{"%WEB%.%TOPIC%" section="hiddenField" name="sort"}%<nop>
-%INCLUDE{"%WEB%.%TOPIC%" section="hiddenField" name="category"}%<nop>
-%INCLUDE{"%WEB%.%TOPIC%" section="hiddenField" name="tag"}%<nop>
-%INCLUDE{"%WEB%.%TOPIC%" section="hiddenField" name="author"}%<nop>
 </form>
 <div class="foswikiClear"></div>
 </div>
 </div>
-</noautolink>
-%STARTSECTION{"posts"}%<div class="blogPostAddOnOverview">
+</noautolink>%STARTSECTION{"posts"}%<noautolink><div class="blogPostAddOnPosts">
 <!-- title of selected category -->
-%IF{
-"defined category and $'category'!= ''"
-then="<a class='blogAddOnFilterButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?tag=%URLPARAM{"tag" encode="url"}%;author=%URLPARAM{"author" encode="url"}%#BlogPosts'><span class='blogAddOnFilterButtonIcon'></span><span class='blogAddOnFilterButtonType'>category:</span>%URLPARAM{"category" encode="entity" default="%category%"}%</a>"
-}%%IF{
-"defined author and $'author'!= ''"
-then="<a class='blogAddOnFilterButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?tag=%URLPARAM{"tag" encode="url"}%;category=%URLPARAM{"category" encode="url"}%#BlogPosts'><span class='blogAddOnFilterButtonIcon'></span><span class='blogAddOnFilterButtonType'>author:</span>$percntFORMFIELD{\"FirstName\" topic=\"%USERSWEB%.%URLPARAM{"author" encode="entity" default="%author%"}%\"}$percnt $percntFORMFIELD{\"LastName\" topic=\"%USERSWEB%.%URLPARAM{"author" encode="entity" default="%author%"}%\"}$percnt</a>"
-}%%STARTSECTION{"list"}%%SEARCH{
-type="query"
-"BlogPostForm%IF{"defined category and $'category'!= ''" then=" AND fields[name='Category'].value='%URLPARAM{"category" encode="entity" default="%category%"}%'"}%%IF{"defined tag and $'tag'!= ''" then="%FORMAT{
-type="string"
-"%URLPARAM{"tag" encode="entity"}%"
-format=" AND fields[name='Tags'].value=~'\b$item\b' "
-}%"}%%IF{"defined author and $'author'!= ''" then=" AND fields[name='Author'].value=~'\b%URLPARAM{"author" encode="entity" default="%author%"}%\b'"}%"
-web="%WEB%"
-zeroresults="<div>%MAKETEXT{"No posts found"}%</div>"
-nosummary="on"
-nosearch="on"
-nototal="on"
-excludetopic="*Template"
-casesensitive="on"
-format="%INCLUDE{
-"%TOPIC%"
-section="blogPostAddOnItem"
-}%"
-order="%IF{"defined sort" then="%URLPARAM{"sort" encode="" default="%sort%"}%" else="created"}%"
-reverse="%IF{"$sortdirection='descending'" then="on" else=""}%"
-pagesize="%IF{"defined pagesize" then="%URLPARAM{"pagesize" encode="" default="%pagesize%"}%" else="all"}%"
-pager="on"
-header="%IF{
-"defined tag and $'tag'!=''"
-then="%FORMAT{
-type="string"
-"%URLPARAM{"tag" encode="entity"}%"
-separator=""
-format="<a class='blogAddOnFilterButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?tag=$percntFORMAT{$quot%URLPARAM{"tag" encode="entity"}%$quot type=$quotstring$quot separator=$quot$quot format=$quot$dollarpercntIF{$dollarquot'$item'='$dollaritem'$dollarquot else=$dollarquot$dollaritem,$dollarquot}$dollarpercnt$quot}$percnt;category=%URLPARAM{"category" encode="url"}%;author=%URLPARAM{"author" encode="url"}%#BlogPosts'><span class='blogAddOnFilterButtonIcon'></span><span class='blogAddOnFilterButtonType'>tag:</span>$item</a>"
-}%"
-}%"
-}%<noautolink>%ADDTOZONE{
+%IF{"(defined pcategory) OR (defined pauthor) OR (defined tag)" then="$percntINCLUDE{$quot%TOPIC%$quot section=$quotfilters$quot}$percnt"}%%STARTSECTION{"list"}%%SEARCH{
+	type="query"
+	"BlogPostForm%IF{"defined pcategory and $pcategory!=''" then=" AND fields[name='Category'].value='%pcategory%'"}%%IF{"defined ptag and $ptag!=''" then="%FORMAT{
+	type="string"
+	"%ptag%"
+	format=" AND fields[name='Tags'].value=~'\b$item\b' "
+	}%"}%%IF{"defined pauthor and $pauthor!=''" then=" AND fields[name='Author'].value=~'\b%pauthor%\b'"}%"
+	web="%WEB%"
+	zeroresults="<div class='blogPostAddOnItem'>%MAKETEXT{"No posts found"}%</div>"
+	nosummary="on"
+	nosearch="on"
+	nototal="on"
+	excludetopic="*Template"
+	casesensitive="on"
+	format="%INCLUDE{
+		"%TOPIC%"
+		section="blogPostAddOnItem"
+	}%"
+	header="<div class='blogAddOnList'>"
+	footer="</div>"
+	order="%psort%"
+	reverse="%IF{"$psortdirection='descending'" then="on" else="off"}%"
+	pagesize="%ppagesize%"
+	pager="on"
+}%%ADDTOZONE{
 "head"
 id="blogPost"
 text="<literal><style type=\"text/css\" media=\"all\">
 .blogAddOnViewOptions {
-	margin:0 0 1em 0;
 	font-size:13px;
 }
 .blogAddOnViewOption {
@@ -172,6 +206,10 @@ text="<literal><style type=\"text/css\" media=\"all\">
 	padding:10px 0;
 	height:1%; /* for IE */
 	border-bottom:1px solid #eee;
+}
+.blogAddOnList {
+/*	border-top:1px solid #eee;*/
+	margin:5px 0 0 0;
 }
 .blogPostAddOnExcerpt {%IF{
 "defined BLOGADDON_AUTHOR_PICTURE_FIELD and $'BLOGADDON_AUTHOR_PICTURE_FIELD'!=''" 
@@ -197,36 +235,37 @@ then="
 }
 .blogPostAddOnLatestCommentCount {}
 /* list of posts */
-.blogPostAddOnOverview .blogPostAddOnHeaderInfo {
-	margin:0;
+.blogPostAddOnPosts {}
+.blogAddOnFilters {
+	margin:10px 0 0 0;
 }
-a.blogAddOnFilterButton:link,
-a.blogAddOnFilterButton:visited {
+a.blogAddOnRemoveFilterButton:link,
+a.blogAddOnRemoveFilterButton:visited {
 	display:inline-block;
 	padding:0 6px;
 	line-height:1.8em;
 }
-a.blogAddOnFilterButton:link,
-a.blogAddOnFilterButton:visited {
+a.blogAddOnRemoveFilterButton:link,
+a.blogAddOnRemoveFilterButton:visited {
 	position:relative;
-	margin:0 6px 1em 0;
+	margin:0 3px 3px 0;
 	text-decoration:none;
 	font-size:13px;
 	font-weight:normal;
 	border-width:1px;
 	border-style:solid;
 }
-a.blogAddOnFilterButton:active,
-a.blogAddOnFilterButton:focus {
+a.blogAddOnRemoveFilterButton:active,
+a.blogAddOnRemoveFilterButton:focus {
 	outline:none;
 	-moz-outline-style:none;
 }
-a.blogAddOnFilterButton:hover {
+a.blogAddOnRemoveFilterButton:hover {
 	cursor:pointer;
 	text-decoration:none;
 	color:#000;
 }
-a.blogAddOnFilterButton .blogAddOnFilterButtonIcon {
+a.blogAddOnRemoveFilterButton .blogAddOnFilterButtonIcon {
 	padding-left:22px;
 	width:13px;
 	height:13px;
@@ -234,24 +273,41 @@ a.blogAddOnFilterButton .blogAddOnFilterButtonIcon {
 	background-position:0 0;
 	background-image:url(%PUBURLPATH%/%SYSTEMWEB%/BlogAddOn/icon_tag_delete_btn.png);
 }
-a.blogAddOnFilterButton:link,
-a.blogAddOnFilterButton:visited {
+a.blogAddOnRemoveFilterButton:link,
+a.blogAddOnRemoveFilterButton:visited {
 	color:#000;
 	background:#f6f6f5;
 	border-color:#ddd;
 }
-a.blogAddOnFilterButton:hover .blogAddOnFilterButtonIcon {
+a.blogAddOnRemoveFilterButton:hover .blogAddOnFilterButtonIcon {
 	background-position:0 -16px;
 }
 .blogAddOnFilterButtonType {
-	color:#999;
 	font-size:90%;
 	padding:0 6px 0 0;
 	text-transform:uppercase;
 }
 </style></literal>"
-}%%ENDSECTION{"list"}%</div></noautolink>%ENDSECTION{"posts"}%%ENDSECTION{"blogpost"}%%STOPINCLUDE%
+}%%ENDSECTION{"list"}%</div></noautolink>%ENDSECTION{"posts"}%%ENDSECTION{"all"}%
 
+<!-- ###########################################################################
+filters
+-->
+%STARTSECTION{"filters"}%<div class='blogAddOnFilters'>%IF{
+	"defined pauthor and $pauthor!=''"
+	then="<a class='blogAddOnRemoveFilterButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?author=;category=%pcategory%;tag=%ptag%#BlogPosts'><span class='blogAddOnFilterButtonIcon'></span><span class='blogAddOnFilterButtonType'>author:</span>$percntFORMFIELD{\"FirstName\" topic=\"%USERSWEB%.%pauthor%\"}$percnt $percntFORMFIELD{\"LastName\" topic=\"%USERSWEB%.%pauthor%\"}$percnt</a>"
+	}%%IF{
+	"defined pcategory and $pcategory!=''"
+	then="<a class='blogAddOnRemoveFilterButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?author=%pauthor%;category=;tag=%ptag%#BlogPosts'><span class='blogAddOnFilterButtonIcon'></span><span class='blogAddOnFilterButtonType'>category:</span>%pcategory%</a>"
+	}%%IF{
+	"defined ptag and $ptag!=''"
+	then="%FORMAT{
+		type="string"
+		"%ptag%"
+		separator=""
+		format="<a class='blogAddOnRemoveFilterButton' href='%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%?tag=$percntFORMAT{$quot%ptag%$quot type=$quotstring$quot separator=$quot$quot format=$quot$dollarpercntIF{$dollarquot'$item'='$dollaritem'$dollarquot else=$dollarquot$dollaritem,$dollarquot}$dollarpercnt$quot}$percnt;category=%pcategory%;author=%pauthor%#BlogPosts'><span class='blogAddOnFilterButtonIcon'></span><span class='blogAddOnFilterButtonType'>tag:</span>$item</a>"
+	}%"
+}%</div>%ENDSECTION{"filters"}%
 
 <!-- ###########################################################################
 blogPostAddOnItem
@@ -286,8 +342,7 @@ _info
 %STARTSECTION{"_info"}%%INCLUDE{
 "%WEB%.%TOPIC%"
 section="%includeSection%"
-listtopic="%IF{"$'context'='post'" then="%IF{"defined BLOGADDON_LIST_TOPIC and $'BLOGADDON_LIST_TOPIC'!=''" then="%BLOGADDON_LIST_TOPIC%" else="%WEB%.BlogPost"}%"
-else="%WEB%.BlogPost"}%"
+listtopic="%IF{"defined BLOGADDON_LIST_TOPIC and $'BLOGADDON_LIST_TOPIC'!=''" then="%BLOGADDON_LIST_TOPIC%" else="%WEB%.BlogPost"}%"
 authortopic="%author%"
 }%%ENDSECTION{"_info"}%
 
@@ -298,23 +353,24 @@ _blogPostInfo
 -->
 %STARTSECTION{"_blogPostInfo"}%%MAKETEXT{"[_1] [_2] [_3]" args="
 %FORMFIELD{
-"PublishingDate"
-topic="%web%.%topic%"
-default="%REVINFO{rev="1" format="$date" topic="%web%.%topic%"}%"
-alttext="%REVINFO{rev="1" format="$date" topic="%web%.%topic%"}%"
+	"PublishingDate"
+	topic="%web%.%topic%"
+	default="%REVINFO{rev="1" format="$date" topic="%web%.%topic%"}%"
+	alttext="%REVINFO{rev="1" format="$date" topic="%web%.%topic%"}%"
 }%
 ,
 %IF{
-"istopic '%USERSWEB%.%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%' AND '%USERSWEB%/%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%'/fields[name='FirstName']"
-then="by [[%SCRIPTURL{view}%/%listtopic%?author=%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%;category=%URLPARAM{"category" encode="url"}%;tag=%URLPARAM{"tag" encode="url"}%#BlogPosts][%QUERY{
-"'%USERSWEB%/%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%'/fields[name='FirstName'].value"}% %QUERY{"'%USERSWEB%/%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%'/fields[name='LastName'].value"
-}%]]"
-else="by [[%SCRIPTURL{view}%/%listtopic%?author=%author%;category=%URLPARAM{"category" encode="url"}%;tag=%URLPARAM{"tag" encode="url"}%#BlogPosts][%author%]]</noautolink>"}%
+	"istopic '%USERSWEB%.%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%' AND '%USERSWEB%/%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%'/fields[name='FirstName']"
+	then="by [[%SCRIPTURL{view}%/%listtopic%?author=%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%%IF{"defined pcategory" then=";category=%ENCODE{"%pcategory%"}%"}%%IF{"defined ptag" then=";tag=%ENCODE{"%ptag%"}%"}%#BlogPosts][%QUERY{
+	"'%USERSWEB%/%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%'/fields[name='FirstName'].value"}% %QUERY{"'%USERSWEB%/%CALC{$SUBSTITUTE(%author%,%USERSWEB%.,)}%'/fields[name='LastName'].value"
+	}%]]"
+	else="by [[%SCRIPTURL{view}%/%listtopic%?%IF{"defined pauthor" then="author=%ENCODE{"%pauthor%"}%"}%%IF{"defined pcategory" then=";category=%ENCODE{"%pcategory%"}%"}%%IF{"defined ptag" then=";tag=%ENCODE{"%ptag%"}%"}%#BlogPosts][%author%]]"
+}%
 ,
 %FORMFIELD{
-"Category"
-topic="%web%.%topic%"
-format="in [[%SCRIPTURL{view}%/%listtopic%?category=$value;tag=%URLPARAM{"tag" encode="url"}%;author=%URLPARAM{"author" encode="url"}%#BlogPosts][$value]]"
+	"Category"
+	topic="%web%.%topic%"
+	format="in [[%SCRIPTURL{view}%/%listtopic%?category=$value%IF{"defined ptag" then=";tag=%ENCODE{"%ptag%"}%"}%%IF{"defined pauthor" then=";author=%ENCODE{"%pauthor%"}%"}%#BlogPosts][$value]]"
 }%"
 }%%ENDSECTION{"_blogPostInfo"}%
 
@@ -323,11 +379,11 @@ _blogPostTags
 	params: web, topic, listtopic
 -->
 %STARTSECTION{"_blogPostTags"}%%FORMAT{
-"%FORMFIELD{"Tags" topic="%web%.%topic%"}%"
-header=" <img src='%ICONURLPATH{tag}%' width='16' alt='tagged' /> "
-type="string"
-format="[[%SCRIPTURL{view}%/%listtopic%?tag=$percntCALC{$LISTJOIN($dollarcomma,$LISTSORT($LISTUNIQUE($item,%URLPARAM{"tag" encode="entity"}%)))}$percnt;category=%URLPARAM{"category"}%;author=%URLPARAM{"author" encode="url"}%#BlogPosts][$item]]"
-separator=", "
+	"%FORMFIELD{"Tags" topic="%web%.%topic%"}%"
+	header=" <img src='%ICONURLPATH{tag}%' width='16' alt='tagged' /> "
+	type="string"
+	format="[[%SCRIPTURL{view}%/%listtopic%?tag=$percntCALC{$LISTJOIN($dollarcomma,$LISTSORT($LISTUNIQUE($item,%ptag%)))}$percnt;category=%pcategory%;author=%pauthor%#BlogPosts][$item]]"
+	separator=", "
 }%%ENDSECTION{"_blogPostTags"}%
 
 <!-- ###########################################################################
@@ -346,15 +402,9 @@ section="%IF{"context ImagePluginEnabled" then="imagePluginImage" else="pubImage
 
 <!-- ###########################################################################
 filterOption
-	params:select, value, label
+	params:paramname, value, label
 -->
-%STARTSECTION{"filterOption"}%<option value="%value%"%IF{"defined %select% and $%select% = '%value%'" then=" selected=\"selected\""}%>%label%</option>%ENDSECTION{"filterOption"}%
-
-<!-- ###########################################################################
-hiddenField
-	params:name
--->
-%STARTSECTION{"hiddenField"}%%IF{"defined %name% and $'%name%'!= ''" then='<input type="hidden" name="%name%" value="%URLPARAM{"%name%" encode="url"}%" />'}%%ENDSECTION{"hiddenField"}%
+%STARTSECTION{"filterOption"}%<option value="%value%"%IF{"defined %paramname% and $%paramname% = '%value%'" then=" selected=\"selected\""}%>%label%</option>%ENDSECTION{"filterOption"}%
 
 <!-- ###########################################################################
 createButton

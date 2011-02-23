@@ -2,7 +2,7 @@
 ---+!! Blog !AddOn
 <div class="foswikiNotification">
 Note: release 1.6 and onwards works on Foswiki 1.2 and newer. %BR%
-When upgrading, make sure not to overwrite !BlogCategory.
+When upgrading, make sure not to overwrite any existing topic !BlogCategory.
 </div>
 %SHORTDESCRIPTION%.
 
@@ -44,24 +44,26 @@ To put the overview in a topic, write:
 
 This will show all posts, grouped (paginated) by 10, the most recent first.
 
-It will also include the filter and sort options above the blog posts. If posts are filtered by category, it will show an additional title.
+It will also include the filter and sort options above the blog posts.
 
+#ListDisplayOptions
 ---++++ List display options
-To show the blog posts *without filter/short controls*, write:
+Use =display="posts"= to show the blog posts *without filter/short dropdown controls* (but with author/category/tag filters):
 <pre class="tml">
 %<nop>INCLUDE{
 "%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
-section="posts"
+display="posts"
 }%
 </pre>
 
-To show *only the posts*, without filter/sort controls and without category title, write:
+Use =display="list"= to show *only the posts*, without filter/sort dropdown controls and without author/category/tag filters.
 <pre class="tml">
 %<nop>INCLUDE{
 "%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
-section="list"
+display="list"
 }%
 </pre>
+NOTE: because author/category/tag filters are not displayed, users will not be able to remove filtering. Use this display variant only in specific places.
 
 To add the *"Create a new post" button*, write:
 <pre class="tml">
@@ -84,7 +86,7 @@ You may set display defaults, for example for category and sort field, using  ad
 
 %TABLE{sort="off" headeralign="left"}%
 | *Parameter* | *Possible values*  | *Default value*  |
-| =category=   | %SEARCH{"   *\s*.*?" topic="BlogCategory" web="%URLPARAM{"blogWeb" default="yourblogweb"}%" type="regex" multiple="on" casesensitive="on" nonoise="on" separator=", " format="=$pattern(.*   \*\s*([^\n]*).*)="}% (categories are defined in %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogCategory) | none |
+| =category=   |%SEARCH{"   *\s*.*?" topic="BlogCategory" web="%URLPARAM{"blogWeb" default="yourblogweb"}%" type="regex" multiple="on" casesensitive="on" nonoise="on" separator=", " format="=$pattern(.*   \*\s*([^\n]*).*)="}% (categories are defined in %URLPARAM{"blogWeb" default="yourblogweb"}%.BlogCategory) | none |
 | =tag=       | Any tag (set in each blog post, comma separated) | none |
 | =sort=     | =formfield(Title)=, =formfield(Category)=, =formfield(Author)=, =formfield(<nop>PublishingDate)=, =modified=  | =created= (fallback) |
 | =sortdirection=   | =ascending=, =descending=  | =ascending=, when sorting on dates: =descending= |
@@ -144,6 +146,10 @@ Here's how:
       * In WebPreferences or %USERSWEB%.SitePreferences, or in the list topic itself, write: %BR%
       <pre class="tml">   * Set BLOGADDON_LIST_TOPIC = %URLPARAM{"blogWeb" default="yourblogweb"}%.thelisttopic</pre>
       * Note: if you wish to use the topic macro, write =BASETOPIC= instead of =TOPIC=; do not forget to add the Web. This is correct: =Set BLOGADDON_LIST_TOPIC = %<nop>BASEWEB%.%<nop>BASETOPIC%=
+   * To let comments be posted to a different Web:
+      * In WebPreferences or %USERSWEB%.SitePreferences: point preference setting =BLOGADDON_COMMENTS_WEB= to the Web you want to get comments. By default this is the %URLPARAM{"blogWeb" default="current"}% Web.%BR%
+      For example:%BR%
+      <pre class="tml">   * Set BLOGADDON_COMMENTS_WEB = <nop>Comments</pre>
 
 <!--
    * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
@@ -152,7 +158,7 @@ Here's how:
 ---++ Installation Instructions
 <div class="foswikiNotification">
 Note: release 1.6 and onwards works on Foswiki 1.2 and newer. %BR%
-When upgrading, make sure not to overwrite !BlogCategory.
+When upgrading, make sure not to overwrite any existing topic !BlogCategory.
 </div>
    * Download the ZIP file from the Plugin web (see below)
    * Unzip ==%TOPIC%.zip== in your ($FOSWIKI_ROOT) directory.
@@ -194,7 +200,7 @@ To update the instructions on this page to point to your blog web, enter the nam
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
-|  20 Feb 2011 | 1.6.1 Foswikitask:Item10378 - make sure the existing value of Category field is not lost. Documentation update. |
+|  24 Feb 2011 | 1.7.0 Foswikitask:Item10378 - make sure the existing value of Category field is not lost. Fixed sorting on dates. Added =INCLUDE= param =display= instead of =section=. Added setting =BLOGADDON_COMMENTS_WEB=. Documentation update. |
 |  19 Feb 2011 | 1.6.0 Re-arranged sort and filter options to fit on smaller screens. Improved filter interaction for categories, tags and authors. Moved documentation from !BlogAddOnHome to !BlogAddOn (this topic) and updated documentation. Added setting =BLOGADDON_LIST_TOPIC=. Changed =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD= to =BLOGADDON_AUTHOR_PICTURE_FIELD=. |
 |  13 Feb 2011 | 1.5.1 Simplified disply of author pictures: now use preference setting =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD=. Added options to close or hide comments, publishing date, tags and a blog specific rss feed. |
 |  06 Oct 2010 | 1.4 Foswikitask:Item9804 - Fix dependencies file and packaging issues on Foswiki 1.1 |
@@ -215,6 +221,7 @@ To update the instructions on this page to point to your blog web, enter the nam
 |  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 
+<!-- %JQREQUIRE{"chili"}% -->
 %META:FILEATTACHMENT{name="icon_tag_delete_btn.png" attr="" autoattached="1" comment="" date="1297983721" path="icon_tag_delete_btn.png" size="3050" version=""}%
 %META:FILEATTACHMENT{name="screenshot_post.png" attr="" autoattached="1" comment="" date="1286420416" path="screenshot_post.png" size="51916" version=""}%
 %META:FILEATTACHMENT{name="screenshot_list.png" attr="" autoattached="1" comment="" date="1286420416" path="screenshot_list.png" size="92290" version=""}%

@@ -24,7 +24,7 @@ then="
 	padding-left:65px;
 "}%}
 </style></literal>"
-}%<div class="foswikiTopic"><noautolink>%IF{
+}%<noautolink>%IF{
 "defined BLOGADDON_AUTHOR_PICTURE_FIELD and $BLOGADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="%INCLUDE{
 "%WEB%.BlogPost"
@@ -42,20 +42,19 @@ topic="%BASETOPIC%"
 context="post"
 author="%FORMFIELD{"Author"}%"
 }%</div><div class="foswikiClear"></div></div></noautolink>
-%TEXT%
-%IF{"(lc(CommentsDisabled)!='disabled')" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%</div>
+%TEXT% %IF{"(lc(CommentsDisabled)!='disabled')" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%
 #BlogPostEnd
 %TMPL:END%
 
-%TMPL:DEF{"comments"}%---++ %MAKETEXT{"Comments"}% <span style='font-size:60%'><a href='%SCRIPTURL{edit}%/%WEB%/%TOPIC%Comments?topicparent=%TOPIC%;t=%GMTIME{"$epoch"}%' style='text-decoration:none;'>%MAKETEXT{"(edit)"}%</a></span>
+%TMPL:DEF{"comments"}%<h2>%MAKETEXT{"Comments"}% <span style='font-size:60%'><a href='%SCRIPTURL{edit}%/%WEB%/%TOPIC%Comments?topicparent=%TOPIC%;t=%GMTIME{"$epoch"}%' style='text-decoration:none;'>%MAKETEXT{"(edit)"}%</a></span></h2>
 #BlogPostComments
-%INCLUDE{"%TOPIC%Comments" warn="off"}%
+%INCLUDE{"%IF{"defined BLOGADDON_COMMENTS_WEB and $'BLOGADDON_COMMENTS_WEB'!=''" then="%BLOGADDON_COMMENTS_WEB%."}%%TOPIC%Comments" warn="off"}%
 
 %IF{"(lc(CommentsClosed)='closed')" then="<span class='foswikiGrayText'>Comments are closed</span>" else="$percntTMPL:P{$quotaddComments$quot}$percnt"}%
 %TMPL:END%
 
 
 %TMPL:DEF{"addComments"}%---+++ %MAKETEXT{"Leave your comment"}%
-%COMMENT{noform="on" type="blogpost" templatetopic="BlogPostCommentTemplate" target="%TOPIC%Comments" button="%MAKETEXT{"Add comment"}%"}%%TMPL:END%
+%COMMENT{noform="on" type="blogpost" templatetopic="BlogPostCommentTemplate" target="%IF{"defined BLOGADDON_COMMENTS_WEB and $'BLOGADDON_COMMENTS_WEB'!=''" then="%BLOGADDON_COMMENTS_WEB%."}%%TOPIC%Comments" button="%MAKETEXT{"Add comment"}%"}%%TMPL:END%
 
 %TMPL:DEF{"form"}%%TMPL:END%
