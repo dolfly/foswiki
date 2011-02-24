@@ -213,7 +213,7 @@ To update the instructions on this page to point to your blog web, enter the nam
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
-|  24 Feb 2011 | 1.8.0 Added settings =BLOGADDON_HIDE_COMMENTS= and =BLOGADDON_DENY_COMMENTING=. Foswikitask:Item10407 - now saves comments to the correct web if =BLOGADDON_COMMENTS_WEB= is set.  |
+|  24 Feb 2011 | 1.8.0 Added settings =BLOGADDON_HIDE_COMMENTS= and =BLOGADDON_DENY_COMMENTING=. Foswikitask:Item10407 - now saves comments to the correct web if =BLOGADDON_COMMENTS_WEB= is set. Fixes tag links in blog post.  |
 |  24 Feb 2011 | 1.7.0 Fixed sorting on dates. Added =INCLUDE= param =display= instead of =section=. Added setting =BLOGADDON_COMMENTS_WEB=. Documentation update. Foswikitask:Item10378 - make sure the existing value of Category field is not lost. |
 |  19 Feb 2011 | 1.6.0 Re-arranged sort and filter options to fit on smaller screens. Improved filter interaction for categories, tags and authors. Moved documentation from !BlogAddOnHome to !BlogAddOn (this topic) and updated documentation. Added setting =BLOGADDON_LIST_TOPIC=. Changed =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD= to =BLOGADDON_AUTHOR_PICTURE_FIELD=. |
 |  13 Feb 2011 | 1.5.1 Simplified disply of author pictures: now use preference setting =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD=. Added options to close or hide comments, publishing date, tags and a blog specific rss feed. |

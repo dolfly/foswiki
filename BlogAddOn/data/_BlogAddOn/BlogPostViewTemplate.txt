@@ -41,6 +41,30 @@ web="%BASEWEB%"
 topic="%BASETOPIC%"
 context="post"
 author="%FORMFIELD{"Author"}%"
+pauthor="%URLPARAM{
+	"author"
+	encode="entity"
+	default="%IF{
+		"defined author"
+		then="%author%"
+	}%"
+}%"
+pcategory="%URLPARAM{
+	"category"
+	encode="entity"
+	default="%IF{
+		"defined category"
+		then="%category%"
+	}%"
+}%"
+ptag="%URLPARAM{
+	"tag"
+	encode="entity"
+	default="%IF{
+		"defined tag"
+		then="%tag%"
+	}%"
+}%"
 }%</div><div class="foswikiClear"></div></div></noautolink>
 %TEXT% %IF{"(lc(CommentsDisabled)!='disabled') AND NOT (($WIKINAME = '%BLOGADDON_HIDE_COMMENTS%') OR (($WIKINAME ingroup '%BLOGADDON_HIDE_COMMENTS%'))" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%
 #BlogPostEnd
