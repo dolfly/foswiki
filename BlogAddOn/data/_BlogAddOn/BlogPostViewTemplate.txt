@@ -42,19 +42,35 @@ topic="%BASETOPIC%"
 context="post"
 author="%FORMFIELD{"Author"}%"
 }%</div><div class="foswikiClear"></div></div></noautolink>
-%TEXT% %IF{"(lc(CommentsDisabled)!='disabled')" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%
+%TEXT% %IF{"(lc(CommentsDisabled)!='disabled') AND NOT (($WIKINAME = '%BLOGADDON_HIDE_COMMENTS%') OR (($WIKINAME ingroup '%BLOGADDON_HIDE_COMMENTS%'))" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%
 #BlogPostEnd
 %TMPL:END%
 
-%TMPL:DEF{"comments"}%<h2>%MAKETEXT{"Comments"}% <span style='font-size:60%'><a href='%SCRIPTURL{edit}%/%WEB%/%TOPIC%Comments?topicparent=%TOPIC%;t=%GMTIME{"$epoch"}%' style='text-decoration:none;'>%MAKETEXT{"(edit)"}%</a></span></h2>
+%TMPL:DEF{"comments"}%<h2>%MAKETEXT{"Comments"}%%IF{
+	"istopic '%IF{
+		"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''" 
+		then="%BLOGADDON_COMMENTS_WEB%."
+	}%%TOPIC%Comments'"
+	then=" <span style='font-size:60%'><a href='%SCRIPTURL{edit}%/%IF{
+		"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''"
+		then="%BLOGADDON_COMMENTS_WEB%"
+		else="%WEB%"
+	}%/%TOPIC%Comments?topicparent=%TOPIC%;t=%GMTIME{"$epoch"}%' style='text-decoration:none;'>%MAKETEXT{"(edit)"}%</a></span>"
+}%</h2>
 #BlogPostComments
-%INCLUDE{"%IF{"defined BLOGADDON_COMMENTS_WEB and $'BLOGADDON_COMMENTS_WEB'!=''" then="%BLOGADDON_COMMENTS_WEB%."}%%TOPIC%Comments" warn="off"}%
+%INCLUDE{"%IF{"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''" then="%BLOGADDON_COMMENTS_WEB%."}%%TOPIC%Comments" warn="off"}%
+%IF{
+"(($WIKINAME = '%BLOGADDON_DENY_COMMENTING%') OR (($WIKINAME ingroup '%BLOGADDON_DENY_COMMENTING%'))"
+then=""
+else="%IF{
+	"(lc(CommentsClosed)='closed')"
+	then="<div class='foswikiGrayText'>Comments are closed</div>"
+	else="$dollarpercntTMPL:P{$dollarquotaddComments$dollarquot}$dollarpercnt"
+	}%"
+}%%TMPL:END%
 
-%IF{"(lc(CommentsClosed)='closed')" then="<span class='foswikiGrayText'>Comments are closed</span>" else="$percntTMPL:P{$quotaddComments$quot}$percnt"}%
-%TMPL:END%
 
-
-%TMPL:DEF{"addComments"}%---+++ %MAKETEXT{"Leave your comment"}%
-%COMMENT{noform="on" type="blogpost" templatetopic="BlogPostCommentTemplate" target="%IF{"defined BLOGADDON_COMMENTS_WEB and $'BLOGADDON_COMMENTS_WEB'!=''" then="%BLOGADDON_COMMENTS_WEB%."}%%TOPIC%Comments" button="%MAKETEXT{"Add comment"}%"}%%TMPL:END%
+%TMPL:DEF{"addComments"}%<h3>%MAKETEXT{"Leave your comment"}%</h3>
+%COMMENT{noform="on" type="blogpost" templatetopic="BlogPostCommentTemplate" target="%IF{"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''" then="%BLOGADDON_COMMENTS_WEB%."}%%TOPIC%Comments" button="%MAKETEXT{"Add comment"}%"}%%TMPL:END%
 
 %TMPL:DEF{"form"}%%TMPL:END%

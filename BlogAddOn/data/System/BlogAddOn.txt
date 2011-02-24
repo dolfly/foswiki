@@ -150,6 +150,19 @@ Here's how:
       * In WebPreferences or %USERSWEB%.SitePreferences: point preference setting =BLOGADDON_COMMENTS_WEB= to the Web you want to get comments. By default this is the %URLPARAM{"blogWeb" default="current"}% Web.%BR%
       For example:%BR%
       <pre class="tml">   * Set BLOGADDON_COMMENTS_WEB = <nop>Comments</pre>
+   * To hide comments for a user or all members of a group:
+      * In WebPreferences or %USERSWEB%.SitePreferences, or in the list topic itself, write: %BR%
+      <pre class="tml">   * Set BLOGADDON_HIDE_COMMENTS = <nop>WikiName or <nop>GroupName</pre>
+      * Note that you cannot add multiple names or groups, only one user or group name.
+      * To hide all comments and comment box from not logged-in users, use: %BR%
+      <pre class="tml">   * Set BLOGADDON_HIDE_COMMENTS = <nop>WikiGuest</pre>
+   * To disallow a user or all members of a group to give comments:
+      * In WebPreferences or %USERSWEB%.SitePreferences, or in the list topic itself, write: %BR%
+      <pre class="tml">   * Set BLOGADDON_DENY_COMMENTING = <nop>WikiName or <nop>GroupName</pre>
+      * Note that you cannot add multiple names or groups, only one user or group name.
+      * To show existing comments, but hide the comment box from not logged-in users, use: %BR%
+      <pre class="tml">   * Set BLOGADDON_DENY_COMMENTING = <nop>WikiGuest</pre>
+   
 
 <!--
    * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
@@ -200,7 +213,8 @@ To update the instructions on this page to point to your blog web, enter the nam
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
-|  24 Feb 2011 | 1.7.0 Foswikitask:Item10378 - make sure the existing value of Category field is not lost. Fixed sorting on dates. Added =INCLUDE= param =display= instead of =section=. Added setting =BLOGADDON_COMMENTS_WEB=. Documentation update. |
+|  24 Feb 2011 | 1.8.0 Added settings =BLOGADDON_HIDE_COMMENTS= and =BLOGADDON_DENY_COMMENTING=. Foswikitask:Item10407 - now saves comments to the correct web if =BLOGADDON_COMMENTS_WEB= is set.  |
+|  24 Feb 2011 | 1.7.0 Fixed sorting on dates. Added =INCLUDE= param =display= instead of =section=. Added setting =BLOGADDON_COMMENTS_WEB=. Documentation update. Foswikitask:Item10378 - make sure the existing value of Category field is not lost. |
 |  19 Feb 2011 | 1.6.0 Re-arranged sort and filter options to fit on smaller screens. Improved filter interaction for categories, tags and authors. Moved documentation from !BlogAddOnHome to !BlogAddOn (this topic) and updated documentation. Added setting =BLOGADDON_LIST_TOPIC=. Changed =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD= to =BLOGADDON_AUTHOR_PICTURE_FIELD=. |
 |  13 Feb 2011 | 1.5.1 Simplified disply of author pictures: now use preference setting =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD=. Added options to close or hide comments, publishing date, tags and a blog specific rss feed. |
 |  06 Oct 2010 | 1.4 Foswikitask:Item9804 - Fix dependencies file and packaging issues on Foswiki 1.1 |
