@@ -10,9 +10,9 @@ When upgrading, make sure not to overwrite any existing topic !BlogCategory.
 
 ---++ Screenshots
 <p>Example list view:</p>
-<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_list.png" alt="screenshot_list.png" width='873' height='395' /></div>
+<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_list.png" alt="screenshot_list.png" width='795' height='518' /></div>
 <p>Example post:</p>
-<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_post.png" alt="screenshot_post.png" width='873' height='518' /></div> 
+<div class="foswikiImage"><img src="%ATTACHURLPATH%/screenshot_post.png" alt="screenshot_post.png" width='795' height='518' /></div> 
 
 ---++ Features
    * Integrates blog posts with Foswiki topics.
@@ -65,6 +65,48 @@ display="list"
 </pre>
 NOTE: because author/category/tag filters are not displayed, users will not be able to remove filtering. Use this display variant only in specific places.
 
+---++++ Summary options
+Use parameter =outline= to control the contents of the summary text. Possible values:
+
+%TABLE{sort="off" headeralign="left"}%
+| *Value*              | *Will show*  |
+| =formfield(Summary)= (default) | Contents of form field Summary. If the field does not exist or is empty, =summary(200)= is used instead. |
+| =summary=            | Topic summary, just the plain text, all formatting and line breaks removed; up to 162 characters. You can use other notations for =summary=, such as =summary(n)= and =summary(n, noheader)= - see %SYSTEMWEB%.FormattedSearch. |
+| =text=               | The full topic text. |
+
+
+Example
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+display="posts"
+outline="summary(450, noheader)"
+}%
+</pre>
+
+---++++ Images in list view
+Each post can show these images:
+   * author picture: if setting =BLOGADDON_AUTHOR_PICTURE_FIELD= points to a form field in the user profile that contains the name of an attached file - see Settings below
+   * summary picture: if the blog post has a value for form field =<nop>SummaryImage= that contains the name of an attached file
+   * commenter picture: see author picture
+   
+You can define the sizes with these INCLUDE settings (values in pixels):
+%TABLE{sort="off" headeralign="left"}%
+| *Name*              | *Default value*  |
+| =picsizeauthor=     | =50= |
+| =picsizesummary=    | =85= | 
+| =picsizecommenter=  | =20= |
+
+For example:
+<pre class="tml">
+%<nop>INCLUDE{
+"%URLPARAM{"blogWeb" default="yourblogweb"}%.BlogPost"
+picsizeauthor="30"
+}%
+</pre>
+
+
+---++++ Create button
 To add the *"Create a new post" button*, write:
 <pre class="tml">
 %<nop>INCLUDE{
@@ -80,6 +122,7 @@ section="createButton"
 label="Write up!"
 }%
 </pre>
+
 
 ---++++ Filtering and sorting options
 You may set display defaults, for example for category and sort field, using  additional parameters. Possible values are:
@@ -162,7 +205,7 @@ Here's how:
       * Note that you cannot add multiple names or groups, only one user or group name.
       * To show existing comments, but hide the comment box from not logged-in users, use: %BR%
       <pre class="tml">   * Set BLOGADDON_DENY_COMMENTING = <nop>WikiGuest</pre>
-   
+   * =BLOGADDON_ALLOW_GUEST_COMMENTS= - to allow guest comments. Experimental feature.
 
 <!--
    * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
@@ -213,6 +256,7 @@ To update the instructions on this page to point to your blog web, enter the nam
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
+|  26 Feb 2011 | 1.9.0 Added setting =outline= to control the summary text. Added form field !SummmaryImage to choose the attachment name to be displayed in the summary. Improved display of comments in list view. Added options to define image sizes. | 
 |  24 Feb 2011 | 1.8.0 Added settings =BLOGADDON_HIDE_COMMENTS= and =BLOGADDON_DENY_COMMENTING=. Foswikitask:Item10407 - now saves comments to the correct web if =BLOGADDON_COMMENTS_WEB= is set. Fixes tag links in blog post.  |
 |  24 Feb 2011 | 1.7.0 Fixed sorting on dates. Added =INCLUDE= param =display= instead of =section=. Added setting =BLOGADDON_COMMENTS_WEB=. Documentation update. Foswikitask:Item10378 - make sure the existing value of Category field is not lost. |
 |  19 Feb 2011 | 1.6.0 Re-arranged sort and filter options to fit on smaller screens. Improved filter interaction for categories, tags and authors. Moved documentation from !BlogAddOnHome to !BlogAddOn (this topic) and updated documentation. Added setting =BLOGADDON_LIST_TOPIC=. Changed =BLOGPOSTADDON_AUTHOR_PICTURE_FIELD= to =BLOGADDON_AUTHOR_PICTURE_FIELD=. |
