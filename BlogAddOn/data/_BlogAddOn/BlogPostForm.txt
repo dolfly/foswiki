@@ -5,10 +5,12 @@ See: %SYSTEMWEB%.BlogAddOn
 
 | *Name*  | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
 | Title | text | 80 | | Blog post title | M,H |
-| Category | select | 1 | %CALC{$LISTJOIN($comma,$LISTSORT($LISTUNIQUE(%FORMFIELD{"Category" topic="%BASEWEB%.%BASETOPIC%"}%, %SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" separator="," format="$pattern(.*   \*\s*([^\n]*).*)"}%)))}% | Edit values in BlogCategory | H |
 | Author | text | 50 | %WIKINAME% | Blog post author | M,H |
-| Tags | text | 100 |  |  | H |
 | <nop>PublishingDate | date | 30 | %GMTIME{"$day $month $year"}% | | H |
+| Category | select | 1 | %CALC{$LISTJOIN($comma,$LISTSORT($LISTUNIQUE(%FORMFIELD{"Category" topic="%BASEWEB%.%BASETOPIC%"}%, %SEARCH{"   *\s*.*?" topic="BlogCategory" type="regex" multiple="on" casesensitive="on" nonoise="on" separator="," format="$pattern(.*   \*\s*([^\n]*).*)"}%)))}% | Edit values in BlogCategory | H |
+| Tags | text | 100 |  |  | H |
+| Summary | textarea | 100x4 |  |  | H |
+| <nop>SummaryImage | select | 1 | ,%QUERY{"'%BASEWEB%.%BASETOPIC%'/attachments[NOT name=~'igp.*'].name"}% | | H |
 | <nop>CommentsDisabled | checkbox | 1 | disabled | | H |
 | <nop>CommentsClosed | checkbox | 1 | closed | | H |
 | <nop>TopicType | label | 50 | BlogPost | | H |

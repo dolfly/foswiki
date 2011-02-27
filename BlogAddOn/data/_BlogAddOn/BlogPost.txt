@@ -7,6 +7,27 @@ section="%IF{
 	then="%display%"
 	else="all"
 }%"
+poutline="%IF{
+	"defined outline and $outline!=''"
+	then="%outline%"
+	else="formfield(Summary)"
+}%"
+pdefaultoutline="summary(200)"
+ppicsizesummary="%IF{
+	"defined picsizesummary and $picsizesummary!=''"
+	then="%picsizesummary%"
+	else="85"
+}%"
+ppicsizeauthor="%IF{
+	"defined picsizeauthor and $picsizeauthor!=''"
+	then="%picsizeauthor%"
+	else="50"
+}%"
+ppicsizecommenter="%IF{
+	"defined picsizecommenter and $picsizecommenter!=''"
+	then="%picsizecommenter%"
+	else="20"
+}%"
 psort="%URLPARAM{
 	"sort"
 	encode="entity"
@@ -212,26 +233,54 @@ text="<literal><style type=\"text/css\" media=\"all\">
 	margin:5px 0 0 0;
 }
 .blogPostAddOnExcerpt {%IF{
-"defined BLOGADDON_AUTHOR_PICTURE_FIELD and $'BLOGADDON_AUTHOR_PICTURE_FIELD'!=''" 
+"defined BLOGADDON_AUTHOR_PICTURE_FIELD and $BLOGADDON_AUTHOR_PICTURE_FIELD!=''" 
 then="
-	margin-left:50px;
+	margin-left:%ppicsizeauthor%px;
 	padding-left:10px;
 "}%}
 .blogPostAddOnItem h3 {
-	font-size:115%;
+	font-size:120%;
 	font-weight:bold;
-	padding:0 0 3px 0;
+	padding:0 0 5px 0;
 	margin:0;
 	border:none;
 }
 .blogPostAddOnSummary {
-	margin:.5em 0 0 0;
+	margin:10px 0 0 0;
+}
+.blogPostAddOnHasSummaryImage .blogPostAddOnSummaryText {
+	margin-left:%ppicsizesummary%px; /* image width %ppicsizesummary%px */
+	padding-left:15px;
+}
+.blogPostAddOnSummaryPicture {
+	float:left;
+	width:%ppicsizesummary%px;
+	min-height:%ppicsizesummary%px;
+	border:none;
+	margin:0 10px 5px 0;
 }
 .blogPostAddOnPicture {
 	float:left;
 }
-.blogPostAddOnLatestComment {
+ul.blogPostAddOnCommentStatus {
 	margin:.5em 0 0 0;
+	padding:0;
+	list-style:none;
+	position:relative;
+	width:35em;
+}
+ul.blogPostAddOnCommentStatus li {
+	display:block;
+	background:#f6f6f5;
+	padding:3px 0;
+	margin:0 0 2px 0;
+	font-size:86%;
+}
+ul.blogPostAddOnCommentStatus li .blogPostAddOnPicture {
+	margin:0 10px;
+}
+.blogPostAddOnCommentStatusText {
+	padding:0 10px;
 }
 .blogPostAddOnLatestCommentCount {}
 /* list of posts */
@@ -314,11 +363,14 @@ blogPostAddOnItem
 -->
 %STARTSECTION{"blogPostAddOnItem"}%<div class='blogPostAddOnItem'>
 %IF{
-"defined BLOGADDON_AUTHOR_PICTURE_FIELD and $'BLOGADDON_AUTHOR_PICTURE_FIELD'!=''" 
-then="$percntINCLUDE{$quot%WEB%.BlogPost$quot section=$quotblogPostAuthorPicture$quot imgWeb=$quot%USERSWEB%$quot imgTopic=$quot$formfield(Author)$quot imgWidth=$quot50$quot}$percnt"
+"defined BLOGADDON_AUTHOR_PICTURE_FIELD and $BLOGADDON_AUTHOR_PICTURE_FIELD!=''" 
+then="$percntINCLUDE{$quot%WEB%.BlogPost$quot section=$quotblogPostAuthorPicture$quot imgWeb=$quot%USERSWEB%$quot imgTopic=$quot$formfield(Author)$quot imgWidth=$quot%ppicsizeauthor%$quot}$percnt"
 }%<div class='blogPostAddOnExcerpt'><h3>[[$web.$topic][$formfield(Title)]]</h3>
+<!-- author, category, tags -->
 <div class='blogPostAddOnHeaderInfo foswikiUnvisited'>$percntINCLUDE{$quot%WEB%.%TOPIC%$quot section=$quotblogPostInfo$quot web=$quot$web$quot topic=$quot$topic$quot author=$quot$formfield(Author)$quot}$percnt</div>
-<div class='blogPostAddOnSummary'>$summary(200)</div>$percntSEARCH{$quot$topicComments%IF{"($WIKINAME = '%BLOGADDON_HIDE_COMMENTS%') OR (($WIKINAME ingroup '%BLOGADDON_HIDE_COMMENTS%')" then="n0nEToP1C"}%$quot web=$quot%IF{"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''" then="%BLOGADDON_COMMENTS_WEB%" else="$web"}%$quot scope=$quottopic$quot nonoise=$quoton$quot format=$quot<span class='blogPostAddOnLatestComment foswikiGrayText'>Comments: $dollarcount(.*?(#CommentDate).*) - <a href='$percntSCRIPTURL{view}$percnt/$web/$topic?r=$dollarrev#BlogPostPrompt'>latest comment by $percntSPACEOUT{$quot<nop>$dollarwikiname$quot}$percnt</a> - $dollardate</span>$quot}$percnt
+<!-- summary -->
+<div class='blogPostAddOnSummary$percntIF{$quot'$formfield(SummaryImage)'!=''$quot then=$quot blogPostAddOnHasSummaryImage$quot}$percnt'>$percntIF{$quot'$formfield(SummaryImage)'!=''$quot then=$quot$percntINCLUDE{$quot%WEB%.%TOPIC%$quot section=$quotsummaryPicture$quot imgWeb=$quot$web$quot imgTopic=$quot$topic$quot imgName=$quot$formfield(SummaryImage)$quot}$percnt$quot}$percnt<div class='blogPostAddOnSummaryText'><div class='foswikiGrayText'>$percntIF{$quot'$%poutline%'!=''$quot then=$quot$%poutline%$quot else=$quot$%pdefaultoutline%$quot}$percnt</div>$percntSEARCH{$quot$topicComments%IF{"($WIKINAME = '%BLOGADDON_HIDE_COMMENTS%') OR (($WIKINAME ingroup '%BLOGADDON_HIDE_COMMENTS%')" then="n0nEToP1C"}%$quot web=$quot%IF{"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''" then="%BLOGADDON_COMMENTS_WEB%" else="$web"}%$quot scope=$quottopic$quot nonoise=$quoton$quot format=$quot<ul class='blogPostAddOnCommentStatus'>
+<li><div class='blogPostAddOnCommentStatusText'>Comments: $dollarcount(.*?(#CommentDate).*)</div></li><li>$dollarpercntIF{$dollarquot(defined BLOGADDON_AUTHOR_PICTURE_FIELD and $BLOGADDON_AUTHOR_PICTURE_FIELD!='') AND (istopic '$dollarwikiusername')$dollarquot then=$dollarquot$percntINCLUDE{$quot%TOPIC%$quot section=$quotblogPostAuthorPicture$quot imgTopic=$quot$dollarwikiusername$quot imgWeb=$quot%USERSWEB%$quot imgWidth=$quot%ppicsizecommenter%$quot}$percnt$dollarquot}$dollarpercnt<div class='blogPostAddOnCommentStatusText'><a href='$percntSCRIPTURL{view}$percnt/$web/$topic?r=$dollarrev#BlogPostPrompt'>Latest comment by $percntSPACEOUT{$quot<nop>$dollarwikiname$quot}$percnt</a><span class='foswikiGrayText'> - $dollardate</span></div></li></ul>$quot}$percnt</div></div>
 </div><div class='foswikiClear'></div></div>%ENDSECTION{"blogPostAddOnItem"}%
 
 <!-- ###########################################################################
@@ -342,7 +394,7 @@ _info
 %STARTSECTION{"_info"}%%INCLUDE{
 "%WEB%.%TOPIC%"
 section="%includeSection%"
-listtopic="%IF{"defined BLOGADDON_LIST_TOPIC and $'BLOGADDON_LIST_TOPIC'!=''" then="%BLOGADDON_LIST_TOPIC%" else="%WEB%.BlogPost"}%"
+listtopic="%IF{"defined BLOGADDON_LIST_TOPIC and $BLOGADDON_LIST_TOPIC!=''" then="%BLOGADDON_LIST_TOPIC%" else="%WEB%.BlogPost"}%"
 authortopic="%author%"
 }%%ENDSECTION{"_info"}%
 
@@ -387,18 +439,34 @@ _blogPostTags
 }%%ENDSECTION{"_blogPostTags"}%
 
 <!-- ###########################################################################
-authorPicture
-	params: imgWeb, imgTopic, imgWidth
+blogPostAuthorPicture
+	params: imgWeb, imgTopic
 -->
 %STARTSECTION{"blogPostAuthorPicture"}%<div class='blogPostAddOnPicture'>%INCLUDE{
-"%TOPIC%"
-section="%IF{"context ImagePluginEnabled" then="imagePluginImage" else="pubImage"}%"
+	"%TOPIC%"
+	section="%IF{"context ImagePluginEnabled" then="imagePluginImage" else="pubImage"}%"
 }%
 </div>%ENDSECTION{"blogPostAuthorPicture"}%
 
 %STARTSECTION{"pubImage"}%$percntIF{$quot'%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%'/%BLOGADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot<a href='%SCRIPTURL{view}%/%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%'><img src='%PUBURL%/%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%/$percntQUERY{\"'%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%'/%BLOGADDON_AUTHOR_PICTURE_FIELD%\"}$percnt' width='%imgWidth%' title='%MAKETEXT{"Author page"}%' alt='%MAKETEXT{"Author picture"}%' /></a>$quot else=$quot<img src='%PUBURL%/%SYSTEMWEB%/PersonalInfoAddOn/silhouette.gif' width='%imgWidth%' alt='' />$quot}$percnt%ENDSECTION{"pubImage"}%
 
-%STARTSECTION{"imagePluginImage"}%$percntIF{$quot'%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%'/%BLOGADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot$percntIMAGE{web=\"%imgWeb%\" topic=\"%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%\" href=\"%SCRIPTURL{view}%/%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%\" \"$percntQUERY{\"'%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%'/%BLOGADDON_AUTHOR_PICTURE_FIELD%\"}$percnt\" align=\"none\" title=\"%MAKETEXT{"Author page"}%\" alt=\"%MAKETEXT{"Author picture"}%\" size=\"%imgWidth%\"}$percnt$quot else=$quot$percntIMAGE{web=\"%SYSTEMWEB%\" topic=\"PersonalInfoAddOn\" \"silhouette.gif\" align=\"none\" alt=\"\" size=\"%imgWidth%\"}$percnt$quot}$percnt%ENDSECTION{"imagePluginImage"}%
+%STARTSECTION{"imagePluginImage"}%$percntIF{$quot'%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%'/%BLOGADDON_AUTHOR_PICTURE_FIELD%$quot then=$quot$percntIMAGE{web=\"%imgWeb%\" topic=\"%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%\" href=\"%SCRIPTURL{view}%/%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%\" \"$percntQUERY{\"'%imgWeb%/%CALC{$SUBSTITUTE(%imgTopic%,%USERSWEB%.,)}%'/%BLOGADDON_AUTHOR_PICTURE_FIELD%\"}$percnt\" align=\"none\" zoom=\"on\" title=\"%MAKETEXT{"Author page"}%\" alt=\"%MAKETEXT{"Author picture"}%\" size=\"%imgWidth%\"}$percnt$quot else=$quot$percntIMAGE{web=\"%SYSTEMWEB%\" topic=\"PersonalInfoAddOn\" \"silhouette.gif\" align=\"none\" alt=\"\" size=\"%imgWidth%\"}$percnt$quot}$percnt%ENDSECTION{"imagePluginImage"}%
+
+
+<!-- ###########################################################################
+summaryPicture
+	params: imgWeb, imgTopic, imgName
+-->
+%STARTSECTION{"summaryPicture"}%<div class='blogPostAddOnSummaryPicture'>%INCLUDE{
+"%TOPIC%"
+section="%IF{"context ImagePluginEnabled" then="summaryImagePluginImage" else="summaryPubImage"}%"
+imgWidth="%ppicsizesummary%"
+}%
+</div>%ENDSECTION{"summaryPicture"}%
+
+%STARTSECTION{"summaryPubImage"}%<a href='%SCRIPTURL{view}%/%imgWeb%/%imgTopic%'><img src='%PUBURL%/%imgWeb%/%imgTopic%/%imgName%' width='%imgWidth%' alt='' /></a>%ENDSECTION{"summaryPubImage"}%
+
+%STARTSECTION{"summaryImagePluginImage"}%$percntIMAGE{web=\"%imgWeb%\" topic=\"%imgTopic%\" \"%imgName%\" align=\"center\" alt=\"\" size=\"%imgWidth%x%imgWidth%\" zoom=\"on\" href=\"%SCRIPTURL{view}%/%imgWeb%/%imgTopic%\"}$percnt%ENDSECTION{"summaryImagePluginImage"}%
 
 <!-- ###########################################################################
 filterOption

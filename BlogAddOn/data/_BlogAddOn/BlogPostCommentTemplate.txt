@@ -7,7 +7,11 @@
 
 <verbatim>
 %TMPL:DEF{FORM:blogpost}%#BlogPostPrompt
-<form method="post" action="%SCRIPTURL{save}%/%IF{"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''" then="%BLOGADDON_COMMENTS_WEB%" else="%BASEWEB%"}%/%BASETOPIC%Comments" enctype="application/x-www-form-urlencoded" name="blogpostcomment" id="blogpostcomment">
+<form method="post" action="%SCRIPTURL{save}%/%IF{"defined BLOGADDON_COMMENTS_WEB and $BLOGADDON_COMMENTS_WEB!=''" then="%BLOGADDON_COMMENTS_WEB%" else="%BASEWEB%"}%/%BASETOPIC%Comments" enctype="application/x-www-form-urlencoded" name="blogpostcomment" id="blogpostcomment">%IF{
+	"$BLOGADDON_ALLOW_GUEST_COMMENTS='1'"
+	then='<input type="hidden" name="username" value="WikiGuest" />
+	<input type="hidden" name="password" value="" />'
+}%
 <input type="hidden" name="redirectto" value="%BASEWEB%.%BASETOPIC%" />
 <input type="hidden" name="topicparent" value="%BASEWEB%.%BASETOPIC%" />
 %COMMENTPROMPT%

@@ -66,7 +66,7 @@ ptag="%URLPARAM{
 	}%"
 }%"
 }%</div><div class="foswikiClear"></div></div></noautolink>
-%TEXT% %IF{"(lc(CommentsDisabled)!='disabled') AND NOT (($WIKINAME = '%BLOGADDON_HIDE_COMMENTS%') OR (($WIKINAME ingroup '%BLOGADDON_HIDE_COMMENTS%'))" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%
+%FORMFIELD{"Summary" format="<p>$value</p>"}% %TEXT% %IF{"(lc(CommentsDisabled)!='disabled') AND NOT (($WIKINAME = '%BLOGADDON_HIDE_COMMENTS%') OR (($WIKINAME ingroup '%BLOGADDON_HIDE_COMMENTS%'))" then="$percntTMPL:P{$quotcomments$quot}$percnt"}%
 #BlogPostEnd
 %TMPL:END%
 
