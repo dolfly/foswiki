@@ -44,7 +44,7 @@ Plugin configuration is done through =configure=, in the "Plugins" section. You 
 
 ---++ Plugin Info
 
-|  Author: | Foswiki:Main.IanByrave |
+|  Author: | Foswiki:Main.IanBygrave |
 |  Copyright: | &copy; 2009, Ian Bygrave |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Version: | %$VERSION% |
