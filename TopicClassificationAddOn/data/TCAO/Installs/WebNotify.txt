@@ -3,9 +3,9 @@
 
    * 
 
-%INCLUDE{"%SYSTEMWEB%.WebChangesAlert"}%
+%INCLUDE{"%SYSTEMWEB%.WebNotifyHelp"}%
 
-__%MAKETEXT{"Related topics:"}%__ %SYSTEMWEB%.WebChangesAlert, %USERWEB%.%WIKIUSERSTOPIC%, %SYSTEMWEB%.UserRegistration
+__%MAKETEXT{"Related topics:"}%__ %SYSTEMWEB%.WebNotifyHelp, %USERWEB%.%WIKIUSERSTOPIC%, %SYSTEMWEB%.UserRegistration
 
 
 %META:REVCOMMENT{ncomments="0"}%
