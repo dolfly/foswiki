@@ -1,0 +1,7 @@
+# Release manifest for ImportPlugin
+data/System/ImportPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/ImportPlugin.pm 0644 Perl module
+
+data/System/ImportPluginTopicTemplate.txt 0644 Documentation
+data/System/ImportPluginViewTemplate.txt 0644 Documentation
+

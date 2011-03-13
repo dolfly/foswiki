@@ -1,0 +1,78 @@
+---+!! !ImportPlugin
+<!--
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
+prefer.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+
+<form name="main" enctype="multipart/form-data" action="%SCRIPTURLPATH{"upload"}%/Sandbox" method="post">
+<table width="100%" summary="%MAKETEXT{"Attach a file"}%">
+<tr>
+  <td align="right">
+   Web __IGNORED__ raise a task and fix.
+  </td><td>
+   <input type="hidden" name="web" value="Sandbox" size="50" />
+  </td>
+ </tr>
+<tr>
+  <td align="right">
+   Topic
+  </td><td>
+   <input type="hidden" name="topic" value="ImportPluginAUTOINC000" size="50" />
+  </td>
+ </tr>
+<tr>
+  <td align="right">
+   %MAKETEXT{"Attach new [[http://en.wikipedia.org/wiki/Comma-separated_values][Comma separated values]] file"}%
+  </td><td>
+   <noautolink><input type="file" name="filepath" value="" size="50" /></noautolink>
+  </td>
+ </tr>
+<tr>
+  <td align="right">
+   %MAKETEXT{"Comment"}%
+  </td><td>
+   <input type="text" name="filecomment" value="SOMETHING TO DO WITH THE FORMAT OF THE FILE..." size="50" />
+  </td>
+ </tr>
+ <tr>
+  <td align="right">
+  </td><td>
+    <input type="hidden" name="importplugin" value="step1" size="50" />
+    <input type="hidden" name="templatetopic" value="ImportPluginTopicTemplate" size="50" />
+    
+    <input type="submit" class="foswikiSubmit" value=" %MAKETEXT{"Upload file"}%" />  </td>
+ </tr>
+</table>
+</form>
+
+---++ Examples
+I've ued this importer to import coldfusion based [[http://canvas.riaforge.org/][canvas wiki topic]] into foswiki.
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+Many thanks to the following sponsors for supporting this work:
+   * Acknowledge any sponsors here
+
+|  Author(s): | |
+|  Copyright: | &copy; |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/ImportPlugin |
+|  Support: | http://foswiki.org/bin/view/Support/ImportPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->

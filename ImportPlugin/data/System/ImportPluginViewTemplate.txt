@@ -1,0 +1,9 @@
+%TMPL:INCLUDE{view}%
+
+
+%TMPL:DEF{"content"}%<p>
+Sven was here:
+
+go back to %SYSTEMWEB%.ImportPlugin
+</p>
+TMPL:PREV%TMPL:END%
