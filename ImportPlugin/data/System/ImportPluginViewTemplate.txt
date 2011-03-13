@@ -2,8 +2,108 @@
 
 
 %TMPL:DEF{"content"}%<p>
-Sven was here:
+---++ Import %QUERY{attachments.name}%
 
+%SHOWIMPORTFILE{"%QUERY{attachments.name}%"}%
+<div class="foswikiForm">
+<form name="main" enctype="multipart/form-data" action="%SCRIPTURLPATH{"rest"}%/ImportPlugin/import" method="post">
+<table width="100%" summary="%MAKETEXT{"Attach a file"}%">
+<tr>
+  <td align="right">
+	import transformation definition (will be stored in the import topic..)
+  </td><td>
+	Import data element name %BR%
+	<textarea name="inputelments" cols="20" rows="17" style="text-align:right;">
+id
+path
+body
+datetimecreated
+author
+version
+summary
+categories
+authrolestoview
+authrolestoedit
+filename
+filesize
+filemimetype
+imagewidth
+imageheight
+wiki
+	</textarea>
+  </td><td>
+	Define import data types (char(length),text,html,date,number) %BR%
+	<textarea name="elementtypes" cols="20" rows="17" style="text-align:right;">
+char(35)
+text
+html
+datetime
+text
+int
+text
+text
+text
+text
+text
+text
+text
+int
+int
+text
+	</textarea>
+  </td><td>
+	Define QuerySearch topic identifier each element is to be saved to %BR%
+	<textarea name="outputelements" cols="30" rows="17">
+preferences.GUID
+name
+text
+TOPICINFO.date
+TOPICINFO.author
+TOPICINFO.version
+preferences.SUMMARY
+preferences.CATEGORY
+preferences.ALLOWTOPICVIEW
+preferences.ALLOWTOPICCHANGE
+attachments.name
+attachments.size
+attachments.comment
+attachments.comment
+attachments.comment
+web
+	</textarea>
+  </td>
+ </tr>
+ <tr>
+  <td align="right">
+	Separator characters:
+  </td><td>
+    <input type="text" name="separator" value="," size="20" />
+ </tr>
+ <tr>
+  <td align="right">
+	Elements with unescaped separators and/or linefeeds:
+  </td><td>
+    <input type="text" name="invalidelements" value="body" size="20" />
+ </tr>
+ <tr>
+  <td align="right">
+	Import into web:
+  </td><td>
+    <input type="text" name="outputweb" value="CanvasWiki" size="20" />
+ </tr>
+ <tr>
+  <td align="right">
+  </td><td>
+    <input type="hidden" name="importplugin" value="step2" size="50" />
+    <input type="hidden" name="fromtopic" value="%BASEWEB%.%BASETOPIC%" size="50" />
+    <input type="submit" class="foswikiSubmit" value=" Import file as topics" />  </td>
+ </tr>
+</table>
+</form>
+</div>
+
+
+----
 go back to %SYSTEMWEB%.ImportPlugin
 </p>
-TMPL:PREV%TMPL:END%
+%TMPL:END%

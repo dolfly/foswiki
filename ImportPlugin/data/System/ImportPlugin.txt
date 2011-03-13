@@ -12,6 +12,7 @@ prefer.
 
 ---++ Usage
 
+<div class="foswikiForm">
 <form name="main" enctype="multipart/form-data" action="%SCRIPTURLPATH{"upload"}%/Sandbox" method="post">
 <table width="100%" summary="%MAKETEXT{"Attach a file"}%">
 <tr>
@@ -30,7 +31,8 @@ prefer.
  </tr>
 <tr>
   <td align="right">
-   %MAKETEXT{"Attach new [[http://en.wikipedia.org/wiki/Comma-separated_values][Comma separated values]] file"}%
+   Attach new [[http://en.wikipedia.org/wiki/Comma-separated_values][Comma separated values]] file:
+   (will over-ride the ATTACHFILESIZELIMIT if done by %USERSWEB%.AdminGroup)
   </td><td>
    <noautolink><input type="file" name="filepath" value="" size="50" /></noautolink>
   </td>
@@ -52,6 +54,7 @@ prefer.
  </tr>
 </table>
 </form>
+</div>
 
 ---++ Examples
 I've ued this importer to import coldfusion based [[http://canvas.riaforge.org/][canvas wiki topic]] into foswiki.

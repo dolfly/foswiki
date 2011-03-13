@@ -80,16 +80,16 @@ sub initPlugin {
 
     # Allow a sub to be called from the REST interface
     # using the provided alias
-    Foswiki::Func::registerRESTHandler( 'example', \&restExample );
+    Foswiki::Func::registerRESTHandler( 'import', \&importFile );
 
     # Plugin correctly initialized
     return 1;
 }
 
-# The function used to handle the %EXAMPLETAG{...}% macro
-# You would have one of these for each macro you want to process.
+#attempts to show a representative portion of the import file.
+#atm, csv only so shows 5 lines?
 sub SHOWIMPORTFILE {
-#    my($session, $params, $topic, $web, $topicObject) = @_;
+    my($session, $params, $topic, $web, $topicObject) = @_;
 #    # $session  - a reference to the Foswiki session object
 #    #             (you probably won't need it, but documented in Foswiki.pm)
 #    # $params=  - a reference to a Foswiki::Attrs object containing 
@@ -105,8 +105,22 @@ sub SHOWIMPORTFILE {
 #    # macro call in the final text.
 #
 #    # For example, %EXAMPLETAG{'hamburger' sideorder="onions"}%
-#    # $params->{_DEFAULT} will be 'hamburger'
 #    # $params->{sideorder} will be 'onions'
+
+    my $filename = $params->{_DEFAULT} || '';
+    ($web, $topic, $filename) = Foswiki::Func::_checkWTA($web, $topic, $filename);
+    if (defined($filename)) {
+        try {
+           my $data = Foswiki::Func::readAttachment( $web, $topic, $filename );
+           #just get the first few lines..
+           my @lines = split(/\n/, $data);
+           return "<verbatim>".join("\n", @lines[0..5])."</verbatim>";
+        } catch Foswiki::AccessControlException with {
+        };
+
+    }
+    return 'FILENAME error';
+
 }
 
 =begin TML
@@ -130,6 +144,11 @@ sub earlyInitPlugin {
     
     my $importplugin = $query->{param}->{importplugin}[0] || '';
     if ($importplugin eq 'step1') {
+        #over-ride the attachment max size
+        if (Foswiki::Func::isAnAdmin()) {
+            Foswiki::Func::setPreferencesValue('ATTACHFILESIZELIMIT', 0);
+        }
+
         #if the topic doesn't exist, create it.
         if (( not Foswiki::Func::topicExists($web, $topic)) or 
             ($topic =~ /AUTOINC(\d+)/) or ($topic =~ /X{10}/)) {
@@ -792,7 +811,7 @@ cache and security plugins.
 
 =begin TML
 
----++ restExample($session) -> $text
+---++ importFile($session) -> $text
 
 This is an example of a sub to be called by the =rest= script. The parameter is:
    * =$session= - The Foswiki object associated to this session.
@@ -815,10 +834,10 @@ Foswiki:Support.Faq1
 
 =cut
 
-#sub restExample {
-#   my ( $session, $subject, $verb, $response ) = @_;
-#   return "This is an example of a REST invocation\n\n";
-#}
+sub importFile {
+   my ( $session, $subject, $verb, $response ) = @_;
+   return "This is an example of a REST invocation\n\n";
+}
 
 =begin TML
 
