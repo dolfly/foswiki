@@ -18,11 +18,19 @@ use warnings;
 
 use Foswiki::Func    ();    # The plugins API
 use Foswiki::Plugins ();    # For the API version
+use Error qw(:try);
+use Foswiki::Time ();
+use Foswiki::Plugins::WysiwygPlugin::HTML2TML;
+#use Foswiki::Plugins::WysiwygPlugin::TML2HTML;
 
 our $VERSION = '$Rev$';
 our $RELEASE = '0.1.0';
 our $SHORTDESCRIPTION = 'Upload and import data to foswiki';
 our $NO_PREFS_IN_TOPIC = 1;
+
+our %webFull;
+our $html2tml = new Foswiki::Plugins::WysiwygPlugin::HTML2TML();
+
 
 =begin TML
 
@@ -121,6 +129,329 @@ sub SHOWIMPORTFILE {
     }
     return 'FILENAME error';
 
+}
+
+
+=begin TML
+
+---++ importFile($session) -> $text
+
+This is an example of a sub to be called by the =rest= script. The parameter is:
+   * =$session= - The Foswiki object associated to this session.
+
+Additional parameters can be recovered via the query object in the $session, for example:
+
+my $query = $session->{request};
+my $web = $query->{param}->{web}[0];
+
+If your rest handler adds or replaces equivalent functionality to a standard script
+provided with Foswiki, it should set the appropriate context in its switchboard entry.
+A list of contexts are defined in %SYSTEMWEB%.IfStatements#Context_identifiers.
+
+For more information, check %SYSTEMWEB%.CommandAndCGIScripts#rest
+
+For information about handling error returns from REST handlers, see
+Foswiki:Support.Faq1
+
+*Since:* Foswiki::Plugins::VERSION 2.0
+
+=cut
+my %regex_map = (
+    html_invalid => '(.*?)',
+    html => '([^,]*)',
+    text_invalid => '(.*?)',
+    text => '([^,]*)',
+    datetime => '([^,]*)',
+#    int => '([-.0123456789]]*|NULL)'
+    int => '(\d*|NULL)'
+);
+
+sub importFile {
+   my ( $session, $subject, $verb, $response ) = @_;
+   
+    my $query = $session->{request};
+    my $outputelements = $query->{param}->{outputelements}[0];
+    my $separator = $query->{param}->{separator}[0];
+    my $invalidelements = $query->{param}->{invalidelements}[0];
+    my $outputweb = $query->{param}->{outputweb}[0];
+    my $importplugin = $query->{param}->{importplugin}[0];
+    
+    #use the importtypes to make a regex
+    my $inputelements_param = lc(Foswiki::Sandbox::untaintUnchecked($query->{param}->{inputelments}[0]));
+    my @inputelements = split(/\r?\n/, $inputelements_param);
+    my $invalidelements_param = lc(Foswiki::Sandbox::untaintUnchecked($query->{param}->{invalidelements}[0]));
+    my %invalidelements;
+    map { $invalidelements{$_} = 1; } split(/\r?\n/, $invalidelements_param);
+    my $outputelements_param = Foswiki::Sandbox::untaintUnchecked($query->{param}->{outputelements}[0]);
+    my @outputelements = split(/\r?\n/, $outputelements_param);
+
+    my $elementtypes_param = Foswiki::Sandbox::untaintUnchecked($query->{param}->{elementtypes}[0]);
+    my @elementtypes = split(/\r?\n/, $elementtypes_param);
+    
+    my @regex;
+    for(my $i=0;$i<$#inputelements;$i++) {
+        if (defined($invalidelements{lc($inputelements[$i])})) {
+            $elementtypes[$i] .= '_invalid';
+        }
+        
+        if (defined($regex_map{lc($elementtypes[$i])})) {
+            push(@regex, $regex_map{$elementtypes[$i]});
+        } elsif ($elementtypes[$i] =~ /^char\((\d+)\)$/i ) {
+                push(@regex, '([^,]{'.$1.'})');
+        } else {
+            #presume that the user has handcrafted a regex.
+            push(@regex, $elementtypes[$i]);
+        }
+    }
+    my $regex_str = join(',', @regex);
+   
+#    return "Import ".join(', ', @inputelements)."<br />\n".
+#        "as ".join(', ', @elementtypes)."<br />\n".
+#        "to ".join(', ', @outputelements)."<br />\n".
+#        "with pain ".join(', ', keys(%invalidelements))."<br />\n".
+#        "<br />$regex<br/\n\n>".$data;
+
+    
+    #open the attachment
+    my $type = lc(Foswiki::Sandbox::untaintUnchecked($query->{param}->{fromtype}[0]));
+    my $fromweb = $query->{param}->{fromweb}[0];
+    my $fromtopic = $query->{param}->{fromtopic}[0];
+    my $fromattachment = $query->{param}->{fromattachment}[0];
+    
+    ($fromweb, $fromtopic) = Foswiki::Func::normalizeWebTopicName($fromweb, $fromtopic);
+    ($fromweb, $fromtopic, $fromattachment) = Foswiki::Func::_checkWTA($fromweb, $fromtopic, $fromattachment);
+
+    my $data = '';
+#    use Foswiki::AccessControlException;
+#    try {
+#        $data = Foswiki::Func::readAttachment($fromweb, $fromtopic, $fromattachment);
+#        use Encode 'is_utf8';
+#        print STDERR "--------------------is_utf8: ".(is_utf8($data) ? 1 : 0)."\n";
+#        die "--------------------is_utf8: ".(is_utf8($data) ? 1 : 0)."\n";;
+#    } catch Foswiki::AccessControlException with {
+#        my $e = shift;
+#       return 'boomy '.$e;
+#    };
+    my $topicObject =
+      Foswiki::Meta->new( $Foswiki::Plugins::SESSION, $fromweb, $fromtopic );
+    unless ( $topicObject->haveAccess('VIEW') ) {
+        throw Foswiki::AccessControlException( 'VIEW',
+            $Foswiki::Plugins::SESSION->{user},
+            $fromweb, $fromtopic, $Foswiki::Meta::reason );
+    }
+
+    try {
+        #TODO: yup, can't do this either. Foswiki protects me from doing useful code.
+        #my $fh = $topicObject->openAttachment( $fromattachment, '<:raw:encoding(UTF16-LE):crlf:utf8', version => undef );
+        #TODO: argh, huge nasty presumption, no point being clean, the entire thing is now afreaking hack.
+        my $file = join('/', ($Foswiki::cfg{PubDir},$fromweb, $fromtopic, $fromattachment));
+        #open(my $fh, '<:raw:encoding(UTF16-LE):crlf:utf8', $file );
+        open(my $fh, '<', $file );
+        local $/;
+        $data = <$fh>;
+    }
+    catch Error::Simple with {
+        my $e = shift;
+           return 'boomy '.$e;
+    };
+    
+
+    #I'm going to simplify, cos i've run out of time.
+    #presume that the first element is easy to identify and split on that.
+    my $firstelem = $regex[0].',';
+    $firstelem = qr/$firstelem/;
+    
+    #$data =~ s/\r\n/\n/;
+    #$data = "\n".$data;
+    
+    #EE04D302-00F3-1F8D-A3CDC239FC957A6B,
+    #my @testdata = split(/([0123456789ABCDEF]{8}-[0123456789ABCDEF]{4}-[0123456789ABCDEF]{4}-[0123456789ABCDEF]{16})/, $data);
+    #my @testdata = split(/([^,]{35}),/m, $data);
+    #my @testdata = split(/$/m, $data);
+    #my @testdata = split(/([A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{16}),/, $data);
+    my @testdata = split($firstelem, $data);
+    if ($#testdata > 0) {
+        $data = 'count: '.$#testdata.'<br /><br />'."\n\n".
+        'regex: '.$regex_str.'<br /><br />'."\n\n".
+#        $testdata[1].'<br /><br />'."\n\n".
+#        $testdata[3].'<br /><br />'."\n\n".
+#        $testdata[5].'<br /><br />'."\n\n".
+#        $testdata[7].'<br /><br />'."\n\n".
+#        $testdata[9].'<br /><br />'."\n\n".
+#        $testdata[11].'<br /><br />'."\n\n".
+        '<br /><br />'."--------<br /><br />\n";
+        
+        my $dud = 0;
+        for (my $i=1;$i<$#testdata;$i+=2) {
+#        for (my $i=1;$i<20;$i+=2) {
+            my $line = $testdata[$i].','.$testdata[$i+1];
+            my @match = $line =~ /^$regex_str$/s;
+            if ($#match > 0) {
+                my $topicversion = addToTopics($outputweb, \@outputelements, \@match);
+                $data = $data.' ++++ '.$topicversion.'<br /><br />'."\n\n";
+            } else {
+                $data = $data.' ---- '.$testdata[$i].'<br /><br />'."\n\n";
+                $dud++;
+                
+                #remove up to the invalid field.
+                my $comma = '';
+                foreach my $reg (@regex) {
+                    last if ($reg =~ /\?/);
+                    if ($line =~ s/$comma$reg//s) {
+                        $comma = ',';
+                        $data = $data.' MATCHED '.$reg.'<br /><br />'."\n\n"."\n\n??".$1.'<br /><br />'."\n\n";
+                    } else {
+                        $data = $data.' FAILED to match '.$reg.'<br /><br />'."\n\n??".$line.'<br /><br />'."\n\n";
+                    }
+                }
+                $data = $data.' bump in the night >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> <br /><br />'."\n\n";
+
+                #remove up to the invalid field.
+                foreach my $reg (reverse @regex) {
+                    last if ($reg =~ /\?/);
+                    if ($line =~ s/$comma$reg$//s) {
+                        $comma = ',';
+                        $data = $data.' MATCHED '.$reg.'<br /><br />'."\n\n"."\n\n??".$1.'<br /><br />'."\n\n";
+                    } else {
+                        $data = $data.' FAILED to match '.$reg.'<br /><br />'."\n\n??".$line.'<br /><br />'."\n\n";
+                    }
+                }
+                
+
+            }
+        }
+        $data = $data."DUD: $dud out of ".($#testdata/2)."<br /><br />\n\n";
+        
+        #need to create the web..
+        if (not Foswiki::Func::webExists($outputweb)) {
+            try {
+                Foswiki::Func::createWeb($outputweb, '_default');
+            } catch Foswiki::AccessControlException with {
+                my $e = shift;
+                # see documentation on Foswiki::AccessControlException
+            } catch Error::Simple with {
+                my $e = shift;
+                # see documentation on Error::Simple
+            } otherwise {
+                #...
+            };
+        } else {
+            die 'must import into an empty web, otherwise saveTopics will fail.';
+        }
+        
+        #and now use the %webFull hash to make topics without losing our revisions
+        foreach my $t (keys(%webFull)) {
+            foreach my $rev (sort keys(%{$webFull{$t}})) {
+                my $hash = $webFull{$t}{$rev};
+                $data = $data.' ++++ '.$t.' @@ '.$hash->{'TOPICINFO.date'}.'<br />'."\n";
+                
+                my( $meta, $text );
+                if (Foswiki::Func::topicExists($outputweb, $t)) {
+                    ( $meta, $text ) = Foswiki::Func::readTopic( $outputweb, $t );
+                } else {
+                    #if the topic doesn't exist, we can either leave $meta undefined
+                    #or if we need to set more than just the topic text, we create a new Meta object and use it.
+                    $meta = new Foswiki::Meta($Foswiki::Plugins::SESSION, $outputweb, $t );
+                    $text = '';
+                }
+                foreach my $k (keys(%$hash)) {
+                    #just like query search getField.
+                    setField($meta, $k, $hash->{$k});
+                }
+#                try {
+                    Foswiki::Func::saveTopic( $meta->web, $meta->topic, $meta, $meta->text, {forcenewrevision=>1, 
+                                                                            forcedate=>$hash->{'TOPICINFO.date'}, 
+                                                                            author=>$hash->{'TOPICINFO.author'}
+                                                                            } 
+                                                                            );
+                    $data = $data.' ok <br />'."\n";
+#                } catch Foswiki::AccessControlException with {
+#                    my $e = shift;
+#                    # see documentation on Foswiki::AccessControlException
+#                } catch Error::Simple with {
+#                    my $e = shift;
+#                    # see documentation on Error::Simple
+#                } otherwise {
+#                    #...
+#                };
+
+            }
+        }
+
+    } else {
+        #$data = 'no match';
+        $data =~ /(.......................................)/;
+        $data = length($data).' (failed)  :  '.$1;
+    }
+
+    
+   return "Import $type file ".join('/', ($fromweb, $fromtopic, $fromattachment))." into $outputweb\n\n<br /><br />$data";
+}
+
+#($meta, $k, $hash->{$k}});
+sub setField {
+    my $meta = shift;
+    my $name = shift;
+    my $value = shift;
+    
+    return if ((not defined($value)) or $value eq 'NULL' or $value eq '');
+    
+    if ($name eq 'name') {
+        $meta->topic($value);
+    } elsif ($name eq 'web') {
+        $meta->web($value);
+    } elsif ($name eq 'text') {
+        $meta->text($value);
+    } elsif ($name =~ /^TOPICINFO\.(.*)$/) {
+#        $meta->putKeyed( 'TOPICINFO',
+#            { name => $1, value =>$value } );
+    } elsif ($name =~ /^preferences\.(.*)$/) {
+        $meta->putKeyed( 'PREFERENCE',
+            { name => $1, value =>$value } );
+    } elsif ($name =~ /^field\.(.*)$/) {
+        $meta->putKeyed( 'FIELD',
+            { name => $1, title => $1, value =>$value } );
+    } elsif ($name =~ /^attachments\.(.*)$/) {
+        die $name.' of surprise '.$value if ($value ne '');
+    } else {
+        #meh.
+        die $name.' of coniptions '.$value if ($value ne '');
+    }
+}
+
+
+sub addToTopics {
+    my $web = shift;
+    my $fields = shift;
+    my $info = shift;
+    
+    my %hash;
+    @hash{@$fields} = @$info;
+    $hash{web} = $web;
+    
+    return 'WARNING: ignoring attachment '.$hash{'attachments.name'} if (defined($hash{'attachments.name'}) and not ($hash{'attachments.name'} eq '' or $hash{'attachments.name'} eq 'NULL'));
+    
+    my $inverseFilter = $Foswiki::cfg{NameFilter};
+    $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
+    #make a useable Topic name
+    $hash{name} =~ s/$inverseFilter//g;
+    $hash{name} =~ s/[\.\/]//g;
+    #make a useable author
+    $hash{'TOPICINFO.author'} =~ s/$inverseFilter//g;
+    $hash{'TOPICINFO.author'} =~ s/[\.\/\s]//g;
+    #make TOPICINFO.date usable
+    $hash{'TOPICINFO.date'} =~ s/\.\d\d\d$//;
+    $hash{'TOPICINFO.date'} = Foswiki::Time::parseTime($hash{'TOPICINFO.date'});
+    
+    #convert html2tml
+    $hash{'preferences.HTML'} = $hash{text};
+    $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
+    
+    $webFull{$hash{name}} = () if (not defined($webFull{$hash{name}}));
+    $webFull{$hash{name}}{$hash{'TOPICINFO.date'}} = \%hash;
+    
+    return $web.'.'.$hash{name}.'@@'.$hash{'TOPICINFO.date'}.' by '.$webFull{$hash{name}}{$hash{'TOPICINFO.date'}}->{'TOPICINFO.author'};
+    
 }
 
 =begin TML
@@ -815,35 +1146,6 @@ cache and security plugins.
 #    # $_[0] =~ s/SpecialString/my alternative/ge;
 #}
 
-=begin TML
-
----++ importFile($session) -> $text
-
-This is an example of a sub to be called by the =rest= script. The parameter is:
-   * =$session= - The Foswiki object associated to this session.
-
-Additional parameters can be recovered via the query object in the $session, for example:
-
-my $query = $session->{request};
-my $web = $query->{param}->{web}[0];
-
-If your rest handler adds or replaces equivalent functionality to a standard script
-provided with Foswiki, it should set the appropriate context in its switchboard entry.
-A list of contexts are defined in %SYSTEMWEB%.IfStatements#Context_identifiers.
-
-For more information, check %SYSTEMWEB%.CommandAndCGIScripts#rest
-
-For information about handling error returns from REST handlers, see
-Foswiki:Support.Faq1
-
-*Since:* Foswiki::Plugins::VERSION 2.0
-
-=cut
-
-sub importFile {
-   my ( $session, $subject, $verb, $response ) = @_;
-   return "This is an example of a REST invocation\n\n";
-}
 
 =begin TML
 

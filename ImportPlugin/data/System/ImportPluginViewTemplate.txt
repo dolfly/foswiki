@@ -34,7 +34,7 @@ wiki
   </td><td>
 	Define import data types (char(length),text,html,date,number) %BR%
 	<textarea name="elementtypes" cols="20" rows="17" style="text-align:right;">
-char(35)
+([A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{16})
 text
 html
 datetime
@@ -66,9 +66,9 @@ preferences.ALLOWTOPICVIEW
 preferences.ALLOWTOPICCHANGE
 attachments.name
 attachments.size
-attachments.comment
-attachments.comment
-attachments.comment
+attachments.comment1
+attachments.comment2
+attachments.comment3
 web
 	</textarea>
   </td>
@@ -95,7 +95,11 @@ web
   <td align="right">
   </td><td>
     <input type="hidden" name="importplugin" value="step2" size="50" />
-    <input type="hidden" name="fromtopic" value="%BASEWEB%.%BASETOPIC%" size="50" />
+    <input type="hidden" name="fromweb" value="%BASEWEB%" size="50" />
+    <input type="hidden" name="fromtopic" value="%BASETOPIC%" size="50" />
+    <input type="hidden" name="fromattachment" value="%QUERY{attachments.name}%" size="50" />
+    <input type="hidden" name="fromtype" value="csv" size="50" />
+    
     <input type="submit" class="foswikiSubmit" value=" Import file as topics" />  </td>
  </tr>
 </table>
