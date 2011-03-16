@@ -1,0 +1,9 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1300154667" format="1.1" version="2"}%
+---++ This is the %SYSTEMWEB%.DataForms definition for the structured form based data
+see WebTopicEditTemplate for the TopicTemplate
+
+| *Name*       | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| importState  | select | 1      | step1, step2, step3 | | M |
+
+%META:FORM{name="System.ImportPluginTopicForm"}%
+%META:FIELD{name="importState" attributes="" title="Interested Parties" value="step1"}%

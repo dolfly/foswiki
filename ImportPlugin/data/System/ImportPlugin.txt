@@ -49,6 +49,7 @@ prefer.
   </td><td>
     <input type="hidden" name="importplugin" value="step1" size="50" />
     <input type="hidden" name="templatetopic" value="ImportPluginTopicTemplate" size="50" />
+    <input type="hidden" name="formtemplate" value="ImportPluginTopicForm" size="50" />
     
     <input type="submit" class="foswikiSubmit" value=" %MAKETEXT{"Upload file"}%" />  </td>
  </tr>

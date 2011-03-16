@@ -155,9 +155,15 @@ sub earlyInitPlugin {
             #create with the right view template?
             use Error qw( :try );
             use Foswiki::UI::Save;
-            my $templatetopicparam = $query->{param}->{templatetopic}[0] || '';
+            my $formtemplateparam = $query->{param}->{formtemplate}[0] || 'ImportPluginTopicForm';
+            my ($formtemplateweb, $formtemplatetopic ) = Foswiki::Func::normalizeWebTopicName('System', $formtemplateparam);
+            my( $meta, $formtext ) = Foswiki::Func::readTopic( $formtemplateweb, $formtemplatetopic );
+
+            my $templatetopicparam = $query->{param}->{templatetopic}[0] || 'ImportPluginTopicTemplate';
             my ($templateweb, $templatetopic ) = Foswiki::Func::normalizeWebTopicName('System', $templatetopicparam);
-            my( $meta, $text ) = Foswiki::Func::readTopic( $templateweb, $templatetopic );
+            my( $templatemeta, $text ) = Foswiki::Func::readTopic( $templateweb, $templatetopic );
+            
+            $meta->text($text);
             #TODO: obey AUTOINC and XXXXX - can't, at least not this late.
             $topic = Foswiki::UI::Save::expandAUTOINC( $session, $web, $topic );
             $query->{param}->{topic}[0] = $topic;
