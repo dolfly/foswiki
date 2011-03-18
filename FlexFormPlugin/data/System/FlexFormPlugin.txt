@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1279819493" format="1.1" reprev="2" version="2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1281438214" format="1.1" version="1.2"}%
 ---+!! %TOPIC%
 %$SHORTDESCRIPTION% 
 
@@ -24,57 +24,66 @@ In addition, !FlexFormPlugin facilitates the extraction of field default values 
 
 ---++ Usage
 ---+++ RENDERFOREDIT
-
 | *Parameter* | *Description* | *Default* |
 | "..." (or topic="..." | name of a topic to render the edit form for | the base topic of the current url |
-| fields="&lt;fieldname1>, &lt;fieldname2>, ..." | list of formfields to render the interface for | all known formfields |
-| form="..." | topic name containing the !DataForm definition | form found at the base topic |
-| value="..." | value to be inserted into the edit interface; makes sense for single-field calls only | stored value in the base topic |
-| &lt;fieldname>_value="..." | value to be inserted into the edit interface of the named field | looks for urlparam &lt;fieldname>, defaults to stored value |
-| &lt;fieldname>_title="..." %BR% \
-  &lt;fieldname>_type="..." %BR% \
-  &lt;fieldname>_size="..." %BR% \
-  &lt;fieldname>_attributes="..." %BR% \
-  &lt;fieldname>_description="..." %BR% \
-  &lt;fieldname>_default="..." %BR% \
-  &lt;fieldname>_values="..." %BR% | these parameters allow to override the formfield properties as specified in the !DataForm definition; for example a =Teaser_type="text"= , =Teaser_size="30"= will override a definition of a =Teaser= formfield that otherwise is a =textarea= of size =80x25=; &lt;fieldname>_values redefines the list of allowed values for that field | values as defined in the !DataForm definition and the current topic |
-| format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
-| header="..." | header string to be put in front of the output | &lt;empty string> |
-| footer="..." | footer string to apped to the output | &lt;empty string> |
-| mandatory="..." | string to be inserted when a field is mandatory | <span class='foswikiAlert'>**</span> |
-| separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
-| include="..." | regular expression fieldnames must match to be included in the output | undefined |
-| exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
-| includeattr="..." | regular expression field attributes must match to be included in the output | undefined |
 | excludeattr="..." | regular expression field attributes must match to be excluded from the output | undefined |
-| hidden="..." | those fields that match this regular expression will be rendered hidden | undefined |
-| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string in the edit interface (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
-
----+++ RENDERFORDISPLAY
-
-| *Parameter* | *Description* | *Default* |
-| "..." or topic="..." | name of a topic to display the form for | the base topic of the current url |
-| fields="&lt;fieldname1>, &lt;fieldname2>, ..." | list of formfields to be displayed | all known formfields |
+| exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
+| fields="&lt;fieldname1>, &lt;fieldname2>, ..." | list of formfields to render the interface for | all known formfields |
+| footer="..." | footer string to apped to the output | &lt;empty string> |
+| format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
 | form="..." | topic name containing the !DataForm definition | form found at the base topic |
-| &lt;fieldname>_value="..." %BR% \
+| header="..." | header string to be put in front of the output | &lt;empty string> |
+| hidden="..." | those fields that match this regular expression will be rendered hidden | undefined |
+| includeattr="..." | regular expression field attributes must match to be included in the output | undefined |
+| include="..." | regular expression fieldnames must match to be included in the output | undefined |
+| mandatory="..." | string to be inserted when a field is mandatory | <span class='foswikiAlert'>**</span> |
+| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string in the edit interface (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
+| separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
+| sort="on/off" | sort values of multi-valued formfields | on |
+| value="..." | value to be inserted into the edit interface; makes sense for single-field calls only | stored value in the base topic |
+| &lt;fieldname>_attributes="..." %BR% \
+  &lt;fieldname>_default="..." %BR% \
+  &lt;fieldname>_description="..." %BR% \
+  &lt;fieldname>_format="..." %BR% \
+  &lt;fieldname>_size="..." %BR% \
   &lt;fieldname>_title="..." %BR% \
   &lt;fieldname>_type="..." %BR% \
-  &lt;fieldname>_size="..." %BR% \
-  &lt;fieldname>_attributes="..." %BR% \
-  &lt;fieldname>_description="..." %BR% \
-  &lt;fieldname>_default="..." %BR% \
-  &lt;fieldname>_values="..." %BR% | see above | defaults as defined in the !DataForm definition and the current topic |
-| format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
-| header="..." | header string to be put in front of the output | &lt;empty string> |
-| footer="..." | footer string to apped to the output | &lt;empty string> |
-| separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
-| valueseparator="..." | string to be put between each allowed value as defined in the form schema | , |
-| include="..." | regular expression fieldnames must match to be included in the output | undefined |
-| exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
-| includeattr="..." | regular expression field attributes must match to be included in the output | undefined |
+  &lt;fieldname>_values="..." %BR% \
+  | these parameters allow to override the formfield properties as specified in the !DataForm definition; for example a =Teaser_type="text"= , =Teaser_size="30"= will override a definition of a =Teaser= formfield that otherwise is a =textarea= of size =80x25=; &lt;fieldname>_values redefines the list of allowed values for that field | values as defined in the !DataForm definition and the current topic |
+| &lt;fieldname>_value="..." | value to be inserted into the edit interface of the named field | looks for urlparam &lt;fieldname>, defaults to stored value |
+| &lt;fieldname>_sort="..." | on/off/asc/desc/rev - sort allowed values before displaying them | as defined in the !DataForm |
+
+---+++ RENDERFORDISPLAY
+| *Parameter* | *Description* | *Default* |
+| "..." or topic="..." | name of a topic to display the form for | the base topic of the current url |
+| autolink="on/off" | enable/disable !WikiWord autolinking when rendering a formfield; setting =autolink= sets the default for all fields specific settings of =&lt;fieldname>_autolink=which can, that is you can disable autolinking globally and switch it back on per field | on |
 | excludeattr="..." | regular expression field attributes must match to be excluded from the output | undefined |
-| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
+| exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
+| fields="&lt;fieldname1>, &lt;fieldname2>, ..." | list of formfields to be displayed | all known formfields |
+| footer="..." | footer string to apped to the output | &lt;empty string> |
+| format="..." | format string to render each formfield with, more info below | =$edit$mandatory= |
+| form="..." | topic name containing the !DataForm definition | form found at the base topic |
+| header="..." | header string to be put in front of the output | &lt;empty string> |
+| hideempty="on/off" | hide empty formfields | off |
+| includeattr="..." | regular expression field attributes must match to be included in the output | undefined |
+| include="..." | regular expression fieldnames must match to be included in the output | undefined |
 | labelformat="..." | format string used for labels exclusively; labels aren't real input fields; they are part of the form definition but carry read-only values only if at all  | same as =format= |
+| map="&lt;fieldname1>=&lt;title1>, &lt;fieldname2>=&lt;title2>, ..." | allows to map a fieldname to a different title string (*deprecated*: please use &lt;fieldname>_title to redefine the title) | original fieldnames are used as title string |
+| separator="..." | string to be put between each formatted output per formfield | &lt;empty string> |
+| sort="on/off" | sort values of multi-valued formfields | on |
+| valueseparator="..." | string to be put between each allowed value as defined in the form schema | , |
+| &lt;fieldname>_attributes="..." %BR% \
+  &lt;fieldname>_autolink="..." %BR% \
+  &lt;fieldname>_default="..." %BR% \
+  &lt;fieldname>_description="..." %BR% \
+  &lt;fieldname>_format="..." %BR% \
+  &lt;fieldname>_size="..." %BR% \
+  &lt;fieldname>_sort="..." %BR% \
+  &lt;fieldname>_title="..." %BR% \
+  &lt;fieldname>_type="..." %BR% \
+  &lt;fieldname>_value="..." %BR% \
+  &lt;fieldname>_values="..." %BR% \
+  | see above | defaults as defined in the !DataForm definition and the current topic |
 
 If all three =format=, =header= and =footer= are undefined a =foswikiFormSteps= block will be rendered as illustrated in the example below.
 
@@ -137,6 +146,13 @@ Many thanks to the following sponsors for supporting this work:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  18 Mar 2011: | added autolink param; \
+                  fixed getting default values; \
+                  added global sort param; \
+                  added fieldname_format param; \
+                  protecting %MACROs in value attr of an input field |
+|  13 Aug 2010: | added fieldname_sort param to sort allowed field values before displaying them |
+|  10 Aug 2010: | added =hideempty= to RENDERFORDISPLAY |
 |  23 Jul 2010: | fixed rendering hidden fields when creating a new topic (Foswiki:Main/PasiHaekkinen) |
 |  22 Jul 2010: | fixed not try to load a non-existing form definition; \
                   providing fallback method for retrieving default values from form definition for those formfield types that can't do that by themselves; \
