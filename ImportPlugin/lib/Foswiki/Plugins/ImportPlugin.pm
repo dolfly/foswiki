@@ -341,6 +341,7 @@ sub importFile {
         
         #and now use the %webFull hash to make topics without losing our revisions
         foreach my $t (keys(%webFull)) {
+            print STDERR $t;
             foreach my $rev (sort keys(%{$webFull{$t}})) {
                 my $hash = $webFull{$t}{$rev};
                 $data = $data.' ++++ '.$t.' @@ '.$hash->{'TOPICINFO.date'}.'<br />'."\n";
@@ -358,22 +359,21 @@ sub importFile {
                     #just like query search getField.
                     setField($meta, $k, $hash->{$k});
                 }
-#                try {
+                try {
                     Foswiki::Func::saveTopic( $meta->web, $meta->topic, $meta, $meta->text, {forcenewrevision=>1, 
                                                                             forcedate=>$hash->{'TOPICINFO.date'}, 
                                                                             author=>$hash->{'TOPICINFO.author'}
                                                                             } 
                                                                             );
                     $data = $data.' ok <br />'."\n";
-#                } catch Foswiki::AccessControlException with {
-#                    my $e = shift;
-#                    # see documentation on Foswiki::AccessControlException
-#                } catch Error::Simple with {
-#                    my $e = shift;
-#                    # see documentation on Error::Simple
-#                } otherwise {
-#                    #...
-#                };
+                } otherwise {
+                    my $e = shift;
+                    print STDERR "Error saving (".$meta->topic."), tryng again without forcedate.".(defined($e)?$e->stringify():'');
+                    Foswiki::Func::saveTopic( $meta->web, $meta->topic, $meta, $meta->text, {forcenewrevision=>1, 
+                                                                            author=>$hash->{'TOPICINFO.author'}
+                                                                            } 
+                                                                            );
+                };
 
             }
         }
@@ -433,9 +433,16 @@ sub addToTopics {
     
     my $inverseFilter = $Foswiki::cfg{NameFilter};
     $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
+    
     #make a useable Topic name
     $hash{name} =~ s/$inverseFilter//g;
     $hash{name} =~ s/[\.\/]//g;
+    #convert all underscores to spaces then remove them after capitalising all letters after a space..
+    $hash{name} =~ s/[\s_]+(\w)/uc($1)/ge;
+    $hash{name} =~ s/^(\w)/uc($1)/e;
+    $hash{name} =~ s/\?//g;
+    $hash{name} =~ s/_//g;
+   
     #make a useable author
     $hash{'TOPICINFO.author'} =~ s/$inverseFilter//g;
     $hash{'TOPICINFO.author'} =~ s/[\.\/\s]//g;
@@ -444,8 +451,26 @@ sub addToTopics {
     $hash{'TOPICINFO.date'} = Foswiki::Time::parseTime($hash{'TOPICINFO.date'});
     
     #convert html2tml
-    $hash{'preferences.HTML'} = $hash{text};
-    $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
+    #$hash{'preferences.HTML'} = $hash{text};
+    #oh crap, these topics are not just html.
+    $hash{text} =~ s/\r\n/\n/gms;
+    $hash{text} =~ s/\[\[(.*?)\|(.*?)\]\]/[[$1][$2]]/gms;
+    $hash{text} =~ s/^\*\*\*/         * /gms;
+    $hash{text} =~ s/^\*\*/      * /gms;
+    $hash{text} =~ s/^\*/   * /gms;
+    $hash{text} =~ s/^# /   1 /gms;
+    $hash{text} =~ s/^## /      1 /gms;
+    $hash{text} =~ s/'''(.*?)'''/*$1*/gms;
+    $hash{text} =~ s/\[sup\]/<sup>/gms;
+    $hash{text} =~ s/\[\/sup\]/<\/sup>/gms;
+
+    #$hash{text} =~ s///gms;
+
+
+    
+    if ($hash{text} =~ /(<p>|<div|<a href|<h[1234567]>|<br \/>|&nbsp;)/i) {
+        $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
+    }
     
     $webFull{$hash{name}} = () if (not defined($webFull{$hash{name}}));
     $webFull{$hash{name}}{$hash{'TOPICINFO.date'}} = \%hash;
