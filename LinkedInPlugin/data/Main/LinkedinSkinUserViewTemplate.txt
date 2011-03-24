@@ -1,0 +1,8 @@
+%META:TOPICINFO{author="ProjectContributor" date="1231502400" format="1.1" version="$Rev$"}%
+%TMPL:INCLUDE{"view"}%
+
+%TMPL:DEF{"content"}%<div class="foswikiRight">
+%ADDTOZONE{"script" text="<script type='text/javascript' src='http://www.linkedin.com/js/public-profile/widget-os.js'></script>"}%
+<a class="linkedin-profileinsider-inline" href="http://www.linkedin.com/in/%URLENCODE{%BASETOPIC%}%">%BASETOPIC%</a>
+</div>
+%TMPL:PREV%%TMPL:END%

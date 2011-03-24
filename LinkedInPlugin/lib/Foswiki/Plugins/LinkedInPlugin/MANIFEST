@@ -1,0 +1,5 @@
+# Release manifest for LinkedInPlugin
+data/System/LinkedInPlugin.txt 0644 Documentation
+lib/Foswiki/Plugins/LinkedInPlugin.pm 0644 Perl module
+data/Main/LinkedinSkinUserViewTemplate.txt 0644 
+

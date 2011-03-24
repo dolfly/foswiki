@@ -1,0 +1,88 @@
+%META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1300933078" format="1.1" version="2"}%
+---+!! !LinkedInPlugin
+<!--
+One line description, required for extensions repository catalog.
+BuildContrib will fill in the SHORTDESCRIPTION with the value of
+$SHORTDESCRIPTION from the .pm module, or you can redefine it here if you
+prefer.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+---+++ Share on LinkedIn
+
+it seems that the POPUPWINDOW is the most reliable, and can be customised best.
+
+%POPUPWINDOW{
+      label="Share on %NOP%LinkedIn"
+      url="http://www.linkedin.com/shareArticle?mini=true&url=http://fosiki.com&title=<nop>LinkedInPlugin&summary=linkedinplugin&source=%WIKINAME%"
+}%
+
+<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-url="http://fosiki.com" data-counter="top"></script>
+
+<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-url="http://fosiki.com" data-counter="right"></script>
+
+
+<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-url="http://fosiki.com"></script>
+
+   * *sidebar share this topic..*
+
+---+++ Company insider
+
+<script src="http://www.linkedin.com/companyInsider?script&useBorder=no" type="text/javascript"></script>
+<script type="text/javascript">
+  new LinkedIn.CompanyInsiderPopup("bofa","Bank of America");
+</script>
+<span id="bofa"></span>
+
+   * *some kind of comany name based thing / sitewide?*
+
+---+++ Linkedin profile
+<script type="text/javascript" src="http://www.linkedin.com/js/public-profile/widget-os.js"></script>
+
+<a class="linkedin-profileinsider-popup" href="http://www.linkedin.com/in/SvenDowideit">SvenDowideit</a>
+
+<a class="linkedin-profileinsider-inline" href="http://www.linkedin.com/in/SvenDowideit">SvenDowideit</a>
+
+   * *add to WikiName rendering? as popup*
+   * *add to view_template for usertopic*
+---++ Examples
+
+---++ !WidgetsSkin blocks
+<verbatim type-tml>
+http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%}%&title=%URLENCODE{%QUERY{Summary}%}%&summary=new%20foswiki%20linkedin%20plugin&source=Foswiki
+---+++ widget-linkedinshare
+%STARTSECTION{"widget-linkedinshare"}%<div class="widget-linkedinshare widget">
+   <h2 class="widget-header">Share</h2>
+   <div class="widget-content">
+%ICON{linkedin}%%POPUPWINDOW{
+      label="Share this topic"
+      url="http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%}%&title=<nop>LinkedInPlugin&summary=linkedinplugin&source=%WIKINAME%"
+}%
+   </div>
+</div>%ENDSECTION{"widget-linkedinshare"}%
+</verbatim>
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+Many thanks to the following sponsors for supporting this work:
+   * Acknowledge any sponsors here
+
+|  Author(s): | Foswiki:Main.SvenDowideit - http://fosiki.com |
+|  Copyright: | SvenDowideit@fosiki.com &copy; 2011 |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License 3)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | http://foswiki.org/bin/view/Extensions/LinkedInPlugin |
+|  Support: | http://foswiki.org/bin/view/Support/LinkedInPlugin |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. -->
