@@ -2,7 +2,6 @@
 %TMPL:INCLUDE{"view"}%
 
 %TMPL:DEF{"content"}%<div class="foswikiRight">
-%ADDTOZONE{"script" text="<script type='text/javascript' src='http://www.linkedin.com/js/public-profile/widget-os.js'></script>"}%
-<a class="linkedin-profileinsider-inline" href="http://www.linkedin.com/in/%URLENCODE{%BASETOPIC%}%">%BASETOPIC%</a>
+%PROFILE{%BASETOPIC%}%
 </div>
 %TMPL:PREV%%TMPL:END%

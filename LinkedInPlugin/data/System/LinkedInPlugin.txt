@@ -1,4 +1,9 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1300933078" format="1.1" version="2"}%
+
+<div class="foswikiRight" style="padding:60px">
+%ADDTOZONE{"script" text="<script type='text/javascript' src='http://www.linkedin.com/js/public-profile/widget-os.js'></script>"}%
+<a class="linkedin-profileinsider-inline" href="http://www.linkedin.com/in/%URLENCODE{SvenDowideit}%">Sven Dowideit</a>
+</div>
 ---+!! !LinkedInPlugin
 <!--
 One line description, required for extensions repository catalog.
@@ -9,59 +14,53 @@ prefer.
 -->
 %SHORTDESCRIPTION%
 
+%ICON{linkedin}%%POPUPWINDOW{
+      label="Share this foswiki plugin on %NOP%LinkedIn"
+      url="http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%}%&title=%URLENCODE{%SHORTDESCRIPTION%}%&summary=new%20foswiki%20linkedin%20plugin&source=%URLENCODE{%WIKINAME%}%"
+}%
+
+
 %TOC%
 
 ---++ Usage
----+++ Share on LinkedIn
+---+++ Share on !LinkedIn
+To add a share _this_ topic link, using defaults, just add =%<nop>SHARE%= :
+%SHARE{}%
 
-it seems that the POPUPWINDOW is the most reliable, and can be customised best.
+Macro parameters:
+   * url - url linking to what you're sharing - default to the current topic
+   * title - a title for the share - defaults tto the topic name
+   * source - who's sharing it - default to your wikiname
+   * summary - a summary..
+   
+!LinkedIn requires shared URL's to be publically accessible.
 
-%POPUPWINDOW{
-      label="Share on %NOP%LinkedIn"
-      url="http://www.linkedin.com/shareArticle?mini=true&url=http://fosiki.com&title=<nop>LinkedInPlugin&summary=linkedinplugin&source=%WIKINAME%"
-}%
+---+++ !LinkedIn user profile
+To add a Link, or an inline !LinkedIn profile, use the =%!PROFILE%= macro:
 
-<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-url="http://fosiki.com" data-counter="top"></script>
+%PROFILE{}%
 
-<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-url="http://fosiki.com" data-counter="right"></script>
+Macro parameters:
+   * type - inline or popup
+   * user - user to lookup - defaults to the logged in user's wikiname.
 
+   
+---++ Skin Support.
+If you install this plugin and are using a current release of Foswiki::Extensions.WidgetsSkin, the side bar will automatically have a share this topic widget added.
 
-<script type="text/javascript" src="http://platform.linkedin.com/in.js"></script><script type="in/share" data-url="http://fosiki.com"></script>
+similarly, if you're using Widgets skin, or PatternSkin, everyone's user topics can have the !LinkedIn user profile widget automatically added by pre-pending =linkedin= to the skin path:
 
-   * *sidebar share this topic..*
-
----+++ Company insider
-
-<script src="http://www.linkedin.com/companyInsider?script&useBorder=no" type="text/javascript"></script>
-<script type="text/javascript">
-  new LinkedIn.CompanyInsiderPopup("bofa","Bank of America");
-</script>
-<span id="bofa"></span>
-
-   * *some kind of comany name based thing / sitewide?*
-
----+++ Linkedin profile
-<script type="text/javascript" src="http://www.linkedin.com/js/public-profile/widget-os.js"></script>
-
-<a class="linkedin-profileinsider-popup" href="http://www.linkedin.com/in/SvenDowideit">SvenDowideit</a>
-
-<a class="linkedin-profileinsider-inline" href="http://www.linkedin.com/in/SvenDowideit">SvenDowideit</a>
-
-   * *add to WikiName rendering? as popup*
-   * *add to view_template for usertopic*
----++ Examples
+   * <nop>Set SKIN=linkedin,famfamfam,pattern
 
 ---++ !WidgetsSkin blocks
+---+++ Share with !LinkedIn
 <verbatim type-tml>
 http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%}%&title=%URLENCODE{%QUERY{Summary}%}%&summary=new%20foswiki%20linkedin%20plugin&source=Foswiki
 ---+++ widget-linkedinshare
 %STARTSECTION{"widget-linkedinshare"}%<div class="widget-linkedinshare widget">
    <h2 class="widget-header">Share</h2>
    <div class="widget-content">
-%ICON{linkedin}%%POPUPWINDOW{
-      label="Share this topic"
-      url="http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%}%&title=<nop>LinkedInPlugin&summary=linkedinplugin&source=%WIKINAME%"
-}%
+%SHARE%
    </div>
 </div>%ENDSECTION{"widget-linkedinshare"}%
 </verbatim>
@@ -71,9 +70,6 @@ http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/
 %$INSTALL_INSTRUCTIONS%
 
 ---++ Info
-
-Many thanks to the following sponsors for supporting this work:
-   * Acknowledge any sponsors here
 
 |  Author(s): | Foswiki:Main.SvenDowideit - http://fosiki.com |
 |  Copyright: | SvenDowideit@fosiki.com &copy; 2011 |

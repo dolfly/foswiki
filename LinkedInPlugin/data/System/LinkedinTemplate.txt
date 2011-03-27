@@ -1,0 +1,12 @@
+
+%TMPL:DEF{"share"}%%ICON{linkedin}%%POPUPWINDOW{
+      label="Share on %NOP%LinkedIn"
+      url="http://www.linkedin.com/shareArticle?mini=true&url=%URL%&title=%TITLE%&summary=%SUMMARY%&source=%SOURCE%"
+}%%TMPL:END% 
+
+%TMPL:DEF{"profile"}%%ADDTOZONE{"script" text="<script type='text/javascript' src='http://www.linkedin.com/js/public-profile/widget-os.js'></script>"}%
+<a class="linkedin-profileinsider-%TYPE%" href="http://www.linkedin.com/in/%URLENCODE{%USER%}%">%USER%</a>
+%TMPL:END% 
+
+
+%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Set" value="SkinTemplateView"}%
