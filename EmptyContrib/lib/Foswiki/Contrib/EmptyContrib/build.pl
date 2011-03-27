@@ -26,7 +26,7 @@ BEGIN { unshift @INC, split( /:/, $ENV{FOSWIKI_LIBS} ); }
 use Foswiki::Contrib::Build;
 
 # Create the build object
-my $build = new Foswiki::Contrib::Build('EmptyPlugin');
+my $build = new Foswiki::Contrib::Build('EmptyContrib');
 
 # Build the target on the command line, or the default target
 $build->build($build->{target});
@@ -73,4 +73,3 @@ $build->{UPLOADTARGETSUFFIX} = '';
 </verbatim>
 
 =cut
-

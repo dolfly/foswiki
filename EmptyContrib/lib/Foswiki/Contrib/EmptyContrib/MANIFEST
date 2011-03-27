@@ -1,0 +1,4 @@
+!noci
+data/System/EmptyContrib.txt 0644 Documentation page
+lib/Foswiki/Contrib/EmptyContrib.pm  Perl module 
+lib/Foswiki/Contrib/EmptyContrib/Config.spec 0444 Configuration
