@@ -35,7 +35,7 @@ sub extractParams {
     $args{formatleaf}   ||= $args{format};
     $args{separator}    ||= '$n';
     $args{footer}       ||= '*Total: $ntopics*';
-    $args{nodelimit}    ||= '999';
+    $args{nodelimit}    ||= '50';
 
     return \%args;
 }

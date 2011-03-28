@@ -17,7 +17,7 @@
        =formatbranch="..."= %BR% \
        =formatleaf="..."=               | Custom format results: see [[FormattedSearch]] for usage &amp; examples; "branch" format is for nodes which have descendents; "leaf" format is for terminating nodes for which there are no others below. | =$indent* [<nop>[$web.<nop>$topic][$topic]]= |
      | =separator="..."= | Separator _between_ search hits. See [[#FormatTokens]] | =$n= |
-     | =nodelimit= | Maximum number of nodes to be displayed. 0 = no limit. | =999= |
+     | =nodelimit= | Maximum number of nodes to be displayed. 0 = no limit. | =50= |
      | =depthlimit= | Maximum depth to recurse to. 0 = no limit. | =0= |
      | =breadthlimit= %X% | Maximum number of nodes to be displayed _at a given depth_. 0 = no limit. | =0= |
 
