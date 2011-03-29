@@ -68,11 +68,11 @@ Need a magical WebWidgets topic that can add widgets to the list for a web - sim
 		<form method="post" action="%SCRIPTURL{login}%/%BASEWEB%/%BASETOPIC%">
 			<div class="cltlogin">
 			<div>
-                           <input type="text" id="uname" name="username" class="text_box" value="Username" style="margin-bottom:3px;" />
+                           <input type="text" id="uname" name="username" class="text_box" value="" style="margin-bottom:3px;" />
                            <input type="hidden" name="origurl" value="%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%" />
 			</div>
 			<div>
-                           <input type="password" id="uname" name="password" class="text_box" value="Username" />
+                           <input type="password" id="uname" name="password" class="text_box" value="" />
                            </div>
 			</div>
                         <input type="submit" class="button" value="LOGIN"/>
