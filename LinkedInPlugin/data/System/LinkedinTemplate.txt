@@ -5,8 +5,9 @@
 }%%TMPL:END% 
 
 %TMPL:DEF{"profile"}%%ADDTOZONE{"script" text="<script type='text/javascript' src='http://www.linkedin.com/js/public-profile/widget-os.js'></script>"}%
-<a class="linkedin-profileinsider-%TYPE%" href="http://www.linkedin.com/in/%URLENCODE{%USER%}%">%USER%</a>
+<a class="linkedin-profileinsider-%TYPE%" href="%URL%">%USER%</a>
 %TMPL:END% 
 
+%TMPL:DEF{"profile:url"}%http://www.linkedin.com/in/%URLENCODE{%USER%}%%TMPL:END% 
 
 %META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Set" value="SkinTemplateView"}%

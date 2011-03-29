@@ -43,6 +43,10 @@ To add a Link, or an inline !LinkedIn profile, use the =%!PROFILE%= macro:
 Macro parameters:
    * type - inline or popup
    * user - user to lookup - defaults to the logged in user's wikiname.
+   * url - can be used to over-ride the automatic attempt to use the user 
+     parameter to create a !LinkedIn public profile url - important for when 
+     someone of the same name registered first, so your user's profile name is not simply firstname lastname. 
+     (note that when using the skin setting below, you can over-ride the url by setting =LINKEDINPROFILEURL= on that user's topic.)
 
    
 ---++ Skin Support.
@@ -77,6 +81,8 @@ http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  29 March 2011: | add an over-ride profile =url= parameter for non-customised or non-unique names |
+|  28 March 2011: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | http://foswiki.org/bin/view/Extensions/LinkedInPlugin |
 |  Support: | http://foswiki.org/bin/view/Support/LinkedInPlugin |

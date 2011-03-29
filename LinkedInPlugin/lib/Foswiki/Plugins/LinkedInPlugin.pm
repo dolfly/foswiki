@@ -16,7 +16,7 @@ use Foswiki::Func    ();    # The plugins API
 use Foswiki::Plugins ();    # For the API version
 
 our $VERSION           = '$Rev$';
-our $RELEASE           = '1.0.0';
+our $RELEASE           = '1.0.1';
 our $SHORTDESCRIPTION  = 'Add LinkedIn Widgets to your Foswiki';
 our $NO_PREFS_IN_TOPIC = 1;
 
@@ -76,6 +76,29 @@ sub SHARE {
     return $html;
 }
 
+
+=begin TML
+
+---++ StaticMethod validateUrl($url) -> $url
+
+Check that the url is valid and safe to use as a url. Method used for
+validation with untaint(). Returns the url, or undef if it is invalid.
+
+=cut
+
+sub validateUrl {
+    my $url = shift;
+    
+    #ignore any ? or # params
+    if ($url =~ m|^(https?://)([a-zA-Z0-9.]*)(/[^#?]*)| ) {
+        my $out = $1.$2.$3;
+        if (lc($2) =~ /linkedin.com$/) {
+            return $out;
+        }
+    }
+    return;
+}
+
 sub PROFILE {
     my ( $session, $params, $topic, $web, $topicObject ) = @_;
 
@@ -90,8 +113,17 @@ sub PROFILE {
     my $shareto = $params->{shareto} || 'linkedin';
     Foswiki::Func::loadTemplate($shareto);
 
+    my $url = $params->{url};
+    if (defined($url))  {
+        #need to untaint, and to confirm this is indeed a valid url to linkedin - not some spammers / hackers way to get the user's login
+        $url = Foswiki::Sandbox::untaint( $url, \&validateUrl );
+    }
+    if (!defined($url))  {
+        $url = Foswiki::Func::expandTemplate('"profile:url" USER="' . $user . '"' );
+    }
+
     my $html = Foswiki::Func::expandTemplate(
-        '"profile" USER="' . $user . '" TYPE="' . $type . '"' );
+        '"profile" USER="' . $user . '" URL="' . $url . '" TYPE="' . $type . '"' );
     return $html;
 }
 
