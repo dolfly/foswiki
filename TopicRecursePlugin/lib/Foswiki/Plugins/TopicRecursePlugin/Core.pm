@@ -30,7 +30,7 @@ sub extractParams {
         $args{$item} = $params->{$item};
     }
     $args{header} ||= '*Search: \'$rootquery\' from <nop>$root* $n';
-    $args{format} = '$indent* [[$web.$topic][$topic]]';
+    $args{format} ||= '$indent* [[$web.$topic][$topic]]';
     $args{formatbranch} ||= $args{format};
     $args{formatleaf}   ||= $args{format};
     $args{separator}    ||= '$n';
@@ -62,7 +62,7 @@ sub TOPICRECURSE {
         writeDebug( "rootNode: $rootNode->{webtopic}", 'TOPICRECURSE', 4 );
         my $spec = extractParams(
             $params,
-            qw(header formatbranch formatleaf separator footer),
+            qw(header format formatbranch formatleaf separator footer),
             qw(nodelimit depthlimit breadthlimit)
         );
         my @renderednodes = formatNodes( $rootNode, $spec );
@@ -148,10 +148,10 @@ sub execToken {
     else {
         $result = $completetoken;
     }
-    writeDebug( "\$$tokenname($tokenarg) = '$result' depth: $node->{depth}",
+    writeDebug( '$' . ($tokenname || '') . '(' . ($tokenarg || '') . ') = \'' . ($result || '') . '\' depth:' . $node->{depth},
         'execToken', 4 );
 
-    return $result;
+    return $result || '';
 }
 
 sub writeDebug {

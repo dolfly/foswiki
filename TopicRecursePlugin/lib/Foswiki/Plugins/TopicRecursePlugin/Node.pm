@@ -342,37 +342,98 @@ sub getStandardTokens {
         nodeindex    => $this->{nodeindex},
         indent       => $this->buildIndent('   '),
         'indent()' => sub { $this->buildIndent(@_) },
-        'parent()' => sub { $this->getTopicObject()->getParent() },
-        'date()' => sub { $this->getTopicObject()->getRevisionInfo()->{date} },
+        'parent()' => sub {
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                $topicObj->getParent();
+            }
+        },
+        'date()' => sub {
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                $topicObj->getRevisionInfo()->{date};
+            }
+        },
         index   => $this->{nodeindex},
         item    => $this->{webtopic},
-        'rev()' => sub { $this->getTopicObject()->getLoadedRev() },
-        'username()' =>
-          sub { $this->getTopicObject()->getRevisionInfo()->{author} },
+        'rev()' => sub {
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                $topicObj->getLoadedRev();
+            }
+        },
+        'username()' => sub {
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                $topicObj->getRevisionInfo()->{author};
+            }
+        },
         'wikiname()' => sub {
-            Foswiki::Func::getWikiName(
-                $this->getTopicObject()->getRevisionInfo()->{author} );
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                Foswiki::Func::getWikiName(
+                    $topicObj->getRevisionInfo()->{author} );
+            }
         },
         'wikiusername()' => sub {
-            Foswiki::Func::getWikiUserName(
-                $this->getTopicObject()->getRevisionInfo()->{author} );
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                Foswiki::Func::getWikiUserName(
+                    $topicObj->getRevisionInfo()->{author} );
+            }
         },
-        'createdate()' =>
-          sub { $this->getTopicObject(1)->getRevisionInfo()->{date} },
-        'createusername()' =>
-          sub { $this->getTopicObject(1)->getRevisionInfo()->{author} },
+        'createdate()' => sub {
+            my $topicObj = $this->getTopicObject(1);
+
+            if ($topicObj) {
+                $topicObj->getRevisionInfo()->{date};
+            }
+        },
+        'createusername()' => sub {
+            my $topicObj = $this->getTopicObject(1);
+
+            if ($topicObj) {
+                $topicObj->getRevisionInfo()->{author};
+            }
+        },
         'createwikiname()' => sub {
-            Foswiki::Func::getWikiName(
-                $this->getTopicObject(1)->getRevisionInfo()->{author} );
+            my $topicObj = $this->getTopicObject(1);
+
+            if ($topicObj) {
+                Foswiki::Func::getWikiName(
+                    $topicObj->getRevisionInfo()->{author} );
+            }
         },
         'createwikiusername()' => sub {
-            Foswiki::Func::getWikiUserName(
-                $this->getTopicObject(1)->getRevisionInfo()->{author} );
+            my $topicObj = $this->getTopicObject(1);
+
+            if ($topicObj) {
+                Foswiki::Func::getWikiUserName(
+                    $topicObj->getRevisionInfo()->{author} );
+            }
         },
-        'formname()' => sub { $this->getTopicObject()->getFormName() },
+        'formname()' => sub {
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                $topicObj->getFormName();
+            }
+        },
 
        # TODO: Make this actually do the SEARCH equivalent (bypassing renderFor)
-        'formfield()' => sub { $this->getTopicObject()->get( 'FIELD', $_[0] ) },
+        'formfield()' => sub {
+            my $topicObj = $this->getTopicObject();
+
+            if ($topicObj) {
+                $topicObj->get( 'FIELD', $_[0] );
+            }
+        },
         ntopics => $this->{rootNode}->{nodecount},
 
         # SMELL: What the...
