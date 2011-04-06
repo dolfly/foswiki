@@ -258,12 +258,13 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
    * Set SHORTDESCRIPTION = Substitute and extract information from content by using regular expressions
 -->
 |  Plugin Author: | Michael Daum |
-|  Copyright &copy;: | 2005-2010, Michael Daum http://michaeldaumconsulting.com |
+|  Copyright &copy;: | 2005-2011, Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  23 Jul 2010: | fixes wrapper for non-official api call to getAnchorName on foswiki-1.1 |
+|  06 Apr 2011: | fixed SUBST to removing everything after the last match |
+|  23 Jul 2010: | fixed wrapper for non-official api call to getAnchorName on foswiki-1.1 |
 |  07 Jun 2010: | fixed expanding standard escapes ($n, $percent, ...); improved examples in docu |
 |  12 Feb 2010: | ease =tokenize=; forward compatibility for newer foswikis |
 |  17 Nov 2009: | added =tokenize= pattern for FORMATLIST; \

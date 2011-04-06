@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2005-2010 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2005-2011 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -214,7 +214,7 @@ sub handleFilter {
       $hits--;
       last if $theLimit > 0 && $hits <= 0;
     }
-    if ($text =~ /\G(.*)$/) {
+    if ($text =~ /\G(.*)$/s) {
       $result .= $1;
     }
   }
@@ -248,7 +248,7 @@ sub handleMakeIndex {
   #writeDebug("### called handleMakeIndex(".$params->stringify.")");
   my $theList = $params->{_DEFAULT} || $params->{list} || '';
   my $theCols = $params->{cols} || 3;
-  my $theFormat = $params->{format} || '$item';
+  my $theFormat = $params->{format};
   my $theSort = $params->{sort} || 'on';
   my $theSplit = $params->{split} || ',';
   my $theUnique = $params->{unique} || '';
@@ -266,6 +266,8 @@ sub handleMakeIndex {
   $theAnchorThreshold = 0 unless $theAnchorThreshold;
   $theUnique = ($theUnique eq 'on')?1:0;
   $theGroup = " \$anchor<h3>\$group</h3>\n" unless defined $theGroup;
+
+  $theFormat = '$item' unless defined $theFormat;
 
   my $maxCols = $theCols;
   $maxCols =~ s/[^\d]//go;
@@ -502,7 +504,7 @@ sub handleFormatList {
 
   my $theList = $params->{_DEFAULT} || $params->{list} || '';
   my $thePattern = $params->{pattern} || '^\s*(.*?)\s*$';
-  my $theFormat = $params->{format} || '$1';
+  my $theFormat = $params->{format};
   my $theHeader = $params->{header} || '';
   my $theFooter = $params->{footer} || '';
   my $theSplit = $params->{split} || '[,\s]+';
@@ -519,6 +521,8 @@ sub handleFormatList {
   my $theMap = $params->{map};
   my $theNullFormat = $params->{null} || '';
   my $theTokenize = $params->{tokenize};
+
+  $theFormat = '$1' unless defined $theFormat;
 
   $theMarker = ' selected ' unless defined $theMarker;
   $theSeparator = ', ' unless defined $theSeparator;
@@ -579,6 +583,10 @@ sub handleFormatList {
     my $arg4 = '';
     my $arg5 = '';
     my $arg6 = '';
+    my $arg7 = '';
+    my $arg8 = '';
+    my $arg9 = '';
+    my $arg10 = '';
     if ($item =~ m/$thePattern/) {
       $arg1 = $1 || '';
       $arg2 = $2 || '';
@@ -586,22 +594,24 @@ sub handleFormatList {
       $arg4 = $4 || '';
       $arg5 = $5 || '';
       $arg6 = $6 || '';
+      $arg7 = $7 || '';
+      $arg8 = $8 || '';
+      $arg9 = $9 || '';
+      $arg10 = $10 || '';
     } else {
       next;
     }
     my $line = $theFormat;
-    #writeDebug("arg1=$arg1") if $arg1;
-    #writeDebug("arg2=$arg2") if $arg2;
-    #writeDebug("arg3=$arg3") if $arg3;
-    #writeDebug("arg4=$arg4") if $arg4;
-    #writeDebug("arg5=$arg5") if $arg5;
-    #writeDebug("arg6=$arg6") if $arg6;
+    $line =~ s/\$10/$arg10/g;
     $line =~ s/\$1/$arg1/g;
     $line =~ s/\$2/$arg2/g;
     $line =~ s/\$3/$arg3/g;
     $line =~ s/\$4/$arg4/g;
     $line =~ s/\$5/$arg5/g;
     $line =~ s/\$6/$arg6/g;
+    $line =~ s/\$7/$arg7/g;
+    $line =~ s/\$8/$arg8/g;
+    $line =~ s/\$9/$arg9/g;
     $line =~ s/\$map\((.*?)\)/($map{$1}||$1)/ge;
     #writeDebug("after susbst '$line'");
     if ($theUnique eq 'on') {
