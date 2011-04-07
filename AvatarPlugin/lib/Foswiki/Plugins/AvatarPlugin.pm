@@ -1,4 +1,4 @@
-package Foswiki::Plugins::GravatarPlugin;
+package Foswiki::Plugins::AvatarPlugin;
 
 # Always use strict to enforce variable scoping
 use strict;
@@ -27,7 +27,7 @@ our $RELEASE = '1.0.0';
 
 # Short description of this plugin
 # One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-our $SHORTDESCRIPTION = 'embed Gravatars into foswiki';
+our $SHORTDESCRIPTION = 'embed Avatars into foswiki';
 
 # You must set $NO_PREFS_IN_TOPIC to 0 if you want your plugin to use
 # preferences set in the plugin topic. This is required for compatibility
@@ -50,7 +50,7 @@ sub initPlugin {
 
         return 0;
     }
-    Foswiki::Func::registerTagHandler( 'GRAVATAR', \&GRAVATAR );
+    Foswiki::Func::registerTagHandler( 'AVATAR', \&AVATAR );
 
 
     # Plugin correctly initialized
@@ -59,7 +59,7 @@ sub initPlugin {
 
 # The function used to handle the %EXAMPLETAG{...}% macro
 # You would have one of these for each macro you want to process.
-sub GRAVATAR {
+sub AVATAR {
     my($session, $params, $topic, $web, $topicObject) = @_;
 #    # $session  - a reference to the Foswiki session object
 #    #             (you probably won't need it, but documented in Foswiki.pm)
@@ -88,8 +88,7 @@ sub GRAVATAR {
     my $default = $params->{default} || "mm";
     my $size = $params->{size} || 20;
     #TODO: tmpl?
-    # http://cdn.libravatar.org/avatar/
-    my $host = 'http://www.gravatar.com/avatar/';
+    my $host = $Foswiki::cfg{AvatarPlugin}{AvatarServerBaseUrl} || 'http://cdn.libravatar.org/avatar/';
     my $grav_url = $host.md5_hex(lc $email)."?d=".uri_escape($default)."&s=".$size;
 
     $linkText = "<img src=\"$grav_url\" />".$linkText;
@@ -106,7 +105,7 @@ sub renderWikiWordHandler {
         Foswiki::Func::wikiToUserName($topic) and
         (not Foswiki::Func::isGroupMember('BaseGroup', $topic))
             ) {
-            $linkText = GRAVATAR($Foswiki::Plugins::SESSION, {_DEFAULT=>$topic}).$linkText;
+            $linkText = AVATAR($Foswiki::Plugins::SESSION, {_DEFAULT=>$topic}).$linkText;
         }
     
     return $linkText;
