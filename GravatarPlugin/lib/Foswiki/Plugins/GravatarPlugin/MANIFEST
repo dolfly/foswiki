@@ -1,0 +1,7 @@
+!noci
+data/System/GravatarPlugin.txt 0644 Documentation page
+pub/System/GravatarPlugin/example.jpg
+#data/System/VarEXAMPLETAG.txt 0644 Tag documentation
+#data/Sandbox/PluginTestGravatarPlugin.txt 0644 Examples
+lib/Foswiki/Plugins/GravatarPlugin.pm 0444 Perl module
+lib/Foswiki/Plugins/GravatarPlugin/Config.spec 0444 Configuration
