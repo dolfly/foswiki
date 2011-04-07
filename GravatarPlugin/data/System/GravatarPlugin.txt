@@ -13,13 +13,12 @@ Add http://gravatar.com user images to your foswiki.
 
 When this plugin is enabled, Any Links to user's home pages get that user's gravatar image added to it.
 
----++ TODO
-   1 configurable default and size
-   2 gravatar profile popups
-   3 =GRAVATAR= macro for use in !FoswikiApplications
-   4 context aware size options - or perhaps replace plugin magic with a =GRAVATAR= for more control
-   5 support alternative user image services, including allowing local foswiki customisations
+%INCLUDE{VarGRAVATAR}%
 
+---++ TODO
+   2 gravatar profile popups
+   4 context aware size options (configurable default and size) - or perhaps replace plugin magic with a =GRAVATAR= for more control
+   5 support alternative user image services, including allowing local foswiki customisations
 
 ---++ Installation
 %$INSTALL_INSTRUCTIONS%

@@ -50,27 +50,61 @@ sub initPlugin {
 
         return 0;
     }
+    Foswiki::Func::registerTagHandler( 'GRAVATAR', \&GRAVATAR );
+
 
     # Plugin correctly initialized
     return 1;
 }
 
+# The function used to handle the %EXAMPLETAG{...}% macro
+# You would have one of these for each macro you want to process.
+sub GRAVATAR {
+    my($session, $params, $topic, $web, $topicObject) = @_;
+#    # $session  - a reference to the Foswiki session object
+#    #             (you probably won't need it, but documented in Foswiki.pm)
+#    # $params=  - a reference to a Foswiki::Attrs object containing 
+#    #             parameters.
+#    #             This can be used as a simple hash that maps parameter names
+#    #             to values, with _DEFAULT being the name for the default
+#    #             (unnamed) parameter.
+#    # $topic    - name of the topic in the query
+#    # $web      - name of the web in the query
+#    # $topicObject - a reference to a Foswiki::Meta object containing the
+#    #             topic the macro is being rendered in (new for foswiki 1.1.x)
+#    # Return: the result of processing the macro. This will replace the
+#    # macro call in the final text.
+#
+#    # For example, %EXAMPLETAG{'hamburger' sideorder="onions"}%
+#    # $params->{_DEFAULT} will be 'hamburger'
+#    # $params->{sideorder} will be 'onions'
+
+    my $linkText = '';
+    my @emails = Foswiki::Func::wikinameToEmails($params->{_DEFAULT});
+    #TODO: consider the other emails later..
+    use URI::Escape qw(uri_escape);
+    use Digest::MD5 qw(md5_hex);
+    my $email = $emails[0] || $topic;
+    my $default = $params->{default} || "mm";
+    my $size = $params->{size} || 20;
+    #TODO: tmpl?
+    my $grav_url = "http://www.gravatar.com/avatar/".md5_hex(lc $email)."?d=".uri_escape($default)."&s=".$size;
+
+    $linkText = "<img src=\"$grav_url\" />".$linkText;
+
+    return $linkText;
+}
 
 sub renderWikiWordHandler {
     my( $linkText, $hasExplicitLinkLabel, $web, $topic ) = @_;
     
-    if ($web eq $Foswiki::cfg{UsersWebName} and
-        Foswiki::Func::wikiToUserName($topic)) {
-            my @emails = Foswiki::Func::wikinameToEmails($topic);
-            #TODO: consider the other emails later..
-            use URI::Escape qw(uri_escape);
-            use Digest::MD5 qw(md5_hex);
-            my $email = $emails[0];
-            my $default = "mm";
-            my $size = 20;
-            my $grav_url = "http://www.gravatar.com/avatar/".md5_hex(lc $email)."?d=".uri_escape($default)."&s=".$size;
-
-            $linkText = "<img src=\"$grav_url\" />".$linkText;
+    if (#test if its a baseusermapper user
+        ($web eq $Foswiki::cfg{UsersWebName}) and
+        ($linkText eq $topic) and
+        Foswiki::Func::wikiToUserName($topic) and
+        (not Foswiki::Func::isGroupMember('BaseGroup', $topic))
+            ) {
+            $linkText = GRAVATAR($Foswiki::Plugins::SESSION, {_DEFAULT=>$topic}).$linkText;
         }
     
     return $linkText;
