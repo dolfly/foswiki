@@ -88,7 +88,9 @@ sub GRAVATAR {
     my $default = $params->{default} || "mm";
     my $size = $params->{size} || 20;
     #TODO: tmpl?
-    my $grav_url = "http://www.gravatar.com/avatar/".md5_hex(lc $email)."?d=".uri_escape($default)."&s=".$size;
+    # http://cdn.libravatar.org/avatar/
+    my $host = 'http://www.gravatar.com/avatar/';
+    my $grav_url = $host.md5_hex(lc $email)."?d=".uri_escape($default)."&s=".$size;
 
     $linkText = "<img src=\"$grav_url\" />".$linkText;
 

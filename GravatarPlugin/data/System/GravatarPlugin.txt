@@ -9,7 +9,7 @@ One line description, required for extensions repository catalog.
 
 %SHORTDESCRIPTION%
 
-Add http://gravatar.com user images to your foswiki.
+Add http://www.libravatar.org/ or http://gravatar.com user images to your foswiki.
 
 When this plugin is enabled, Any Links to user's home pages get that user's gravatar image added to it.
 
