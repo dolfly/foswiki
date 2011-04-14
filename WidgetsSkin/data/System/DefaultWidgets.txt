@@ -75,7 +75,7 @@ Need a magical WebWidgets topic that can add widgets to the list for a web - sim
                            <input type="password" id="uname" name="password" class="text_box" value="" />
                            </div>
 			</div>
-                        <input type="submit" class="button" value="LOGIN"/>
+                        <input type="submit" class="button foswikiSubmit" value="LOGIN"/>
 		</form>	
 %IF{
    "context registration_supported AND context registration_enabled" 

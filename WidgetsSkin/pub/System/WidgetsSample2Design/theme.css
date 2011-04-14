@@ -382,6 +382,11 @@ img.image-full { width: 100%; }
 }
 
 
+.cltlogin {
+        padding-bottom:0.4em;
+}
+
+
 /* mmt calendar */
 
 .module-mmt-calendar { margin-bottom: 15px; }
