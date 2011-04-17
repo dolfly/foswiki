@@ -198,11 +198,9 @@ sub _min {
     return $v2;
 }
 
-# Generate the file name in which the graphic file will be placed.  Also
-# make sure that the directory in which the graphic file will be placed
-# exists.  If not, create it.
+# Generate the file name in which the graphic file will be placed.
 sub _make_filename {
-    my ( $type, $name, $topic, $web ) = @_;
+    my ( $type, $name ) = @_;
     # Generate the file name to be created
     my $fullname;
     # If GD version 1.19 or earlier, then create gif files else png files.
@@ -212,13 +210,7 @@ sub _make_filename {
         $fullname = "_ChartPlugin_${type}_${name}.gif";
     }
 
-    # before save, create directories if they don't exist.
-    my $tempPath = Foswiki::Func::getPubDir() . "/$web/$topic";
-    use File::Path;
-    eval { File::Path::mkpath( $tempPath, 0, $Foswiki::cfg{RCS}{dirPermission} ); };
-
-    # Return both the directory and the filename
-    return ($tempPath, $fullname);
+    return $fullname;
 }
 
 # This routine returns an red colored error message.
@@ -428,11 +420,9 @@ sub _makeChart {
     $DataValueDefault = '' if ($DataValueDefault eq "none");
     $chart->setDefaultDataValue($DataValueDefault);
 
-    # Get the name of the directory and filename in which to create the
-    # graphics file.
-    my ($dir, $filename) = _make_filename($type, $name, $topic, $web);
-    $chart->setFileDir($dir);
-    $chart->setFileName($filename);
+    # Get the filename in which to create the graphics file.
+    my $filename = _make_filename($type, $name);
+    $chart->setAttachmentName($web, $topic, $filename);
 
     # Validate the legend data making sure it only specifies a single row
     # or a single column.

@@ -112,11 +112,7 @@
 #    setColors(@c)        - Set array of colors to be used by each data set.
 #    getColors                - Get array of colors
 #
-#    setFileDir($dir)        - Set the directory in which the created chart will be placed.
-#    getFileDir                - Get directory in which the chart is to be placed.
-#
-#    setFileName($name)        - Set the name of the chart file
-#    getFileName        - Get the name oft he chart file
+#    setAttachmentName($web, $topic, $name)        - Set the name of the chart file
 #
 #    setMargin($margin)        - Set the margin (in pixels) allocated around the
 #                              entire chart.
@@ -201,8 +197,7 @@ use POSIX;
     setLineColors getLineColors
     setColors getColors
     setGridColor getGridColor
-    setFileDir getFileDir
-    setFileName getFileName
+    setAttachmentName
     setMargin getMargin
     setPointSize getPointSize
     setLineWidth getLineWidth
@@ -415,11 +410,12 @@ sub getColors { my ($this) = @_; return @{$$this{COLORS}}; }
 sub setGridColor { my ($this, @gridColor) = @_; $$this{GRID_COLOR} = \@gridColor; }
 sub getGridColor { my ($this) = @_; return @{$$this{GRID_COLOR}}; }
 
-sub setFileDir { my ($this, $dir) = @_; $$this{FILE_DIR} = $dir; }
-sub getFileDir { my ($this) = @_; return $$this{FILE_DIR}; }
-
-sub setFileName { my ($this, $name) = @_; $$this{FILE_NAME} = $name; }
-sub getFileName { my ($this) = @_; return $$this{FILE_NAME}; }
+sub setAttachmentName {
+    my ($this, $web, $topic, $name) = @_;
+    $this->{WEB} = $web;
+    $this->{TOPIC} = $topic;
+    $this->{FILE_NAME} = $name;
+}
 
 sub setMargin { my ($this, $margin) = @_; $$this{MARGIN} = $margin; }
 sub getMargin { my ($this) = @_; return $$this{MARGIN}; }
@@ -1469,18 +1465,25 @@ sub makeChart {
 
     ########################################################################
     # OK, the chart is all drawn so all we need to do is write it out to
-    # the specified file.
-    my $dir = $this->getFileDir();
-    my $filename = $this->getFileName();
-    umask( 002 );
-    open(IMAGE, ">$dir/$filename") or return "Can't create file '$dir/$filename: $!";
-    binmode IMAGE;
+    # a file.
+    my $workfile = Foswiki::Func::getWorkArea('ChartPlugin');
+    my $tmpfile = "$workfile/$$".time();
+    open(IMAGE, ">$tmpfile");
+    binmode(IMAGE);
     if( $GD::VERSION > 1.19 ) {
         print IMAGE $im->png;
     } else {
         print IMAGE $im->gif;
     }
     close IMAGE;
+    # And save it as an attachment. Note that there are no access control checks!
+    my $topicObject = new Foswiki::Meta($Foswiki::Plugins::SESSION, $this->{WEB}, $this->{TOPIC});
+    $topicObject->attach( name => $this->{FILE_NAME},
+			  dontlog => 1,
+			  hide => 1,
+			  file => $tmpfile,
+			  notopicchange => 1);
+    unlink($tmpfile);
     return undef;
 }
 
