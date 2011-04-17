@@ -70,8 +70,9 @@ The =%<nop>CHART{...}%= variable gets expanded to an image representing the char
         | ==R1:C1== | ==R1:C2== | ==R1:C3== | ==R1:C4== |
         | ==R2:C1== | ==R2:C2== | ==R2:C3== | ==R2:C4== |
    * A range of table cells is defined by two cell addresses separated by ==".."==. For example, "row 1-20, column 3" is: ==R1:C3..R20:C3== and "row 15-5, column 2" is: ==R15:C2..R5:C2==
+   * When you are specifying datasets, you specify the range so that you have one data set per row (column). For example, ==R4:C1..R5:C2,R9:C1..R10:C2== specifies *4* data sets: R4:C1..R4:C2, R5:C1..R5:C2, R9:C1..R9:C15 and R10:C1..R10:C2
    * Ranges can be discontinuous. Discontinous ranges are joined using =="+"==. For example: ==R4:C1..R5:C2+R9:C1..R15:C2==.
-   * When you are specifying datasets, you specify the range so that you have one data set per row (column). You can also specify multiple data sets using discontinuous blocks of cells; for example, ==R4:C1..R5:C2,R9:C1..R10:C2== specifies *4* data sets: R4:C1..R4:C2, R5:C1..R5:C2, R9:C1..R9:C15 and R10:C1..R10:C2
+   * Ranges can be inverted. For example, ==R4:C1..R5:C2+R15:C1..R9:C2== inverts the row order in the second range.
    * ==+== has higher precedence than ==,==
 
 | *%<nop>CHART% Parameter* | *Comment* | *Default* |
@@ -180,11 +181,12 @@ If the required parameters are not defined, then an error message is returned or
 ---++ Plugin Info
 
 |  Plugin Author: | Current maintainer Foswiki:Main.KennethLavrsen, original authors from old project: TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus |
-|  Copyright &copy;: | 2004-2006, TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus; 2008 Kenneth Lavrsen and Foswiki Contributors | 
+|  Copyright &copy;: | 2004-2006, TWiki:Main.PeterThoeny, TWiki:Main.TaitCyrus; 2008-2011 Kenneth Lavrsen and Foswiki Contributors | 
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- specify latest version first -->&nbsp; |
+|  17 Apr 2011: | v1.6.0. Foswiki:Main.CrawfordCurrie supported range inversion, added unit tests |
 |  13 Dec 2010: | v1.5.2. Foswiki:Main.OliverKrueger fixed a problem with subwebs. |
 |  03 Nov 2010: | v1.5.1. Clarified the meaning of the data parameter for scatter diagrams |
 |  07 Apr 2010: | Foswiki:Main.WillNorris: better parameter validation, minor doc updates |

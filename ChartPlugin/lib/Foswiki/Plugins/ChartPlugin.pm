@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2004-2006 Peter Thoeny, Peter@Thoeny.org
 # Plugin written by http://TWiki.org/cgi-bin/view/Main/TaitCyrus
-# Copyright (C) 2008 Foswiki Contributors
+# Copyright (C) 2008-2011 Foswiki Contributors
 #
 # For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
@@ -50,7 +50,7 @@ use vars qw(
            );
 
 our $VERSION = '$Rev: 13790 $';
-our $RELEASE = '1.5.2';
+our $RELEASE = '1.6.0';
 our $SHORT_DESCRIPTION = 'Create area, bar, line and scatter charts to visualize table data';
 
 $pluginInitialized = 0;
@@ -175,7 +175,7 @@ sub _setTopicContents {
         (my $meta, $topicContents) = Foswiki::Func::readTopic( $inWeb, $inTopic );
         # Check to make sure the web.topic actually exists.  If not, return
         # undef so the caller can catch the error.
-        return undef if ($topicContents eq "");
+        return undef if (!defined($topicContents) || $topicContents eq "");
         $topicContents = Foswiki::Func::expandCommonVariables($topicContents, $inTopic, $inWeb);
     }
 

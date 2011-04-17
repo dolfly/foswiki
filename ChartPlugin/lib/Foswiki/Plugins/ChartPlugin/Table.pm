@@ -2,7 +2,7 @@
 #
 # Copyright (C) 2004-2006 Peter Thoeny, Peter@Thoeny.org
 # Plugin written by http://TWiki.org/cgi-bin/view/Main/TaitCyrus
-# Copyright (C) 2008 Foswiki Contributors
+# Copyright (C) 2008-2011 Foswiki Contributors
 #
 # For licensing info read LICENSE file in the Foswiki root.
 # This program is free software; you can redistribute it and/or
@@ -234,37 +234,44 @@ sub getData {
 
     my @rows = ();
     my $rowbase = 0;
-    # For each dataset
+
     foreach my $set (@ranges) {
         my $rh = 0; # Height of this dataset, in rows
 
         # For each range within the dataset
         foreach my $range (@$set) {
+            # $out_* are the control vars for the outer loop
+            # $in_* are the control vars for the inner loop
+            my ($out_l, $out_h, $out_i, $in_l, $in_h, $in_i);
             if ($transpose) {
-                my $rs = abs($range->{right} - $range->{left}) + 1;
-                $rh = $rs if ($rs > $rh);
-                for my $c ($range->{left}..$range->{right}) {
-                    for my $r ($range->{top}..$range->{bottom}) {
-                        my $value = $selectedTable[$r][$c];
-                        if (defined $value) {
-                            push ( @{$rows[$rowbase + $c - $range->{left}]},
-                                   $selectedTable[$r][$c] );
-                        }
-                    }
-                }
+                ($out_l, $out_h, $in_l, $in_h) =
+                    ($range->{left}, $range->{right},
+                     $range->{top}, $range->{bottom});
             } else {
-                my $rs = abs($range->{bottom} - $range->{top}) + 1;
-                $rh = $rs if ($rs > $rh);
-                for my $r ($range->{top}..$range->{bottom}) {
-                    for my $c ($range->{left}..$range->{right}) {
-                        my $value = $selectedTable[$r][$c];
-                        if (defined $value) {
-                            push ( @{$rows[$rowbase + $r - $range->{top}]},
-                                   $selectedTable[$r][$c] );
-                        }
-                    }
-                }
+                ($out_l, $out_h, $in_l, $in_h) =
+                    ($range->{top}, $range->{bottom},
+                     $range->{left}, $range->{right})
             }
+            $out_i = ($out_l > $out_h ? -1 : 1);
+            $in_i = ($in_l > $in_h ? -1 : 1);
+
+            my $rs = 0;
+            for (my $out = $out_l;
+                 $out != $out_h + $out_i;
+                 $out += $out_i) {
+                for (my $in = $in_l;
+                     $in != $in_h + $in_i;
+                     $in += $in_i) {
+                    my $value = ($transpose ? $selectedTable[$in][$out]
+                                 : $selectedTable[$out][$in]);
+		    if (defined $value) {
+			push( @{$rows[$rowbase + $rs]}, $value );
+		    }
+		}
+                $rs++;
+            }
+            # Does this range contribute the most rows to the dataset?
+            $rh = $rs if ($rs > $rh);
         }
         # Start the next dataset on a new row
         $rowbase += $rh;
