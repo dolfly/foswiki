@@ -107,11 +107,15 @@ sub PROFILE {
       || $params->{user}
       || Foswiki::Func::spaceOutWikiWord(
         Foswiki::Func::getWikiName( Foswiki::Func::getCanonicalUserID() ) );
-
     my $type = lc( $params->{type} ) || 'inline';
     $type = 'inline' if ( $type ne 'popup' );
     my $shareto = $params->{shareto} || 'linkedin';
+
     Foswiki::Func::loadTemplate($shareto);
+
+    if ($user eq '%LINKEDINPLUGIN_DEFAULTPROFILE%') {
+        $user = Foswiki::Func::getPreferencesValue( 'LINKEDINPLUGIN_DEFAULTPROFILE') || 'disabled';
+    }
 
     my $url = $params->{url};
     if (defined($url))  {
@@ -119,6 +123,9 @@ sub PROFILE {
         $url = Foswiki::Sandbox::untaint( $url, \&validateUrl );
     }
     if (!defined($url))  {
+        if (lc($user) eq 'disabled') {
+            return Foswiki::Func::expandTemplate('profile:disabled');
+        }
         $url = Foswiki::Func::expandTemplate('"profile:url" USER="' . $user . '"' );
     }
 

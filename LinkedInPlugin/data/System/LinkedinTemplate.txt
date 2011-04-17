@@ -4,6 +4,12 @@
       url="http://www.linkedin.com/shareArticle?mini=true&url=%URL%&title=%TITLE%&summary=%SUMMARY%&source=%SOURCE%"
 }%%TMPL:END% 
 
+%TMPL:DEF{"profile:disabled"}%
+<div> %SYSTEMWEB%.LinkedInPlugin profile not enabled 
+<br />
+(need to set the user's !LinkedInUrl)</div>
+%TMPL:END%
+
 %TMPL:DEF{"profile"}%%ADDTOZONE{"script" text="<script type='text/javascript' src='http://www.linkedin.com/js/public-profile/widget-os.js'></script>"}%
 <a class="linkedin-profileinsider-%TYPE%" href="%URL%">%USER%</a>
 %TMPL:END% 

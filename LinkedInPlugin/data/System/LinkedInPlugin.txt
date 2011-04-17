@@ -42,11 +42,11 @@ To add a Link, or an inline !LinkedIn profile, use the =%!PROFILE%= macro:
 
 Macro parameters:
    * type - inline or popup
-   * user - user to lookup - defaults to the logged in user's wikiname.
+   * user - user to lookup - defaults to the logged in user's wikiname. (if set to =disabled=, then will only show a profile if a url is specified in the =url= parameter (ie opt in mode))
    * url - can be used to over-ride the automatic attempt to use the user 
      parameter to create a !LinkedIn public profile url - important for when 
      someone of the same name registered first, so your user's profile name is not simply firstname lastname. 
-     (note that when using the skin setting below, you can over-ride the url by setting =LINKEDINPROFILEURL= on that user's topic.)
+     (note that when using the skin setting below, you can over-ride the url by setting =LinkedInURL= !UserForm field (requires a locally customised %SystemWeb%.UserForm) on that user's topic.)
 
    
 ---++ Skin Support.
@@ -55,6 +55,19 @@ If you install this plugin and are using a current release of Foswiki::Extension
 similarly, if you're using Widgets skin, or PatternSkin, everyone's user topics can have the !LinkedIn user profile widget automatically added by pre-pending =linkedin= to the skin path:
 
    * <nop>Set SKIN=linkedin,famfamfam,pattern
+   
+The Widget it set to opt-in mode by default - no profile will be shown unless the user sets a =LinkedInURL= field on their =UserForm= (which requires cusomtisation) 
+This default can be changed by setting the following on the %SYSTEMWEB%.SitePreferences topic:
+<verbatim>
+   * Set LINKEDINPLUGIN_DEFAULTPROFILE=%BASETOPIC% 
+</verbatim>
+
+---+++ Adding Linked In URL field:
+Follow the instructions at %SYSTEMWEB%.UserForm, and add
+
+<verbatim>
+| Linked In URL | text | 40 | | Optional: Url for your LinkedIn user profile: http://www.linkedin.com/in/username | |
+</verbatim>
 
 ---++ !WidgetsSkin blocks
 ---+++ Share with !LinkedIn
