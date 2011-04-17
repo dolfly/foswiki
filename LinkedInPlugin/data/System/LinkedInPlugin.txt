@@ -94,6 +94,7 @@ http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  17 April 2011: | UserForm.LinkedInURL field to allow user to set their LinkedIn profile url, and add opt-in or opt-out default |
 |  29 March 2011: | add an over-ride profile =url= parameter for non-customised or non-unique names |
 |  28 March 2011: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |

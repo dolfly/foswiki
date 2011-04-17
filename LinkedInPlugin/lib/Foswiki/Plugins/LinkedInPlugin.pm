@@ -16,7 +16,7 @@ use Foswiki::Func    ();    # The plugins API
 use Foswiki::Plugins ();    # For the API version
 
 our $VERSION           = '$Rev$';
-our $RELEASE           = '1.0.1';
+our $RELEASE           = '1.0.2';
 our $SHORTDESCRIPTION  = 'Add LinkedIn Widgets to your Foswiki';
 our $NO_PREFS_IN_TOPIC = 1;
 
