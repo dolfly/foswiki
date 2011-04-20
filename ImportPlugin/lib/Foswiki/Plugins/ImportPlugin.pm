@@ -156,7 +156,7 @@ sub importHtml {
     foreach my $member (@members) {
         
         #DEBUG stop (do the firs 10 topics, with some revisions)
-        last if (scalar(keys(%webFull)) > 10);
+        last if (scalar(keys(%webFull)) > 1);
         
         my $file = $member->fileName();
 #next unless ($member->fileName eq "Eloquent JavaScript/chapter6.html" );
@@ -232,7 +232,14 @@ sub importHtml {
         $hash{'TOPICINFO.author'} =~ s/$inverseFilter//g;
         $hash{'TOPICINFO.author'} =~ s/[\.\/\s]//g;
     
+        #narrow down the html we're going to import
+        if ($data =~ m/.*(<TABLE.*?Wiki Content.*?sip=".*?<\/TABLE>)/sim) {
+        #if ($data =~ m/(Wiki Content.*sip=")/ims) {
+            $data = $1.'</table></table>';
+            print STDERR "......................match.......\n";
+        }
         $hash{text} = $data;
+        
         #look for the common bits and remove?
         #if ($hash{text} =~ /(<p>|<div|<a href|<h[1234567]>|<br \/>|&nbsp;)/i) {
         #    $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
@@ -430,15 +437,19 @@ sub importCsvFile {
     }
 
     
-   return "Import $type file ".join('/', ($fromweb, $fromtopic, $fromattachment))." into $outputweb\n\n<br /><br />$data";
+   return "Import $type file ".join('/', ($fromweb, $fromtopic, $fromattachment))." \n<br /><br />$data";
 }
 
 sub writeWeb {
-    my $outputweb = shift;
-    my $data = '';
+    my $orig_outputweb = shift;
     
-        #need to create the web..
-        if (not Foswiki::Func::webExists($outputweb)) {
+    
+        #need to create a new
+        my $web_suffix = 1;
+        my $outputweb = $orig_outputweb;
+        while ( Foswiki::Func::webExists($outputweb)) {
+            $outputweb = $orig_outputweb.$web_suffix++;
+        }
             try {
                 Foswiki::Func::createWeb($outputweb, '_default');
             } catch Foswiki::AccessControlException with {
@@ -450,9 +461,9 @@ sub writeWeb {
             } otherwise {
                 #...
             };
-        } else {
-            die 'must import into an empty web, otherwise saveTopics will fail.';
-        }
+            
+        my $data = "into $outputweb\n";
+
         
         #and now use the %webFull hash to make topics without losing our revisions
         foreach my $t (keys(%webFull)) {
@@ -460,6 +471,7 @@ sub writeWeb {
             foreach my $rev (sort keys(%{$webFull{$t}})) {
                 my $hash = $webFull{$t}{$rev};
                 $data = $data.' ++++ '.$t.' @@ '.$hash->{'TOPICINFO.date'}.'<br />'."\n";
+                $hash->{web} = $outputweb;
                 
                 my( $meta, $text );
                 if (Foswiki::Func::topicExists($outputweb, $t)) {
