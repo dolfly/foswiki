@@ -131,16 +131,30 @@ sub SHOWIMPORTFILE {
 
 =cut
 
+
+        sub catch_zap {
+        my $signame = shift;
+        die "Somebody sent me a SIG$signame\n";
+        }
+        $SIG{INT} = \&catch_zap;
+
+#foreach my $k (keys(%SIG)) {
+#    $SIG{$k} =         sub  {
+#        my $signame = shift;
+#        die "Somebody sent me a SIG$k\n";
+#        }
+#}
+
 sub importHtml {
    my ( $session, $subject, $verb, $response ) = @_;
    
     my $query = $session->{request};
-    my $outputweb = $query->{param}->{outputweb}[0];
+    my $outputweb = $query->{param}->{outputweb}[0] || 'SharepointWiki';
     #open the attachment
-    my $type = lc(Foswiki::Sandbox::untaintUnchecked($query->{param}->{fromtype}[0]));
-    my $fromweb = $query->{param}->{fromweb}[0];
-    my $fromtopic = $query->{param}->{fromtopic}[0];
-    my $fromattachment = $query->{param}->{fromattachment}[0];
+    my $type = lc(Foswiki::Sandbox::untaintUnchecked($query->{param}->{fromtype}[0] || 'SharepointWiki'));
+    my $fromweb = $query->{param}->{fromweb}[0] || 'Sandbox';
+    my $fromtopic = $query->{param}->{fromtopic}[0] || 'ImportPlugin019';
+    my $fromattachment = $query->{param}->{fromattachment}[0] || 'GamingKnowledgeBaseWiki.zip';
     
     ($fromweb, $fromtopic) = Foswiki::Func::normalizeWebTopicName($fromweb, $fromtopic);
     ($fromweb, $fromtopic, $fromattachment) = Foswiki::Func::_checkWTA($fromweb, $fromtopic, $fromattachment);
@@ -154,11 +168,13 @@ sub importHtml {
     my @members = $zip->members();
     my $count = 0;
     foreach my $member (@members) {
+        my $file = $member->fileName();
         
         #DEBUG stop (do the firs 10 topics, with some revisions)
-        last if (scalar(keys(%webFull)) > 1);
+        #last if (scalar(keys(%webFull)) > 1);
+        last if ($count > 0);
+        next unless ($file eq '1024___1.CONFIGURATION CHECKLIST.aspx');
         
-        my $file = $member->fileName();
 #next unless ($member->fileName eq "Eloquent JavaScript/chapter6.html" );
         my ($data, $status) = $member->contents();
         #print STDERR $data;
@@ -179,22 +195,8 @@ sub importHtml {
         my %hash;
         $hash{web} = $outputweb;
         
-        
+        $topicname = simplfyTopicName($topicname);
         $hash{name} = $topicname;
-        $hash{name} =~ s/\d\. //;    #remove a leading number?
-        
-        my $inverseFilter = $Foswiki::cfg{NameFilter};
-        $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
-        
-        #make a useable Topic name
-        $hash{name} =~ s/$inverseFilter//g;
-        $hash{name} =~ s/[\.\/]//g; #just remove dots and slashes
-        $hash{name} =~ s/^([\sA-Z_]*)$/lc($1)/;  #if its all caps and spaces, lowercase it so we're not shouting
-        #convert all underscores to spaces then remove them after capitalising all letters after a space..
-        $hash{name} =~ s/[\s_]+(\w)/uc($1)/ge;
-        $hash{name} =~ s/^(\w)/uc($1)/e;
-        $hash{name} =~ s/\?//g;
-        $hash{name} =~ s/_//g;
         print STDERR scalar(keys(%webFull)).' '.++$count.'of'.scalar(@members)."import $file ".$hash{name}." ($status) (".(Archive::Zip::AZ_OK).") - isTest=".$member->isTextFile()." length: ".length($data)."\n";
         
         my $tidinfo;
@@ -205,7 +207,8 @@ sub importHtml {
             die 'omg '.$file unless ($data =~ m/(.*sip=.*)/);
             $tidinfo = $1;
         }
-        print STDERR "--------$tidinfo\n";        
+
+        print STDERR "--------$tidinfo\n";      
         
         #(Created  at |Last modified at )
         $tidinfo =~ /(\d+)\/(\d\d)\/(\d\d\d\d) (\d+):(\d\d) ([AP]M)/;
@@ -229,6 +232,11 @@ sub importHtml {
         $hash{'TOPICINFO.author'} = $1;
         #make a useable author
         $hash{'TOPICINFO.author'} =~ s/(.*)@.*/$1/; #remove domain - TODO: need to see what LdapContrib will do with for a cuid
+
+        my $inverseFilter = $Foswiki::cfg{NameFilter};
+        $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
+
+
         $hash{'TOPICINFO.author'} =~ s/$inverseFilter//g;
         $hash{'TOPICINFO.author'} =~ s/[\.\/\s]//g;
     
@@ -237,13 +245,35 @@ sub importHtml {
         #if ($data =~ m/(Wiki Content.*sip=")/ims) {
             $data = $1.'</table></table>';
             print STDERR "......................match.......\n";
+            
+            #further tidying, want to add this info into Meta fields later though
+            $data =~ s/(.*)(<!-- FieldName="Wiki Content")/$2/ms;
+            my $preamble = $1;
+            $data =~ s/(<\/td>\s*<\/tr>\s*<\/table>.*?"\/_layouts\/images\/blank.gif.*)$//msi;
+            my $postamble = $1;
         }
-        $hash{text} = $data;
+
+        #$data =~ s|<div( class=ExternalClass90EB474F1F684091AC987A1DC6C2015E)?>(<font face="Arial Black" size=2></font>)?(..?)</div>||g;
+        #my $squelsh = $3;
+        #$data =~ s|$squelsh||e;
+        
+require HTML::Entities;
+    HTML::Entities::encode_entities( $data);#, HTML::Entities::decode_entities('&Acirc;') );
+die $data;
+
+        use HTML::Tidy;
+        my $tidy = HTML::Tidy->new();
+        $hash{text} = $tidy->clean($data);
+        
         
         #look for the common bits and remove?
         #if ($hash{text} =~ /(<p>|<div|<a href|<h[1234567]>|<br \/>|&nbsp;)/i) {
-        #    $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
+            $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
         #}
+        
+        #re-write sharepoint wiki url's
+        #/sites/maxgaming/cougarkb/Cougar Knowledge Base Wiki/Site Controller Install or Swapout.aspx
+        $hash{text} =~ s|/sites/maxgaming/cougarkb/Cougar Knowledge Base Wiki/(.*?).aspx|simplfyTopicName($1)|ge;
         
         $webFull{$hash{name}} = () if (not defined($webFull{$hash{name}}));
         $webFull{$hash{name}}{$hash{'TOPICINFO.date'}} = \%hash;
@@ -254,6 +284,26 @@ print STDERR "=-=-=-".$hash{name}."  ....   ".$hash{'TOPICINFO.date'}."  :  ".$h
     my $data = writeWeb($outputweb);
 
     return $data;
+}
+sub simplfyTopicName {
+    my $topic = shift;
+    
+        $topic =~ s/\d\. //;    #remove a leading number?
+        
+        my $inverseFilter = $Foswiki::cfg{NameFilter};
+        $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
+        
+        #make a useable Topic name
+        $topic =~ s/$inverseFilter//g;
+        $topic =~ s/[\.\/]//g; #just remove dots and slashes
+        $topic =~ s/^([\sA-Z_]*)$/lc($1)/;  #if its all caps and spaces, lowercase it so we're not shouting
+        #convert all underscores to spaces then remove them after capitalising all letters after a space..
+        $topic =~ s/[\s_]+(\w)/uc($1)/ge;
+        $topic =~ s/^(\w)/uc($1)/e;
+        $topic =~ s/\?//g;
+        $topic =~ s/_//g;
+        
+        return $topic;
 }
 
 =begin TML
