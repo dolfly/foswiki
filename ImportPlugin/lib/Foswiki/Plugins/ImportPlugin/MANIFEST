@@ -1,6 +1,7 @@
 # Release manifest for ImportPlugin
 data/System/ImportPlugin.txt 0644 Documentation
 lib/Foswiki/Plugins/ImportPlugin.pm 0644 Perl module
+lib/Foswiki/Plugins/ImportPlugin/SharepointHTML2TML.pm 0644
 
 data/System/ImportPluginTopicTemplate.txt 0644 
 data/System/ImportPluginTopicForm.txt 0644 

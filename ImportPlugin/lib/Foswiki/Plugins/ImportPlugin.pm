@@ -21,7 +21,7 @@ use Foswiki::Plugins ();    # For the API version
 use Error qw(:try);
 use Foswiki::Time ();
 use Foswiki::Plugins::WysiwygPlugin::HTML2TML;
-#use Foswiki::Plugins::WysiwygPlugin::TML2HTML;
+use Foswiki::Plugins::ImportPlugin::SharepointHTML2TML;
 
 
 #for importHtml
@@ -35,6 +35,8 @@ our $NO_PREFS_IN_TOPIC = 1;
 
 our %webFull;
 our $html2tml = new Foswiki::Plugins::WysiwygPlugin::HTML2TML();
+our $sharehtml2tml = new Foswiki::Plugins::ImportPlugin::SharepointHTML2TML();
+
 
 
 =begin TML
@@ -268,7 +270,7 @@ die $data;
         
         #look for the common bits and remove?
         #if ($hash{text} =~ /(<p>|<div|<a href|<h[1234567]>|<br \/>|&nbsp;)/i) {
-            $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
+            $hash{text} = $sharehtml2tml->convert( $hash{text}, { very_clean => 1 } );
         #}
         
         #re-write sharepoint wiki url's
