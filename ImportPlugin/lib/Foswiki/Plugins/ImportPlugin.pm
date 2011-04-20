@@ -98,34 +98,22 @@ sub initPlugin {
 #atm, csv only so shows 5 lines?
 sub SHOWIMPORTFILE {
     my($session, $params, $topic, $web, $topicObject) = @_;
-#    # $session  - a reference to the Foswiki session object
-#    #             (you probably won't need it, but documented in Foswiki.pm)
-#    # $params=  - a reference to a Foswiki::Attrs object containing 
-#    #             parameters.
-#    #             This can be used as a simple hash that maps parameter names
-#    #             to values, with _DEFAULT being the name for the default
-#    #             (unnamed) parameter.
-#    # $topic    - name of the topic in the query
-#    # $web      - name of the web in the query
-#    # $topicObject - a reference to a Foswiki::Meta object containing the
-#    #             topic the macro is being rendered in (new for foswiki 1.1.x)
-#    # Return: the result of processing the macro. This will replace the
-#    # macro call in the final text.
-#
-#    # For example, %EXAMPLETAG{'hamburger' sideorder="onions"}%
-#    # $params->{sideorder} will be 'onions'
 
     my $filename = $params->{_DEFAULT} || '';
     ($web, $topic, $filename) = Foswiki::Func::_checkWTA($web, $topic, $filename);
     if (defined($filename)) {
+        if ($filename =~ /\.(tgz|zip|tag.gz|exe)$/) { #binary? 
+            return "binary file..";
+        }
         try {
            my $data = Foswiki::Func::readAttachment( $web, $topic, $filename );
            #just get the first few lines..
            my @lines = split(/\n/, $data);
            return "<verbatim>".join("\n", @lines[0..5])."</verbatim>";
         } catch Foswiki::AccessControlException with {
+            my $e = shift;
+            print $e->stringify();
         };
-
     }
     return 'FILENAME error';
 
@@ -389,6 +377,7 @@ sub importFile {
 }
 
 #($meta, $k, $hash->{$k}});
+#this is/should be the inverse of QuerySearch's getField
 sub setField {
     my $meta = shift;
     my $name = shift;
@@ -498,6 +487,10 @@ sub earlyInitPlugin {
     my $topic = $query->{param}->{topic}[0];
     ($web, $topic) = Foswiki::Func::_checkWTA($web, $topic);
     
+    my $importFrom = $query->{param}->{importFrom}[0] || '';
+    $importFrom =~ /(CanvasWiki|SharepointWiki)/;
+    $importFrom = $1;
+
     my $importplugin = $query->{param}->{importplugin}[0] || '';
     if ($importplugin eq 'step1') {
         #over-ride the attachment max size
@@ -520,13 +513,17 @@ sub earlyInitPlugin {
             my( $templatemeta, $text ) = Foswiki::Func::readTopic( $templateweb, $templatetopic );
             
             $meta->text($text);
-            #TODO: obey AUTOINC and XXXXX - can't, at least not this late.
+            $meta->putKeyed( 'FIELD', { name => 'importFrom', title => 'importFrom', value =>$importFrom } );
+            #   * Set VIEW_TEMPLATE=System.ImportPlugin%QUERY{"importFrom"}%ViewTemplate
+            $meta->putKeyed( 'PREFERENCE', { name => 'VIEW_TEMPLATE', value => 'System.ImportPlugin'.$importFrom.'ViewTemplate' } );
+            
+            #obey AUTOINC and XXXXX
             $topic = Foswiki::UI::Save::expandAUTOINC( $session, $web, $topic );
             $query->{param}->{topic}[0] = $topic;
-            
             #change the 'requested topic so we upload to the new one.
             $Foswiki::Plugins::SESSION->{webName}   = $web;
             $Foswiki::Plugins::SESSION->{topicName} = $topic;
+            
             try {
                 Foswiki::Func::saveTopic( $web, $topic, $meta, $text );
             } catch Foswiki::AccessControlException with {

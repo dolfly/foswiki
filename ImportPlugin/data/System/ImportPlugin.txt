@@ -39,6 +39,17 @@ prefer.
  </tr>
 <tr>
   <td align="right">
+   %MAKETEXT{"Import data from"}%
+  </td><td>
+   <select name="importFrom">
+    <option>CanvasWiki</option>
+    <option>SharepointWiki</option>
+    </select>
+  </td>
+ </tr>
+ <tr>
+<tr>
+  <td align="right">
    %MAKETEXT{"Comment"}%
   </td><td>
    <input type="text" name="filecomment" value="SOMETHING TO DO WITH THE FORMAT OF THE FILE..." size="50" />

@@ -3,7 +3,9 @@
 see WebTopicEditTemplate for the TopicTemplate
 
 | *Name*       | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| importFrom  | select | 1      | CanvasWiki, SharepointWiki | | M |
 | importState  | select | 1      | step1, step2, step3 | | M |
 
 %META:FORM{name="System.ImportPluginTopicForm"}%
-%META:FIELD{name="importState" attributes="" title="Interested Parties" value="step1"}%
+%META:FIELD{name="importState" attributes="" title="importState" value="step1"}%
+%META:FIELD{name="importFrom" attributes="" title="importFrom" value="SharepointWiki"}%
