@@ -1,0 +1,36 @@
+%TMPL:INCLUDE{view}%
+
+
+%TMPL:DEF{"content"}%<p>
+---++ Import SharepointWiki %QUERY{attachments.name}%
+
+%SHOWIMPORTFILE{"%QUERY{attachments.name}%"}%
+<div class="foswikiForm">
+<form name="main" enctype="multipart/form-data" action="%SCRIPTURLPATH{"rest"}%/ImportPlugin/importHtml" method="post">
+<table width="100%" summary="%MAKETEXT{"Attach a file"}%">
+ <tr>
+  <td align="right">
+	Import into web:
+  </td><td>
+    <input type="text" name="outputweb" value="SharepointWiki" size="20" />
+ </tr>
+ <tr>
+  <td align="right">
+  </td><td>
+    <input type="hidden" name="importplugin" value="step2" size="50" />
+    <input type="hidden" name="fromweb" value="%BASEWEB%" size="50" />
+    <input type="hidden" name="fromtopic" value="%BASETOPIC%" size="50" />
+    <input type="hidden" name="fromattachment" value="%QUERY{attachments.name}%" size="50" />
+    <input type="hidden" name="fromtype" value="csv" size="50" />
+    
+    <input type="submit" class="foswikiSubmit" value=" Import file as topics" />  </td>
+ </tr>
+</table>
+</form>
+</div>
+
+
+----
+go back to %SYSTEMWEB%.ImportPlugin
+</p>
+%TMPL:END%

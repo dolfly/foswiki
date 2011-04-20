@@ -23,6 +23,11 @@ use Foswiki::Time ();
 use Foswiki::Plugins::WysiwygPlugin::HTML2TML;
 #use Foswiki::Plugins::WysiwygPlugin::TML2HTML;
 
+
+#for importHtml
+use Archive::Zip;
+use Archive::Zip::MemberRead;
+
 our $VERSION = '$Rev$';
 our $RELEASE = '0.1.0';
 our $SHORTDESCRIPTION = 'Upload and import data to foswiki';
@@ -88,7 +93,8 @@ sub initPlugin {
 
     # Allow a sub to be called from the REST interface
     # using the provided alias
-    Foswiki::Func::registerRESTHandler( 'import', \&importFile );
+    Foswiki::Func::registerRESTHandler( 'importCsv', \&importCsvFile );
+    Foswiki::Func::registerRESTHandler( 'importHtml', \&importHtml );
 
     # Plugin correctly initialized
     return 1;
@@ -119,31 +125,136 @@ sub SHOWIMPORTFILE {
 
 }
 
+=begin TML
+
+---++ importHtml($session) -> $text
+
+=cut
+
+sub importHtml {
+   my ( $session, $subject, $verb, $response ) = @_;
+   
+    my $query = $session->{request};
+    my $outputweb = $query->{param}->{outputweb}[0];
+    #open the attachment
+    my $type = lc(Foswiki::Sandbox::untaintUnchecked($query->{param}->{fromtype}[0]));
+    my $fromweb = $query->{param}->{fromweb}[0];
+    my $fromtopic = $query->{param}->{fromtopic}[0];
+    my $fromattachment = $query->{param}->{fromattachment}[0];
+    
+    ($fromweb, $fromtopic) = Foswiki::Func::normalizeWebTopicName($fromweb, $fromtopic);
+    ($fromweb, $fromtopic, $fromattachment) = Foswiki::Func::_checkWTA($fromweb, $fromtopic, $fromattachment);
+    
+    my $zipfilename = join('/', ($Foswiki::cfg{PubDir},$fromweb, $fromtopic, $fromattachment));
+        print STDERR "import from $zipfilename\n";
+        
+#$zipfilename = '/home/sven/Downloads/Eloquent JavaScript.zip';
+        
+    my $zip = Archive::Zip->new($zipfilename);
+    my @members = $zip->members();
+    my $count = 0;
+    foreach my $member (@members) {
+        
+        #DEBUG stop (do the firs 10 topics, with some revisions)
+        last if (scalar(keys(%webFull)) > 10);
+        
+        my $file = $member->fileName();
+#next unless ($member->fileName eq "Eloquent JavaScript/chapter6.html" );
+        my ($data, $status) = $member->contents();
+        #print STDERR $data;
+        #die;
+        #$member->extractToFileNamed( '/tmp/teteet' );
+    
+        next unless ($file =~ /^(\d\d\d+)___(.*)\.(html|htm|aspx)$/);
+        my $rev = $1;
+        my $topicname = $2;
+        my $ext = $3;
+        
+        #$member->rewindData();
+        #my ( $outRef, $status ) = $member->readChunk();
+        #die $$outRef if $status != Archive::Zip::AZ_OK && $status != Archive::Zip::AZ_STREAM_END;
+        #my $data = $$outRef;
+        
+       
+        my %hash;
+        $hash{web} = $outputweb;
+        
+        
+        $hash{name} = $topicname;
+        $hash{name} =~ s/\d\. //;    #remove a leading number?
+        
+        my $inverseFilter = $Foswiki::cfg{NameFilter};
+        $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
+        
+        #make a useable Topic name
+        $hash{name} =~ s/$inverseFilter//g;
+        $hash{name} =~ s/[\.\/]//g; #just remove dots and slashes
+        $hash{name} =~ s/^([\sA-Z_]*)$/lc($1)/;  #if its all caps and spaces, lowercase it so we're not shouting
+        #convert all underscores to spaces then remove them after capitalising all letters after a space..
+        $hash{name} =~ s/[\s_]+(\w)/uc($1)/ge;
+        $hash{name} =~ s/^(\w)/uc($1)/e;
+        $hash{name} =~ s/\?//g;
+        $hash{name} =~ s/_//g;
+        print STDERR scalar(keys(%webFull)).' '.++$count.'of'.scalar(@members)."import $file ".$hash{name}." ($status) (".(Archive::Zip::AZ_OK).") - isTest=".$member->isTextFile()." length: ".length($data)."\n";
+        
+        my $tidinfo;
+        if ($data =~ m/^(.*Last modified at.*sip=.*)$/ ) {
+            $tidinfo = $1;
+        } else {
+            #die 'omg '.$file unless ($data =~ m/^(.*sip=.*)$/);
+            die 'omg '.$file unless ($data =~ m/(.*sip=.*)/);
+            $tidinfo = $1;
+        }
+        print STDERR "--------$tidinfo\n";        
+        
+        #(Created  at |Last modified at )
+        $tidinfo =~ /(\d+)\/(\d\d)\/(\d\d\d\d) (\d+):(\d\d) ([AP]M)/;
+        #$tidinfo =~ /Created(..........)/;
+        $hash{'TOPICINFO.date'} = "$3/$2/$1 HOUR:$5";
+        my $hour = ($6 eq 'AM'?$4:$4+12);
+        if ($4 eq '12') {
+            if ($6 eq 'AM') {
+                $hour = 0;
+            } else {
+                $hour = 12;
+            }
+        }
+        $hash{'TOPICINFO.date'} =~ s/HOUR/$hour/;
+        #make TOPICINFO.date usable
+        #$hash{'TOPICINFO.date'} =~ s/\.\d\d\d$//;
+        $hash{'TOPICINFO.date'} = Foswiki::Time::parseTime($hash{'TOPICINFO.date'});
+        
+        
+        $tidinfo =~ /sip="(.*?)"/;
+        $hash{'TOPICINFO.author'} = $1;
+        #make a useable author
+        $hash{'TOPICINFO.author'} =~ s/(.*)@.*/$1/; #remove domain - TODO: need to see what LdapContrib will do with for a cuid
+        $hash{'TOPICINFO.author'} =~ s/$inverseFilter//g;
+        $hash{'TOPICINFO.author'} =~ s/[\.\/\s]//g;
+    
+        $hash{text} = $data;
+        #look for the common bits and remove?
+        #if ($hash{text} =~ /(<p>|<div|<a href|<h[1234567]>|<br \/>|&nbsp;)/i) {
+        #    $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
+        #}
+        
+        $webFull{$hash{name}} = () if (not defined($webFull{$hash{name}}));
+        $webFull{$hash{name}}{$hash{'TOPICINFO.date'}} = \%hash;
+print STDERR "=-=-=-".$hash{name}."  ....   ".$hash{'TOPICINFO.date'}."  :  ".$hash{'TOPICINFO.author'}."\n";
+
+    }
+    print STDERR 'making web';
+    my $data = writeWeb($outputweb);
+
+    return $data;
+}
 
 =begin TML
 
----++ importFile($session) -> $text
-
-This is an example of a sub to be called by the =rest= script. The parameter is:
-   * =$session= - The Foswiki object associated to this session.
-
-Additional parameters can be recovered via the query object in the $session, for example:
-
-my $query = $session->{request};
-my $web = $query->{param}->{web}[0];
-
-If your rest handler adds or replaces equivalent functionality to a standard script
-provided with Foswiki, it should set the appropriate context in its switchboard entry.
-A list of contexts are defined in %SYSTEMWEB%.IfStatements#Context_identifiers.
-
-For more information, check %SYSTEMWEB%.CommandAndCGIScripts#rest
-
-For information about handling error returns from REST handlers, see
-Foswiki:Support.Faq1
-
-*Since:* Foswiki::Plugins::VERSION 2.0
+---++ importCsvFile($session) -> $text
 
 =cut
+
 my %regex_map = (
     html_invalid => '(.*?)',
     html => '([^,]*)',
@@ -154,7 +265,7 @@ my %regex_map = (
     int => '(\d*|NULL)'
 );
 
-sub importFile {
+sub importCsvFile {
    my ( $session, $subject, $verb, $response ) = @_;
    
     my $query = $session->{request};
@@ -310,6 +421,22 @@ sub importFile {
         }
         $data = $data."DUD: $dud out of ".($#testdata/2)."<br /><br />\n\n";
         
+        $data = $data.writeWeb($outputweb);
+
+    } else {
+        #$data = 'no match';
+        $data =~ /(.......................................)/;
+        $data = length($data).' (failed)  :  '.$1;
+    }
+
+    
+   return "Import $type file ".join('/', ($fromweb, $fromtopic, $fromattachment))." into $outputweb\n\n<br /><br />$data";
+}
+
+sub writeWeb {
+    my $outputweb = shift;
+    my $data = '';
+    
         #need to create the web..
         if (not Foswiki::Func::webExists($outputweb)) {
             try {
@@ -356,7 +483,7 @@ sub importFile {
                     $data = $data.' ok <br />'."\n";
                 } otherwise {
                     my $e = shift;
-                    print STDERR "Error saving (".$meta->topic."), tryng again without forcedate.".(defined($e)?$e->stringify():'');
+                    print STDERR "Error saving (".$meta->topic."), trying again without forcedate.".(defined($e)?$e->stringify():'');
                     Foswiki::Func::saveTopic( $meta->web, $meta->topic, $meta, $meta->text, {forcenewrevision=>1, 
                                                                             author=>$hash->{'TOPICINFO.author'}
                                                                             } 
@@ -365,15 +492,7 @@ sub importFile {
 
             }
         }
-
-    } else {
-        #$data = 'no match';
-        $data =~ /(.......................................)/;
-        $data = length($data).' (failed)  :  '.$1;
-    }
-
-    
-   return "Import $type file ".join('/', ($fromweb, $fromtopic, $fromattachment))." into $outputweb\n\n<br /><br />$data";
+        return $data;
 }
 
 #($meta, $k, $hash->{$k}});
@@ -408,7 +527,7 @@ sub setField {
     }
 }
 
-
+#CanvasWiki..
 sub addToTopics {
     my $web = shift;
     my $fields = shift;

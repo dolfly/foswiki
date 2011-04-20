@@ -6,7 +6,7 @@
 
 %SHOWIMPORTFILE{"%QUERY{attachments.name}%"}%
 <div class="foswikiForm">
-<form name="main" enctype="multipart/form-data" action="%SCRIPTURLPATH{"rest"}%/ImportPlugin/import" method="post">
+<form name="main" enctype="multipart/form-data" action="%SCRIPTURLPATH{"rest"}%/ImportPlugin/importCsv" method="post">
 <table width="100%" summary="%MAKETEXT{"Attach a file"}%">
 <tr>
   <td align="right">
