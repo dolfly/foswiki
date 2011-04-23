@@ -27,30 +27,26 @@ use warnings;
 use Foswiki::Func    ();    # The plugins API
 use Foswiki::Plugins ();    # For the API version
 
+use vars qw(
+  $web $topic $core %FoswikiCompatibility
+);
+
 our $VERSION = '$Rev: 2083 (2010-10-27) $';
-our $RELEASE = '0.9.0';
+our $RELEASE = '0.9.1';
 
-# Short description of this plugin
-# One line description, is shown in the %SYSTEMWEB%.TextFormattingRules topic:
-our $SHORTDESCRIPTION = 'Macros for embedding MathJax (an open source JavaScript display engine for mathematics)';
-
+our $SHORTDESCRIPTION = 'Macros for embedding <nop>MathJax (an open source <nop>JavaScript display engine for mathematics)';
 our $NO_PREFS_IN_TOPIC = 1;
+$FoswikiCompatibility{endRenderingHandler} = 1.1;
 
 sub initPlugin {
     my ( $topic, $web, $user, $installWeb ) = @_;
 
-    # Example code of how to get a preference value, register a macro
-    # handler and register a RESTHandler (remove code you do not need)
+    undef $core;
 
-    # Set your per-installation plugin configuration in LocalSite.cfg,
-    # like this:
-    # $Foswiki::cfg{Plugins}{MathJaxPlugin}{ExampleSetting} = 1;
-    # See %SYSTEMWEB%.DevelopingPlugins#ConfigSpec for information
-    # on integrating your plugin configuration with =configure=.
-
-    # Always provide a default in case the setting is not defined in
-    # LocalSite.cfg.
-    # my $setting = $Foswiki::cfg{Plugins}{MathJaxPlugin}{ExampleSetting} || 0;
+    # Tell WyswiygPlugin to protect <latex>...</latex> markup
+    if (defined &Foswiki::Plugins::WysiwygPlugin::addXMLTag) {
+	Foswiki::Plugins::WysiwygPlugin::addXMLTag('latex', sub { 1 } );
+    }
 
     Foswiki::Func::registerTagHandler( 'MATHMODE', \&_MATHMODE );
 #    Foswiki::Func::registerTagHandler( '$', \&_MATHMODE );
@@ -63,6 +59,42 @@ sub initPlugin {
     return 1;
 }
 
+###############################################################################
+sub commonTagsHandler {
+### my ( $text, $topic, $web ) = @_;
+
+  $_[0] =~ s/%\\\[(.*?)\\\]%/&handleMath($1,0)/geo;
+  $_[0] =~ s/%\$(.*?)\$%/&handleMath($1,1)/geo;
+  $_[0] =~ s/<latex(?: (.*?))?>(.*?)<\/latex>/&handleMath($2,2,$1)/geos;
+}
+
+################################################################################
+sub getCore {
+  return $core if $core;
+  
+  require Foswiki::Plugins::MathJaxPlugin::Core;
+  $core = new Foswiki::Plugins::MathJaxPlugin::Core;
+
+  return $core;
+
+  # try:
+  require Foswiki::Plugins::MathJaxPlugin::Core;
+  return $core
+      || new Foswiki::Plugins::MathJaxPlugin::Core;
+}
+
+###############################################################################
+sub handleMath { 
+  return getCore()->handleMath($web, $topic, @_); 
+}
+
+###############################################################################
+sub postRenderingHandler { 
+  return unless $core; # no math
+  $core->postRenderingHandler($web, $topic, @_)
+}
+	
+###############################################################################
 sub _MATHMODE {
     my($session, $params, $theTopic, $theWeb) = @_;
     # $session  - a reference to the Foswiki session object
@@ -77,17 +109,9 @@ sub _MATHMODE {
     # Return: the result of processing the macro. This will replace the
     # macro call in the final text.
 
-#    Foswiki::Func::writeDebug( "MathJaxPlugin [" . $params->{_DEFAULT} . "]" );
-
-    Foswiki::Func::addToZone( 'head', 'MATHJAX_PLUGIN', <<__SCRIPT__ );
-<script type="text/javascript" src="%PUBURL%/%SYSTEMWEB%/MathJaxPlugin/MathJax/MathJax.js">
-    MathJax.Hub.Config({
-        jax: ["input/TeX", "output/HTML-CSS"],
-        delayStartupUntil: "onload"
-    });
-</script>
-__SCRIPT__
-    return '<noautolink><script type="math/tex">' . $params->{_DEFAULT} . "</script></noautolink>\n";
+    my $math = $params->{_DEFAULT};
+    #Foswiki::Func::writeDebug( "MathJaxPlugin MATHMODE{$math}" );
+    return handleMath( $math, my $inlineFlag=0, $params );
 }
 
 1;

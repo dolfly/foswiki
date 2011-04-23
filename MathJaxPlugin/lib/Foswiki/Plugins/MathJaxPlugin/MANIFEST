@@ -1,6 +1,7 @@
 # Release manifest for MathJaxPlugin
 data/System/MathJaxPlugin.txt 0644 Documentation
 lib/Foswiki/Plugins/MathJaxPlugin.pm 0644 Perl module
+lib/Foswiki/Plugins/MathJaxPlugin/Core.pm 0644 Perl module
 pub/System/MathJaxPlugin/badge.gif
 pub/System/MathJaxPlugin/maxwells-equations.png
 
