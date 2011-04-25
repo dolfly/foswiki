@@ -150,6 +150,8 @@ sub SHOWIMPORTFILE {
 sub importHtml {
    my ( $session, $subject, $verb, $response ) = @_;
    
+   my @error;
+   
     my $query = $session->{request};
     my $outputweb = $query->{param}->{outputweb}[0] || 'SharepointWiki';
     #open the attachment
@@ -169,19 +171,44 @@ sub importHtml {
     my $zip = Archive::Zip->new($zipfilename);
     my @members = $zip->members();
     my $count = 0;
+    my $actual_count = 0;
     foreach my $member (@members) {
         my $file = $member->fileName();
+        $actual_count++;
         
         #DEBUG stop (do the firs 10 topics, with some revisions)
         #last if (scalar(keys(%webFull)) > 1);
-        last if ($count > 0);
-        next unless ($file eq '1024___1.CONFIGURATION CHECKLIST.aspx');
+        #last if ($count > 0);
+        #next unless ($file eq '1024___1.CONFIGURATION CHECKLIST.aspx');
+        #next unless ($file eq '512___Card Printer and Embosser.aspx');
         
 #next unless ($member->fileName eq "Eloquent JavaScript/chapter6.html" );
-        my ($data, $status) = $member->contents();
+        my ($encoded_data, $status) = $member->contents();
         #print STDERR $data;
         #die;
         #$member->extractToFileNamed( '/tmp/teteet' );
+        
+        #utf16le from windows causes us tissues
+              use Encode::Guess;
+              my $enc = guess_encoding($encoded_data, 
+                                            #Encode->encodings(":all"));
+                                            qw/utf16le utf8 ascii/);
+                                            #qw/euc-jp shiftjis 7bit-jis/);
+              my $data;
+              if (ref($enc) eq '') {
+                  print STDERR "++++++++++++++++++++++++ Can't guess: $enc"; # trap error this way
+                  #last;
+                  use Encode;
+                  my $unicode = decode('UTF-8', $encoded_data);       #?
+                  $data = encode('ascii', $unicode);
+              } else {
+                  #die join(', ', Encode->encodings(":all"));
+    print STDERR "++++++++++++++++++++++++ Guessed Encoding as ".$enc->name."\n";
+            use Encode;
+                  my $unicode = decode($enc->name, $encoded_data);       #'UTF-16LE'?
+                  $data = encode('ascii', $unicode);
+              }
+
     
         next unless ($file =~ /^(\d\d\d+)___(.*)\.(html|htm|aspx)$/);
         my $rev = $1;
@@ -199,15 +226,19 @@ sub importHtml {
         
         $topicname = simplfyTopicName($topicname);
         $hash{name} = $topicname;
-        print STDERR scalar(keys(%webFull)).' '.++$count.'of'.scalar(@members)."import $file ".$hash{name}." ($status) (".(Archive::Zip::AZ_OK).") - isTest=".$member->isTextFile()." length: ".length($data)."\n";
+        print STDERR scalar(keys(%webFull)).' ('.$actual_count.')'.++$count.'of'.scalar(@members)."import $file ".$hash{name}." ($status) (".(Archive::Zip::AZ_OK).") - isTest=".$member->isTextFile()." length: ".length($data)."\n";
         
         my $tidinfo;
-        if ($data =~ m/^(.*Last modified at.*sip=.*)$/ ) {
+        if ($data =~ m/^(Last modified at.*userdisp.aspx\?ID=\d*">.*?)<\/A>/i ) {
             $tidinfo = $1;
         } else {
-            #die 'omg '.$file unless ($data =~ m/^(.*sip=.*)$/);
-            die 'omg '.$file unless ($data =~ m/(.*sip=.*)/);
-            $tidinfo = $1;
+            if ($data =~ m/(at.*?userdisp.aspx\?ID=\d*">.*?)<\/A>/i) {
+                $tidinfo = $1;
+            } else {
+                print STDERR 'OMG. '.$file."\n\n" ;
+                push(@error, $file);
+                next;
+            }
         }
 
         print STDERR "--------$tidinfo\n";      
@@ -227,13 +258,15 @@ sub importHtml {
         $hash{'TOPICINFO.date'} =~ s/HOUR/$hour/;
         #make TOPICINFO.date usable
         #$hash{'TOPICINFO.date'} =~ s/\.\d\d\d$//;
+print STDERR ".... date: ".$hash{'TOPICINFO.date'}."\n";
         $hash{'TOPICINFO.date'} = Foswiki::Time::parseTime($hash{'TOPICINFO.date'});
         
         
-        $tidinfo =~ /sip="(.*?)"/;
+        $tidinfo =~ /.*userdisp.aspx\?ID=\d*">(.*)$/;
         $hash{'TOPICINFO.author'} = $1;
         #make a useable author
-        $hash{'TOPICINFO.author'} =~ s/(.*)@.*/$1/; #remove domain - TODO: need to see what LdapContrib will do with for a cuid
+        #$hash{'TOPICINFO.author'} =~ s/(.*)@.*/$1/; #remove domain - TODO: need to see what LdapContrib will do with for a cuid
+        $hash{'TOPICINFO.author'} =~ s/\.//g;
 
         my $inverseFilter = $Foswiki::cfg{NameFilter};
         $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
@@ -241,7 +274,9 @@ sub importHtml {
 
         $hash{'TOPICINFO.author'} =~ s/$inverseFilter//g;
         $hash{'TOPICINFO.author'} =~ s/[\.\/\s]//g;
+print STDERR ".... author: ".$hash{'TOPICINFO.author'}."\n";
     
+        print STDERR "trying to match\n";
         #narrow down the html we're going to import
         if ($data =~ m/.*(<TABLE.*?Wiki Content.*?sip=".*?<\/TABLE>)/sim) {
         #if ($data =~ m/(Wiki Content.*sip=")/ims) {
@@ -253,24 +288,45 @@ sub importHtml {
             my $preamble = $1;
             $data =~ s/(<\/td>\s*<\/tr>\s*<\/table>.*?"\/_layouts\/images\/blank.gif.*)$//msi;
             my $postamble = $1;
+        } elsif ($data =~ m/.*(<TABLE.*Wiki Content.*(Created at|Modified at).*<\/TABLE>)/sim) {
+            $data = $1.'</table></table>';
+            print STDERR "......................match.......\n";
+            
+            #further tidying, want to add this info into Meta fields later though
+            $data =~ s/(.*)(<!-- FieldName="Wiki Content")/$2/ms;
+            my $preamble = $1;
+            $data =~ s/(<\/td>\s*<\/tr>\s*<\/table>.*?"\/_layouts\/images\/blank.gif.*)$//msi;
+            my $postamble = $1;
+        } else {
+            print STDERR ".............. FAILED to match\n";
+            push(@error, $file);
+            next;
         }
 
         #$data =~ s|<div( class=ExternalClass90EB474F1F684091AC987A1DC6C2015E)?>(<font face="Arial Black" size=2></font>)?(..?)</div>||g;
         #my $squelsh = $3;
         #$data =~ s|$squelsh||e;
         
-require HTML::Entities;
-    HTML::Entities::encode_entities( $data);#, HTML::Entities::decode_entities('&Acirc;') );
-die $data;
-
+#require HTML::Entities;
+#    HTML::Entities::encode_entities( $data);#, HTML::Entities::decode_entities('&Acirc;') );
+#die $data;
+print STDERR "tidy\n";
         use HTML::Tidy;
         my $tidy = HTML::Tidy->new();
         $hash{text} = $tidy->clean($data);
         
-        
+print STDERR "html2tml\n";
+
+#$hash{text} =~ s/.*<body>//mis;
+#$hash{text} =~ s/<\/body>.*//mis;
+
         #look for the common bits and remove?
         #if ($hash{text} =~ /(<p>|<div|<a href|<h[1234567]>|<br \/>|&nbsp;)/i) {
-            $hash{text} = $sharehtml2tml->convert( $hash{text}, { very_clean => 1 } );
+            #$hash{text} = $sharehtml2tml->convert( $hash{text}, { very_clean => 1 } );
+            #$hash{text} = $sharehtml2tml->{stackTop}->stringify();#something is going very wrong in the _generateRoot
+            #$html2tml->ignore_tags(qw/a img h2 b u p div font span strong/);
+            $html2tml->ignore_tags(qw/font/);   #img tag causes html2tml to infinite loop
+            $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
         #}
         
         #re-write sharepoint wiki url's
@@ -283,7 +339,16 @@ print STDERR "=-=-=-".$hash{name}."  ....   ".$hash{'TOPICINFO.date'}."  :  ".$h
 
     }
     print STDERR 'making web';
-    my $data = writeWeb($outputweb);
+    my $data =             
+            "\n#######################################################################\n".
+            "ok: \n".
+            writeWeb($outputweb);
+    
+    $data = "\n#######################################################################\n".
+            "ERRORS: -----------------------------------------------------------------\n".
+            join("\n", @error).
+            "\n\n".
+            $data if ($#error > -1);
 
     return $data;
 }

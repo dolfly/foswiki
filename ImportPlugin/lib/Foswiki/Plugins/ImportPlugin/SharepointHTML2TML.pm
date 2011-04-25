@@ -27,8 +27,7 @@ package Foswiki::Plugins::ImportPlugin::SharepointHTML2TML;
 use Foswiki::Plugins::WysiwygPlugin::HTML2TML;
 our @ISA = qw( Foswiki::Plugins::WysiwygPlugin::HTML2TML );
 
-
-my %discardTag = map { $_ => 1 } qw {font strong span};
+my %discardTag = map { $_ => 1 } qw {font strong};
 my %discardAttr = map { $_ => 1 } qw {span p div};
 
 sub _openTag {
@@ -37,11 +36,11 @@ sub _openTag {
     $tag = lc($tag);
     
     if ($discardTag{$tag}) {
-        #print STDERR "discard $tag\n";
+        print STDERR "discard $tag\n";
         return;
     }
     if ($discardAttr{$tag}) {
-        #print STDERR "discard attr $tag\n";
+        print STDERR "discard attr $tag\n";
         $attrs = '';
     }
     if (   $closeOnRepeat{$tag}
@@ -49,7 +48,7 @@ sub _openTag {
         && $this->{stackTop}->{tag} eq $tag )
     {
 
-        #print STDERR "Close on repeat $tag\n";
+        print STDERR "Close on repeat $tag\n";
         $this->_apply($tag);
     }
 
@@ -60,7 +59,7 @@ sub _openTag {
 
     if ( $autoClose{$tag} ) {
 
-        #print STDERR "Autoclose $tag\n";
+        print STDERR "Autoclose $tag\n";
         $this->_apply($tag);
     }
 }
@@ -71,7 +70,7 @@ sub _closeTag {
     $tag = lc($tag);
 
     if ($discardTag{$tag}) {
-        #print STDERR "discard $tag\n";
+        print STDERR "discard $tag\n";
         return;
     }
 
@@ -80,18 +79,20 @@ sub _closeTag {
         && $autoClose{ $this->{stackTop}->{tag} } )
     {
 
-        #print STDERR "Close mismatched $this->{stackTop}->{tag}\n";
+        print STDERR "Close mismatched $this->{stackTop}->{tag}\n";
         $this->_apply( $this->{stackTop}->{tag} );
     }
     if (   $this->{stackTop}
         && $this->{stackTop}->{tag} eq $tag )
     {
 
-        #print STDERR "Closing $tag\n";
+        print STDERR "Closing $tag\n";
         $this->_apply($tag);
     }
 }
 
+
+1;
 __END__
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
