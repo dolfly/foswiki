@@ -176,11 +176,15 @@ sub importHtml {
         my $file = $member->fileName();
         $actual_count++;
         
-        #DEBUG stop (do the firs 10 topics, with some revisions)
-        #last if (scalar(keys(%webFull)) > 1);
+        #DEBUG stop (do the firs 40 topics, with some revisions)
+        #last if (scalar(keys(%webFull)) > 20);
         #last if ($count > 0);
         #next unless ($file eq '1024___1.CONFIGURATION CHECKLIST.aspx');
         #next unless ($file eq '512___Card Printer and Embosser.aspx');
+        #next unless ($file =~ /Technical/);
+        #next unless ($file eq '290816___Technical.aspx');      #this one has a span tag or combination that break html2tml
+        #next unless ($file eq '301056___Technical.aspx'); 
+        
         
 #next unless ($member->fileName eq "Eloquent JavaScript/chapter6.html" );
         my ($encoded_data, $status) = $member->contents();
@@ -200,13 +204,13 @@ sub importHtml {
                   #last;
                   use Encode;
                   my $unicode = decode('UTF-8', $encoded_data);       #?
-                  $data = encode('ascii', $unicode);
+                  $data = encode('unicode', $unicode);
               } else {
                   #die join(', ', Encode->encodings(":all"));
     print STDERR "++++++++++++++++++++++++ Guessed Encoding as ".$enc->name."\n";
             use Encode;
                   my $unicode = decode($enc->name, $encoded_data);       #'UTF-16LE'?
-                  $data = encode('ascii', $unicode);
+                  $data = encode('unicode', $unicode);
               }
 
     
@@ -324,14 +328,41 @@ print STDERR "html2tml\n";
         #if ($hash{text} =~ /(<p>|<div|<a href|<h[1234567]>|<br \/>|&nbsp;)/i) {
             #$hash{text} = $sharehtml2tml->convert( $hash{text}, { very_clean => 1 } );
             #$hash{text} = $sharehtml2tml->{stackTop}->stringify();#something is going very wrong in the _generateRoot
-            #$html2tml->ignore_tags(qw/a img h2 b u p div font span strong/);
-            $html2tml->ignore_tags(qw/font/);   #img tag causes html2tml to infinite loop
+            #$html2tml->ignore_tags(qw/a img h2 b u p br div font span strong/);
+            #$html2tml->ignore_tags(qw/span/);
+            $html2tml->ignore_tags(qw/font span/);   #span tag causes html2tml to infinite loop
             $hash{text} = $html2tml->convert( $hash{text}, { very_clean => 1 } );
         #}
-        
+       
         #re-write sharepoint wiki url's
         #/sites/maxgaming/cougarkb/Cougar Knowledge Base Wiki/Site Controller Install or Swapout.aspx
         $hash{text} =~ s|/sites/maxgaming/cougarkb/Cougar Knowledge Base Wiki/(.*?).aspx|simplfyTopicName($1)|ge;
+        
+        #re-write remaining references to '/sites/maxgaming/cougarkb' with %COUGARURI% and set that in the WebPrefs for testing
+        #TODO: attach files that are found..
+        $hash{text} =~ s|([['"])/sites/maxgaming/cougarkb/([^/]*?)/(.*)|$1.'%COUGARURI%'.simplfyTopicName($2).'/'.expandSharepointLink($3)|ge;
+                              #[/sites/maxgaming/cougarkb/Wiki Image Library/Kiosk Site Inventory.xls]
+
+        #use the breadcrumbs someone added
+        if ($hash{text} =~ s/^(.*\[\[.*\]\[.*\]\].*?)?(\[\[(.*)\]\[.*\]\])(.*?)\n//) {
+            $hash{'TOPICPARENT.name'} = $3;
+            $hash{'preferences.parents'} = $1.$2.$4;
+        }
+
+                              
+        ###########################################################################
+        #start to unravel some of the horrid markup
+        #remove create new topic links
+        $hash{text} =~ s/<a href="(.*?)CreateWebPage(.*?)<\/a>\s//g;
+        
+        #bullet points within the link markup 
+        #TODO: this would mean alot of testing and mucking.
+        #$hash{text} =~ s/^\[\[(.*?)\]\[(\d*)\.\s*(.*?)\]\](.*)$/   $2 [[$1][$3]]$4/gms;
+        
+        #$hash{text} =~ s/^\*\s/   * /gms;
+        #end tweaking sharepoint output
+        ###########################################################################
+        
         
         $webFull{$hash{name}} = () if (not defined($webFull{$hash{name}}));
         $webFull{$hash{name}}{$hash{'TOPICINFO.date'}} = \%hash;
@@ -342,7 +373,7 @@ print STDERR "=-=-=-".$hash{name}."  ....   ".$hash{'TOPICINFO.date'}."  :  ".$h
     my $data =             
             "\n#######################################################################\n".
             "ok: \n".
-            writeWeb($outputweb);
+            writeWeb($outputweb, {COUGARURI => '%PUBURL%/images/', WEBBGCOLOR => '#AA2299', WEBSUMMARY=>'Cougar Wiki'});
     
     $data = "\n#######################################################################\n".
             "ERRORS: -----------------------------------------------------------------\n".
@@ -352,10 +383,20 @@ print STDERR "=-=-=-".$hash{name}."  ....   ".$hash{'TOPICINFO.date'}."  :  ".$h
 
     return $data;
 }
+
+sub expandSharepointLink {
+    my $file = shift;
+    
+    $file =~ s/\/([^\/]*?)\.(png|gif|jpg)/\/_w\/$1_$2.jpg/;
+    
+    return $file;
+}
+
 sub simplfyTopicName {
     my $topic = shift;
     
-        $topic =~ s/\d\. //;    #remove a leading number?
+        $topic =~ s/\d+\. //;    #remove a leading number?
+        $topic =~ s/%20/ /g;      #remove escaped spaces
         
         my $inverseFilter = $Foswiki::cfg{NameFilter};
         $inverseFilter =~ s/\[(.*)\^(.*)\]/[$2]/;
@@ -363,12 +404,12 @@ sub simplfyTopicName {
         #make a useable Topic name
         $topic =~ s/$inverseFilter//g;
         $topic =~ s/[\.\/]//g; #just remove dots and slashes
-        $topic =~ s/^([\sA-Z_]*)$/lc($1)/;  #if its all caps and spaces, lowercase it so we're not shouting
+        $topic =~ s/([A-Z_]*)/ucfirst(lc($1))/ge;  #if its all caps and spaces, lowercase it so we're not shouting
         #convert all underscores to spaces then remove them after capitalising all letters after a space..
         $topic =~ s/[\s_]+(\w)/uc($1)/ge;
         $topic =~ s/^(\w)/uc($1)/e;
-        $topic =~ s/\?//g;
-        $topic =~ s/_//g;
+        $topic =~ s/[\?_\s()]//g;
+        
         
         return $topic;
 }
@@ -559,6 +600,7 @@ sub importCsvFile {
 
 sub writeWeb {
     my $orig_outputweb = shift;
+    my $options = shift;
     
     
         #need to create a new
@@ -568,7 +610,7 @@ sub writeWeb {
             $outputweb = $orig_outputweb.$web_suffix++;
         }
             try {
-                Foswiki::Func::createWeb($outputweb, '_default');
+                Foswiki::Func::createWeb($outputweb, '_default', $options);
             } catch Foswiki::AccessControlException with {
                 my $e = shift;
                 # see documentation on Foswiki::AccessControlException
@@ -578,16 +620,25 @@ sub writeWeb {
             } otherwise {
                 #...
             };
+                my ($meta, $text) = Foswiki::Func::readTopic($outputweb, 'WebPreferences');
+                foreach my $key (keys(%$options)) {
+                    #TODO: because the createWeb doesn't do what the docco says
+                    setField($meta, 'preferences.'.$key, $options->{$key});
+                }
+                Foswiki::Func::saveTopic($meta->web, $meta->topic, $meta, $meta->text);
+
             
-        my $data = "into $outputweb\n";
+        my $data = "into $outputweb - <a href='http://quad7/~sven/core/bin/view/$outputweb/WebIndex'>WebIndex</a><br />\n";
 
         
         #and now use the %webFull hash to make topics without losing our revisions
         foreach my $t (keys(%webFull)) {
             print STDERR $t;
+            $data = $data.' ++++ <a href="http://quad7/~sven/core/bin/view/'.$outputweb.'/'.$t.'">'.$t.'</a> @@ ';
+            
             foreach my $rev (sort keys(%{$webFull{$t}})) {
                 my $hash = $webFull{$t}{$rev};
-                $data = $data.' ++++ '.$t.' @@ '.$hash->{'TOPICINFO.date'}.'<br />'."\n";
+                $data = $data.$hash->{'TOPICINFO.date'}.' ';
                 $hash->{web} = $outputweb;
                 
                 my( $meta, $text );
@@ -609,7 +660,7 @@ sub writeWeb {
                                                                             author=>$hash->{'TOPICINFO.author'}
                                                                             } 
                                                                             );
-                    $data = $data.' ok <br />'."\n";
+                    #$data = $data.' ok <br />'."\n";
                 } otherwise {
                     my $e = shift;
                     print STDERR "Error saving (".$meta->topic."), trying again without forcedate.".(defined($e)?$e->stringify():'');
@@ -620,6 +671,7 @@ sub writeWeb {
                 };
 
             }
+            $data = $data." <br />\n";
         }
         return $data;
 }
@@ -642,6 +694,9 @@ sub setField {
     } elsif ($name =~ /^TOPICINFO\.(.*)$/) {
 #        $meta->putKeyed( 'TOPICINFO',
 #            { name => $1, value =>$value } );
+    } elsif ($name =~ /^TOPICPARENT\.(.*)$/) {
+        $meta->putKeyed( 'TOPICPARENT',
+            { name => $value } );
     } elsif ($name =~ /^preferences\.(.*)$/) {
         $meta->putKeyed( 'PREFERENCE',
             { name => $1, value =>$value } );
