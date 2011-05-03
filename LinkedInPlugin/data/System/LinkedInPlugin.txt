@@ -71,13 +71,13 @@ Follow the instructions at %SYSTEMWEB%.UserForm, and add
 
 ---++ !WidgetsSkin blocks
 ---+++ Share with !LinkedIn
-<verbatim type-tml>
+<verbatim type="tml">
 http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%}%&title=%URLENCODE{%QUERY{Summary}%}%&summary=new%20foswiki%20linkedin%20plugin&source=Foswiki
 ---+++ widget-linkedinshare
 %STARTSECTION{"widget-linkedinshare"}%<div class="widget-linkedinshare widget">
    <h2 class="widget-header">Share</h2>
    <div class="widget-content">
-%SHARE%
+%SHARE{%SCRIPTURL{view}%%BASEWEB%.%BASETOPIC%}%
    </div>
 </div>%ENDSECTION{"widget-linkedinshare"}%
 </verbatim>
@@ -94,6 +94,7 @@ http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  03  May  2011: | fix up !WidgetsSkin widget url for sharing |
 |  17 April 2011: | UserForm.LinkedInURL field to allow user to set their LinkedIn profile url, and add opt-in or opt-out default |
 |  29 March 2011: | add an over-ride profile =url= parameter for non-customised or non-unique names |
 |  28 March 2011: | initial release |
