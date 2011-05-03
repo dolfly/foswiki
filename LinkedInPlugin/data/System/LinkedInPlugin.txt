@@ -77,7 +77,7 @@ http://www.linkedin.com/shareArticle?mini=true&url=%URLENCODE{%SCRIPTURL{view}%/
 %STARTSECTION{"widget-linkedinshare"}%<div class="widget-linkedinshare widget">
    <h2 class="widget-header">Share</h2>
    <div class="widget-content">
-%SHARE{%SCRIPTURL{view}%%BASEWEB%.%BASETOPIC%}%
+%SHARE{url="%SCRIPTURL{view}%/%BASEWEB%/%BASETOPIC%" title="%BASETOPIC%" summary="%BASETOPIC%"}%
    </div>
 </div>%ENDSECTION{"widget-linkedinshare"}%
 </verbatim>
