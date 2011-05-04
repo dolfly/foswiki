@@ -57,6 +57,9 @@ sub expand {
     }
 
     $rpId++;
+    
+    Foswiki::Func::addToZone( 'head', "RackPlannerPlugin_JS",
+   "<script src='%PUBURL%/%SYSTEMWEB%/$pluginName/rackplannertooltips.js' language='javascript' type='text/javascript'></script>");
 
     return ( $options{'dir'} =~ /^(leftright|rightleft)$/i )
       ? &_renderHorizontal( &_fetch( &_getTopicText() ) )

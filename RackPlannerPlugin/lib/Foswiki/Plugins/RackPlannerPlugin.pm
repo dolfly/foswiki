@@ -16,18 +16,14 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 #
-# For licensing info read LICENSE file in the TWiki root.
-
-# change the package name and $pluginName!!!
+# For licensing info read LICENSE file in the Foswiki root.
 package Foswiki::Plugins::RackPlannerPlugin;
 
-# Always use strict to enforce variable scoping
 use strict;
+
 require Foswiki::Plugins::RackPlannerPlugin::RackPlanner;
 
-# $VERSION is referred to by TWiki, and is the only global variable that
-# *must* exist in this package
-use vars qw( $VERSION $RELEASE $debug $pluginName $REVISION );
+use vars qw( $VERSION $RELEASE $debug $pluginName $NO_PREFS_IN_TOPIC $SHORTDESCRIPTION );
 
 # This should always be $Rev: 8670$ so that TWiki can determine the checked-in
 # status of the plugin. It is used by the build automation tools, so
@@ -37,10 +33,7 @@ $VERSION = '$Rev: 8670$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = 'Foswiki 1.0';
-
-$REVISION = '1.006'
-  ; #dro# fixed minor tooltip foreground/background color bug; added device icon shortcut feature; added some base device icons;
+$RELEASE = '1.1';
 
 #$REVISION = '1.005'; #dro# fixed links in 'connected to' or 'owner' field bug; added new attribute (clicktooltip...); added documentation
 #$REVISION = '1.004'; #dro# fixed replacement in tooltipformat bug; improved tooltipformat; improved HTML rendering performance;  added and fixed documenation;
@@ -52,32 +45,11 @@ $REVISION = '1.006'
 # Name of this Plugin, only used in this module
 $pluginName = 'RackPlannerPlugin';
 
-=pod
+$SHORTDESCRIPTION = "Render a rack overview (e.g. of 19'' computer racks) with HTML tables.";
 
----++ initPlugin($topic, $web, $user, $installWeb) -> $boolean
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-   * =$user= - the login name of the user
-   * =$installWeb= - the name of the web the plugin is installed in
+$NO_PREFS_IN_TOPIC = 1;
 
-REQUIRED
-
-Called to initialise the plugin. If everything is OK, should return
-a non-zero value. On non-fatal failure, should write a message
-using Foswiki::Func::writeWarning and return 0. In this case
-%FAILEDPLUGINS% will indicate which plugins failed.
-
-In the case of a catastrophic failure that will prevent the whole
-installation from working safely, this handler may use 'die', which
-will be trapped and reported in the browser.
-
-You may also call =Foswiki::Func::registerTagHandler= here to register
-a function to handle tags that have standard TWiki syntax - for example,
-=%MYTAG{"my param" myarg="My Arg"}%. You can also override internal
-TWiki tag handling functions this way, though this practice is unsupported
-and highly dangerous!
-
-=cut
+$debug = 0;
 
 sub initPlugin {
     my ( $topic, $web, $user, $installWeb ) = @_;
@@ -89,58 +61,11 @@ sub initPlugin {
         return 0;
     }
 
-    # Get plugin preferences, variables defined by:
-    #   * Set EXAMPLE = ...
-    ####my $exampleCfgVar = Foswiki::Func::getPreferencesValue( "\U$pluginName\E_EXAMPLE" );
-    # There is also an equivalent:
-    # $exampleCfgVar = Foswiki::Func::getPluginPreferencesValue( 'EXAMPLE' );
-    # that may _only_ be called from the main plugin package.
-
-    ####$exampleCfgVar ||= 'default'; # make sure it has a value
-
-    # register the _EXAMPLETAG function to handle %EXAMPLETAG{...}%
-    ####Foswiki::Func::registerTagHandler( 'TIMETABLE', \&_TIMETABLE);
-
-    # Allow a sub to be called from the REST interface
-    # using the provided alias
-    ####Foswiki::Func::registerRESTHandler('example', \&restExample);
-
     eval { &Foswiki::Plugins::RackPlannerPlugin::RackPlanner::initPlugin; };
 
     # Plugin correctly initialized
     return 1;
 }
-
-
-=pod
-
----++ commonTagsHandler($text, $topic, $web )
-   * =$text= - text to be processed
-   * =$topic= - the name of the topic in the current CGI query
-   * =$web= - the name of the web in the current CGI query
-This handler is called by the code that expands %TAGS% syntax in
-the topic body and in form fields. It may be called many times while
-a topic is being rendered.
-
-Plugins that want to implement their own %TAGS% with non-trivial
-additional syntax should implement this function. Internal TWiki
-tags (and any tags declared using =Foswiki::Func::registerTagHandler=)
-are expanded _before_, and then again _after_, this function is called
-to ensure all %TAGS% are expanded.
-
-For tags with trivial syntax it is far more efficient to use
-=Foswiki::Func::registerTagHandler= (see =initPlugin=).
-
-__NOTE:__ when this handler is called, &lt;verbatim> blocks have been
-removed from the text (though all other HTML such as &lt;pre> blocks is
-still present).
-
-__NOTE:__ meta-data is _not_ embedded in the text passed to this
-handler.
-
-=cut
-
-require Foswiki::Plugins::RackPlannerPlugin::RackPlanner;
 
 sub commonTagsHandler {
 
@@ -151,16 +76,7 @@ sub commonTagsHandler {
         "- ${pluginName}::commonTagsHandler( $_[2].$_[1] )")
       if $debug;
 
-    # do custom extension rule, like for example:
-    # $_[0] =~ s/%XYZ%/&handleXyz()/ge;
-    # $_[0] =~ s/%XYZ{(.*?)}%/&handleXyz($1)/ge;
-
     eval {
-
-        $_[0] =~
-s/<\/head>/<script src="%PUBURL%\/%SYSTEMWEB%\/$pluginName\/rackplannertooltips.js" language="javascript" type="text\/javascript"><\/script><\/head>/is
-          unless ( $_[0] =~ /rackplannertooltips.js/ );
-
         $_[0] =~
 s/%RACKPLANNER%/&Foswiki::Plugins::RackPlannerPlugin::RackPlanner::expand("",$_[0],$_[1],$_[2])/ge;
         $_[0] =~
