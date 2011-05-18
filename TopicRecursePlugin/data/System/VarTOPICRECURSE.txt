@@ -14,6 +14,8 @@
      | =header="..."= %BR% \
        =footer="..."=                   | Custom format results: see [[FormattedSearch]] for usage &amp; examples | =*Search: '$rootquery'*$n= %BR% =*Total: $ntopics*= |
      | =format="..."= %BR% \
+     | =branchheader="..."= %BR% \
+       =branchfooter="..."=                   | Custom format results: see [[FormattedSearch]] for usage &amp; examples | |
        =formatbranch="..."= %BR% \
        =formatleaf="..."=               | Custom format results: see [[FormattedSearch]] for usage &amp; examples; "branch" format is for nodes which have descendents; "leaf" format is for terminating nodes for which there are no others below. | =$indent* [<nop>[$web.<nop>$topic][$topic]]= |
      | =separator="..."= | Separator _between_ search hits. See [[#FormatTokens]] | =$n= |

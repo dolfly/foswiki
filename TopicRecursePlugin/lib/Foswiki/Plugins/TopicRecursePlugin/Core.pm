@@ -62,7 +62,7 @@ sub TOPICRECURSE {
         writeDebug( "rootNode: $rootNode->{webtopic}", 'TOPICRECURSE', 4 );
         my $spec = extractParams(
             $params,
-            qw(header format formatbranch formatleaf separator footer),
+            qw(header format formatbranch formatleaf separator footer branchheader branchfooter),
             qw(nodelimit depthlimit breadthlimit)
         );
         my @renderednodes = formatNodes( $rootNode, $spec );
@@ -96,7 +96,7 @@ sub formatNodes {
         my $result = renderNode( $node, $spec->{formatbranch} );
 
         if ( not $node->isRoot() ) {
-            push( @renderednodes, $result );
+            push( @renderednodes, $spec->{branchheader}.$result.$spec->{branchfooter} );
         }
     }
     else {
