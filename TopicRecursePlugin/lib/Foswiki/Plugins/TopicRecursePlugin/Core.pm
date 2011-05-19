@@ -96,8 +96,18 @@ sub formatNodes {
         my $result = renderNode( $node, $spec->{formatbranch} );
 
         if ( not $node->isRoot() ) {
-            push( @renderednodes, $spec->{branchheader}.$result.$spec->{branchfooter} );
+            push( @renderednodes, $result );
         }
+	while ( $node->hasNext() ) {
+        	my $child = $node->next();
+        	push( @renderednodes, formatNodes( $child, $spec ));
+	}
+	if(@renderednodes){
+		my $length = $#renderednodes;
+		$renderednodes[0] = $spec->{branchheader}.$renderednodes[0];
+		$renderednodes[1] = $spec->{branchheader}.$renderednodes[1];
+		$renderednodes[$length] = $renderednodes[$length].$spec->{branchfooter}.$spec->{branchfooter};
+	}
     }
     else {
 
@@ -108,11 +118,6 @@ sub formatNodes {
             push( @renderednodes, $result );
         }
     }
-    while ( $node->hasNext() ) {
-        my $child = $node->next();
-        push( @renderednodes, formatNodes( $child, $spec ) );
-    }
-
     return @renderednodes;
 }
 

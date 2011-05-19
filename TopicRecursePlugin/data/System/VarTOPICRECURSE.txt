@@ -14,10 +14,10 @@
      | =header="..."= %BR% \
        =footer="..."=                   | Custom format results: see [[FormattedSearch]] for usage &amp; examples | =*Search: '$rootquery'*$n= %BR% =*Total: $ntopics*= |
      | =format="..."= %BR% \
-     | =branchheader="..."= %BR% \
-       =branchfooter="..."=                   | Custom format results: see [[FormattedSearch]] for usage &amp; examples | |
        =formatbranch="..."= %BR% \
        =formatleaf="..."=               | Custom format results: see [[FormattedSearch]] for usage &amp; examples; "branch" format is for nodes which have descendents; "leaf" format is for terminating nodes for which there are no others below. | =$indent* [<nop>[$web.<nop>$topic][$topic]]= |
+     | =branchheader="..."= %BR% \
+       =branchfooter="..."=                   | Custom format results: see [[FormattedSearch]] for usage &amp; examples | |
      | =separator="..."= | Separator _between_ search hits. See [[#FormatTokens]] | =$n= |
      | =nodelimit= | Maximum number of nodes to be displayed. 0 = no limit. | =50= |
      | =depthlimit= | Maximum depth to recurse to. 0 = no limit. | =0= |
