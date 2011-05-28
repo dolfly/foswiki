@@ -1,6 +1,148 @@
+/*
+Sets default styles for Foswiki classes.
+Adds some minor default styling in case you don't use typographic.css
+*/
+
+/* baseline grid generated with http://topfunky.com/baseline-rhythm-calculator/ */
+/* settings:font-size:13px, line-height:18px; */
 body {
-	font-family:arial, sans-serif;
+	font-size:13px;
+	line-height:1.3846153846153846em;
+	margin:0;
+	padding:0
 }
+h1 {
+	font-size:1.6153846153846154em;
+	line-height:0.8571428571428571em;
+	margin-bottom:0.8571428571428571em;
+}
+h2 {
+	font-size:1.4615384615384615em;
+	line-height:0.9473684210526315em;
+	margin-bottom:0.9473684210526315em;
+}
+h3 {
+	font-size:1.3076923076923077em;
+	line-height:1.0588235294117647em;
+	margin-bottom:1.0588235294117647em;
+}
+h4 {
+	font-size:1.1538461538461537em;
+	line-height:1.2em;
+	margin-bottom:1.2em;
+}
+
+/* normal text */
+blockquote,
+h5,
+h6,
+iframe,
+input[type="password"],
+input[type="text"],
+label,
+p,
+pre,
+td,
+th,
+ul,
+ol,
+dl {
+	font-size:1em;
+	line-height:1.3846153846153846em;
+	margin-bottom:1.3846153846153846em;
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul,
+dl dl {
+	margin-bottom:0;
+}
+
+/* small text */
+pre,
+code,
+tt {
+	margin:0;
+	font-size:0.8461538461538461em;
+	line-height:1.6363636363636365em;
+	margin-bottom:1.6363636363636365em;
+}
+
+/* end baseline grid */
+
+/* defaults for standard HTML elements */
+
+:link:focus,
+:visited:focus,
+:link,
+:visited,
+:link:active,
+:visited:active {
+	text-decoration:none;
+}
+:link:hover,
+:visited:hover {
+	text-decoration:underline;
+}
+
+img {
+	vertical-align:text-bottom;
+}
+
+textarea,
+input,
+select {
+	vertical-align:middle;
+}
+
+form { 
+	display:inline;
+}
+
+pre,
+code,
+tt {
+    font-family:"Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
+    font-size:90%;
+}
+
+/* default colors */
+
+	:link:focus,
+	:visited:focus,
+	:link,
+	:visited,
+	:link:active,
+	:visited:active {
+		color:#06c;
+	}
+	
+	::-moz-selection {
+		background: #06c;
+		color:#fff;
+		text-shadow: none; 
+	}
+	::selection {
+		background:#06c;
+		color:#fff;
+		text-shadow: none; 
+	}
+
+	hr {
+		color:#ccc;
+		background-color:#ccc;
+	}
+	
+	pre {
+		background:#f5f5f5;
+	}
+
+/* end defaults for standard HTML elements */
+
+
+/* Foswiki classes */
 
 /* made visible if javascript available */
 /* specified in js.css */
@@ -10,7 +152,6 @@ body {
 	display:none;
 }
 
-/* Foswiki classes */
 .foswikiLeft {
 	float:left;
 	position:relative;
@@ -34,23 +175,56 @@ body {
 .foswikiHidden {
 	display:none;
 }
-.foswikiSmall {
-/* defined in typographics.css */
+
+.foswikiPage {
+	width:960px;
+	margin:0 auto;
 }
-.foswikiSmallish {
-/* defined in typographics.css */
-}
+
 .foswikiLarge {
-/* defined in typographics.css */
+	/* same as h4 */
+	font-size:1.1538461538461537em;
+	line-height:1.2em;
+	margin-bottom:1.2em;
+}
+
+.foswikiSmall,
+.foswikiSmallish,
+.foswikiDiffDebug {
+	/* same as small text, pre etc. */
+	margin:0;
+	font-size:0.8461538461538461em;
+	line-height:1.6363636363636365em;
+	margin-bottom:1.6363636363636365em;
+}
+
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification {
+	/* same as normal text, p, etc. */
+	font-size:1em;
+	line-height:1.3846153846153846em;
+	margin-bottom:1.3846153846153846em;
 }
 .foswikiBroadcastMessage,
-.foswikiNotification,
-.foswikiHelp {}
+.foswikiNotification {
+	padding:1.3846153846153846em;
+}
+
+.foswikiTextarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly {
+	/* sameas textarea etc. */
+	font-family:inherit;
+	font-size:100%;
+}
+
 .foswikiMessage {}
 .foswikiEmulatedLink {
 	text-decoration:underline;
 }
-.foswikiPage {}
 .foswikiImage img {
 	padding:3px;
 	border-width:1px;
@@ -59,11 +233,39 @@ body {
 .foswikiPreviewArea {}
 .foswikiSummary {}
 
+.foswikiNoBreak {
+	white-space:nowrap;
+}
+.foswikiIcon img {
+	vertical-align:text-bottom;
+	border:0;
+}
+
+.foswikiDiffDebug {
+	/* same as pre, code */
+    font-family:"Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
+    font-size:90%;
+}
+
+/* search results */
+.foswikiSearchResults {}
+.foswikiSearchResult {}
+.foswikiSearchResultsHeader {}
+.foswikiSearchResultsPager {
+	margin:1em 0;
+	padding:.25em 0;
+}
+
+/* table */
 .foswikiTable,
 .foswikiTable td,
 .foswikiTable th {
 	border-width:1px;
 	border-style:solid;
+}
+.foswikiTable th a:link,
+.foswikiTable th a:visited {
+	text-decoration:underline;
 }
 .foswikiTable {
 	border-collapse:collapse;
@@ -140,21 +342,6 @@ body {
 	border:none;
 }
 
-
-/* GENERAL HTML ELEMENTS */
-
-:link:focus,
-:visited:focus,
-:link,
-:visited,
-:link:active,
-:visited:active {
-	text-decoration:none;
-}
-:link:hover,
-:visited:hover {
-	text-decoration:underline;
-}
 .foswikiSubmit,
 .foswikiSubmitDisabled,
 .foswikiButton,
@@ -167,50 +354,8 @@ a.foswikiSubmit {
 	border:1px solid #ccc;
 }
 
-img {
-	vertical-align:text-bottom;
-	border:0;
-}
-
-hr {
-	height:1px;
-	border:none;
-}
-
-pre {
-	/* put overflow pre in a scroll area */
-    width:auto;
-    margin:1em 0; /* Win IE tries to make this bigger otherwise */
-    padding:1em;
-}
-/* IE behavior for pre is defined in css.pattern.tmpl in conditional comment */
-html>body pre { /* hide from IE */
-	/*\*/ overflow:auto !important; /* */ overflow:scroll; width:auto; /* for Mac Safari */
-}
-
-pre,
-code,
-tt,
-.foswikiDiffDebug {
-    font-family:"Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
-}
-
 /* form elements */
-textarea,
-input,
-select {
-	vertical-align:middle;
-}
-form { 
-	display:inline;
-	margin:0;
-	padding:0;
-}
-fieldset {
-	margin:0;
-	padding:0;
-	border:none;
-}
+
 .foswikiTextarea {}
 .foswikiSubmit,
 .foswikiSubmitDisabled,
@@ -259,13 +404,6 @@ a.foswikiSubmit:visited:active {
 	line-height:1em;
 	padding:2px 4px;
 }
-.jqButton.foswikiButtonCancel,
-.jqButton.foswikiButtonCancel:hover {
-	border:none;
-	padding:0;
-	font-weight:normal;
-	margin:0;
-}
 .foswikiCheckbox,
 .foswikiRadioButton {
 	margin:1px .25em 1px .1em;
@@ -286,15 +424,8 @@ a.foswikiSubmit:visited:active {
 	padding:.1em .2em;
 }
 
-/* default colors */
-
-hr {
-	color:#ccc;
-	background-color:#ccc;
-}
-
-pre {
-    background:#f5f5f5;
+.foswikiImage img {
+	border-color:#ccc;
 }
 
 .foswikiTable,
@@ -310,9 +441,8 @@ pre {
 .foswikiMessage {
 	background-color:#ffc;
 }
-.foswikiBroadcastMessage b,
-.foswikiBroadcastMessage strong {
-	color:#f00;
+.foswikiAllowNonWikiWord {
+	background-color:#fff;
 }
 .foswikiHelp {
 	background-color:#f5f5f5;
@@ -321,7 +451,6 @@ pre {
 .foswikiAlert code {
 	color:#f00;
 }
-
 .foswikiTextarea,
 .foswikiInputField,
 .foswikiInputFieldDisabled,
@@ -358,26 +487,61 @@ pre {
 	border-color:#ccc;
 }
 
+/* end Foswiki classes */
+
 /* buttons */
 
-button.xjqButton,
-button.xjqButton.xjqButtonDisabled,
-button.xjqButton.xjqButtonDisabled:hover {
+/* reset jquery.button.css */
+.jqButton {
+  margin:0;
+  display:inline;
+  float:none;
+  font-size:inherit;
+  height:auto;
+  padding:0;
+  color:#000;
+  white-space:nowrap;
+  text-shadow:none;
+  text-decoration:none;
+}
+.jqButton:hover,
+.jqButton {
+  text-decoration:none;
+  cursor:pointer;
+  background:none;
+}
+.jqButton span {
+	float:none;
+	background:none;
+	height:auto;
+	line-height:inherit;
+	padding:0;
+	margin:0;
+}
+.jqButton:hover {
+	float:none;
+}
+/* end reset */
+
+/* new button style */
+button.jqButton,
+button.jqButton.jqButtonDisabled,
+button.jqButton.jqButtonDisabled:hover {
 	padding:0 6px;
 	height:1.9em;
 	line-height:1em;
 }
-a.xjqButton:link,
-a.xjqButton:visited,
-a.xjqButton.xjqButtonDisabled,
-a.xjqButton.xjqButtonDisabled:hover {
+a.jqButton:link,
+a.jqButton:visited,
+a.jqButton.jqButtonDisabled,
+a.jqButton.jqButtonDisabled:hover {
 	display:inline-block;
 	padding:0 6px;
 	line-height:1.8em;
 }
-a.xjqButton:link,
-a.xjqButton:visited,
-button.xjqButton {
+a.jqButton:link,
+a.jqButton:visited,
+button.jqButton {
 	position:relative;
 	margin:0 6px 0 0;
 	text-decoration:none;
@@ -393,45 +557,35 @@ button.xjqButton {
 	-webkit-border-horizontal-spacing:0;
 	-webkit-border-vertical-spacing:0;
 }
-button.xjqButton::-moz-focus-inner {
+button.jqButton::-moz-focus-inner {
     border:none;
     padding:0;
 }
-a.xjqButton:active,
-a.xjqButton:focus {
+a.jqButton:active,
+a.jqButton:focus {
 	outline:none;
 	-moz-outline-style:none;
 }
-button.xjqButton::-moz-focus-inner {
-	border:none;
-}
-button.xjqButton:hover,
-a.xjqButton:hover {
+button.jqButton:hover,
+a.jqButton:hover {
 	cursor:pointer;
 	text-decoration:none;
+	color:#000;
 }
-button.xjqButton .xjqButtonIcon,
-a.xjqButton .xjqButtonIcon {
+button.jqButton .jqButtonIcon,
+a.jqButton .jqButtonIcon {
 	padding-left:22px;
 	background-repeat:no-repeat;
 	background-position:0 50%;
 }
-button.xjqButton.xjqButtonLarge,
-a.xjqButton.xjqButtonLarge {
-	font-size:1.5em;
-	line-height:1.5em;	
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
-}
-a.xjqButton:link,
-a.xjqButton:visited,
-a.xjqButton.xjqButtonDisabled:hover,
-a.xjqButton.xjqButtonDefault,
-button.xjqButton,
-button.xjqButton.xjqButtonDisabled,
-button.xjqButton.xjqButtonDisabled:hover,
-button.xjqButton.xjqButtonDefault {
+a.jqButton:link,
+a.jqButton:visited,
+a.jqButton.jqButtonDisabled:hover,
+a.jqButton.jqButtonDefault,
+button.jqButton,
+button.jqButton.jqButtonDisabled,
+button.jqButton.jqButtonDisabled:hover,
+button.jqButton.jqButtonDefault {
 	color:#000;
 	background:#d0d0d0;
 	border-color:#d0d0d0;
@@ -439,10 +593,10 @@ button.xjqButton.xjqButtonDefault {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ffffff),to(#dedede));
 	background:-moz-linear-gradient(-90deg,#ffffff,#dedede);
 }
-a.xjqButton:hover,
-a.xjqButton.xjqButtonDefault:hover,
-button.xjqButton:hover,
-button.xjqButton.xjqButtonDefault:hover {
+a.jqButton:hover,
+a.jqButton.jqButtonDefault:hover,
+button.jqButton:hover,
+button.jqButton.jqButtonDefault:hover {
 	color:#fff;
 	background:#376ca0;
 	border-color:#376ca0;
@@ -450,16 +604,43 @@ button.xjqButton.xjqButtonDefault:hover {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#7baad7),to(#376ca0));
 	background:-moz-linear-gradient(-90deg,#7baad7,#376ca0);
 }
-a.xjqButton.xjqButtonDisabled,
-a.xjqButton.xjqButtonDisabled:hover,
-button.xjqButton.xjqButtonDisabled,
-button.xjqButton.xjqButtonDisabled:hover {
+a.jqButton.jqButtonDisabled,
+a.jqButton.jqButtonDisabled:hover,
+button.jqButton.jqButtonDisabled,
+button.jqButton.jqButtonDisabled:hover {
 	cursor:default;
 	color:#aaa;
 }
+/* large button */
+button.jqButtonLarge,
+a.jqButtonLarge {
+	font-size:1.5em;
+	line-height:1.5em;	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}
+/* simple button, looks like link */
+button.jqButton.jqButtonSimple,
+button.jqButton.jqButtonSimple span,
+a.jqButton.jqButtonSimple,
+a.jqButton.jqButtonSimple span {
+	background:none;
+	border:none;
+	margin:0;
+	padding:0;
+	color:#06c;
+	text-decoration:none;
+}
+button.jqButton.jqButtonSimple:hover,
+a.jqButton.jqButtonSimple:hover {
+	color:#06c;
+	text-decoration:underline;	
+}
+
 /* colored buttons */
-button.xjqButton.xjqButtonRed,
-a.xjqButton.xjqButtonRed {
+button.jqButton.jqButtonRed,
+a.jqButton.jqButtonRed {
 	color:#fff;
 	background:#cd2929;
 	border-color:#cd2929;
@@ -467,8 +648,8 @@ a.xjqButton.xjqButtonRed {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ff6f6f),to(#cd2929));
 	background:-moz-linear-gradient(-90deg,#ff6f6f,#cd2929);
 }
-button.xjqButton.xjqButtonRed:hover,
-a.xjqButton.xjqButtonRed:hover {
+button.jqButton.jqButtonRed:hover,
+a.jqButton.jqButtonRed:hover {
 	color:#fff;
 	background:#b92525;
 	border-color:#b92525;
@@ -476,8 +657,8 @@ a.xjqButton.xjqButtonRed:hover {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#d84d4d),to(#b92525));
 	background:-moz-linear-gradient(-90deg,#d84d4d,#b92525);
 }
-button.xjqButton.xjqButtonCyan,
-a.xjqButton.xjqButtonCyan {
+button.jqButton.jqButtonCyan,
+a.jqButton.jqButtonCyan {
 	color:#fff;
 	background:#007aa3;
 	border-color:#007aa3;
@@ -485,8 +666,8 @@ a.xjqButton.xjqButtonCyan {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4bb7db),to(#007aa3));
 	background:-moz-linear-gradient(-90deg,#4bb7db,#007aa3);
 }
-button.xjqButton.xjqButtonCyan:hover,
-a.xjqButton.xjqButtonCyan:hover {
+button.jqButton.jqButtonCyan:hover,
+a.jqButton.jqButtonCyan:hover {
 	color:#fff;
 	background:#006f94;
 	border-color:#006f94;
@@ -494,8 +675,8 @@ a.xjqButton.xjqButtonCyan:hover {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#2b92b5),to(#006f94));
 	background:-moz-linear-gradient(-90deg,#2b92b5,#006f94);
 }
-button.xjqButton.xjqButtonGreen,
-a.xjqButton.xjqButtonGreen {
+button.jqButton.jqButtonGreen,
+a.jqButton.jqButtonGreen {
 	color:#fff;
 	background:#297b29;
 	border-color:#297b29;
@@ -503,8 +684,8 @@ a.xjqButton.xjqButtonGreen {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#6fb76f),to(#297b29));
 	background:-moz-linear-gradient(-90deg,#6fb76f,#297b29);
 }
-button.xjqButton.xjqButtonGreen:hover,
-a.xjqButton.xjqButtonGreen:hover {
+button.jqButton.jqButtonGreen:hover,
+a.jqButton.jqButtonGreen:hover {
 	color:#fff;
 	background:#256f25;
 	border-color:#256f25;
@@ -512,4 +693,3 @@ a.xjqButton.xjqButtonGreen:hover {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4d924d),to(#256f25));
 	background:-moz-linear-gradient(-90deg,#4d924d,#256f25);
 }
-

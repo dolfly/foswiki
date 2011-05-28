@@ -1,98 +1,39 @@
-%{<verbatim class="tml">}%
-%{
+%{<verbatim class="tml">}%%{
 	This is the "master template" file for Foswiki' Base skin. The definitions are used in	other templates, such as BaseSkinViewTemplate.
-}%
-
-%TMPL:DEF{"page"}%
-%TMPL:P{"htmldoctype"}%
-%TMPL:P{"htmlstart"}%
-%TMPL:P{"head"}%
-%TMPL:P{"body"}%
-%TMPL:P{"htmlend"}%%TMPL:END%
-
-
-%TMPL:DEF{"htmldoctype"}%<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">%TMPL:END%
-
-
-%TMPL:DEF{"htmlstart"}%<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="%LANG%" lang="%LANG%">%TMPL:END%
-%TMPL:DEF{"htmlend"}%</html>%TMPL:END%
-
-
-%TMPL:DEF{"head"}%<head>
-%TMPL:P{"head:windowtitle"}%
-%TMPL:P{"head:metatags"}%%TMPL:P{"head:script"}%%TMPL:P{"head:css"}%
-</head>%TMPL:END%
-
-
-%TMPL:DEF{"head:metatags"}%%TMPL:P{context="edit" then="head:metatags:ie8compatibilitymode"}%<meta http-equiv="Content-Type" content="text/html; charset=%CHARSET%" /><meta name="robots" content="noindex" />%HTTP_EQUIV_ON_VIEW%
-<link rel="icon" href="%FAVICON%" type="image/x-icon" />
-<link rel="shortcut icon" href="%FAVICON%" type="image/x-icon" />
-<link rel="alternate" href="%SCRIPTURL{edit}%/%BASEWEB%/%BASETOPIC%?t=%GMTIME{"$epoch"}%" type="application/x-wiki" title="%MAKETEXT{"Edit this page"}%" />
-<meta name="description" content="%TMPL:P{"head:metatags:description"}%" />
-%{
-	TODO: add note about closing base tag
-}%
-<base href="%SCRIPTURL{%SCRIPTNAME%}%/%WEB%/%TOPIC%" /><!--[if IE]></base><![endif]-->%TMPL:END%
-
-
-%TMPL:DEF{"head:script"}%%RENDERZONE{"script" format=""}%%TMPL:END%
-%TMPL:DEF{"head:css"}%%RENDERZONE{"head" format=""}%%TMPL:END%
-
-
-%{
-	Item2476: Put IE8 into compatibility mode to work around slow, erratic textarea
-}%
-%TMPL:DEF{"head:metatags:ie8compatibilitymode"}%%IF{"$EDIT_FORCE_IE8_COMPATIBILITYMODE='on'" then="<meta http-equiv=\"X-UA-Compatible\" content=\"IE=EmulateIE7\"/>"}%%TMPL:END%
-
-
-%TMPL:DEF{"head:metatags:description"}%%TOPIC%%TMPL:END%
-
-
-%TMPL:DEF{"head:windowtitle"}%<title>%TMPL:P{"titleaction"}% <nop>%BASETOPIC%%TMPL:P{"titlesep"}%%BASEWEB%%TMPL:P{"titlesep"}%<nop>%WIKITOOLNAME%</title>%TMPL:END%
-
-
-%TMPL:DEF{"body:start"}%<body class="foswikiNoJs %TMPL:P{"body:classnames"}%"><div class="foswikiPage">
-#PageTop %TMPL:END%
-
-
-%TMPL:DEF{"body:end"}%</div>
-</body>%TMPL:END%
-
-
-%TMPL:DEF{"body"}%%TMPL:P{"body:start"}%%TMPL:P{"content"}%%TMPL:P{"body:end"}%%TMPL:END%
-
-
-%TMPL:DEF{"body:classnames"}%%TMPL:END%
-
-
-%{
+}%%{
+---------------------------------------------------
+}%%{
 	Handy macro for including JS from system paths
 }%
 %TMPL:DEF{"LIBJS"}%%ADDTOZONE{
-"script"
-id="%id%"
-text="<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.js'></script>"
-requires="%requires%"}%%TMPL:END%
-
-
-%{
+	"baseSkinJs"
+	id="%id%"
+	text="<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.js'></script>"
+	requires="%requires%"
+}%%TMPL:END%%{
+---------------------------------------------------
+}%%{
 	Handy macro for including CSS from system paths
-}%
-%TMPL:DEF{"LIBCSS"}%%ADDTOZONE{
-"head"
-id="%id%"
-text="<link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.css' type='text/css' />"
-requires="%requires%"}%%TMPL:END%
-
-
-%TMPL:DEF{"form"}%%TMPL:END%
-%TMPL:DEF{"attachments"}%%TMPL:END%
-%TMPL:DEF{"contentheader"}%%TMPL:END%
-%TMPL:DEF{"contentfooter"}%%TMPL:END%
-
-
-%{
-	Render page
-}%
-%TMPL:P{"page"}%
-%{</verbatim>}%
+}%%TMPL:DEF{"LIBCSS"}%%TMPL:P{
+	"CSS"
+	id="%id%"
+	url="%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.css"
+	requires="%requires%"
+}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"CSS"}%%ADDTOZONE{
+	"baseSkinCss"
+	id="%id%"
+	text="<link rel='stylesheet' href='%url%' />"
+	requires="%requires%"
+}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"form"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"attachments"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"contentheader"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"contentfooter"}%%TMPL:END%%{
+---------------------------------------------------
+}%%{</verbatim>}%

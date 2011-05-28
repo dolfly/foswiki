@@ -25,9 +25,33 @@
 @media only screen and (min-width: 1212px) {
 	
 	.foswikiPage {
-		padding: 20px 72px;
+		margin:0 auto;
+		padding: 0 72px;
 		width: 1068px;
+		border:1px solid #ccc;
 	}
+
+	.foswikiHeader {
+		width: 1068px;
+		padding:0 24px;
+		background:#eee;
+	}
+	
+	/*
+	foswikiContent is 10 columns wide, and includes four gutters between those colums. So, (10 x 60) + (9 x 24) = 816. With 24px of padding on either side, that leaves 768px for the width of the div.
+	For the sidebar, the math is (3 x 60) + (2 x 24) = 228. The full width of the layout is then made up with the 24 pixels of margin on foswikiContent.
+	*/
+	.foswikiTopic {
+		float:left;
+		width:768px;
+		margin:0 24px 24px 0;
+		padding:0 24px;
+	} 
+	.sidebar {
+		float:right;
+		width:228px;
+	}
+
 	
 }
 

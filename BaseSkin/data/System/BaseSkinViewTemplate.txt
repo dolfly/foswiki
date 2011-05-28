@@ -1,28 +1,43 @@
-%{<verbatim class="tml">}%
-%TMPL:INCLUDE{"common"}%
-
-%TMPL:DEF{"content"}%%TMPL:P{"content:before"}%<div class="foswikiTopicText">
+%{<verbatim class="tml">}%%{
+	Base Skin topic template for view script
+}%%TMPL:INCLUDE{"document"}%%{
+---------------------------------------------------
+}%%TMPL:DEF{"content"}%<div class="foswikiContent">
+<div class="foswikiTopic">
+<div>CONTEXTUAL ACTIONS</div>
+<div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
+<div class="foswikiTopicText">
+#PageTop
+<article>
 %TEXT%
+</article>
 #TopicEnd
-</div>%TMPL:P{"content:after"}%%TMPL:END%
-
-
-%TMPL:DEF{"content:before"}%<div class="foswikiContentHeader">%TMPL:P{"content:header"}%</div>%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:END%
-
-
-%TMPL:DEF{"content:after"}%<div class="foswikiContentFooter">%TMPL:P{"content:footer"}%</div>
-%TABPANE% 
+</div>
+<div class="foswikiContentFooter">%TMPL:P{"topic:after"}%</div>
+</div>
+<div class="sidebar">
+sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar 
+</div><!--/foswikiTopic-->
+<div class="foswikiClear"></div>
+</div>%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"topic:after"}%%TABPANE{class="simple"}% 
 %TAB{"Form"}%%TMPL:P{"form:bottom"}%%ENDTAB% 
-%TAB{"Attachments"}%%TMPL:P{"attachments:bottom"}%%ENDTAB% 
-%ENDTABPANE%%TMPL:END%
-
-
-%TMPL:DEF{"form"}%%META{"form"}%%TMPL:END%
-%TMPL:DEF{"form:top"}%%TMPL:END%
-%TMPL:DEF{"form:bottom"}%%TMPL:P{"form"}%%TMPL:END%
-
-
-%TMPL:DEF{"attachments"}%%META{"attachments"}%%TMPL:END%
-%TMPL:DEF{"attachments:top"}%%TMPL:END%
-%TMPL:DEF{"attachments:bottom"}%%TMPL:P{"attachments"}%%TMPL:END%
-%{</verbatim>}%
+%TAB{"Attachments (%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}%)"}%%TMPL:P{"attachments:bottom"}%%ENDTAB% 
+%ENDTABPANE%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"form"}%%META{"form"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"form:top"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"form:bottom"}%%TMPL:P{"form"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"attachments"}%%META{"attachments"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"attachments:top"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"attachments:bottom"}%%TMPL:P{"attachments"}%%TMPL:END%%{
+---------------------------------------------------
+}%%{</verbatim>}%

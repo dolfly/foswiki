@@ -1,19 +1,11 @@
-%{<verbatim class="tml">}%
-%TMPL:INCLUDE{"view"}%%{
-	View template that adds Javascript to Base skin.
-}%
-
-
-%TMPL:DEF{"head:script"}%%TMPL:P{"script"}%%RENDERZONE{"script"}%%TMPL:END%
-
-
-%TMPL:DEF{"script"}%%TMPL:P{
+%{<verbatim class="tml">}%%{
+	Base Skin topic template that loads a Javascript file
+}%%TMPL:INCLUDE{"view"}%%{
+---------------------------------------------------
+}%%TMPL:DEF{"head:script"}%%TMPL:PREV%%TMPL:P{
 	"LIBJS"
-	id="JavascriptFiles/foswikiPref"
-	requires="JQUERYPLUGIN::FOSWIKI"
-}%%TMPL:P{
-	"LIBCSS"
 	id="BaseSkinJs/js"
 	requires=""
-}%%TMPL:END%
-%{</verbatim>}%
+}%%TMPL:END%%{
+---------------------------------------------------
+}%%{</verbatim>}%

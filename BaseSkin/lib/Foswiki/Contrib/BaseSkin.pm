@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 our $VERSION = '$Rev: 10455 $';
-our $RELEASE = '0.0.1';
+our $RELEASE = '0.0.2';
 our $SHORTDESCRIPTION =
 'Base skin to build other skins upon';
 
