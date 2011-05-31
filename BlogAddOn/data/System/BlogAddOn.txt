@@ -256,6 +256,7 @@ To update the instructions on this page to point to your blog web, enter the nam
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change&nbsp;History: | <!-- specify latest version first -->&nbsp; |
+|  31 May 2011 | 1.9.1 Encodes quotes in displayed summary text. |
 |  26 Feb 2011 | 1.9.0 Added setting =outline= to control the summary text. Added form field !SummmaryImage to choose the attachment name to be displayed in the summary. Improved display of comments in list view. Added options to define image sizes. | 
 |  24 Feb 2011 | 1.8.0 Added settings =BLOGADDON_HIDE_COMMENTS= and =BLOGADDON_DENY_COMMENTING=. Foswikitask:Item10407 - now saves comments to the correct web if =BLOGADDON_COMMENTS_WEB= is set. Fixes tag links in blog post.  |
 |  24 Feb 2011 | 1.7.0 Fixed sorting on dates. Added =INCLUDE= param =display= instead of =section=. Added setting =BLOGADDON_COMMENTS_WEB=. Documentation update. Foswikitask:Item10378 - make sure the existing value of Category field is not lost. |
