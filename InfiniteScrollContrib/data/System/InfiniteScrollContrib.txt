@@ -1,0 +1,230 @@
+%META:TOPICINFO{author="micha" comment="reprev" date="1307107533" format="1.1" reprev="6" version="6"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+Based on http://www.infinite-scroll.com/ by Paul Irish (with some modifications available at https://github.com/MichaelDaum/infinite-scroll as well).
+
+%TOC%
+
+---++ Summary
+%STARTSECTION{"summary"}%
+<img src="%ATTACHURLPATH%/infinite-scroll-pattern.gif" width="221" height="186" class="foswikiRight" />
+
+Infinite scroll has been called autopagerize, unpaginate, endless pages. But essentially it is pre-fetching content from a subsequent page and adding it directly to the user's current page.
+
+*Use When:*
+
+   * Retaining the user is important and clicking "Next Page"; is a usability barrier.
+   * The full content available is too large to show on initial load.
+   * The content is available in paged chunks: search results, blog posts, product listings portfolio features.
+
+*Advantages:*
+
+   * Users are retained on the site far better.
+   * Users are less likely to continue on to the next page if they have to click something versus it being delivered automatically to them. 
+   * Requires no adjustment in a user's typical reading habits.
+   * The added functionality needs no affordances or instruction.
+   * As long as the functionality is enhancing an existing navigational structure (like the wordpress plugin here), it remains SEO-friendly and Accessible. It will degrade gracefully if a user does not have !JavaScript enabled.
+
+*Disadvantages:*
+
+   * The footer of the page will typically be hard to reach.
+   * Currently there is no way to cancel or opt-out of the behavior.
+   * There is no permalink to a given state of the page.
+   * Dynamically adding more content to the page increases the memory footprint of the browser. Depending on the browser, this could account for around 50megs of RAM.
+   * Analytics will not immediately capture the event, so custom configuration is required.
+%ENDSECTION{"summary"}%
+
+---++ Usage
+
+This is the minimum amount of configuration you can do, if you want things to work:
+
+<verbatim class="js">
+$('#content').infinitescroll({
+
+   navSelector  : "div.navigation",            
+                  // selector for the paged navigation (it will be hidden)
+
+   nextSelector : "div.navigation a:first",    
+                  // selector for the NEXT link (to page 2)
+
+   itemSelector : "#content div.post"          
+                  // selector for all items you'll retrieve
+});
+</verbatim>
+
+---++ Options
+
+<verbatim class="js">
+/ usage:
+// $(elem).infinitescroll(options,[callback]);
+
+// infinitescroll() is called on the element that surrounds 
+// the items you will be loading more of
+$('#content').infinitescroll({
+
+  navSelector  : "div.navigation",            
+                 // selector for the paged navigation (it will be hidden)
+
+  nextSelector : "div.navigation a:first",    
+                 // selector for the NEXT link (to page 2)
+
+  itemSelector : "#content div.post",          
+                 // selector for all items you'll retrieve
+
+  debug        : true,                        
+                 // enable debug messaging ( to console.log )
+
+  loadingImg   : "/img/loading.gif",          
+                 // loading image.
+                 // default: "http://www.infinite-scroll.com/loading.gif"
+
+  loadingText  : "Loading new posts...",      
+                 // text accompanying loading image
+                 // default: "<em>Loading the next set of posts...</em>"
+
+  animate      : true,      
+                 // boolean, if the page will do an animated scroll when new content loads
+                 // default: false
+
+  extraScrollPx: 50,      
+                 // number of additonal pixels that the page will scroll 
+                 // (in addition to the height of the loading div)
+                 // animate must be true for this to matter
+                 // default: 150
+
+  donetext     : "I think we've hit the end, Jim" ,
+                 // text displayed when all items have been retrieved
+                 // default: "<em>Congratulations, you've reached the end of the internet.</em>"
+
+  bufferPx     : 40,
+                 // increase this number if you want infscroll to fire quicker
+                 // (a high number means a user will not see the loading message)
+                 // new in 1.2
+                 // default: 40
+
+  errorCallback: function(){},
+                 // called when a requested page 404's or when there is no more content
+                 // new in 1.2                   
+
+  container    : undefined,
+                 // enable an overflow:auto container to have the same functionality
+                 // instead of watching the entire window scrolling the element this plugin
+
+    },function(arrayOfNewElems){
+
+     // optional callback when new content is successfully loaded in.
+
+     // keyword `this` will refer to the new DOM content that was just added.
+     // as of 1.5, `this` matches the element you called the plugin on (e.g. #content)
+     //                   all the new elements that were found are passed in as an array
+
+});
+</verbatim>
+
+---++ Custom trigger, non-automatic. Twitter-style
+In 1.4 you can trigger the loading of the next page of content at will. You&#8217;ll first unbind the default behavior. And then trigger the next pull whenever you like..
+
+<verbatim class="js">
+// unbind normal behavior. needs to occur after normal infinite scroll setup.
+$(window).unbind('.infscr');
+
+// call this whenever you want to retrieve the next page of content
+// likely this would go in a click handler of some sort
+$(document).trigger('retrieve.infscr');
+</verbatim>
+
+---++ Foswiki Integration
+
+To add infinite scrolling to a page, first load the plugin using
+
+<verbatim class="tml"> 
+%JQREQUIRE{"infinitescroll"}%
+</verbatim>
+
+This will add the required !JavaScript files to the HTML header as well as scan the rest of the page for any container
+that has got the =.jqInfinitScroll= class. Add this class to the container holding all search results. The 
+link that normally points to the next page to be loaded into this container should have the class =.jqInfiniteScrollNext=,
+being part of a parent paginiation element of class =.jqInfiniteScrollNavi=. The =.jqInfiniteScroll= container
+then holds items of the class =.jqInfiniteScrollItem=. 
+
+Note that you can override these default class names with any other jQuery selector using %SYSTEMWEB%.JQueryMetadata.
+
+So a simple skelleton will look like this:
+
+<verbatim class="html">
+<div class="jqInfiniteScroll {param: 'value', param: 'value', ...}">
+  <div class="jqInfiniteScrollItem">
+     ... search hit ...
+  </div>
+  <div class="jqInfiniteScrollItem">
+     ... search hit ...
+  </div>
+  ...
+</div>
+<div class="jqInfiniteScrollNavi">
+  ...
+  <a href="..." class="jqInfiniteScrollNext">Next</a>
+</div>
+</verbatim>
+
+Note that the plugin tries to analyze the way pagination is implemented, that is how to page to the next set of results
+by reading the =.jqInfiniteScrollNext= hyperlink. Use a custom parser for the path in case the default strategies fail
+provided as  a =pathParse(path, page)= function.
+
+Example:
+
+<verbatim class="js">
+<div class="jqInfiniteScroll {pathParse: function(path, page) { return path.match(/^.*page=)\d+/(.*)$/).slice(1).join(page); }}">
+...
+</div>
+</verbatim>
+
+---++ Example
+%JQREQUIRE{"infinitescroll"}%
+
+<div id="testScroller" class="jqInfiniteScroll {container:'#testScroller'}">
+%STARTSECTION{"result"}%
+<div class="jqInfiniteScrollItem">
+%SEARCH{
+    "'1'" 
+    web="%BASEWEB%" 
+    type="query" 
+    nonoise="on" 
+    order="modified" 
+    reverse="on"
+    pagesize="10
+    showpage="%URLPARAM{"page" default="1"}%
+}%
+</div>%ENDSECTION{"result"}%
+</div>
+
+<div class="jqInfiniteScrollNavi">
+<a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?page=1;section=result" class="jqInfiniteScrollNext">Next</a>
+</div>
+
+<literal>
+<style>
+#testScroller {
+  overflow:auto;
+  height:400px;
+  width:300px;
+}
+</style>
+</literal>
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+|  Author(s): | Michael Daum|
+|  Copyright: | &copy; Paul Irish http://www.infinite-scroll.com; Foswiki integration by Michael Daum http://michaeldaumconsulting.com |
+|  License: | licensed GPL & MIT |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |

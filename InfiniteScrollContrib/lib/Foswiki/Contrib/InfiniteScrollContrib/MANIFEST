@@ -1,0 +1,11 @@
+data/System/InfiniteScrollContrib.txt 0644
+lib/Foswiki/Contrib/InfiniteScrollContrib/Config.spec 0644
+lib/Foswiki/Contrib/InfiniteScrollContrib/Core.pm 0644
+lib/Foswiki/Contrib/InfiniteScrollContrib.pm 0644
+pub/System/InfiniteScrollContrib/infinite-scroll-pattern.gif 0644
+pub/System/InfiniteScrollContrib/jquery.infinitescroll.init.js 0644
+pub/System/InfiniteScrollContrib/jquery.infinitescroll.init.js.gz 0644
+pub/System/InfiniteScrollContrib/jquery.infinitescroll.init.uncompressed.js 0644
+pub/System/InfiniteScrollContrib/jquery.infinitescroll.uncompressed.js 0644
+pub/System/InfiniteScrollContrib/loading.gif 0644
+pub/System/InfiniteScrollContrib/Makefile 0644
