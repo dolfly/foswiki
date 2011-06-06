@@ -1,0 +1,101 @@
+%META:TOPICINFO{author="micha" comment="reprev" date="1307359498" format="1.1" reprev="2" version="2"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+This is a jQuery plugin integrating [[http://code.google.com/p/hyphenator/][Hyphenator.js]] by Mathias Nater.
+
+Hyphenator.js ...
+
+   * automatically hyphenates texts on websites
+   * runs on any modern browser that supports !JavaScript and the soft hyphen (&shy;).
+   * automatically breaks URLs on any browser that supports the zero width space.
+   * runs on the client in order that the HTML source of the website may be served clean and svelte and that it can respond to text resizings by the user.
+   * follows the ideas of unobtrusive !JavaScript.
+   * has a documented API and is highly configurable to meet your needs.
+   * supports a wide range of languages.
+   * relies on Franklin M. Liangs hyphenation algorithm (PDF) commonly known from !LaTeX and !OpenOffice.
+   * is free software licensed under LGPL v3 with additional permission to distribute non-source (e.g., minimized or compacted) forms of that code (see source code header for details).
+
+Supported languages are:
+   * English
+   * German
+   * French
+   * Dutch (thanks to Remco Bloemen)
+   * Swedish (thanks to Andreas Johansson)
+   * Spanish (thanks to Luis Pabón)
+   * Malayalam, Tamil, Hindi, Oriya, Kannda, Telugu, Bengali, Gujarati and Panjabi (thanks to Santhosh Thottingal)
+   * Italian (thanks to Stefano Gorini)
+   * Finnish (thanks to Olli Wilkman)
+   * Russian (thanks to Dmitry Vedernikov)
+   * Polish (thanks to Kamil)
+   * Danish (thanks to Henrik Ryom)
+   * Portuguese (thanks to Lailson Bandeira)
+   * Hungarian (thanks to Péter Nagy)
+   * Czech (thanks to Martin Haso&#328;)
+   * Ukrainian (thanks to Alexey Grekov)
+   * Turkish (thanks to Andreas Lappe)
+   * Armenian (thanks to Sahak Petrosyan)
+   * Lithuanian (thanks to Rogut&#279;s Sparnuotos)
+   * Slovenian (thanks to Mojca Miklavec)
+   * Latin (thanks to Pablo Rodríguez)
+   * Greek, monoton, polyton and ancient (thanks to Pablo Rodríguez)
+   * Belarusian (thanks to Olexandr Zhydenko)
+   * Norwegian (coming soon, thanks to Erik Erik Seierstad)
+   * Latvian (coming soon, thanks to Kristaps Karlsons)
+
+A custom jQuery adapter makes sure text loaded asynchronously is processed later on as well.
+
+For further information see http://code.google.com/p/hyphenator/
+
+---++ Usage
+
+To load the hyphenator into the current page use 
+
+<verbatim class="tml">
+%JQREQUIRE{"hyphenator"}%
+</verbatim>
+
+Then add the =.hyphenate= class name to those html elements that contain text to be hyphenated.
+Use =.donthyphenate= to exclude areas from being processed. The language used for processing the
+text is extracted from the html language settings. 
+
+<verbatim class="html">
+<div class="hyphenate" style="text-align:justify">
+This text is processed by Hyphenator.js
+
+  <div class="donthyphenate">
+    This text is _excluded_ from hyphenation
+  </div>
+
+</div>
+
+This text is _not_ processed.
+
+<div class="hyphenate">
+This text is processed as well.
+</div>
+</verbatim>
+
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+|  Author(s): | Michael Daum|
+|  Copyright: | &copy; 2011 Mathias Nater http://code.google.com/p/hyphenator/ (Hyphenator.js) %BR% \
+                &copy; 2011 Michael Daum http://michaeldaumconsulting.com (foswiki integration) |
+|  License: | [[http://www.gnu.org/licenses/lgpl.html][GNU Lesser General Public License]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  06 Jun 2011: | (1.0) initial release of foswiki plugin |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
