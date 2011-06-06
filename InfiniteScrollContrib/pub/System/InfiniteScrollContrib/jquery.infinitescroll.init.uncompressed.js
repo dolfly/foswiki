@@ -7,6 +7,7 @@ jQuery(function($) {
     donetext:'',
     loadingText:'',
     loadingMsgRevealSpeed: 0,
+    zeroBased: true,
     loadingImg: foswiki.getPreference("PUBURLPATH")+"/"+foswiki.getPreference("SYSTEMWEB")+"/InfiniteScrollContrib/loading.gif"
   };
 

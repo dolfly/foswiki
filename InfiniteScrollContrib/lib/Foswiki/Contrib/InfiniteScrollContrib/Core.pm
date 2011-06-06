@@ -14,11 +14,10 @@ sub new {
     $class->SUPER::new(
       $session,
       name => 'InfiniteScroll',
-      version => '2.0b1.110420',
-      author => 'Paul Irish',
+      version => '2.0e159f28de22ee386baa2',
+      author => 'Paul Irish, Luke Shumard and Michael Daum',
       homepage => 'http://www.infinite-scroll.com',
       javascript => ['jquery.infinitescroll.js', 'jquery.infinitescroll.init.js'], 
-      #css => ['jquery.infinitescroll.css'],
       documentation => 'InfiniteScrollContrib',
       puburl => '%PUBURLPATH%/%SYSTEMWEB%/InfiniteScrollContrib',
     ),

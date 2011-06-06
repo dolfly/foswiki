@@ -1,8 +1,8 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1307107533" format="1.1" reprev="6" version="6"}%
+%META:TOPICINFO{author="micha" comment="save topic" date="1307348209" format="1.1" reprev="7" version="8"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
-Based on http://www.infinite-scroll.com/ by Paul Irish (with some modifications available at https://github.com/MichaelDaum/infinite-scroll as well).
+Based on http://www.infinite-scroll.com/ by Paul Irish & Luke Shumard (with some modifications available at https://github.com/MichaelDaum/infinite-scroll as well).
 
 %TOC%
 
@@ -107,9 +107,9 @@ $('#content').infinitescroll({
                  // called when a requested page 404's or when there is no more content
                  // new in 1.2                   
 
-  container    : undefined,
-                 // enable an overflow:auto container to have the same functionality
+  localMode    : false,
                  // instead of watching the entire window scrolling the element this plugin
+                 // is attached to
 
     },function(arrayOfNewElems){
 
@@ -183,7 +183,7 @@ Example:
 ---++ Example
 %JQREQUIRE{"infinitescroll"}%
 
-<div id="testScroller" class="jqInfiniteScroll {container:'#testScroller'}">
+<div id="testScroller" class="jqInfiniteScroll {localMode:true, bufferPx:100}">
 %STARTSECTION{"result"}%
 <div class="jqInfiniteScrollItem">
 %SEARCH{
@@ -220,7 +220,7 @@ Example:
    * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 |  Author(s): | Michael Daum|
-|  Copyright: | &copy; Paul Irish http://www.infinite-scroll.com; Foswiki integration by Michael Daum http://michaeldaumconsulting.com |
+|  Copyright: | &copy; Paul Irish & Luke Shumard http://www.infinite-scroll.com, Michael Daum http://michaeldaumconsulting.com |
 |  License: | licensed GPL & MIT |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
