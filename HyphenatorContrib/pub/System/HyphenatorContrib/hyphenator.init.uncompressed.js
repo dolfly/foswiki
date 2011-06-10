@@ -16,7 +16,7 @@ jQuery(function($) {
       //console.log("done hyphenate");
     }
   };
-  
+
   // mark them hyphenated right away in case livequery executes
   // earlier than the hyphenator
   $("."+opts.classname).addClass("jqInitedHyphenate");

@@ -892,6 +892,8 @@ var Hyphenator = (function (window) {
 			text += ' (ISO 639-1)\n\n' + languageHint;
 			mainLanguage = window.prompt(unescape(text), ul).toLowerCase();
 		}
+                // replace underscores with hyphen
+                mainLanguage = mainLanguage.replace(/_/, '-');
 		if (!supportedLang.hasOwnProperty(mainLanguage)) {
 			if (supportedLang.hasOwnProperty(mainLanguage.split('-')[0])) { //try subtag
 				mainLanguage = mainLanguage.split('-')[0];
@@ -932,7 +934,8 @@ var Hyphenator = (function (window) {
 			} else {
 				hyphenatorSettings.language = getLang(el, true);
 			}
-			lang = hyphenatorSettings.language;
+                        // replace underscores with hyphen
+			lang = hyphenatorSettings.language = hyphenatorSettings.language.replace(/_/, '-');
 			if (supportedLang[lang]) {
 				docLanguages[lang] = true;
 			} else {

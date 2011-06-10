@@ -95,6 +95,7 @@ This text is processed as well.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  10 Jun 2011: | (1.01) recognize language tags using underscores as well as hyphens |
 |  06 Jun 2011: | (1.0) initial release of foswiki plugin |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
