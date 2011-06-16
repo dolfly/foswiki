@@ -56,9 +56,11 @@ Base skin test page
    $ Dim Sum: S.F. 
 ---+++ TML mixed lists
    1 level 1
+      * level 2
+         * level 3
+   1 level 1
       1 level 2
          1 level 3
-   1 level 1
 <h2 id="form_elements">Forms</h2> 
 <fieldset> 
 <legend>Legend</legend> 

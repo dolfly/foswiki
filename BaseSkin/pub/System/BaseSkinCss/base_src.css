@@ -8,8 +8,6 @@ Adds some minor default styling in case you don't use typographic.css
 body {
 	font-size:13px;
 	line-height:1.3846153846153846em;
-	margin:0;
-	padding:0
 }
 h1 {
 	font-size:1.6153846153846154em;
@@ -52,11 +50,9 @@ dl {
 	margin-bottom:1.3846153846153846em;
 }
 
-ul ul,
-ul ol,
-ol ol,
-ol ul,
-dl dl {
+li ul,
+li ol,
+dt dl {
 	margin-bottom:0;
 }
 
@@ -64,7 +60,6 @@ dl dl {
 pre,
 code,
 tt {
-	margin:0;
 	font-size:0.8461538461538461em;
 	line-height:1.6363636363636365em;
 	margin-bottom:1.6363636363636365em;
@@ -160,7 +155,6 @@ tt {
 	position:relative;
 	float:right;
 	display:inline;
-	margin:0;
 }
 .foswikiClear {
 	/* to clean up floats */
@@ -192,7 +186,6 @@ tt {
 .foswikiSmallish,
 .foswikiDiffDebug {
 	/* same as small text, pre etc. */
-	margin:0;
 	font-size:0.8461538461538461em;
 	line-height:1.6363636363636365em;
 	margin-bottom:1.6363636363636365em;
@@ -639,6 +632,24 @@ a.jqButton.jqButtonSimple:hover {
 }
 
 /* colored buttons */
+button.jqButton.jqButtonBlue,
+a.jqButton.jqButtonBlue {
+	color:#fff;
+	background:#007aa3;
+	border-color:#007aa3;
+	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#589adb', endColorstr='#3072b3');
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#589adb),to(#3072b3));
+	background:-moz-linear-gradient(-90deg,#589adb,#3072b3);
+}
+button.jqButton.jqButtonBlue:hover,
+a.jqButton.jqButtonBlue:hover {
+	color:#fff;
+	background:#006f94;
+	border-color:#006f94;
+	filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3669af', endColorstr='#224f90');
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#3669af),to(#224f90));
+	background:-moz-linear-gradient(-90deg,#3669af,#224f90);
+}
 button.jqButton.jqButtonRed,
 a.jqButton.jqButtonRed {
 	color:#fff;
