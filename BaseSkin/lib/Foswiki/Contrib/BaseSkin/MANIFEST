@@ -1,6 +1,6 @@
-data/System/BaseCssGridSkinViewTemplate.txt 0644
-data/System/BaseCssSkinViewTemplate.txt 0644
-data/System/BaseJsSkinViewTemplate.txt 0644
+data/System/BasecssGridSkinViewTemplate.txt 0644
+data/System/BasecssSkinViewTemplate.txt 0644
+data/System/BasejsSkinViewTemplate.txt 0644
 data/System/BaseSkin.txt 0644
 data/System/BaseSkinCommonTemplate.txt 0644
 data/System/BaseSkinDocumentTemplate.txt 0644
