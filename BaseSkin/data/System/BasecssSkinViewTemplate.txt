@@ -1,0 +1,35 @@
+%{<verbatim class="tml">}%%{
+	Base Skin topic template that loads Base Skin CSS file boilerplate.css.
+	Conditionally loads base.css, unless preference BASESKIN_USE_CSS is set to a CSS url.
+	Adds a CSS file BASESKIN_ADD_CSS if this preference is set.
+}%%TMPL:INCLUDE{"view"}%%{
+---------------------------------------------------
+}%%TMPL:DEF{"head:css"}%%TMPL:PREV%%TMPL:P{
+	"LIBCSS"
+	id="BaseSkinCss/boilerplate"
+	requires=""
+}%%IF{
+	"defined BASESKIN_USE_CSS AND $BASESKIN_USE_CSS!=''"
+	then="$percntTMPL:P{
+			\"CSS\"
+			id=\"BASESKIN_USE_CSS\"
+			requires=\"BaseSkinCss/boilerplate\"
+			url=\"%BASESKIN_USE_CSS%\"
+			}$percnt"
+	else="$percntTMPL:P{
+			\"LIBCSS\"
+			id=\"BaseSkinCss/base\"
+			requires=\"BaseSkinCss/boilerplate\"
+		}$percnt"
+}%%IF{
+	"defined BASESKIN_ADD_CSS AND $BASESKIN_ADD_CSS!=''"
+	then="$percntTMPL:P{
+			\"CSS\"
+			id=\"BASESKIN_ADD_CSS\"
+			requires=\"BaseSkinCss/base\"
+			url=\"%BASESKIN_ADD_CSS%\"
+			}$percnt"
+	else=""
+}%%TMPL:END%%{
+---------------------------------------------------
+}%%{</verbatim>}%
