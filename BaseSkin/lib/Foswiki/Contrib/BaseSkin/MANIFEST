@@ -4,7 +4,6 @@ data/System/BasejsSkinViewTemplate.txt 0644
 data/System/BaseSkin.txt 0644
 data/System/BaseSkinCommonTemplate.txt 0644
 data/System/BaseSkinDocumentTemplate.txt 0644
-data/System/BaseSkinEditTemplate.txt 0644
 data/System/BaseSkinTestView.txt 0644
 data/System/BaseSkinViewTemplate.txt 0644
 pub/System/BaseSkinCss/base_src.css 0644
@@ -19,3 +18,5 @@ pub/System/BaseSkinCss/grid.css.gz 0644
 pub/System/BaseSkinJs/modernizr-1.7_src.js 0644
 pub/System/BaseSkinJs/modernizr-1.7.js 0644
 pub/System/BaseSkinJs/modernizr-1.7.js.gz 0644
+templates/attachtables.base.tmpl 0644
+templates/formtables.base.tmpl 0644

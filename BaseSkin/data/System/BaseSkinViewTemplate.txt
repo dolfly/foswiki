@@ -23,16 +23,28 @@ sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar cont
 ---------------------------------------------------
 }%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:after"}%%TABPANE{class="simple"}% 
-%TAB{"Form"}%%TMPL:P{"form:bottom"}%%ENDTAB% 
-%TAB{"Attachments (%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}%)"}%%TMPL:P{"attachments:bottom"}%%ENDTAB% 
-%ENDTABPANE%%TMPL:END%%{
+}%%TMPL:DEF{"topic:after"}%%TABPANE{class="simple"}%
+%IF{
+	"%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}% > 0"
+	then="$percntTMPL:P{
+		\"tab:attachments\"
+	}$percnt"
+}%%IF{
+	"%QUERY{"length(fields[NOT lc(attributes)=~'h'])"}% > 0"
+	then="$percntTMPL:P{
+		\"tab:form\"
+	}$percnt"
+}%%ENDTABPANE%%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"form"}%%META{"form"}%%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"form:top"}%%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"form:bottom"}%%TMPL:P{"form"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"tab:form"}%%TAB{"Form"}%%TMPL:P{"form"}%%ENDTAB%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"tab:attachments"}%%TAB{"Attachments (%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}%)"}%%TMPL:P{"attachments:bottom"}%%ENDTAB% %TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"attachments"}%%META{"attachments"}%%TMPL:END%%{
 ---------------------------------------------------

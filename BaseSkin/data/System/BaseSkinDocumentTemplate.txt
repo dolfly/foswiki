@@ -68,7 +68,9 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"head:meta:description"}%%TOPIC%%TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"head:windowtitle"}%<title>%TMPL:P{"titleaction"}% <nop>%BASETOPIC%%TMPL:P{"titlesep"}%%BASEWEB%%TMPL:P{"titlesep"}%<nop>%WIKITOOLNAME%</title>%TMPL:END%%{
+}%%TMPL:DEF{"head:windowtitle:separator"}% | %TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"head:windowtitle"}%<title>%TMPL:P{"titleaction"}% <nop>%BASETOPIC%%TMPL:P{"head:windowtitle:separator"}%%BASEWEB%%TMPL:P{"head:windowtitle:separator"}%<nop>%WIKITOOLNAME%</title>%TMPL:END%%{
 ---------------------------------------------------
 }%%{
 	Allow other templates to easy add body class names. These should make sure that class 'foswikiNoJs' is always written.

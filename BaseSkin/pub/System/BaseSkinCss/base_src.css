@@ -35,8 +35,6 @@ blockquote,
 h5,
 h6,
 iframe,
-input[type="password"],
-input[type="text"],
 label,
 p,
 pre,
@@ -44,10 +42,20 @@ td,
 th,
 ul,
 ol,
-dl {
+dl,
+dd,
+.foswikiTable {
 	font-size:1em;
 	line-height:1.3846153846153846em;
 	margin-bottom:1.3846153846153846em;
+}
+
+/* set the same line height */
+input[type="password"],
+input[type="text"],
+table {
+	font-size:1em;
+	line-height:1.3846153846153846em;
 }
 
 li ul,
@@ -66,6 +74,13 @@ tt {
 }
 
 /* end baseline grid */
+
+/* add some extra spacing for readability */
+
+pre,
+.foswikiTable {
+	margin-top:.4em;
+}
 
 /* defaults for standard HTML elements */
 
@@ -95,7 +110,16 @@ select {
 form { 
 	display:inline;
 }
-
+input[type="radio"] {
+	margin:0 .5em 0 0;
+}
+label {
+	margin:0 1em 0 0;
+}
+hr {
+	height:1px;
+	border:none;
+}
 pre,
 code,
 tt {
@@ -114,6 +138,11 @@ tt {
 		color:#06c;
 	}
 	
+	.foswikiUnvisited a:visited,
+	.foswikiUnvisited a:hover {
+		color:#06c;
+	}
+
 	::-moz-selection {
 		background: #06c;
 		color:#fff;
@@ -200,9 +229,10 @@ tt {
 	line-height:1.3846153846153846em;
 	margin-bottom:1.3846153846153846em;
 }
+.foswikiHelp,
 .foswikiBroadcastMessage,
 .foswikiNotification {
-	padding:1.3846153846153846em;
+	padding:10px;
 }
 
 .foswikiTextarea,
@@ -213,7 +243,10 @@ tt {
 	font-family:inherit;
 	font-size:100%;
 }
-
+.foswikiForm {}
+.foswikiFormTitle {
+	margin-bottom:.5em;
+}
 .foswikiMessage {}
 .foswikiEmulatedLink {
 	text-decoration:underline;
@@ -263,14 +296,16 @@ tt {
 .foswikiTable {
 	border-collapse:collapse;
 }
-.foswikiTable td {
-	padding:.2em .5em;
-}
+.foswikiTable td,
 .foswikiTable th {
-	padding:.4em .5em;
+	padding:.3em .6em;
+	font-weight:normal;
 }
 .foswikiTable .tableSortIcon {
 	margin:0 0 0 .25em;
+}
+table caption {
+	display:none;
 }
 
 /* tabs */
@@ -312,6 +347,10 @@ tt {
 .foswikiTabContent {
 	border-style:solid;
 	border-width:1px;
+}
+/* tabs */
+.jqTabContents {
+	padding:10px;
 }
 
 .foswikiHorizontalList {
@@ -414,11 +453,7 @@ a.foswikiSubmit:visited:active {
 .foswikiInputField,
 .foswikiInputFieldDisabled,
 .foswikiInputFieldReadOnly {
-	padding:.1em .2em;
-}
-
-.foswikiImage img {
-	border-color:#ccc;
+	padding:2px 4px;
 }
 
 .foswikiTable,
@@ -426,58 +461,6 @@ a.foswikiSubmit:visited:active {
 .foswikiTable th {
 	border-width:1px;
 	border-style:solid;
-	border-color:#ccc;
-}
-
-.foswikiBroadcastMessage,
-.foswikiNotification,
-.foswikiMessage {
-	background-color:#ffc;
-}
-.foswikiAllowNonWikiWord {
-	background-color:#fff;
-}
-.foswikiHelp {
-	background-color:#f5f5f5;
-}
-.foswikiAlert,
-.foswikiAlert code {
-	color:#f00;
-}
-.foswikiTextarea,
-.foswikiInputField,
-.foswikiInputFieldDisabled,
-.foswikiInputFieldReadOnly,
-.foswikiSelect {
-	border-color:#ccc;
-}
-
-.foswikiTabs ul li a,
-.foswikiTabs ul li a:link,
-.foswikiTabs ul li a:hover,
-.foswikiTabs ul li a:visited {
-	color:#000;
-}
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
-	border-color:#ccc;
-	background:#eee;
-}
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
-	border-color:#ccc;
-}
-.foswikiTabs ul li.foswikiActiveTab a,
-.foswikiTabs ul li a:hover,
-.foswikiTabs ul li span {
-	border-bottom-color:#fff;
-	background:#fff;
-}
-.foswikiTabContent {
-	background:#fff;
-}
-.foswikiTabContent {
-	border-color:#ccc;
 }
 
 /* end Foswiki classes */
@@ -704,3 +687,88 @@ a.jqButton.jqButtonGreen:hover {
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4d924d),to(#256f25));
 	background:-moz-linear-gradient(-90deg,#4d924d,#256f25);
 }
+
+/* default colors for Foswiki elements */
+	
+	.foswikiBroadcastMessage,
+	.foswikiNotification,
+	.foswikiMessage {
+		background-color:#ffc;
+	}
+	.foswikiAllowNonWikiWord {
+		background-color:#fff;
+	}
+	.foswikiHelp {
+		background-color:#f5f5f5;
+	}
+	.foswikiAlert,
+	.foswikiAlert code {
+		color:#f00;
+	}
+	.foswikiTextarea,
+	.foswikiInputField,
+	.foswikiInputFieldDisabled,
+	.foswikiInputFieldReadOnly,
+	.foswikiSelect {
+		border-color:#ccc;
+	}
+	
+	.foswikiImage img {
+		border-color:#ccc;
+	}
+	
+	.foswikiTable,
+	.foswikiTable td,
+	.foswikiTable th {
+		border-width:1px;
+		border-style:solid;
+		border-color:#ccc;
+	}
+	
+	.foswikiTabs ul li a,
+	.foswikiTabs ul li a:link,
+	.foswikiTabs ul li a:hover,
+	.foswikiTabs ul li a:visited {
+		color:#000;
+	}
+	.foswikiTabs ul li a,
+	.foswikiTabs ul li span {
+		border-color:#ccc;
+		background:#eee;
+	}
+	.foswikiTabs ul li a,
+	.foswikiTabs ul li span {
+		border-color:#ccc;
+	}
+	.foswikiTabs ul li.foswikiActiveTab a,
+	.foswikiTabs ul li a:hover,
+	.foswikiTabs ul li span {
+		border-bottom-color:#fff;
+		background:#fff;
+	}
+	.foswikiTabContent {
+		background:#fff;
+	}
+	.foswikiTabContent {
+		border-color:#ccc;
+	}
+
+	.jqTab {
+		border-color: #ccc;
+	}
+	
+	.jqTabPaneSimple .jqTabGroup a:link,
+	.jqTabPaneSimple .jqTabGroup a:visited,
+	.jqTabPaneSimple .jqTabGroup a:hover {
+		border-color: #ccc;
+		color: #000;
+	}
+	.jqTabPaneSimple .jqTabGroup a:hover {
+		background-color: #fff;
+		border-bottom-color: #fff;
+	}
+	.jqTabPaneSimple .jqTabGroup .current a:link,
+	.jqTabPaneSimple .jqTabGroup .current a:visited,
+	.jqTabPaneSimple .jqTabGroup .current a:hover {
+		border-bottom-color: #fff;
+	}
