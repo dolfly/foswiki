@@ -51,8 +51,7 @@ dd,
 }
 
 /* set the same line height */
-input[type="password"],
-input[type="text"],
+input,
 table {
 	font-size:1em;
 	line-height:1.3846153846153846em;
@@ -104,7 +103,7 @@ img {
 textarea,
 input,
 select {
-	vertical-align:middle;
+	vertical-align:bottom;
 }
 
 form { 
@@ -341,8 +340,7 @@ table caption {
 }
 .foswikiTabContent {
 	margin:-1px 0 1em 0;
-	padding:.7em;
-	background:#fff;
+	padding:20px 10px;
 }
 .foswikiTabContent {
 	border-style:solid;
@@ -350,7 +348,7 @@ table caption {
 }
 /* tabs */
 .jqTabContents {
-	padding:10px;
+	padding:20px 10px;
 }
 
 .foswikiHorizontalList {
@@ -755,6 +753,10 @@ a.jqButton.jqButtonGreen:hover {
 
 	.jqTab {
 		border-color: #ccc;
+	}
+	.foswikiTabContent,
+	.jqTabContents {
+		background:#fff;
 	}
 	
 	.jqTabPaneSimple .jqTabGroup a:link,
