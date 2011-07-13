@@ -6,8 +6,8 @@ sub new {
 
     my $this = bless( {}, $class );
 
-    foreach my $field qw(description driver hostname database sid table
-      username password) {
+    foreach my $field (qw(description driver hostname database sid table
+      username password)) {
         $this->{$field} = $info->{$field};
       }
 

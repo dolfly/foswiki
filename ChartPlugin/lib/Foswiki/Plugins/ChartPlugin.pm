@@ -84,10 +84,10 @@ sub _init_defaults {
     return if $pluginInitialized;
     $pluginInitialized = 1;
     require Exporter;
-    foreach my $module qw( GD POSIX
-                           Foswiki::Plugins::ChartPlugin::Chart
-                           Foswiki::Plugins::ChartPlugin::Parameters
-                           Foswiki::Plugins::ChartPlugin::Table) {
+    foreach my $module (qw( GD POSIX
+                            Foswiki::Plugins::ChartPlugin::Chart
+                            Foswiki::Plugins::ChartPlugin::Parameters
+                            Foswiki::Plugins::ChartPlugin::Table)) {
         eval "require $module";
         if ($@) {
             $initError = "Required Perl module '$module' not found: $@";
