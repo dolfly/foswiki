@@ -502,7 +502,10 @@ sub handleFormatList {
   
   #writeDebug("handleFormatList(".$params->stringify().")");
 
-  my $theList = $params->{_DEFAULT} || $params->{list} || '';
+  my $theList = $params->{_DEFAULT};
+  $theList = $params->{list} unless defined $theList;
+  $theList = '' unless defined $theList;
+
   my $thePattern = $params->{pattern} || '^\s*(.*?)\s*$';
   my $theFormat = $params->{format};
   my $theHeader = $params->{header} || '';
@@ -588,16 +591,27 @@ sub handleFormatList {
     my $arg9 = '';
     my $arg10 = '';
     if ($item =~ m/$thePattern/) {
-      $arg1 = $1 || '';
-      $arg2 = $2 || '';
-      $arg3 = $3 || '';
-      $arg4 = $4 || '';
-      $arg5 = $5 || '';
-      $arg6 = $6 || '';
-      $arg7 = $7 || '';
-      $arg8 = $8 || '';
-      $arg9 = $9 || '';
-      $arg10 = $10 || '';
+      $arg1 = $1;
+      $arg2 = $2;
+      $arg3 = $3;
+      $arg4 = $4;
+      $arg5 = $5;
+      $arg6 = $6;
+      $arg7 = $7;
+      $arg8 = $8;
+      $arg9 = $9;
+      $arg10 = $10;
+
+      $arg1 = '' unless defined $arg1;
+      $arg2 = '' unless defined $arg2;
+      $arg3 = '' unless defined $arg3;
+      $arg4 = '' unless defined $arg4;
+      $arg5 = '' unless defined $arg5;
+      $arg6 = '' unless defined $arg6;
+      $arg7 = '' unless defined $arg7;
+      $arg8 = '' unless defined $arg8;
+      $arg9 = '' unless defined $arg9;
+      $arg10 = '' unless defined $arg10;
     } else {
       next;
     }

@@ -263,6 +263,7 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  14 Jul 2011: | fixed parsing zero values in lists (by Paul Harvey) |
 |  06 Apr 2011: | fixed SUBST to removing everything after the last match |
 |  23 Jul 2010: | fixed wrapper for non-official api call to getAnchorName on foswiki-1.1 |
 |  07 Jun 2010: | fixed expanding standard escapes ($n, $percent, ...); improved examples in docu |
@@ -299,7 +300,6 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Dependency: | $Foswiki::Plugins::VERSION 1.024 |
 |  CPAN Dependencies: | none |
 |  Other Dependencies: | none |
-|  Perl Version: | 5.005 |
 |  Plugin Home: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
 
