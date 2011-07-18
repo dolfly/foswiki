@@ -32,6 +32,7 @@ If the installation worked, you should see expanded times below:
 
 |  Author: | Peter Thoeny 19 Nov 2004 |
 |  Change History: | &nbsp; |
+|  18 Jul 2011: | Make tolerant of no $TZ env var setting - Foswiki:Main.CrawfordCurrie |
 |  26 Apr 2010: | Ported and rewritten to use a tag handler by Foswiki:Main.CrawfordCurrie. Simplified by dumping the gateway - that sort of service is better done using an AJAX component. |
 |  19 Nov 2004: | Minor code cleanup; added benchmarks |
 |  23 Nov 2003: | New URL for gateway (www.bsdi.com is decommissioned); choice of internal date calculation |

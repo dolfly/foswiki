@@ -48,7 +48,11 @@ sub _LOCALCITYTIME {
     $ENV{TZ} = $tz;
     my $text = `$dateCmd $dateParam`;
     chomp( $text );
-    $ENV{TZ} = $saveTZ;          # restore TZ environment
+    if (defined $saveTZ) {
+	$ENV{TZ} = $saveTZ;          # restore TZ environment
+    } else {
+	delete $ENV{TZ};
+    }
 
     return $text . ' (' . $timeZone . ')';
 }
