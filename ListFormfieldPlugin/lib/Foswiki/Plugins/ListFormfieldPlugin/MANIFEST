@@ -1,0 +1,6 @@
+data/System/ListFormfieldPlugin.txt 0644 Documentation page
+!noci
+lib/Foswiki/Plugins/ListFormfieldPlugin.pm 0444 Perl module
+lib/Foswiki/Plugins/ListFormfieldPlugin/Config.spec 0444 Configuration
+lib/Foswiki/Plugins/ListFormfieldPlugin/Core.pm 0444 Perl module
+lib/Foswiki/Form/List.pm 0444 Perl module

@@ -1,0 +1,44 @@
+%META:TOPICPARENT{name="Plugins"}%
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+---+!! =list= formfield plugin
+
+%SHORTDESCRIPTION%
+
+Allows you to use a new =list= formfield type in your System.DataForms:
+%JQREQUIRE{"chili"}%<verbatim class="tml">| MyList | list+checkbox | | a, b, c|</verbatim> which will call on =Foswiki::Form::Checkbox= (the normal =checkbox= type) to render the field.
+
+%TOPIC% implements a beforeSaveHandler that examins the =MyList= field (and any other =list= field) so that extra System.MetaData can be saved in a form that is more efficient to query for query algorithms supporting an index (such as MongoDBPlugin).
+
+For example, if !MyField contains =a, b= then %TOPIC% would create
+<verbatim class="tml"> %META:LISTITEM{name="..." key="MyList" value="a" seq="1"}%
+ %META:LISTITEM{name="..." key="MyList" value="b" seq="2"}%</verbatim>
+
+Which allos =MyField= to be queried using <verbatim class="tml">%SEARCH{
+       "listitems[key='MyList' AND value='b']"
+         type="query"
+ }%</verbatim>
+
+ This is vastly more efficient for MongoDBPlugin (and any other !QuerySearch back-end using indexes).
+
+ 4.8s to render a page querying 52,387 topics similar to =%<nop>SEARCH{"MyList~'*a*'" type="query}%=.
+
+ 1.02s to render the same page using =%<nop>SEARCH{"listitems[key='MyList' AND value='a']" type="query}%=.
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author: | Foswiki:Main.PaulHarvey, [[http://trin.org.au][TRIN]] |
+|  Copyright: | &copy; 2011 Centre for Australian National Biodiversity Research http://anbg.gov.au/cpbr %BR% \
+&copy; 2011, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  0.0.0 (28 Jul 2011): | Foswikitask:Item11002 - Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
