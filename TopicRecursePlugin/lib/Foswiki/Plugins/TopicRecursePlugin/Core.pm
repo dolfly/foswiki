@@ -30,11 +30,13 @@ sub extractParams {
         $args{$item} = $params->{$item};
     }
     $args{header} ||= '*Search: \'$rootquery\' from <nop>$root* $n';
+    $args{branchheader} ||= $args{header};
     $args{format} ||= '$indent* [[$web.$topic][$topic]]';
     $args{formatbranch} ||= $args{format};
     $args{formatleaf}   ||= $args{format};
     $args{separator}    ||= '$n';
     $args{footer}       ||= '*Total: $ntopics*';
+    $args{branchfooter} ||= $args{footer};
     $args{nodelimit}    ||= '50';
 
     return \%args;
