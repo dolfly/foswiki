@@ -19,7 +19,7 @@ use strict;
 use warnings;
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.01';
+our $RELEASE = '2.00';
 our $SHORTDESCRIPTION = 'Automatically hyphenates text';
 our $NO_PREFS_IN_TOPIC = 1;
 
