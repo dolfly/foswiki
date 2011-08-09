@@ -31,9 +31,11 @@ This is the perl stub for the hyphenator plugin.
 
 sub new {
   my $class = shift;
-
+  my $session = shift || $Foswiki::Plugins::SESSION;
+ 
   my $this = bless(
     $class->SUPER::new(
+      $session,
       name => 'Hyphenator',
       version => '4.0.0',
       author => 'Mathias Nater',
