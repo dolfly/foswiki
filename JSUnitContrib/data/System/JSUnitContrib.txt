@@ -1,5 +1,8 @@
 %META:TOPICINFO{author="ProjectContributor" date="1140597757" format="1.1" version="$Rev$"}%
 ---+!! <nop>%TOPIC%
+<div class="foswikiNotification">
+%ICON{alert}% According to http://www.jsunit.net/, !JSUnit is no longer maintained. Try a different !JavaScript unit testing framework, such as [[http://code.google.com/p/js-test-driver/][js-test-driver]].
+</div>
 
 *[[http://www.jsunit.net/][JSUnit]] !JavaScript unit testing framework.*
 
