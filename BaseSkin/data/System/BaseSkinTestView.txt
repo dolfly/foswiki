@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1294644357" format="1.1" version="1"}%
+%META:TOPICINFO{author="BaseUserMapping_333" comment="save topic" date="1313952690" format="1.1" reprev="2" version="2"}%
 Base skin test page
 
 <h1>Heading 1</h1> 
@@ -308,3 +308,5 @@ Inside a twisty
 %META:FORM{name="UserForm"}%
 %META:FIELD{name="FirstName" attributes="M" title="FirstName" value="Test"}%
 %META:FILEATTACHMENT{name="Lutra.lutra.standing.1.jpg" attachment="Lutra.lutra.standing.1.jpg" attr="" comment="" date="1270304614" path="Lutra.lutra.standing.1.jpg" size="110427" user="BaseUserMapping_333" version="1"}%
+%META:FILEATTACHMENT{name="comserverDocV1-1.pdf" attachment="comserverDocV1-1.pdf" attr="" comment="" date="1313952671" path="comserverDocV1-1.pdf" size="345459" user="BaseUserMapping_333" version="1"}%
+%META:FILEATTACHMENT{name="front.png" attachment="front.png" attr="" comment="" date="1313952690" path="front.png" size="206709" user="BaseUserMapping_333" version="1"}%

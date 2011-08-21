@@ -1,0 +1,23 @@
+%{ This is a default template }%%{ These templates define the form attached at the bottom of viewed page. }%
+
+%{ Header definition for topic attachments and top table in attach screen }%
+%TMPL:DEF{FORM:display:header}%
+<div class="foswikiForm">
+%IF{
+	"context preview"
+	then="%TMPL:P{FORM:display:titlename}%" else="%TMPL:P{FORM:display:titlelink}%"
+}%
+<table class='foswikiTable foswikiFormTable' border='1' summary='%MAKETEXT{"Form data"}%'>%TMPL:END%
+
+%{ Each row }%
+%TMPL:DEF{FORM:display:row}%%IF{"context preview" then="<noautolink>"}%<tr valign='top'><td class='foswikiFormTableRow foswikiFirstCol' align='right'> %A_TITLE%</td><td> %A_VALUE% </td></tr>%IF{"context preview" then="</noautolink>"}%%TMPL:END%
+
+%{ Footer }%
+%TMPL:DEF{FORM:display:footer}%</table></div>%TMPL:END%
+
+
+%TMPL:DEF{FORM:display:titlelink}%<div class='foswikiRight'><a href='%SCRIPTURL{edit}%/%WEB%/%TOPIC%?t=%GMTIME{$epoch}%;action=form' class='foswikiButton'>%MAKETEXT{"Edit form data"}%</a></div>
+<h3 class='foswikiUnvisited'> %A_TITLE% </h3>%TMPL:END%
+
+
+%TMPL:DEF{FORM:display:titlename}%<noautolink><h3>%A_TITLE%</h3></noautolink>%TMPL:END%

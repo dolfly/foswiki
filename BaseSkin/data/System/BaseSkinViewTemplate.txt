@@ -40,7 +40,7 @@ sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar cont
 ---------------------------------------------------
 }%%TMPL:DEF{"form:bottom"}%%TMPL:P{"form"}%%TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"form"}%%TAB{"Form"}%%META{"form"}%%ENDTAB%%TMPL:END%%{
+}%%TMPL:DEF{"form"}%%TAB{"Data form"}%%META{"form"}%%ENDTAB%%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"attachments"}%%TAB{"Attachments (%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}%)"}%%META{"attachments"}%%ENDTAB% %TMPL:END%%{
 ---------------------------------------------------

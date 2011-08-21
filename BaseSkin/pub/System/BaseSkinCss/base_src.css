@@ -44,10 +44,22 @@ ul,
 ol,
 dl,
 dd,
-.foswikiTable {
+.foswikiTable,
+.jqTabPane {
 	font-size:1em;
 	line-height:1.3846153846153846em;
 	margin-bottom:1.3846153846153846em;
+}
+
+/* reset bottom margin if inside foswikiTable */
+.foswikiTable blockquote,
+.foswikiTable pre,
+.foswikiTable iframe,
+.foswikiTable ul,
+.foswikiTable ol, 
+.foswikiTable dl,
+.foswikiTable dd {
+	margin-bottom:0;
 }
 
 /* set the same line height */
@@ -138,7 +150,9 @@ tt {
 	}
 	
 	.foswikiUnvisited a:visited,
-	.foswikiUnvisited a:hover {
+	.foswikiUnvisited a:hover,
+	a.foswikiUnvisited:visited,
+	a.foswikiUnvisited:hover {
 		color:#06c;
 	}
 
@@ -219,6 +233,11 @@ tt {
 	margin-bottom:1.6363636363636365em;
 }
 
+.foswikiActual {
+	font-size: 13px;
+	font-weight: normal;
+}
+
 .foswikiBroadcastMessage,
 .foswikiImage,
 .foswikiMessage,
@@ -266,6 +285,15 @@ tt {
 	border:0;
 }
 
+.foswikiToc {
+	margin:1em 0;
+}
+	.foswikiToc .foswikiTocTitle {
+		margin:0;
+		padding:0;
+		font-weight:bold;
+	}
+
 .foswikiDiffDebug {
 	/* same as pre, code */
     font-family:"Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
@@ -273,14 +301,50 @@ tt {
 }
 
 /* search results */
-.foswikiSearchResults {}
-.foswikiSearchResult {}
-.foswikiSearchResultsHeader {}
-.foswikiSearchResultsPager {
-	margin:1em 0;
-	padding:.25em 0;
+.foswikiSearchResults {
+	clear: all;
 }
+	.foswikiSearchResult {
+		position: relative;
+	}
+	.foswikiSearchResult:hover {
+		background: #f5f5f5;
+	}
+	.foswikiSearchResult img {
+		max-width: 90px;
+		float:left;
+	}
+	.foswikiSearchResultContents {
+		margin:13px;
+		margin: 0 0 0 90px;
+	}
+	.foswikiSearchResultsHeader {}
+	.foswikiSearchResultsPager {
+		margin:1em 0;
+		padding:.25em 0;
+	}
+	.foswikiSearchResultMeta,
+	.foswikiSearchResultMeta a:link,
+	.foswikiSearchResultMeta a:visited {
+		color: #049804;
+	}
 
+/* attachments */
+.foswikiAttachments {}
+	.foswikiAttachment {
+		padding: 10px;
+	}
+	.foswikiAttachments .foswikiSearchResultsHeader {
+		padding:5px 10px;
+		background: #eee;
+	}
+	.foswikiAttachments .foswikiSearchResult img {
+		max-width: 16px;
+	}
+	.foswikiAttachments .foswikiSearchResultContents {
+		margin: 0 0 0 26px;
+	}
+	
 /* table */
 .foswikiTable,
 .foswikiTable td,
@@ -290,6 +354,9 @@ tt {
 }
 .foswikiTable th a:link,
 .foswikiTable th a:visited {
+	text-decoration:none;
+}
+.foswikiTable th a:hover {
 	text-decoration:underline;
 }
 .foswikiTable {
@@ -298,7 +365,6 @@ tt {
 .foswikiTable td,
 .foswikiTable th {
 	padding:.3em .6em;
-	font-weight:normal;
 }
 .foswikiTable .tableSortIcon {
 	margin:0 0 0 .25em;
@@ -348,7 +414,7 @@ table caption {
 }
 /* tabs */
 .jqTabContents {
-	padding:20px 10px;
+	padding:20px 10px 0 10px;
 }
 
 .foswikiHorizontalList {
@@ -687,6 +753,10 @@ a.jqButton.jqButtonGreen:hover {
 }
 
 /* default colors for Foswiki elements */
+	
+	.foswikiGrayText {
+		color: #aaa;
+	}
 	
 	.foswikiBroadcastMessage,
 	.foswikiNotification,
