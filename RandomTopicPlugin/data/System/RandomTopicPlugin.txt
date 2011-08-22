@@ -48,6 +48,14 @@ A single random topic:
 }%
 </verbatim>
 
+Jump to a random topic:
+<verbatim class="tml">
+%BUTTON{"I'm feeling lucky"
+  icon="ruby"
+  target="%RANDOMTOPIC%"
+}%
+</verbatim>
+
 ---++ <nop>%TOPIC% Global Settings
 
 Plugin settings are stored as preferences variables. To reference a plugin setting write ==%<nop>&lt;plugin&gt;_&lt;setting&gt;%==, i.e. ==%<nop>INTERWIKIPLUGIN_SHORTDESCRIPTION%==
