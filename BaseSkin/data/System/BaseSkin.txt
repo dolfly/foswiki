@@ -62,11 +62,13 @@ For example:
    * <nop>Set BASESKIN_ADD_CSS = %<nop>PUBURL%/%<nop>MAINWEB%/<nop>SitePreferences/nicer_logo.css
 </pre>
 
----++ Test page
+---++ Testing
+---+++ Test page
 A page with a lot of different markup:
    * %TEST_TOPIC%
-   
-   
+
+---++ Baseline grid
+Pass url paramater =devgrid=1=, for instance: [[%SCRIPTURL{view}%/%WEB%/%TEST_TOPIC%?skin=basejs,basecss,base;devgrid=1][test baseline grid]]
    
 ---++ Background
 This skin has all templates as topics. This makes it easier to have access to template code. The downside is that template topics will be searchable and will show up in search results.
@@ -106,6 +108,6 @@ Leave remarks, suggestions and other feedback in http://foswiki.org/Support/%TOP
 <!-- %JQREQUIRE{"chili"}% -->
 
 <!--
-   * Local TEST_TOPIC = BaseSkinTestView
+   * Local TEST_TOPIC = BaseSkinTestPage
    * Local SKIN_PATH = basejs,basecssgrid,basecss,base
 -->

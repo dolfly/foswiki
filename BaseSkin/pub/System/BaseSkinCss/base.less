@@ -1,0 +1,956 @@
+/*
+SORT OUT
+
+- line spacing with small text / foswikiSmall
+- extra 1px spacing with bordered blockquote
+*/
+
+
+
+/* Settings */
+
+@font_family_main: sans-serif;
+@font_family_code: "Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
+
+/* font sizes in pixels - only used for body; will be converted to ems */
+@body_font_size:13;
+
+@ratio: @ratio_golden;
+
+@ratio_golden: 1.618; /* 1:1.618 */
+@ratio_musical_fifth: 1.5; /* 2:3 */
+@ratio_musical_fourth: 1.333; /* 3:4 */
+
+@body_line_height: @body_font_size * @ratio;
+
+/* 
+Pixels	Ems	    % of 13
+987.975	75.998	7,599.808
+610.615	46.97	4,697.038
+377.389	29.03	2,902.992
+233.244	17.942	1,794.185
+144.156	11.089	1,108.892
+89.095	6.853	685.346
+55.065	4.236	423.577
+34.033	2.618	261.792
+21.034	1.618	161.800
+13	    1    	100.000
+8.035	0.618	61.808
+4.966	0.382	38.200
+3.069	0.236	23.608
+1.897	0.146	14.592
+1.172	0.09	9.015
+*/
+
+/* base */
+@ratio_1: 1;
+/* larger */
+@ratio_up_1: @ratio_1 * @ratio;
+@ratio_up_2: @ratio_up_1 * @ratio;
+@ratio_up_3: @ratio_up_2 * @ratio;
+@ratio_up_4: @ratio_up_3 * @ratio;
+@ratio_up_5: @ratio_up_4 * @ratio;
+@ratio_up_6: @ratio_up_5 * @ratio;
+@ratio_up_7: @ratio_up_6 * @ratio;
+@ratio_up_8: @ratio_up_7 * @ratio;
+@ratio_up_9: @ratio_up_8 * @ratio;
+/* smaller */
+@ratio_down_1: @ratio_1 / @ratio;
+@ratio_down_2: @ratio_down_1 / @ratio;
+@ratio_down_3: @ratio_down_2 / @ratio;
+@ratio_down_4: @ratio_down_3 / @ratio;
+@ratio_down_5: @ratio_down_4 / @ratio;
+
+@factor_p: @ratio_1 - 1;
+@factor_h6: @ratio_up_1 - 1;
+@factor_h5: @ratio_up_2 - 1;
+@factor_h4: @ratio_up_3 - 1;
+@factor_h3: @ratio_up_4 - 1;
+@factor_h2: @ratio_up_5 - 1;
+@factor_h1: @ratio_up_6 - 1;
+@factor_smallish: @ratio_down_1 - 1;
+@factor_small: @ratio_down_2 - 1;
+
+.em_font_size (@size) {
+	font-size: 0em + (@body_font_size + @size) / @body_font_size;
+}
+.em_line_height (@size) {
+	line-height: 0em + @body_line_height / (@body_font_size + @size);
+}
+.margin_top () {
+	margin-top: 0;	
+}
+.em_margin_bottom (@size: 0) {
+	margin-bottom: 0em + @body_line_height / (@body_font_size + @size);
+}
+.block_padding () {
+	padding-top: 0em + @body_line_height / @body_font_size;
+	padding-bottom: 0em + @body_line_height / @body_font_size;
+	padding-left: 0px + @body_line_height;
+	padding-right: 0px + @body_line_height;
+}
+.dev_gridline () {
+	border-color: fadeout(#00f, 90%);
+	border-width: 1px;
+}
+
+/*
+.button_background_gradient(@base) {
+    color: #fef4e9;
+    border: solid 1px #da7c0c;
+    background: @base;
+    background: -webkit-gradient(linear, left top, left bottom, from(lighten(@base, 5%)), to(darken(@base, 5%)));
+    background: -moz-linear-gradient(top,  lighten(@base, 5%), darken(@base, 5%));
+}
+@orange_base: #f78d1d;
+.orange { .button_background_gradient(@orange_base); }
+.orange:hover { .button_background_gradient(darken(@orange_base, 10%)); }
+.orange:active { .button_background_gradient(lighten(@orange_base, 10%)); }
+
+@blue_base: #7db8db;
+.blue { .button_background_gradient(@blue_base); }
+.blue:hover { .button_background_gradient(darken(@blue_base, 10%)); }
+.blue:active { .button_background_gradient(lighten(@blue_base, 10%)); }
+*/
+
+ 
+body, select, input, textarea {
+	/* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
+	color: #444;
+	font-family: @font_family_main;
+}
+ 
+h1, h2, h3, h4, h5, h6 { 
+  text-rendering: optimizeLegibility; 
+  font-weight: bold;
+}
+
+body {
+	font-size: 0px + @body_font_size;
+	.em_line_height (@factor_p);
+}
+h1 {
+	.em_font_size(@factor_h1);
+	.em_line_height(@factor_h1);
+	.margin_top;
+	.em_margin_bottom(@factor_h1);
+}
+h2 {
+	.em_font_size(@factor_h2);
+	.em_line_height(@factor_h2);
+	.margin_top;
+	.em_margin_bottom(@factor_h2);
+}
+h3 {
+	.em_font_size(@factor_h3);
+	.em_line_height(@factor_h3);
+	.margin_top;
+	.em_margin_bottom(@factor_h3);
+}
+h4,
+.foswikiLarge {
+	.em_font_size(@factor_h4);
+	.em_line_height(@factor_h4);
+	.margin_top;
+	.em_margin_bottom(@factor_h4);
+}
+h5 {
+	.em_font_size(@factor_h5);
+	.em_line_height(@factor_h5);
+	.margin_top;
+	.em_margin_bottom(@factor_h5);
+}
+h6 {
+	.em_font_size(@factor_h6);
+	.em_line_height(@factor_h6);
+	.margin_top;
+	.em_margin_bottom(@factor_h6);
+}
+p,
+blockquote,
+iframe,
+label,
+address,
+td,
+th,
+ul,
+ol,
+dl,
+dd,
+hr,
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification {
+	.em_font_size(@factor_p);
+	.em_line_height(@factor_p);
+	.margin_top;
+	.em_margin_bottom(@factor_p);
+}
+abbr, code, kbd, samp, small, var {
+	.em_line_height(@factor_p);
+}
+.foswikiSmallish {
+	.em_font_size(@factor_smallish);
+	.em_line_height(@factor_smallish);
+	.margin_top;
+	.em_margin_bottom(@factor_smallish);
+}
+small,
+.foswikiSmall {
+	.em_font_size(@factor_small);
+	.em_line_height(@factor_small);
+	.margin_top;
+	.em_margin_bottom(@factor_small);
+}
+
+hr {
+	height:1px;
+	border:none;
+	margin-top: -1px; /* for the height */
+}
+
+/* correct for nested elements */
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child {
+    margin-top: 0;
+}
+
+li ul, li ol, ul ul, ol ol {
+    top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+li h1, li h2, li h3, li h4, li h5, li h6, li p {
+    top: 0;
+}
+
+blockquote,
+pre,
+.foswikiHelp,
+.foswikiBroadcastMessage,
+.foswikiNotification {
+	.block_padding;
+}
+
+pre,
+code,
+tt,
+kbd,
+samp,
+.foswikiDiffDebug {
+    font-family: @font_family_code;
+    .em_font_size(@factor_small);
+    .em_line_height(@factor_small);
+}
+
+.foswikiPage {
+	width:960px;
+	margin:0 auto;
+}
+.foswikiContent {
+	position: relative;
+}
+
+
+/* dev */
+.foswikiDevGrid {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.foswikiDevGridRow {
+	width: 100%;
+	height: 0px + @body_line_height - 1;
+	border-style: none none solid none;
+	.dev_gridline;
+}
+.foswikiDevGridCol {
+	border-style: none none none solid;
+	.dev_gridline;
+}
+
+
+/* REST TO BE CONVERTED TO LESS */
+
+/* colors */
+	
+	a:link:focus,
+	a:visited:focus,
+	a:link,
+	a:link:active,
+	a:visited:active {
+		color:#06c;
+	}
+	
+	a:visited {
+		color: #369;
+	}
+
+	blockquote {
+		background: #f3f3f3;
+		border-style: solid none;
+		border-width: 1px;
+		border-color: #ccc;
+	}
+	::-moz-selection {
+		background: #06c;
+		color:#fff;
+		text-shadow: none; 
+	}
+	::selection {
+		background:#06c;
+		color:#fff;
+		text-shadow: none; 
+	}
+
+	hr {
+		color:#ccc;
+		background-color:#ccc;
+	}
+	
+	pre {
+		background:#f5f5f5;
+	}
+
+
+/* Foswiki classes */
+
+/* made visible if javascript available */
+/* specified in js.css */
+.foswikiNoJs .foswikiMakeVisible,
+.foswikiNoJs .foswikiMakeVisibleInline,
+.foswikiNoJs .foswikiMakeVisibleBlock {
+	display:none;
+}
+
+.foswikiLeft {
+	float:left;
+	position:relative;
+}
+.foswikiRight {
+	position:relative;
+	float:right;
+	display:inline;
+}
+.foswikiClear {
+	/* to clean up floats */
+	/* use: <div class="foswikiClear"></div> */
+	margin:0;
+	padding:0;
+	height:0;
+	line-height:0px;
+	clear:both;
+	display:block;
+}
+.foswikiHidden {
+	display:none;
+}
+
+
+
+.foswikiActual {
+	font-size: 0px + @body_font_size;
+	font-weight: normal;
+}
+
+.foswikiTextarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly {
+	/* sameas textarea etc. */
+	font-family:inherit;
+	font-size:100%;
+}
+.foswikiForm {}
+.foswikiFormTitle {
+	margin-bottom:.5em;
+}
+.foswikiMessage {}
+.foswikiEmulatedLink {
+	text-decoration:underline;
+}
+.foswikiImage img {
+	padding:3px;
+	border-width:1px;
+	border-style:solid;
+}
+.foswikiPreviewArea {}
+.foswikiSummary {}
+
+.foswikiNoBreak {
+	white-space:nowrap;
+}
+.foswikiIcon img {
+	vertical-align:text-bottom;
+	border:0;
+}
+
+.foswikiToc {
+	margin:1em 0;
+}
+	.foswikiToc .foswikiTocTitle {
+		margin:0;
+		padding:0;
+		font-weight:bold;
+	}
+
+
+/* search results */
+.foswikiSearchResults {
+	clear: all;
+	padding: 0 0 10px 0;
+}
+	.foswikiSearchResult {
+		position: relative;
+		border-bottom: 1px solid #eee;
+	}
+	.foswikiSearchResult:hover {
+		background: #f7f7f6;
+	}
+	.foswikiSearchResult img {
+		max-width: 90px;
+		float:left;
+	}
+	.foswikiSearchResultTitle {}
+	.foswikiSearchResultContents {
+		margin:13px;
+		margin: 0 0 0 90px;
+	}
+	.foswikiSearchResultsHeader {}
+	.foswikiSearchResultsPager {
+		margin:1em 0;
+		padding:.25em 0;
+	}
+	.foswikiSearchResultMeta,
+	.foswikiSearchResultMeta a:link,
+	.foswikiSearchResultMeta a:visited {
+		color: #049804;
+	}
+
+/* attachments */
+.foswikiAttachments {}
+	.foswikiAttachment {
+		padding: 10px;
+	}
+	.foswikiAttachments .foswikiSearchResultsHeader {
+		padding:5px 10px;
+		background: #eee;
+	}
+	.foswikiAttachments .foswikiSearchResult img {
+		max-width: 16px;
+	}
+	.foswikiAttachments .foswikiSearchResultContents {
+		margin: 0 0 0 26px;
+	}
+	
+/* table */
+.foswikiTable,
+.foswikiTable td,
+.foswikiTable th {
+	border-width:1px;
+	border-style:solid;
+}
+.foswikiTable th a:link,
+.foswikiTable th a:visited {
+	text-decoration:none;
+}
+.foswikiTable th a:hover {
+	text-decoration:underline;
+}
+.foswikiTable {
+	border-collapse:collapse;
+}
+.foswikiTable td,
+.foswikiTable th {
+	padding:.3em .6em;
+}
+.foswikiTable .tableSortIcon {
+	margin:0 0 0 .25em;
+}
+table caption {
+	display:none;
+}
+
+/* tabs */
+.foswikiTabs ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+	position:relative;
+	bottom:0;
+}
+.foswikiTabs ul li {
+	display:inline;
+}
+.foswikiTabs ul li a,
+.foswikiTabs ul li a:link,
+.foswikiTabs ul li a:hover,
+.foswikiTabs ul li a:visited {
+	text-decoration:none;
+}
+.foswikiTabs ul li a,
+.foswikiTabs ul li span {
+	display:block;
+	float:left;
+	margin:0 6px 0 0;
+	padding:.35em .7em;	
+	border-style:solid;
+	border-width:1px;
+}
+.foswikiTabs ul li a,
+.foswikiTabs ul li span {
+	border-style:solid;
+	border-width:1px;
+}
+.foswikiTabContent {
+	margin:-1px 0 1em 0;
+	padding:20px 10px;
+}
+.foswikiTabContent {
+	border-style:solid;
+	border-width:1px;
+}
+/* tabs */
+.jqTabContents {
+	padding:20px 10px 0 10px;
+}
+
+.foswikiHorizontalList {
+	clear:both;
+}
+.foswikiHorizontalList ul,
+.foswikiHorizontalList ol {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+.foswikiHorizontalList ul li,
+.foswikiHorizontalList ol li {
+	float:left;
+	display:block;
+	border-style:none solid none none;
+	border-width:0px;
+}
+.foswikiHorizontalList ul li.foswikiLast,
+.foswikiHorizontalList ol li.foswikiLast {
+	border:none;
+}
+
+.foswikiSubmit,
+.foswikiSubmitDisabled,
+.foswikiButton,
+.foswikiButtonDisabled,
+.foswikiButtonCancel,
+a.foswikiButton,
+a.foswikiButtonCancel,
+a.foswikiSubmit {
+	background:#eee;
+	border:1px solid #ccc;
+}
+
+/* form elements */
+
+.foswikiTextarea {}
+.foswikiSubmit,
+.foswikiSubmitDisabled,
+.foswikiButton,
+.foswikiButtonDisabled,
+.foswikiButtonCancel,
+a.foswikiButton,
+a.foswikiSubmit,
+a.foswikiButtonCancel,
+.foswikiCheckbox {
+	border-width:1px;
+	border-style:solid;
+	font-weight:bold;
+	vertical-align:middle;
+	text-align:center;
+}
+.foswikiSubmit,
+.foswikiSubmitDisabled,
+.foswikiButton,
+.foswikiButtonDisabled,
+.foswikiButtonCancel,
+.foswikiSubmit:hover,
+.foswikiSubmitDisabled:hover,
+.foswikiButton:hover,
+.foswikiSubmit:active,
+.foswikiSubmitDisabled:active,
+.foswikiButton:active {
+	cursor:default;
+	outline:none;
+	line-height:1em;
+	padding:2px 4px;
+}
+a.foswikiButton,
+a.foswikiButton:hover,
+a.foswikiButton:link:active,
+a.foswikiButton:visited:active,
+a.foswikiButtonCancel,
+a.foswikiButtonCancel:hover,
+a.foswikiButtonCancel:link:active,
+a.foswikiButtonCancel:visited:active,
+a.foswikiSubmit,
+a.foswikiSubmit:hover,
+a.foswikiSubmit:link:active,
+a.foswikiSubmit:visited:active {
+	text-decoration:none;
+	line-height:1em;
+	padding:2px 4px;
+}
+.foswikiCheckbox,
+.foswikiRadioButton {
+	margin:1px .25em 1px .1em;
+	padding:0 0 0 .5em;
+	border:0;
+}
+.foswikiTextarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly,
+.foswikiSelect {
+	border-width:1px;
+	border-style:solid;
+}
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly {
+	padding:2px 4px;
+}
+
+.foswikiTable,
+.foswikiTable td,
+.foswikiTable th {
+	border-width:1px;
+	border-style:solid;
+}
+
+/* end Foswiki classes */
+
+/* buttons */
+
+/* reset jquery.button.css */
+.jqButton {
+  margin:0;
+  display:inline;
+  float:none;
+  font-size:inherit;
+  height:auto;
+  padding:0;
+  color:#000;
+  white-space:nowrap;
+  text-shadow:none;
+  text-decoration:none;
+}
+.jqButton:hover,
+.jqButton {
+  text-decoration:none;
+  cursor:pointer;
+  background:none;
+}
+.jqButton span {
+	float:none;
+	background:none;
+	height:auto;
+	line-height:inherit;
+	padding:0;
+	margin:0;
+}
+.jqButton:hover {
+	float:none;
+}
+/* end reset */
+
+/* new button style */
+button.jqButton,
+button.jqButton.jqButtonDisabled,
+button.jqButton.jqButtonDisabled:hover {
+	padding:0 6px;
+	height:1.9em;
+	line-height:1em;
+}
+a.jqButton:link,
+a.jqButton:visited,
+a.jqButton.jqButtonDisabled,
+a.jqButton.jqButtonDisabled:hover {
+	display:inline-block;
+	padding:0 6px;
+	line-height:1.8em;
+}
+a.jqButton:link,
+a.jqButton:visited,
+button.jqButton {
+	position:relative;
+	margin:0 6px 0 0;
+	text-decoration:none;
+	font-size: 0px + @body_font_size;
+	font-family:arial, verdana, sans-serif;
+	font-weight:normal;
+	border-width:1px;
+	border-style:solid;
+	-webkit-border-radius:3px;
+	-moz-border-radius:3px;
+	border-radius:3px;
+	-webkit-font-smoothing:subpixel-antialiased!important;
+	-webkit-border-horizontal-spacing:0;
+	-webkit-border-vertical-spacing:0;
+}
+button.jqButton::-moz-focus-inner {
+    border:none;
+    padding:0;
+}
+a.jqButton:active,
+a.jqButton:focus {
+	outline:none;
+	-moz-outline-style:none;
+}
+button.jqButton:hover,
+a.jqButton:hover {
+	cursor:pointer;
+	text-decoration:none;
+	color:#000;
+}
+button.jqButton .jqButtonIcon,
+a.jqButton .jqButtonIcon {
+	padding-left:22px;
+	background-repeat:no-repeat;
+	background-position:0 50%;
+}
+a.jqButton:link,
+a.jqButton:visited,
+a.jqButton.jqButtonDisabled:hover,
+a.jqButton.jqButtonDefault,
+button.jqButton,
+button.jqButton.jqButtonDisabled,
+button.jqButton.jqButtonDisabled:hover,
+button.jqButton.jqButtonDefault {
+	color:#000;
+	background:#d0d0d0;
+	border-color:#d0d0d0;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ffffff', endColorstr='#dedede')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ffffff),to(#dedede));
+	background:-moz-linear-gradient(-90deg,#ffffff,#dedede);
+}
+a.jqButton:hover,
+a.jqButton.jqButtonDefault:hover,
+button.jqButton:hover,
+button.jqButton.jqButtonDefault:hover {
+	color:#fff;
+	background:#376ca0;
+	border-color:#376ca0;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#7baad7', endColorstr='#376ca0')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#7baad7),to(#376ca0));
+	background:-moz-linear-gradient(-90deg,#7baad7,#376ca0);
+}
+a.jqButton.jqButtonDisabled,
+a.jqButton.jqButtonDisabled:hover,
+button.jqButton.jqButtonDisabled,
+button.jqButton.jqButtonDisabled:hover {
+	cursor:default;
+	color:#aaa;
+}
+/* large button */
+button.jqButtonLarge,
+a.jqButtonLarge {
+	font-size:1.5em;
+	line-height:1.5em;	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+}
+/* simple button, looks like link */
+button.jqButton.jqButtonSimple,
+button.jqButton.jqButtonSimple span,
+a.jqButton.jqButtonSimple,
+a.jqButton.jqButtonSimple span {
+	background:none;
+	border:none;
+	margin:0;
+	padding:0;
+	color:#06c;
+	text-decoration:none;
+}
+button.jqButton.jqButtonSimple:hover,
+a.jqButton.jqButtonSimple:hover {
+	color:#06c;
+	text-decoration:underline;	
+}
+
+/* colored buttons */
+button.jqButton.jqButtonBlue,
+a.jqButton.jqButtonBlue {
+	color:#fff;
+	background:#007aa3;
+	border-color:#007aa3;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#589adb', endColorstr='#3072b3')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#589adb),to(#3072b3));
+	background:-moz-linear-gradient(-90deg,#589adb,#3072b3);
+}
+button.jqButton.jqButtonBlue:hover,
+a.jqButton.jqButtonBlue:hover {
+	color:#fff;
+	background:#006f94;
+	border-color:#006f94;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3669af', endColorstr='#224f90')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#3669af),to(#224f90));
+	background:-moz-linear-gradient(-90deg,#3669af,#224f90);
+}
+button.jqButton.jqButtonRed,
+a.jqButton.jqButtonRed {
+	color:#fff;
+	background:#cd2929;
+	border-color:#cd2929;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ff6f6f', endColorstr='#cd2929')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ff6f6f),to(#cd2929));
+	background:-moz-linear-gradient(-90deg,#ff6f6f,#cd2929);
+}
+button.jqButton.jqButtonRed:hover,
+a.jqButton.jqButtonRed:hover {
+	color:#fff;
+	background:#b92525;
+	border-color:#b92525;
+    filter:~":progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#d84d4d', endColorstr='#b92525')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#d84d4d),to(#b92525));
+	background:-moz-linear-gradient(-90deg,#d84d4d,#b92525);
+}
+button.jqButton.jqButtonCyan,
+a.jqButton.jqButtonCyan {
+	color:#fff;
+	background:#007aa3;
+	border-color:#007aa3;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4bb7db', endColorstr='#007aa3')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4bb7db),to(#007aa3));
+	background:-moz-linear-gradient(-90deg,#4bb7db,#007aa3);
+}
+button.jqButton.jqButtonCyan:hover,
+a.jqButton.jqButtonCyan:hover {
+	color:#fff;
+	background:#006f94;
+	border-color:#006f94;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#2b92b5', endColorstr='#006f94')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#2b92b5),to(#006f94));
+	background:-moz-linear-gradient(-90deg,#2b92b5,#006f94);
+}
+button.jqButton.jqButtonGreen,
+a.jqButton.jqButtonGreen {
+	color:#fff;
+	background:#297b29;
+	border-color:#297b29;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#6fb76f', endColorstr='#297b29')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#6fb76f),to(#297b29));
+	background:-moz-linear-gradient(-90deg,#6fb76f,#297b29);
+}
+button.jqButton.jqButtonGreen:hover,
+a.jqButton.jqButtonGreen:hover {
+	color:#fff;
+	background:#256f25;
+	border-color:#256f25;
+    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4d924d', endColorstr='#256f25')";
+	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4d924d),to(#256f25));
+	background:-moz-linear-gradient(-90deg,#4d924d,#256f25);
+}
+
+/* default colors for Foswiki elements */
+	
+	.foswikiUnvisited a:visited,
+	.foswikiUnvisited a:hover,
+	a.foswikiUnvisited:visited,
+	a.foswikiUnvisited:hover {
+		color:#06c;
+	}
+	
+	.foswikiGrayText {
+		color: #aaa;
+	}
+	
+	.foswikiBroadcastMessage,
+	.foswikiNotification,
+	.foswikiMessage {
+		background-color:#fdf9df;
+	}
+	.foswikiAllowNonWikiWord {
+		background-color:#fff;
+	}
+	.foswikiHelp {
+		background-color:#e6fbe7;
+	}
+	.foswikiAlert,
+	.foswikiAlert code {
+		color:#f00;
+	}
+	.foswikiTextarea,
+	.foswikiInputField,
+	.foswikiInputFieldDisabled,
+	.foswikiInputFieldReadOnly,
+	.foswikiSelect {
+		border-color:#ccc;
+	}
+	
+	.foswikiImage img {
+		border-color:#ccc;
+	}
+	
+	.foswikiTable,
+	.foswikiTable td,
+	.foswikiTable th {
+		border-width:1px;
+		border-style:solid;
+		border-color:#ccc;
+	}
+	
+	.foswikiTabs ul li a,
+	.foswikiTabs ul li a:link,
+	.foswikiTabs ul li a:hover,
+	.foswikiTabs ul li a:visited {
+		color:#000;
+	}
+	.foswikiTabs ul li a,
+	.foswikiTabs ul li span {
+		border-color:#ccc;
+		background:#eee;
+	}
+	.foswikiTabs ul li a,
+	.foswikiTabs ul li span {
+		border-color:#ccc;
+	}
+	.foswikiTabs ul li.foswikiActiveTab a,
+	.foswikiTabs ul li a:hover,
+	.foswikiTabs ul li span {
+		border-bottom-color:#fff;
+		background:#fff;
+	}
+	.foswikiTabContent {
+		background:#fff;
+	}
+	.foswikiTabContent {
+		border-color:#ccc;
+	}
+
+	.jqTab {
+		border-color: #ccc;
+	}
+	.foswikiTabContent,
+	.jqTabContents {
+		background:#fff;
+	}
+	
+	.jqTabPaneSimple .jqTabGroup a:link,
+	.jqTabPaneSimple .jqTabGroup a:visited,
+	.jqTabPaneSimple .jqTabGroup a:hover {
+		border-color: #ccc;
+		color: #000;
+	}
+	.jqTabPaneSimple .jqTabGroup a:hover {
+		background-color: #fff;
+		border-bottom-color: #fff;
+	}
+	.jqTabPaneSimple .jqTabGroup .current a:link,
+	.jqTabPaneSimple .jqTabGroup .current a:visited,
+	.jqTabPaneSimple .jqTabGroup .current a:hover {
+		border-bottom-color: #fff;
+	}

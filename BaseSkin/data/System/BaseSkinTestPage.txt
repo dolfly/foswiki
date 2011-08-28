@@ -1,7 +1,5 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="save topic" date="1313952690" format="1.1" reprev="2" version="2"}%
-Base skin test page
-
-<h1>Heading 1</h1> 
+%META:TOPICINFO{author="BaseUserMapping_333" comment="save topic" date="1314395368" format="1.1" reprev="2" version="3"}%
+<h1>Base Skin test page</h1> 
 <h2>Heading 2</h2> 
 <h3>Heading 3</h3> 
 <h4>Heading 4</h4> 
@@ -131,30 +129,27 @@ Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. No
 
 <span class="foswikiAlert">Alert text.</span>
 
----++ Rule
----
 
----++ Images
-Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
-
-<img src="%PUBURLPATH%/%SYSTEMWEB%/BeginnersStartHere/Motorola_logo" height="65" alt="" />
-
-Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
-
----+++ =foswikiImage=
-Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
-<div class="foswikiImage"><img src="%PUBURLPATH%/%SYSTEMWEB%/BeginnersStartHere/Motorola_logo" height="65" alt="" /></div>
-
----+++ Icons
-Normal text. Normal text. Normal text. Normal text.
-Text with :-) smilies and %ICON{info}% icons.
-Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+---++ foswikiNotification
+<div class="foswikiNotification">
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. N
+</div>
 
 ---++ Blockquote
-
 <blockquote>
 Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
 </blockquote>
+
+---++ Rules
+---
+---
+---
+text
+---
+---+++ header
+text
+---
+text
 
 ---++ Table
 
@@ -216,6 +211,24 @@ Numbered list:
 </li> <li> <strong>Bug:</strong> Internet Explorer 4.0 or earlier: If you get an "Internal Server Error" message when you upload a file, you need to try again. It should work the second time.
 </li></ul> 
 </div>
+
+---++ Images
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+<img src="%PUBURLPATH%/%SYSTEMWEB%/BeginnersStartHere/Motorola_logo" height="65" alt="" />
+
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+
+
+
+---+++ =foswikiImage=
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
+<div class="foswikiImage"><img src="%PUBURLPATH%/%SYSTEMWEB%/BeginnersStartHere/Motorola_logo" height="65" alt="" /></div>
+
+---+++ Icons
+Normal text. Normal text. Normal text. Normal text.
+Text with :-) smilies and %ICON{info}% icons.
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
 
 ---++ JQuery buttons
 
@@ -309,4 +322,4 @@ Inside a twisty
 %META:FIELD{name="FirstName" attributes="M" title="FirstName" value="Test"}%
 %META:FILEATTACHMENT{name="Lutra.lutra.standing.1.jpg" attachment="Lutra.lutra.standing.1.jpg" attr="" comment="" date="1270304614" path="Lutra.lutra.standing.1.jpg" size="110427" user="BaseUserMapping_333" version="1"}%
 %META:FILEATTACHMENT{name="comserverDocV1-1.pdf" attachment="comserverDocV1-1.pdf" attr="" comment="" date="1313952671" path="comserverDocV1-1.pdf" size="345459" user="BaseUserMapping_333" version="1"}%
-%META:FILEATTACHMENT{name="front.png" attachment="front.png" attr="" comment="" date="1313952690" path="front.png" size="206709" user="BaseUserMapping_333" version="1"}%
+%META:FILEATTACHMENT{name="front.png" attachment="front.png" attr="" comment="" date="1314395368" path="10022010(001).jpg" size="406969" user="BaseUserMapping_333" version="2"}%

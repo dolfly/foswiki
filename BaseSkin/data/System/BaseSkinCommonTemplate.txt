@@ -6,7 +6,7 @@
 	Handy macro for including JS from system paths
 }%
 %TMPL:DEF{"LIBJS"}%%ADDTOZONE{
-	"baseSkinJs"
+	"script"
 	id="%id%"
 	text="<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.js'></script>"
 	requires="%requires%"
@@ -19,14 +19,23 @@
 	id="%id%"
 	url="%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.css"
 	requires="%requires%"
-}%%TMPL:END%%{
+}%%TMPL:END%%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"CSS"}%%ADDTOZONE{
-	"baseSkinCss"
+	"head"
 	id="%id%"
 	text="<link rel='stylesheet' href='%url%' />"
 	requires="%requires%"
 }%%TMPL:END%%{
+---------------------------------------------------
+}%%{
+	Handy macro for including less from system paths
+}%%TMPL:DEF{"LIBLESS"}%%ADDTOZONE{
+	"head"
+	id="%id%"
+	text="<link rel='stylesheet/less' type='text/css' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.less' />"
+	requires="%requires%"
+}%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"form"}%%TMPL:END%%{
 ---------------------------------------------------

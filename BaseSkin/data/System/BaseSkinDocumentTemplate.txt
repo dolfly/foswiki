@@ -19,7 +19,7 @@
 %TMPL:P{"head:windowtitle"}%
 %TMPL:P{"head:meta"}%%TMPL:P{"head:script"}%%TMPL:P{"head:css"}%%{
 	Render head css and js after all TMPL:DEFs are read
-}%%RENDERZONE{"head"}%%RENDERZONE{"baseSkinJs"}%%RENDERZONE{"baseSkinCss"}%</head>%TMPL:END%%{
+}%%RENDERZONE{"head"}%%RENDERZONE{"script"}%</head>%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"body"}%<body class="%TMPL:P{"body:class"}%">
 %TMPL:P{"page"}%

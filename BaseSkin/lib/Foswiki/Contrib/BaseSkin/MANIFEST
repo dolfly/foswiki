@@ -6,8 +6,9 @@ data/System/BaseSkinCommonTemplate.txt 0644
 data/System/BaseSkinDocumentTemplate.txt 0644
 data/System/BaseSkinFormtablesTemplate.txt 0644
 data/System/BaseSkinAttachtablesTemplate.txt 0644
-data/System/BaseSkinTestView.txt 0644 # for testing the skin in the browser
+data/System/BaseSkinTestPage.txt 0644 # for testing the skin in the browser
 data/System/BaseSkinViewTemplate.txt 0644
+pub/System/BaseSkinCss/base.less 0644
 pub/System/BaseSkinCss/base_src.css 0644
 pub/System/BaseSkinCss/base.css 0644
 pub/System/BaseSkinCss/base.css.gz 0644
@@ -20,3 +21,5 @@ pub/System/BaseSkinCss/grid.css.gz 0644
 pub/System/BaseSkinJs/modernizr-1.7_src.js 0644
 pub/System/BaseSkinJs/modernizr-1.7.js 0644
 pub/System/BaseSkinJs/modernizr-1.7.js.gz 0644
+pub/System/BaseSkinJs/less-1.1.3.min.js 0644
+pub/System/BaseSkinJs/less-1.1.3.min.js.gz 0644

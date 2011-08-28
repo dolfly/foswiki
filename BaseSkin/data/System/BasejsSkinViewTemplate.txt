@@ -2,6 +2,18 @@
 	Base Skin topic template that loads a Javascript file
 }%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"head:script"}%%TMPL:END%%{
+}%%TMPL:DEF{"head:script"}%%TMPL:PREV%%TMPL:P{
+	"LIBJS"
+	id="BaseSkinJs/less-1.1.3.min"
+	requires=""
+}%%TMPL:P{
+	"LIBJS"
+	id="JavascriptFiles/foswikilib"
+	requires="JQUERYPLUGIN"
+}%%TMPL:P{
+	"LIBJS"
+	id="JavascriptFiles/foswikiPref"
+	requires="JavascriptFiles/foswikilib,JQUERYPLUGIN"
+}%%TMPL:END%%{
 ---------------------------------------------------
-}%%{</verbatim>}%
+}%%TMPL:END%%{</verbatim>}%
