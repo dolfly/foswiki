@@ -1,87 +1,114 @@
-/*
-SORT OUT
-
-- line spacing with small text / foswikiSmall
-- extra 1px spacing with bordered blockquote
-*/
-
-
-
 /* Settings */
 
 @font_family_main: sans-serif;
-@font_family_code: "Bitstream Vera Sans Mono","Andale Mono",Courier,monospace;
+@font_family_code: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif; /* same as stackoverflow.com */
 
 /* font sizes in pixels - only used for body; will be converted to ems */
 @body_font_size:13;
 
-@ratio: @ratio_golden;
+@strand1_init: @body_font_size;
+@strand2_init: 16;
 
 @ratio_golden: 1.618; /* 1:1.618 */
 @ratio_musical_fifth: 1.5; /* 2:3 */
 @ratio_musical_fourth: 1.333; /* 3:4 */
+@ratio: @ratio_musical_fifth;
 
-@body_line_height: @body_font_size * @ratio;
+@body_line_height: @ratio_golden * @body_font_size; /* could be a number as well, like 18 (pixels) */
+
+/* DEBUGGING */
 
 /* 
-Pixels	Ems	    % of 13
-987.975	75.998	7,599.808
-610.615	46.97	4,697.038
-377.389	29.03	2,902.992
-233.244	17.942	1,794.185
-144.156	11.089	1,108.892
-89.095	6.853	685.346
-55.065	4.236	423.577
-34.033	2.618	261.792
-21.034	1.618	161.800
-13	    1    	100.000
-8.035	0.618	61.808
-4.966	0.382	38.200
-3.069	0.236	23.608
-1.897	0.146	14.592
-1.172	0.09	9.015
+Modular scale: see http://vimeo.com/17079380 and http://modularscale.com/
+
+Using 2 strands to be used interleaved.
 */
 
-/* base */
-@ratio_1: 1;
-/* larger */
-@ratio_up_1: @ratio_1 * @ratio;
-@ratio_up_2: @ratio_up_1 * @ratio;
-@ratio_up_3: @ratio_up_2 * @ratio;
-@ratio_up_4: @ratio_up_3 * @ratio;
-@ratio_up_5: @ratio_up_4 * @ratio;
-@ratio_up_6: @ratio_up_5 * @ratio;
-@ratio_up_7: @ratio_up_6 * @ratio;
-@ratio_up_8: @ratio_up_7 * @ratio;
-@ratio_up_9: @ratio_up_8 * @ratio;
-/* smaller */
-@ratio_down_1: @ratio_1 / @ratio;
-@ratio_down_2: @ratio_down_1 / @ratio;
-@ratio_down_3: @ratio_down_2 / @ratio;
-@ratio_down_4: @ratio_down_3 / @ratio;
-@ratio_down_5: @ratio_down_4 / @ratio;
+/* strand 1 */
 
-@factor_p: @ratio_1 - 1;
-@factor_h6: @ratio_up_1 - 1;
-@factor_h5: @ratio_up_2 - 1;
-@factor_h4: @ratio_up_3 - 1;
-@factor_h3: @ratio_up_4 - 1;
-@factor_h2: @ratio_up_5 - 1;
-@factor_h1: @ratio_up_6 - 1;
-@factor_smallish: @ratio_down_1 - 1;
-@factor_small: @ratio_down_2 - 1;
+@strand1_ratio_1: @strand1_init;
+
+/* larger */
+@strand1_ratio_up_1: @strand1_ratio_1 * @ratio;
+@strand1_ratio_up_2: @strand1_ratio_up_1 * @ratio;
+@strand1_ratio_up_3: @strand1_ratio_up_2 * @ratio;
+@strand1_ratio_up_4: @strand1_ratio_up_3 * @ratio;
+@strand1_ratio_up_5: @strand1_ratio_up_4 * @ratio;
+@strand1_ratio_up_6: @strand1_ratio_up_5 * @ratio;
+@strand1_ratio_up_7: @strand1_ratio_up_6 * @ratio;
+@strand1_ratio_up_8: @strand1_ratio_up_7 * @ratio;
+@strand1_ratio_up_9: @strand1_ratio_up_8 * @ratio;
+@strand1_ratio_up_10: @strand1_ratio_up_9 * @ratio;
+@strand1_ratio_up_11: @strand1_ratio_up_10 * @ratio;
+@strand1_ratio_up_12: @strand1_ratio_up_11 * @ratio;
+@strand1_ratio_up_13: @strand1_ratio_up_12 * @ratio;
+@strand1_ratio_up_14: @strand1_ratio_up_13 * @ratio;
+@strand1_ratio_up_15: @strand1_ratio_up_14 * @ratio;
+
+/* smaller */
+@strand1_ratio_down_1: @strand1_ratio_1 / @ratio;
+@strand1_ratio_down_2: @strand1_ratio_down_1 / @ratio;
+@strand1_ratio_down_3: @strand1_ratio_down_2 / @ratio;
+@strand1_ratio_down_4: @strand1_ratio_down_3 / @ratio;
+@strand1_ratio_down_5: @strand1_ratio_down_4 / @ratio;
+@strand1_ratio_down_6: @strand1_ratio_down_5 / @ratio;
+@strand1_ratio_down_7: @strand1_ratio_down_6 / @ratio;
+@strand1_ratio_down_8: @strand1_ratio_down_7 / @ratio;
+
+/* strand 2 */
+
+@strand2_ratio_1: @strand2_init;
+
+/* larger */
+@strand2_ratio_up_1: @strand2_ratio_1 * @ratio;
+@strand2_ratio_up_2: @strand2_ratio_up_1 * @ratio;
+@strand2_ratio_up_3: @strand2_ratio_up_2 * @ratio;
+@strand2_ratio_up_4: @strand2_ratio_up_3 * @ratio;
+@strand2_ratio_up_5: @strand2_ratio_up_4 * @ratio;
+@strand2_ratio_up_6: @strand2_ratio_up_5 * @ratio;
+@strand2_ratio_up_7: @strand2_ratio_up_6 * @ratio;
+@strand2_ratio_up_8: @strand2_ratio_up_7 * @ratio;
+@strand2_ratio_up_9: @strand2_ratio_up_8 * @ratio;
+@strand2_ratio_up_10: @strand2_ratio_up_9 * @ratio;
+@strand2_ratio_up_11: @strand2_ratio_up_10 * @ratio;
+@strand2_ratio_up_12: @strand2_ratio_up_11 * @ratio;
+@strand2_ratio_up_13: @strand2_ratio_up_12 * @ratio;
+@strand2_ratio_up_14: @strand2_ratio_up_13 * @ratio;
+@strand2_ratio_up_15: @strand2_ratio_up_14 * @ratio;
+
+/* smaller */
+@strand2_ratio_down_1: @strand2_ratio_1 / @ratio;
+@strand2_ratio_down_2: @strand2_ratio_down_1 / @ratio;
+@strand2_ratio_down_3: @strand2_ratio_down_2 / @ratio;
+@strand2_ratio_down_4: @strand2_ratio_down_3 / @ratio;
+@strand2_ratio_down_5: @strand2_ratio_down_4 / @ratio;
+@strand2_ratio_down_6: @strand2_ratio_down_5 / @ratio;
+@strand2_ratio_down_7: @strand2_ratio_down_6 / @ratio;
+@strand2_ratio_down_8: @strand2_ratio_down_7 / @ratio;
+
+/* set ratios for common elements */
+@size_small:    @strand2_ratio_down_1;
+@size_smallish: @strand2_ratio_down_1;
+@size_p:        @strand1_ratio_1;
+@size_h6:       @strand2_ratio_1;
+@size_h5:       @strand1_ratio_up_1;
+@size_h4:       @strand2_ratio_up_1;
+@size_h3:       @strand1_ratio_up_2;
+@size_h2:       @strand2_ratio_up_2;
+@size_h1:       @strand1_ratio_up_3;
+
 
 .em_font_size (@size) {
-	font-size: 0em + (@body_font_size + @size) / @body_font_size;
+	font-size: 0em + @size / @body_font_size;
 }
 .em_line_height (@size) {
-	line-height: 0em + @body_line_height / (@body_font_size + @size);
+	line-height: 0em + (@body_line_height / @size);
 }
-.margin_top () {
-	margin-top: 0;	
+.em_margin_top (@size) {
+	margin-top: 0em + (@body_line_height / @size);
 }
-.em_margin_bottom (@size: 0) {
-	margin-bottom: 0em + @body_line_height / (@body_font_size + @size);
+.em_margin_bottom (@size) {
+	margin-bottom: 0em + (@body_line_height / @size);
 }
 .block_padding () {
 	padding-top: 0em + @body_line_height / @body_font_size;
@@ -94,77 +121,71 @@ Pixels	Ems	    % of 13
 	border-width: 1px;
 }
 
-/*
-.button_background_gradient(@base) {
-    color: #fef4e9;
-    border: solid 1px #da7c0c;
-    background: @base;
-    background: -webkit-gradient(linear, left top, left bottom, from(lighten(@base, 5%)), to(darken(@base, 5%)));
-    background: -moz-linear-gradient(top,  lighten(@base, 5%), darken(@base, 5%));
-}
-@orange_base: #f78d1d;
-.orange { .button_background_gradient(@orange_base); }
-.orange:hover { .button_background_gradient(darken(@orange_base, 10%)); }
-.orange:active { .button_background_gradient(lighten(@orange_base, 10%)); }
-
-@blue_base: #7db8db;
-.blue { .button_background_gradient(@blue_base); }
-.blue:hover { .button_background_gradient(darken(@blue_base, 10%)); }
-.blue:active { .button_background_gradient(lighten(@blue_base, 10%)); }
-*/
-
- 
 body, select, input, textarea {
-	/* #444 looks better than black: twitter.com/H_FJ/statuses/11800719859 */
-	color: #444;
+	color: #000;
 	font-family: @font_family_main;
 }
  
-h1, h2, h3, h4, h5, h6 { 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { 
   text-rendering: optimizeLegibility; 
-  font-weight: bold;
+  font-weight: normal;
+  -webkit-margin-before:0;
+  -webkit-margin-after:0;
 }
+/*
+You will find 2 ways to set the line height of elements, and they are both wrong:
 
+   1. @body_line_height / @size : leads to very small line heights that cause overlap
+   2. don't set line height at all but let the browser use body's line height : with a setting of 1.5 that leads to very high line heights with too much whitespace.
+
+The solution is to use line-height: 1 (yes, no em!) for headers, and the desired line height for normal text only.
+
+*/
 body {
 	font-size: 0px + @body_font_size;
-	.em_line_height (@factor_p);
+	line-height: @body_line_height / @body_font_size;
 }
 h1 {
-	.em_font_size(@factor_h1);
-	.em_line_height(@factor_h1);
-	.margin_top;
-	.em_margin_bottom(@factor_h1);
+	.em_font_size(@size_h1);
+	line-height: 1;
+	.em_margin_top(@size_h1);
+	.em_margin_bottom(@size_h1);
 }
 h2 {
-	.em_font_size(@factor_h2);
-	.em_line_height(@factor_h2);
-	.margin_top;
-	.em_margin_bottom(@factor_h2);
+	.em_font_size(@size_h2);
+	line-height: 1;
+	.em_margin_top(@size_h2);
+	.em_margin_bottom(@size_h2);
 }
 h3 {
-	.em_font_size(@factor_h3);
-	.em_line_height(@factor_h3);
-	.margin_top;
-	.em_margin_bottom(@factor_h3);
+	.em_font_size(@size_h3);
+	line-height: 1;
+	.em_margin_top(@size_h3);
+	.em_margin_bottom(@size_h3);
 }
-h4,
+h4 {
+	.em_font_size(@size_h4);
+	line-height: 1;
+	.em_margin_top(@size_h4);
+	.em_margin_bottom(@size_h4);
+}
+h5,
 .foswikiLarge {
-	.em_font_size(@factor_h4);
-	.em_line_height(@factor_h4);
-	.margin_top;
-	.em_margin_bottom(@factor_h4);
-}
-h5 {
-	.em_font_size(@factor_h5);
-	.em_line_height(@factor_h5);
-	.margin_top;
-	.em_margin_bottom(@factor_h5);
+	.em_font_size(@size_h5);
+	line-height: 1;
+	.em_margin_top(@size_h5);
+	.em_margin_bottom(@size_h5);
 }
 h6 {
-	.em_font_size(@factor_h6);
-	.em_line_height(@factor_h6);
-	.margin_top;
-	.em_margin_bottom(@factor_h6);
+	.em_font_size(@size_h6);
+	line-height: 1;
+	.em_margin_top(@size_h6);
+	.em_margin_bottom(@size_h6);
 }
 p,
 blockquote,
@@ -176,34 +197,51 @@ th,
 ul,
 ol,
 dl,
-dd,
 hr,
 .foswikiTable,
 .jqTabPane,
 .foswikiBroadcastMessage,
 .foswikiImage,
 .foswikiMessage,
-.foswikiNotification {
-	.em_font_size(@factor_p);
-	.em_line_height(@factor_p);
-	.margin_top;
-	.em_margin_bottom(@factor_p);
+.foswikiNotification,
+.foswikiAttachments {
+	.em_font_size(@size_p);
+	.em_margin_top(@size_p);
+	.em_margin_bottom(@size_p);
 }
 abbr, code, kbd, samp, small, var {
-	.em_line_height(@factor_p);
+
 }
+blockquote,
 .foswikiSmallish {
-	.em_font_size(@factor_smallish);
-	.em_line_height(@factor_smallish);
-	.margin_top;
-	.em_margin_bottom(@factor_smallish);
+	.em_font_size(@size_smallish);
+	.em_margin_top(@size_smallish);
+	.em_margin_bottom(@size_smallish);
 }
 small,
 .foswikiSmall {
-	.em_font_size(@factor_small);
-	.em_line_height(@factor_small);
-	.margin_top;
-	.em_margin_bottom(@factor_small);
+	.em_font_size(@size_small);
+	.em_margin_top(@size_small);
+	.em_margin_bottom(@size_small);
+}
+
+/* paragraph indenting for readability */
+p {
+	text-indent: 0em + @body_line_height / @size_p;
+}
+div + p,
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+p.first,
+pre + p,
+p:first-child,
+ul + p,
+ol + p {
+	text-indent: 0;
 }
 
 hr {
@@ -214,17 +252,46 @@ hr {
 
 /* correct for nested elements */
 
-h1:first-child, h2:first-child, h3:first-child, h4:first-child {
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
     margin-top: 0;
 }
 
-li ul, li ol, ul ul, ol ol {
+/* prevent double padding with bullet list in block */
+
+blockquote ol:first-child,
+pre ol:first-child,
+.foswikiHelp ol:first-child,
+.foswikiBroadcastMessage ol:first-child,
+.foswikiNotification ol:first-child,
+blockquote ul:first-child,
+pre ul:first-child,
+.foswikiHelp ul:first-child,
+.foswikiBroadcastMessage ul:first-child,
+.foswikiNotification ul:first-child {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+li ul,
+li ol,
+ul ul,
+ol ol {
     top: 0;
     margin-top: 0;
     margin-bottom: 0;
 }
 
-li h1, li h2, li h3, li h4, li h5, li h6, li p {
+li h1,
+li h2,
+li h3,
+li h4,
+li h5,
+li h6,
+li p {
     top: 0;
 }
 
@@ -236,6 +303,12 @@ pre,
 	.block_padding;
 }
 
+/* if we don't use a background or border for blockquotes, we don't need the top and bottom padding */
+blockquote {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
 pre,
 code,
 tt,
@@ -243,10 +316,13 @@ kbd,
 samp,
 .foswikiDiffDebug {
     font-family: @font_family_code;
-    .em_font_size(@factor_small);
-    .em_line_height(@factor_small);
+    .em_font_size(@size_p);
 }
 
+dd,
+ul {
+	margin-left: 0px + @body_line_height;
+}
 .foswikiPage {
 	width:960px;
 	margin:0 auto;
@@ -291,12 +367,6 @@ samp,
 		color: #369;
 	}
 
-	blockquote {
-		background: #f3f3f3;
-		border-style: solid none;
-		border-width: 1px;
-		border-color: #ccc;
-	}
 	::-moz-selection {
 		background: #06c;
 		color:#fff;
@@ -368,7 +438,6 @@ samp,
 }
 .foswikiForm {}
 .foswikiFormTitle {
-	margin-bottom:.5em;
 }
 .foswikiMessage {}
 .foswikiEmulatedLink {
@@ -954,3 +1023,59 @@ a.jqButton.jqButtonGreen:hover {
 	.jqTabPaneSimple .jqTabGroup .current a:hover {
 		border-bottom-color: #fff;
 	}
+
+
+/*
+.button_background_gradient(@base) {
+    color: #fef4e9;
+    border: solid 1px #da7c0c;
+    background: @base;
+    background: -webkit-gradient(linear, left top, left bottom, from(lighten(@base, 5%)), to(darken(@base, 5%)));
+    background: -moz-linear-gradient(top,  lighten(@base, 5%), darken(@base, 5%));
+}
+@orange_base: #f78d1d;
+.orange { .button_background_gradient(@orange_base); }
+.orange:hover { .button_background_gradient(darken(@orange_base, 10%)); }
+.orange:active { .button_background_gradient(lighten(@orange_base, 10%)); }
+
+@blue_base: #7db8db;
+.blue { .button_background_gradient(@blue_base); }
+.blue:hover { .button_background_gradient(darken(@blue_base, 10%)); }
+.blue:active { .button_background_gradient(lighten(@blue_base, 10%)); }
+*/
+
+
+
+/* DEBUGGING */
+.strand1_ratio_1 {
+	font-size: @strand1_ratio_1;
+}
+.strand1_ratio_up_2 {
+	font-size: @strand1_ratio_up_2;
+}
+.strand1_ratio_up_3 {
+	font-size: @strand1_ratio_up_3;
+}
+.strand1_ratio_up_4 {
+	font-size: @strand1_ratio_up_4;
+}
+.strand1_ratio_up_5 {
+	font-size: @strand1_ratio_up_5;
+}
+
+
+.strand2_ratio_1 {
+	font-size: @strand2_ratio_1;
+}
+.strand2_ratio_up_2 {
+	font-size: @strand2_ratio_up_2;
+}
+.strand2_ratio_up_3 {
+	font-size: @strand2_ratio_up_3;
+}
+.strand2_ratio_up_4 {
+	font-size: @strand2_ratio_up_4;
+}
+.strand2_ratio_up_5 {
+	font-size: @strand2_ratio_up_5;
+}

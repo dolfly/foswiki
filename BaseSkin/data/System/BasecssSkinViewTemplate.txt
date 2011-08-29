@@ -8,6 +8,10 @@
 	"LIBCSS"
 	id="BaseSkinCss/boilerplate"
 	requires=""
+}%%ADDTOZONE{
+	"head"
+	id="font"
+	text=""
 }%%IF{
 	"defined BASESKIN_USE_CSS AND $BASESKIN_USE_CSS!=''"
 	then="$percntTMPL:P{

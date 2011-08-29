@@ -17,7 +17,7 @@
 
 
 %TMPL:DEF{FORM:display:titlelink}%<div class='foswikiRight'><a href='%SCRIPTURL{edit}%/%WEB%/%TOPIC%?t=%GMTIME{$epoch}%;action=form' class='foswikiButton'>%MAKETEXT{"Edit form data"}%</a></div>
-<h3 class='foswikiUnvisited'> %A_TITLE% </h3>%TMPL:END%
+<span class='foswikiLarge foswikiUnvisited'><noautolink>%A_TITLE%</noautolink></span>%TMPL:END%
 
 
 %TMPL:DEF{FORM:display:titlename}%<noautolink><h3>%A_TITLE%</h3></noautolink>%TMPL:END%

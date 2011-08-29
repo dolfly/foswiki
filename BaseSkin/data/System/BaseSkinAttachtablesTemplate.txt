@@ -24,7 +24,7 @@
 %TMPL:DEF{ATTACH:files:header}%<div class='foswikiRight'>
 <a href="#" class="foswikiButton foswikiUnvisited">Attach new file</a>
 </div>
-<h3>Attachments on this topic</h3>
+<span class="foswikiLarge">Attachments on this topic</span>
 %TMPL:P{ATTACH:files:header(basic)}%
 %TMPL:END%
 
