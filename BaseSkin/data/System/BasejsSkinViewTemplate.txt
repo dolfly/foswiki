@@ -1,5 +1,8 @@
-%{<verbatim class="tml">}%%{
-	Base Skin topic template that loads a Javascript file
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+The basejs template adds JavaScript files to the html head
+===================================================
 }%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"head:script"}%%TMPL:PREV%%TMPL:P{
@@ -14,6 +17,6 @@
 	"LIBJS"
 	id="JavascriptFiles/foswikiPref"
 	requires="JavascriptFiles/foswikilib,JQUERYPLUGIN"
-}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:END%%{</verbatim>}%
+}%%TMPL:END%%TMPL:END%%{
+===================================================
+</verbatim>}%

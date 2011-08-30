@@ -1,9 +1,16 @@
-%{<verbatim class="tml">}%%{
-	This is the "master template" file for Foswiki' Base skin. The definitions are used in	other templates, such as BaseSkinViewTemplate.
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+The common template contains definitions used in multiple templates.
+===================================================
 }%%{
 ---------------------------------------------------
-}%%{
-	Handy macro for including JS from system paths
+Macro for including JavaScript files from system paths
+Takes as arguments:
+- id
+- file url, must NOT include .css extension
+- requires
+---------------------------------------------------
 }%
 %TMPL:DEF{"LIBJS"}%%ADDTOZONE{
 	"script"
@@ -12,37 +19,43 @@
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-}%%{
-	Handy macro for including CSS from system paths
-}%%TMPL:DEF{"LIBCSS"}%%TMPL:P{
-	"CSS"
+Macro for including CSS files from *system* paths
+Takes as arguments:
+- id
+- file url, must NOT include .css extension
+- requires
+---------------------------------------------------
+}%%TMPL:DEF{"LIBCSS"}%%ADDTOZONE{
+	"head"
 	id="%id%"
-	url="%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.css"
+	text="<link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.css' />"
 	requires="%requires%"
-}%%TMPL:END%%TMPL:END%%{
+}%%TMPL:END%%{
+---------------------------------------------------
+Macro for including CSS files from other paths
+Takes as arguments:
+- id
+- file url, must include .css extension
+- requires
 ---------------------------------------------------
 }%%TMPL:DEF{"CSS"}%%ADDTOZONE{
 	"head"
 	id="%id%"
-	text="<link rel='stylesheet' href='%url%' />"
+	text="$percntFORMAT{
+		\"%url%\"
+		type=\"string\"
+		format=\"<link rel='stylesheet' href='$item' />\"
+	}$percnt"
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-}%%{
-	Handy macro for including less from system paths
+Macro for including less files from system paths
+---------------------------------------------------
 }%%TMPL:DEF{"LIBLESS"}%%ADDTOZONE{
 	"head"
 	id="%id%"
 	text="<link rel='stylesheet/less' type='text/css' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.less' />"
 	requires="%requires%"
 }%%{
----------------------------------------------------
-}%%TMPL:DEF{"form"}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"attachments"}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"contentheader"}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"contentfooter"}%%TMPL:END%%{
----------------------------------------------------
-}%%{</verbatim>}%
+===================================================
+</verbatim>}%

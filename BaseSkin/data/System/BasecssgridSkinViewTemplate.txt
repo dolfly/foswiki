@@ -1,5 +1,9 @@
-%{<verbatim class="tml">}%%{
-	Base Skin topic template that loads a grid CSS file
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+The basecssgrid template adds grid.css to the html head. This defines
+a typographic grid using modular scales.
+===================================================
 }%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"head:css"}%%TMPL:PREV%%TMPL:P{
@@ -7,5 +11,5 @@
 	id="BaseSkinCss/grid"
 	requires="BaseSkinCss/base"
 }%%TMPL:END%%{
----------------------------------------------------
-}%%{</verbatim>}%
+===================================================
+</verbatim>}%

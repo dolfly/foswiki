@@ -1,5 +1,8 @@
-%{<verbatim class="tml">}%%{
-	Base Skin topic template for all scripts - this defines the html document
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+The document template defines the structure of the html document and should be included by all script topic templates.
+===================================================
 }%%TMPL:INCLUDE{"common"}%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"document"}%
@@ -79,5 +82,5 @@
 }%%{
 	Render the document
 }%%TMPL:P{"document"}%%{
----------------------------------------------------
-}%%{</verbatim>}%
+===================================================
+</verbatim>}%

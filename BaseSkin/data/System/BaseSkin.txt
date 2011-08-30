@@ -18,8 +18,8 @@ The progressive loading is done by using a topic template for each part.
 %TABLE{columnwidths="10%,50%,40%" headeralign="left"}%
 | *Part name* | *What it does* | *Defined in topic template* |
 | =base=   | Sets the base structure of the document (HTML page). | %SYSTEMWEB%.BaseSkinViewTemplate (and this loads %SYSTEMWEB%.BaseSkinDocumentTemplate) |
-| =basecss= | Loads CSS files: [[http://html5boilerplate.com/][boilerplate.css]] and =base.css= that sets default styling for HTML elements and implements Foswiki styles. %BR% =base.css= is not loaded if preference =BASESKIN_USE_CSS= is set to another CSS file. | %SYSTEMWEB%.BaseCssSkinViewTemplate |
-| =basecssgrid= | Loads a CSS file that implements an adaptive grid to cater for different screen sizes. | %SYSTEMWEB%.BaseCssGridSkinViewTemplate |
+| =basecss= | Loads CSS files: [[http://html5boilerplate.com/][boilerplate.css]] and [[%PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/base_src.css][base.css]] that sets default styling for HTML elements and implements Foswiki styles. %BR% =base.css= is not loaded if preference =BASESKIN_USE_CSS= is set to another CSS file. | %SYSTEMWEB%.BaseCssSkinViewTemplate |
+| =basecssgrid= | Loads [[%PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/grid_src.css][grid.css]] that implements a typographic grid and an adaptive grid to cater for different screen sizes. | %SYSTEMWEB%.BaseCssGridSkinViewTemplate |
 | =basejs= | Loads a javascript file that implements dynamic interaction with topic contents. | %SYSTEMWEB%.BaseJsSkinViewTemplate |
 
 ---+++ From specific to generic
@@ -49,17 +49,28 @@ And as said above, you can also use all parts together:
    * <nop>Set SKIN = %SKIN_PATH%
 </pre>
 
----++ Using different CSS
+---++ Customizing
+---+++ Using different CSS
 The file =base.css= defines the default styling for Base Skin (it "fills in" the resets done in =boilerplate.css= and sets styling for =foswikiXxx= classes).
 
 To change the default style you can either:
-   1 Use a different style by pointing preference =BASESKIN_USE_CSS= to a CSS file
-   1 Add to the default style by pointing preference =BASESKIN_ADD_CSS= to a CSS file
+   1 Override the base CSS
+   1 Add to the base CSS
+
+---++++ Overriding the base style
+Use a different style by pointing preference =BASESKIN_USE_CSS= to a CSS file. This may be a comma-separated list of files.
 
 For example:
 <pre class="tml">
-   * <nop>Set BASESKIN_USE_CSS = %<nop>PUBURL%/%<nop>MAINWEB%/<nop>SitePreferences/style.css
-   * <nop>Set BASESKIN_ADD_CSS = %<nop>PUBURL%/%<nop>MAINWEB%/<nop>SitePreferences/nicer_logo.css
+   * <nop>Set BASESKIN_USE_CSS = %<nop>PUBURL%/%<nop>MAINWEB%/<nop>SitePreferences/ourbase.css,%<nop>PUBURL%/%<nop>MAINWEB%/<nop>SitePreferences/company.css
+</pre>
+
+---++++ Adding to the base style
+Add to the default style by pointing preference =BASESKIN_ADD_CSS= to a CSS file. This may be a comma-separated list of files.
+
+For example:
+<pre class="tml">
+   * <nop>Set BASESKIN_ADD_CSS = %<nop>PUBURL%/%<nop>MAINWEB%/<nop>SitePreferences/nicer_logo.css,%<nop>PUBURL%/%<nop>MAINWEB%/<nop>SitePreferences/projects.css
 </pre>
 
 ---++ Testing

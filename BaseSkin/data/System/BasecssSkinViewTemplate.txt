@@ -1,17 +1,33 @@
-%{<verbatim class="tml">}%%{
-	Base Skin topic template that loads Base Skin CSS file boilerplate.css.
-	Conditionally loads base.css, unless preference BASESKIN_USE_CSS is set to a CSS url.
-	Adds a CSS file BASESKIN_ADD_CSS if this preference is set.
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+The basecss template adds CSS files to the html head:
+- boilerplate.css
+- TODO: external font files
+- base.css - unless preference BASESKIN_USE_CSS is set
+- files defined in BASESKIN_USE_CSS
+- files defined in BASESKIN_ADD_CSS
+===================================================
 }%%TMPL:INCLUDE{"view"}%%{
+---------------------------------------------------
+HTML5 ✰ Boilerplate contains a reset, font normalization and some base styles
 ---------------------------------------------------
 }%%TMPL:DEF{"head:css"}%%TMPL:PREV%%TMPL:P{
 	"LIBCSS"
 	id="BaseSkinCss/boilerplate"
 	requires=""
+}%%{
+---------------------------------------------------
+TODO Link to font should be added here
+---------------------------------------------------
 }%%ADDTOZONE{
 	"head"
 	id="font"
 	text=""
+}%%{
+---------------------------------------------------
+Loads CSS files defined in BASESKIN_USE_CSS if set
+---------------------------------------------------
 }%%IF{
 	"defined BASESKIN_USE_CSS AND $BASESKIN_USE_CSS!=''"
 	then="$percntTMPL:P{
@@ -21,10 +37,14 @@
 			url=\"%BASESKIN_USE_CSS%\"
 			}$percnt"
 	else="$percntTMPL:P{
-			\"LIBLESS\"
+			\"LIBCSS\"
 			id=\"BaseSkinCss/base\"
 			requires=\"BaseSkinCss/boilerplate\"
 		}$percnt"
+}%%{
+---------------------------------------------------
+Loads CSSs file defined in BASESKIN_ADD_CSS if set
+---------------------------------------------------
 }%%IF{
 	"defined BASESKIN_ADD_CSS AND $BASESKIN_ADD_CSS!=''"
 	then="$percntTMPL:P{
@@ -36,12 +56,16 @@
 	else=""
 }%%TMPL:END%%{
 ---------------------------------------------------
+Development only: if url param devgrid is 1, adds JavaScript to show a baseline grid on the page.
+---------------------------------------------------
 }%%TMPL:DEF{"head:script"}%%TMPL:PREV%%IF{
 	"defined devgrid AND $devgrid='1'"
 	then="$percntTMPL:P{
 		\"dev:baselinegrid\"
 	}$percnt"
 }%%TMPL:END%%{
+---------------------------------------------------
+Development only: adds the baseline grid script to the html head.
 ---------------------------------------------------
 }%%TMPL:DEF{"dev:baselinegrid"}%%ADDTOZONE{
 	"script"
@@ -60,6 +84,6 @@ jQuery(document).ready(function() {
 });
 </script>"
 	requires="JQUERYPLUGIN"
-}%%{
----------------------------------------------------
-}%%TMPL:END%%{</verbatim>}%
+}%%TMPL:END%%{
+===================================================
+</verbatim>}%

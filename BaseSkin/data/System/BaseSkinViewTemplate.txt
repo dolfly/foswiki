@@ -1,5 +1,11 @@
-%{<verbatim class="tml">}%%{
-	Base Skin topic template for view script
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+The view template defines the display of contents through the view script:
+- topic text
+- data form
+- attachments
+===================================================
 }%%TMPL:INCLUDE{"document"}%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"content"}%<div class="foswikiContent">
@@ -47,5 +53,5 @@ sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar cont
 }%%TMPL:DEF{"attachments:top"}%%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"attachments:bottom"}%%TMPL:P{"attachments"}%%TMPL:END%%{
----------------------------------------------------
-}%%{</verbatim>}%
+===================================================
+</verbatim>}%

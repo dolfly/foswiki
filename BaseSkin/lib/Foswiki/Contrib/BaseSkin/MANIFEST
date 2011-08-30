@@ -15,6 +15,7 @@ pub/System/BaseSkinCss/base.css.gz 0644
 pub/System/BaseSkinCss/boilerplate_src.css 0644 # from http://html5boilerplate.com/
 pub/System/BaseSkinCss/boilerplate.css 0644
 pub/System/BaseSkinCss/boilerplate.css.gz 0644
+pub/System/BaseSkinCss/grid.less 0644
 pub/System/BaseSkinCss/grid_src.css 0644
 pub/System/BaseSkinCss/grid.css 0644
 pub/System/BaseSkinCss/grid.css.gz 0644
