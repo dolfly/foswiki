@@ -8,7 +8,7 @@ a typographic grid using modular scales.
 ---------------------------------------------------
 }%%TMPL:DEF{"head:css"}%%TMPL:PREV%%TMPL:P{
 	"LIBCSS"
-	id="BaseSkinCss/grid"
+	id="BaseSkinCssGrid/grid"
 	requires="BaseSkinCss/base"
 }%%TMPL:END%%{
 ===================================================

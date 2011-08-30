@@ -1,9 +1,5 @@
-%META:TOPICINFO{author="BaseUserMapping_333" comment="save topic" date="1314395368" format="1.1" reprev="2" version="3"}%
-<h1>Base Skin test page</h1> 
-
-text
-
-<h1>Heading 1</h1> 
+%META:TOPICINFO{author="BaseUserMapping_333" comment="reprev" date="1314737308" format="1.1" reprev="2" version="2"}%
+---+ Heading 1
 
 text
 
@@ -364,6 +360,6 @@ Inside a twisty
 ---+++ JQuery Tabs
 %META:FORM{name="UserForm"}%
 %META:FIELD{name="FirstName" attributes="M" title="FirstName" value="Test"}%
-%META:FILEATTACHMENT{name="Lutra.lutra.standing.1.jpg" attachment="Lutra.lutra.standing.1.jpg" attr="" comment="" date="1270304614" path="Lutra.lutra.standing.1.jpg" size="110427" user="BaseUserMapping_333" version="1"}%
-%META:FILEATTACHMENT{name="comserverDocV1-1.pdf" attachment="comserverDocV1-1.pdf" attr="" comment="" date="1313952671" path="comserverDocV1-1.pdf" size="345459" user="BaseUserMapping_333" version="1"}%
-%META:FILEATTACHMENT{name="front.png" attachment="front.png" attr="" comment="" date="1314395368" path="10022010(001).jpg" size="406969" user="BaseUserMapping_333" version="2"}%
+%META:FILEATTACHMENT{name="ISS1.jpg" attachment="ISS1.jpg" attr="" comment="The International Space Station" date="1314737307" path="iss-sta2.jpg" size="57087" user="BaseUserMapping_333" version="2"}%
+%META:FILEATTACHMENT{name="Paul_Cezanne_169.jpg" attachment="Paul_Cezanne_169.jpg" attr="" comment="Cézanne" date="1314736980" path="Paul_Cezanne_169.jpg" size="226459" user="BaseUserMapping_333" version="1"}%
+%META:FILEATTACHMENT{name="Paper004.pdf" attachment="Paper004.pdf" attr="" comment="" date="1314736990" path="Paper004.pdf" size="717980" user="BaseUserMapping_333" version="1"}%

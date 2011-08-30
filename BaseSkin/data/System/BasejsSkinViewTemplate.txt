@@ -7,10 +7,6 @@ The basejs template adds JavaScript files to the html head
 ---------------------------------------------------
 }%%TMPL:DEF{"head:script"}%%TMPL:PREV%%TMPL:P{
 	"LIBJS"
-	id="BaseSkinJs/less-1.1.3.min"
-	requires=""
-}%%TMPL:P{
-	"LIBJS"
 	id="JavascriptFiles/foswikilib"
 	requires="JQUERYPLUGIN"
 }%%TMPL:P{

@@ -1,0 +1,542 @@
+/*
+Typographic grid using modular scales
+see http://vimeo.com/17079380 and http://modularscale.com/
+*/
+
+// ------------------------------------------------------------
+// START SETTINGS
+
+$font_family_main: sans-serif;
+$font_family_code: 'Bitstream Vera Sans Mono','Andale Mono','Courier',monospace; 
+
+
+// font sizes in pixels - only used for body; will be converted to ems
+$body_font_size:13;
+
+$strand1_init: $body_font_size;
+$strand2_init: 16;
+
+$ratio_golden: 1.618;			// 1:1.618
+$ratio_musical_fifth: 1.5;		// 2:3
+$ratio_musical_fourth: 1.333;	// 3:4
+$ratio: $ratio_musical_fifth;
+
+$body_line_height: $ratio_golden * $body_font_size; // could be a number as well, like 18 (pixels)
+
+// END SETTINGS
+// ------------------------------------------------------------
+
+// ------------------------------------------------------------
+// START INTERNAL VARIABLES AND FUNCTIONS
+
+@function em_font_size($size) {
+	@return $size / $body_font_size;
+}
+@function em_line_height($size) {
+	@return $body_line_height / $size;
+}
+@mixin em_font_size ($size) {
+	font-size: 0em + em_font_size($size);
+}
+@mixin em_line_height ($size) {
+	line-height: 0em + em_line_height($size);
+}
+@mixin em_margin_top ($size) {
+	margin-top: 0em + em_line_height($size);
+}
+@mixin em_margin_bottom ($size) {
+	margin-bottom: 0em + em_line_height($size);
+}
+@mixin block_padding ($hide_side_padding: 0) {
+	padding-top: $size_block_padding_em;
+	padding-bottom: $size_block_padding_em;
+	@if $hide_side_padding != 1 {
+		padding-left: $size_block_padding_px;
+		padding-right: $size_block_padding_px;
+	} @else {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+@mixin block_padding_small ($hide_side_padding: 0) {
+	padding-top: $size_block_padding_small_em;
+	padding-bottom: $size_block_padding_small_em;
+	@if $hide_side_padding != 1 {
+		padding-left: $size_block_padding_small_px;
+		padding-right: $size_block_padding_small_px;
+	} @else {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+@mixin block_padding_small_flattened ($hide_side_padding: 0) {
+	padding-top: $size_block_padding_small_flattened_em;
+	padding-bottom: $size_block_padding_small_flattened_em;
+	@if $hide_side_padding != 1 {
+		padding-left: $size_block_padding_small_px;
+		padding-right: $size_block_padding_small_px;
+	} @else {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+@mixin dev_gridline () {
+	border-color: fade-out(#00f, .9);
+	border-width: 1px;
+}
+@mixin ie-linear-gradient($start-color, $end-color) {
+   filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#{$start-color}', endColorstr='#{$end-color}');
+   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start-color}', endColorstr='#{$end-color}')";
+}
+@mixin gradient ($start, $end) {
+    @include ie-linear-gradient($start, $end);
+	background:-webkit-gradient(linear,0% 0,0% 100%,from($start),to($end));
+	background:-moz-linear-gradient(-90deg,$start,$end);
+}
+@mixin corner ($radius) {
+	-webkit-border-radius:0px + $radius;
+	-moz-border-radius:0px + $radius;
+	border-radius:0px + $radius;
+}
+
+// Using 2 strands to be used interleaved.
+$strand1_ratio_1: $strand1_init;
+
+// larger - sizes in pixels
+$strand1_ratio_up_1: $strand1_ratio_1 * $ratio;
+$strand1_ratio_up_2: $strand1_ratio_up_1 * $ratio;
+$strand1_ratio_up_3: $strand1_ratio_up_2 * $ratio;
+$strand1_ratio_up_4: $strand1_ratio_up_3 * $ratio;
+$strand1_ratio_up_5: $strand1_ratio_up_4 * $ratio;
+$strand1_ratio_up_6: $strand1_ratio_up_5 * $ratio;
+$strand1_ratio_up_7: $strand1_ratio_up_6 * $ratio;
+$strand1_ratio_up_8: $strand1_ratio_up_7 * $ratio;
+$strand1_ratio_up_9: $strand1_ratio_up_8 * $ratio;
+$strand1_ratio_up_10: $strand1_ratio_up_9 * $ratio;
+$strand1_ratio_up_11: $strand1_ratio_up_10 * $ratio;
+$strand1_ratio_up_12: $strand1_ratio_up_11 * $ratio;
+$strand1_ratio_up_13: $strand1_ratio_up_12 * $ratio;
+$strand1_ratio_up_14: $strand1_ratio_up_13 * $ratio;
+$strand1_ratio_up_15: $strand1_ratio_up_14 * $ratio;
+
+// smaller - sizes in pixels
+$strand1_ratio_down_1: $strand1_ratio_1 / $ratio;
+$strand1_ratio_down_2: $strand1_ratio_down_1 / $ratio;
+$strand1_ratio_down_3: $strand1_ratio_down_2 / $ratio;
+$strand1_ratio_down_4: $strand1_ratio_down_3 / $ratio;
+$strand1_ratio_down_5: $strand1_ratio_down_4 / $ratio;
+$strand1_ratio_down_6: $strand1_ratio_down_5 / $ratio;
+$strand1_ratio_down_7: $strand1_ratio_down_6 / $ratio;
+$strand1_ratio_down_8: $strand1_ratio_down_7 / $ratio;
+
+// strand 2
+
+$strand2_ratio_1: $strand2_init;
+
+// larger - sizes in pixels
+$strand2_ratio_up_1: $strand2_ratio_1 * $ratio;
+$strand2_ratio_up_2: $strand2_ratio_up_1 * $ratio;
+$strand2_ratio_up_3: $strand2_ratio_up_2 * $ratio;
+$strand2_ratio_up_4: $strand2_ratio_up_3 * $ratio;
+$strand2_ratio_up_5: $strand2_ratio_up_4 * $ratio;
+$strand2_ratio_up_6: $strand2_ratio_up_5 * $ratio;
+$strand2_ratio_up_7: $strand2_ratio_up_6 * $ratio;
+$strand2_ratio_up_8: $strand2_ratio_up_7 * $ratio;
+$strand2_ratio_up_9: $strand2_ratio_up_8 * $ratio;
+$strand2_ratio_up_10: $strand2_ratio_up_9 * $ratio;
+$strand2_ratio_up_11: $strand2_ratio_up_10 * $ratio;
+$strand2_ratio_up_12: $strand2_ratio_up_11 * $ratio;
+$strand2_ratio_up_13: $strand2_ratio_up_12 * $ratio;
+$strand2_ratio_up_14: $strand2_ratio_up_13 * $ratio;
+$strand2_ratio_up_15: $strand2_ratio_up_14 * $ratio;
+
+// smaller - sizes in pixels
+$strand2_ratio_down_1: $strand2_ratio_1 / $ratio;
+$strand2_ratio_down_2: $strand2_ratio_down_1 / $ratio;
+$strand2_ratio_down_3: $strand2_ratio_down_2 / $ratio;
+$strand2_ratio_down_4: $strand2_ratio_down_3 / $ratio;
+$strand2_ratio_down_5: $strand2_ratio_down_4 / $ratio;
+$strand2_ratio_down_6: $strand2_ratio_down_5 / $ratio;
+$strand2_ratio_down_7: $strand2_ratio_down_6 / $ratio;
+$strand2_ratio_down_8: $strand2_ratio_down_7 / $ratio;
+
+// set ratios for common elements
+
+// font sizes
+$size_small:    $strand2_ratio_down_1;
+$size_smallish: $strand1_ratio_1;
+$size_smallish_font: .9 * $strand1_ratio_1;
+$size_p:        $strand1_ratio_1;
+$size_h6:       $strand1_ratio_1;
+$size_h5:       $strand2_ratio_1;
+$size_h4:       $strand1_ratio_up_1;
+$size_h3:       $strand2_ratio_up_1;
+$size_h2:       $strand1_ratio_up_2;
+$size_h1:       $strand2_ratio_up_2;
+
+// block padding
+$size_block_padding_em: 0em + $strand1_ratio_up_1 / $body_font_size;
+$size_block_padding_px: 0px + $strand1_ratio_up_1;
+
+$size_block_padding_small_em: 0em + $strand1_ratio_1 / $body_font_size;
+$size_block_padding_small_px: 0px + $strand1_ratio_1;
+
+$size_block_padding_small_flattened_em: 0em + $strand1_ratio_down_2 / $body_font_size;
+$size_block_padding_small_flattened_px: 0px + $strand1_ratio_down_2;
+
+/* colors */
+
+$color_tool_background_gradient_light: #ededed;
+$color_tool_background_gradient_dark: #dbdbdb;
+$color_tool_border: #dbdbdb;
+
+/* corners */
+
+$corner_default: 3;
+
+
+// END INTERNAL VARIABLES AND FUNCTIONS
+// ------------------------------------------------------------
+
+/* reset values set in base.css */
+
+.jqTab {
+	margin:0;
+	padding:0;
+	border:none;
+}
+
+body,
+select,
+input,
+textarea {
+	color: #000;
+	font-family: $font_family_main;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 { 
+	text-rendering: optimizeLegibility; 
+	font-weight: normal;
+	-webkit-margin-before:0;
+	-webkit-margin-after:0;
+}
+
+/*
+You will find 2 ways to set the line height of elements, and they are both wrong:
+
+   1. @body_line_height / @size : leads to very small line heights that cause overlap
+   2. don't set line height at all but let the browser use body's line height : with a setting of 1.5 that leads to very high line heights with too much whitespace.
+
+The solution is to use line-height: 1 (right, no em!) for headers, and the desired line height for normal text only.
+*/
+body {
+	font-size: 0px + $body_font_size;
+	line-height: $body_line_height / $body_font_size;
+}
+
+h1 {
+	@include em_font_size($size_h1);
+	line-height: 1;
+	@include em_margin_top($size_h1);
+	@include em_margin_bottom($size_h1);
+	border-bottom: 3px double #ccc;
+	font-family: georgia, serif;
+	font-style: italic;
+}
+h2 {
+	@include em_font_size($size_h2);
+	line-height: 1;
+	@include em_margin_top($size_h2);
+	@include em_margin_bottom($size_h2);
+}
+h3 {
+	@include em_font_size($size_h3);
+	line-height: 1;
+	@include em_margin_top($size_h3);
+	@include em_margin_bottom($size_h3);
+}
+h4,
+.foswikiLarge {
+	@include em_font_size($size_h4);
+	line-height: 1;
+	@include em_margin_top($size_h4);
+	@include em_margin_bottom($size_h4);
+}
+h5 {
+	@include em_font_size($size_h5);
+	line-height: 1;
+	@include em_margin_top($size_h5);
+	@include em_margin_bottom($size_h5);
+}
+h6 {
+	@include em_font_size($size_h6);
+	line-height: 1;
+	@include em_margin_top($size_h6);
+	@include em_margin_bottom($size_h6);
+	text-transform:uppercase;
+}
+p,
+pre,
+blockquote,
+iframe,
+label,
+address,
+td,
+th,
+ul,
+ol,
+dl,
+hr,
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification,
+.foswikiAttachments {
+	@include em_font_size($size_p);
+	@include em_line_height($size_p);
+	@include em_margin_top($size_p);
+	@include em_margin_bottom($size_p);
+}
+
+dt,
+li {
+	@include em_font_size($size_p);
+}
+abbr, code, kbd, samp, small, var {
+
+}
+
+/* smaller text */
+blockquote {
+	@include em_line_height($size_smallish_font);
+	@include em_font_size($size_smallish_font);
+	@include em_margin_top($size_smallish_font);
+	@include em_margin_bottom($size_smallish_font);
+}
+.foswikiSmallish {
+	@include em_font_size($size_smallish_font);
+	@include em_line_height($size_smallish_font);
+}
+small,
+.foswikiSmall {
+	@include em_font_size($size_small);
+	@include em_line_height($size_small);
+}
+
+/* paragraph indenting for readability */
+p {
+	text-indent: 0em + $body_line_height / $size_p;
+}
+div + p,
+h1 + p,
+h2 + p,
+h3 + p,
+h4 + p,
+h5 + p,
+h6 + p,
+p.first,
+pre + p,
+p:first-child,
+ul + p,
+ol + p {
+	text-indent: 0;
+}
+
+hr {
+	height:1px;
+	border:none;
+	margin-top: -1px; /* for the height */
+}
+
+/* correct for nested elements */
+
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+    margin-top: 0;
+}
+
+/* prevent double padding with bullet list in block */
+
+blockquote ol:first-child,
+pre ol:first-child,
+.foswikiHelp ol:first-child,
+.foswikiBroadcastMessage ol:first-child,
+.foswikiNotification ol:first-child,
+blockquote ul:first-child,
+pre ul:first-child,
+.foswikiHelp ul:first-child,
+.foswikiBroadcastMessage ul:first-child,
+.foswikiNotification ul:first-child {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+li ul,
+li ol,
+ul ul,
+ol ol {
+    top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+li h1,
+li h2,
+li h3,
+li h4,
+li h5,
+li h6,
+li p {
+    top: 0;
+}
+
+/* consistent block size */
+
+blockquote,
+pre,
+.foswikiHelp,
+.foswikiBroadcastMessage,
+.foswikiNotification {
+	@include block_padding;
+}
+.jqTabContents {
+	@include block_padding(1);
+}
+
+/* if we don't use a background or border for blockquotes, we don't need the top and bottom padding */
+blockquote {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+/* code texts */
+
+pre,
+code,
+tt,
+kbd,
+samp,
+.foswikiDiffDebug {
+    font-family: $font_family_code;
+    @include em_font_size($size_smallish_font);
+}
+
+dd,
+ul, ol {
+	margin-left: 0px + $body_line_height;
+}
+
+a:link,
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+
+/* tabs */
+
+.jqTabPaneSimple > .jqTabGroup a,
+.jqTabPaneSimple > .jqTabGroup a:hover {
+	@include block_padding_small_flattened;
+}
+
+
+/* structural elements */
+
+.foswikiPage {
+}
+.foswikiContent,
+.foswikiTopBarContents {
+	$content_width: 980;
+	width: 0px + $content_width;
+	padding-left: 0px + ($content_width - $strand2_ratio_up_10) / 2;
+	padding-right: 0px + ($content_width - $strand2_ratio_up_10) / 2;
+	margin:0 auto;
+}
+.foswikiContent {
+	position: relative;
+	padding-top: 0em + $strand1_ratio_up_2 / $body_font_size;
+	padding-bottom: 0em + $strand1_ratio_up_2 / $body_font_size;
+}
+.foswikiTopicText {
+}
+
+/* attachments */
+.foswikiAttachments {
+
+	.foswikiAttachment {
+		@include block_padding_small;
+	}
+	.foswikiSearchResultsHeader {
+		@include block_padding_small_flattened;
+		background-color: $color_tool_background_gradient_dark;
+		@include gradient($color_tool_background_gradient_light, $color_tool_background_gradient_dark);
+		@include corner($corner_default);
+		border:1px solid $color_tool_background_gradient_dark;
+	}
+	.foswikiSearchResult img {
+		max-width: 16px;
+	}
+	.foswikiSearchResultContents {
+		margin-left: 0px + em_line_height($strand1_ratio_down_1) * $body_font_size;
+	}
+}
+
+/* colors */
+a:link:focus,
+a:visited:focus,
+a:link,
+a:link:active,
+a:visited:active {
+	color: #06c;
+}
+a:visited {
+	color: #06c;
+}
+::-moz-selection {
+	background: #06c;
+	color: #fff;
+	text-shadow: none;
+}
+::selection {
+	background: #06c;
+	color: #fff;
+	text-shadow: none;
+}
+hr {
+	color: #ccc;
+	background-color: #ccc;
+}
+pre {
+	background: #f5f5f5;
+}
+
+
+/* dev */
+.foswikiDevGrid {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.foswikiDevGridRow {
+	width: 100%;
+	height: 0px + $body_line_height - 1;
+	border-style: none none solid none;
+	@include dev_gridline;
+}
+.foswikiDevGridCol {
+	border-style: none none none solid;
+	@include dev_gridline;
+}

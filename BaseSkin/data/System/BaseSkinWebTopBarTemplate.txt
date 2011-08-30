@@ -1,0 +1,16 @@
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+The webtopbar template defines the page top bar
+===================================================
+}%%TMPL:DEF{"topbar"}%<div class="foswikiTopBar">
+<div class="foswikiTopBarContents">
+%IF{
+	"istopic '%SYSTEMWEB%.WebTopBar'"
+	then="$percntINCLUDE{$quot%SYSTEMWEB%.BaseSkinWebTopBar$quot}$percnt" 	
+	else="$percntINCLUDE{$quot%SYSTEMWEB%.BaseSkinWebTopBarExample$quot}$percnt"
+}%
+</div>
+</div>%TMPL:END%%{
+===================================================
+</verbatim>}%

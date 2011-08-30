@@ -6,11 +6,12 @@ The view template defines the display of contents through the view script:
 - data form
 - attachments
 ===================================================
-}%%TMPL:INCLUDE{"document"}%%{
+}%%TMPL:INCLUDE{"document"}%
+%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"content"}%<div class="foswikiContent">
 <div class="foswikiTopic">
-<div>CONTEXTUAL ACTIONS</div>
+<!-- TODO: CONTEXTUAL ACTIONS -->
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
 <div class="foswikiTopicText">
 #PageTop

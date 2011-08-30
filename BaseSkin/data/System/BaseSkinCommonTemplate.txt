@@ -48,14 +48,5 @@ Takes as arguments:
 	}$percnt"
 	requires="%requires%"
 }%%TMPL:END%%{
----------------------------------------------------
-Macro for including less files from system paths
----------------------------------------------------
-}%%TMPL:DEF{"LIBLESS"}%%ADDTOZONE{
-	"head"
-	id="%id%"
-	text="<link rel='stylesheet/less' type='text/css' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.less' />"
-	requires="%requires%"
-}%%{
 ===================================================
 </verbatim>}%

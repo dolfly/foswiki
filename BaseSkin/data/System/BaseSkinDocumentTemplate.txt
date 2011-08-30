@@ -30,9 +30,7 @@ The document template defines the structure of the html document and should be i
 ---------------------------------------------------
 }%%TMPL:DEF{"page"}%<section class="foswikiPage">
 <nav class="foswikiHeader">
-<div>LOGIN</div>
-<div>TOP BAR</div>
-<div>ACTIONS</div>
+%TMPL:P{"topbar"}%
 </nav>
 %TMPL:P{"content"}%
 </section>%TMPL:END%%{

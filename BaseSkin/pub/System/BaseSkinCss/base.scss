@@ -1,5 +1,54 @@
 /* font sizes in pixels - only used for body; will be converted to ems */
-@body_font_size:12.5;
+$body_font_size:13;
+
+/* Sensible defaults */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+}
+
+h1 {
+	font-size: 2.2em;
+	margin-top: 0.682em;
+	margin-bottom: 0.682em;
+}
+h2 {
+	font-size: 1.9em;
+	margin-top: 0.79em;
+	margin-bottom: 0.79em;
+}
+h3 {
+	font-size: 1.7em;
+	margin-top: 0.882em;
+	margin-bottom: 0.882em;
+}
+h4 {
+	font-size: 1.4em;
+	margin-top: 1.071em;
+	margin-bottom: 1.071em;
+}
+h5,h6 {
+	font-size: 1.3em;
+	margin-top: 1.154em;
+	margin-bottom: 1.154em;
+}
+
+p {
+	margin:1em 0;
+}
+
+blockquote,
+pre,
+.foswikiHelp,
+.foswikiBroadcastMessage,
+.foswikiNotification {
+	padding:1em 1em 1em 1.5em;
+}
 
 
 /* colors */
@@ -70,10 +119,15 @@
 	display:none;
 }
 
+/* strcutural elements */
+.foswikiTopBar {
+	height: 50px;
+	background:#f5f5f5;
+}
 
 
 .foswikiActual {
-	font-size: 0px + @body_font_size;
+	font-size: 0px + $body_font_size;
 	font-weight: normal;
 }
 
@@ -117,10 +171,8 @@
 
 
 /* search results */
-.foswikiSearchResults {
-	clear: all;
-	padding: 0 0 10px 0;
-}
+.foswikiSearchResults {}
+
 	.foswikiSearchResult {
 		position: relative;
 		border-bottom: 1px solid #eee;
@@ -143,7 +195,7 @@
 		padding:.25em 0;
 	}
 	.foswikiSearchResultMeta {
-		color: #0E774A; /* Google green */
+		color: #aaa;
 	}
 
 /* attachments */
@@ -402,7 +454,7 @@ button.jqButton {
 	position:relative;
 	margin:0 6px 0 0;
 	text-decoration:none;
-	font-size: 0px + @body_font_size;
+	font-size: 0px + $body_font_size;
 	font-family:arial, verdana, sans-serif;
 	font-weight:normal;
 	border-width:1px;
@@ -446,7 +498,7 @@ button.jqButton.jqButtonDefault {
 	color:#000;
 	background:#d0d0d0;
 	border-color:#d0d0d0;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ffffff', endColorstr='#dedede')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ffffff', endColorstr='#dedede');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ffffff),to(#dedede));
 	background:-moz-linear-gradient(-90deg,#ffffff,#dedede);
 }
@@ -457,7 +509,7 @@ button.jqButton.jqButtonDefault:hover {
 	color:#fff;
 	background:#376ca0;
 	border-color:#376ca0;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#7baad7', endColorstr='#376ca0')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#7baad7', endColorstr='#376ca0');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#7baad7),to(#376ca0));
 	background:-moz-linear-gradient(-90deg,#7baad7,#376ca0);
 }
@@ -501,7 +553,7 @@ a.jqButton.jqButtonBlue {
 	color:#fff;
 	background:#007aa3;
 	border-color:#007aa3;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#589adb', endColorstr='#3072b3')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#589adb', endColorstr='#3072b3');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#589adb),to(#3072b3));
 	background:-moz-linear-gradient(-90deg,#589adb,#3072b3);
 }
@@ -510,7 +562,7 @@ a.jqButton.jqButtonBlue:hover {
 	color:#fff;
 	background:#006f94;
 	border-color:#006f94;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3669af', endColorstr='#224f90')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3669af', endColorstr='#224f90');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#3669af),to(#224f90));
 	background:-moz-linear-gradient(-90deg,#3669af,#224f90);
 }
@@ -519,7 +571,7 @@ a.jqButton.jqButtonRed {
 	color:#fff;
 	background:#cd2929;
 	border-color:#cd2929;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ff6f6f', endColorstr='#cd2929')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ff6f6f', endColorstr='#cd2929');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ff6f6f),to(#cd2929));
 	background:-moz-linear-gradient(-90deg,#ff6f6f,#cd2929);
 }
@@ -528,7 +580,7 @@ a.jqButton.jqButtonRed:hover {
 	color:#fff;
 	background:#b92525;
 	border-color:#b92525;
-    filter:~":progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#d84d4d', endColorstr='#b92525')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#d84d4d', endColorstr='#b92525');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#d84d4d),to(#b92525));
 	background:-moz-linear-gradient(-90deg,#d84d4d,#b92525);
 }
@@ -537,7 +589,7 @@ a.jqButton.jqButtonCyan {
 	color:#fff;
 	background:#007aa3;
 	border-color:#007aa3;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4bb7db', endColorstr='#007aa3')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4bb7db', endColorstr='#007aa3');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4bb7db),to(#007aa3));
 	background:-moz-linear-gradient(-90deg,#4bb7db,#007aa3);
 }
@@ -546,7 +598,7 @@ a.jqButton.jqButtonCyan:hover {
 	color:#fff;
 	background:#006f94;
 	border-color:#006f94;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#2b92b5', endColorstr='#006f94')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#2b92b5', endColorstr='#006f94');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#2b92b5),to(#006f94));
 	background:-moz-linear-gradient(-90deg,#2b92b5,#006f94);
 }
@@ -555,7 +607,7 @@ a.jqButton.jqButtonGreen {
 	color:#fff;
 	background:#297b29;
 	border-color:#297b29;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#6fb76f', endColorstr='#297b29')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#6fb76f', endColorstr='#297b29');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#6fb76f),to(#297b29));
 	background:-moz-linear-gradient(-90deg,#6fb76f,#297b29);
 }
@@ -564,7 +616,7 @@ a.jqButton.jqButtonGreen:hover {
 	color:#fff;
 	background:#256f25;
 	border-color:#256f25;
-    filter:~"progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4d924d', endColorstr='#256f25')";
+    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4d924d', endColorstr='#256f25');
 	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4d924d),to(#256f25));
 	background:-moz-linear-gradient(-90deg,#4d924d,#256f25);
 }
@@ -614,7 +666,7 @@ a.jqButton.jqButtonGreen:hover {
 	.foswikiTable th {
 		border-width:1px;
 		border-style:solid;
-		border-color:#ccc;
+		border-color:#e2e2e2;
 	}
 	
 	.foswikiTabs ul li a,
@@ -645,26 +697,25 @@ a.jqButton.jqButtonGreen:hover {
 		border-color:#ccc;
 	}
 
-	.jqTab {
-		border-color: #ccc;
-	}
+	.jqTab,
 	.foswikiTabContent,
 	.jqTabContents {
-		background:#fff;
+		background:none;
+		border:none;
 	}
-	
-	.jqTabPaneSimple .jqTabGroup a:link,
-	.jqTabPaneSimple .jqTabGroup a:visited,
-	.jqTabPaneSimple .jqTabGroup a:hover {
+	.jqTabContents {
+		border-top:1px solid #ccc;
+	}
+	.jqTabPaneSimple > .jqTabGroup a,
+	.jqTabPaneSimple > .jqTabGroup a:hover {
+		border: none;
+		background: none;
+		color: #444;
+	}
+	.jqTabPaneSimple > .jqTabGroup li.current a,
+	.jqTabPaneSimple > .jqTabGroup li.current a:hover {
+		border-style: solid solid none solid;
+		border-width: 1px;
 		border-color: #ccc;
-		color: #000;
-	}
-	.jqTabPaneSimple .jqTabGroup a:hover {
-		background-color: #fff;
-		border-bottom-color: #fff;
-	}
-	.jqTabPaneSimple .jqTabGroup .current a:link,
-	.jqTabPaneSimple .jqTabGroup .current a:visited,
-	.jqTabPaneSimple .jqTabGroup .current a:hover {
-		border-bottom-color: #fff;
+		margin: -1px -1px 0 -1px;
 	}
