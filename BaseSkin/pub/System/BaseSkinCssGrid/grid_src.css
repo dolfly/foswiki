@@ -200,12 +200,6 @@ pre,
   padding-left: 19.5px;
   padding-right: 19.5px; }
 
-.jqTabContents {
-  padding-top: 1.5em;
-  padding-bottom: 1.5em;
-  padding-left: 0;
-  padding-right: 0; }
-
 /* if we don't use a background or border for blockquotes, we don't need the top and bottom padding */
 blockquote {
   padding-top: 0;
@@ -232,7 +226,17 @@ a:visited {
 a:hover {
   text-decoration: underline; }
 
+/* buttons */
+a.jqButton:hover,
+a.jqButton.jqButtonDefault:hover,
+button.jqButton:hover,
+button.jqButton.jqButtonDefault:hover {
+  color: #fff; }
+
 /* tabs */
+.jqTabContents {
+  padding: 0; }
+
 .jqTabPaneSimple > .jqTabGroup a,
 .jqTabPaneSimple > .jqTabGroup a:hover {
   padding-top: 0.444em;
@@ -255,28 +259,48 @@ a:hover {
 
 /* attachments */
 .foswikiAttachments .foswikiAttachment {
-  padding-top: 1em;
-  padding-bottom: 1em;
-  padding-left: 13px;
-  padding-right: 13px; }
+  padding-top: 0.667em;
+  padding-bottom: 0.667em;
+  padding-left: 8.667px;
+  padding-right: 8.667px; }
+  .foswikiAttachments .foswikiAttachment a:link,
+  .foswikiAttachments .foswikiAttachment a:visited {
+    color: #222222; }
 .foswikiAttachments .foswikiSearchResultsHeader {
+  position: relative;
   padding-top: 0.444em;
   padding-bottom: 0.444em;
   padding-left: 13px;
   padding-right: 13px;
   background-color: #dbdbdb;
-  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#ededed', endColorstr='#dbdbdb');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dbdbdb')";
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ededed), to(#dbdbdb));
-  background: -moz-linear-gradient(-90deg, #ededed, #dbdbdb);
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#f2f2f2', endColorstr='#dbdbdb');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#dbdbdb')";
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f2f2f2), to(#dbdbdb));
+  background: -moz-linear-gradient(-90deg, #f2f2f2, #dbdbdb);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   border: 1px solid #dbdbdb; }
+  .foswikiAttachments .foswikiSearchResultsHeader .jqButton {
+    position: absolute;
+    right: 0;
+    top: -1px;
+    margin: 0;
+    font-size: 0.9em;
+    line-height: 1.798em; }
 .foswikiAttachments .foswikiSearchResult img {
   max-width: 16px; }
 .foswikiAttachments .foswikiSearchResultContents {
-  margin-left: 31.551px; }
+  margin-left: 36px; }
+.foswikiAttachments .foswikiSearchResultTitle a {
+  font-weight: bold; }
+.foswikiAttachments .foswikiSearchResultMeta {
+  line-height: 1.972em;
+  font-size: 0.821em;
+  color: #999; }
+.foswikiAttachments .foswikiSearchResultMeta a:link,
+.foswikiAttachments .foswikiSearchResultMeta a:visited {
+  color: #222; }
 
 /* colors */
 a:link:focus,
@@ -284,18 +308,18 @@ a:visited:focus,
 a:link,
 a:link:active,
 a:visited:active {
-  color: #06c; }
+  color: #0066cc; }
 
 a:visited {
-  color: #06c; }
+  color: #0066cc; }
 
 ::-moz-selection {
-  background: #06c;
+  background: #0066cc;
   color: #fff;
   text-shadow: none; }
 
 ::selection {
-  background: #06c;
+  background: #0066cc;
   color: #fff;
   text-shadow: none; }
 

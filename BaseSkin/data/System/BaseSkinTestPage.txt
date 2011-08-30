@@ -346,16 +346,6 @@ class="simple"
 	<div class="foswikiClear"></div>
 </div>
 
----++ <nop>TablePlugin
-%TABLE{initsort="2"}%
-| *Header* | *Header* | 
-| abc | def |
-
----++ Javascript
----+++ <nop>TwistyPlugin
-%TWISTY{}%
-Inside a twisty
-%ENDTWISTY%
 
 ---+++ JQuery Tabs
 %META:FORM{name="UserForm"}%

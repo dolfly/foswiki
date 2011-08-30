@@ -205,49 +205,6 @@ pre {
 table caption {
   display: none; }
 
-/* tabs */
-.foswikiTabs ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  position: relative;
-  bottom: 0; }
-
-.foswikiTabs ul li {
-  display: inline; }
-
-.foswikiTabs ul li a,
-.foswikiTabs ul li a:link,
-.foswikiTabs ul li a:hover,
-.foswikiTabs ul li a:visited {
-  text-decoration: none; }
-
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
-  display: block;
-  float: left;
-  margin: 0 6px 0 0;
-  padding: .35em .7em;
-  border-style: solid;
-  border-width: 1px; }
-
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
-  border-style: solid;
-  border-width: 1px; }
-
-.foswikiTabContent {
-  margin: -1px 0 1em 0;
-  padding: 20px 10px; }
-
-.foswikiTabContent {
-  border-style: solid;
-  border-width: 1px; }
-
-/* tabs */
-.jqTabContents {
-  padding: 20px 10px 0 10px; }
-
 .foswikiHorizontalList {
   clear: both; }
 
@@ -482,6 +439,12 @@ a.jqButtonLarge {
   -moz-border-radius: 5px;
   border-radius: 5px; }
 
+/* small button */
+button.jqButtonSmall,
+a.jqButtonSmall {
+  font-size: .9em;
+  line-height: .9em; }
+
 /* simple button, looks like link */
 button.jqButton.jqButtonSimple,
 button.jqButton.jqButtonSimple span,
@@ -572,6 +535,76 @@ a.jqButton.jqButtonGreen:hover {
   background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d924d), to(#256f25));
   background: -moz-linear-gradient(-90deg, #4d924d, #256f25); }
 
+/* tabs */
+.foswikiTabs ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+  bottom: 0; }
+
+.foswikiTabs ul li {
+  display: inline; }
+
+.foswikiTabs ul li a,
+.foswikiTabs ul li a:link,
+.foswikiTabs ul li a:hover,
+.foswikiTabs ul li a:visited {
+  text-decoration: none; }
+
+.foswikiTabs ul li a,
+.foswikiTabs ul li span {
+  display: block;
+  float: left;
+  margin: 0 6px 0 0;
+  padding: .35em .7em;
+  border-style: solid;
+  border-width: 1px; }
+
+.foswikiTabs ul li a,
+.foswikiTabs ul li span {
+  border-style: solid;
+  border-width: 1px; }
+
+.foswikiTabContent {
+  margin: -1px 0 1em 0;
+  padding: 0; }
+
+.foswikiTabContent {
+  border-style: solid;
+  border-width: 1px; }
+
+.jqTabContents {
+  padding: 20px 10px 0 10px; }
+
+.jqTab,
+.foswikiTab,
+.foswikiTabContent,
+.jqTabContents {
+  background: none;
+  border: none; }
+
+.foswikiTabContent,
+.jqTabContents {
+  border-top: 1px solid #ccc; }
+
+.foswikiTabs ul li a,
+.foswikiTabs ul li a:hover,
+.foswikiTabs ul li span,
+.jqTabPaneSimple > .jqTabGroup a,
+.jqTabPaneSimple > .jqTabGroup a:hover {
+  border: none;
+  background: none;
+  color: #444; }
+
+.foswikiTabs ul li.foswikiActiveTab a,
+.foswikiTabs ul li.foswikiActiveTab a:hover,
+.jqTabPaneSimple > .jqTabGroup li.current a,
+.jqTabPaneSimple > .jqTabGroup li.current a:hover {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #ccc #ccc #fff #ccc; }
+
 /* default colors for Foswiki elements */
 .foswikiUnvisited a:visited,
 .foswikiUnvisited a:hover,
@@ -613,52 +646,3 @@ a.foswikiUnvisited:hover {
   border-width: 1px;
   border-style: solid;
   border-color: #e2e2e2; }
-
-.foswikiTabs ul li a,
-.foswikiTabs ul li a:link,
-.foswikiTabs ul li a:hover,
-.foswikiTabs ul li a:visited {
-  color: #000; }
-
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
-  border-color: #ccc;
-  background: #eee; }
-
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
-  border-color: #ccc; }
-
-.foswikiTabs ul li.foswikiActiveTab a,
-.foswikiTabs ul li a:hover,
-.foswikiTabs ul li span {
-  border-bottom-color: #fff;
-  background: #fff; }
-
-.foswikiTabContent {
-  background: #fff; }
-
-.foswikiTabContent {
-  border-color: #ccc; }
-
-.jqTab,
-.foswikiTabContent,
-.jqTabContents {
-  background: none;
-  border: none; }
-
-.jqTabContents {
-  border-top: 1px solid #ccc; }
-
-.jqTabPaneSimple > .jqTabGroup a,
-.jqTabPaneSimple > .jqTabGroup a:hover {
-  border: none;
-  background: none;
-  color: #444; }
-
-.jqTabPaneSimple > .jqTabGroup li.current a,
-.jqTabPaneSimple > .jqTabGroup li.current a:hover {
-  border-style: solid solid none solid;
-  border-width: 1px;
-  border-color: #ccc;
-  margin: -1px -1px 0 -1px; }

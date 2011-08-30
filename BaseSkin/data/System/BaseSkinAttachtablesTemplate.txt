@@ -9,7 +9,9 @@ The attachtables template defines how attachments are displayed:
 ---------------------------------------------------
 Top table row definition for topic attachments and top table in attach screen
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:header(toprow)}%<div class='foswikiSearchResultsHeader'>%MAKETEXT{"Sort by:"}%</div>%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:files:header(toprow)}%<div class='foswikiSearchResultsHeader'><div class='foswikiRight'>
+<a href="#" class="jqButton foswikiUnvisited">Attach new file</a>
+</div>%MAKETEXT{"Sort by:"}%</div>%TMPL:END%%{
 ---------------------------------------------------
 Header definition for topic attachments and top table in attach screen
 ---------------------------------------------------
@@ -22,19 +24,16 @@ Use %A_URL% instead of %PUBURLPATH%/%WEB%/%TOPIC%/%A_FILE% to get a viewfile lin
 }%%TMPL:DEF{ATTACH:files:row(basic)}%<div class="foswikiAttachment foswikiSearchResult">
 <div class='foswikiRight'><a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;revInfo=1" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">%MAKETEXT{"manage"}%</a>
 </div> %A_ICON%<span class="foswikiHidden">%A_EXT%</span><div class='foswikiSearchResultContents'><span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span><div>
-%A_COMMENT%</div><span class='foswikiSearchResultMeta'> %A_USER% %A_DATE%</span> <span class='foswikiGrayText'>%A_SIZE%</span> <span class='foswikiGrayText'>%IF{
+%A_COMMENT%</div><span class='foswikiSearchResultMeta'> %A_USER% %A_DATE% &sdot; %A_SIZE% <span class='foswikiGrayText'>%IF{
 	"'%A_REV%'!='1'"
 	then="<a href='#' class='foswikiUnvisited'>versions</a>"
-}%</span>
+}%</span></span>
 </div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
 Header for topic attachment table
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:header}%<div class='foswikiRight'>
-<a href="#" class="foswikiButton foswikiUnvisited">Attach new file</a>
-</div>
-<span class="foswikiLarge">Attachments on this topic</span>
+}%%TMPL:DEF{ATTACH:files:header}%<div class="foswikiLarge">Attachments on this topic</div>
 %TMPL:P{ATTACH:files:header(basic)}%
 %TMPL:END%%{
 ---------------------------------------------------

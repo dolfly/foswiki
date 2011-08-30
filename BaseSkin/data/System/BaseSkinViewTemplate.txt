@@ -23,7 +23,9 @@ The view template defines the display of contents through the view script:
 <div class="foswikiContentFooter">%TMPL:P{"topic:after"}%</div>
 </div>
 <div class="sidebar">
+<!--
 sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar 
+-->
 </div><!--/foswikiTopic-->
 <div class="foswikiClear"></div>
 </div>%TMPL:END%%{

@@ -58,6 +58,17 @@ $body_line_height: $ratio_golden * $body_font_size; // could be a number as well
 		padding-right: 0;
 	}
 }
+@mixin block_padding_flattened ($hide_side_padding: 0) {
+	padding-top: $size_block_padding_flattened_em;
+	padding-bottom: $size_block_padding_flattened_em;
+	@if $hide_side_padding != 1 {
+		padding-left: $size_block_padding_flattened_px;
+		padding-right: $size_block_padding_flattened_px;
+	} @else {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
 @mixin block_padding_small ($hide_side_padding: 0) {
 	padding-top: $size_block_padding_small_em;
 	padding-bottom: $size_block_padding_small_em;
@@ -178,6 +189,9 @@ $size_h1:       $strand2_ratio_up_2;
 $size_block_padding_em: 0em + $strand1_ratio_up_1 / $body_font_size;
 $size_block_padding_px: 0px + $strand1_ratio_up_1;
 
+$size_block_padding_flattened_em: 0em + $strand1_ratio_down_1 / $body_font_size;
+$size_block_padding_flattened_px: 0px + $strand1_ratio_down_1;
+
 $size_block_padding_small_em: 0em + $strand1_ratio_1 / $body_font_size;
 $size_block_padding_small_px: 0px + $strand1_ratio_1;
 
@@ -186,9 +200,13 @@ $size_block_padding_small_flattened_px: 0px + $strand1_ratio_down_2;
 
 /* colors */
 
-$color_tool_background_gradient_light: #ededed;
+$color_tool_background_gradient_light: #f2f2f2;
 $color_tool_background_gradient_dark: #dbdbdb;
-$color_tool_border: #dbdbdb;
+$color_tool_border: $color_tool_background_gradient_dark;
+
+$color_link: #06c;
+$color_link_visited: #03a;
+$color_link_black: #222;
 
 /* corners */
 
@@ -409,9 +427,6 @@ pre,
 .foswikiNotification {
 	@include block_padding;
 }
-.jqTabContents {
-	@include block_padding(1);
-}
 
 /* if we don't use a background or border for blockquotes, we don't need the top and bottom padding */
 blockquote {
@@ -444,8 +459,20 @@ a:hover {
 	text-decoration: underline;
 }
 
+/* buttons */
+
+a.jqButton:hover,
+a.jqButton.jqButtonDefault:hover,
+button.jqButton:hover,
+button.jqButton.jqButtonDefault:hover {
+	color:#fff;
+}
+
 /* tabs */
 
+.jqTabContents {
+	padding:0;
+}
 .jqTabPaneSimple > .jqTabGroup a,
 .jqTabPaneSimple > .jqTabGroup a:hover {
 	@include block_padding_small_flattened;
@@ -476,20 +503,48 @@ a:hover {
 .foswikiAttachments {
 
 	.foswikiAttachment {
-		@include block_padding_small;
+		@include block_padding_flattened;
+		a:link,
+		a:visited {
+			color: $color_link_black;
+		}
 	}
 	.foswikiSearchResultsHeader {
+		position: relative;
 		@include block_padding_small_flattened;
 		background-color: $color_tool_background_gradient_dark;
 		@include gradient($color_tool_background_gradient_light, $color_tool_background_gradient_dark);
 		@include corner($corner_default);
 		border:1px solid $color_tool_background_gradient_dark;
+		
+		.jqButton {
+			position: absolute;
+			right: 0;
+			top: -1px;
+			margin: 0;
+			@include em_font_size($size_smallish_font);
+			@include em_line_height($size_smallish_font);
+		}
 	}
 	.foswikiSearchResult img {
 		max-width: 16px;
 	}
 	.foswikiSearchResultContents {
-		margin-left: 0px + em_line_height($strand1_ratio_down_1) * $body_font_size;
+		margin-left: 0px + $strand2_ratio_up_2;
+	}
+	.foswikiSearchResultTitle {
+		a {
+			font-weight: bold;
+		}
+	}
+	.foswikiSearchResultMeta {
+		@include em_line_height($size_small);
+		@include em_font_size($size_small);
+		color:#999;
+	}
+	.foswikiSearchResultMeta a:link,
+	.foswikiSearchResultMeta a:visited {
+		color:#222;
 	}
 }
 
@@ -499,18 +554,18 @@ a:visited:focus,
 a:link,
 a:link:active,
 a:visited:active {
-	color: #06c;
+	color: $color_link;
 }
 a:visited {
-	color: #06c;
+	color: $color_link;
 }
 ::-moz-selection {
-	background: #06c;
+	background: $color_link;
 	color: #fff;
 	text-shadow: none;
 }
 ::selection {
-	background: #06c;
+	background: $color_link;
 	color: #fff;
 	text-shadow: none;
 }
