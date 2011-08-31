@@ -13,6 +13,10 @@ The basejs template adds JavaScript files to the html head
 	"LIBJS"
 	id="JavascriptFiles/foswikiPref"
 	requires="JavascriptFiles/foswikilib,JQUERYPLUGIN"
+}%%TMPL:P{
+	"LIBJS"
+	id="BaseSkinJs/base"
+	requires="JavascriptFiles/foswikilib,JavascriptFiles/foswikiPref,JQUERYPLUGIN"
 }%%TMPL:END%%TMPL:END%%{
 ===================================================
 </verbatim>}%

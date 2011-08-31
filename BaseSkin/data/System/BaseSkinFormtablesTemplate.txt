@@ -29,7 +29,7 @@ Footer
 Title link in header
 ---------------------------------------------------
 }%%TMPL:DEF{FORM:display:header:titlelink}%<div class='foswikiRight'><a href='%SCRIPTURL{edit}%/%WEB%/%TOPIC%?t=%GMTIME{$epoch}%;action=form' class='foswikiButton'>%MAKETEXT{"Edit form data"}%</a></div>
-<span class='foswikiLarge foswikiUnvisited'><noautolink>%A_TITLE%</noautolink></span>%TMPL:END%%{
+<div class='foswikiLarge foswikiUnvisited'><noautolink>%A_TITLE%</noautolink></div>%TMPL:END%%{
 ---------------------------------------------------
 Title name in header
 ---------------------------------------------------

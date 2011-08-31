@@ -350,6 +350,6 @@ class="simple"
 ---+++ JQuery Tabs
 %META:FORM{name="UserForm"}%
 %META:FIELD{name="FirstName" attributes="M" title="FirstName" value="Test"}%
-%META:FILEATTACHMENT{name="ISS1.jpg" attachment="ISS1.jpg" attr="" comment="The International Space Station" date="1314737307" path="iss-sta2.jpg" size="57087" user="BaseUserMapping_333" version="2"}%
+%META:FILEATTACHMENT{name="ISS1.jpg" attachment="ISS1.jpg" attr="" comment="The International Space Station" date="1314737307" path="iss-sta2.jpg" size="57087" user="BaseUserMapping_666" version="2"}%
 %META:FILEATTACHMENT{name="Paul_Cezanne_169.jpg" attachment="Paul_Cezanne_169.jpg" attr="" comment="Cézanne" date="1314736980" path="Paul_Cezanne_169.jpg" size="226459" user="BaseUserMapping_333" version="1"}%
 %META:FILEATTACHMENT{name="Paper004.pdf" attachment="Paper004.pdf" attr="" comment="" date="1314736990" path="Paper004.pdf" size="717980" user="BaseUserMapping_333" version="1"}%

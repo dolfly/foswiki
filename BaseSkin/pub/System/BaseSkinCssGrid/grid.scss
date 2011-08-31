@@ -461,6 +461,10 @@ a:hover {
 
 /* buttons */
 
+.jqButton {
+	@include em_line_height($size_p);
+}
+
 a.jqButton:hover,
 a.jqButton.jqButtonDefault:hover,
 button.jqButton:hover,
@@ -499,52 +503,89 @@ button.jqButton.jqButtonDefault:hover {
 .foswikiTopicText {
 }
 
+.foswikiToolHeader {
+	position: relative;
+	@include block_padding_small_flattened;
+	background-color: $color_tool_background_gradient_dark;
+	@include gradient($color_tool_background_gradient_light, $color_tool_background_gradient_dark);
+	@include corner($corner_default);
+	border:1px solid $color_tool_background_gradient_dark;
+	
+	ul.foswikiToolButtonRow {
+		position: relative;
+		margin: -1px 0 0 0;
+		float: right;
+		padding:0;
+		list-style:none;	
+	}
+	
+	a:link,
+	a:visited {
+		color: $color_link_black;
+	}
+	
+	a.jqButton {
+		margin: 0;
+		@include em_font_size($size_smallish_font);
+		@include em_line_height($size_smallish_font);
+	}
+	a.jqButton:hover {
+		color: #fff;
+	}
+	
+	.foswikiSort {
+		margin-left: $size_block_padding_small_flattened_em;
+	}
+}
+
 /* attachments */
 .foswikiAttachments {
 
 	.foswikiAttachment {
-		@include block_padding_flattened;
+		@include block_padding_small_flattened;
+		
 		a:link,
 		a:visited {
 			color: $color_link_black;
 		}
-	}
-	.foswikiSearchResultsHeader {
-		position: relative;
-		@include block_padding_small_flattened;
-		background-color: $color_tool_background_gradient_dark;
-		@include gradient($color_tool_background_gradient_light, $color_tool_background_gradient_dark);
-		@include corner($corner_default);
-		border:1px solid $color_tool_background_gradient_dark;
 		
-		.jqButton {
-			position: absolute;
-			right: 0;
-			top: -1px;
-			margin: 0;
-			@include em_font_size($size_smallish_font);
+		img {
+			max-width: 16px;
+		}
+		
+		.foswikiAction {
+			float: right;
+		}
+		
+		.foswikiSearchResultContents {
+			margin-left: 0px + $strand2_ratio_up_2;
+		}
+		
+		.foswikiSearchResultTitle {
+			a {
+				font-weight: bold;
+			}
+		}
+		
+		.foswikiSearchResultMeta {
 			@include em_line_height($size_smallish_font);
+			@include em_font_size($size_smallish_font);
+			color:#aaa;
+			
+			a:link,
+			a:visited {
+				color:#777;
+			}
 		}
 	}
-	.foswikiSearchResult img {
-		max-width: 16px;
+	ul, li {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		list-style-image: none;
 	}
-	.foswikiSearchResultContents {
-		margin-left: 0px + $strand2_ratio_up_2;
-	}
-	.foswikiSearchResultTitle {
-		a {
-			font-weight: bold;
-		}
-	}
-	.foswikiSearchResultMeta {
-		@include em_line_height($size_small);
-		@include em_font_size($size_small);
-		color:#999;
-	}
-	.foswikiSearchResultMeta a:link,
-	.foswikiSearchResultMeta a:visited {
-		color:#222;
+	ul {
+		clear: both;
 	}
 }
 

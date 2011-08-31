@@ -4,9 +4,10 @@ Base Skin topic template
 The basecss template adds CSS files to the html head:
 - boilerplate.css
 - TODO: external font files
-- base.css - unless preference BASESKIN_USE_CSS is set
-- files defined in BASESKIN_USE_CSS
-- files defined in BASESKIN_ADD_CSS
+- base.css - unless preference BASESKIN_USE_CSS_FILE is set
+- files defined in BASESKIN_USE_CSS_FILE
+- files defined in BASESKIN_ADD_CSS_FILE
+- CSS text defined in BASESKIN_ADD_CSS
 ===================================================
 }%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------
@@ -15,7 +16,7 @@ HTML5 ✰ Boilerplate contains a reset, font normalization and some base styles
 }%%TMPL:DEF{"head:css"}%%TMPL:PREV%%TMPL:P{
 	"LIBCSS"
 	id="BaseSkinCss/boilerplate"
-	requires=""
+	requires="JQUERYPLUGIN::TABPANE"
 }%%{
 ---------------------------------------------------
 TODO Link to font should be added here
@@ -26,15 +27,15 @@ TODO Link to font should be added here
 	text=""
 }%%{
 ---------------------------------------------------
-Loads CSS files defined in BASESKIN_USE_CSS if set
+Loads CSS files defined in BASESKIN_USE_CSS_FILE if set
 ---------------------------------------------------
 }%%IF{
-	"defined BASESKIN_USE_CSS AND $BASESKIN_USE_CSS!=''"
+	"defined BASESKIN_USE_CSS_FILE AND $BASESKIN_USE_CSS_FILE!=''"
 	then="$percntTMPL:P{
 			\"CSS\"
-			id=\"BASESKIN_USE_CSS\"
+			id=\"BASESKIN_USE_CSS_FILE\"
 			requires=\"BaseSkinCss/boilerplate\"
-			url=\"%BASESKIN_USE_CSS%\"
+			url=\"%BASESKIN_USE_CSS_FILE%\"
 			}$percnt"
 	else="$percntTMPL:P{
 			\"LIBCSS\"
@@ -43,17 +44,16 @@ Loads CSS files defined in BASESKIN_USE_CSS if set
 		}$percnt"
 }%%{
 ---------------------------------------------------
-Loads CSSs file defined in BASESKIN_ADD_CSS if set
+Loads CSSs file defined in BASESKIN_ADD_CSS_FILE if set
 ---------------------------------------------------
 }%%IF{
-	"defined BASESKIN_ADD_CSS AND $BASESKIN_ADD_CSS!=''"
+	"defined BASESKIN_ADD_CSS_FILE AND $BASESKIN_ADD_CSS_FILE!=''"
 	then="$percntTMPL:P{
 			\"CSS\"
-			id=\"BASESKIN_ADD_CSS\"
-			requires=\"BaseSkinCss/base\"
-			url=\"%BASESKIN_ADD_CSS%\"
+			id=\"BASESKIN_ADD_CSS_FILE\"
+			requires=\"BaseSkinCss/base,BASESKIN_USE_CSS_FILE\"
+			url=\"%BASESKIN_ADD_CSS_FILE%\"
 			}$percnt"
-	else=""
 }%%TMPL:END%%{
 ---------------------------------------------------
 Development only: if url param devgrid is 1, adds JavaScript to show a baseline grid on the page.

@@ -9,27 +9,38 @@ The attachtables template defines how attachments are displayed:
 ---------------------------------------------------
 Top table row definition for topic attachments and top table in attach screen
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:header(toprow)}%<div class='foswikiSearchResultsHeader'><div class='foswikiRight'>
-<a href="#" class="jqButton foswikiUnvisited">Attach new file</a>
-</div>%MAKETEXT{"Sort by:"}%</div>%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:files:header(toprow)}%<div class='foswikiToolHeader'>
+%MAKETEXT{"Sort on:"}% <a href='#' class='foswikiSort' data-sort="data-file">%MAKETEXT{"Name"}%</a> <a href='#' class='foswikiSort' data-sort="data-size">%MAKETEXT{"Size"}%</a> <a href='#' class='foswikiSort' data-sort="data-ext">%MAKETEXT{"Extension"}%</a> <a href='#' class='foswikiSort' data-sort="data-user">%MAKETEXT{"User"}%</a>
+<ul class='foswikiToolButtonRow'>
+	<li>
+		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="jqButton">Attach new file</a>
+	</li>
+</ul>
+</div>%TMPL:END%%{
 ---------------------------------------------------
 Header definition for topic attachments and top table in attach screen
 ---------------------------------------------------
 }%%TMPL:DEF{ATTACH:files:header(basic)}%<div class="foswikiAttachments foswikiSearchResults">
-%TMPL:P{ATTACH:files:header(toprow)}%%TMPL:END%%{
+%TMPL:P{ATTACH:files:header(toprow)}%<ul>%TMPL:END%%{
 ---------------------------------------------------
 A basic row definition, for attachment table and attach screen
 Use %A_URL% instead of %PUBURLPATH%/%WEB%/%TOPIC%/%A_FILE% to get a viewfile link
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:row(basic)}%<div class="foswikiAttachment foswikiSearchResult">
-<div class='foswikiRight'><a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;revInfo=1" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">%MAKETEXT{"manage"}%</a>
-</div> %A_ICON%<span class="foswikiHidden">%A_EXT%</span><div class='foswikiSearchResultContents'><span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span><div>
-%A_COMMENT%</div><span class='foswikiSearchResultMeta'> %A_USER% %A_DATE% &sdot; %A_SIZE% <span class='foswikiGrayText'>%IF{
-	"'%A_REV%'!='1'"
-	then="<a href='#' class='foswikiUnvisited'>versions</a>"
-}%</span></span>
-</div>
-</div>%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:files:row(basic)}%<li class="foswikiAttachment foswikiSearchResult" data-size="%A_FILESIZE%" data-ext="%A_EXT%" data-user="%A_USER%" data-file="%A_EFILE%" data-date="%A_EPOCH%" data-rev="%A_REV%" data-comment="<literal>%A_COMMENT%</literal>">
+	<ul>
+		<li class='foswikiAction'>
+			<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;revInfo=1" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">%MAKETEXT{"manage"}%</a>
+		</li><li>
+			%A_ICON%
+		</li><li class='foswikiSearchResultContents'>
+			<span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span>
+			<div> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"By [_1] on [_2] &&sdot; [_3]" args="%A_USER%, %A_DATE%, %A_SIZE%"}%%IF{
+				"'%A_REV%'!='1'"
+				then=" - <a href='#' class='foswikiUnvisited'>%MAKETEXT{"view older versions"}%</a>"
+			}%</span>
+		</li>
+	</ul>
+</li>%TMPL:END%%{
 ---------------------------------------------------
 Header for topic attachment table
 ---------------------------------------------------
@@ -44,7 +55,7 @@ Row for topic attachment table
 ---------------------------------------------------
 Footer for topic attachment table
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:footer}%</div>%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:files:footer}%</ul></div>%TMPL:END%%{
 ---------------------------------------------------
 Header for table at top of attach screen
 ---------------------------------------------------
