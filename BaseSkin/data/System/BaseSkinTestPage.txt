@@ -22,9 +22,13 @@ text
 <h6>Heading 6</h6> 
 
 text
+
 <h2 id="paragraph">A very very very very very very very very very very very very very very very very very very very very very very very very long header</h2> 
-<p>Lorem ipsum dolor sit amet, <a href="#" title="test link">test link</a> adipiscing elit. Nullam dignissim convallis est. Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.</p> 
-<p>Lorem ipsum dolor sit amet, <em>emphasis</em> consectetuer adipiscing elit. Nullam dignissim convallis est. Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.</p> 
+
+Lorem ipsum dolor sit amet, <a href="#" title="test link">test link</a> adipiscing elit. Nullam dignissim convallis est. Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.
+
+Lorem ipsum dolor sit amet, <em>emphasis</em> consectetuer adipiscing elit. Nullam dignissim convallis est. Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui. Nam sit amet sem. Aliquam libero nisi, imperdiet at, tincidunt nec, gravida vehicula, nisl. Praesent mattis, massa quis luctus fermentum, turpis mi volutpat justo, eu volutpat enim diam eget metus. Maecenas ornare tortor. Donec sed tellus eget sapien fringilla nonummy. Mauris a ante. Suspendisse quam sem, consequat at, commodo vitae, feugiat in, nunc. Morbi imperdiet augue quis tellus.
+
 <h2 id="list_types">List Types</h2> 
 
 <h3>Definition List</h3> 
@@ -143,7 +147,6 @@ Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. No
 Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
 </div>
 
-
 ---++ Text sizes
 
 Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal 
@@ -156,11 +159,6 @@ Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. No
 
 <span class="foswikiAlert">Alert text.</span>
 
-
----++ foswikiNotification
-<div class="foswikiNotification">
-Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. N
-</div>
 
 ---++ Blockquote
 <blockquote>
@@ -317,8 +315,16 @@ class="simple"
 ---+++ foswikiBroadcastMessage
 <div class="foswikiBroadcastMessage"> <strong>NOTE:</strong> Edit and Attach will be disabled today between 05:00 PM and 06:00 PM PDT (00:00 to 01:00 GMT) for a scheduled Foswiki maintenance.</div>
 
----+++ foswikiNotification
-<div class="foswikiNotification">This is a notification.</div>
+---++ foswikiNotification
+<div class="foswikiNotification">
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. N
+</div>
+
+text before 
+<div class="foswikiNotification">
+Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. Normal text. 
+</div>
+text after
 
 ---+++ foswikiMessage
 <span class="foswikiMessage">This is a message.</span>
@@ -345,7 +351,6 @@ class="simple"
 	</ul>
 	<div class="foswikiClear"></div>
 </div>
-
 
 ---+++ JQuery Tabs
 %META:FORM{name="UserForm"}%

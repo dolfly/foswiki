@@ -2,6 +2,32 @@
 Typographic grid using modular scales
 see http://vimeo.com/17079380 and http://modularscale.com/
 */
+/*
+@mixin block_padding_flattened ($hide_side_padding: 0) {
+	padding-top: $size_block_padding_flattened_em;
+	padding-bottom: $size_block_padding_flattened_em;
+	@if $hide_side_padding != 1 {
+		padding-left: $size_block_padding_flattened_px;
+		padding-right: $size_block_padding_flattened_px;
+	} @else {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+*/
+/*
+@mixin block_padding_small ($hide_side_padding: 0) {
+	padding-top: $size_block_padding_small_em;
+	padding-bottom: $size_block_padding_small_em;
+	@if $hide_side_padding != 1 {
+		padding-left: $size_block_padding_small_px;
+		padding-right: $size_block_padding_small_px;
+	} @else {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+*/
 /* colors */
 /* corners */
 /* reset values set in base.css */
@@ -38,13 +64,13 @@ The solution is to use line-height: 1 (right, no em!) for headers, and the desir
 */
 body {
   font-size: 13px;
-  line-height: 1.618; }
+  line-height: 1.615; }
 
 h1 {
   font-size: 2.769em;
   line-height: 1;
-  margin-top: 0.584em;
-  margin-bottom: 0.584em;
+  margin-top: 0.583em;
+  margin-bottom: 0.583em;
   border-bottom: 3px double #ccc;
   font-family: georgia, serif;
   font-style: italic; }
@@ -52,33 +78,33 @@ h1 {
 h2 {
   font-size: 2.25em;
   line-height: 1;
-  margin-top: 0.719em;
-  margin-bottom: 0.719em; }
+  margin-top: 0.718em;
+  margin-bottom: 0.718em; }
 
 h3 {
   font-size: 1.846em;
   line-height: 1;
-  margin-top: 0.876em;
-  margin-bottom: 0.876em; }
+  margin-top: 0.875em;
+  margin-bottom: 0.875em; }
 
 h4,
 .foswikiLarge {
   font-size: 1.5em;
   line-height: 1;
-  margin-top: 1.079em;
-  margin-bottom: 1.079em; }
+  margin-top: 1.077em;
+  margin-bottom: 1.077em; }
 
 h5 {
   font-size: 1.231em;
   line-height: 1;
-  margin-top: 1.315em;
-  margin-bottom: 1.315em; }
+  margin-top: 1.313em;
+  margin-bottom: 1.313em; }
 
 h6 {
   font-size: 1em;
   line-height: 1;
-  margin-top: 1.618em;
-  margin-bottom: 1.618em;
+  margin-top: 1.615em;
+  margin-bottom: 1.615em;
   text-transform: uppercase; }
 
 p,
@@ -87,6 +113,7 @@ blockquote,
 iframe,
 label,
 address,
+select,
 td,
 th,
 ul,
@@ -101,9 +128,27 @@ hr,
 .foswikiNotification,
 .foswikiAttachments {
   font-size: 1em;
-  line-height: 1.618em;
-  margin-top: 1.618em;
-  margin-bottom: 1.618em; }
+  line-height: 1.615em; }
+
+/* vertical margin for block level elements */
+p,
+pre,
+blockquote,
+iframe,
+address,
+ul,
+ol,
+dl,
+hr,
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification,
+.foswikiAttachments {
+  margin-top: 1.615em;
+  margin-bottom: 1.615em; }
 
 dt,
 li {
@@ -111,23 +156,23 @@ li {
 
 /* smaller text */
 blockquote {
-  line-height: 1.798em;
+  line-height: 1.795em;
   font-size: 0.9em;
-  margin-top: 1.798em;
-  margin-bottom: 1.798em; }
+  margin-top: 1.795em;
+  margin-bottom: 1.795em; }
 
 .foswikiSmallish {
   font-size: 0.9em;
-  line-height: 1.798em; }
+  line-height: 1.795em; }
 
 small,
 .foswikiSmall {
   font-size: 0.821em;
-  line-height: 1.972em; }
+  line-height: 1.969em; }
 
 /* paragraph indenting for readability */
 p {
-  text-indent: 1.618em; }
+  text-indent: 1.615em; }
 
 div + p,
 h1 + p,
@@ -213,11 +258,13 @@ kbd,
 samp,
 .foswikiDiffDebug {
   font-family: "Bitstream Vera Sans Mono", "Andale Mono", "Courier", monospace;
-  font-size: 0.9em; }
+  font-size: 0.9em;
+  line-height: 1.795em; }
 
 dd,
-ul, ol {
-  margin-left: 21.034px; }
+ul,
+ol {
+  margin-left: 21px; }
 
 a:link,
 a:visited {
@@ -228,7 +275,7 @@ a:hover {
 
 /* buttons */
 .jqButton {
-  line-height: 1.618em; }
+  line-height: 1.615em; }
 
 a.jqButton:hover,
 a.jqButton.jqButtonDefault:hover,
@@ -277,26 +324,29 @@ button.jqButton.jqButtonDefault:hover {
   border: 1px solid #dbdbdb; }
   .foswikiToolHeader ul.foswikiToolButtonRow {
     position: relative;
-    margin: -1px 0 0 0;
+    margin: 0;
     float: right;
-    padding: 0;
-    list-style: none; }
+    padding: 0 0 0 1em;
+    list-style: none;
+    border-left: 1px solid #ccc; }
   .foswikiToolHeader a:link,
   .foswikiToolHeader a:visited {
     color: #222222; }
   .foswikiToolHeader a.jqButton {
     margin: 0;
     font-size: 0.9em;
-    line-height: 1.798em; }
+    line-height: 1.795em; }
   .foswikiToolHeader a.jqButton:hover {
     color: #fff; }
-  .foswikiToolHeader .foswikiSort {
+  .foswikiToolHeader a.foswikiSort {
     margin-left: 0.444em; }
+  .foswikiToolHeader span {
+    color: #999; }
 
 /* attachments */
 .foswikiAttachments .foswikiAttachment {
-  padding-top: 0.444em;
-  padding-bottom: 0.444em;
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
   padding-left: 13px;
   padding-right: 13px; }
   .foswikiAttachments .foswikiAttachment a:link,
@@ -311,12 +361,14 @@ button.jqButton.jqButtonDefault:hover {
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultTitle a {
     font-weight: bold; }
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta {
-    line-height: 1.798em;
-    font-size: 0.9em;
     color: #aaa; }
     .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:link,
     .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:visited {
-      color: #777; }
+      color: #aaa;
+      text-decoration: underline; }
+    .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:hover {
+      color: #000;
+      text-decoration: underline; }
 .foswikiAttachments ul, .foswikiAttachments li {
   margin: 0;
   padding: 0;
@@ -362,7 +414,7 @@ pre {
 
 .foswikiDevGridRow {
   width: 100%;
-  height: 20.034px;
+  height: 20px;
   border-style: none none solid none;
   border-color: rgba(0, 0, 255, 0.1);
   border-width: 1px; }

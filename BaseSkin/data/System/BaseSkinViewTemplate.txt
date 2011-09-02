@@ -1,13 +1,15 @@
 %{<verbatim class="tml">
 ===================================================
 Base Skin topic template
-The view template defines the display of contents through the view script:
-- topic text
-- data form
-- attachments
+
+	The view template defines the display of contents through the view script:
+		- topic text
+		- data form
+		- attachments
 ===================================================
-}%%TMPL:INCLUDE{"document"}%
-%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
+}%%TMPL:INCLUDE{"document"}%%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
+---------------------------------------------------
+	Content container
 ---------------------------------------------------
 }%%TMPL:DEF{"content"}%<div class="foswikiContent">
 <div class="foswikiTopic">
@@ -30,7 +32,12 @@ sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar cont
 <div class="foswikiClear"></div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
+	topic:before contains the form:top and attachments:top, if set (not inside a tab pane)
+	TODO: test this
+---------------------------------------------------
 }%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:END%%{
+---------------------------------------------------
+	topic:after contains the form and attachment tab pane
 ---------------------------------------------------
 }%%TMPL:DEF{"topic:after"}%%TABPANE{class="simple"}%
 %IF{
@@ -49,7 +56,11 @@ sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar cont
 ---------------------------------------------------
 }%%TMPL:DEF{"form:bottom"}%%TMPL:P{"form"}%%TMPL:END%%{
 ---------------------------------------------------
+	Form tab
+---------------------------------------------------
 }%%TMPL:DEF{"form"}%%TAB{"Data form"}%%META{"form"}%%ENDTAB%%TMPL:END%%{
+---------------------------------------------------
+	Atachments tab
 ---------------------------------------------------
 }%%TMPL:DEF{"attachments"}%%TAB{"Attachments (%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}%)"}%%META{"attachments"}%%ENDTAB% %TMPL:END%%{
 ---------------------------------------------------

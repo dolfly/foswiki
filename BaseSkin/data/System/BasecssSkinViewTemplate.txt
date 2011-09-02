@@ -1,17 +1,18 @@
 %{<verbatim class="tml">
 ===================================================
-Base Skin topic template
-The basecss template adds CSS files to the html head:
-- boilerplate.css
-- TODO: external font files
-- base.css - unless preference BASESKIN_USE_CSS_FILE is set
-- files defined in BASESKIN_USE_CSS_FILE
-- files defined in BASESKIN_ADD_CSS_FILE
-- CSS text defined in BASESKIN_ADD_CSS
+	Base Skin topic template
+
+	The basecss template adds CSS files to the html head:
+		- boilerplate.css
+		- TODO: external font files
+		- base.css - unless preference BASESKIN_USE_CSS_FILE is set
+		- files defined in BASESKIN_USE_CSS_FILE
+		- files defined in BASESKIN_ADD_CSS_FILE
+		- CSS text defined in BASESKIN_ADD_CSS
 ===================================================
 }%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------
-HTML5 ✰ Boilerplate contains a reset, font normalization and some base styles
+	HTML5 ✰ Boilerplate contains a reset, font normalization and some base styles
 ---------------------------------------------------
 }%%TMPL:DEF{"head:css"}%%TMPL:PREV%%TMPL:P{
 	"LIBCSS"
@@ -19,15 +20,15 @@ HTML5 ✰ Boilerplate contains a reset, font normalization and some base styles
 	requires="JQUERYPLUGIN::TABPANE"
 }%%{
 ---------------------------------------------------
-TODO Link to font should be added here
+	TODO Link to font should be added here
 ---------------------------------------------------
 }%%ADDTOZONE{
-	"head"
+	"head-base"
 	id="font"
 	text=""
 }%%{
 ---------------------------------------------------
-Loads CSS files defined in BASESKIN_USE_CSS_FILE if set
+	Loads CSS files defined in BASESKIN_USE_CSS_FILE if set
 ---------------------------------------------------
 }%%IF{
 	"defined BASESKIN_USE_CSS_FILE AND $BASESKIN_USE_CSS_FILE!=''"
@@ -44,7 +45,7 @@ Loads CSS files defined in BASESKIN_USE_CSS_FILE if set
 		}$percnt"
 }%%{
 ---------------------------------------------------
-Loads CSSs file defined in BASESKIN_ADD_CSS_FILE if set
+	Loads CSSs file defined in BASESKIN_ADD_CSS_FILE if set
 ---------------------------------------------------
 }%%IF{
 	"defined BASESKIN_ADD_CSS_FILE AND $BASESKIN_ADD_CSS_FILE!=''"
@@ -56,7 +57,7 @@ Loads CSSs file defined in BASESKIN_ADD_CSS_FILE if set
 			}$percnt"
 }%%TMPL:END%%{
 ---------------------------------------------------
-Development only: if url param devgrid is 1, adds JavaScript to show a baseline grid on the page.
+	Development only: if url param devgrid is 1, adds JavaScript to show a baseline grid on the page.
 ---------------------------------------------------
 }%%TMPL:DEF{"head:script"}%%TMPL:PREV%%IF{
 	"defined devgrid AND $devgrid='1'"
@@ -65,7 +66,7 @@ Development only: if url param devgrid is 1, adds JavaScript to show a baseline 
 	}$percnt"
 }%%TMPL:END%%{
 ---------------------------------------------------
-Development only: adds the baseline grid script to the html head.
+	Development only: adds the baseline grid script to the html head.
 ---------------------------------------------------
 }%%TMPL:DEF{"dev:baselinegrid"}%%ADDTOZONE{
 	"script"

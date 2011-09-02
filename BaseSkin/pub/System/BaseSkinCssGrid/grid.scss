@@ -21,7 +21,7 @@ $ratio_musical_fifth: 1.5;		// 2:3
 $ratio_musical_fourth: 1.333;	// 3:4
 $ratio: $ratio_musical_fifth;
 
-$body_line_height: $ratio_golden * $body_font_size; // could be a number as well, like 18 (pixels)
+$body_line_height: 21; //$ratio_golden * $body_font_size; // could be a number as well, like 18 (pixels)
 
 // END SETTINGS
 // ------------------------------------------------------------
@@ -47,6 +47,8 @@ $body_line_height: $ratio_golden * $body_font_size; // could be a number as well
 @mixin em_margin_bottom ($size) {
 	margin-bottom: 0em + em_line_height($size);
 }
+
+// used for pre, foswikiHelp, foswikiNotification, ...
 @mixin block_padding ($hide_side_padding: 0) {
 	padding-top: $size_block_padding_em;
 	padding-bottom: $size_block_padding_em;
@@ -58,20 +60,10 @@ $body_line_height: $ratio_golden * $body_font_size; // could be a number as well
 		padding-right: 0;
 	}
 }
-@mixin block_padding_flattened ($hide_side_padding: 0) {
-	padding-top: $size_block_padding_flattened_em;
-	padding-bottom: $size_block_padding_flattened_em;
-	@if $hide_side_padding != 1 {
-		padding-left: $size_block_padding_flattened_px;
-		padding-right: $size_block_padding_flattened_px;
-	} @else {
-		padding-left: 0;
-		padding-right: 0;
-	}
-}
-@mixin block_padding_small ($hide_side_padding: 0) {
-	padding-top: $size_block_padding_small_em;
-	padding-bottom: $size_block_padding_small_em;
+
+@mixin block_padding_half_vertical ($hide_side_padding: 0) {
+	padding-top: 0.5 * $size_block_padding_em;
+	padding-bottom: 0.5 * $size_block_padding_em;
 	@if $hide_side_padding != 1 {
 		padding-left: $size_block_padding_small_px;
 		padding-right: $size_block_padding_small_px;
@@ -80,6 +72,36 @@ $body_line_height: $ratio_golden * $body_font_size; // could be a number as well
 		padding-right: 0;
 	}
 }
+
+
+	/*
+	@mixin block_padding_flattened ($hide_side_padding: 0) {
+		padding-top: $size_block_padding_flattened_em;
+		padding-bottom: $size_block_padding_flattened_em;
+		@if $hide_side_padding != 1 {
+			padding-left: $size_block_padding_flattened_px;
+			padding-right: $size_block_padding_flattened_px;
+		} @else {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+	*/
+	/*
+	@mixin block_padding_small ($hide_side_padding: 0) {
+		padding-top: $size_block_padding_small_em;
+		padding-bottom: $size_block_padding_small_em;
+		@if $hide_side_padding != 1 {
+			padding-left: $size_block_padding_small_px;
+			padding-right: $size_block_padding_small_px;
+		} @else {
+			padding-left: 0;
+			padding-right: 0;
+		}
+	}
+	*/
+	
+// used for toolbar and buttons
 @mixin block_padding_small_flattened ($hide_side_padding: 0) {
 	padding-top: $size_block_padding_small_flattened_em;
 	padding-bottom: $size_block_padding_small_flattened_em;
@@ -91,8 +113,9 @@ $body_line_height: $ratio_golden * $body_font_size; // could be a number as well
 		padding-right: 0;
 	}
 }
+
 @mixin dev_gridline () {
-	border-color: fade-out(#00f, .9);
+	border-color: fade-out(#00f, 0.9);
 	border-width: 1px;
 }
 @mixin ie-linear-gradient($start-color, $end-color) {
@@ -176,7 +199,7 @@ $strand2_ratio_down_8: $strand2_ratio_down_7 / $ratio;
 // font sizes
 $size_small:    $strand2_ratio_down_1;
 $size_smallish: $strand1_ratio_1;
-$size_smallish_font: .9 * $strand1_ratio_1;
+$size_smallish_font: 0.9 * $strand1_ratio_1;
 $size_p:        $strand1_ratio_1;
 $size_h6:       $strand1_ratio_1;
 $size_h5:       $strand2_ratio_1;
@@ -304,6 +327,7 @@ blockquote,
 iframe,
 label,
 address,
+select,
 td,
 th,
 ul,
@@ -319,10 +343,28 @@ hr,
 .foswikiAttachments {
 	@include em_font_size($size_p);
 	@include em_line_height($size_p);
+}
+
+/* vertical margin for block level elements */
+p,
+pre,
+blockquote,
+iframe,
+address,
+ul,
+ol,
+dl,
+hr,
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification,
+.foswikiAttachments {
 	@include em_margin_top($size_p);
 	@include em_margin_bottom($size_p);
 }
-
 dt,
 li {
 	@include em_font_size($size_p);
@@ -444,10 +486,12 @@ samp,
 .foswikiDiffDebug {
     font-family: $font_family_code;
     @include em_font_size($size_smallish_font);
+	@include em_line_height($size_smallish_font);
 }
 
 dd,
-ul, ol {
+ul,
+ol {
 	margin-left: 0px + $body_line_height;
 }
 
@@ -513,10 +557,11 @@ button.jqButton.jqButtonDefault:hover {
 	
 	ul.foswikiToolButtonRow {
 		position: relative;
-		margin: -1px 0 0 0;
+		margin: 0;
 		float: right;
-		padding:0;
-		list-style:none;	
+		padding:0 0 0 1em;
+		list-style:none;
+		border-left: 1px solid #ccc;
 	}
 	
 	a:link,
@@ -533,8 +578,12 @@ button.jqButton.jqButtonDefault:hover {
 		color: #fff;
 	}
 	
-	.foswikiSort {
+	a.foswikiSort {
 		margin-left: $size_block_padding_small_flattened_em;
+	}
+	
+	span {
+		color: #999;
 	}
 }
 
@@ -542,8 +591,8 @@ button.jqButton.jqButtonDefault:hover {
 .foswikiAttachments {
 
 	.foswikiAttachment {
-		@include block_padding_small_flattened;
-		
+		@include block_padding_half_vertical;
+
 		a:link,
 		a:visited {
 			color: $color_link_black;
@@ -568,13 +617,16 @@ button.jqButton.jqButtonDefault:hover {
 		}
 		
 		.foswikiSearchResultMeta {
-			@include em_line_height($size_smallish_font);
-			@include em_font_size($size_smallish_font);
 			color:#aaa;
 			
 			a:link,
 			a:visited {
-				color:#777;
+				color:#aaa;
+				text-decoration: underline;
+			}
+			a:hover {
+				color:#000;
+				text-decoration: underline;
 			}
 		}
 	}

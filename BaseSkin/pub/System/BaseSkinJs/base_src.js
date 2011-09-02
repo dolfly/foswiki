@@ -1,18 +1,19 @@
 jQuery(document).ready(function() {
 
-	jQuery('.foswikiSort').livequery('click', function() {
-
+	function sort($el, sort) {
+		
 		// TODO:
-		// connect sort links to the right attachment table; there might be more than one
-		// initial sort
-		// mark sorted link (bold?)
+
 		// sort direction feedback
 		// put sort plugin in separate plugin and give author due copyright
 		
-		var sort = $(this).attr('data-sort');
-		var direction = $(this).attr('data-sort-direction');
+		var direction = $el.attr('data-sort-direction');
 		if (direction === undefined) {
 			direction = 1;
+		}
+		if (sort === 'data-date') {
+			// latest on top
+			direction = -direction;
 		}
 		var compare;
 		var type = 'string';
@@ -27,9 +28,30 @@ jQuery(document).ready(function() {
 				return $(a).attr(sort) > $(b).attr(sort) ? direction : -direction;
 			};
 		}
-		$('.foswikiAttachment').sortElements(comparator);
+		// find parent with class 'foswikiAttachments
+		var attachments = $el.parents('.foswikiAttachments');
+		console.log(attachments);
+		$('.foswikiAttachment', attachments).sortElements(comparator);
+		/*
 		direction = -direction;
-		$(this).attr('data-sort-direction', direction);
+		$el.attr('data-sort-direction', direction);
+		*/
+		return false;
+	}
+	
+	// find currently selected value and sort
+	jQuery('select.foswikiSort').livequery(function() {
+		sort($(this), $(this).val());
+		return false;
+	});
+	
+	jQuery('select.foswikiSort').livequery('change', function() {
+		sort($(this), $(this).val());
+		return false;
+	});
+	
+	jQuery('a.foswikiSort').livequery('click', function() {
+		sort($(this), $(this).attr('data-sort'));
 		return false;
 	});
 });

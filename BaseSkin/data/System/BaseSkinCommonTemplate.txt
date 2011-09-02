@@ -1,15 +1,16 @@
 %{<verbatim class="tml">
 ===================================================
-Base Skin topic template
-The common template contains definitions used in multiple templates.
+	Base Skin topic template
+	
+	The common template does nothing in itself, but contains definitions that are handy to share between other templates.
 ===================================================
 }%%{
 ---------------------------------------------------
-Macro for including JavaScript files from system paths
-Takes as arguments:
-- id
-- file url, must NOT include .css extension
-- requires
+	Macro for including JavaScript files from system paths
+	Takes as arguments:
+		- id
+		- file url, must NOT include .css extension
+		- requires
 ---------------------------------------------------
 }%
 %TMPL:DEF{"LIBJS"}%%ADDTOZONE{
@@ -19,27 +20,27 @@ Takes as arguments:
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-Macro for including CSS files from *system* paths
-Takes as arguments:
-- id
-- file url, must NOT include .css extension
-- requires
+	Macro for including CSS files from *system* paths
+	Takes as arguments:
+		- id
+		- file url, must NOT include .css extension
+		- requires
 ---------------------------------------------------
 }%%TMPL:DEF{"LIBCSS"}%%ADDTOZONE{
-	"head"
+	"head-base"
 	id="%id%"
 	text="<link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.css' />"
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-Macro for including CSS files from other paths
-Takes as arguments:
-- id
-- file url, must include .css extension
-- requires
+	Macro for including CSS files from other paths
+	Takes as arguments:
+		- id
+		- file url, must include .css extension
+		- requires
 ---------------------------------------------------
 }%%TMPL:DEF{"CSS"}%%ADDTOZONE{
-	"head"
+	"head-base"
 	id="%id%"
 	text="$percntFORMAT{
 		\"%url%\"

@@ -1,7 +1,8 @@
 %{<verbatim class="tml">
 ===================================================
-Base Skin topic template
-The webtopbar template defines the page top bar
+	Base Skin topic template
+	
+	The webtopbar template defines the page top bar. It INCLUDEs the BaseSkinWebTopBar topic of the current web, or if it doesn't exist, the BaseSkinWebTopBarExample topic.
 ===================================================
 }%%TMPL:DEF{"topbar"}%<div class="foswikiTopBar">
 <div class="foswikiTopBarContents">
