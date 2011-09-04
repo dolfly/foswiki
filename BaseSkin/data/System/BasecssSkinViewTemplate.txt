@@ -3,7 +3,6 @@
 	Base Skin topic template
 
 	The basecss template adds CSS files to the html head:
-		- boilerplate.css
 		- TODO: external font files
 		- base.css - unless preference BASESKIN_USE_CSS_FILE is set
 		- files defined in BASESKIN_USE_CSS_FILE
@@ -11,14 +10,6 @@
 		- CSS text defined in BASESKIN_ADD_CSS
 ===================================================
 }%%TMPL:INCLUDE{"view"}%%{
----------------------------------------------------
-	HTML5 ✰ Boilerplate contains a reset, font normalization and some base styles
----------------------------------------------------
-}%%TMPL:DEF{"head:css"}%%TMPL:PREV%%TMPL:P{
-	"LIBCSS"
-	id="BaseSkinCss/boilerplate"
-	requires="JQUERYPLUGIN::TABPANE"
-}%%{
 ---------------------------------------------------
 	TODO Link to font should be added here
 ---------------------------------------------------
@@ -35,13 +26,13 @@
 	then="$percntTMPL:P{
 			\"CSS\"
 			id=\"BASESKIN_USE_CSS_FILE\"
-			requires=\"BaseSkinCss/boilerplate\"
+			requires=\"\"
 			url=\"%BASESKIN_USE_CSS_FILE%\"
 			}$percnt"
 	else="$percntTMPL:P{
 			\"LIBCSS\"
 			id=\"BaseSkinCss/base\"
-			requires=\"BaseSkinCss/boilerplate\"
+			requires=\"\"
 		}$percnt"
 }%%{
 ---------------------------------------------------
@@ -81,7 +72,7 @@ jQuery(document).ready(function() {
         $grid.append($row);
     }
     $('body').prepend($grid);
-    $('.foswikiContent').addClass('foswikiDevGridCol');
+    $('.foswikiTopic').addClass('foswikiDevGridCol');
 });
 </script>"
 	requires="JQUERYPLUGIN"

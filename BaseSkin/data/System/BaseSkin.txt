@@ -18,7 +18,7 @@ The progressive loading is done by using a topic template for each part.
 %TABLE{columnwidths="10%,50%,40%" headeralign="left"}%
 | *Part name* | *What it does* | *Defined in topic template* |
 | =base=   | Sets the base structure of the document (HTML page). | %SYSTEMWEB%.BaseSkinViewTemplate (and this loads %SYSTEMWEB%.BaseSkinDocumentTemplate) |
-| =basecss= | Loads CSS files: [[http://html5boilerplate.com/][boilerplate.css]] and [[%PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/base_src.css][base.css]] that sets default styling for HTML elements and implements Foswiki styles. %BR% =base.css= is not loaded if preference =BASESKIN_USE_CSS_FILE= is set to another CSS file. | %SYSTEMWEB%.BaseCssSkinViewTemplate |
+| =basecss= | Loads CSS file [[%PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/base_src.css][base.css]] that contains a style reset, sets default styling for HTML elements and implements Foswiki styles. %BR% =base.css= is not loaded if preference =BASESKIN_USE_CSS_FILE= is set to another CSS file. | %SYSTEMWEB%.BaseCssSkinViewTemplate |
 | =basecssgrid= | Loads [[%PUBURLPATH%/%SYSTEMWEB%/BaseSkinCssGrid/grid_src.css][grid_src.css]] that implements a typographic grid and an adaptive grid to cater for different screen sizes. | %SYSTEMWEB%.BaseCssGridSkinViewTemplate |
 | =basejs= | Loads a javascript file that implements dynamic interaction with topic contents. | %SYSTEMWEB%.BaseJsSkinViewTemplate |
 
@@ -83,7 +83,6 @@ Pass url paramater =devgrid=1=, for instance: [[%SCRIPTURL{view}%/%WEB%/%TEST_TO
 This skin has all templates as topics. This makes it easier to have access to template code. The downside is that template topics will be searchable and will show up in search results.
 
    * CSS:
-      * =boilerplate.css=: from http://html5boilerplate.com/ resets styles and provides a default to build upon
       * =base.css=: implements =FoswikiXxx= classes (see %SYSTEMWEB%.AppendixCascadingStyleSheets) and provides the most basic defaults
       * =grid.css=: implements a typographic grid
    * Javascript:

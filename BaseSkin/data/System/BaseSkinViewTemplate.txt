@@ -6,12 +6,17 @@ Base Skin topic template
 		- topic text
 		- data form
 		- attachments
+		
 ===================================================
 }%%TMPL:INCLUDE{"document"}%%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
 ---------------------------------------------------
+	This is a view page
+---------------------------------------------------
+}%%TMPL:DEF{"body:class"}%foswikiViewPage%TMPL:END%%{
+---------------------------------------------------
 	Content container
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%<div class="foswikiContent">
+}%%TMPL:DEF{"content"}%<div class="foswikiTopic">
 <div class="foswikiTopic">
 <!-- TODO: CONTEXTUAL ACTIONS -->
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>

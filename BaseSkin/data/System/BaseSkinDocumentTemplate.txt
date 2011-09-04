@@ -5,6 +5,7 @@
 	This is the most top level template; it only includes 'common' for handy definitions.
 	
 	The document template defines the structure of the html document and should be included by all script topic templates.
+	
 ===================================================
 }%%TMPL:INCLUDE{"common"}%%{
 ---------------------------------------------------

@@ -1,7 +1,8 @@
 %{<verbatim class="tml">
 ===================================================
     Base Skin topic template
-        The basejs template adds JavaScript files to the html head
+    
+    The basejs template adds JavaScript files to the html head
 ===================================================
 }%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------

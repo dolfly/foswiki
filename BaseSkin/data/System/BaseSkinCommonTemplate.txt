@@ -3,6 +3,7 @@
 	Base Skin topic template
 	
 	The common template does nothing in itself, but contains definitions that are handy to share between other templates.
+	
 ===================================================
 }%%{
 ---------------------------------------------------
@@ -49,5 +50,29 @@
 	}$percnt"
 	requires="%requires%"
 }%%TMPL:END%%{
+---------------------------------------------------
+	Topic actions
+---------------------------------------------------
+}%%TMPL:DEF{"topicaction"}%<div class="foswikiTopicActions" >
+topicactionbuttons
+</div>%TMPL:END%%{
+---------------------------------------------------
+	Note: non-wikiword
+---------------------------------------------------
+}%%TMPL:DEF{"nonwikiwordwarning"}%<p class="foswikiAllowNonWikiWord"><label><input type="checkbox" class="foswikiCheckbox" name="nonwikiword" %IF{
+	"$ 'URLPARAM{nonwikiword}'='on'"
+	then="checked=\"checked\""
+}% />%MAKETEXT{"Allow non <nop>WikiWord for the new topic name"}%</label> %TMPL:P{"nonwikiwordhelp"}%</p>%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"nonwikiwordhelp"}%%TWISTY{
+	mode="span"
+}% %MAKETEXT{"It's usually best to choose a [_1] for the new topic name, otherwise automatic linking may not work. Characters not allowed in topic names, such as spaces will automatically be removed." args="%POPUPWINDOW{
+	"%SYSTEMWEB%.WikiWord"
+	label="WikiWord"
+}%"}%%JQREQUIRE{"popupwindow"}%%ENDTWISTY%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"nonwikiwordallowed"}%<input type="hidden" name="nonwikiword" value="%URLPARAM{"nonwikiword" default="on"}%" />%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"nonwikiword"}%%IF{"$HIDE_NON_WIKI_WORD_WARNINGS!='on'" then="$percntTMPL:P{$quotnonwikiwordwarning$quot}$percnt" else="$percntTMPL:P{$quotnonwikiwordallowed$quot}$percnt"}%%TMPL:END%%{
 ===================================================
 </verbatim>}%

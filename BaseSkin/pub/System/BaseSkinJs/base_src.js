@@ -11,7 +11,7 @@ jQuery(document).ready(function() {
 		if (direction === undefined) {
 			direction = 1;
 		}
-		if (sort === 'data-date') {
+		if (sort === 'data-date' || sort === 'data-rev') {
 			// latest on top
 			direction = -direction;
 		}
@@ -54,6 +54,11 @@ jQuery(document).ready(function() {
 		sort($(this), $(this).attr('data-sort'));
 		return false;
 	});
+	
+	jQuery('input.foswikiFocus').livequery(function() {
+			$(this).focus();
+		}
+	);
 });
 
 

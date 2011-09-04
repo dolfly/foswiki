@@ -5,6 +5,9 @@
 	The attachtables template defines how attachments are displayed:
 		- on the topic page
 		- on the attachment screen
+	
+	TODO: make DEF names more comprehensible
+	
 ===================================================
 }%%{
 ---------------------------------------------------
@@ -17,15 +20,17 @@
 	<option value="data-size">%MAKETEXT{"Ordered by size"}%</option>
 	<option value="data-ext">%MAKETEXT{"Ordered by kind"}%</option>
 	<option value="data-user">%MAKETEXT{"Ordered by user"}%</option>
+	<option value="data-rev">%MAKETEXT{"Ordered by version"}%</option>
 </select>
 <ul class='foswikiToolButtonRow'>
 	<li>
-		<span>manage</span>
-<!--
-		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="jqButton">Attach new file</a>
--->
+		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="jqButton">Manage</a>
+	</li>
+	<li>
+		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="jqButton">Upload new</a>
 	</li>
 </ul>
+<div class="foswikiClear"></div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	Header definition for topic attachments and top table in attach screen
@@ -38,16 +43,14 @@
 ---------------------------------------------------
 }%%TMPL:DEF{ATTACH:files:row(basic)}%<li class="foswikiAttachment foswikiSearchResult" data-size="%A_FILESIZE%" data-ext="%A_EXT%" data-user="%A_USER%" data-file="%A_EFILE%" data-date="%A_EPOCH%" data-rev="%A_REV%" data-comment="<literal>%A_COMMENT%</literal>">
 	<ul>
-		<li class='foswikiAction'>
-			<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;revInfo=1" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">&rarr;</a>
-		</li><li>
+		<li class='foswikiSearchResultImage'>
 			%A_ICON%
 		</li><li class='foswikiSearchResultContents'>
 			<span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span>
-			<div> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"By [_1] on [_2] &&sdot; [_3]" args="%A_USER%, %A_DATE%, %A_SIZE%"}%%IF{
+			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"[_1] &&sdot; uploaded by [_2] on [_3]" args="%A_SIZE%, %A_USER%, %A_DATE%"}%%IF{
 				"'%A_REV%'!='1'"
-				then=" - <a href='#' class='foswikiUnvisited'>%MAKETEXT{"view older versions"}%</a>"
-			}%</span>
+				then=" &sdot; %MAKETEXT{"version [_1]" args="%A_REV%"}% &sdot; <a href='%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;tab=history' class='foswikiUnvisited'>%MAKETEXT{"view previous versions"}%</a>"
+			}% &sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">edit</a> &sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;tab=delete">%ICON{trash-small}%</a></span>
 		</li>
 	</ul>
 </li>%TMPL:END%%{
@@ -69,7 +72,7 @@
 ---------------------------------------------------
 	Header for table at top of attach screen
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:header:A}%%TMPL:P{ATTACH:files:header(basic)}% *%MAKETEXT{"Attribute"}%* |
+}%%TMPL:DEF{ATTACH:files:header:A}%%TMPL:P{ATTACH:files:header(basic)}% QQQ
 %TMPL:END%%{
 ---------------------------------------------------
 	Row for table at top of attach screen
@@ -83,17 +86,39 @@
 ---------------------------------------------------
 	Header for versions table in attach screen
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:versions:header}%|  *%MAKETEXT{"Version"}%*  |  *%MAKETEXT{"Action"}%*   |  *%MAKETEXT{"Date"}%*  |  *%MAKETEXT{"Who"}%*  |  *%MAKETEXT{"Comment"}%*  |
-%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:versions:header}%<div class="foswikiAttachments foswikiSearchResults">
+%TMPL:P{ATTACH:files:header(toprow)(basic)}%<ul>%TMPL:END%%{
+---------------------------------------------------
+	Top table row definition for topic attachments and top table in attach screen
+---------------------------------------------------
+}%%TMPL:DEF{ATTACH:files:header(toprow)(basic)}%<div class='foswikiToolHeader'>
+<select class='foswikiSort'>
+	<option value="data-rev">%MAKETEXT{"Ordered by version"}%</option>
+%{
+	as long as we cannot retrieve the different file sizes we don't sort on it
+	<option value="data-size">%MAKETEXT{"Ordered by size"}%</option>-->
+}%
+	<option value="data-user">%MAKETEXT{"Ordered by user"}%</option>
+</select>
+<div class="foswikiClear"></div>
+</div>%TMPL:END%%{
 ---------------------------------------------------
 	Row for versions table in attach screen
 	Use %A_URL% instead of %PUBURLPATH%/%WEB%/%TOPIC%/%A_FILE% to get a viewfile link
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:versions:row}%| %A_REV%  | <a href="%SCRIPTURL{viewfile}%/%WEB%/%TOPIC%?filename=%ENCODE{%A_FILE%}%;rev=%A_REV%">%MAKETEXT{"view"}%</a>  |  <span class="foswikiNoBreak">%A_DATE%</span>|%A_USER%  |%A_COMMENT%  |
-%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:versions:row}%<li class="foswikiAttachment foswikiSearchResult" data-size="%A_FILESIZE%" data-ext="%A_EXT%" data-user="%A_USER%" data-file="%A_EFILE%" data-date="%A_EPOCH%" data-rev="%A_REV%" data-comment="<literal>%A_COMMENT%</literal>">
+	<ul>
+		<li class='foswikiSearchResultImage'>
+			%A_ICON%
+		</li><li class='foswikiSearchResultContents'>
+			<span class="foswikiSearchResultTitle"><a href="%SCRIPTURL{viewfile}%/%WEB%/%TOPIC%?filename=%ENCODE{%A_FILE%}%;rev=%A_REV%"><noautolink>%MAKETEXT{"Revision [_1]" args="%A_REV%"}%</noautolink></a></span>
+			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"uploaded by [_1] on [_2]" args="%POPUPWINDOW{"%A_USER%" label="%A_USERNAME%"}%, %A_DATE%"}%</span>
+		</li>
+	</ul>
+</li>%TMPL:END%%{
 ---------------------------------------------------
 	Footer for versions table in attach screen
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:versions:footer}%%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:versions:footer}%</ul></div>%JQREQUIRE{"popupwindow"}%%TMPL:END%%{
 ===================================================
 </verbatim>}%

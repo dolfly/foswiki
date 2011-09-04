@@ -40,8 +40,11 @@ body,
 select,
 input,
 textarea {
-  color: #000;
+  color: black;
   font-family: sans-serif; }
+
+p {
+  margin: 0; }
 
 h1,
 h2,
@@ -64,16 +67,17 @@ The solution is to use line-height: 1 (right, no em!) for headers, and the desir
 */
 body {
   font-size: 13px;
-  line-height: 1.615; }
+  line-height: 1.615em; }
 
 h1 {
   font-size: 2.769em;
   line-height: 1;
   margin-top: 0.583em;
-  margin-bottom: 0.583em;
-  border-bottom: 3px double #ccc;
-  font-family: georgia, serif;
-  font-style: italic; }
+  margin-bottom: 0.583em; }
+
+.foswikiViewPage h1 {
+  font-family: georia, serif;
+  color: #3fa209; }
 
 h2 {
   font-size: 2.25em;
@@ -81,31 +85,43 @@ h2 {
   margin-top: 0.718em;
   margin-bottom: 0.718em; }
 
-h3 {
+h3,
+.foswikiManagePage h1 {
   font-size: 1.846em;
   line-height: 1;
   margin-top: 0.875em;
   margin-bottom: 0.875em; }
 
 h4,
-.foswikiLarge {
+.foswikiLarge,
+.foswikiManagePage h2 {
   font-size: 1.5em;
   line-height: 1;
   margin-top: 1.077em;
   margin-bottom: 1.077em; }
 
-h5 {
+h5,
+.foswikiManagePage h3 {
   font-size: 1.231em;
   line-height: 1;
   margin-top: 1.313em;
   margin-bottom: 1.313em; }
 
-h6 {
+.foswikiViewPage h5 {
+  font-variant: small-caps; }
+
+h6,
+.foswikiManagePage h4 {
   font-size: 1em;
   line-height: 1;
   margin-top: 1.615em;
-  margin-bottom: 1.615em;
-  text-transform: uppercase; }
+  margin-bottom: 1.615em; }
+
+.foswikiViewPage h6 {
+  font-variant: small-caps; }
+
+h2, h3, h4, h5, h6 {
+  color: #222222; }
 
 p,
 pre,
@@ -120,6 +136,8 @@ ul,
 ol,
 dl,
 hr,
+input,
+textarea,
 .foswikiTable,
 .jqTabPane,
 .foswikiBroadcastMessage,
@@ -146,7 +164,8 @@ hr,
 .foswikiImage,
 .foswikiMessage,
 .foswikiNotification,
-.foswikiAttachments {
+.foswikiAttachments,
+.foswikiFormSteps {
   margin-top: 1.615em;
   margin-bottom: 1.615em; }
 
@@ -155,12 +174,6 @@ li {
   font-size: 1em; }
 
 /* smaller text */
-blockquote {
-  line-height: 1.795em;
-  font-size: 0.9em;
-  margin-top: 1.795em;
-  margin-bottom: 1.795em; }
-
 .foswikiSmallish {
   font-size: 0.9em;
   line-height: 1.795em; }
@@ -170,37 +183,14 @@ small,
   font-size: 0.821em;
   line-height: 1.969em; }
 
-/* paragraph indenting for readability */
-p {
-  text-indent: 1.615em; }
-
-div + p,
-h1 + p,
-h2 + p,
-h3 + p,
-h4 + p,
-h5 + p,
-h6 + p,
-p.first,
-pre + p,
-p:first-child,
-ul + p,
-ol + p {
-  text-indent: 0; }
-
-hr {
-  height: 1px;
-  border: none;
-  margin-top: -1px;
-  /* for the height */ }
-
 /* correct for nested elements */
 h1:first-child,
 h2:first-child,
 h3:first-child,
 h4:first-child,
 h5:first-child,
-h6:first-child {
+h6:first-child,
+.foswikiFormSteps:first-child {
   margin-top: 0; }
 
 /* prevent double padding with bullet list in block */
@@ -244,20 +234,48 @@ pre,
   padding-bottom: 1.5em;
   padding-left: 19.5px;
   padding-right: 19.5px; }
+  blockquote li,
+  pre li,
+  .foswikiHelp li,
+  .foswikiBroadcastMessage li,
+  .foswikiNotification li {
+    list-style-type: circle; }
+
+.foswikiFormSteps h3, .foswikiFormSteps h4, .foswikiFormSteps h5, .foswikiFormSteps h6 {
+  color: #53637d; }
+
+.foswikiFormStep {
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  margin-left: 19.5px;
+  margin-right: 19.5px;
+  padding-left: 0;
+  padding-right: 0; }
+  .foswikiFormStep p {
+    margin-bottom: 0; }
 
 /* if we don't use a background or border for blockquotes, we don't need the top and bottom padding */
 blockquote {
   padding-top: 0;
-  padding-bottom: 0; }
+  padding-bottom: 0;
+  font-family: georgia, serif;
+  font-style: italic; }
 
 /* code texts */
-pre,
-code,
-tt,
-kbd,
-samp,
-.foswikiDiffDebug {
+body pre,
+body code,
+body tt,
+body kbd,
+body samp,
+body .foswikiDiffDebug,
+blockquote pre,
+blockquote code,
+blockquote tt,
+blockquote kbd,
+blockquote samp,
+blockquote .foswikiDiffDebug {
   font-family: "Bitstream Vera Sans Mono", "Andale Mono", "Courier", monospace;
+  font-style: normal;
   font-size: 0.9em;
   line-height: 1.795em; }
 
@@ -274,61 +292,70 @@ a:hover {
   text-decoration: underline; }
 
 /* buttons */
-.jqButton {
-  line-height: 1.615em; }
-
+/* set buton height */
+a.jqButton:link,
+a.jqButton:visited,
 a.jqButton:hover,
-a.jqButton.jqButtonDefault:hover,
-button.jqButton:hover,
-button.jqButton.jqButtonDefault:hover {
-  color: #fff; }
+input[type="button"],
+input[type="button"]:hover,
+input[type="submit"],
+input[type="submit"]:hover,
+button.jqButton,
+button.jqButton:hover {
+  font-size: 1em;
+  line-height: 1.615em;
+  font-family: sans-serif;
+  padding: 0 0.444em; }
 
 /* tabs */
 .jqTabContents {
   padding: 0; }
 
-.jqTabPaneSimple > .jqTabGroup a,
-.jqTabPaneSimple > .jqTabGroup a:hover {
+.jqTabPaneSimple .jqTabGroup a,
+.jqTabPaneSimple .jqTabGroup a:hover {
   padding-top: 0.444em;
   padding-bottom: 0.444em;
   padding-left: 13px;
   padding-right: 13px; }
 
 /* structural elements */
-.foswikiContent,
+.foswikiTopic,
 .foswikiTopBarContents {
   width: 980px;
   padding-left: 28.68px;
   padding-right: 28.68px;
   margin: 0 auto; }
 
-.foswikiContent {
+.foswikiTopic {
   position: relative;
   padding-top: 2.25em;
   padding-bottom: 2.25em; }
 
 .foswikiToolHeader {
-  position: relative;
+  margin-top: 1.615em;
   padding-top: 0.444em;
   padding-bottom: 0.444em;
   padding-left: 13px;
   padding-right: 13px;
-  background-color: #dbdbdb;
-  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#f2f2f2', endColorstr='#dbdbdb');
-  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#dbdbdb')";
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#f2f2f2), to(#dbdbdb));
-  background: -moz-linear-gradient(-90deg, #f2f2f2, #dbdbdb);
+  background-color: #cacaca;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#e7e7e7', endColorstr='#cacaca');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#e7e7e7', endColorstr='#cacaca')";
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e7e7e7), to(#cacaca));
+  background: -moz-linear-gradient(-90deg, #e7e7e7, #cacaca);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #dbdbdb; }
+  border: 1px solid #cacaca;
+  color: #999999; }
   .foswikiToolHeader ul.foswikiToolButtonRow {
     position: relative;
     margin: 0;
     float: right;
-    padding: 0 0 0 1em;
-    list-style: none;
-    border-left: 1px solid #ccc; }
+    padding: 0;
+    list-style: none; }
+    .foswikiToolHeader ul.foswikiToolButtonRow li {
+      float: right;
+      margin-left: .5em; }
   .foswikiToolHeader a:link,
   .foswikiToolHeader a:visited {
     color: #222222; }
@@ -340,8 +367,6 @@ button.jqButton.jqButtonDefault:hover {
     color: #fff; }
   .foswikiToolHeader a.foswikiSort {
     margin-left: 0.444em; }
-  .foswikiToolHeader span {
-    color: #999; }
 
 /* attachments */
 .foswikiAttachments .foswikiAttachment {
@@ -352,23 +377,21 @@ button.jqButton.jqButtonDefault:hover {
   .foswikiAttachments .foswikiAttachment a:link,
   .foswikiAttachments .foswikiAttachment a:visited {
     color: #222222; }
-  .foswikiAttachments .foswikiAttachment img {
-    max-width: 16px; }
-  .foswikiAttachments .foswikiAttachment .foswikiAction {
-    float: right; }
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultContents {
     margin-left: 36px; }
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultTitle a {
-    font-weight: bold; }
+    font-weight: normal; }
+  .foswikiAttachments .foswikiAttachment .foswikiSummary {
+    font-style: italic;
+    font-family: georgia, serif; }
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta {
-    color: #aaa; }
+    color: #999999; }
     .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:link,
     .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:visited {
-      color: #aaa;
-      text-decoration: underline; }
+      text-decoration: underline;
+      color: #999999; }
     .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:hover {
-      color: #000;
-      text-decoration: underline; }
+      color: black; }
 .foswikiAttachments ul, .foswikiAttachments li {
   margin: 0;
   padding: 0;
@@ -405,6 +428,10 @@ hr {
 pre {
   background: #f5f5f5; }
 
+.foswikiGrayText,
+.foswikiHint {
+  color: gray; }
+
 /* dev */
 .foswikiDevGrid {
   width: 100%;
@@ -423,3 +450,58 @@ pre {
   border-style: none none none solid;
   border-color: rgba(0, 0, 255, 0.1);
   border-width: 1px; }
+
+/* vertical theme */
+.jqTabPane.jqTabPaneSimplevertical {
+  position: relative;
+  border-top: 1px solid #dedfe2; }
+  .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup {
+    width: 216.016px;
+    float: none; }
+    .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li {
+      position: relative; }
+    .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li img {
+      vertical-align: text-bottom; }
+    .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li a {
+      padding-top: 0.444em;
+      padding-bottom: 0.444em;
+      padding-left: 13px;
+      padding-right: 13px;
+      display: block;
+      background-color: #eaeef3;
+      color: #222222;
+      width: 190.016px;
+      border-bottom: 1px solid #dedfe2; }
+      .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li a:hover {
+        background-color: white;
+        color: #000; }
+    .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li.current a, .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li.current a:hover {
+      background-color: white; }
+    .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li.current a:after, .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li a:hover:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 0;
+      height: 0;
+      line-height: 0;
+      font-size: 0;
+      border-width: 4px;
+      margin: -5px 5px 0 0;
+      border-style: solid;
+      border-color: transparent transparent transparent #ccc; }
+  .jqTabPane.jqTabPaneSimplevertical span.foswikiClear {
+    clear: none; }
+  .jqTabPane.jqTabPaneSimplevertical .jqTab {
+    position: absolute;
+    width: 706.625px;
+    left: 216.016px;
+    padding-left: 29.25px; }
+  .jqTabPane.jqTabPaneSimplevertical .jqTabContents {
+    border: none; }
+  .jqTabPane.jqTabPaneSimplevertical .foswikiFormSteps,
+  .jqTabPane.jqTabPaneSimplevertical .foswikiFormStep {
+    border: none;
+    margin-left: 0;
+    margin-right: 0; }
