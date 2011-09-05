@@ -76,7 +76,6 @@ h1 {
   margin-bottom: 0.583em; }
 
 .foswikiViewPage h1 {
-  font-family: georia, serif;
   color: #3fa209; }
 
 h2 {
@@ -138,6 +137,11 @@ dl,
 hr,
 input,
 textarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly,
+input[type="text"],
+input[type="password"],
 .foswikiTable,
 .jqTabPane,
 .foswikiBroadcastMessage,
@@ -241,16 +245,17 @@ pre,
   .foswikiNotification li {
     list-style-type: circle; }
 
-.foswikiFormSteps h3, .foswikiFormSteps h4, .foswikiFormSteps h5, .foswikiFormSteps h6 {
-  color: #53637d; }
+.foswikiFormSteps {
+  border-top: 1px solid #dddddd; }
+  .foswikiFormSteps h3, .foswikiFormSteps h4, .foswikiFormSteps h5, .foswikiFormSteps h6 {
+    color: #53637d; }
 
 .foswikiFormStep {
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
-  margin-left: 19.5px;
-  margin-right: 19.5px;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
   padding-left: 0;
-  padding-right: 0; }
+  padding-right: 0;
+  border-bottom: 1px solid #dddddd; }
   .foswikiFormStep p {
     margin-bottom: 0; }
 
@@ -291,32 +296,44 @@ a:visited {
 a:hover {
   text-decoration: underline; }
 
+/* form elements */
+input[type="text"],
+input[type="password"] {
+  padding-left: 4px;
+  padding-right: 4px; }
+
 /* buttons */
 /* set buton height */
 a.jqButton:link,
 a.jqButton:visited,
 a.jqButton:hover,
+.foswikiSubmit,
+.foswikiSubmit:hover,
 input[type="button"],
 input[type="button"]:hover,
 input[type="submit"],
 input[type="submit"]:hover,
 button.jqButton,
 button.jqButton:hover {
-  font-size: 1em;
+  padding-left: 4px;
+  padding-right: 4px;
   line-height: 1.615em;
-  font-family: sans-serif;
-  padding: 0 0.444em; }
+  font-size: 13px;
+  font-family: sans-serif; }
 
 /* tabs */
 .jqTabContents {
-  padding: 0; }
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+  padding-left: 0;
+  padding-right: 0; }
 
 .jqTabPaneSimple .jqTabGroup a,
 .jqTabPaneSimple .jqTabGroup a:hover {
   padding-top: 0.444em;
   padding-bottom: 0.444em;
-  padding-left: 13px;
-  padding-right: 13px; }
+  padding-left: 10.667px;
+  padding-right: 10.667px; }
 
 /* structural elements */
 .foswikiTopic,
@@ -335,8 +352,8 @@ button.jqButton:hover {
   margin-top: 1.615em;
   padding-top: 0.444em;
   padding-bottom: 0.444em;
-  padding-left: 13px;
-  padding-right: 13px;
+  padding-left: 10.667px;
+  padding-right: 10.667px;
   background-color: #cacaca;
   filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#e7e7e7', endColorstr='#cacaca');
   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#e7e7e7', endColorstr='#cacaca')";
@@ -360,9 +377,7 @@ button.jqButton:hover {
   .foswikiToolHeader a:visited {
     color: #222222; }
   .foswikiToolHeader a.jqButton {
-    margin: 0;
-    font-size: 0.9em;
-    line-height: 1.795em; }
+    margin: 0; }
   .foswikiToolHeader a.jqButton:hover {
     color: #fff; }
   .foswikiToolHeader a.foswikiSort {
@@ -465,8 +480,8 @@ pre {
     .jqTabPane.jqTabPaneSimplevertical ul.jqTabGroup li a {
       padding-top: 0.444em;
       padding-bottom: 0.444em;
-      padding-left: 13px;
-      padding-right: 13px;
+      padding-left: 10.667px;
+      padding-right: 10.667px;
       display: block;
       background-color: #eaeef3;
       color: #222222;
@@ -500,8 +515,5 @@ pre {
     padding-left: 29.25px; }
   .jqTabPane.jqTabPaneSimplevertical .jqTabContents {
     border: none; }
-  .jqTabPane.jqTabPaneSimplevertical .foswikiFormSteps,
-  .jqTabPane.jqTabPaneSimplevertical .foswikiFormStep {
-    border: none;
-    margin-left: 0;
-    margin-right: 0; }
+  .jqTabPane.jqTabPaneSimplevertical .foswikiFormStep:last-child {
+    border: none; }

@@ -50,6 +50,7 @@ $content_width: 980;
 	margin-bottom: 0em + em_line_height($size);
 }
 
+
 // used for pre, foswikiHelp, foswikiNotification, ...
 @mixin block_padding ($hide_side_padding: 0) {
 	padding-top: $size_block_padding_em;
@@ -127,13 +128,23 @@ $content_width: 980;
 	}
 	*/
 	
-// used for toolbar and buttons
-@mixin block_padding_small_flattened ($hide_side_padding: 0) {
-	padding-top: $size_block_padding_small_flattened_em;
-	padding-bottom: $size_block_padding_small_flattened_em;
+// used for buttons
+@mixin block_padding_inputs ($hide_side_padding: 0) {
 	@if $hide_side_padding != 1 {
-		padding-left: $size_block_padding_small_px;
-		padding-right: $size_block_padding_small_px;
+		padding-left: 4px;
+		padding-right: 4px;
+	} @else {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+@mixin block_padding_menus ($hide_side_padding: 0) {
+	padding-top: $size_block_padding_menu_em;
+	padding-bottom: $size_block_padding_menu_em;
+	@if $hide_side_padding != 1 {
+		padding-left: $size_block_padding_menu_px;
+		padding-right: $size_block_padding_menu_px;
 	} @else {
 		padding-left: 0;
 		padding-right: 0;
@@ -244,8 +255,8 @@ $size_block_padding_flattened_px: 0px + $strand1_ratio_down_1;
 $size_block_padding_small_em: 0em + $strand1_ratio_1 / $body_font_size;
 $size_block_padding_small_px: 0px + $strand1_ratio_1;
 
-$size_block_padding_small_flattened_em: 0em + $strand1_ratio_down_2 / $body_font_size;
-$size_block_padding_small_flattened_px: 0px + $strand1_ratio_down_2;
+$size_block_padding_menu_em: 0em + $strand1_ratio_down_2 / $body_font_size;
+$size_block_padding_menu_px: 0px + $strand2_ratio_down_1;
 
 /* colors */
 
@@ -326,7 +337,6 @@ h1 {
 	@include em_margin_bottom($size_h1);
 }
 .foswikiViewPage h1 {
-	font-family: georia, serif;
 	color: $color_header_main;
 }
 h2 {
@@ -388,6 +398,11 @@ dl,
 hr,
 input,
 textarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly,
+input[type="text"],
+input[type="password"],
 .foswikiTable,
 .jqTabPane,
 .foswikiBroadcastMessage,
@@ -420,6 +435,7 @@ hr,
 	@include em_margin_top($size_p);
 	@include em_margin_bottom($size_p);
 }
+
 dt,
 li {
 	@include em_font_size($size_p);
@@ -500,14 +516,14 @@ pre,
 }
 
 .foswikiFormSteps {
+	border-top: 1px solid $color_border_light;
 	h3, h4, h5, h6 {
 		color: $color_heading_secondary;
 	}
 }
 .foswikiFormStep {
-	@include block_margin;
-	padding-left: 0;
-	padding-right: 0;
+	@include block_padding(1);
+	border-bottom: 1px solid $color_border_light;
 	
 	p {
 		margin-bottom: 0;
@@ -539,8 +555,6 @@ blockquote {
 	}
 }
 
-
-
 dd,
 ul,
 ol {
@@ -555,32 +569,42 @@ a:hover {
 	text-decoration: underline;
 }
 
+/* form elements */
+
+
+input[type="text"],
+input[type="password"] {
+	@include block_padding_inputs(0);
+}
+
 /* buttons */
 
 /* set buton height */
 a.jqButton:link,
 a.jqButton:visited,
 a.jqButton:hover,
+.foswikiSubmit,
+.foswikiSubmit:hover,
 input[type="button"],
 input[type="button"]:hover,
 input[type="submit"],
 input[type="submit"]:hover,
 button.jqButton,
 button.jqButton:hover {
-	@include em_font_size($size_p);
-	@include em_line_height($size_p);
+	@include block_padding_inputs(0);
+	line-height: 0em + em_line_height($size_p);
+	font-size: 0px + $body_font_size;
 	font-family: $font_family_main;
-	padding:0 $size_block_padding_small_flattened_em;
 }
 
 /* tabs */
 
 .jqTabContents {
-	padding:0;
+	@include block_padding(1);
 }
 .jqTabPaneSimple .jqTabGroup a,
 .jqTabPaneSimple .jqTabGroup a:hover {
-	@include block_padding_small_flattened;
+	@include block_padding_menus;
 }
 
 
@@ -608,7 +632,7 @@ $inner_content_width: $content_width - 2*$contentSidePadding;
 
 .foswikiToolHeader {
 	@include em_margin_top($size_p);
-	@include block_padding_small_flattened;
+	@include block_padding_menus;
 	background-color: $color_tool_background_gradient_dark;
 	@include gradient($color_tool_background_gradient_light, $color_tool_background_gradient_dark);
 	@include corner($corner_default);
@@ -635,15 +659,13 @@ $inner_content_width: $content_width - 2*$contentSidePadding;
 	
 	a.jqButton {
 		margin: 0;
-		@include em_font_size($size_smallish_font);
-		@include em_line_height($size_smallish_font);
 	}
 	a.jqButton:hover {
 		color: #fff;
 	}
 	
 	a.foswikiSort {
-		margin-left: $size_block_padding_small_flattened_em;
+		margin-left: $size_block_padding_menu_em;
 	}
 }
 
@@ -776,7 +798,7 @@ pre {
 		}
 		
 		& li a {
-			@include block_padding_small_flattened;
+			@include block_padding_menus;
 			display: block;
 			background-color: $color_background_normal;
 			color: $color_link_black;
@@ -827,10 +849,8 @@ pre {
 		border: none;
 	}
 	
-	.foswikiFormSteps,
-	.foswikiFormStep {
+	.foswikiFormStep:last-child {
 		border: none;
-		margin-left: 0;
-		margin-right: 0;
 	}
+	
 }

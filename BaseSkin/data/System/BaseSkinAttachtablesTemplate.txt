@@ -14,7 +14,7 @@
 	Top table row definition for topic attachments and top table in attach screen
 ---------------------------------------------------
 }%%TMPL:DEF{ATTACH:files:header(toprow)}%<div class='foswikiToolHeader'>
-<select class='foswikiSort'>
+<select class='foswikiSelect foswikiSort'>
 	<option value="data-file">%MAKETEXT{"Ordered by name"}%</option>
 	<option value="data-date">%MAKETEXT{"Ordered by date"}%</option>
 	<option value="data-size">%MAKETEXT{"Ordered by size"}%</option>
@@ -57,7 +57,7 @@
 ---------------------------------------------------
 	Header for topic attachment table
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:header}%<div class="foswikiLarge">Attachments on this topic</div>
+}%%TMPL:DEF{ATTACH:files:header}%<h4>%MAKETEXT{"Attachments on this topic"}%</h4>
 %TMPL:P{ATTACH:files:header(basic)}%
 %TMPL:END%%{
 ---------------------------------------------------
@@ -92,7 +92,7 @@
 	Top table row definition for topic attachments and top table in attach screen
 ---------------------------------------------------
 }%%TMPL:DEF{ATTACH:files:header(toprow)(basic)}%<div class='foswikiToolHeader'>
-<select class='foswikiSort'>
+<select class='foswikiSelect foswikiSort'>
 	<option value="data-rev">%MAKETEXT{"Ordered by version"}%</option>
 %{
 	as long as we cannot retrieve the different file sizes we don't sort on it

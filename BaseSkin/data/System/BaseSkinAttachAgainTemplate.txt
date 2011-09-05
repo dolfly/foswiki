@@ -64,9 +64,9 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:edit"}%%TMPL:P{"attach:formstart"}%
+}%%TMPL:DEF{"attach:edit"}%%TMPL:P{"attach:edit:title"}%
+%TMPL:P{"attach:formstart"}%
 %TMPL:P{"attach:edit:hiddenfields"}%
-%TMPL:P{"attach:edit:title"}%
 %TMPL:P{"attach:comment"}%
 %TMPL:P{"attach:properties"}%
 %TMPL:P{"attach:edit:topicaction"}%
@@ -86,10 +86,10 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:createlink"}%%TMPL:P{"attach:formstart"}%
-%TMPL:P{"attach:createlink:title"}%
-%TMPL:P{"attach:createlink:hiddenfields"}%
+}%%TMPL:DEF{"attach:createlink"}%%TMPL:P{"attach:createlink:title"}%
 %TMPL:P{"attach:createlink:info"}%
+%TMPL:P{"attach:formstart"}%
+%TMPL:P{"attach:createlink:hiddenfields"}%
 %TMPL:P{"attach:createlink:topicaction"}%
 %TMPL:P{"attach:formend"}%%TMPL:END%%{
 ---------------------------------------------------
@@ -119,7 +119,7 @@
 <h3>%MAKETEXT{"Select web and topic"}%</h3>
 <select name="web" class="foswikiSelect">
 %WEBLIST{"<option $marker value=$qname>$name</option>" webs="public" selection="%WEB%" separator=" "}%
-</select> <input name="topic" class="foswikiInputField" value="%TOPIC%" /> 
+</select> <input type="text" size="%TMPL:P{"attach:inputsize"}%" name="topic" class="foswikiInputField" value="%TOPIC%" /> 
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	
@@ -144,10 +144,9 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:rename"}%
+}%%TMPL:DEF{"attach:rename"}%%TMPL:P{"attach:rename:title"}%
 %TMPL:P{"attach:move:formstart"}%
 %TMPL:P{"attach:rename:hiddenfields"}%
-%TMPL:P{"attach:rename:title"}%
 %TMPL:P{"attach:rename:newattachmentname"}%
 %TMPL:P{"attach:rename:topicaction"}%
 %TMPL:P{"attach:move:formend"}%%TMPL:END%%{
@@ -166,7 +165,7 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:rename:newattachmentname"}%<div class='foswikiFormStep'>
 <h3>%MAKETEXT{"Enter new filename"}%</h3>
-<p><input name="newattachment" class="foswikiInputField" value="%ENCODE{"%FILENAME%"}%" /></p>
+<p><input type="text" size="%TMPL:P{"attach:inputsize"}%" name="newattachment" class="foswikiInputField" value="%ENCODE{"%FILENAME%"}%" /></p>
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	
@@ -177,11 +176,10 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:move"}%
+}%%TMPL:DEF{"attach:move"}%%TMPL:P{"attach:move:title"}%
+%TMPL:P{"attach:move:info"}%
 %TMPL:P{"attach:move:formstart"}%
 %TMPL:P{"attach:move:hiddenfields"}%
-%TMPL:P{"attach:move:title"}%
-%TMPL:P{"attach:move:info"}%
 %TMPL:P{"attach:move:location"}%
 %TMPL:P{"attach:move:newattachmentname"}%
 %TMPL:P{"attach:move:topicaction"}%
@@ -210,7 +208,7 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:move:newattachmentname"}%<div class='foswikiFormStep'>
 <h3>%MAKETEXT{"Optionally change filename"}%</h3>
-<p><input name="newattachment" class="foswikiInputField" value="%ENCODE{"%FILENAME%"}%" /></p>
+<p><input type="text" size="%TMPL:P{"attach:inputsize"}%" name="newattachment" class="foswikiInputField" value="%ENCODE{"%FILENAME%"}%" /></p>
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	
@@ -219,7 +217,7 @@
 <h3>%MAKETEXT{"Select web and topic"}%</h3>
 <select name="newweb" class="foswikiSelect">
 %WEBLIST{"<option $marker value=$qname>$name</option>" webs="public" selection="%WEB%" separator=" "}%
-</select> <input name="newtopic" class="foswikiInputField" value="%TOPIC%" /> <span class='foswikiHint'>%MAKETEXT{"This topic must already exist"}%</span>
+</select> <input type="text" size="%TMPL:P{"attach:inputsize"}%" name="newtopic" class="foswikiInputField" value="%TOPIC%" /> <span class='foswikiHint'>%MAKETEXT{"This topic must already exist"}%</span>
 <input type="hidden" name="nonwikiword" value="on" />
 </div>%TMPL:END%%{
 ---------------------------------------------------
@@ -231,11 +229,10 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:delete"}%
+}%%TMPL:DEF{"attach:delete"}%%TMPL:P{"attach:delete:title"}%
+%TMPL:P{"attach:delete:info"}%
 %TMPL:P{"attach:move:formstart"}%
 %TMPL:P{"attach:delete:hiddenfields"}%
-%TMPL:P{"attach:delete:title"}%
-%TMPL:P{"attach:delete:info"}%
 %TMPL:P{"attach:delete:location"}%
 %TMPL:P{"attach:move:newattachmentname"}%
 %TMPL:P{"attach:delete:topicaction"}%
@@ -245,8 +242,7 @@
 	
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:move:formstart"}%<div class='foswikiFormSteps'>
-<form method="post" name="rename" action="%SCRIPTURLPATH{"rename"}%/%WEB%/%TOPIC%">
-%TMPL:END%%{
+<form method="post" name="rename" action="%SCRIPTURLPATH{"rename"}%/%WEB%/%TOPIC%">%TMPL:END%%{
 ---------------------------------------------------
 	
 ---------------------------------------------------
@@ -270,7 +266,7 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:delete:location"}%<div class='foswikiFormStep'>
 <h3>%MAKETEXT{"Enter topic name in [_1] web" args="%TRASHWEB%"}%</h3>
-<input name="newtopic" class="foswikiInputField" value="%URLPARAM{"newtopic" default="TrashAttachment"}%" /> <span class='foswikiHint'>%MAKETEXT{"This topic must already exist"}%</span>
+<input type="text" size="%TMPL:P{"attach:inputsize"}%" name="newtopic" class="foswikiInputField" value="%URLPARAM{"newtopic" default="TrashAttachment"}%" /> <span class='foswikiHint'>%MAKETEXT{"This topic must already exist"}%</span>
 <input type="hidden" name="nonwikiword" value="on" />
 </div>%TMPL:END%%{
 ---------------------------------------------------
@@ -286,8 +282,7 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:history"}%
-%TMPL:P{"attach:history:title"}%
+}%%TMPL:DEF{"attach:history"}%%TMPL:P{"attach:history:title"}%
 %TMPL:P{"attach:history:info"}%
 %TMPL:END%%{
 ---------------------------------------------------

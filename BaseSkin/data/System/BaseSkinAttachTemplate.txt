@@ -27,9 +27,9 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:new"}%%TMPL:P{"attach:formstart"}%
+}%%TMPL:DEF{"attach:new"}%%TMPL:P{"attach:new:title"}%
+%TMPL:P{"attach:formstart"}%
 %TMPL:P{"attach:new:hiddenfields"}%
-%TMPL:P{"attach:new:title"}%
 %TMPL:P{"attach:new:newfile"}%
 %TMPL:P{"attach:comment"}%
 %TMPL:P{"attach:properties"}%
@@ -47,6 +47,10 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
+}%%TMPL:DEF{"attach:inputsize"}%40%TMPL:END%%{
+---------------------------------------------------
+	
+---------------------------------------------------
 }%%TMPL:DEF{"attach:new:hiddenfields"}%<input type="hidden" name="filename" value="%FILENAME%" />%TMPL:END%%{
 ---------------------------------------------------
 	Defined in attachnew and attachagain
@@ -57,7 +61,7 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:new:newfile"}%<div class="foswikiFormStep">
 <h3>%MAKETEXT{"Select a file to upload"}%</h3>
-<p><input class="foswikiInputField" type="file" name="filepath" value="%FILEPATH%" size="70" /> %IF{
+<p><input class="foswikiInputField" type="file" name="filepath" value="%FILEPATH%" size="%TMPL:P{"attach:inputsize"}%" /> %IF{
 	"$ATTACHFILESIZELIMIT > 0"
 	then="<span class='foswikiHint'>%MAKETEXT{"Upload up to [_1] KB." args="%ATTACHFILESIZELIMIT%"}%</span>"
 }%
@@ -92,7 +96,7 @@
 ---------------------------------------------------
 	
 ---------------------------------------------------
-}%%TMPL:DEF{"attach:help"}%<div class='foswikiFormStep'>%INCLUDE{"%SYSTEMWEB%.FileAttachment"}%</div>%TMPL:END%%{
+}%%TMPL:DEF{"attach:help"}%%INCLUDE{"%SYSTEMWEB%.FileAttachment"}%%TMPL:END%%{
 ---------------------------------------------------
 	
 ---------------------------------------------------
