@@ -1,14 +1,72 @@
 // ------------------------------------------------------------
 // START SETTINGS
 
+/* font sizes in pixels - only used for body; will be converted to ems */
+$body_font_size:13; // pixels
+$size_p: $body_font_size; // paragraph size
+$body_font: sans-serif;
+$body_line_height: 21; // pixels
+
+$content_width_px: 980;
+$content_width_pct: 90%;
+
 $color_link: #06c;
 $color_link_visited: #369;
 $color_hint: #808080;
+$color_border_light: #ddd;
+$color_border_medium: #dedfe2;
+
+$button_border_radius: 3; // pixels
+$button_padding: 6; // pixels
 
 // END SETTINGS
 // ------------------------------------------------------------
 
+@function em_font_size($size) {
+	@return $size / $body_font_size;
+}
+@function em_line_height($size) {
+	@return $body_line_height / $size;
+}
+@mixin em_font_size ($size) {
+	font-size: 0em + em_font_size($size);
+}
+@mixin em_line_height ($size) {
+	line-height: 0em + em_line_height($size);
+}
+@mixin em_margin_top ($size) {
+	margin-top: 0em + em_line_height($size);
+}
+@mixin em_margin_bottom ($size) {
+	margin-bottom: 0em + em_line_height($size);
+}
 
+@mixin ie-linear-gradient($start-color, $end-color) {
+   filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#{$start-color}', endColorstr='#{$end-color}');
+   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#{$start-color}', endColorstr='#{$end-color}')";
+}
+@mixin gradient ($start, $end) {
+    @include ie-linear-gradient($start, $end);
+	background:-webkit-gradient(linear,0% 0,0% 100%,from($start),to($end));
+	background:-moz-linear-gradient(-90deg,$start,$end);
+}
+@mixin corner ($radius) {
+	-webkit-border-radius:0px + $radius;
+	-moz-border-radius:0px + $radius;
+	border-radius:0px + $radius;
+}
+@mixin button ($top_color, $bottom_color, $border_color, $text_color) {
+	color: $text_color;
+	background-color: $bottom_color;
+	border-color: $border_color;
+	@include gradient($top_color, $bottom_color);
+}
+@mixin color_button ($color, $text_color: #fff) {
+	$bottom: $color;
+	$top: lighten($bottom, 20%);
+	$border: darken($bottom, 1%);
+	@include button ($top, $bottom, $border, $text_color);
+}
 
 /* reset */
 
@@ -189,12 +247,14 @@ td { vertical-align: top; }
 
 
 
-
-
-/* font sizes in pixels - only used for body; will be converted to ems */
-$body_font_size:13;
-
 /* Sensible defaults */
+body {
+	font-size: 0px + $body_font_size;
+	@include em_line_height($body_font_size);
+	font-family: $body_font;
+	width: $content_width_pct;
+	margin: 0 auto;
+}
 
 h1,
 h2,
@@ -203,6 +263,7 @@ h4,
 h5,
 h6 {
 	font-weight: normal;
+	line-height: 1;
 }
 
 h1 {
@@ -231,8 +292,58 @@ h5,h6 {
 	margin-bottom: 1.154em;
 }
 
-p {
-	margin:1em 0;
+p,
+pre,
+blockquote,
+iframe,
+label,
+address,
+select,
+td,
+th,
+ul,
+ol,
+dl,
+hr,
+input,
+textarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly,
+input[type="text"],
+input[type="password"],
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification,
+.foswikiAttachments {
+	@include em_font_size($size_p);
+	@include em_line_height($size_p);
+}
+
+
+/* vertical margin for block level elements */
+p,
+pre,
+blockquote,
+iframe,
+address,
+ul,
+ol,
+dl,
+hr,
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification,
+.foswikiAttachments,
+.foswikiFormSteps {
+	@include em_margin_top($size_p);
+	@include em_margin_bottom($size_p);
 }
 
 em {
@@ -249,6 +360,28 @@ pre {
 	word-wrap: break-word;
 }
 
+dd,
+ul,
+ol {
+	margin-left: 0px + $body_line_height;
+}
+
+/* prevent double padding with bullet list in block */
+
+blockquote ol:first-child,
+pre ol:first-child,
+.foswikiHelp ol:first-child,
+.foswikiBroadcastMessage ol:first-child,
+.foswikiNotification ol:first-child,
+blockquote ul:first-child,
+pre ul:first-child,
+.foswikiHelp ul:first-child,
+.foswikiBroadcastMessage ul:first-child,
+.foswikiNotification ul:first-child {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 /* remove border around focussed input fields */
 *:focus {
 	outline: none;
@@ -257,8 +390,41 @@ pre {
 	border-color: $color_link;
 }
 
+/* correct for nested elements */
 
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child,
+.foswikiFormSteps:first-child {
+    margin-top: 0;
+}
 
+li ul,
+li ol,
+ul ul,
+ol ol {
+    top: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+li h1,
+li h2,
+li h3,
+li h4,
+li h5,
+li h6,
+li p {
+    top: 0;
+}
+
+hr {
+	height:1px;
+	border:none;
+}
 
 
 blockquote,
@@ -285,19 +451,19 @@ pre,
 	}
 
 	::-moz-selection {
-		background: #06c;
+		background: $color_link;
 		color:#fff;
 		text-shadow: none; 
 	}
 	::selection {
-		background:#06c;
+		background: $color_link;
 		color:#fff;
 		text-shadow: none; 
 	}
 
 	hr {
-		color:#ccc;
-		background-color:#ccc;
+		color: $color_border_light;
+		background-color: $color_border_light;
 	}
 	
 	pre {
@@ -486,67 +652,69 @@ table caption {
 	border:none;
 }
 
-.foswikiSubmit,
-.foswikiSubmitDisabled,
-.foswikiButton,
-.foswikiButtonDisabled,
-.foswikiButtonCancel,
-a.foswikiButton,
-a.foswikiButtonCancel,
-a.foswikiSubmit {
-	background:#eee;
-	border:1px solid #ccc;
-}
+/*
+	.foswikiSubmit,
+	.foswikiSubmitDisabled,
+	.foswikiButton,
+	.foswikiButtonDisabled,
+	.foswikiButtonCancel,
+	a.foswikiButton,
+	a.foswikiButtonCancel,
+	a.foswikiSubmit {
+		background:#eee;
+		border:1px solid #ccc;
+	}
+	
+	.foswikiTextarea {}
+	.foswikiSubmit,
+	.foswikiSubmitDisabled,
+	.foswikiButton,
+	.foswikiButtonDisabled,
+	.foswikiButtonCancel,
+	a.foswikiButton,
+	a.foswikiSubmit,
+	a.foswikiButtonCancel,
+	.foswikiCheckbox {
+		border-width:1px;
+		border-style:solid;
+		font-weight:bold;
+		text-align:center;
+	}
+	.foswikiSubmit,
+	.foswikiSubmitDisabled,
+	.foswikiButton,
+	.foswikiButtonDisabled,
+	.foswikiButtonCancel,
+	.foswikiSubmit:hover,
+	.foswikiSubmitDisabled:hover,
+	.foswikiButton:hover,
+	.foswikiSubmit:active,
+	.foswikiSubmitDisabled:active,
+	.foswikiButton:active {
+		cursor:default;
+		outline:none;
+		line-height:1em;
+		padding:2px 4px;
+	}
+	a.foswikiButton,
+	a.foswikiButton:hover,
+	a.foswikiButton:link:active,
+	a.foswikiButton:visited:active,
+	a.foswikiButtonCancel,
+	a.foswikiButtonCancel:hover,
+	a.foswikiButtonCancel:link:active,
+	a.foswikiButtonCancel:visited:active,
+	a.foswikiSubmit,
+	a.foswikiSubmit:hover,
+	a.foswikiSubmit:link:active,
+	a.foswikiSubmit:visited:active {
+		text-decoration:none;
+		line-height:1em;
+		padding:2px 4px;
+	}
+*/
 
-/* form elements */
 
-.foswikiTextarea {}
-.foswikiSubmit,
-.foswikiSubmitDisabled,
-.foswikiButton,
-.foswikiButtonDisabled,
-.foswikiButtonCancel,
-a.foswikiButton,
-a.foswikiSubmit,
-a.foswikiButtonCancel,
-.foswikiCheckbox {
-	border-width:1px;
-	border-style:solid;
-	font-weight:bold;
-	text-align:center;
-}
-.foswikiSubmit,
-.foswikiSubmitDisabled,
-.foswikiButton,
-.foswikiButtonDisabled,
-.foswikiButtonCancel,
-.foswikiSubmit:hover,
-.foswikiSubmitDisabled:hover,
-.foswikiButton:hover,
-.foswikiSubmit:active,
-.foswikiSubmitDisabled:active,
-.foswikiButton:active {
-	cursor:default;
-	outline:none;
-	line-height:1em;
-	padding:2px 4px;
-}
-a.foswikiButton,
-a.foswikiButton:hover,
-a.foswikiButton:link:active,
-a.foswikiButton:visited:active,
-a.foswikiButtonCancel,
-a.foswikiButtonCancel:hover,
-a.foswikiButtonCancel:link:active,
-a.foswikiButtonCancel:visited:active,
-a.foswikiSubmit,
-a.foswikiSubmit:hover,
-a.foswikiSubmit:link:active,
-a.foswikiSubmit:visited:active {
-	text-decoration:none;
-	line-height:1em;
-	padding:2px 4px;
-}
 .foswikiCheckbox,
 .foswikiRadioButton {
 	margin:1px .5em 1px .1em;
@@ -578,253 +746,313 @@ a.foswikiSubmit:visited:active {
 
 /* buttons */
 
+$prefix_jq: jq;
+$prefix_fw: foswiki;
+
 /* reset jquery.button.css */
-.jqButton {
-  margin:0;
-  display:inline;
-  float:none;
-  font-size:inherit;
-  height:auto;
-  padding:0;
-  color:#000;
-  white-space:nowrap;
-  text-shadow:none;
-  text-decoration:none;
-}
-.jqButton:hover,
-.jqButton {
-  text-decoration:none;
-  cursor:pointer;
-  background:none;
-}
-.jqButton span {
-	float:none;
-	background:none;
-	height:auto;
-	padding:0;
+.#{$prefix_jq}Button,
+.#{$prefix_fw}Button {
 	margin:0;
-}
-.jqButton:hover {
+	padding:0;
+	display:inline;
 	float:none;
+	font-size:inherit;
+	font-weight: normal;
+	height:auto;
+	color:#000;
+	white-space:nowrap;
+	text-shadow:none;
+	float:none;
+
+	&:hover,
+	& {
+		text-decoration: none;
+		cursor: pointer;
+		background: none;
+	}
+	& span {
+		float: none;
+		background: none;
+		height: auto;
+		padding: 0;
+		margin: 0;
+		font-weight: normal;
+		
+		&:hover {
+			cursor:default;
+		}
+	}
 }
 /* end reset */
 
 /* new button style */
-button.jqButton,
-button.jqButton.jqButtonDisabled,
-button.jqButton.jqButtonDisabled:hover {
-	padding:0 6px;
-	height:1.9em;
-	line-height:1em;
+
+._button_icon {
+	padding-left: 0px + 16 + $button_padding;
+	background-repeat: no-repeat;
+	background-position: 0 50%;
 }
-a.jqButton:link,
-a.jqButton:visited,
-a.jqButton.jqButtonDisabled,
-a.jqButton.jqButtonDisabled:hover {
-	display:inline-block;
-	padding:0 6px;
-	line-height:1.8em;
-}
-a.jqButton:link,
-a.jqButton:visited,
-input[type="button"],
-input[type="submit"],
-button.jqButton {
+
+.#{$prefix_jq}Button,
+.#{$prefix_fw}Button {
 	position:relative;
-	margin:0 6px 0 0;
 	text-decoration:none;
-	font-size: 0px + $body_font_size;
-	font-family:arial, verdana, sans-serif;
-	font-weight:normal;
-	border-width:1px;
-	border-style:solid;
-	-webkit-border-radius:3px;
-	-moz-border-radius:3px;
-	border-radius:3px;
-	-webkit-font-smoothing:subpixel-antialiased!important;
-	-webkit-border-horizontal-spacing:0;
-	-webkit-border-vertical-spacing:0;
-}
-button.jqButton::-moz-focus-inner {
-    border:none;
-    padding:0;
-}
-a.jqButton:active,
-a.jqButton:focus {
-	outline:none;
-	-moz-outline-style:none;
-}
-input[type="button"]:hover,
-input[type="submit"]:hover,
-button.jqButton:hover,
-a.jqButton:hover {
-	cursor:pointer;
-	text-decoration:none;
-	color:#000;
-}
-input[type="button"] .jqButtonIcon,
-input[type="submit"] .jqButtonIcon,
-button.jqButton .jqButtonIcon,
-a.jqButton .jqButtonIcon {
-	padding-left:22px;
-	background-repeat:no-repeat;
-	background-position:0 50%;
-}
-a.jqButton:link,
-a.jqButton:visited,
-a.jqButton.jqButtonDisabled:hover,
-a.jqButton.jqButtonDefault,
-input[type="button"],
-input[type="button"].jqButtonDisabled:hover,
-input[type="button"].jqButtonDefault,
-input[type="submit"],
-input[type="submit"].jqButtonDisabled:hover,
-input[type="submit"].jqButtonDefault,
-button.jqButton,
-button.jqButton.jqButtonDisabled,
-button.jqButton.jqButtonDisabled:hover,
-button.jqButton.jqButtonDefault {
-	color:#000;
-	background:#d0d0d0;
-	border-color:#d0d0d0;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ffffff', endColorstr='#dedede');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ffffff),to(#dedede));
-	background:-moz-linear-gradient(-90deg,#ffffff,#dedede);
-}
-a.jqButton:hover,
-a.jqButton.jqButtonDefault:hover,
-input[type="button"]:hover,
-input[type="button"].jqButtonDefault:hover,
-input[type="submit"]:hover,
-input[type="submit"].jqButtonDefault:hover,
-button.jqButton:hover,
-button.jqButton.jqButtonDefault:hover {
-	color:#fff;
-	background:#376ca0;
-	border-color:#376ca0;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#7baad7', endColorstr='#376ca0');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#7baad7),to(#376ca0));
-	background:-moz-linear-gradient(-90deg,#7baad7,#376ca0);
-}
-a.jqButton.jqButtonDisabled,
-a.jqButton.jqButtonDisabled:hover,
-input[type="button"].jqButtonDisabled,
-input[type="submit"].jqButtonDisabled:hover,
-button.jqButton.jqButtonDisabled,
-button.jqButton.jqButtonDisabled:hover {
-	cursor:default;
-	color:#aaa;
-}
-/* large button */
-button.jqButtonLarge,
-a.jqButtonLarge {
-	font-size:1.5em;
-	line-height:1.5em;	
-	-webkit-border-radius:5px;
-	-moz-border-radius:5px;
-	border-radius:5px;
+	font: {
+		size: 0px + $body_font_size;
+		family: $body_font;
+		weight: normal;
+	}
+	
+	line-height: 0em + em_line_height($size_p);
+	
+	border: {
+		width: 1px;
+		style: solid;
+	}
+	
+	@include corner($button_border_radius);
+	
+	/* optimize webkit display */
+	-webkit-font-smoothing: subpixel-antialiased!important;
+	-webkit-border-horizontal-spacing: 0;
+	-webkit-border-vertical-spacing: 0;
 }
 
-/* small button */
-button.jqButtonSmall,
-a.jqButtonSmall {
-	font-size:.9em;
-	line-height:.9em;
+@mixin _color_button_states ($color) {
+	@include color_button($color);
+	&:hover {
+		@include color_button(darken($color, 10%));
+	}
+}
+._disabled_button_style {
+	&,
+	&:hover {
+		@include color_button(#dedede, #000);
+		color: #aaa;
+		cursor:default;
+	}
+}
+._default_button_style {
+	& .#{$prefix_jq}ButtonIcon,
+	& .#{$prefix_fw}ButtonIcon {
+		@extend ._button_icon;
+	}
+	
+	&,
+	&.#{$prefix_jq}ButtonDefault,
+	&.#{$prefix_fw}ButtonDefault {
+	 	@include color_button(#dedede, #000);
+	 	&:hover {
+			@include color_button(#376ca0);
+		}
+	}
+	
+	// disabled
+	
+	&.#{$prefix_jq}ButtonDisabled,
+	&.#{$prefix_fw}ButtonDisabled {
+		@extend ._disabled_button_style;
+	}
+	
+	// large
+	
+	&.#{$prefix_jq}ButtonLarge,
+	&.#{$prefix_fw}ButtonLarge {
+		&,
+		&:hover {
+			$factor: 1.5;
+			font-size: 0em + $factor;
+			padding:0 0px + $factor * $button_padding;
+			@include corner($factor * $button_border_radius);
+		}
+	}
+	
+	// small
+	
+	&.#{$prefix_jq}ButtonSmall,
+	&.#{$prefix_fw}ButtonSmall {
+		&,
+		&:hover {
+			$factor: 0.89;
+			font-size: 0em + $factor;
+			padding:0 0px + $factor * $button_padding;
+			@include corner($factor * $button_border_radius);
+
+		}
+	}
+	
+	// simple
+	
+	&.#{$prefix_jq}ButtonSimple,
+	&.#{$prefix_fw}ButtonSimple {
+		&,
+		&:hover,
+		& span {
+			background:none;
+			border:none;
+			margin: 0;
+			padding: 0;
+			color: $color_link;
+			text-decoration:none;
+		}
+		&:hover {
+			text-decoration:underline;
+		}
+	}
+	
+	// colors
+	&.#{$prefix_jq}ButtonBlue,
+	&.#{$prefix_fw}ButtonBlue {
+		@include _color_button_states(#1360af);
+		&.#{$prefix_jq}ButtonDisabled,
+		&.#{$prefix_fw}ButtonDisabled {
+			@extend ._disabled_button_style;
+		}
+	}
+	&.#{$prefix_jq}ButtonRed,
+	&.#{$prefix_fw}ButtonRed {
+		@include _color_button_states(#cd2929);
+		&.#{$prefix_jq}ButtonDisabled,
+		&.#{$prefix_fw}ButtonDisabled {
+			@extend ._disabled_button_style;
+		}
+	}
+	&.#{$prefix_jq}ButtonCyan,
+	&.#{$prefix_fw}ButtonCyan {
+		@include _color_button_states(#0b7caa);
+		&.#{$prefix_jq}ButtonDisabled,
+		&.#{$prefix_fw}ButtonDisabled {
+			@extend ._disabled_button_style;
+		}
+	}
+	&.#{$prefix_jq}ButtonGreen,
+	&.#{$prefix_fw}ButtonGreen {
+		@include _color_button_states(#297b29);
+		&.#{$prefix_jq}ButtonDisabled,
+		&.#{$prefix_fw}ButtonDisabled {
+			@extend ._disabled_button_style;
+		}
+	}
 }
 
-/* simple button, looks like link */
-button.jqButton.jqButtonSimple,
-button.jqButton.jqButtonSimple span,
-a.jqButton.jqButtonSimple,
-a.jqButton.jqButtonSimple span {
-	background:none;
-	border:none;
-	margin:0;
-	padding:0;
-	color:#06c;
-	text-decoration:none;
-}
-button.jqButton.jqButtonSimple:hover,
-a.jqButton.jqButtonSimple:hover {
-	color:#06c;
-	text-decoration:underline;	
+button.#{$prefix_jq}Button,
+button.#{$prefix_fw}Button {
+	@extend ._default_button_style;
+	
+	&,
+	&:hover {
+		padding: 1px 0px + $button_padding;
+	}
+	&::-moz-focus-inner {
+		border:none;
+		padding:0;
+	}
 }
 
-/* colored buttons */
+a.#{$prefix_jq}Button,
+a.#{$prefix_fw}Button {
+	
+	&:link,
+	&:visited {
+		
+		display: inline-block;
+		@extend ._default_button_style;
+		
+		&,
+		&:hover,
+		&:link:active {
+			padding: 0 0px + $button_padding;
+		}
+		
+		&:active,
+		&:focus {
+			/* remove pesky selected state border */
+			outline:none;
+			-moz-outline-style:none;
+		}
+	}
+}
 
-input[type="submit"],
-button.jqButton.jqButtonBlue,
-a.jqButton.jqButtonBlue {
-	color:#fff;
-	background:#007aa3;
-	border-color:#007aa3;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#589adb', endColorstr='#3072b3');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#589adb),to(#3072b3));
-	background:-moz-linear-gradient(-90deg,#589adb,#3072b3);
+/* button set */
+.#{$prefix_jq}ButtonSet,
+.#{$prefix_fw}ButtonSet {
+
+	a.#{$prefix_jq}Button,
+	button.#{$prefix_jq}Button,
+	a.#{$prefix_fw}Button,
+	button.#{$prefix_fw}Button {
+	
+		&.#{$prefix_jq}ButtonLeft,
+		&.#{$prefix_jq}ButtonMiddle,
+		&.#{$prefix_jq}ButtonRight,
+		&.#{$prefix_fw}ButtonLeft,
+		&.#{$prefix_fw}ButtonMiddle,
+		&.#{$prefix_fw}ButtonRight {
+			z-index: 0;
+			&:hover {
+				z-index: 1;
+			}
+			&.#{$prefix_jq}ButtonDisabled:hover {
+				z-index: 0;
+			}
+		}
+		
+		&.#{$prefix_jq}ButtonLeft,
+		&.#{$prefix_fw}ButtonLeft {
+			float: none;
+			@include corner(0);
+			-webkit-border-top-left-radius: 0px + $button_border_radius;
+			-moz-border-top-left-radius: 0px + $button_border_radius;
+			border-top-left-radius: 0px + $button_border_radius;
+			-webkit-border-bottom-left-radius: 0px + $button_border_radius;
+			-moz-border-bottom-left-radius: 0px + $button_border_radius;
+			border-bottom-left-radius: 0px + $button_border_radius;
+		}
+		
+		&.#{$prefix_jq}ButtonMiddle,
+		&.#{$prefix_fw}ButtonMiddle {
+			float: none;
+			@include corner(0);
+			margin-left: -1px;
+			margin-right: -1px;
+		}
+		
+		&.#{$prefix_jq}ButtonRight,
+		&.#{$prefix_fw}ButtonRight {
+			float: none;
+			@include corner(0);	
+			-webkit-border-top-right-radius: 0px + $button_border_radius;
+			-moz-border-top-right-radius: 0px + $button_border_radius;
+			border-top-right-radius: 0px + $button_border_radius;
+			-webkit-border-bottom-right-radius: 0px + $button_border_radius;
+			-moz-border-bottom-right-radius: 0px + $button_border_radius;
+			border-bottom-right-radius: 0px + $button_border_radius;
+			margin-left: -1px;
+		}
+	}
 }
-button.jqButton.jqButtonBlue:hover,
-a.jqButton.jqButtonBlue:hover {
-	color:#fff;
-	background:#006f94;
-	border-color:#006f94;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3669af', endColorstr='#224f90');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#3669af),to(#224f90));
-	background:-moz-linear-gradient(-90deg,#3669af,#224f90);
+
+// make input similar
+
+input.#{$prefix_fw}Submit,
+input.#{$prefix_fw}ButtonCancel,
+input.#{$prefix_fw}Button {
+	@extend button.#{$prefix_fw}Button;
 }
-button.jqButton.jqButtonRed,
-a.jqButton.jqButtonRed {
-	color:#fff;
-	background:#cd2929;
-	border-color:#cd2929;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ff6f6f', endColorstr='#cd2929');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#ff6f6f),to(#cd2929));
-	background:-moz-linear-gradient(-90deg,#ff6f6f,#cd2929);
+a.#{$prefix_fw}Submit,
+a.#{$prefix_fw}ButtonCancel,
+a.#{$prefix_fw}Button {
+	@extend a.#{$prefix_fw}Button;
 }
-button.jqButton.jqButtonRed:hover,
-a.jqButton.jqButtonRed:hover {
-	color:#fff;
-	background:#b92525;
-	border-color:#b92525;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#d84d4d', endColorstr='#b92525');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#d84d4d),to(#b92525));
-	background:-moz-linear-gradient(-90deg,#d84d4d,#b92525);
+.#{$prefix_fw}Submit {
+	@include corner($button_border_radius);
+	@extend .#{$prefix_fw}ButtonBlue;
 }
-button.jqButton.jqButtonCyan,
-a.jqButton.jqButtonCyan {
-	color:#fff;
-	background:#007aa3;
-	border-color:#007aa3;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4bb7db', endColorstr='#007aa3');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4bb7db),to(#007aa3));
-	background:-moz-linear-gradient(-90deg,#4bb7db,#007aa3);
+input.#{$prefix_fw}ButtonCancel {
+	@include corner($button_border_radius);
+	@extend .#{$prefix_fw}ButtonRed;
 }
-button.jqButton.jqButtonCyan:hover,
-a.jqButton.jqButtonCyan:hover {
-	color:#fff;
-	background:#006f94;
-	border-color:#006f94;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#2b92b5', endColorstr='#006f94');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#2b92b5),to(#006f94));
-	background:-moz-linear-gradient(-90deg,#2b92b5,#006f94);
-}
-button.jqButton.jqButtonGreen,
-a.jqButton.jqButtonGreen {
-	color:#fff;
-	background:#297b29;
-	border-color:#297b29;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#6fb76f', endColorstr='#297b29');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#6fb76f),to(#297b29));
-	background:-moz-linear-gradient(-90deg,#6fb76f,#297b29);
-}
-button.jqButton.jqButtonGreen:hover,
-a.jqButton.jqButtonGreen:hover {
-	color:#fff;
-	background:#256f25;
-	border-color:#256f25;
-    filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4d924d', endColorstr='#256f25');
-	background:-webkit-gradient(linear,0% 0,0% 100%,from(#4d924d),to(#256f25));
-	background:-moz-linear-gradient(-90deg,#4d924d,#256f25);
-}
+
 
 /* tabs */
 .foswikiTabs ul {
@@ -903,7 +1131,7 @@ a.jqButton.jqButtonGreen:hover {
 	.foswikiUnvisited a:hover,
 	a.foswikiUnvisited:visited,
 	a.foswikiUnvisited:hover {
-		color:#06c;
+		color: $color_link;
 	}
 	
 	.foswikiGrayText {
@@ -947,3 +1175,23 @@ a.jqButton.jqButtonGreen:hover {
 		border-style:solid;
 		border-color:#e2e2e2;
 	}
+
+
+/* javascript behaviour */
+
+.bsHideDetails .foswikiSearchResultMeta {
+	display: none;
+}
+div.foswikiSearchResultMeta {
+	display: block;
+}
+span.foswikiSearchResultMeta {
+	display: inline;
+}
+
+/* extension specific */
+
+/* CommentPlugin */
+.commentPluginPromptBox td {
+	vertical-align: middle;
+}

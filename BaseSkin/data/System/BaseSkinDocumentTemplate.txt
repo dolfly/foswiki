@@ -30,7 +30,7 @@
 	Render head css and js after all TMPL:DEFs are read
 }%%RENDERZONE{"head"}%%{
 	Render base skin CSS files after all other CSS files
-}%%RENDERZONE{"head-base"}%%RENDERZONE{"script"}%</head>%TMPL:END%%{
+}%%RENDERZONE{"head-meta"}%%RENDERZONE{"head-base"}%%RENDERZONE{"script"}%</head>%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"body"}%<body class="%TMPL:P{"body:class"}%">
 %TMPL:P{"page"}%

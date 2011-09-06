@@ -283,35 +283,64 @@ icon="add"
 %CLEAR%
 
 %BUTTON{
-"Cancel"
-icon="cross"
-class="foswikiButtonCancel"
+	"Cancel"
+	icon="cross"
+	class="foswikiButtonCancel"
 }%
 %CLEAR%
 
 %BUTTON{
-"Cyan"
-class="cyan"
+	"Cyan"
+	class="cyan"
+}% %BUTTON{
+	"Red"
+	class="red"
+}% %BUTTON{
+	"Green"
+	class="green"
+}% %BUTTON{
+	"Blue"
+	class="blue"
 }%
 %CLEAR%
 
 %BUTTON{
-"Simple"
-class="simple"
+	"Simple"
+	class="simple"
 }%
 %CLEAR%
 
----++ New buttons
+---++ New buttons jqButton
 %TABLE{databg="#fff" cellpadding="10px"}%
 | Button | <button type="submit" class="jqButton" name="action_button">Create new topic</button> |
 | Link   | <a href="#" class="jqButton"><span>Edit</span></a> |
 | Button with icon | <button type="submit" class="jqButton" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>Create new topic</button> |
-| Button with icon, 150% | <button type="submit" class="jqButton jqButtonLarge" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>Create new topic</button> |
+| Button small | <button type="submit" class="jqButton jqButtonSmall" name="action_button">Small button</button> |
+| Button with icon, 150% | <button type="submit" class="jqButton jqButtonLarge" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>large button</button> <button type="submit" class="jqButton jqButtonLarge jqButtonDisabled" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>disabled large button</button> |
+| Button with small icon | <button type="submit" class="jqButton" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/more-small.png);"></span>small icon</button> |
 | Link with icon | <a href="#" class="jqButton"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>Edit</a> |
 | Disabled link | <a href="#" class="jqButton jqButtonDisabled">Edit</a> |
-| Different color links | <a class="jqButton jqButtonDefault jqInitedButton jqButtonRed" href="#"><span>Create a new topic</span></a><a class="jqButton jqButtonDefault jqInitedButton jqButtonCyan" href="#"><span>Create a new topic</span></a><a class="jqButton jqButtonDefault jqInitedButton jqButtonGreen" href="#"><span>Create a new topic</span></a> |
+| Different color links | <a class="jqButton jqButtonRed" href="#"><span>Red</span></a> <a class="jqButton jqButtonCyan" href="#"><span>Cyan</span></a> <a class="jqButton jqButtonGreen" href="#"><span>Green</span></a> <a class="jqButton jqButtonBlue" href="#"><span>Blue</span></a> |
+| Different color links, disabled | <a class="jqButton jqButtonRed jqButtonDisabled" href="#"><span>Red</span></a> <a class="jqButton jqButtonCyan jqButtonDisabled" href="#"><span>Cyan</span></a> <a class="jqButton jqButtonGreen jqButtonDisabled" href="#"><span>Green</span></a> <a class="jqButton jqButtonBlue jqButtonDisabled" href="#"><span>Blue</span></a> |
 | Row of save actions | <button type="submit" class="jqButton" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/choice-yes.png);"></span>Save</button> <button type="submit" class="jqButton" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/FamFamFamSilkIcons/eye.png);"></span>Preview</button> <button type="submit" class="jqButton" name="action_button"><span class="jqButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/FamFamFamSilkIcons/cross.png);"></span>Cancel</button> |
+| Button set | <span class='jqButtonSet'><a href='#' class='jqButton jqButtonLeft'>left</a><a href='#' class='jqButton jqButtonMiddle'>middle</a><a href='#' class='jqButton jqButtonMiddle jqButtonDisabled'>disabled</a><a href='#' class='jqButton jqButtonRight'>right</a></span> |
+| Button set small | <span class='jqButtonSet'><a href='#' class='jqButton jqButtonLeft jqButtonSmall'>left</a><a href='#' class='jqButton jqButtonMiddle jqButtonSmall'>middle</a><a href='#' class='jqButton jqButtonMiddle jqButtonDisabled jqButtonSmall'>disabled</a><a href='#' class='jqButton jqButtonRight jqButtonSmall'>right</a></span> |
 
+
+---++ New buttons: foswikiButton
+%TABLE{databg="#fff" cellpadding="10px"}%
+| Button | <button type="submit" class="foswikiButton" name="action_button">Create new topic</button> |
+| Link   | <a href="#" class="foswikiButton"><span>Edit</span></a> |
+| Button with icon | <button type="submit" class="foswikiButton" name="action_button"><span class="foswikiButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>Create new topic</button> |
+| Button small | <button type="submit" class="foswikiButton foswikiButtonSmall" name="action_button">Small button</button> |
+| Button with icon, 150% | <button type="submit" class="foswikiButton foswikiButtonLarge" name="action_button"><span class="foswikiButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>Create new topic</button> |
+| Link with icon | <a href="#" class="foswikiButton"><span class="foswikiButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/add.png);"></span>Edit</a> |
+| Disabled link | <a href="#" class="foswikiButton foswikiButtonDisabled">Edit</a> |
+| Different color links | <a class="foswikiButton foswikiButtonRed" href="#"><span>Red</span></a> <a class="foswikiButton foswikiButtonCyan" href="#"><span>Cyan</span></a> <a class="foswikiButton foswikiButtonGreen" href="#"><span>Green</span></a> <a class="foswikiButton foswikiButtonBlue" href="#"><span>Blue</span></a> |
+| Different color links, disabled | <a class="foswikiButton foswikiButtonRed foswikiButtonDisabled" href="#"><span>Red</span></a> <a class="foswikiButton foswikiButtonCyan foswikiButtonDisabled" href="#"><span>Cyan</span></a> <a class="foswikiButton foswikiButtonGreen foswikiButtonDisabled" href="#"><span>Green</span></a> <a class="foswikiButton foswikiButtonBlue foswikiButtonDisabled" href="#"><span>Blue</span></a> |
+| Row of save actions | <button type="submit" class="foswikiButton" name="action_button"><span class="foswikiButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/choice-yes.png);"></span>Save</button> <button type="submit" class="foswikiButton" name="action_button"><span class="foswikiButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/FamFamFamSilkIcons/eye.png);"></span>Preview</button> <button type="submit" class="foswikiButton" name="action_button"><span class="foswikiButtonIcon" style="background-image:url(%PUBURLPATH%/%SYSTEMWEB%/FamFamFamSilkIcons/cross.png);"></span>Cancel</button> |
+| Button set | <span class='foswikiButtonSet'><a href='#' class='foswikiButton foswikiButtonLeft'>left</a><a href='#' class='foswikiButton foswikiButtonMiddle'>middle</a><a href='#' class='foswikiButton foswikiButtonMiddle foswikiButtonDisabled'>disabled</a><a href='#' class='foswikiButton foswikiButtonRight'>right</a></span> |
+| Button set small | <span class='foswikiButtonSet'><a href='#' class='foswikiButton foswikiButtonLeft foswikiButtonSmall'>left</a><a href='#' class='foswikiButton foswikiButtonMiddle foswikiButtonSmall'>middle</a><a href='#' class='foswikiButton foswikiButtonMiddle foswikiButtonDisabled foswikiButtonSmall'>disabled</a><a href='#' class='foswikiButton foswikiButtonRight foswikiButtonSmall'>right</a></span> |
 
 ---++ Table of Contents
 %TOC{title="On this page:"}%

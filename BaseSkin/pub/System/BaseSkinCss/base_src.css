@@ -1,3 +1,4 @@
+/* font sizes in pixels - only used for body; will be converted to ems */
 /* reset */
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -197,15 +198,22 @@ table {
 td {
   vertical-align: top; }
 
-/* font sizes in pixels - only used for body; will be converted to ems */
 /* Sensible defaults */
+body {
+  font-size: 13px;
+  line-height: 1.615em;
+  font-family: sans-serif;
+  width: 90%;
+  margin: 0 auto; }
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: normal; }
+  font-weight: normal;
+  line-height: 1; }
 
 h1 {
   font-size: 2.2em;
@@ -232,8 +240,56 @@ h5, h6 {
   margin-top: 1.154em;
   margin-bottom: 1.154em; }
 
-p {
-  margin: 1em 0; }
+p,
+pre,
+blockquote,
+iframe,
+label,
+address,
+select,
+td,
+th,
+ul,
+ol,
+dl,
+hr,
+input,
+textarea,
+.foswikiInputField,
+.foswikiInputFieldDisabled,
+.foswikiInputFieldReadOnly,
+input[type="text"],
+input[type="password"],
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification,
+.foswikiAttachments {
+  font-size: 1em;
+  line-height: 1.615em; }
+
+/* vertical margin for block level elements */
+p,
+pre,
+blockquote,
+iframe,
+address,
+ul,
+ol,
+dl,
+hr,
+.foswikiTable,
+.jqTabPane,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiMessage,
+.foswikiNotification,
+.foswikiAttachments,
+.foswikiFormSteps {
+  margin-top: 1.615em;
+  margin-bottom: 1.615em; }
 
 em {
   font-style: italic; }
@@ -246,12 +302,62 @@ pre {
   white-space: pre-wrap;
   word-wrap: break-word; }
 
+dd,
+ul,
+ol {
+  margin-left: 21px; }
+
+/* prevent double padding with bullet list in block */
+blockquote ol:first-child,
+pre ol:first-child,
+.foswikiHelp ol:first-child,
+.foswikiBroadcastMessage ol:first-child,
+.foswikiNotification ol:first-child,
+blockquote ul:first-child,
+pre ul:first-child,
+.foswikiHelp ul:first-child,
+.foswikiBroadcastMessage ul:first-child,
+.foswikiNotification ul:first-child {
+  margin-top: 0;
+  margin-bottom: 0; }
+
 /* remove border around focussed input fields */
 *:focus {
   outline: none; }
 
 .foswikiInputField:focus {
   border-color: #0066cc; }
+
+/* correct for nested elements */
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child,
+.foswikiFormSteps:first-child {
+  margin-top: 0; }
+
+li ul,
+li ol,
+ul ul,
+ol ol {
+  top: 0;
+  margin-top: 0;
+  margin-bottom: 0; }
+
+li h1,
+li h2,
+li h3,
+li h4,
+li h5,
+li h6,
+li p {
+  top: 0; }
+
+hr {
+  height: 1px;
+  border: none; }
 
 blockquote,
 pre,
@@ -272,18 +378,18 @@ a:visited {
   color: #336699; }
 
 ::-moz-selection {
-  background: #06c;
+  background: #0066cc;
   color: #fff;
   text-shadow: none; }
 
 ::selection {
-  background: #06c;
+  background: #0066cc;
   color: #fff;
   text-shadow: none; }
 
 hr {
-  color: #ccc;
-  background-color: #ccc; }
+  color: #dddddd;
+  background-color: #dddddd; }
 
 pre {
   background: #f5f5f5; }
@@ -435,64 +541,67 @@ table caption {
 .foswikiHorizontalList ol li.foswikiLast {
   border: none; }
 
-.foswikiSubmit,
-.foswikiSubmitDisabled,
-.foswikiButton,
-.foswikiButtonDisabled,
-.foswikiButtonCancel,
-a.foswikiButton,
-a.foswikiButtonCancel,
-a.foswikiSubmit {
-  background: #eee;
-  border: 1px solid #ccc; }
-
-/* form elements */
-.foswikiSubmit,
-.foswikiSubmitDisabled,
-.foswikiButton,
-.foswikiButtonDisabled,
-.foswikiButtonCancel,
-a.foswikiButton,
-a.foswikiSubmit,
-a.foswikiButtonCancel,
-.foswikiCheckbox {
-  border-width: 1px;
-  border-style: solid;
-  font-weight: bold;
-  text-align: center; }
-
-.foswikiSubmit,
-.foswikiSubmitDisabled,
-.foswikiButton,
-.foswikiButtonDisabled,
-.foswikiButtonCancel,
-.foswikiSubmit:hover,
-.foswikiSubmitDisabled:hover,
-.foswikiButton:hover,
-.foswikiSubmit:active,
-.foswikiSubmitDisabled:active,
-.foswikiButton:active {
-  cursor: default;
-  outline: none;
-  line-height: 1em;
-  padding: 2px 4px; }
-
-a.foswikiButton,
-a.foswikiButton:hover,
-a.foswikiButton:link:active,
-a.foswikiButton:visited:active,
-a.foswikiButtonCancel,
-a.foswikiButtonCancel:hover,
-a.foswikiButtonCancel:link:active,
-a.foswikiButtonCancel:visited:active,
-a.foswikiSubmit,
-a.foswikiSubmit:hover,
-a.foswikiSubmit:link:active,
-a.foswikiSubmit:visited:active {
-  text-decoration: none;
-  line-height: 1em;
-  padding: 2px 4px; }
-
+/*
+	.foswikiSubmit,
+	.foswikiSubmitDisabled,
+	.foswikiButton,
+	.foswikiButtonDisabled,
+	.foswikiButtonCancel,
+	a.foswikiButton,
+	a.foswikiButtonCancel,
+	a.foswikiSubmit {
+		background:#eee;
+		border:1px solid #ccc;
+	}
+	
+	.foswikiTextarea {}
+	.foswikiSubmit,
+	.foswikiSubmitDisabled,
+	.foswikiButton,
+	.foswikiButtonDisabled,
+	.foswikiButtonCancel,
+	a.foswikiButton,
+	a.foswikiSubmit,
+	a.foswikiButtonCancel,
+	.foswikiCheckbox {
+		border-width:1px;
+		border-style:solid;
+		font-weight:bold;
+		text-align:center;
+	}
+	.foswikiSubmit,
+	.foswikiSubmitDisabled,
+	.foswikiButton,
+	.foswikiButtonDisabled,
+	.foswikiButtonCancel,
+	.foswikiSubmit:hover,
+	.foswikiSubmitDisabled:hover,
+	.foswikiButton:hover,
+	.foswikiSubmit:active,
+	.foswikiSubmitDisabled:active,
+	.foswikiButton:active {
+		cursor:default;
+		outline:none;
+		line-height:1em;
+		padding:2px 4px;
+	}
+	a.foswikiButton,
+	a.foswikiButton:hover,
+	a.foswikiButton:link:active,
+	a.foswikiButton:visited:active,
+	a.foswikiButtonCancel,
+	a.foswikiButtonCancel:hover,
+	a.foswikiButtonCancel:link:active,
+	a.foswikiButtonCancel:visited:active,
+	a.foswikiSubmit,
+	a.foswikiSubmit:hover,
+	a.foswikiSubmit:link:active,
+	a.foswikiSubmit:visited:active {
+		text-decoration:none;
+		line-height:1em;
+		padding:2px 4px;
+	}
+*/
 .foswikiCheckbox,
 .foswikiRadioButton {
   margin: 1px .5em 1px .1em;
@@ -521,246 +630,1739 @@ a.foswikiSubmit:visited:active {
 /* end Foswiki classes */
 /* buttons */
 /* reset jquery.button.css */
-.jqButton {
+.jqButton,
+.foswikiButton {
   margin: 0;
+  padding: 0;
   display: inline;
   float: none;
   font-size: inherit;
+  font-weight: normal;
   height: auto;
-  padding: 0;
   color: #000;
   white-space: nowrap;
   text-shadow: none;
-  text-decoration: none; }
-
-.jqButton:hover,
-.jqButton {
-  text-decoration: none;
-  cursor: pointer;
-  background: none; }
-
-.jqButton span {
-  float: none;
-  background: none;
-  height: auto;
-  padding: 0;
-  margin: 0; }
-
-.jqButton:hover {
   float: none; }
+  .jqButton:hover, .jqButton,
+  .foswikiButton:hover,
+  .foswikiButton {
+    text-decoration: none;
+    cursor: pointer;
+    background: none; }
+  .jqButton span,
+  .foswikiButton span {
+    float: none;
+    background: none;
+    height: auto;
+    padding: 0;
+    margin: 0;
+    font-weight: normal; }
+    .jqButton span:hover,
+    .foswikiButton span:hover {
+      cursor: default; }
 
 /* end reset */
 /* new button style */
-button.jqButton,
-button.jqButton.jqButtonDisabled,
-button.jqButton.jqButtonDisabled:hover {
-  padding: 0 6px;
-  height: 1.9em;
-  line-height: 1em; }
+._button_icon, ._default_button_style .jqButtonIcon, button.jqButton .jqButtonIcon,
+button.foswikiButton .jqButtonIcon,
+input.foswikiSubmit .jqButtonIcon,
+input.foswikiButtonCancel .jqButtonIcon,
+input.foswikiButton .jqButtonIcon, a.jqButton:link .jqButtonIcon, a.jqButton:visited .jqButtonIcon,
+a.foswikiButton:link .jqButtonIcon,
+a.foswikiSubmit:link .jqButtonIcon,
+a.foswikiButtonCancel:link .jqButtonIcon,
+a.foswikiButton:visited .jqButtonIcon,
+a.foswikiSubmit:visited .jqButtonIcon,
+a.foswikiButtonCancel:visited .jqButtonIcon, ._default_button_style .foswikiButtonIcon, button.jqButton .foswikiButtonIcon,
+button.foswikiButton .foswikiButtonIcon,
+input.foswikiSubmit .foswikiButtonIcon,
+input.foswikiButtonCancel .foswikiButtonIcon,
+input.foswikiButton .foswikiButtonIcon, a.jqButton:link .foswikiButtonIcon, a.jqButton:visited .foswikiButtonIcon,
+a.foswikiButton:link .foswikiButtonIcon,
+a.foswikiSubmit:link .foswikiButtonIcon,
+a.foswikiButtonCancel:link .foswikiButtonIcon,
+a.foswikiButton:visited .foswikiButtonIcon,
+a.foswikiSubmit:visited .foswikiButtonIcon,
+a.foswikiButtonCancel:visited .foswikiButtonIcon {
+  padding-left: 22px;
+  background-repeat: no-repeat;
+  background-position: 0 50%; }
 
-a.jqButton:link,
-a.jqButton:visited,
-a.jqButton.jqButtonDisabled,
-a.jqButton.jqButtonDisabled:hover {
-  display: inline-block;
-  padding: 0 6px;
-  line-height: 1.8em; }
-
-a.jqButton:link,
-a.jqButton:visited,
-input[type="button"],
-input[type="submit"],
-button.jqButton {
+.jqButton,
+.foswikiButton {
   position: relative;
-  margin: 0 6px 0 0;
   text-decoration: none;
   font-size: 13px;
-  font-family: arial, verdana, sans-serif;
+  font-family: sans-serif;
   font-weight: normal;
+  line-height: 1.615em;
   border-width: 1px;
   border-style: solid;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  /* optimize webkit display */
   -webkit-font-smoothing: subpixel-antialiased!important;
   -webkit-border-horizontal-spacing: 0;
   -webkit-border-vertical-spacing: 0; }
 
-button.jqButton::-moz-focus-inner {
-  border: none;
-  padding: 0; }
+._disabled_button_style, ._default_button_style.jqButtonDisabled, button.jqButtonDisabled.jqButton,
+button.jqButtonDisabled.foswikiButton,
+input.jqButtonDisabled.foswikiSubmit,
+input.jqButtonDisabled.foswikiButtonCancel,
+input.jqButtonDisabled.foswikiButton, a.jqButtonDisabled.jqButton:link, a.jqButtonDisabled.jqButton:visited,
+a.jqButtonDisabled.foswikiButton:link,
+a.jqButtonDisabled.foswikiSubmit:link,
+a.jqButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonDisabled.foswikiButton:visited,
+a.jqButtonDisabled.foswikiSubmit:visited,
+a.jqButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonDisabled, button.foswikiButtonDisabled.jqButton,
+button.foswikiButtonDisabled.foswikiButton,
+input.foswikiButtonDisabled.foswikiSubmit,
+input.foswikiButtonDisabled.foswikiButtonCancel,
+input.foswikiButtonDisabled.foswikiButton, a.foswikiButtonDisabled.jqButton:link, a.foswikiButtonDisabled.jqButton:visited,
+a.foswikiButtonDisabled.foswikiButton:link,
+a.foswikiButtonDisabled.foswikiSubmit:link,
+a.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonDisabled.foswikiButton:visited,
+a.foswikiButtonDisabled.foswikiSubmit:visited,
+a.foswikiButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.jqButtonBlue.jqButtonDisabled, button.jqButtonBlue.jqButtonDisabled.jqButton,
+button.jqButtonBlue.jqButtonDisabled.foswikiButton,
+input.jqButtonBlue.jqButtonDisabled.foswikiSubmit,
+input.jqButtonBlue.jqButtonDisabled.foswikiButtonCancel,
+input.jqButtonBlue.jqButtonDisabled.foswikiButton, a.jqButtonBlue.jqButtonDisabled.jqButton:link, a.jqButtonBlue.jqButtonDisabled.jqButton:visited,
+a.jqButtonBlue.jqButtonDisabled.foswikiButton:link,
+a.jqButtonBlue.jqButtonDisabled.foswikiSubmit:link,
+a.jqButtonBlue.jqButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonBlue.jqButtonDisabled.foswikiButton:visited,
+a.jqButtonBlue.jqButtonDisabled.foswikiSubmit:visited,
+a.jqButtonBlue.jqButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.jqButtonBlue.foswikiButtonDisabled, button.jqButtonBlue.foswikiButtonDisabled.jqButton,
+button.jqButtonBlue.foswikiButtonDisabled.foswikiButton,
+input.jqButtonBlue.foswikiButtonDisabled.foswikiSubmit,
+input.jqButtonBlue.foswikiButtonDisabled.foswikiButtonCancel,
+input.jqButtonBlue.foswikiButtonDisabled.foswikiButton, a.jqButtonBlue.foswikiButtonDisabled.jqButton:link, a.jqButtonBlue.foswikiButtonDisabled.jqButton:visited,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButton:link,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiSubmit:link,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButton:visited,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiSubmit:visited,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonBlue.jqButtonDisabled, button.foswikiButtonBlue.jqButtonDisabled.jqButton, button.jqButtonDisabled.jqButton.foswikiSubmit,
+button.foswikiButtonBlue.jqButtonDisabled.foswikiButton,
+input.foswikiButtonBlue.jqButtonDisabled.foswikiButtonCancel,
+input.jqButtonDisabled.foswikiButtonCancel.foswikiSubmit,
+input.foswikiButtonBlue.jqButtonDisabled.foswikiButton,
+input.jqButtonDisabled.foswikiButton.foswikiSubmit,
+button.jqButtonDisabled.foswikiButton.foswikiSubmit, a.foswikiButtonBlue.jqButtonDisabled.jqButton:link, a.jqButtonDisabled.jqButton.foswikiSubmit:link, a.foswikiButtonBlue.jqButtonDisabled.jqButton:visited, a.jqButtonDisabled.jqButton.foswikiSubmit:visited,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButton:link,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonDisabled.foswikiButtonCancel.foswikiSubmit:link,
+a.jqButtonDisabled.foswikiButton.foswikiSubmit:link,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButton:visited,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButtonCancel:visited,
+a.jqButtonDisabled.foswikiButtonCancel.foswikiSubmit:visited,
+a.jqButtonDisabled.foswikiButton.foswikiSubmit:visited, ._default_button_style.jqButtonDisabled.foswikiSubmit, ._default_button_style.foswikiButtonBlue.foswikiButtonDisabled, button.foswikiButtonBlue.foswikiButtonDisabled.jqButton, button.foswikiButtonDisabled.jqButton.foswikiSubmit,
+button.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton,
+input.foswikiButtonBlue.foswikiButtonDisabled.foswikiButtonCancel,
+input.foswikiButtonDisabled.foswikiButtonCancel.foswikiSubmit,
+input.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton,
+input.foswikiButtonDisabled.foswikiButton.foswikiSubmit,
+button.foswikiButtonDisabled.foswikiButton.foswikiSubmit, a.foswikiButtonBlue.foswikiButtonDisabled.jqButton:link, a.foswikiButtonDisabled.jqButton.foswikiSubmit:link, a.foswikiButtonBlue.foswikiButtonDisabled.jqButton:visited, a.foswikiButtonDisabled.jqButton.foswikiSubmit:visited,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton:link,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonDisabled.foswikiButtonCancel.foswikiSubmit:link,
+a.foswikiButtonDisabled.foswikiButton.foswikiSubmit:link,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton:visited,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:visited,
+a.foswikiButtonDisabled.foswikiButtonCancel.foswikiSubmit:visited,
+a.foswikiButtonDisabled.foswikiButton.foswikiSubmit:visited, ._default_button_style.foswikiButtonDisabled.foswikiSubmit, ._default_button_style.jqButtonRed.jqButtonDisabled, button.jqButtonRed.jqButtonDisabled.jqButton,
+button.jqButtonRed.jqButtonDisabled.foswikiButton,
+input.jqButtonRed.jqButtonDisabled.foswikiSubmit,
+input.jqButtonRed.jqButtonDisabled.foswikiButtonCancel,
+input.jqButtonRed.jqButtonDisabled.foswikiButton, a.jqButtonRed.jqButtonDisabled.jqButton:link, a.jqButtonRed.jqButtonDisabled.jqButton:visited,
+a.jqButtonRed.jqButtonDisabled.foswikiButton:link,
+a.jqButtonRed.jqButtonDisabled.foswikiSubmit:link,
+a.jqButtonRed.jqButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonRed.jqButtonDisabled.foswikiButton:visited,
+a.jqButtonRed.jqButtonDisabled.foswikiSubmit:visited,
+a.jqButtonRed.jqButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.jqButtonRed.foswikiButtonDisabled, button.jqButtonRed.foswikiButtonDisabled.jqButton,
+button.jqButtonRed.foswikiButtonDisabled.foswikiButton,
+input.jqButtonRed.foswikiButtonDisabled.foswikiSubmit,
+input.jqButtonRed.foswikiButtonDisabled.foswikiButtonCancel,
+input.jqButtonRed.foswikiButtonDisabled.foswikiButton, a.jqButtonRed.foswikiButtonDisabled.jqButton:link, a.jqButtonRed.foswikiButtonDisabled.jqButton:visited,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButton:link,
+a.jqButtonRed.foswikiButtonDisabled.foswikiSubmit:link,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButton:visited,
+a.jqButtonRed.foswikiButtonDisabled.foswikiSubmit:visited,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonRed.jqButtonDisabled, button.foswikiButtonRed.jqButtonDisabled.jqButton,
+button.foswikiButtonRed.jqButtonDisabled.foswikiButton,
+input.foswikiButtonRed.jqButtonDisabled.foswikiSubmit,
+input.foswikiButtonRed.jqButtonDisabled.foswikiButton,
+input.jqButtonDisabled.foswikiButton.foswikiButtonCancel, a.foswikiButtonRed.jqButtonDisabled.jqButton:link, a.foswikiButtonRed.jqButtonDisabled.jqButton:visited,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButton:link,
+a.foswikiButtonRed.jqButtonDisabled.foswikiSubmit:link,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButton:visited,
+a.foswikiButtonRed.jqButtonDisabled.foswikiSubmit:visited,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButtonCancel:visited, input._default_button_style.jqButtonDisabled.foswikiButtonCancel, ._default_button_style.foswikiButtonRed.foswikiButtonDisabled, button.foswikiButtonRed.foswikiButtonDisabled.jqButton,
+button.foswikiButtonRed.foswikiButtonDisabled.foswikiButton,
+input.foswikiButtonRed.foswikiButtonDisabled.foswikiSubmit,
+input.foswikiButtonRed.foswikiButtonDisabled.foswikiButton,
+input.foswikiButtonDisabled.foswikiButton.foswikiButtonCancel, a.foswikiButtonRed.foswikiButtonDisabled.jqButton:link, a.foswikiButtonRed.foswikiButtonDisabled.jqButton:visited,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButton:link,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiSubmit:link,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButton:visited,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiSubmit:visited,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButtonCancel:visited, input._default_button_style.foswikiButtonDisabled.foswikiButtonCancel, ._default_button_style.jqButtonCyan.jqButtonDisabled, button.jqButtonCyan.jqButtonDisabled.jqButton,
+button.jqButtonCyan.jqButtonDisabled.foswikiButton,
+input.jqButtonCyan.jqButtonDisabled.foswikiSubmit,
+input.jqButtonCyan.jqButtonDisabled.foswikiButtonCancel,
+input.jqButtonCyan.jqButtonDisabled.foswikiButton, a.jqButtonCyan.jqButtonDisabled.jqButton:link, a.jqButtonCyan.jqButtonDisabled.jqButton:visited,
+a.jqButtonCyan.jqButtonDisabled.foswikiButton:link,
+a.jqButtonCyan.jqButtonDisabled.foswikiSubmit:link,
+a.jqButtonCyan.jqButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonCyan.jqButtonDisabled.foswikiButton:visited,
+a.jqButtonCyan.jqButtonDisabled.foswikiSubmit:visited,
+a.jqButtonCyan.jqButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.jqButtonCyan.foswikiButtonDisabled, button.jqButtonCyan.foswikiButtonDisabled.jqButton,
+button.jqButtonCyan.foswikiButtonDisabled.foswikiButton,
+input.jqButtonCyan.foswikiButtonDisabled.foswikiSubmit,
+input.jqButtonCyan.foswikiButtonDisabled.foswikiButtonCancel,
+input.jqButtonCyan.foswikiButtonDisabled.foswikiButton, a.jqButtonCyan.foswikiButtonDisabled.jqButton:link, a.jqButtonCyan.foswikiButtonDisabled.jqButton:visited,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButton:link,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiSubmit:link,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButton:visited,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiSubmit:visited,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonCyan.jqButtonDisabled, button.foswikiButtonCyan.jqButtonDisabled.jqButton,
+button.foswikiButtonCyan.jqButtonDisabled.foswikiButton,
+input.foswikiButtonCyan.jqButtonDisabled.foswikiSubmit,
+input.foswikiButtonCyan.jqButtonDisabled.foswikiButtonCancel,
+input.foswikiButtonCyan.jqButtonDisabled.foswikiButton, a.foswikiButtonCyan.jqButtonDisabled.jqButton:link, a.foswikiButtonCyan.jqButtonDisabled.jqButton:visited,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButton:link,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiSubmit:link,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButton:visited,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiSubmit:visited,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonCyan.foswikiButtonDisabled, button.foswikiButtonCyan.foswikiButtonDisabled.jqButton,
+button.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton,
+input.foswikiButtonCyan.foswikiButtonDisabled.foswikiSubmit,
+input.foswikiButtonCyan.foswikiButtonDisabled.foswikiButtonCancel,
+input.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton, a.foswikiButtonCyan.foswikiButtonDisabled.jqButton:link, a.foswikiButtonCyan.foswikiButtonDisabled.jqButton:visited,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton:link,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiSubmit:link,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton:visited,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiSubmit:visited,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.jqButtonGreen.jqButtonDisabled, button.jqButtonGreen.jqButtonDisabled.jqButton,
+button.jqButtonGreen.jqButtonDisabled.foswikiButton,
+input.jqButtonGreen.jqButtonDisabled.foswikiSubmit,
+input.jqButtonGreen.jqButtonDisabled.foswikiButtonCancel,
+input.jqButtonGreen.jqButtonDisabled.foswikiButton, a.jqButtonGreen.jqButtonDisabled.jqButton:link, a.jqButtonGreen.jqButtonDisabled.jqButton:visited,
+a.jqButtonGreen.jqButtonDisabled.foswikiButton:link,
+a.jqButtonGreen.jqButtonDisabled.foswikiSubmit:link,
+a.jqButtonGreen.jqButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonGreen.jqButtonDisabled.foswikiButton:visited,
+a.jqButtonGreen.jqButtonDisabled.foswikiSubmit:visited,
+a.jqButtonGreen.jqButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.jqButtonGreen.foswikiButtonDisabled, button.jqButtonGreen.foswikiButtonDisabled.jqButton,
+button.jqButtonGreen.foswikiButtonDisabled.foswikiButton,
+input.jqButtonGreen.foswikiButtonDisabled.foswikiSubmit,
+input.jqButtonGreen.foswikiButtonDisabled.foswikiButtonCancel,
+input.jqButtonGreen.foswikiButtonDisabled.foswikiButton, a.jqButtonGreen.foswikiButtonDisabled.jqButton:link, a.jqButtonGreen.foswikiButtonDisabled.jqButton:visited,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButton:link,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiSubmit:link,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButton:visited,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiSubmit:visited,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonGreen.jqButtonDisabled, button.foswikiButtonGreen.jqButtonDisabled.jqButton,
+button.foswikiButtonGreen.jqButtonDisabled.foswikiButton,
+input.foswikiButtonGreen.jqButtonDisabled.foswikiSubmit,
+input.foswikiButtonGreen.jqButtonDisabled.foswikiButtonCancel,
+input.foswikiButtonGreen.jqButtonDisabled.foswikiButton, a.foswikiButtonGreen.jqButtonDisabled.jqButton:link, a.foswikiButtonGreen.jqButtonDisabled.jqButton:visited,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButton:link,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiSubmit:link,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButton:visited,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiSubmit:visited,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonGreen.foswikiButtonDisabled, button.foswikiButtonGreen.foswikiButtonDisabled.jqButton,
+button.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton,
+input.foswikiButtonGreen.foswikiButtonDisabled.foswikiSubmit,
+input.foswikiButtonGreen.foswikiButtonDisabled.foswikiButtonCancel,
+input.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton, a.foswikiButtonGreen.foswikiButtonDisabled.jqButton:link, a.foswikiButtonGreen.foswikiButtonDisabled.jqButton:visited,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton:link,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiSubmit:link,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:link,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton:visited,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiSubmit:visited,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:visited, ._disabled_button_style:hover, ._default_button_style.jqButtonDisabled:hover, button.jqButtonDisabled.jqButton:hover,
+button.jqButtonDisabled.foswikiButton:hover,
+input.jqButtonDisabled.foswikiSubmit:hover,
+input.jqButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonDisabled.foswikiButton:hover, a.jqButtonDisabled.jqButton:hover:link, a.jqButtonDisabled.jqButton:hover:visited,
+a.jqButtonDisabled.foswikiButton:hover:link,
+a.jqButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonDisabled:hover, button.foswikiButtonDisabled.jqButton:hover,
+button.foswikiButtonDisabled.foswikiButton:hover,
+input.foswikiButtonDisabled.foswikiSubmit:hover,
+input.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.foswikiButtonDisabled.foswikiButton:hover, a.foswikiButtonDisabled.jqButton:hover:link, a.foswikiButtonDisabled.jqButton:hover:visited,
+a.foswikiButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.foswikiButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonBlue.jqButtonDisabled:hover, button.jqButtonBlue.jqButtonDisabled.jqButton:hover,
+button.jqButtonBlue.jqButtonDisabled.foswikiButton:hover,
+input.jqButtonBlue.jqButtonDisabled.foswikiSubmit:hover,
+input.jqButtonBlue.jqButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonBlue.jqButtonDisabled.foswikiButton:hover, a.jqButtonBlue.jqButtonDisabled.jqButton:hover:link, a.jqButtonBlue.jqButtonDisabled.jqButton:hover:visited,
+a.jqButtonBlue.jqButtonDisabled.foswikiButton:hover:link,
+a.jqButtonBlue.jqButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonBlue.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonBlue.jqButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonBlue.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonBlue.jqButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonBlue.foswikiButtonDisabled:hover, button.jqButtonBlue.foswikiButtonDisabled.jqButton:hover,
+button.jqButtonBlue.foswikiButtonDisabled.foswikiButton:hover,
+input.jqButtonBlue.foswikiButtonDisabled.foswikiSubmit:hover,
+input.jqButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonBlue.foswikiButtonDisabled.foswikiButton:hover, a.jqButtonBlue.foswikiButtonDisabled.jqButton:hover:link, a.jqButtonBlue.foswikiButtonDisabled.jqButton:hover:visited,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButton:hover:link,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonBlue.jqButtonDisabled:hover, button.foswikiButtonBlue.jqButtonDisabled.jqButton:hover, button.jqButtonDisabled.jqButton.foswikiSubmit:hover,
+button.foswikiButtonBlue.jqButtonDisabled.foswikiButton:hover,
+input.foswikiButtonBlue.jqButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonDisabled.foswikiButtonCancel.foswikiSubmit:hover,
+input.foswikiButtonBlue.jqButtonDisabled.foswikiButton:hover,
+input.jqButtonDisabled.foswikiButton.foswikiSubmit:hover,
+button.jqButtonDisabled.foswikiButton.foswikiSubmit:hover, a.foswikiButtonBlue.jqButtonDisabled.jqButton:hover:link, a.jqButtonDisabled.jqButton.foswikiSubmit:hover:link, a.foswikiButtonBlue.jqButtonDisabled.jqButton:hover:visited, a.jqButtonDisabled.jqButton.foswikiSubmit:hover:visited,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonDisabled.foswikiButtonCancel.foswikiSubmit:hover:link,
+a.jqButtonDisabled.foswikiButton.foswikiSubmit:hover:link,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonBlue.jqButtonDisabled.foswikiButtonCancel:hover:visited,
+a.jqButtonDisabled.foswikiButtonCancel.foswikiSubmit:hover:visited,
+a.jqButtonDisabled.foswikiButton.foswikiSubmit:hover:visited, ._default_button_style.jqButtonDisabled.foswikiSubmit:hover, ._default_button_style.foswikiButtonBlue.foswikiButtonDisabled:hover, button.foswikiButtonBlue.foswikiButtonDisabled.jqButton:hover, button.foswikiButtonDisabled.jqButton.foswikiSubmit:hover,
+button.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton:hover,
+input.foswikiButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.foswikiButtonDisabled.foswikiButtonCancel.foswikiSubmit:hover,
+input.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton:hover,
+input.foswikiButtonDisabled.foswikiButton.foswikiSubmit:hover,
+button.foswikiButtonDisabled.foswikiButton.foswikiSubmit:hover, a.foswikiButtonBlue.foswikiButtonDisabled.jqButton:hover:link, a.foswikiButtonDisabled.jqButton.foswikiSubmit:hover:link, a.foswikiButtonBlue.foswikiButtonDisabled.jqButton:hover:visited, a.foswikiButtonDisabled.jqButton.foswikiSubmit:hover:visited,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonDisabled.foswikiButtonCancel.foswikiSubmit:hover:link,
+a.foswikiButtonDisabled.foswikiButton.foswikiSubmit:hover:link,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonBlue.foswikiButtonDisabled.foswikiButtonCancel:hover:visited,
+a.foswikiButtonDisabled.foswikiButtonCancel.foswikiSubmit:hover:visited,
+a.foswikiButtonDisabled.foswikiButton.foswikiSubmit:hover:visited, ._default_button_style.foswikiButtonDisabled.foswikiSubmit:hover, ._default_button_style.jqButtonRed.jqButtonDisabled:hover, button.jqButtonRed.jqButtonDisabled.jqButton:hover,
+button.jqButtonRed.jqButtonDisabled.foswikiButton:hover,
+input.jqButtonRed.jqButtonDisabled.foswikiSubmit:hover,
+input.jqButtonRed.jqButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonRed.jqButtonDisabled.foswikiButton:hover, a.jqButtonRed.jqButtonDisabled.jqButton:hover:link, a.jqButtonRed.jqButtonDisabled.jqButton:hover:visited,
+a.jqButtonRed.jqButtonDisabled.foswikiButton:hover:link,
+a.jqButtonRed.jqButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonRed.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonRed.jqButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonRed.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonRed.jqButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonRed.foswikiButtonDisabled:hover, button.jqButtonRed.foswikiButtonDisabled.jqButton:hover,
+button.jqButtonRed.foswikiButtonDisabled.foswikiButton:hover,
+input.jqButtonRed.foswikiButtonDisabled.foswikiSubmit:hover,
+input.jqButtonRed.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonRed.foswikiButtonDisabled.foswikiButton:hover, a.jqButtonRed.foswikiButtonDisabled.jqButton:hover:link, a.jqButtonRed.foswikiButtonDisabled.jqButton:hover:visited,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButton:hover:link,
+a.jqButtonRed.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonRed.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonRed.foswikiButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonRed.jqButtonDisabled:hover, button.foswikiButtonRed.jqButtonDisabled.jqButton:hover,
+button.foswikiButtonRed.jqButtonDisabled.foswikiButton:hover,
+input.foswikiButtonRed.jqButtonDisabled.foswikiSubmit:hover,
+input.foswikiButtonRed.jqButtonDisabled.foswikiButton:hover,
+input.jqButtonDisabled.foswikiButton.foswikiButtonCancel:hover, a.foswikiButtonRed.jqButtonDisabled.jqButton:hover:link, a.foswikiButtonRed.jqButtonDisabled.jqButton:hover:visited,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonRed.jqButtonDisabled.foswikiSubmit:hover:link,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonRed.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.foswikiButtonRed.jqButtonDisabled.foswikiButtonCancel:hover:visited, input._default_button_style.jqButtonDisabled.foswikiButtonCancel:hover, ._default_button_style.foswikiButtonRed.foswikiButtonDisabled:hover, button.foswikiButtonRed.foswikiButtonDisabled.jqButton:hover,
+button.foswikiButtonRed.foswikiButtonDisabled.foswikiButton:hover,
+input.foswikiButtonRed.foswikiButtonDisabled.foswikiSubmit:hover,
+input.foswikiButtonRed.foswikiButtonDisabled.foswikiButton:hover,
+input.foswikiButtonDisabled.foswikiButton.foswikiButtonCancel:hover, a.foswikiButtonRed.foswikiButtonDisabled.jqButton:hover:link, a.foswikiButtonRed.foswikiButtonDisabled.jqButton:hover:visited,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.foswikiButtonRed.foswikiButtonDisabled.foswikiButtonCancel:hover:visited, input._default_button_style.foswikiButtonDisabled.foswikiButtonCancel:hover, ._default_button_style.jqButtonCyan.jqButtonDisabled:hover, button.jqButtonCyan.jqButtonDisabled.jqButton:hover,
+button.jqButtonCyan.jqButtonDisabled.foswikiButton:hover,
+input.jqButtonCyan.jqButtonDisabled.foswikiSubmit:hover,
+input.jqButtonCyan.jqButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonCyan.jqButtonDisabled.foswikiButton:hover, a.jqButtonCyan.jqButtonDisabled.jqButton:hover:link, a.jqButtonCyan.jqButtonDisabled.jqButton:hover:visited,
+a.jqButtonCyan.jqButtonDisabled.foswikiButton:hover:link,
+a.jqButtonCyan.jqButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonCyan.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonCyan.jqButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonCyan.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonCyan.jqButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonCyan.foswikiButtonDisabled:hover, button.jqButtonCyan.foswikiButtonDisabled.jqButton:hover,
+button.jqButtonCyan.foswikiButtonDisabled.foswikiButton:hover,
+input.jqButtonCyan.foswikiButtonDisabled.foswikiSubmit:hover,
+input.jqButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonCyan.foswikiButtonDisabled.foswikiButton:hover, a.jqButtonCyan.foswikiButtonDisabled.jqButton:hover:link, a.jqButtonCyan.foswikiButtonDisabled.jqButton:hover:visited,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButton:hover:link,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonCyan.jqButtonDisabled:hover, button.foswikiButtonCyan.jqButtonDisabled.jqButton:hover,
+button.foswikiButtonCyan.jqButtonDisabled.foswikiButton:hover,
+input.foswikiButtonCyan.jqButtonDisabled.foswikiSubmit:hover,
+input.foswikiButtonCyan.jqButtonDisabled.foswikiButtonCancel:hover,
+input.foswikiButtonCyan.jqButtonDisabled.foswikiButton:hover, a.foswikiButtonCyan.jqButtonDisabled.jqButton:hover:link, a.foswikiButtonCyan.jqButtonDisabled.jqButton:hover:visited,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiSubmit:hover:link,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.foswikiButtonCyan.jqButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonCyan.foswikiButtonDisabled:hover, button.foswikiButtonCyan.foswikiButtonDisabled.jqButton:hover,
+button.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton:hover,
+input.foswikiButtonCyan.foswikiButtonDisabled.foswikiSubmit:hover,
+input.foswikiButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton:hover, a.foswikiButtonCyan.foswikiButtonDisabled.jqButton:hover:link, a.foswikiButtonCyan.foswikiButtonDisabled.jqButton:hover:visited,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.foswikiButtonCyan.foswikiButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonGreen.jqButtonDisabled:hover, button.jqButtonGreen.jqButtonDisabled.jqButton:hover,
+button.jqButtonGreen.jqButtonDisabled.foswikiButton:hover,
+input.jqButtonGreen.jqButtonDisabled.foswikiSubmit:hover,
+input.jqButtonGreen.jqButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonGreen.jqButtonDisabled.foswikiButton:hover, a.jqButtonGreen.jqButtonDisabled.jqButton:hover:link, a.jqButtonGreen.jqButtonDisabled.jqButton:hover:visited,
+a.jqButtonGreen.jqButtonDisabled.foswikiButton:hover:link,
+a.jqButtonGreen.jqButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonGreen.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonGreen.jqButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonGreen.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonGreen.jqButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonGreen.foswikiButtonDisabled:hover, button.jqButtonGreen.foswikiButtonDisabled.jqButton:hover,
+button.jqButtonGreen.foswikiButtonDisabled.foswikiButton:hover,
+input.jqButtonGreen.foswikiButtonDisabled.foswikiSubmit:hover,
+input.jqButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.jqButtonGreen.foswikiButtonDisabled.foswikiButton:hover, a.jqButtonGreen.foswikiButtonDisabled.jqButton:hover:link, a.jqButtonGreen.foswikiButtonDisabled.jqButton:hover:visited,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButton:hover:link,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.jqButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonGreen.jqButtonDisabled:hover, button.foswikiButtonGreen.jqButtonDisabled.jqButton:hover,
+button.foswikiButtonGreen.jqButtonDisabled.foswikiButton:hover,
+input.foswikiButtonGreen.jqButtonDisabled.foswikiSubmit:hover,
+input.foswikiButtonGreen.jqButtonDisabled.foswikiButtonCancel:hover,
+input.foswikiButtonGreen.jqButtonDisabled.foswikiButton:hover, a.foswikiButtonGreen.jqButtonDisabled.jqButton:hover:link, a.foswikiButtonGreen.jqButtonDisabled.jqButton:hover:visited,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiSubmit:hover:link,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiSubmit:hover:visited,
+a.foswikiButtonGreen.jqButtonDisabled.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonGreen.foswikiButtonDisabled:hover, button.foswikiButtonGreen.foswikiButtonDisabled.jqButton:hover,
+button.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton:hover,
+input.foswikiButtonGreen.foswikiButtonDisabled.foswikiSubmit:hover,
+input.foswikiButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:hover,
+input.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton:hover, a.foswikiButtonGreen.foswikiButtonDisabled.jqButton:hover:link, a.foswikiButtonGreen.foswikiButtonDisabled.jqButton:hover:visited,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton:hover:link,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiSubmit:hover:link,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:hover:link,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButton:hover:visited,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiSubmit:hover:visited,
+a.foswikiButtonGreen.foswikiButtonDisabled.foswikiButtonCancel:hover:visited {
+  color: black;
+  background-color: #dedede;
+  border-color: #dbdbdb;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='white', endColorstr='#dedede');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#dedede')";
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#dedede));
+  background: -moz-linear-gradient(-90deg, white, #dedede);
+  color: #aaa;
+  cursor: default; }
 
-a.jqButton:active,
-a.jqButton:focus {
-  outline: none;
-  -moz-outline-style: none; }
-
-input[type="button"]:hover,
-input[type="submit"]:hover,
-button.jqButton:hover,
-a.jqButton:hover {
-  cursor: pointer;
-  text-decoration: none;
-  color: #000; }
-
-input[type="button"] .jqButtonIcon,
-input[type="submit"] .jqButtonIcon,
-button.jqButton .jqButtonIcon,
-a.jqButton .jqButtonIcon {
-  padding-left: 22px;
-  background-repeat: no-repeat;
-  background-position: 0 50%; }
-
-a.jqButton:link,
-a.jqButton:visited,
-a.jqButton.jqButtonDisabled:hover,
-a.jqButton.jqButtonDefault,
-input[type="button"],
-input[type="button"].jqButtonDisabled:hover,
-input[type="button"].jqButtonDefault,
-input[type="submit"],
-input[type="submit"].jqButtonDisabled:hover,
-input[type="submit"].jqButtonDefault,
-button.jqButton,
-button.jqButton.jqButtonDisabled,
-button.jqButton.jqButtonDisabled:hover,
-button.jqButton.jqButtonDefault {
-  color: #000;
-  background: #d0d0d0;
-  border-color: #d0d0d0;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ffffff', endColorstr='#dedede');
+._default_button_style, button.jqButton,
+button.foswikiButton,
+input.foswikiSubmit,
+input.foswikiButtonCancel,
+input.foswikiButton, a.jqButton:link, a.jqButton:visited,
+a.foswikiButton:link,
+a.foswikiSubmit:link,
+a.foswikiButtonCancel:link,
+a.foswikiButton:visited,
+a.foswikiSubmit:visited,
+a.foswikiButtonCancel:visited, ._default_button_style.jqButtonDefault, button.jqButtonDefault.jqButton,
+button.jqButtonDefault.foswikiButton,
+input.jqButtonDefault.foswikiSubmit,
+input.jqButtonDefault.foswikiButtonCancel,
+input.jqButtonDefault.foswikiButton, a.jqButtonDefault.jqButton:link, a.jqButtonDefault.jqButton:visited,
+a.jqButtonDefault.foswikiButton:link,
+a.jqButtonDefault.foswikiSubmit:link,
+a.jqButtonDefault.foswikiButtonCancel:link,
+a.jqButtonDefault.foswikiButton:visited,
+a.jqButtonDefault.foswikiSubmit:visited,
+a.jqButtonDefault.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonDefault, button.foswikiButtonDefault.jqButton,
+button.foswikiButtonDefault.foswikiButton,
+input.foswikiButtonDefault.foswikiSubmit,
+input.foswikiButtonDefault.foswikiButtonCancel,
+input.foswikiButtonDefault.foswikiButton, a.foswikiButtonDefault.jqButton:link, a.foswikiButtonDefault.jqButton:visited,
+a.foswikiButtonDefault.foswikiButton:link,
+a.foswikiButtonDefault.foswikiSubmit:link,
+a.foswikiButtonDefault.foswikiButtonCancel:link,
+a.foswikiButtonDefault.foswikiButton:visited,
+a.foswikiButtonDefault.foswikiSubmit:visited,
+a.foswikiButtonDefault.foswikiButtonCancel:visited {
+  color: black;
+  background-color: #dedede;
+  border-color: #dbdbdb;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='white', endColorstr='#dedede');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='white', endColorstr='#dedede')";
   background: -webkit-gradient(linear, 0% 0, 0% 100%, from(white), to(#dedede));
   background: -moz-linear-gradient(-90deg, white, #dedede); }
-
-a.jqButton:hover,
-a.jqButton.jqButtonDefault:hover,
-input[type="button"]:hover,
-input[type="button"].jqButtonDefault:hover,
-input[type="submit"]:hover,
-input[type="submit"].jqButtonDefault:hover,
-button.jqButton:hover,
-button.jqButton.jqButtonDefault:hover {
-  color: #fff;
-  background: #376ca0;
-  border-color: #376ca0;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#7baad7', endColorstr='#376ca0');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#7baad7), to(#376ca0));
-  background: -moz-linear-gradient(-90deg, #7baad7, #376ca0); }
-
-a.jqButton.jqButtonDisabled,
-a.jqButton.jqButtonDisabled:hover,
-input[type="button"].jqButtonDisabled,
-input[type="submit"].jqButtonDisabled:hover,
-button.jqButton.jqButtonDisabled,
-button.jqButton.jqButtonDisabled:hover {
-  cursor: default;
-  color: #aaa; }
-
-/* large button */
-button.jqButtonLarge,
-a.jqButtonLarge {
+  ._default_button_style:hover, button.jqButton:hover,
+  button.foswikiButton:hover,
+  input.foswikiSubmit:hover,
+  input.foswikiButtonCancel:hover,
+  input.foswikiButton:hover, a.jqButton:hover:link, a.jqButton:hover:visited,
+  a.foswikiButton:hover:link,
+  a.foswikiSubmit:hover:link,
+  a.foswikiButtonCancel:hover:link,
+  a.foswikiButton:hover:visited,
+  a.foswikiSubmit:hover:visited,
+  a.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonDefault:hover, button.jqButtonDefault.jqButton:hover,
+  button.jqButtonDefault.foswikiButton:hover,
+  input.jqButtonDefault.foswikiSubmit:hover,
+  input.jqButtonDefault.foswikiButtonCancel:hover,
+  input.jqButtonDefault.foswikiButton:hover, a.jqButtonDefault.jqButton:hover:link, a.jqButtonDefault.jqButton:hover:visited,
+  a.jqButtonDefault.foswikiButton:hover:link,
+  a.jqButtonDefault.foswikiSubmit:hover:link,
+  a.jqButtonDefault.foswikiButtonCancel:hover:link,
+  a.jqButtonDefault.foswikiButton:hover:visited,
+  a.jqButtonDefault.foswikiSubmit:hover:visited,
+  a.jqButtonDefault.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonDefault:hover, button.foswikiButtonDefault.jqButton:hover,
+  button.foswikiButtonDefault.foswikiButton:hover,
+  input.foswikiButtonDefault.foswikiSubmit:hover,
+  input.foswikiButtonDefault.foswikiButtonCancel:hover,
+  input.foswikiButtonDefault.foswikiButton:hover, a.foswikiButtonDefault.jqButton:hover:link, a.foswikiButtonDefault.jqButton:hover:visited,
+  a.foswikiButtonDefault.foswikiButton:hover:link,
+  a.foswikiButtonDefault.foswikiSubmit:hover:link,
+  a.foswikiButtonDefault.foswikiButtonCancel:hover:link,
+  a.foswikiButtonDefault.foswikiButton:hover:visited,
+  a.foswikiButtonDefault.foswikiSubmit:hover:visited,
+  a.foswikiButtonDefault.foswikiButtonCancel:hover:visited {
+    color: white;
+    background-color: #376ca0;
+    border-color: #36699c;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#6f9fce', endColorstr='#376ca0');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#6f9fce', endColorstr='#376ca0')";
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#6f9fce), to(#376ca0));
+    background: -moz-linear-gradient(-90deg, #6f9fce, #376ca0); }
+._default_button_style.jqButtonLarge, button.jqButtonLarge.jqButton,
+button.jqButtonLarge.foswikiButton,
+input.jqButtonLarge.foswikiSubmit,
+input.jqButtonLarge.foswikiButtonCancel,
+input.jqButtonLarge.foswikiButton, a.jqButtonLarge.jqButton:link, a.jqButtonLarge.jqButton:visited,
+a.jqButtonLarge.foswikiButton:link,
+a.jqButtonLarge.foswikiSubmit:link,
+a.jqButtonLarge.foswikiButtonCancel:link,
+a.jqButtonLarge.foswikiButton:visited,
+a.jqButtonLarge.foswikiSubmit:visited,
+a.jqButtonLarge.foswikiButtonCancel:visited, ._default_button_style.jqButtonLarge:hover, button.jqButtonLarge.jqButton:hover,
+button.jqButtonLarge.foswikiButton:hover,
+input.jqButtonLarge.foswikiSubmit:hover,
+input.jqButtonLarge.foswikiButtonCancel:hover,
+input.jqButtonLarge.foswikiButton:hover, a.jqButtonLarge.jqButton:hover:link, a.jqButtonLarge.jqButton:hover:visited,
+a.jqButtonLarge.foswikiButton:hover:link,
+a.jqButtonLarge.foswikiSubmit:hover:link,
+a.jqButtonLarge.foswikiButtonCancel:hover:link,
+a.jqButtonLarge.foswikiButton:hover:visited,
+a.jqButtonLarge.foswikiSubmit:hover:visited,
+a.jqButtonLarge.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonLarge, button.foswikiButtonLarge.jqButton,
+button.foswikiButtonLarge.foswikiButton,
+input.foswikiButtonLarge.foswikiSubmit,
+input.foswikiButtonLarge.foswikiButtonCancel,
+input.foswikiButtonLarge.foswikiButton, a.foswikiButtonLarge.jqButton:link, a.foswikiButtonLarge.jqButton:visited,
+a.foswikiButtonLarge.foswikiButton:link,
+a.foswikiButtonLarge.foswikiSubmit:link,
+a.foswikiButtonLarge.foswikiButtonCancel:link,
+a.foswikiButtonLarge.foswikiButton:visited,
+a.foswikiButtonLarge.foswikiSubmit:visited,
+a.foswikiButtonLarge.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonLarge:hover, button.foswikiButtonLarge.jqButton:hover,
+button.foswikiButtonLarge.foswikiButton:hover,
+input.foswikiButtonLarge.foswikiSubmit:hover,
+input.foswikiButtonLarge.foswikiButtonCancel:hover,
+input.foswikiButtonLarge.foswikiButton:hover, a.foswikiButtonLarge.jqButton:hover:link, a.foswikiButtonLarge.jqButton:hover:visited,
+a.foswikiButtonLarge.foswikiButton:hover:link,
+a.foswikiButtonLarge.foswikiSubmit:hover:link,
+a.foswikiButtonLarge.foswikiButtonCancel:hover:link,
+a.foswikiButtonLarge.foswikiButton:hover:visited,
+a.foswikiButtonLarge.foswikiSubmit:hover:visited,
+a.foswikiButtonLarge.foswikiButtonCancel:hover:visited {
   font-size: 1.5em;
-  line-height: 1.5em;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px; }
-
-/* small button */
-button.jqButtonSmall,
-a.jqButtonSmall {
-  font-size: .9em;
-  line-height: .9em; }
-
-/* simple button, looks like link */
-button.jqButton.jqButtonSimple,
-button.jqButton.jqButtonSimple span,
-a.jqButton.jqButtonSimple,
-a.jqButton.jqButtonSimple span {
+  padding: 0 9px;
+  -webkit-border-radius: 4.5px;
+  -moz-border-radius: 4.5px;
+  border-radius: 4.5px; }
+._default_button_style.jqButtonSmall, button.jqButtonSmall.jqButton,
+button.jqButtonSmall.foswikiButton,
+input.jqButtonSmall.foswikiSubmit,
+input.jqButtonSmall.foswikiButtonCancel,
+input.jqButtonSmall.foswikiButton, a.jqButtonSmall.jqButton:link, a.jqButtonSmall.jqButton:visited,
+a.jqButtonSmall.foswikiButton:link,
+a.jqButtonSmall.foswikiSubmit:link,
+a.jqButtonSmall.foswikiButtonCancel:link,
+a.jqButtonSmall.foswikiButton:visited,
+a.jqButtonSmall.foswikiSubmit:visited,
+a.jqButtonSmall.foswikiButtonCancel:visited, ._default_button_style.jqButtonSmall:hover, button.jqButtonSmall.jqButton:hover,
+button.jqButtonSmall.foswikiButton:hover,
+input.jqButtonSmall.foswikiSubmit:hover,
+input.jqButtonSmall.foswikiButtonCancel:hover,
+input.jqButtonSmall.foswikiButton:hover, a.jqButtonSmall.jqButton:hover:link, a.jqButtonSmall.jqButton:hover:visited,
+a.jqButtonSmall.foswikiButton:hover:link,
+a.jqButtonSmall.foswikiSubmit:hover:link,
+a.jqButtonSmall.foswikiButtonCancel:hover:link,
+a.jqButtonSmall.foswikiButton:hover:visited,
+a.jqButtonSmall.foswikiSubmit:hover:visited,
+a.jqButtonSmall.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonSmall, button.foswikiButtonSmall.jqButton,
+button.foswikiButtonSmall.foswikiButton,
+input.foswikiButtonSmall.foswikiSubmit,
+input.foswikiButtonSmall.foswikiButtonCancel,
+input.foswikiButtonSmall.foswikiButton, a.foswikiButtonSmall.jqButton:link, a.foswikiButtonSmall.jqButton:visited,
+a.foswikiButtonSmall.foswikiButton:link,
+a.foswikiButtonSmall.foswikiSubmit:link,
+a.foswikiButtonSmall.foswikiButtonCancel:link,
+a.foswikiButtonSmall.foswikiButton:visited,
+a.foswikiButtonSmall.foswikiSubmit:visited,
+a.foswikiButtonSmall.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonSmall:hover, button.foswikiButtonSmall.jqButton:hover,
+button.foswikiButtonSmall.foswikiButton:hover,
+input.foswikiButtonSmall.foswikiSubmit:hover,
+input.foswikiButtonSmall.foswikiButtonCancel:hover,
+input.foswikiButtonSmall.foswikiButton:hover, a.foswikiButtonSmall.jqButton:hover:link, a.foswikiButtonSmall.jqButton:hover:visited,
+a.foswikiButtonSmall.foswikiButton:hover:link,
+a.foswikiButtonSmall.foswikiSubmit:hover:link,
+a.foswikiButtonSmall.foswikiButtonCancel:hover:link,
+a.foswikiButtonSmall.foswikiButton:hover:visited,
+a.foswikiButtonSmall.foswikiSubmit:hover:visited,
+a.foswikiButtonSmall.foswikiButtonCancel:hover:visited {
+  font-size: 0.89em;
+  padding: 0 5.34px;
+  -webkit-border-radius: 2.67px;
+  -moz-border-radius: 2.67px;
+  border-radius: 2.67px; }
+._default_button_style.jqButtonSimple, button.jqButtonSimple.jqButton,
+button.jqButtonSimple.foswikiButton,
+input.jqButtonSimple.foswikiSubmit,
+input.jqButtonSimple.foswikiButtonCancel,
+input.jqButtonSimple.foswikiButton, a.jqButtonSimple.jqButton:link, a.jqButtonSimple.jqButton:visited,
+a.jqButtonSimple.foswikiButton:link,
+a.jqButtonSimple.foswikiSubmit:link,
+a.jqButtonSimple.foswikiButtonCancel:link,
+a.jqButtonSimple.foswikiButton:visited,
+a.jqButtonSimple.foswikiSubmit:visited,
+a.jqButtonSimple.foswikiButtonCancel:visited, ._default_button_style.jqButtonSimple:hover, button.jqButtonSimple.jqButton:hover,
+button.jqButtonSimple.foswikiButton:hover,
+input.jqButtonSimple.foswikiSubmit:hover,
+input.jqButtonSimple.foswikiButtonCancel:hover,
+input.jqButtonSimple.foswikiButton:hover, a.jqButtonSimple.jqButton:hover:link, a.jqButtonSimple.jqButton:hover:visited,
+a.jqButtonSimple.foswikiButton:hover:link,
+a.jqButtonSimple.foswikiSubmit:hover:link,
+a.jqButtonSimple.foswikiButtonCancel:hover:link,
+a.jqButtonSimple.foswikiButton:hover:visited,
+a.jqButtonSimple.foswikiSubmit:hover:visited,
+a.jqButtonSimple.foswikiButtonCancel:hover:visited, ._default_button_style.jqButtonSimple span, button.jqButtonSimple.jqButton span,
+button.jqButtonSimple.foswikiButton span,
+input.jqButtonSimple.foswikiSubmit span,
+input.jqButtonSimple.foswikiButtonCancel span,
+input.jqButtonSimple.foswikiButton span, a.jqButtonSimple.jqButton:link span, a.jqButtonSimple.jqButton:visited span,
+a.jqButtonSimple.foswikiButton:link span,
+a.jqButtonSimple.foswikiSubmit:link span,
+a.jqButtonSimple.foswikiButtonCancel:link span,
+a.jqButtonSimple.foswikiButton:visited span,
+a.jqButtonSimple.foswikiSubmit:visited span,
+a.jqButtonSimple.foswikiButtonCancel:visited span, ._default_button_style.foswikiButtonSimple, button.foswikiButtonSimple.jqButton,
+button.foswikiButtonSimple.foswikiButton,
+input.foswikiButtonSimple.foswikiSubmit,
+input.foswikiButtonSimple.foswikiButtonCancel,
+input.foswikiButtonSimple.foswikiButton, a.foswikiButtonSimple.jqButton:link, a.foswikiButtonSimple.jqButton:visited,
+a.foswikiButtonSimple.foswikiButton:link,
+a.foswikiButtonSimple.foswikiSubmit:link,
+a.foswikiButtonSimple.foswikiButtonCancel:link,
+a.foswikiButtonSimple.foswikiButton:visited,
+a.foswikiButtonSimple.foswikiSubmit:visited,
+a.foswikiButtonSimple.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonSimple:hover, button.foswikiButtonSimple.jqButton:hover,
+button.foswikiButtonSimple.foswikiButton:hover,
+input.foswikiButtonSimple.foswikiSubmit:hover,
+input.foswikiButtonSimple.foswikiButtonCancel:hover,
+input.foswikiButtonSimple.foswikiButton:hover, a.foswikiButtonSimple.jqButton:hover:link, a.foswikiButtonSimple.jqButton:hover:visited,
+a.foswikiButtonSimple.foswikiButton:hover:link,
+a.foswikiButtonSimple.foswikiSubmit:hover:link,
+a.foswikiButtonSimple.foswikiButtonCancel:hover:link,
+a.foswikiButtonSimple.foswikiButton:hover:visited,
+a.foswikiButtonSimple.foswikiSubmit:hover:visited,
+a.foswikiButtonSimple.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonSimple span, button.foswikiButtonSimple.jqButton span,
+button.foswikiButtonSimple.foswikiButton span,
+input.foswikiButtonSimple.foswikiSubmit span,
+input.foswikiButtonSimple.foswikiButtonCancel span,
+input.foswikiButtonSimple.foswikiButton span, a.foswikiButtonSimple.jqButton:link span, a.foswikiButtonSimple.jqButton:visited span,
+a.foswikiButtonSimple.foswikiButton:link span,
+a.foswikiButtonSimple.foswikiSubmit:link span,
+a.foswikiButtonSimple.foswikiButtonCancel:link span,
+a.foswikiButtonSimple.foswikiButton:visited span,
+a.foswikiButtonSimple.foswikiSubmit:visited span,
+a.foswikiButtonSimple.foswikiButtonCancel:visited span {
   background: none;
   border: none;
   margin: 0;
   padding: 0;
-  color: #06c;
+  color: #0066cc;
   text-decoration: none; }
-
-button.jqButton.jqButtonSimple:hover,
-a.jqButton.jqButtonSimple:hover {
-  color: #06c;
+._default_button_style.jqButtonSimple:hover, button.jqButtonSimple.jqButton:hover,
+button.jqButtonSimple.foswikiButton:hover,
+input.jqButtonSimple.foswikiSubmit:hover,
+input.jqButtonSimple.foswikiButtonCancel:hover,
+input.jqButtonSimple.foswikiButton:hover, a.jqButtonSimple.jqButton:hover:link, a.jqButtonSimple.jqButton:hover:visited,
+a.jqButtonSimple.foswikiButton:hover:link,
+a.jqButtonSimple.foswikiSubmit:hover:link,
+a.jqButtonSimple.foswikiButtonCancel:hover:link,
+a.jqButtonSimple.foswikiButton:hover:visited,
+a.jqButtonSimple.foswikiSubmit:hover:visited,
+a.jqButtonSimple.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonSimple:hover, button.foswikiButtonSimple.jqButton:hover,
+button.foswikiButtonSimple.foswikiButton:hover,
+input.foswikiButtonSimple.foswikiSubmit:hover,
+input.foswikiButtonSimple.foswikiButtonCancel:hover,
+input.foswikiButtonSimple.foswikiButton:hover, a.foswikiButtonSimple.jqButton:hover:link, a.foswikiButtonSimple.jqButton:hover:visited,
+a.foswikiButtonSimple.foswikiButton:hover:link,
+a.foswikiButtonSimple.foswikiSubmit:hover:link,
+a.foswikiButtonSimple.foswikiButtonCancel:hover:link,
+a.foswikiButtonSimple.foswikiButton:hover:visited,
+a.foswikiButtonSimple.foswikiSubmit:hover:visited,
+a.foswikiButtonSimple.foswikiButtonCancel:hover:visited {
   text-decoration: underline; }
+._default_button_style.jqButtonBlue, button.jqButtonBlue.jqButton,
+button.jqButtonBlue.foswikiButton,
+input.jqButtonBlue.foswikiSubmit,
+input.jqButtonBlue.foswikiButtonCancel,
+input.jqButtonBlue.foswikiButton, a.jqButtonBlue.jqButton:link, a.jqButtonBlue.jqButton:visited,
+a.jqButtonBlue.foswikiButton:link,
+a.jqButtonBlue.foswikiSubmit:link,
+a.jqButtonBlue.foswikiButtonCancel:link,
+a.jqButtonBlue.foswikiButton:visited,
+a.jqButtonBlue.foswikiSubmit:visited,
+a.jqButtonBlue.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonBlue, button.foswikiButtonBlue.jqButton, button.jqButton.foswikiSubmit,
+button.foswikiButtonBlue.foswikiButton,
+input.foswikiSubmit,
+input.foswikiButtonBlue.foswikiButtonCancel,
+input.foswikiButtonCancel.foswikiSubmit,
+input.foswikiButtonBlue.foswikiButton,
+input.foswikiButton.foswikiSubmit,
+button.foswikiButton.foswikiSubmit, a.foswikiButtonBlue.jqButton:link, a.jqButton.foswikiSubmit:link, a.foswikiButtonBlue.jqButton:visited, a.jqButton.foswikiSubmit:visited,
+a.foswikiButtonBlue.foswikiButton:link,
+a.foswikiSubmit:link,
+a.foswikiButtonBlue.foswikiButtonCancel:link,
+a.foswikiButtonCancel.foswikiSubmit:link,
+a.foswikiButton.foswikiSubmit:link,
+a.foswikiButtonBlue.foswikiButton:visited,
+a.foswikiSubmit:visited,
+a.foswikiButtonBlue.foswikiButtonCancel:visited,
+a.foswikiButtonCancel.foswikiSubmit:visited,
+a.foswikiButton.foswikiSubmit:visited, ._default_button_style.foswikiSubmit {
+  color: white;
+  background-color: #1360af;
+  border-color: #135daa;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#3e93ea', endColorstr='#1360af');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#3e93ea', endColorstr='#1360af')";
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3e93ea), to(#1360af));
+  background: -moz-linear-gradient(-90deg, #3e93ea, #1360af); }
+  ._default_button_style.jqButtonBlue:hover, button.jqButtonBlue.jqButton:hover,
+  button.jqButtonBlue.foswikiButton:hover,
+  input.jqButtonBlue.foswikiSubmit:hover,
+  input.jqButtonBlue.foswikiButtonCancel:hover,
+  input.jqButtonBlue.foswikiButton:hover, a.jqButtonBlue.jqButton:hover:link, a.jqButtonBlue.jqButton:hover:visited,
+  a.jqButtonBlue.foswikiButton:hover:link,
+  a.jqButtonBlue.foswikiSubmit:hover:link,
+  a.jqButtonBlue.foswikiButtonCancel:hover:link,
+  a.jqButtonBlue.foswikiButton:hover:visited,
+  a.jqButtonBlue.foswikiSubmit:hover:visited,
+  a.jqButtonBlue.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonBlue:hover, button.foswikiButtonBlue.jqButton:hover, button.jqButton.foswikiSubmit:hover,
+  button.foswikiButtonBlue.foswikiButton:hover,
+  input.foswikiSubmit:hover,
+  input.foswikiButtonBlue.foswikiButtonCancel:hover,
+  input.foswikiButtonCancel.foswikiSubmit:hover,
+  input.foswikiButtonBlue.foswikiButton:hover,
+  input.foswikiButton.foswikiSubmit:hover,
+  button.foswikiButton.foswikiSubmit:hover, a.foswikiButtonBlue.jqButton:hover:link, a.jqButton.foswikiSubmit:hover:link, a.foswikiButtonBlue.jqButton:hover:visited, a.jqButton.foswikiSubmit:hover:visited,
+  a.foswikiButtonBlue.foswikiButton:hover:link,
+  a.foswikiSubmit:hover:link,
+  a.foswikiButtonBlue.foswikiButtonCancel:hover:link,
+  a.foswikiButtonCancel.foswikiSubmit:hover:link,
+  a.foswikiButton.foswikiSubmit:hover:link,
+  a.foswikiButtonBlue.foswikiButton:hover:visited,
+  a.foswikiSubmit:hover:visited,
+  a.foswikiButtonBlue.foswikiButtonCancel:hover:visited,
+  a.foswikiButtonCancel.foswikiSubmit:hover:visited,
+  a.foswikiButton.foswikiSubmit:hover:visited, ._default_button_style.foswikiSubmit:hover {
+    color: white;
+    background-color: #0e4781;
+    border-color: #0e447c;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#1879dd', endColorstr='#0e4781');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#1879dd', endColorstr='#0e4781')";
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#1879dd), to(#0e4781));
+    background: -moz-linear-gradient(-90deg, #1879dd, #0e4781); }
+._default_button_style.jqButtonRed, button.jqButtonRed.jqButton,
+button.jqButtonRed.foswikiButton,
+input.jqButtonRed.foswikiSubmit,
+input.jqButtonRed.foswikiButtonCancel,
+input.jqButtonRed.foswikiButton, a.jqButtonRed.jqButton:link, a.jqButtonRed.jqButton:visited,
+a.jqButtonRed.foswikiButton:link,
+a.jqButtonRed.foswikiSubmit:link,
+a.jqButtonRed.foswikiButtonCancel:link,
+a.jqButtonRed.foswikiButton:visited,
+a.jqButtonRed.foswikiSubmit:visited,
+a.jqButtonRed.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonRed, button.foswikiButtonRed.jqButton,
+button.foswikiButtonRed.foswikiButton,
+input.foswikiButtonRed.foswikiSubmit,
+input.foswikiSubmit.foswikiButtonCancel,
+input.foswikiButtonCancel,
+input.foswikiButtonRed.foswikiButton,
+input.foswikiButton.foswikiButtonCancel, a.foswikiButtonRed.jqButton:link, a.foswikiButtonRed.jqButton:visited,
+a.foswikiButtonRed.foswikiButton:link,
+a.foswikiButtonRed.foswikiSubmit:link,
+a.foswikiButtonRed.foswikiButtonCancel:link,
+a.foswikiButtonRed.foswikiButton:visited,
+a.foswikiButtonRed.foswikiSubmit:visited,
+a.foswikiButtonRed.foswikiButtonCancel:visited, input._default_button_style.foswikiButtonCancel {
+  color: white;
+  background-color: #cd2929;
+  border-color: #c92828;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#e47878', endColorstr='#cd2929');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#e47878', endColorstr='#cd2929')";
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#e47878), to(#cd2929));
+  background: -moz-linear-gradient(-90deg, #e47878, #cd2929); }
+  ._default_button_style.jqButtonRed:hover, button.jqButtonRed.jqButton:hover,
+  button.jqButtonRed.foswikiButton:hover,
+  input.jqButtonRed.foswikiSubmit:hover,
+  input.jqButtonRed.foswikiButtonCancel:hover,
+  input.jqButtonRed.foswikiButton:hover, a.jqButtonRed.jqButton:hover:link, a.jqButtonRed.jqButton:hover:visited,
+  a.jqButtonRed.foswikiButton:hover:link,
+  a.jqButtonRed.foswikiSubmit:hover:link,
+  a.jqButtonRed.foswikiButtonCancel:hover:link,
+  a.jqButtonRed.foswikiButton:hover:visited,
+  a.jqButtonRed.foswikiSubmit:hover:visited,
+  a.jqButtonRed.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonRed:hover, button.foswikiButtonRed.jqButton:hover,
+  button.foswikiButtonRed.foswikiButton:hover,
+  input.foswikiButtonRed.foswikiSubmit:hover,
+  input.foswikiSubmit.foswikiButtonCancel:hover,
+  input.foswikiButtonCancel:hover,
+  input.foswikiButtonRed.foswikiButton:hover,
+  input.foswikiButton.foswikiButtonCancel:hover, a.foswikiButtonRed.jqButton:hover:link, a.foswikiButtonRed.jqButton:hover:visited,
+  a.foswikiButtonRed.foswikiButton:hover:link,
+  a.foswikiButtonRed.foswikiSubmit:hover:link,
+  a.foswikiButtonRed.foswikiButtonCancel:hover:link,
+  a.foswikiButtonRed.foswikiButton:hover:visited,
+  a.foswikiButtonRed.foswikiSubmit:hover:visited,
+  a.foswikiButtonRed.foswikiButtonCancel:hover:visited, input._default_button_style.foswikiButtonCancel:hover {
+    color: white;
+    background-color: #a32121;
+    border-color: #9e2020;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#db4e4e', endColorstr='#a32121');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#db4e4e', endColorstr='#a32121')";
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#db4e4e), to(#a32121));
+    background: -moz-linear-gradient(-90deg, #db4e4e, #a32121); }
+._default_button_style.jqButtonCyan, button.jqButtonCyan.jqButton,
+button.jqButtonCyan.foswikiButton,
+input.jqButtonCyan.foswikiSubmit,
+input.jqButtonCyan.foswikiButtonCancel,
+input.jqButtonCyan.foswikiButton, a.jqButtonCyan.jqButton:link, a.jqButtonCyan.jqButton:visited,
+a.jqButtonCyan.foswikiButton:link,
+a.jqButtonCyan.foswikiSubmit:link,
+a.jqButtonCyan.foswikiButtonCancel:link,
+a.jqButtonCyan.foswikiButton:visited,
+a.jqButtonCyan.foswikiSubmit:visited,
+a.jqButtonCyan.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonCyan, button.foswikiButtonCyan.jqButton,
+button.foswikiButtonCyan.foswikiButton,
+input.foswikiButtonCyan.foswikiSubmit,
+input.foswikiButtonCyan.foswikiButtonCancel,
+input.foswikiButtonCyan.foswikiButton, a.foswikiButtonCyan.jqButton:link, a.foswikiButtonCyan.jqButton:visited,
+a.foswikiButtonCyan.foswikiButton:link,
+a.foswikiButtonCyan.foswikiSubmit:link,
+a.foswikiButtonCyan.foswikiButtonCancel:link,
+a.foswikiButtonCyan.foswikiButton:visited,
+a.foswikiButtonCyan.foswikiSubmit:visited,
+a.foswikiButtonCyan.foswikiButtonCancel:visited {
+  color: white;
+  background-color: #0b7caa;
+  border-color: #0b79a5;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#2ab8f1', endColorstr='#0b7caa');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#2ab8f1', endColorstr='#0b7caa')";
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#2ab8f1), to(#0b7caa));
+  background: -moz-linear-gradient(-90deg, #2ab8f1, #0b7caa); }
+  ._default_button_style.jqButtonCyan:hover, button.jqButtonCyan.jqButton:hover,
+  button.jqButtonCyan.foswikiButton:hover,
+  input.jqButtonCyan.foswikiSubmit:hover,
+  input.jqButtonCyan.foswikiButtonCancel:hover,
+  input.jqButtonCyan.foswikiButton:hover, a.jqButtonCyan.jqButton:hover:link, a.jqButtonCyan.jqButton:hover:visited,
+  a.jqButtonCyan.foswikiButton:hover:link,
+  a.jqButtonCyan.foswikiSubmit:hover:link,
+  a.jqButtonCyan.foswikiButtonCancel:hover:link,
+  a.jqButtonCyan.foswikiButton:hover:visited,
+  a.jqButtonCyan.foswikiSubmit:hover:visited,
+  a.jqButtonCyan.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonCyan:hover, button.foswikiButtonCyan.jqButton:hover,
+  button.foswikiButtonCyan.foswikiButton:hover,
+  input.foswikiButtonCyan.foswikiSubmit:hover,
+  input.foswikiButtonCyan.foswikiButtonCancel:hover,
+  input.foswikiButtonCyan.foswikiButton:hover, a.foswikiButtonCyan.jqButton:hover:link, a.foswikiButtonCyan.jqButton:hover:visited,
+  a.foswikiButtonCyan.foswikiButton:hover:link,
+  a.foswikiButtonCyan.foswikiSubmit:hover:link,
+  a.foswikiButtonCyan.foswikiButtonCancel:hover:link,
+  a.foswikiButtonCyan.foswikiButton:hover:visited,
+  a.foswikiButtonCyan.foswikiSubmit:hover:visited,
+  a.foswikiButtonCyan.foswikiButtonCancel:hover:visited {
+    color: white;
+    background-color: #08597a;
+    border-color: #085675;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#0e9fda', endColorstr='#08597a');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#0e9fda', endColorstr='#08597a')";
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#0e9fda), to(#08597a));
+    background: -moz-linear-gradient(-90deg, #0e9fda, #08597a); }
+._default_button_style.jqButtonGreen, button.jqButtonGreen.jqButton,
+button.jqButtonGreen.foswikiButton,
+input.jqButtonGreen.foswikiSubmit,
+input.jqButtonGreen.foswikiButtonCancel,
+input.jqButtonGreen.foswikiButton, a.jqButtonGreen.jqButton:link, a.jqButtonGreen.jqButton:visited,
+a.jqButtonGreen.foswikiButton:link,
+a.jqButtonGreen.foswikiSubmit:link,
+a.jqButtonGreen.foswikiButtonCancel:link,
+a.jqButtonGreen.foswikiButton:visited,
+a.jqButtonGreen.foswikiSubmit:visited,
+a.jqButtonGreen.foswikiButtonCancel:visited, ._default_button_style.foswikiButtonGreen, button.foswikiButtonGreen.jqButton,
+button.foswikiButtonGreen.foswikiButton,
+input.foswikiButtonGreen.foswikiSubmit,
+input.foswikiButtonGreen.foswikiButtonCancel,
+input.foswikiButtonGreen.foswikiButton, a.foswikiButtonGreen.jqButton:link, a.foswikiButtonGreen.jqButton:visited,
+a.foswikiButtonGreen.foswikiButton:link,
+a.foswikiButtonGreen.foswikiSubmit:link,
+a.foswikiButtonGreen.foswikiButtonCancel:link,
+a.foswikiButtonGreen.foswikiButton:visited,
+a.foswikiButtonGreen.foswikiSubmit:visited,
+a.foswikiButtonGreen.foswikiButtonCancel:visited {
+  color: white;
+  background-color: #297b29;
+  border-color: #287728;
+  filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#48c248', endColorstr='#297b29');
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#48c248', endColorstr='#297b29')";
+  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#48c248), to(#297b29));
+  background: -moz-linear-gradient(-90deg, #48c248, #297b29); }
+  ._default_button_style.jqButtonGreen:hover, button.jqButtonGreen.jqButton:hover,
+  button.jqButtonGreen.foswikiButton:hover,
+  input.jqButtonGreen.foswikiSubmit:hover,
+  input.jqButtonGreen.foswikiButtonCancel:hover,
+  input.jqButtonGreen.foswikiButton:hover, a.jqButtonGreen.jqButton:hover:link, a.jqButtonGreen.jqButton:hover:visited,
+  a.jqButtonGreen.foswikiButton:hover:link,
+  a.jqButtonGreen.foswikiSubmit:hover:link,
+  a.jqButtonGreen.foswikiButtonCancel:hover:link,
+  a.jqButtonGreen.foswikiButton:hover:visited,
+  a.jqButtonGreen.foswikiSubmit:hover:visited,
+  a.jqButtonGreen.foswikiButtonCancel:hover:visited, ._default_button_style.foswikiButtonGreen:hover, button.foswikiButtonGreen.jqButton:hover,
+  button.foswikiButtonGreen.foswikiButton:hover,
+  input.foswikiButtonGreen.foswikiSubmit:hover,
+  input.foswikiButtonGreen.foswikiButtonCancel:hover,
+  input.foswikiButtonGreen.foswikiButton:hover, a.foswikiButtonGreen.jqButton:hover:link, a.foswikiButtonGreen.jqButton:hover:visited,
+  a.foswikiButtonGreen.foswikiButton:hover:link,
+  a.foswikiButtonGreen.foswikiSubmit:hover:link,
+  a.foswikiButtonGreen.foswikiButtonCancel:hover:link,
+  a.foswikiButtonGreen.foswikiButton:hover:visited,
+  a.foswikiButtonGreen.foswikiSubmit:hover:visited,
+  a.foswikiButtonGreen.foswikiButtonCancel:hover:visited {
+    color: white;
+    background-color: #1c551c;
+    border-color: #1b511b;
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#36a136', endColorstr='#1c551c');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#36a136', endColorstr='#1c551c')";
+    background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#36a136), to(#1c551c));
+    background: -moz-linear-gradient(-90deg, #36a136, #1c551c); }
 
-/* colored buttons */
-input[type="submit"],
-button.jqButton.jqButtonBlue,
-a.jqButton.jqButtonBlue {
-  color: #fff;
-  background: #007aa3;
-  border-color: #007aa3;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#589adb', endColorstr='#3072b3');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#589adb), to(#3072b3));
-  background: -moz-linear-gradient(-90deg, #589adb, #3072b3); }
+button.jqButton, button.jqButton:hover,
+button.foswikiButton,
+input.foswikiSubmit,
+input.foswikiButtonCancel,
+input.foswikiButton,
+button.foswikiButton:hover,
+input.foswikiSubmit:hover,
+input.foswikiButtonCancel:hover,
+input.foswikiButton:hover {
+  padding: 1px 6px; }
+button.jqButton::-moz-focus-inner,
+button.foswikiButton::-moz-focus-inner,
+input.foswikiSubmit::-moz-focus-inner,
+input.foswikiButtonCancel::-moz-focus-inner,
+input.foswikiButton::-moz-focus-inner {
+  border: none;
+  padding: 0; }
 
-button.jqButton.jqButtonBlue:hover,
-a.jqButton.jqButtonBlue:hover {
-  color: #fff;
-  background: #006f94;
-  border-color: #006f94;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#3669af', endColorstr='#224f90');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#3669af), to(#224f90));
-  background: -moz-linear-gradient(-90deg, #3669af, #224f90); }
+a.jqButton:link, a.jqButton:visited,
+a.foswikiButton:link,
+a.foswikiSubmit:link,
+a.foswikiButtonCancel:link,
+a.foswikiButton:link,
+a.foswikiButton:visited,
+a.foswikiSubmit:visited,
+a.foswikiButtonCancel:visited,
+a.foswikiButton:visited {
+  display: inline-block; }
+  a.jqButton:link, a.jqButton:link:hover, a.jqButton:link:link:active, a.jqButton:visited, a.jqButton:visited:hover, a.jqButton:visited:link:active,
+  a.foswikiButton:link,
+  a.foswikiSubmit:link,
+  a.foswikiButtonCancel:link,
+  a.foswikiButton:link,
+  a.foswikiButton:link:hover,
+  a.foswikiSubmit:link:hover,
+  a.foswikiButtonCancel:link:hover,
+  a.foswikiButton:link:hover,
+  a.foswikiButton:link:link:active,
+  a.foswikiSubmit:link:link:active,
+  a.foswikiButtonCancel:link:link:active,
+  a.foswikiButton:link:link:active,
+  a.foswikiButton:visited,
+  a.foswikiSubmit:visited,
+  a.foswikiButtonCancel:visited,
+  a.foswikiButton:visited,
+  a.foswikiButton:visited:hover,
+  a.foswikiSubmit:visited:hover,
+  a.foswikiButtonCancel:visited:hover,
+  a.foswikiButton:visited:hover,
+  a.foswikiButton:visited:link:active,
+  a.foswikiSubmit:visited:link:active,
+  a.foswikiButtonCancel:visited:link:active,
+  a.foswikiButton:visited:link:active {
+    padding: 0 6px; }
+  a.jqButton:link:active, a.jqButton:link:focus, a.jqButton:visited:active, a.jqButton:visited:focus,
+  a.foswikiButton:link:active,
+  a.foswikiSubmit:link:active,
+  a.foswikiButtonCancel:link:active,
+  a.foswikiButton:link:active,
+  a.foswikiButton:link:focus,
+  a.foswikiSubmit:link:focus,
+  a.foswikiButtonCancel:link:focus,
+  a.foswikiButton:link:focus,
+  a.foswikiButton:visited:active,
+  a.foswikiSubmit:visited:active,
+  a.foswikiButtonCancel:visited:active,
+  a.foswikiButton:visited:active,
+  a.foswikiButton:visited:focus,
+  a.foswikiSubmit:visited:focus,
+  a.foswikiButtonCancel:visited:focus,
+  a.foswikiButton:visited:focus {
+    /* remove pesky selected state border */
+    outline: none;
+    -moz-outline-style: none; }
 
-button.jqButton.jqButtonRed,
-a.jqButton.jqButtonRed {
-  color: #fff;
-  background: #cd2929;
-  border-color: #cd2929;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#ff6f6f', endColorstr='#cd2929');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#ff6f6f), to(#cd2929));
-  background: -moz-linear-gradient(-90deg, #ff6f6f, #cd2929); }
+/* button set */
+.jqButtonSet a.jqButton.jqButtonLeft, .jqButtonSet a.jqButton.jqButtonMiddle, .jqButtonSet a.jqButton.jqButtonRight, .jqButtonSet a.jqButton.foswikiButtonLeft, .jqButtonSet a.jqButton.foswikiButtonMiddle, .jqButtonSet a.jqButton.foswikiButtonRight,
+.jqButtonSet button.jqButton.jqButtonLeft,
+.jqButtonSet button.jqButton.jqButtonMiddle,
+.jqButtonSet button.jqButton.jqButtonRight,
+.jqButtonSet button.jqButton.foswikiButtonLeft,
+.jqButtonSet button.jqButton.foswikiButtonMiddle,
+.jqButtonSet button.jqButton.foswikiButtonRight,
+.jqButtonSet a.foswikiButton.jqButtonLeft,
+.jqButtonSet a.jqButtonLeft.foswikiSubmit,
+.jqButtonSet
+a.jqButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+a.jqButtonLeft.foswikiButton,
+.jqButtonSet a.foswikiButton.jqButtonMiddle,
+.jqButtonSet a.jqButtonMiddle.foswikiSubmit,
+.jqButtonSet
+a.jqButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+a.jqButtonMiddle.foswikiButton,
+.jqButtonSet a.foswikiButton.jqButtonRight,
+.jqButtonSet a.jqButtonRight.foswikiSubmit,
+.jqButtonSet
+a.jqButtonRight.foswikiButtonCancel,
+.jqButtonSet
+a.jqButtonRight.foswikiButton,
+.jqButtonSet a.foswikiButton.foswikiButtonLeft,
+.jqButtonSet a.foswikiButtonLeft.foswikiSubmit,
+.jqButtonSet
+a.foswikiButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+a.foswikiButtonLeft.foswikiButton,
+.jqButtonSet a.foswikiButton.foswikiButtonMiddle,
+.jqButtonSet a.foswikiButtonMiddle.foswikiSubmit,
+.jqButtonSet
+a.foswikiButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+a.foswikiButtonMiddle.foswikiButton,
+.jqButtonSet a.foswikiButton.foswikiButtonRight,
+.jqButtonSet a.foswikiButtonRight.foswikiSubmit,
+.jqButtonSet
+a.foswikiButtonRight.foswikiButtonCancel,
+.jqButtonSet
+a.foswikiButtonRight.foswikiButton,
+.jqButtonSet button.foswikiButton.jqButtonLeft,
+.jqButtonSet input.jqButtonLeft.foswikiSubmit,
+.jqButtonSet
+input.jqButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+input.jqButtonLeft.foswikiButton,
+.jqButtonSet button.foswikiButton.jqButtonMiddle,
+.jqButtonSet input.jqButtonMiddle.foswikiSubmit,
+.jqButtonSet
+input.jqButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+input.jqButtonMiddle.foswikiButton,
+.jqButtonSet button.foswikiButton.jqButtonRight,
+.jqButtonSet input.jqButtonRight.foswikiSubmit,
+.jqButtonSet
+input.jqButtonRight.foswikiButtonCancel,
+.jqButtonSet
+input.jqButtonRight.foswikiButton,
+.jqButtonSet button.foswikiButton.foswikiButtonLeft,
+.jqButtonSet input.foswikiButtonLeft.foswikiSubmit,
+.jqButtonSet
+input.foswikiButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+input.foswikiButtonLeft.foswikiButton,
+.jqButtonSet button.foswikiButton.foswikiButtonMiddle,
+.jqButtonSet input.foswikiButtonMiddle.foswikiSubmit,
+.jqButtonSet
+input.foswikiButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+input.foswikiButtonMiddle.foswikiButton,
+.jqButtonSet button.foswikiButton.foswikiButtonRight,
+.jqButtonSet input.foswikiButtonRight.foswikiSubmit,
+.jqButtonSet
+input.foswikiButtonRight.foswikiButtonCancel,
+.jqButtonSet
+input.foswikiButtonRight.foswikiButton,
+.foswikiButtonSet a.jqButton.jqButtonLeft,
+.foswikiButtonSet a.jqButton.jqButtonMiddle,
+.foswikiButtonSet a.jqButton.jqButtonRight,
+.foswikiButtonSet a.jqButton.foswikiButtonLeft,
+.foswikiButtonSet a.jqButton.foswikiButtonMiddle,
+.foswikiButtonSet a.jqButton.foswikiButtonRight,
+.foswikiButtonSet button.jqButton.jqButtonLeft,
+.foswikiButtonSet button.jqButton.jqButtonMiddle,
+.foswikiButtonSet button.jqButton.jqButtonRight,
+.foswikiButtonSet button.jqButton.foswikiButtonLeft,
+.foswikiButtonSet button.jqButton.foswikiButtonMiddle,
+.foswikiButtonSet button.jqButton.foswikiButtonRight,
+.foswikiButtonSet a.foswikiButton.jqButtonLeft,
+.foswikiButtonSet a.jqButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+a.jqButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+a.jqButtonLeft.foswikiButton,
+.foswikiButtonSet a.foswikiButton.jqButtonMiddle,
+.foswikiButtonSet a.jqButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+a.jqButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+a.jqButtonMiddle.foswikiButton,
+.foswikiButtonSet a.foswikiButton.jqButtonRight,
+.foswikiButtonSet a.jqButtonRight.foswikiSubmit,
+.foswikiButtonSet
+a.jqButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+a.jqButtonRight.foswikiButton,
+.foswikiButtonSet a.foswikiButton.foswikiButtonLeft,
+.foswikiButtonSet a.foswikiButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+a.foswikiButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+a.foswikiButtonLeft.foswikiButton,
+.foswikiButtonSet a.foswikiButton.foswikiButtonMiddle,
+.foswikiButtonSet a.foswikiButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+a.foswikiButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+a.foswikiButtonMiddle.foswikiButton,
+.foswikiButtonSet a.foswikiButton.foswikiButtonRight,
+.foswikiButtonSet a.foswikiButtonRight.foswikiSubmit,
+.foswikiButtonSet
+a.foswikiButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+a.foswikiButtonRight.foswikiButton,
+.foswikiButtonSet button.foswikiButton.jqButtonLeft,
+.foswikiButtonSet input.jqButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+input.jqButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+input.jqButtonLeft.foswikiButton,
+.foswikiButtonSet button.foswikiButton.jqButtonMiddle,
+.foswikiButtonSet input.jqButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+input.jqButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+input.jqButtonMiddle.foswikiButton,
+.foswikiButtonSet button.foswikiButton.jqButtonRight,
+.foswikiButtonSet input.jqButtonRight.foswikiSubmit,
+.foswikiButtonSet
+input.jqButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+input.jqButtonRight.foswikiButton,
+.foswikiButtonSet button.foswikiButton.foswikiButtonLeft,
+.foswikiButtonSet input.foswikiButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+input.foswikiButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+input.foswikiButtonLeft.foswikiButton,
+.foswikiButtonSet button.foswikiButton.foswikiButtonMiddle,
+.foswikiButtonSet input.foswikiButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+input.foswikiButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+input.foswikiButtonMiddle.foswikiButton,
+.foswikiButtonSet button.foswikiButton.foswikiButtonRight,
+.foswikiButtonSet input.foswikiButtonRight.foswikiSubmit,
+.foswikiButtonSet
+input.foswikiButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+input.foswikiButtonRight.foswikiButton {
+  z-index: 0; }
+  .jqButtonSet a.jqButton.jqButtonLeft:hover, .jqButtonSet a.jqButton.jqButtonMiddle:hover, .jqButtonSet a.jqButton.jqButtonRight:hover, .jqButtonSet a.jqButton.foswikiButtonLeft:hover, .jqButtonSet a.jqButton.foswikiButtonMiddle:hover, .jqButtonSet a.jqButton.foswikiButtonRight:hover,
+  .jqButtonSet button.jqButton.jqButtonLeft:hover,
+  .jqButtonSet button.jqButton.jqButtonMiddle:hover,
+  .jqButtonSet button.jqButton.jqButtonRight:hover,
+  .jqButtonSet button.jqButton.foswikiButtonLeft:hover,
+  .jqButtonSet button.jqButton.foswikiButtonMiddle:hover,
+  .jqButtonSet button.jqButton.foswikiButtonRight:hover,
+  .jqButtonSet a.foswikiButton.jqButtonLeft:hover,
+  .jqButtonSet a.jqButtonLeft.foswikiSubmit:hover,
+  .jqButtonSet
+  a.jqButtonLeft.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.jqButtonLeft.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.jqButtonMiddle:hover,
+  .jqButtonSet a.jqButtonMiddle.foswikiSubmit:hover,
+  .jqButtonSet
+  a.jqButtonMiddle.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.jqButtonMiddle.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.jqButtonRight:hover,
+  .jqButtonSet a.jqButtonRight.foswikiSubmit:hover,
+  .jqButtonSet
+  a.jqButtonRight.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.jqButtonRight.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.foswikiButtonLeft:hover,
+  .jqButtonSet a.foswikiButtonLeft.foswikiSubmit:hover,
+  .jqButtonSet
+  a.foswikiButtonLeft.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.foswikiButtonLeft.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.foswikiButtonMiddle:hover,
+  .jqButtonSet a.foswikiButtonMiddle.foswikiSubmit:hover,
+  .jqButtonSet
+  a.foswikiButtonMiddle.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.foswikiButtonMiddle.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.foswikiButtonRight:hover,
+  .jqButtonSet a.foswikiButtonRight.foswikiSubmit:hover,
+  .jqButtonSet
+  a.foswikiButtonRight.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.foswikiButtonRight.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.jqButtonLeft:hover,
+  .jqButtonSet input.jqButtonLeft.foswikiSubmit:hover,
+  .jqButtonSet
+  input.jqButtonLeft.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.jqButtonLeft.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.jqButtonMiddle:hover,
+  .jqButtonSet input.jqButtonMiddle.foswikiSubmit:hover,
+  .jqButtonSet
+  input.jqButtonMiddle.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.jqButtonMiddle.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.jqButtonRight:hover,
+  .jqButtonSet input.jqButtonRight.foswikiSubmit:hover,
+  .jqButtonSet
+  input.jqButtonRight.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.jqButtonRight.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.foswikiButtonLeft:hover,
+  .jqButtonSet input.foswikiButtonLeft.foswikiSubmit:hover,
+  .jqButtonSet
+  input.foswikiButtonLeft.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.foswikiButtonLeft.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.foswikiButtonMiddle:hover,
+  .jqButtonSet input.foswikiButtonMiddle.foswikiSubmit:hover,
+  .jqButtonSet
+  input.foswikiButtonMiddle.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.foswikiButtonMiddle.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.foswikiButtonRight:hover,
+  .jqButtonSet input.foswikiButtonRight.foswikiSubmit:hover,
+  .jqButtonSet
+  input.foswikiButtonRight.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.foswikiButtonRight.foswikiButton:hover,
+  .foswikiButtonSet a.jqButton.jqButtonLeft:hover,
+  .foswikiButtonSet a.jqButton.jqButtonMiddle:hover,
+  .foswikiButtonSet a.jqButton.jqButtonRight:hover,
+  .foswikiButtonSet a.jqButton.foswikiButtonLeft:hover,
+  .foswikiButtonSet a.jqButton.foswikiButtonMiddle:hover,
+  .foswikiButtonSet a.jqButton.foswikiButtonRight:hover,
+  .foswikiButtonSet button.jqButton.jqButtonLeft:hover,
+  .foswikiButtonSet button.jqButton.jqButtonMiddle:hover,
+  .foswikiButtonSet button.jqButton.jqButtonRight:hover,
+  .foswikiButtonSet button.jqButton.foswikiButtonLeft:hover,
+  .foswikiButtonSet button.jqButton.foswikiButtonMiddle:hover,
+  .foswikiButtonSet button.jqButton.foswikiButtonRight:hover,
+  .foswikiButtonSet a.foswikiButton.jqButtonLeft:hover,
+  .foswikiButtonSet a.jqButtonLeft.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.jqButtonLeft.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.jqButtonLeft.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.jqButtonMiddle:hover,
+  .foswikiButtonSet a.jqButtonMiddle.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.jqButtonMiddle.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.jqButtonMiddle.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.jqButtonRight:hover,
+  .foswikiButtonSet a.jqButtonRight.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.jqButtonRight.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.jqButtonRight.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.foswikiButtonLeft:hover,
+  .foswikiButtonSet a.foswikiButtonLeft.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.foswikiButtonLeft.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.foswikiButtonLeft.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.foswikiButtonMiddle:hover,
+  .foswikiButtonSet a.foswikiButtonMiddle.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.foswikiButtonMiddle.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.foswikiButtonMiddle.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.foswikiButtonRight:hover,
+  .foswikiButtonSet a.foswikiButtonRight.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.foswikiButtonRight.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.foswikiButtonRight.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.jqButtonLeft:hover,
+  .foswikiButtonSet input.jqButtonLeft.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.jqButtonLeft.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.jqButtonLeft.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.jqButtonMiddle:hover,
+  .foswikiButtonSet input.jqButtonMiddle.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.jqButtonMiddle.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.jqButtonMiddle.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.jqButtonRight:hover,
+  .foswikiButtonSet input.jqButtonRight.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.jqButtonRight.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.jqButtonRight.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.foswikiButtonLeft:hover,
+  .foswikiButtonSet input.foswikiButtonLeft.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.foswikiButtonLeft.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.foswikiButtonLeft.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.foswikiButtonMiddle:hover,
+  .foswikiButtonSet input.foswikiButtonMiddle.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.foswikiButtonMiddle.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.foswikiButtonMiddle.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.foswikiButtonRight:hover,
+  .foswikiButtonSet input.foswikiButtonRight.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.foswikiButtonRight.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.foswikiButtonRight.foswikiButton:hover {
+    z-index: 1; }
+  .jqButtonSet a.jqButton.jqButtonLeft.jqButtonDisabled:hover, .jqButtonSet a.jqButton.jqButtonMiddle.jqButtonDisabled:hover, .jqButtonSet a.jqButton.jqButtonRight.jqButtonDisabled:hover, .jqButtonSet a.jqButton.foswikiButtonLeft.jqButtonDisabled:hover, .jqButtonSet a.jqButton.foswikiButtonMiddle.jqButtonDisabled:hover, .jqButtonSet a.jqButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .jqButtonSet button.jqButton.jqButtonLeft.jqButtonDisabled:hover,
+  .jqButtonSet button.jqButton.jqButtonMiddle.jqButtonDisabled:hover,
+  .jqButtonSet button.jqButton.jqButtonRight.jqButtonDisabled:hover,
+  .jqButtonSet button.jqButton.foswikiButtonLeft.jqButtonDisabled:hover,
+  .jqButtonSet button.jqButton.foswikiButtonMiddle.jqButtonDisabled:hover,
+  .jqButtonSet button.jqButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .jqButtonSet a.foswikiButton.jqButtonLeft.jqButtonDisabled:hover,
+  .jqButtonSet a.jqButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  a.jqButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.jqButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.jqButtonMiddle.jqButtonDisabled:hover,
+  .jqButtonSet a.jqButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  a.jqButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.jqButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.jqButtonRight.jqButtonDisabled:hover,
+  .jqButtonSet a.jqButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  a.jqButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.jqButtonRight.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.foswikiButtonLeft.jqButtonDisabled:hover,
+  .jqButtonSet a.foswikiButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  a.foswikiButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.foswikiButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.foswikiButtonMiddle.jqButtonDisabled:hover,
+  .jqButtonSet a.foswikiButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  a.foswikiButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.foswikiButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet a.foswikiButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .jqButtonSet a.foswikiButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  a.foswikiButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  a.foswikiButtonRight.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.jqButtonLeft.jqButtonDisabled:hover,
+  .jqButtonSet input.jqButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  input.jqButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.jqButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.jqButtonMiddle.jqButtonDisabled:hover,
+  .jqButtonSet input.jqButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  input.jqButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.jqButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.jqButtonRight.jqButtonDisabled:hover,
+  .jqButtonSet input.jqButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  input.jqButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.jqButtonRight.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.foswikiButtonLeft.jqButtonDisabled:hover,
+  .jqButtonSet input.foswikiButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  input.foswikiButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.foswikiButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.foswikiButtonMiddle.jqButtonDisabled:hover,
+  .jqButtonSet input.foswikiButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  input.foswikiButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.foswikiButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .jqButtonSet button.foswikiButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .jqButtonSet input.foswikiButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .jqButtonSet
+  input.foswikiButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .jqButtonSet
+  input.foswikiButtonRight.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet a.jqButton.jqButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButton.jqButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButton.jqButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButton.foswikiButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButton.foswikiButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet button.jqButton.jqButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet button.jqButton.jqButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet button.jqButton.jqButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet button.jqButton.foswikiButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet button.jqButton.foswikiButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet button.jqButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet a.foswikiButton.jqButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.jqButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.jqButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.jqButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.jqButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.jqButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.jqButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet a.jqButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.jqButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.jqButtonRight.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.foswikiButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet a.foswikiButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.foswikiButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.foswikiButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.foswikiButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet a.foswikiButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.foswikiButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.foswikiButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet a.foswikiButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet a.foswikiButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  a.foswikiButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  a.foswikiButtonRight.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.jqButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet input.jqButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.jqButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.jqButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.jqButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet input.jqButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.jqButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.jqButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.jqButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet input.jqButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.jqButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.jqButtonRight.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.foswikiButtonLeft.jqButtonDisabled:hover,
+  .foswikiButtonSet input.foswikiButtonLeft.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.foswikiButtonLeft.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.foswikiButtonLeft.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.foswikiButtonMiddle.jqButtonDisabled:hover,
+  .foswikiButtonSet input.foswikiButtonMiddle.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.foswikiButtonMiddle.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.foswikiButtonMiddle.jqButtonDisabled.foswikiButton:hover,
+  .foswikiButtonSet button.foswikiButton.foswikiButtonRight.jqButtonDisabled:hover,
+  .foswikiButtonSet input.foswikiButtonRight.jqButtonDisabled.foswikiSubmit:hover,
+  .foswikiButtonSet
+  input.foswikiButtonRight.jqButtonDisabled.foswikiButtonCancel:hover,
+  .foswikiButtonSet
+  input.foswikiButtonRight.jqButtonDisabled.foswikiButton:hover {
+    z-index: 0; }
+.jqButtonSet a.jqButton.jqButtonLeft, .jqButtonSet a.jqButton.foswikiButtonLeft,
+.jqButtonSet button.jqButton.jqButtonLeft,
+.jqButtonSet button.jqButton.foswikiButtonLeft,
+.jqButtonSet a.foswikiButton.jqButtonLeft,
+.jqButtonSet a.jqButtonLeft.foswikiSubmit,
+.jqButtonSet
+a.jqButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+a.jqButtonLeft.foswikiButton,
+.jqButtonSet a.foswikiButton.foswikiButtonLeft,
+.jqButtonSet a.foswikiButtonLeft.foswikiSubmit,
+.jqButtonSet
+a.foswikiButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+a.foswikiButtonLeft.foswikiButton,
+.jqButtonSet button.foswikiButton.jqButtonLeft,
+.jqButtonSet input.jqButtonLeft.foswikiSubmit,
+.jqButtonSet
+input.jqButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+input.jqButtonLeft.foswikiButton,
+.jqButtonSet button.foswikiButton.foswikiButtonLeft,
+.jqButtonSet input.foswikiButtonLeft.foswikiSubmit,
+.jqButtonSet
+input.foswikiButtonLeft.foswikiButtonCancel,
+.jqButtonSet
+input.foswikiButtonLeft.foswikiButton,
+.foswikiButtonSet a.jqButton.jqButtonLeft,
+.foswikiButtonSet a.jqButton.foswikiButtonLeft,
+.foswikiButtonSet button.jqButton.jqButtonLeft,
+.foswikiButtonSet button.jqButton.foswikiButtonLeft,
+.foswikiButtonSet a.foswikiButton.jqButtonLeft,
+.foswikiButtonSet a.jqButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+a.jqButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+a.jqButtonLeft.foswikiButton,
+.foswikiButtonSet a.foswikiButton.foswikiButtonLeft,
+.foswikiButtonSet a.foswikiButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+a.foswikiButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+a.foswikiButtonLeft.foswikiButton,
+.foswikiButtonSet button.foswikiButton.jqButtonLeft,
+.foswikiButtonSet input.jqButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+input.jqButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+input.jqButtonLeft.foswikiButton,
+.foswikiButtonSet button.foswikiButton.foswikiButtonLeft,
+.foswikiButtonSet input.foswikiButtonLeft.foswikiSubmit,
+.foswikiButtonSet
+input.foswikiButtonLeft.foswikiButtonCancel,
+.foswikiButtonSet
+input.foswikiButtonLeft.foswikiButton {
+  float: none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-border-top-left-radius: 3px;
+  -moz-border-top-left-radius: 3px;
+  border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px; }
+.jqButtonSet a.jqButton.jqButtonMiddle, .jqButtonSet a.jqButton.foswikiButtonMiddle,
+.jqButtonSet button.jqButton.jqButtonMiddle,
+.jqButtonSet button.jqButton.foswikiButtonMiddle,
+.jqButtonSet a.foswikiButton.jqButtonMiddle,
+.jqButtonSet a.jqButtonMiddle.foswikiSubmit,
+.jqButtonSet
+a.jqButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+a.jqButtonMiddle.foswikiButton,
+.jqButtonSet a.foswikiButton.foswikiButtonMiddle,
+.jqButtonSet a.foswikiButtonMiddle.foswikiSubmit,
+.jqButtonSet
+a.foswikiButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+a.foswikiButtonMiddle.foswikiButton,
+.jqButtonSet button.foswikiButton.jqButtonMiddle,
+.jqButtonSet input.jqButtonMiddle.foswikiSubmit,
+.jqButtonSet
+input.jqButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+input.jqButtonMiddle.foswikiButton,
+.jqButtonSet button.foswikiButton.foswikiButtonMiddle,
+.jqButtonSet input.foswikiButtonMiddle.foswikiSubmit,
+.jqButtonSet
+input.foswikiButtonMiddle.foswikiButtonCancel,
+.jqButtonSet
+input.foswikiButtonMiddle.foswikiButton,
+.foswikiButtonSet a.jqButton.jqButtonMiddle,
+.foswikiButtonSet a.jqButton.foswikiButtonMiddle,
+.foswikiButtonSet button.jqButton.jqButtonMiddle,
+.foswikiButtonSet button.jqButton.foswikiButtonMiddle,
+.foswikiButtonSet a.foswikiButton.jqButtonMiddle,
+.foswikiButtonSet a.jqButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+a.jqButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+a.jqButtonMiddle.foswikiButton,
+.foswikiButtonSet a.foswikiButton.foswikiButtonMiddle,
+.foswikiButtonSet a.foswikiButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+a.foswikiButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+a.foswikiButtonMiddle.foswikiButton,
+.foswikiButtonSet button.foswikiButton.jqButtonMiddle,
+.foswikiButtonSet input.jqButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+input.jqButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+input.jqButtonMiddle.foswikiButton,
+.foswikiButtonSet button.foswikiButton.foswikiButtonMiddle,
+.foswikiButtonSet input.foswikiButtonMiddle.foswikiSubmit,
+.foswikiButtonSet
+input.foswikiButtonMiddle.foswikiButtonCancel,
+.foswikiButtonSet
+input.foswikiButtonMiddle.foswikiButton {
+  float: none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  margin-left: -1px;
+  margin-right: -1px; }
+.jqButtonSet a.jqButton.jqButtonRight, .jqButtonSet a.jqButton.foswikiButtonRight,
+.jqButtonSet button.jqButton.jqButtonRight,
+.jqButtonSet button.jqButton.foswikiButtonRight,
+.jqButtonSet a.foswikiButton.jqButtonRight,
+.jqButtonSet a.jqButtonRight.foswikiSubmit,
+.jqButtonSet
+a.jqButtonRight.foswikiButtonCancel,
+.jqButtonSet
+a.jqButtonRight.foswikiButton,
+.jqButtonSet a.foswikiButton.foswikiButtonRight,
+.jqButtonSet a.foswikiButtonRight.foswikiSubmit,
+.jqButtonSet
+a.foswikiButtonRight.foswikiButtonCancel,
+.jqButtonSet
+a.foswikiButtonRight.foswikiButton,
+.jqButtonSet button.foswikiButton.jqButtonRight,
+.jqButtonSet input.jqButtonRight.foswikiSubmit,
+.jqButtonSet
+input.jqButtonRight.foswikiButtonCancel,
+.jqButtonSet
+input.jqButtonRight.foswikiButton,
+.jqButtonSet button.foswikiButton.foswikiButtonRight,
+.jqButtonSet input.foswikiButtonRight.foswikiSubmit,
+.jqButtonSet
+input.foswikiButtonRight.foswikiButtonCancel,
+.jqButtonSet
+input.foswikiButtonRight.foswikiButton,
+.foswikiButtonSet a.jqButton.jqButtonRight,
+.foswikiButtonSet a.jqButton.foswikiButtonRight,
+.foswikiButtonSet button.jqButton.jqButtonRight,
+.foswikiButtonSet button.jqButton.foswikiButtonRight,
+.foswikiButtonSet a.foswikiButton.jqButtonRight,
+.foswikiButtonSet a.jqButtonRight.foswikiSubmit,
+.foswikiButtonSet
+a.jqButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+a.jqButtonRight.foswikiButton,
+.foswikiButtonSet a.foswikiButton.foswikiButtonRight,
+.foswikiButtonSet a.foswikiButtonRight.foswikiSubmit,
+.foswikiButtonSet
+a.foswikiButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+a.foswikiButtonRight.foswikiButton,
+.foswikiButtonSet button.foswikiButton.jqButtonRight,
+.foswikiButtonSet input.jqButtonRight.foswikiSubmit,
+.foswikiButtonSet
+input.jqButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+input.jqButtonRight.foswikiButton,
+.foswikiButtonSet button.foswikiButton.foswikiButtonRight,
+.foswikiButtonSet input.foswikiButtonRight.foswikiSubmit,
+.foswikiButtonSet
+input.foswikiButtonRight.foswikiButtonCancel,
+.foswikiButtonSet
+input.foswikiButtonRight.foswikiButton {
+  float: none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-top-right-radius: 3px;
+  border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-left: -1px; }
 
-button.jqButton.jqButtonRed:hover,
-a.jqButton.jqButtonRed:hover {
-  color: #fff;
-  background: #b92525;
-  border-color: #b92525;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#d84d4d', endColorstr='#b92525');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#d84d4d), to(#b92525));
-  background: -moz-linear-gradient(-90deg, #d84d4d, #b92525); }
+.foswikiSubmit {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px; }
 
-button.jqButton.jqButtonCyan,
-a.jqButton.jqButtonCyan {
-  color: #fff;
-  background: #007aa3;
-  border-color: #007aa3;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4bb7db', endColorstr='#007aa3');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4bb7db), to(#007aa3));
-  background: -moz-linear-gradient(-90deg, #4bb7db, #007aa3); }
-
-button.jqButton.jqButtonCyan:hover,
-a.jqButton.jqButtonCyan:hover {
-  color: #fff;
-  background: #006f94;
-  border-color: #006f94;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#2b92b5', endColorstr='#006f94');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#2b92b5), to(#006f94));
-  background: -moz-linear-gradient(-90deg, #2b92b5, #006f94); }
-
-button.jqButton.jqButtonGreen,
-a.jqButton.jqButtonGreen {
-  color: #fff;
-  background: #297b29;
-  border-color: #297b29;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#6fb76f', endColorstr='#297b29');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#6fb76f), to(#297b29));
-  background: -moz-linear-gradient(-90deg, #6fb76f, #297b29); }
-
-button.jqButton.jqButtonGreen:hover,
-a.jqButton.jqButtonGreen:hover {
-  color: #fff;
-  background: #256f25;
-  border-color: #256f25;
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#4d924d', endColorstr='#256f25');
-  background: -webkit-gradient(linear, 0% 0, 0% 100%, from(#4d924d), to(#256f25));
-  background: -moz-linear-gradient(-90deg, #4d924d, #256f25); }
+input.foswikiButtonCancel {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px; }
 
 /* tabs */
 .foswikiTabs ul {
@@ -836,7 +2438,7 @@ a.jqButton.jqButtonGreen:hover {
 .foswikiUnvisited a:hover,
 a.foswikiUnvisited:visited,
 a.foswikiUnvisited:hover {
-  color: #06c; }
+  color: #0066cc; }
 
 .foswikiGrayText {
   color: #aaa; }
@@ -875,3 +2477,18 @@ a.foswikiUnvisited:hover {
   border-width: 1px;
   border-style: solid;
   border-color: #e2e2e2; }
+
+/* javascript behaviour */
+.bsHideDetails .foswikiSearchResultMeta {
+  display: none; }
+
+div.foswikiSearchResultMeta {
+  display: block; }
+
+span.foswikiSearchResultMeta {
+  display: inline; }
+
+/* extension specific */
+/* CommentPlugin */
+.commentPluginPromptBox td {
+  vertical-align: middle; }

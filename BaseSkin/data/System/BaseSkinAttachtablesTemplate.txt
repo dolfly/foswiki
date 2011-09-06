@@ -21,7 +21,7 @@
 	<option value="data-ext">%MAKETEXT{"Ordered by kind"}%</option>
 	<option value="data-user">%MAKETEXT{"Ordered by user"}%</option>
 	<option value="data-rev">%MAKETEXT{"Ordered by version"}%</option>
-</select>
+</select> <span class='jqButtonSet'><a href='#' class='jqButton jqButtonLeft bsHide' title='%MAKETEXT{"Hide details"}%'>hide</a><a href='#' class='jqButton jqButtonRight bsShow' title='%MAKETEXT{"Show details"}%'>show</a></span>
 <ul class='foswikiToolButtonRow'>
 	<li>
 		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="jqButton">Manage</a>
@@ -31,11 +31,16 @@
 	</li>
 </ul>
 <div class="foswikiClear"></div>
-</div>%TMPL:END%%{
+</div>%TMPL:P{
+	"LIBJS"
+	id="BaseSkinJs/base_attachments"
+	requires="JavascriptFiles/foswikilib,JavascriptFiles/foswikiPref,JQUERYPLUGIN,base"
+}%%TMPL:END%%{
 ---------------------------------------------------
 	Header definition for topic attachments and top table in attach screen
 ---------------------------------------------------
 }%%TMPL:DEF{ATTACH:files:header(basic)}%<div class="foswikiAttachments foswikiSearchResults">
+<h4>%MAKETEXT{"Attachments on this topic"}%</h4>
 %TMPL:P{ATTACH:files:header(toprow)}%<ul>%TMPL:END%%{
 ---------------------------------------------------
 	A basic row definition, for attachment table and attach screen
@@ -46,19 +51,18 @@
 		<li class='foswikiSearchResultImage'>
 			%A_ICON%
 		</li><li class='foswikiSearchResultContents'>
-			<span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span>
+			<span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span> <span class='foswikiHint'>&sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">edit</a></span>
 			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"[_1] &&sdot; uploaded by [_2] on [_3]" args="%A_SIZE%, %A_USER%, %A_DATE%"}%%IF{
 				"'%A_REV%'!='1'"
 				then=" &sdot; %MAKETEXT{"version [_1]" args="%A_REV%"}% &sdot; <a href='%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;tab=history' class='foswikiUnvisited'>%MAKETEXT{"view previous versions"}%</a>"
-			}% &sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">edit</a> &sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;tab=delete">%ICON{trash-small}%</a></span>
+			}%</span>
 		</li>
 	</ul>
 </li>%TMPL:END%%{
 ---------------------------------------------------
 	Header for topic attachment table
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:files:header}%<h4>%MAKETEXT{"Attachments on this topic"}%</h4>
-%TMPL:P{ATTACH:files:header(basic)}%
+}%%TMPL:DEF{ATTACH:files:header}%%TMPL:P{ATTACH:files:header(basic)}%
 %TMPL:END%%{
 ---------------------------------------------------
 	Row for topic attachment table

@@ -2,6 +2,8 @@
 Typographic grid using modular scales
 see http://vimeo.com/17079380 and http://modularscale.com/
 */
+/* colors */
+/* corners */
 /*
 @mixin block_padding_flattened ($hide_side_padding: 0) {
 	padding-top: $size_block_padding_flattened_em;
@@ -28,8 +30,6 @@ see http://vimeo.com/17079380 and http://modularscale.com/
 	}
 }
 */
-/* colors */
-/* corners */
 /* reset values set in base.css */
 .jqTab {
   margin: 0;
@@ -187,47 +187,6 @@ small,
   font-size: 0.821em;
   line-height: 1.969em; }
 
-/* correct for nested elements */
-h1:first-child,
-h2:first-child,
-h3:first-child,
-h4:first-child,
-h5:first-child,
-h6:first-child,
-.foswikiFormSteps:first-child {
-  margin-top: 0; }
-
-/* prevent double padding with bullet list in block */
-blockquote ol:first-child,
-pre ol:first-child,
-.foswikiHelp ol:first-child,
-.foswikiBroadcastMessage ol:first-child,
-.foswikiNotification ol:first-child,
-blockquote ul:first-child,
-pre ul:first-child,
-.foswikiHelp ul:first-child,
-.foswikiBroadcastMessage ul:first-child,
-.foswikiNotification ul:first-child {
-  margin-top: 0;
-  margin-bottom: 0; }
-
-li ul,
-li ol,
-ul ul,
-ol ol {
-  top: 0;
-  margin-top: 0;
-  margin-bottom: 0; }
-
-li h1,
-li h2,
-li h3,
-li h4,
-li h5,
-li h6,
-li p {
-  top: 0; }
-
 /* consistent block size */
 blockquote,
 pre,
@@ -289,6 +248,21 @@ ul,
 ol {
   margin-left: 21px; }
 
+/* prevent double padding with bullet list in block */
+blockquote ol:first-child,
+pre ol:first-child,
+.foswikiHelp ol:first-child,
+.foswikiBroadcastMessage ol:first-child,
+.foswikiNotification ol:first-child,
+blockquote ul:first-child,
+pre ul:first-child,
+.foswikiHelp ul:first-child,
+.foswikiBroadcastMessage ul:first-child,
+.foswikiNotification ul:first-child {
+  margin-top: 0;
+  margin-bottom: 0; }
+
+/* links */
 a:link,
 a:visited {
   text-decoration: none; }
@@ -299,24 +273,24 @@ a:hover {
 /* form elements */
 input[type="text"],
 input[type="password"] {
-  padding-left: 4px;
-  padding-right: 4px; }
+  padding-left: 5px;
+  padding-right: 5px; }
 
 /* buttons */
 /* set buton height */
+a.jqButton,
 a.jqButton:link,
-a.jqButton:visited,
 a.jqButton:hover,
+button.jqButton,
+button.jqButton:hover
 .foswikiSubmit,
 .foswikiSubmit:hover,
+.foswikiButton,
+.foswikiButton:hover,
 input[type="button"],
 input[type="button"]:hover,
 input[type="submit"],
-input[type="submit"]:hover,
-button.jqButton,
-button.jqButton:hover {
-  padding-left: 4px;
-  padding-right: 4px;
+input[type="submit"]:hover {
   line-height: 1.615em;
   font-size: 13px;
   font-family: sans-serif; }
@@ -327,6 +301,8 @@ button.jqButton:hover {
   padding-bottom: 1.5em;
   padding-left: 0;
   padding-right: 0; }
+  .jqTabContents :first-child {
+    margin-top: 0; }
 
 .jqTabPaneSimple .jqTabGroup a,
 .jqTabPaneSimple .jqTabGroup a:hover {
@@ -372,18 +348,23 @@ button.jqButton:hover {
     list-style: none; }
     .foswikiToolHeader ul.foswikiToolButtonRow li {
       float: right;
-      margin-left: .5em; }
+      margin-left: 5px; }
   .foswikiToolHeader a:link,
   .foswikiToolHeader a:visited {
     color: #222222; }
-  .foswikiToolHeader a.jqButton {
-    margin: 0; }
   .foswikiToolHeader a.jqButton:hover {
     color: #fff; }
   .foswikiToolHeader a.foswikiSort {
     margin-left: 0.444em; }
 
 /* attachments */
+.foswikiAttachments h4 {
+  padding-top: 0.75em;
+  padding-bottom: 0.75em;
+  padding-left: 13px;
+  padding-right: 13px;
+  padding-top: 0;
+  padding-bottom: 0; }
 .foswikiAttachments .foswikiAttachment {
   padding-top: 0.75em;
   padding-bottom: 0.75em;
@@ -395,7 +376,8 @@ button.jqButton:hover {
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultContents {
     margin-left: 36px; }
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultTitle a {
-    font-weight: normal; }
+    font-size: 1em;
+    font-weight: bold; }
   .foswikiAttachments .foswikiAttachment .foswikiSummary {
     font-style: italic;
     font-family: georgia, serif; }
@@ -445,7 +427,7 @@ pre {
 
 .foswikiGrayText,
 .foswikiHint {
-  color: gray; }
+  color: #999999; }
 
 /* dev */
 .foswikiDevGrid {
