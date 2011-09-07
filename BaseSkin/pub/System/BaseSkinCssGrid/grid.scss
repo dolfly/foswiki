@@ -23,7 +23,8 @@ $ratio: $ratio_musical_fifth;
 
 $body_line_height: 21; //$ratio_golden * $body_font_size; // could be a number as well, like 18 (pixels)
 
-$content_width: 980;
+$content_width_px: 980; // pixels
+$ajax_content_width_px: 500; // pixels
 
 /* colors */
 
@@ -31,7 +32,8 @@ $color_tool_background_gradient_light: #e7e7e7;
 $color_tool_background_gradient_dark: #cacaca;
 $color_tool_border: $color_tool_background_gradient_dark;
 
-$color_header_main: #3fa209;
+$color_primary: #3fa209; // distinctive color
+$color_header_main: $color_primary;
 $color_header: #222;
 $color_text: #000;
 $color_link: #06c;
@@ -288,6 +290,10 @@ $size_block_padding_menu_px: 0px + $strand2_ratio_down_1;
 
 /* reset values set in base.css */
 
+body {
+	width: 100%;
+}
+
 .jqTab {
 	margin:0;
 	padding:0;
@@ -509,6 +515,9 @@ blockquote {
 		@include em_line_height($size_smallish_font);
 	}
 }
+pre {
+	background: #f5f5f5;
+}
 
 dd,
 ul,
@@ -541,9 +550,18 @@ a:visited {
 a:hover {
 	text-decoration: underline;
 }
+a:link:focus,
+a:visited:focus,
+a:link,
+a:link:active,
+a:visited:active {
+	color: $color_link;
+}
+a:visited {
+	color: $color_link;
+}
 
 /* form elements */
-
 
 input[type="text"],
 input[type="password"] {
@@ -552,24 +570,47 @@ input[type="password"] {
 
 /* buttons */
 
-/* set buton height */
+/* set button height */
 
-a.jqButton,
-a.jqButton:link,
-a.jqButton:hover,
-button.jqButton,
-button.jqButton:hover
-.foswikiSubmit,
-.foswikiSubmit:hover,
-.foswikiButton,
-.foswikiButton:hover,
-input[type="button"],
-input[type="button"]:hover,
-input[type="submit"],
-input[type="submit"]:hover {
-	line-height: 0em + em_line_height($size_p);
-	font-size: 0px + $body_font_size;
-	font-family: $font_family_main;
+$prefix_jq: jq;
+$prefix_fw: foswiki;
+
+a.#{$prefix_jq}Button,
+a.#{$prefix_fw}Button,
+button.#{$prefix_jq}Button,
+button.#{$prefix_fw}Button,
+.#{$prefix_fw}Submit,
+input.#{$prefix_fw}Submit {
+	&,
+	&:hover {
+		line-height: 0em + em_line_height($size_p);
+		font-size: 0px + $body_font_size;
+		font-family: $font_family_main;
+	}
+}
+
+
+/* miscellaneous */
+
+hr {
+	color: #ccc;
+	background-color: #ccc;
+}
+
+::-moz-selection {
+	background: $color_primary;
+	color: #fff;
+	text-shadow: none;
+}
+::selection {
+	background: $color_primary;
+	color: #fff;
+	text-shadow: none;
+}
+
+.foswikiGrayText,
+.foswikiHint {
+	color: $color_hint;
 }
 
 /* tabs */
@@ -589,24 +630,22 @@ input[type="submit"]:hover {
 
 /* structural elements */
 
-$contentSidePadding: ($content_width - $strand2_ratio_up_10) / 2;
-$inner_content_width: $content_width - 2*$contentSidePadding;
+$contentSidePadding: ($content_width_px - $strand2_ratio_up_10) / 2;
+$inner_content_width: $content_width_px - 2*$contentSidePadding;
 
-.foswikiPage {
-}
+.foswikiPage {}
 .foswikiTopic,
 .foswikiTopBarContents {
-	width: 0px + $content_width;
+	width: 0px + $inner_content_width;
 	padding-left: 0px + $contentSidePadding;
 	padding-right: 0px + $contentSidePadding;
 	margin:0 auto;
 }
+
 .foswikiTopic {
 	position: relative;
 	padding-top: 0em + $strand1_ratio_up_2 / $body_font_size;
 	padding-bottom: 0em + $strand1_ratio_up_2 / $body_font_size;
-}
-.foswikiTopicText {
 }
 
 .foswikiToolHeader {
@@ -616,8 +655,8 @@ $inner_content_width: $content_width - 2*$contentSidePadding;
 	@include gradient($color_tool_background_gradient_light, $color_tool_background_gradient_dark);
 	@include corner($corner_default);
 	border:1px solid $color_tool_background_gradient_dark;
-	color: $color_text_light;
-	
+	vertical-align: middle;
+		
 	ul.foswikiToolButtonRow {
 		position: relative;
 		margin: 0;
@@ -630,14 +669,15 @@ $inner_content_width: $content_width - 2*$contentSidePadding;
 			margin-left: 5px;
 		}
 	}
-	
+	span {
+		margin-left: 1em;
+	}
+	input[type="checkbox"] {
+		color: red;
+	}
 	a:link,
 	a:visited {
 		color: $color_link_black;
-	}
-	
-	a.jqButton:hover {
-		color: #fff;
 	}
 	
 	a.foswikiSort {
@@ -669,7 +709,6 @@ $inner_content_width: $content_width - 2*$contentSidePadding;
 		.foswikiSearchResultTitle {
 			a {
 				@include em_font_size($size_h6);
-				font-weight: bold;
 			}
 		}
 		
@@ -678,17 +717,9 @@ $inner_content_width: $content_width - 2*$contentSidePadding;
 			font-family: georgia, serif;
 		}		
 			
-		.foswikiSearchResultMeta {
+		.foswikiSearchResultMeta,
+		.foswikiSummary {
 			color: $color_hint;
-			
-			a:link,
-			a:visited {
-				text-decoration: underline;
-				color: $color_hint;
-			}
-			a:hover {
-				color: $color_text;
-			}
 		}
 	}
 	ul, li {
@@ -700,63 +731,11 @@ $inner_content_width: $content_width - 2*$contentSidePadding;
 	ul {
 		clear: both;
 	}
+	
+	&.bsHideDetails .foswikiSearchResultMeta {
+		display:none;
+	}
 }
-
-/* colors */
-a:link:focus,
-a:visited:focus,
-a:link,
-a:link:active,
-a:visited:active {
-	color: $color_link;
-}
-a:visited {
-	color: $color_link;
-}
-::-moz-selection {
-	background: $color_link;
-	color: #fff;
-	text-shadow: none;
-}
-::selection {
-	background: $color_link;
-	color: #fff;
-	text-shadow: none;
-}
-hr {
-	color: #ccc;
-	background-color: #ccc;
-}
-pre {
-	background: #f5f5f5;
-}
-.foswikiGrayText,
-.foswikiHint {
-	color: $color_hint;
-}
-
-
-/* dev */
-.foswikiDevGrid {
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-}
-.foswikiDevGridRow {
-	width: 100%;
-	height: 0px + $body_line_height - 1;
-	border-style: none none solid none;
-	@include dev_gridline;
-}
-.foswikiDevGridCol {
-	border-style: none none none solid;
-	@include dev_gridline;
-}
-
-
-
-
 
 /* vertical theme */
 .jqTabPane.jqTabPaneSimplevertical {
@@ -835,5 +814,52 @@ pre {
 	.foswikiFormStep:last-child {
 		border: none;
 	}
-	
+}
+
+/* EXTENSION SPECIFIC */
+
+.foswikiAjaxPage .foswikiTopic {
+	width: 0px + $inner_content_width / 2;
+	padding-left: 0px + $contentSidePadding / 2;
+	padding-right: 0px + $contentSidePadding / 2;
+	padding-bottom: 0;
+}
+.foswikiAjaxPage {
+	.foswikiFormStep {
+		@include block_padding_small(1);
+	}
+	h2 {
+		@include em_margin_top($size_h3);
+		@include em_margin_bottom($size_h3);
+	}
+	h3 {
+		@include em_margin_top($size_h4);
+		@include em_margin_bottom($size_h4);
+	}
+	h4 {
+		@include em_margin_top($size_h5);
+		@include em_margin_bottom($size_h5);
+	}
+}
+#facebox .close {
+	right: 0px + $contentSidePadding / 2;
+}
+
+
+/* dev */
+.foswikiDevGrid {
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.foswikiDevGridRow {
+	width: 100%;
+	height: 0px + $body_line_height - 1;
+	border-style: none none solid none;
+	@include dev_gridline;
+}
+.foswikiDevGridCol {
+	border-style: none none none solid;
+	@include dev_gridline;
 }

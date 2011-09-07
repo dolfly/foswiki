@@ -60,7 +60,8 @@
 		"<img src='%PUBURLPATH%/%SYSTEMWEB%/DocumentGraphics/help.png' class='foswikiIcon' width='16' height='16' alt='' /> %MAKETEXT{"Help"}%"
 		id="help"
 	}%%TMPL:P{"attach:help"}%%ENDTAB%
-%ENDTABPANE%</div>%TMPL:END%%{
+%ENDTABPANE%<div class='foswikiClear'></div>
+</div>%TMPL:END%%{
 ---------------------------------------------------
 	
 ---------------------------------------------------
@@ -125,7 +126,7 @@
 	
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:createlink:topicaction"}%<div class='foswikiFormStep'>
-<input type="submit" class="foswikiSubmit" name="changeproperties" value='%MAKETEXT{"Create link"}%' />
+<input type="submit" class="foswikiButton foswikiSubmit" name="changeproperties" value='%MAKETEXT{"Create link"}%' />
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	
@@ -139,7 +140,7 @@
 	
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:edit:topicaction"}%<div class='foswikiFormStep'>
-<input type="submit" class="foswikiSubmit" name="changeproperties" value='%MAKETEXT{"Save"}%' />
+<input type="submit" class="foswikiButton foswikiSubmit" name="changeproperties" value='%MAKETEXT{"Save"}%' />
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	
@@ -171,7 +172,7 @@
 	
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:rename:topicaction"}%<div class='foswikiFormStep'>
-<input type="submit" class="foswikiSubmit" value='%MAKETEXT{"Rename"}%' />
+<input type="submit" class="foswikiButton foswikiSubmit" value='%MAKETEXT{"Rename"}%' />
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	
@@ -224,7 +225,7 @@
 	
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:move:topicaction"}%<div class='foswikiFormStep'>
-<input type="submit" class="foswikiSubmit" value='%MAKETEXT{"Move attachment"}%' />
+<input type="submit" class="foswikiButton foswikiSubmit" value='%MAKETEXT{"Move attachment"}%' />
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	
@@ -273,7 +274,7 @@
 	
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:delete:topicaction"}%<div class='foswikiFormStep'>
-<input type="submit" class="foswikiSubmit" value='%MAKETEXT{"Move to trash"}%' />
+<input type="submit" class="foswikiButton foswikiSubmit" value='%MAKETEXT{"Move to trash"}%' />
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	

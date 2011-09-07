@@ -91,7 +91,7 @@
 	
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:new:topicaction"}%<div class='foswikiFormStep'>
-<input type="submit" class="foswikiSubmit" value='%MAKETEXT{"Upload file"}%' />
+<input type="submit" class="foswikiButton foswikiSubmit" value='%MAKETEXT{"Upload file"}%' />
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	

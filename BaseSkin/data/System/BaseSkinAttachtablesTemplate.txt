@@ -21,21 +21,25 @@
 	<option value="data-ext">%MAKETEXT{"Ordered by kind"}%</option>
 	<option value="data-user">%MAKETEXT{"Ordered by user"}%</option>
 	<option value="data-rev">%MAKETEXT{"Ordered by version"}%</option>
-</select> <span class='jqButtonSet'><a href='#' class='jqButton jqButtonLeft bsHide' title='%MAKETEXT{"Hide details"}%'>hide</a><a href='#' class='jqButton jqButtonRight bsShow' title='%MAKETEXT{"Show details"}%'>show</a></span>
+</select><span><label><input type="checkbox" class="foswikiCheckbox" name="showdetails" />%MAKETEXT{"Show details"}%</label></span>
 <ul class='foswikiToolButtonRow'>
 	<li>
-		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="jqButton">Manage</a>
+		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="foswikiButton">Manage</a>
 	</li>
 	<li>
-		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="jqButton">Upload new</a>
+		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="foswikiButton">Upload new</a>
 	</li>
 </ul>
 <div class="foswikiClear"></div>
 </div>%TMPL:P{
 	"LIBJS"
 	id="BaseSkinJs/base_attachments"
-	requires="JavascriptFiles/foswikilib,JavascriptFiles/foswikiPref,JQUERYPLUGIN,base"
-}%%TMPL:END%%{
+	requires="JavascriptFiles/foswikilib, JavascriptFiles/foswikiPref, JQUERYPLUGIN, BaseSkinJs/base"
+}%%TMPL:P{
+	"LIBJS"
+	id="BaseSkinJs/facebox"
+	requires="BaseSkinJs/base_attachments"
+}%%JQREQUIRE{"simplemodal"}%%TMPL:END%%{
 ---------------------------------------------------
 	Header definition for topic attachments and top table in attach screen
 ---------------------------------------------------
@@ -51,11 +55,11 @@
 		<li class='foswikiSearchResultImage'>
 			%A_ICON%
 		</li><li class='foswikiSearchResultContents'>
-			<span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span> <span class='foswikiHint'>&sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">edit</a></span>
-			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"[_1] &&sdot; uploaded by [_2] on [_3]" args="%A_SIZE%, %A_USER%, %A_DATE%"}%%IF{
-				"'%A_REV%'!='1'"
-				then=" &sdot; %MAKETEXT{"version [_1]" args="%A_REV%"}% &sdot; <a href='%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;tab=history' class='foswikiUnvisited'>%MAKETEXT{"view previous versions"}%</a>"
-			}%</span>
+			<span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span> <span class='foswikiHint'>&sdot; %A_SIZE%%IF{
+					"'%A_REV%'!='1'"
+					then=" &sdot; <a href='%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;tab=history' class='foswikiUnvisited bsVersions'>%MAKETEXT{"versions"}%</a>"
+				}% &sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">edit</a></span>
+			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"version [_1]" args="%A_REV%"}% &sdot; %MAKETEXT{"uploaded by [_1] on [_2]" args="%A_USER%, %A_DATE%"}%</span>
 		</li>
 	</ul>
 </li>%TMPL:END%%{
@@ -115,14 +119,14 @@
 		<li class='foswikiSearchResultImage'>
 			%A_ICON%
 		</li><li class='foswikiSearchResultContents'>
-			<span class="foswikiSearchResultTitle"><a href="%SCRIPTURL{viewfile}%/%WEB%/%TOPIC%?filename=%ENCODE{%A_FILE%}%;rev=%A_REV%"><noautolink>%MAKETEXT{"Revision [_1]" args="%A_REV%"}%</noautolink></a></span>
-			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"uploaded by [_1] on [_2]" args="%POPUPWINDOW{"%A_USER%" label="%A_USERNAME%"}%, %A_DATE%"}%</span>
+			<span class="foswikiSearchResultTitle"><a href="%SCRIPTURL{viewfile}%/%WEB%/%TOPIC%?filename=%ENCODE{%A_FILE%}%;rev=%A_REV%"><noautolink>%MAKETEXT{"Version [_1]" args="%A_REV%"}%</noautolink></a></span>
+			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"uploaded by [_1] on [_2]" args="[[%A_USER%][%A_USERNAME%]], %A_DATE%"}%</span>
 		</li>
 	</ul>
 </li>%TMPL:END%%{
 ---------------------------------------------------
 	Footer for versions table in attach screen
 ---------------------------------------------------
-}%%TMPL:DEF{ATTACH:versions:footer}%</ul></div>%JQREQUIRE{"popupwindow"}%%TMPL:END%%{
+}%%TMPL:DEF{ATTACH:versions:footer}%</ul></div>%TMPL:END%%{
 ===================================================
 </verbatim>}%

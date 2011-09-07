@@ -22,7 +22,7 @@ Base Skin topic template
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
 <div class="foswikiTopicText">
 #PageTop
-<article>
+<article class='foswikiTopicText'>
 %TEXT%
 </article>
 #TopicEnd

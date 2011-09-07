@@ -31,6 +31,9 @@ see http://vimeo.com/17079380 and http://modularscale.com/
 }
 */
 /* reset values set in base.css */
+body {
+  width: 100%; }
+
 .jqTab {
   margin: 0;
   padding: 0;
@@ -243,6 +246,9 @@ blockquote .foswikiDiffDebug {
   font-size: 0.9em;
   line-height: 1.795em; }
 
+pre {
+  background: #f5f5f5; }
+
 dd,
 ul,
 ol {
@@ -270,6 +276,16 @@ a:visited {
 a:hover {
   text-decoration: underline; }
 
+a:link:focus,
+a:visited:focus,
+a:link,
+a:link:active,
+a:visited:active {
+  color: #0066cc; }
+
+a:visited {
+  color: #0066cc; }
+
 /* form elements */
 input[type="text"],
 input[type="password"] {
@@ -277,23 +293,40 @@ input[type="password"] {
   padding-right: 5px; }
 
 /* buttons */
-/* set buton height */
-a.jqButton,
-a.jqButton:link,
-a.jqButton:hover,
+/* set button height */
+a.jqButton, a.jqButton:hover,
+a.foswikiButton,
+a.foswikiButton:hover,
 button.jqButton,
-button.jqButton:hover
+button.jqButton:hover,
+button.foswikiButton,
+button.foswikiButton:hover,
 .foswikiSubmit,
 .foswikiSubmit:hover,
-.foswikiButton,
-.foswikiButton:hover,
-input[type="button"],
-input[type="button"]:hover,
-input[type="submit"],
-input[type="submit"]:hover {
+input.foswikiSubmit,
+input.foswikiSubmit:hover {
   line-height: 1.615em;
   font-size: 13px;
   font-family: sans-serif; }
+
+/* miscellaneous */
+hr {
+  color: #ccc;
+  background-color: #ccc; }
+
+::-moz-selection {
+  background: #3fa209;
+  color: #fff;
+  text-shadow: none; }
+
+::selection {
+  background: #3fa209;
+  color: #fff;
+  text-shadow: none; }
+
+.foswikiGrayText,
+.foswikiHint {
+  color: #999999; }
 
 /* tabs */
 .jqTabContents {
@@ -314,7 +347,7 @@ input[type="submit"]:hover {
 /* structural elements */
 .foswikiTopic,
 .foswikiTopBarContents {
-  width: 980px;
+  width: 922.641px;
   padding-left: 28.68px;
   padding-right: 28.68px;
   margin: 0 auto; }
@@ -339,7 +372,7 @@ input[type="submit"]:hover {
   -moz-border-radius: 3px;
   border-radius: 3px;
   border: 1px solid #cacaca;
-  color: #999999; }
+  vertical-align: middle; }
   .foswikiToolHeader ul.foswikiToolButtonRow {
     position: relative;
     margin: 0;
@@ -349,11 +382,13 @@ input[type="submit"]:hover {
     .foswikiToolHeader ul.foswikiToolButtonRow li {
       float: right;
       margin-left: 5px; }
+  .foswikiToolHeader span {
+    margin-left: 1em; }
+  .foswikiToolHeader input[type="checkbox"] {
+    color: red; }
   .foswikiToolHeader a:link,
   .foswikiToolHeader a:visited {
     color: #222222; }
-  .foswikiToolHeader a.jqButton:hover {
-    color: #fff; }
   .foswikiToolHeader a.foswikiSort {
     margin-left: 0.444em; }
 
@@ -376,19 +411,13 @@ input[type="submit"]:hover {
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultContents {
     margin-left: 36px; }
   .foswikiAttachments .foswikiAttachment .foswikiSearchResultTitle a {
-    font-size: 1em;
-    font-weight: bold; }
+    font-size: 1em; }
   .foswikiAttachments .foswikiAttachment .foswikiSummary {
     font-style: italic;
     font-family: georgia, serif; }
-  .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta {
+  .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta,
+  .foswikiAttachments .foswikiAttachment .foswikiSummary {
     color: #999999; }
-    .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:link,
-    .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:visited {
-      text-decoration: underline;
-      color: #999999; }
-    .foswikiAttachments .foswikiAttachment .foswikiSearchResultMeta a:hover {
-      color: black; }
 .foswikiAttachments ul, .foswikiAttachments li {
   margin: 0;
   padding: 0;
@@ -396,57 +425,8 @@ input[type="submit"]:hover {
   list-style-image: none; }
 .foswikiAttachments ul {
   clear: both; }
-
-/* colors */
-a:link:focus,
-a:visited:focus,
-a:link,
-a:link:active,
-a:visited:active {
-  color: #0066cc; }
-
-a:visited {
-  color: #0066cc; }
-
-::-moz-selection {
-  background: #0066cc;
-  color: #fff;
-  text-shadow: none; }
-
-::selection {
-  background: #0066cc;
-  color: #fff;
-  text-shadow: none; }
-
-hr {
-  color: #ccc;
-  background-color: #ccc; }
-
-pre {
-  background: #f5f5f5; }
-
-.foswikiGrayText,
-.foswikiHint {
-  color: #999999; }
-
-/* dev */
-.foswikiDevGrid {
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0; }
-
-.foswikiDevGridRow {
-  width: 100%;
-  height: 20px;
-  border-style: none none solid none;
-  border-color: rgba(0, 0, 255, 0.1);
-  border-width: 1px; }
-
-.foswikiDevGridCol {
-  border-style: none none none solid;
-  border-color: rgba(0, 0, 255, 0.1);
-  border-width: 1px; }
+.foswikiAttachments.bsHideDetails .foswikiSearchResultMeta {
+  display: none; }
 
 /* vertical theme */
 .jqTabPane.jqTabPaneSimplevertical {
@@ -499,3 +479,47 @@ pre {
     border: none; }
   .jqTabPane.jqTabPaneSimplevertical .foswikiFormStep:last-child {
     border: none; }
+
+/* EXTENSION SPECIFIC */
+.foswikiAjaxPage .foswikiTopic {
+  width: 461.32px;
+  padding-left: 14.34px;
+  padding-right: 14.34px;
+  padding-bottom: 0; }
+
+.foswikiAjaxPage .foswikiFormStep {
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 0;
+  padding-right: 0; }
+.foswikiAjaxPage h2 {
+  margin-top: 0.875em;
+  margin-bottom: 0.875em; }
+.foswikiAjaxPage h3 {
+  margin-top: 1.077em;
+  margin-bottom: 1.077em; }
+.foswikiAjaxPage h4 {
+  margin-top: 1.313em;
+  margin-bottom: 1.313em; }
+
+#facebox .close {
+  right: 14.34px; }
+
+/* dev */
+.foswikiDevGrid {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0; }
+
+.foswikiDevGridRow {
+  width: 100%;
+  height: 20px;
+  border-style: none none solid none;
+  border-color: rgba(0, 0, 255, 0.1);
+  border-width: 1px; }
+
+.foswikiDevGridCol {
+  border-style: none none none solid;
+  border-color: rgba(0, 0, 255, 0.1);
+  border-width: 1px; }

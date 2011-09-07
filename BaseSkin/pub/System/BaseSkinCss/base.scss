@@ -1,13 +1,18 @@
 // ------------------------------------------------------------
 // START SETTINGS
 
+$prefix_toolname: foswiki;
+
 /* font sizes in pixels - only used for body; will be converted to ems */
 $body_font_size:13; // pixels
 $size_p: $body_font_size; // paragraph size
+$size_smallish_font: .89 * $size_p;
+$size_small_font: .89 * $size_p;
 $body_font: sans-serif;
 $body_line_height: 21; // pixels
 
 $content_width_px: 980;
+$ajax_content_width_px: 500;
 $content_width_pct: 90%;
 
 $color_link: #06c;
@@ -64,7 +69,7 @@ $button_padding: 6; // pixels
 @mixin color_button ($color, $text_color: #fff) {
 	$bottom: $color;
 	$top: lighten($bottom, 20%);
-	$border: darken($bottom, 1%);
+	$border: darken($bottom, 3%);
 	@include button ($top, $bottom, $border, $text_color);
 }
 
@@ -307,18 +312,20 @@ dl,
 hr,
 input,
 textarea,
-.foswikiInputField,
-.foswikiInputFieldDisabled,
-.foswikiInputFieldReadOnly,
+.#{$prefix_toolname}Checkbox,
+.#{$prefix_toolname}RadioButton,
+.#{$prefix_toolname}InputField,
+.#{$prefix_toolname}InputFieldDisabled,
+.#{$prefix_toolname}InputFieldReadOnly,
 input[type="text"],
 input[type="password"],
-.foswikiTable,
+.#{$prefix_toolname}Table,
 .jqTabPane,
-.foswikiBroadcastMessage,
-.foswikiImage,
-.foswikiMessage,
-.foswikiNotification,
-.foswikiAttachments {
+.#{$prefix_toolname}BroadcastMessage,
+.#{$prefix_toolname}Image,
+.#{$prefix_toolname}Message,
+.#{$prefix_toolname}Notification,
+.#{$prefix_toolname}Attachments {
 	@include em_font_size($size_p);
 	@include em_line_height($size_p);
 }
@@ -334,14 +341,14 @@ ul,
 ol,
 dl,
 hr,
-.foswikiTable,
+.#{$prefix_toolname}Table,
 .jqTabPane,
-.foswikiBroadcastMessage,
-.foswikiImage,
-.foswikiMessage,
-.foswikiNotification,
-.foswikiAttachments,
-.foswikiFormSteps {
+.#{$prefix_toolname}BroadcastMessage,
+.#{$prefix_toolname}Image,
+.#{$prefix_toolname}Message,
+.#{$prefix_toolname}Notification,
+.#{$prefix_toolname}Attachments,
+.#{$prefix_toolname}FormSteps {
 	@include em_margin_top($size_p);
 	@include em_margin_bottom($size_p);
 }
@@ -360,6 +367,7 @@ pre {
 	word-wrap: break-word;
 }
 
+
 dd,
 ul,
 ol {
@@ -370,14 +378,14 @@ ol {
 
 blockquote ol:first-child,
 pre ol:first-child,
-.foswikiHelp ol:first-child,
-.foswikiBroadcastMessage ol:first-child,
-.foswikiNotification ol:first-child,
+.#{$prefix_toolname}Help ol:first-child,
+.#{$prefix_toolname}BroadcastMessage ol:first-child,
+.#{$prefix_toolname}Notification ol:first-child,
 blockquote ul:first-child,
 pre ul:first-child,
-.foswikiHelp ul:first-child,
-.foswikiBroadcastMessage ul:first-child,
-.foswikiNotification ul:first-child {
+.#{$prefix_toolname}Help ul:first-child,
+.#{$prefix_toolname}BroadcastMessage ul:first-child,
+.#{$prefix_toolname}Notification ul:first-child {
     margin-top: 0;
     margin-bottom: 0;
 }
@@ -386,20 +394,23 @@ pre ul:first-child,
 *:focus {
 	outline: none;
 }
-.foswikiInputField:focus {
+.#{$prefix_toolname}InputField:focus {
 	border-color: $color_link;
 }
 
 /* correct for nested elements */
 
-h1:first-child,
-h2:first-child,
-h3:first-child,
-h4:first-child,
-h5:first-child,
-h6:first-child,
-.foswikiFormSteps:first-child {
-    margin-top: 0;
+body,
+.#{$prefix_toolname}ManagePage {
+	& h1:first-child,
+	& h2:first-child,
+	& h3:first-child,
+	& h4:first-child,
+	& h5:first-child,
+	& h6:first-child,
+	& .#{$prefix_toolname}FormSteps:first-child {
+		margin-top: 0;
+	}
 }
 
 li ul,
@@ -424,73 +435,71 @@ li p {
 hr {
 	height:1px;
 	border:none;
+	color: $color_border_light;
+	background-color: $color_border_light;
 }
 
 
 blockquote,
 pre,
-.foswikiHelp,
-.foswikiBroadcastMessage,
-.foswikiNotification {
+.#{$prefix_toolname}Help,
+.#{$prefix_toolname}BroadcastMessage,
+.#{$prefix_toolname}Notification {
 	padding:1em 1em 1em 1.5em;
 }
 
+pre {
+	background:#f5f5f5;
+}
 
-/* colors */
-	
-	a:link:focus,
-	a:visited:focus,
-	a:link,
-	a:link:active,
-	a:visited:active {
-		color: $color_link;
-	}
-	
-	a:visited {
-		color: $color_link_visited;
-	}
+.#{$prefix_toolname}TopicText {}
 
-	::-moz-selection {
-		background: $color_link;
-		color:#fff;
-		text-shadow: none; 
-	}
-	::selection {
-		background: $color_link;
-		color:#fff;
-		text-shadow: none; 
-	}
+/* links */
 
-	hr {
-		color: $color_border_light;
-		background-color: $color_border_light;
-	}
-	
-	pre {
-		background:#f5f5f5;
-	}
+a:link:focus,
+a:visited:focus,
+a:link,
+a:link:active,
+a:visited:active {
+	color: $color_link;
+}
 
+a:visited {
+	color: $color_link_visited;
+}
 
-/* Foswiki classes */
+/* miscellaneous */
+
+::-moz-selection {
+	background: $color_link;
+	color:#fff;
+	text-shadow: none; 
+}
+::selection {
+	background: $color_link;
+	color:#fff;
+	text-shadow: none; 
+}
+
 
 /* made visible if javascript available */
 /* specified in js.css */
-.foswikiNoJs .foswikiMakeVisible,
-.foswikiNoJs .foswikiMakeVisibleInline,
-.foswikiNoJs .foswikiMakeVisibleBlock {
+.#{$prefix_toolname}NoJs .#{$prefix_toolname}MakeVisible,
+.#{$prefix_toolname}NoJs .#{$prefix_toolname}MakeVisibleInline,
+.#{$prefix_toolname}NoJs .#{$prefix_toolname}MakeVisibleBlock {
 	display:none;
 }
 
-.foswikiLeft {
+.#{$prefix_toolname}Left {
 	float:left;
 	position:relative;
 }
-.foswikiRight {
+.#{$prefix_toolname}Right {
 	position:relative;
 	float:right;
 	display:inline;
 }
-.foswikiClear {
+.#{$prefix_toolname}Clear {
 	/* to clean up floats */
 	/* use: <div class="foswikiClear"></div> */
 	margin:0;
@@ -500,244 +509,242 @@ pre,
 	clear:both;
 	display:block;
 }
-.foswikiHidden {
+.#{$prefix_toolname}Hidden {
 	display:none;
 }
 
 /* strcutural elements */
-.foswikiTopBar {
+.#{$prefix_toolname}TopBar {
 	height: 50px;
 	background:#f5f5f5;
 }
 
 
-.foswikiActual {
+.#{$prefix_toolname}Actual {
 	font-size: 0px + $body_font_size;
 	font-weight: normal;
 }
 
-.foswikiTextarea,
-.foswikiInputField,
-.foswikiInputFieldDisabled,
-.foswikiInputFieldReadOnly {
+.#{$prefix_toolname}Textarea,
+.#{$prefix_toolname}InputField,
+.#{$prefix_toolname}InputFieldDisabled,
+.#{$prefix_toolname}InputFieldReadOnly {
 	/* sameas textarea etc. */
 	font-family:inherit;
 	font-size:100%;
 }
-.foswikiFormTitle {
-}
-.foswikiEmulatedLink {
+.#{$prefix_toolname}FormTitle {}
+.#{$prefix_toolname}EmulatedLink {
 	text-decoration:underline;
 }
-.foswikiImage img {
+.#{$prefix_toolname}Image img {
 	padding:3px;
 	border-width:1px;
 	border-style:solid;
 }
-.foswikiPreviewArea {}
-.foswikiSummary {}
+.#{$prefix_toolname}PreviewArea {}
+.#{$prefix_toolname}Summary {}
 
-.foswikiNoBreak {
+.#{$prefix_toolname}NoBreak {
 	white-space:nowrap;
 }
-.foswikiIcon img,
-img.foswikiIcon {
+.#{$prefix_toolname}Icon img,
+img.#{$prefix_toolname}Icon {
 	vertical-align:middle;
 }
 
-.foswikiToc {
+.#{$prefix_toolname}Toc {
 	margin:1em 0;
-}
-	.foswikiToc .foswikiTocTitle {
+	& .#{$prefix_toolname}TocTitle {
 		margin:0;
 		padding:0;
 		font-weight:bold;
 	}
-
+}
 
 /* search results */
-.foswikiSearchResults {}
+.#{$prefix_toolname}SearchResults {}
 
-	.foswikiSearchResult {
+	.#{$prefix_toolname}SearchResult {
 		position: relative;
 		border-bottom: 1px solid #eee;
 		
-		.foswikiSearchResultImage img {
+		.#{$prefix_toolname}SearchResultImage img {
 			max-width: 90px;
 			float:left;
 		}
-		.foswikiSearchResultTitle {}
-		.foswikiSearchResultContents {
+		.#{$prefix_toolname}SearchResultTitle {}
+		.#{$prefix_toolname}SearchResultContents {
 			margin:13px;
 			margin: 0 0 0 90px;
 		}
 	}
 	
-	.foswikiSearchResultsHeader {}
-	.foswikiSearchResultsPager {
+	.#{$prefix_toolname}SearchResultsHeader {}
+	.#{$prefix_toolname}SearchResultsPager {
 		margin:1em 0;
 		padding:.25em 0;
 	}
-	.foswikiSearchResultMeta {
+	.#{$prefix_toolname}SearchResultMeta {
 		color: #aaa;
 	}
 
 /* attachments */
 
-.foswikiAttachments {
-	.foswikiAttachment {
+.#{$prefix_toolname}Attachments {
+	.#{$prefix_toolname}Attachment {
 		padding: 10px;
 		
 		& img,
-		& .foswikiIcon img {
+		& .#{$prefix_toolname}Icon img {
 			max-width: 16px;
 			vertical-align: text-bottom;
 		}
-		& .foswikiSearchResultContents {
+		& .#{$prefix_toolname}SearchResultContents {
 			margin: 0 0 0 26px;
 		}
 	}
-	& .foswikiSearchResultsHeader {
+	& .#{$prefix_toolname}SearchResultsHeader {
 		padding:5px 10px;
 		background: #eee;
 	}
 }
 
 /* table */
-.foswikiTable,
-.foswikiTable td,
-.foswikiTable th {
+.#{$prefix_toolname}Table,
+.#{$prefix_toolname}Table td,
+.#{$prefix_toolname}Table th {
 	border-width:1px;
 	border-style:solid;
 }
-.foswikiTable th a:link,
-.foswikiTable th a:visited {
+.#{$prefix_toolname}Table th a:link,
+.#{$prefix_toolname}Table th a:visited {
 	text-decoration:none;
 }
-.foswikiTable th a:hover {
+.#{$prefix_toolname}Table th a:hover {
 	text-decoration:underline;
 }
-.foswikiTable {
+.#{$prefix_toolname}Table {
 	border-collapse:collapse;
 }
-.foswikiTable td,
-.foswikiTable th {
+.#{$prefix_toolname}Table td,
+.#{$prefix_toolname}Table th {
 	padding:.3em .6em;
 }
-.foswikiTable .tableSortIcon {
+.#{$prefix_toolname}Table .tableSortIcon {
 	margin:0 0 0 .25em;
 }
 table caption {
 	display:none;
 }
 
-.foswikiHorizontalList {
+.#{$prefix_toolname}HorizontalList {
 	clear:both;
 }
-.foswikiHorizontalList ul,
-.foswikiHorizontalList ol {
+.#{$prefix_toolname}HorizontalList ul,
+.#{$prefix_toolname}HorizontalList ol {
 	margin:0;
 	padding:0;
 	list-style:none;
 }
-.foswikiHorizontalList ul li,
-.foswikiHorizontalList ol li {
+.#{$prefix_toolname}HorizontalList ul li,
+.#{$prefix_toolname}HorizontalList ol li {
 	float:left;
 	display:block;
 	border-style:none solid none none;
 	border-width:0px;
 }
-.foswikiHorizontalList ul li.foswikiLast,
-.foswikiHorizontalList ol li.foswikiLast {
+.#{$prefix_toolname}HorizontalList ul li.#{$prefix_toolname}Last,
+.#{$prefix_toolname}HorizontalList ol li.#{$prefix_toolname}Last {
 	border:none;
 }
 
 /*
-	.foswikiSubmit,
-	.foswikiSubmitDisabled,
-	.foswikiButton,
-	.foswikiButtonDisabled,
-	.foswikiButtonCancel,
-	a.foswikiButton,
-	a.foswikiButtonCancel,
-	a.foswikiSubmit {
+	.#{$prefix_toolname}Submit,
+	.#{$prefix_toolname}SubmitDisabled,
+	.#{$prefix_toolname}Button,
+	.#{$prefix_toolname}ButtonDisabled,
+	.#{$prefix_toolname}ButtonCancel,
+	a.#{$prefix_toolname}Button,
+	a.#{$prefix_toolname}ButtonCancel,
+	a.#{$prefix_toolname}Submit {
 		background:#eee;
 		border:1px solid #ccc;
 	}
 	
-	.foswikiTextarea {}
-	.foswikiSubmit,
-	.foswikiSubmitDisabled,
-	.foswikiButton,
-	.foswikiButtonDisabled,
-	.foswikiButtonCancel,
-	a.foswikiButton,
-	a.foswikiSubmit,
-	a.foswikiButtonCancel,
-	.foswikiCheckbox {
+	.#{$prefix_toolname}Textarea {}
+	.#{$prefix_toolname}Submit,
+	.#{$prefix_toolname}SubmitDisabled,
+	.#{$prefix_toolname}Button,
+	.#{$prefix_toolname}ButtonDisabled,
+	.#{$prefix_toolname}ButtonCancel,
+	a.#{$prefix_toolname}Button,
+	a.#{$prefix_toolname}Submit,
+	a.#{$prefix_toolname}ButtonCancel,
+	.#{$prefix_toolname}Checkbox {
 		border-width:1px;
 		border-style:solid;
 		font-weight:bold;
 		text-align:center;
 	}
-	.foswikiSubmit,
-	.foswikiSubmitDisabled,
-	.foswikiButton,
-	.foswikiButtonDisabled,
-	.foswikiButtonCancel,
-	.foswikiSubmit:hover,
-	.foswikiSubmitDisabled:hover,
-	.foswikiButton:hover,
-	.foswikiSubmit:active,
-	.foswikiSubmitDisabled:active,
-	.foswikiButton:active {
+	.#{$prefix_toolname}Submit,
+	.#{$prefix_toolname}SubmitDisabled,
+	.#{$prefix_toolname}Button,
+	.#{$prefix_toolname}ButtonDisabled,
+	.#{$prefix_toolname}ButtonCancel,
+	.#{$prefix_toolname}Submit:hover,
+	.#{$prefix_toolname}SubmitDisabled:hover,
+	.#{$prefix_toolname}Button:hover,
+	.#{$prefix_toolname}Submit:active,
+	.#{$prefix_toolname}SubmitDisabled:active,
+	.#{$prefix_toolname}Button:active {
 		cursor:default;
 		outline:none;
 		line-height:1em;
 		padding:2px 4px;
 	}
-	a.foswikiButton,
-	a.foswikiButton:hover,
-	a.foswikiButton:link:active,
-	a.foswikiButton:visited:active,
-	a.foswikiButtonCancel,
-	a.foswikiButtonCancel:hover,
-	a.foswikiButtonCancel:link:active,
-	a.foswikiButtonCancel:visited:active,
-	a.foswikiSubmit,
-	a.foswikiSubmit:hover,
-	a.foswikiSubmit:link:active,
-	a.foswikiSubmit:visited:active {
+	a.#{$prefix_toolname}Button,
+	a.#{$prefix_toolname}Button:hover,
+	a.#{$prefix_toolname}Button:link:active,
+	a.#{$prefix_toolname}Button:visited:active,
+	a.#{$prefix_toolname}ButtonCancel,
+	a.#{$prefix_toolname}ButtonCancel:hover,
+	a.#{$prefix_toolname}ButtonCancel:link:active,
+	a.#{$prefix_toolname}ButtonCancel:visited:active,
+	a.#{$prefix_toolname}Submit,
+	a.#{$prefix_toolname}Submit:hover,
+	a.#{$prefix_toolname}Submit:link:active,
+	a.#{$prefix_toolname}Submit:visited:active {
 		text-decoration:none;
 		line-height:1em;
 		padding:2px 4px;
 	}
 */
 
-
-.foswikiCheckbox,
-.foswikiRadioButton {
-	margin:1px .5em 1px .1em;
+.#{$prefix_toolname}Checkbox,
+.#{$prefix_toolname}RadioButton {
+	margin:0 .5em 0 .1em;
 	padding:0 0 0 .5em;
 	border:0;
 }
-.foswikiTextarea,
-.foswikiInputField,
-.foswikiInputFieldDisabled,
-.foswikiInputFieldReadOnly,
-.foswikiSelect {
+
+.#{$prefix_toolname}Textarea,
+.#{$prefix_toolname}InputField,
+.#{$prefix_toolname}InputFieldDisabled,
+.#{$prefix_toolname}InputFieldReadOnly,
+.#{$prefix_toolname}Select {
 	border-width:1px;
 	border-style:solid;
 }
-.foswikiInputField,
-.foswikiInputFieldDisabled,
-.foswikiInputFieldReadOnly {
+.#{$prefix_toolname}InputField,
+.#{$prefix_toolname}InputFieldDisabled,
+.#{$prefix_toolname}InputFieldReadOnly {
 	padding:2px 4px;
 }
 
-.foswikiTable,
-.foswikiTable td,
-.foswikiTable th {
+.#{$prefix_toolname}Table,
+.#{$prefix_toolname}Table td,
+.#{$prefix_toolname}Table th {
 	border-width:1px;
 	border-style:solid;
 }
@@ -746,12 +753,9 @@ table caption {
 
 /* buttons */
 
-$prefix_jq: jq;
-$prefix_fw: foswiki;
-
 /* reset jquery.button.css */
-.#{$prefix_jq}Button,
-.#{$prefix_fw}Button {
+.#{$prefix_toolname}Button,
+a.#{$prefix_toolname}Button {
 	margin:0;
 	padding:0;
 	display:inline;
@@ -774,6 +778,7 @@ $prefix_fw: foswiki;
 		float: none;
 		background: none;
 		height: auto;
+		line-height: inherit;
 		padding: 0;
 		margin: 0;
 		font-weight: normal;
@@ -793,8 +798,7 @@ $prefix_fw: foswiki;
 	background-position: 0 50%;
 }
 
-.#{$prefix_jq}Button,
-.#{$prefix_fw}Button {
+.#{$prefix_toolname}Button {
 	position:relative;
 	text-decoration:none;
 	font: {
@@ -824,6 +828,12 @@ $prefix_fw: foswiki;
 		@include color_button(darken($color, 10%));
 	}
 }
+._default_button_style {
+	@include color_button(#dedede, #000);
+	&:hover {
+		@include color_button(#376ca0);
+	}
+}
 ._disabled_button_style {
 	&,
 	&:hover {
@@ -832,36 +842,30 @@ $prefix_fw: foswiki;
 		cursor:default;
 	}
 }
-._default_button_style {
-	& .#{$prefix_jq}ButtonIcon,
-	& .#{$prefix_fw}ButtonIcon {
+._button_style {
+	& .#{$prefix_toolname}ButtonIcon {
 		@extend ._button_icon;
 	}
 	
 	&,
-	&.#{$prefix_jq}ButtonDefault,
-	&.#{$prefix_fw}ButtonDefault {
-	 	@include color_button(#dedede, #000);
-	 	&:hover {
-			@include color_button(#376ca0);
-		}
+	&.#{$prefix_toolname}ButtonDefault {
+	 	@extend ._default_button_style;
 	}
 	
 	// disabled
 	
-	&.#{$prefix_jq}ButtonDisabled,
-	&.#{$prefix_fw}ButtonDisabled {
+	&.#{$prefix_toolname}ButtonDisabled {
 		@extend ._disabled_button_style;
 	}
 	
 	// large
 	
-	&.#{$prefix_jq}ButtonLarge,
-	&.#{$prefix_fw}ButtonLarge {
+	&.#{$prefix_toolname}ButtonLarge {
 		&,
 		&:hover {
 			$factor: 1.5;
-			font-size: 0em + $factor;
+			@include em_font_size($factor * $size_p);
+			line-height: $factor;
 			padding:0 0px + $factor * $button_padding;
 			@include corner($factor * $button_border_radius);
 		}
@@ -869,22 +873,20 @@ $prefix_fw: foswiki;
 	
 	// small
 	
-	&.#{$prefix_jq}ButtonSmall,
-	&.#{$prefix_fw}ButtonSmall {
+	&.#{$prefix_toolname}ButtonSmall {
 		&,
 		&:hover {
 			$factor: 0.89;
-			font-size: 0em + $factor;
+			@include em_font_size($factor * $size_p);
+			@include em_line_height($factor * $size_p);
 			padding:0 0px + $factor * $button_padding;
 			@include corner($factor * $button_border_radius);
-
 		}
 	}
 	
 	// simple
 	
-	&.#{$prefix_jq}ButtonSimple,
-	&.#{$prefix_fw}ButtonSimple {
+	&.#{$prefix_toolname}ButtonSimple {
 		&,
 		&:hover,
 		& span {
@@ -901,43 +903,52 @@ $prefix_fw: foswiki;
 	}
 	
 	// colors
-	&.#{$prefix_jq}ButtonBlue,
-	&.#{$prefix_fw}ButtonBlue {
+	&.#{$prefix_toolname}ButtonBlue {
 		@include _color_button_states(#1360af);
-		&.#{$prefix_jq}ButtonDisabled,
-		&.#{$prefix_fw}ButtonDisabled {
+		&.#{$prefix_toolname}ButtonDisabled {
 			@extend ._disabled_button_style;
 		}
 	}
-	&.#{$prefix_jq}ButtonRed,
-	&.#{$prefix_fw}ButtonRed {
+	&.#{$prefix_toolname}Submit {
+		@include _color_button_states(#1360af);
+		&.#{$prefix_toolname}ButtonDisabled {
+			@extend ._disabled_button_style;
+		}
+	}
+	&.#{$prefix_toolname}ButtonRed {
 		@include _color_button_states(#cd2929);
-		&.#{$prefix_jq}ButtonDisabled,
-		&.#{$prefix_fw}ButtonDisabled {
+		&.#{$prefix_toolname}ButtonDisabled {
 			@extend ._disabled_button_style;
 		}
 	}
-	&.#{$prefix_jq}ButtonCyan,
-	&.#{$prefix_fw}ButtonCyan {
+	&.#{$prefix_toolname}ButtonCancel {
+		@include _color_button_states(#cd2929);
+		&.#{$prefix_toolname}ButtonDisabled {
+			@extend ._disabled_button_style;
+		}
+	}
+	// jqButton with ButtonCancel should not be red
+	&.jqButton.#{$prefix_toolname}ButtonCancel {
+		@extend ._default_button_style;
+	}
+	
+	&.#{$prefix_toolname}ButtonCyan {
 		@include _color_button_states(#0b7caa);
-		&.#{$prefix_jq}ButtonDisabled,
-		&.#{$prefix_fw}ButtonDisabled {
+		&.#{$prefix_toolname}ButtonDisabled {
 			@extend ._disabled_button_style;
 		}
 	}
-	&.#{$prefix_jq}ButtonGreen,
-	&.#{$prefix_fw}ButtonGreen {
+	&.#{$prefix_toolname}ButtonGreen {
 		@include _color_button_states(#297b29);
-		&.#{$prefix_jq}ButtonDisabled,
-		&.#{$prefix_fw}ButtonDisabled {
+		&.#{$prefix_toolname}ButtonDisabled {
 			@extend ._disabled_button_style;
 		}
 	}
 }
 
-button.#{$prefix_jq}Button,
-button.#{$prefix_fw}Button {
-	@extend ._default_button_style;
+button.#{$prefix_toolname}Button,
+input.#{$prefix_toolname}Button {
+	@extend ._button_style;
 	
 	&,
 	&:hover {
@@ -949,14 +960,13 @@ button.#{$prefix_fw}Button {
 	}
 }
 
-a.#{$prefix_jq}Button,
-a.#{$prefix_fw}Button {
+a.#{$prefix_toolname}Button {
 	
 	&:link,
 	&:visited {
 		
 		display: inline-block;
-		@extend ._default_button_style;
+		@extend ._button_style;
 		
 		&,
 		&:hover,
@@ -973,32 +983,41 @@ a.#{$prefix_fw}Button {
 	}
 }
 
-/* button set */
-.#{$prefix_jq}ButtonSet,
-.#{$prefix_fw}ButtonSet {
+/* Firefox hacks */
 
-	a.#{$prefix_jq}Button,
-	button.#{$prefix_jq}Button,
-	a.#{$prefix_fw}Button,
-	button.#{$prefix_fw}Button {
+@-moz-document url-prefix() {
+
+	/*
+	Firefox limits the line-height of inputs using a browser set !important rule that cannot be overridden.
+	https://bugzilla.mozilla.org/show_bug.cgi?id=349259
+	The only solution is to use extra padding.
+	*/
+
+	input.#{$prefix_toolname}Button,
+	input.#{$prefix_toolname}Button:hover {
+		padding-top: 4px;
+		padding-bottom: 4px;
+	}
+}
+
+/* button set */
+.#{$prefix_toolname}ButtonSet {
+
+	.#{$prefix_toolname}Button {
 	
-		&.#{$prefix_jq}ButtonLeft,
-		&.#{$prefix_jq}ButtonMiddle,
-		&.#{$prefix_jq}ButtonRight,
-		&.#{$prefix_fw}ButtonLeft,
-		&.#{$prefix_fw}ButtonMiddle,
-		&.#{$prefix_fw}ButtonRight {
+		&.#{$prefix_toolname}ButtonLeft,
+		&.#{$prefix_toolname}ButtonMiddle,
+		&.#{$prefix_toolname}ButtonRight {
 			z-index: 0;
 			&:hover {
 				z-index: 1;
 			}
-			&.#{$prefix_jq}ButtonDisabled:hover {
+			&.#{$prefix_toolname}ButtonDisabled:hover {
 				z-index: 0;
 			}
 		}
 		
-		&.#{$prefix_jq}ButtonLeft,
-		&.#{$prefix_fw}ButtonLeft {
+		&.#{$prefix_toolname}ButtonLeft {
 			float: none;
 			@include corner(0);
 			-webkit-border-top-left-radius: 0px + $button_border_radius;
@@ -1009,16 +1028,14 @@ a.#{$prefix_fw}Button {
 			border-bottom-left-radius: 0px + $button_border_radius;
 		}
 		
-		&.#{$prefix_jq}ButtonMiddle,
-		&.#{$prefix_fw}ButtonMiddle {
+		&.#{$prefix_toolname}ButtonMiddle {
 			float: none;
 			@include corner(0);
 			margin-left: -1px;
 			margin-right: -1px;
 		}
 		
-		&.#{$prefix_jq}ButtonRight,
-		&.#{$prefix_fw}ButtonRight {
+		&.#{$prefix_toolname}ButtonRight {
 			float: none;
 			@include corner(0);	
 			-webkit-border-top-right-radius: 0px + $button_border_radius;
@@ -1032,47 +1049,25 @@ a.#{$prefix_fw}Button {
 	}
 }
 
-// make input similar
-
-input.#{$prefix_fw}Submit,
-input.#{$prefix_fw}ButtonCancel,
-input.#{$prefix_fw}Button {
-	@extend button.#{$prefix_fw}Button;
-}
-a.#{$prefix_fw}Submit,
-a.#{$prefix_fw}ButtonCancel,
-a.#{$prefix_fw}Button {
-	@extend a.#{$prefix_fw}Button;
-}
-.#{$prefix_fw}Submit {
-	@include corner($button_border_radius);
-	@extend .#{$prefix_fw}ButtonBlue;
-}
-input.#{$prefix_fw}ButtonCancel {
-	@include corner($button_border_radius);
-	@extend .#{$prefix_fw}ButtonRed;
-}
-
-
 /* tabs */
-.foswikiTabs ul {
+.#{$prefix_toolname}Tabs ul {
 	margin:0;
 	padding:0;
 	list-style:none;
 	position:relative;
 	bottom:0;
 }
-.foswikiTabs ul li {
+.#{$prefix_toolname}Tabs ul li {
 	display:inline;
 }
-.foswikiTabs ul li a,
-.foswikiTabs ul li a:link,
-.foswikiTabs ul li a:hover,
-.foswikiTabs ul li a:visited {
+.#{$prefix_toolname}Tabs ul li a,
+.#{$prefix_toolname}Tabs ul li a:link,
+.#{$prefix_toolname}Tabs ul li a:hover,
+.#{$prefix_toolname}Tabs ul li a:visited {
 	text-decoration:none;
 }
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
+.#{$prefix_toolname}Tabs ul li a,
+.#{$prefix_toolname}Tabs ul li span {
 	display:block;
 	float:left;
 	margin:0 6px 0 0;
@@ -1080,12 +1075,12 @@ input.#{$prefix_fw}ButtonCancel {
 	border-style:solid;
 	border-width:1px;
 }
-.foswikiTabs ul li a,
-.foswikiTabs ul li span {
+.#{$prefix_toolname}Tabs ul li a,
+.#{$prefix_toolname}Tabs ul li span {
 	border-style:solid;
 	border-width:1px;
 }
-.foswikiTabContent {
+.#{$prefix_toolname}TabContent {
 	margin:-1px 0 1em 0;
 	padding:0;
 	border-style:solid;
@@ -1095,27 +1090,27 @@ input.#{$prefix_fw}ButtonCancel {
 	padding:20px 10px 0 10px;
 }
 .jqTab,
-.foswikiTab,
-.foswikiTabContent,
+.#{$prefix_toolname}Tab,
+.#{$prefix_toolname}TabContent,
 .jqTabContents {
 	background:none;
 	border:none;
 }
-.foswikiTabContent,
+.#{$prefix_toolname}TabContent,
 .jqTabContents {
 	border-top:1px solid #ccc;
 }
-.foswikiTabs ul li a,
-.foswikiTabs ul li a:hover,
-.foswikiTabs ul li span,
+.#{$prefix_toolname}Tabs ul li a,
+.#{$prefix_toolname}Tabs ul li a:hover,
+.#{$prefix_toolname}Tabs ul li span,
 .jqTabPaneSimple > .jqTabGroup a,
 .jqTabPaneSimple > .jqTabGroup a:hover {
 	border: none;
 	background: none;
 	color: #444;
 }
-.foswikiTabs ul li.foswikiActiveTab a,
-.foswikiTabs ul li.foswikiActiveTab a:hover,
+.#{$prefix_toolname}Tabs ul li.#{$prefix_toolname}ActiveTab a,
+.#{$prefix_toolname}Tabs ul li.#{$prefix_toolname}ActiveTab a:hover,
 .jqTabPaneSimple > .jqTabGroup li.current a,
 .jqTabPaneSimple > .jqTabGroup li.current a:hover {
 	border-style: solid;
@@ -1127,50 +1122,50 @@ input.#{$prefix_fw}ButtonCancel {
 
 /* default colors for Foswiki elements */
 	
-	.foswikiUnvisited a:visited,
-	.foswikiUnvisited a:hover,
-	a.foswikiUnvisited:visited,
-	a.foswikiUnvisited:hover {
+	.#{$prefix_toolname}Unvisited a:visited,
+	.#{$prefix_toolname}Unvisited a:hover,
+	a.#{$prefix_toolname}Unvisited:visited,
+	a.#{$prefix_toolname}Unvisited:hover {
 		color: $color_link;
 	}
 	
-	.foswikiGrayText {
+	.#{$prefix_toolname}GrayText {
 		color: #aaa;
 	}
 	
-	.foswikiBroadcastMessage,
-	.foswikiNotification,
-	.foswikiMessage {
+	.#{$prefix_toolname}BroadcastMessage,
+	.#{$prefix_toolname}Notification,
+	.#{$prefix_toolname}Message {
 		background-color:#fdf9df;
 	}
-	.foswikiAllowNonWikiWord {
+	.#{$prefix_toolname}AllowNonWikiWord {
 		background-color:#fff;
 	}
-	.foswikiHelp {
+	.#{$prefix_toolname}Help {
 		background-color:#e6fbe7;
 	}
-	.foswikiAlert,
-	.foswikiAlert code {
+	.#{$prefix_toolname}Alert,
+	.#{$prefix_toolname}Alert code {
 		color:#f00;
 	}
-	.foswikiTextarea,
-	.foswikiInputField,
-	.foswikiInputFieldDisabled,
-	.foswikiInputFieldReadOnly,
-	.foswikiSelect {
+	.#{$prefix_toolname}Textarea,
+	.#{$prefix_toolname}InputField,
+	.#{$prefix_toolname}InputFieldDisabled,
+	.#{$prefix_toolname}InputFieldReadOnly,
+	.#{$prefix_toolname}Select {
 		border-color:#ccc;
 	}
 	
-	.foswikiInputFieldReadOnly {
+	.#{$prefix_toolname}InputFieldReadOnly {
 		color: $color_hint;
 	}
-	.foswikiImage img {
+	.#{$prefix_toolname}Image img {
 		border-color:#ccc;
 	}
 	
-	.foswikiTable,
-	.foswikiTable td,
-	.foswikiTable th {
+	.#{$prefix_toolname}Table,
+	.#{$prefix_toolname}Table td,
+	.#{$prefix_toolname}Table th {
 		border-width:1px;
 		border-style:solid;
 		border-color:#e2e2e2;
@@ -1179,19 +1174,110 @@ input.#{$prefix_fw}ButtonCancel {
 
 /* javascript behaviour */
 
-.bsHideDetails .foswikiSearchResultMeta {
+.bsHideDetails .#{$prefix_toolname}SearchResultMeta {
 	display: none;
 }
-div.foswikiSearchResultMeta {
+div.#{$prefix_toolname}SearchResultMeta {
 	display: block;
 }
-span.foswikiSearchResultMeta {
+span.#{$prefix_toolname}SearchResultMeta {
 	display: inline;
 }
 
-/* extension specific */
+
+.#{$prefix_toolname}ManagePage {}
+
+/* EXTENSION SPECIFIC */
 
 /* CommentPlugin */
 .commentPluginPromptBox td {
 	vertical-align: middle;
+}
+
+/* Facebox */
+
+#facebox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  text-align: left;
+}
+
+
+#facebox .popup{
+  position:relative;
+  border:3px solid rgba(0,0,0,0);
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+  -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
+  -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
+  box-shadow:0 0 18px rgba(0,0,0,0.4);
+}
+
+#facebox .content {
+  display:table;
+  width: 370px;
+  padding: 10px;
+  background: #fff;
+  -webkit-border-radius:4px;
+  -moz-border-radius:4px;
+  border-radius:4px;
+}
+
+#facebox .content > p:first-child{
+  margin-top:0;
+}
+#facebox .content > p:last-child{
+  margin-bottom:0;
+}
+
+#facebox .close{
+  position:absolute;
+  top:5px;
+  right:5px;
+  padding:2px;
+  background:#fff;
+}
+#facebox .close img{
+  opacity:0.3;
+}
+#facebox .close:hover img{
+  opacity:1.0;
+}
+
+#facebox .loading {
+  text-align: center;
+}
+
+#facebox .image {
+  text-align: center;
+}
+
+#facebox img {
+  border: 0;
+  margin: 0;
+}
+
+#facebox_overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  height:100%;
+  width:100%;
+}
+
+.facebox_hide {
+  z-index:-100;
+}
+
+.facebox_overlayBG {
+  background-color: #000;
+  z-index: 99;
+}
+
+#facebox .#{$prefix_toolname}Page,
+#facebox .#{$prefix_toolname}Topic {
+	width: 0px + $ajax_content_width_px;
 }
