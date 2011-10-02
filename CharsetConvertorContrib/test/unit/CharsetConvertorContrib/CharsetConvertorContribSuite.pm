@@ -26,24 +26,24 @@ my %origFoswikiCfg = %Foswiki::cfg;
 # A selection of albhabetic character sequences in different encodings.
 # These are of course stored in the source code here in utf8.
 my %tests = (
-#    'iso-8859-1' => {
-#	web => 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏ',
-#	topic => 'ÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞ',
-#	content => 'ßàáâãäåæçèéêëìíî',
-#	attachment => 'ïðñòóôõöøùúûü.ýþÿ'
-#    },
+    'iso-8859-1' => {
+	web => 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏ',
+	topic => 'ÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞ',
+	content => 'ßàáâãäåæçèéêëìíî',
+	attachment => 'ïðñòóôõöøùúûü.ýþÿ'
+    },
     'cp-1251' => {
 	topic => 'АВБГДЕЖЗИЙКЛМНО',
 	web => 'ПРСТУФХЦЧШЩЪЫ',
 	content => 'ЬЭЮЯабвгдежзийклмно',
 	attachment => 'прстуфхцчшщъыь.эюя'
     },
-#    'koi8-r' => {
-#	web => 'юабцдефгхийклмнопярст',
-#	topic => 'ужвьызшэщчъЮАБЦДЕФ',
-#	content => 'ГХИЙКЛМНОПЯРСТУЖ',
-#	attachment => 'ВЬЫЗШЭ.ЩЧЪ'
-#    }
+    'koi8-r' => {
+	web => 'юабцдефгхийклмнопярст',
+	topic => 'ужвьызшэщчъЮАБЦДЕФ',
+	content => 'ГХИЙКЛМНОПЯРСТУЖ',
+	attachment => 'ВЬЫЗШЭ.ЩЧЪ'
+    }
 );
 
 sub new {
@@ -185,6 +185,9 @@ sub verify_conversion {
     $t = $meta->text();
     utf8::decode($t);
     $this->assert_str_equals($utf8->{content}, $t);
+
+    # TODO: check the content of the fixture.
+    # TODO: check what happens with encoded comments, user IDs etc
 
     # Clean up fixture
     $this->removeWebFixture($this->{session}, $this->{test_web});
