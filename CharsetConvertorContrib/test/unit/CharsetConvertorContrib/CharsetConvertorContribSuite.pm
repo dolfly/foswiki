@@ -26,23 +26,35 @@ my %origFoswikiCfg = %Foswiki::cfg;
 # A selection of albhabetic character sequences in different encodings.
 # These are of course stored in the source code here in utf8.
 my %tests = (
-    'iso-8859-1' => {
+    'iso-8859-1' => { # 8 bit, western
 	web => 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏ',
 	topic => 'ÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞ',
 	content => 'ßàáâãäåæçèéêëìíî',
 	attachment => 'ïðñòóôõöøùúûü.ýþÿ'
     },
-    'cp-1251' => {
+    'cp-1251' => { # 8 bit, Cyrillic
 	topic => 'АВБГДЕЖЗИЙКЛМНО',
 	web => 'ПРСТУФХЦЧШЩЪЫ',
 	content => 'ЬЭЮЯабвгдежзийклмно',
 	attachment => 'прстуфхцчшщъыь.эюя'
     },
-    'koi8-r' => {
+    'koi8-r' => { # 8 bit, Cyrillic
 	web => 'юабцдефгхийклмнопярст',
 	topic => 'ужвьызшэщчъЮАБЦДЕФ',
 	content => 'ГХИЙКЛМНОПЯРСТУЖ',
 	attachment => 'ВЬЫЗШЭ.ЩЧЪ'
+    },
+    'euc-jp' => { # multibyte encoding, hiragana and kanji
+	web => 'ぁあぃいぅうぇえぉおかがきぎく',
+	topic => 'ぐけげこごさざしじすずせぜそ',
+	content => '亜唖娃阿哀愛挨姶逢葵茜穐悪握',
+	attachment => '渥|旭葦芦鯵梓圧斡扱宛姐虻'
+    },
+    'big-5' => { # multibyte encoding, TW chinese
+	web => '纘纙臠臡虆虇虈襹襺襼襻觿讘讙躥',
+	topic => '躤躣鑮鑭鑯鑱鑳靉顲饟鱨鱮鱭鸋鸍鸐',
+	content => '鸏鸒鸑麡黵鼉齇齸齻齺齹圞灦籯蠼',
+	attachment => '釃鑴鑸鑶鑵驠鱴鱳鱱鱵鸔鸓黶鼊'
     }
 );
 
