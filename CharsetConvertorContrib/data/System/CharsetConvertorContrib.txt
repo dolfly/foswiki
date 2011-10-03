@@ -1,5 +1,4 @@
 <!--
-One line description, required for extensions repository catalog.
    * Set SHORTDESCRIPTION = Convert entire Foswiki RCS databases from one character set to another
 -->
 ---+!! CharsetConvertorContrib
@@ -8,8 +7,47 @@ One line description, required for extensions repository catalog.
 
 %TOC%
 
+To support international character sets, Foswiki is configured with a
+={Site}{CharSet}=, which sets the encoding used with
+character strings. This determines the range of characters (glyphs) that can be
+used in wiki topics, and for naming wiki topics and attachments.
+
+(To understand what this means on a technical level, read
+Foswiki:Development.UnderstandingEncodings)
+
+The default encoding used by Foswiki is iso-8859-1, which is a
+reasonable choice for many western languages.  However there are many
+other languages that have characters that do not appear in this charset
+(for example, Arabic, Chinese, Hebrew, Hindi). If you didn't consider the
+possibility, when you set up your wiki, that your users might want to
+include text using these characters, then you may well have accepted
+the default. Unfortunately once you have chosen a
+={Site}{CharSet}, it becomes impossible to use other character sets in
+topics, as the charset is associated with the entire wiki site, and not
+with individual topics.
+ 
+There is one global standard encoding, called UTF-8, which supports
+most character sets known in the world today. Ideally all Foswikis
+would use UTF-8, in which case this problem would go away. For this to
+work, there has to be some way to convert a wiki from and existing
+={Site}{CharSet}= to UTF-8.
+
+That's what this module does. Even if you don't have an immediate need
+for non-western character sets this is worth doing, as Foswiki is moving
+in the direction of standardising on UTF-8 for all data.
+ 
+Note that this module converts all the histories of all your topics,
+as well as the latest version of the topic. It also maps all web,
+topic and attachment names. It does not, however, touch the content of
+attachments.
+
 ---++ Installation
 %$INSTALL_INSTRUCTIONS%
+
+---++ Usage
+The convertor is used from the command-line on your wiki server (if you do not have access to the command line then we are sorry, but there is currently no way to use the conversion).
+
+To use the convertor, =cd= to the =tools= directory in your installation and =perl convert_charset.pl=. The script has built-in help information.
 
 ---++ Info
 
