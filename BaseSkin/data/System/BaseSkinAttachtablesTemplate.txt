@@ -53,10 +53,11 @@
 			<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkinFileIcons/%A_EXT%-large.png' />
 		</li><li class='foswikiSearchResultContents'>
 			<span class="foswikiSearchResultTitle"><a href="%ATTACHURLPATH%/%ENCODE{%A_FILE%}%"><noautolink>%A_FILE%</noautolink></a></span>
-			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"version [_1]" args="%A_REV%"}% &sdot; %MAKETEXT{"uploaded by [_1] on [_2]" args="%A_USER%, %A_DATE%"}% &sdot; %A_SIZE% %IF{
+			<div class='foswikiSearchResultMeta'>%MAKETEXT{"version [_1]" args="%A_REV%"}% &sdot; %MAKETEXT{"uploaded by [_1] on [_2]" args="%A_USER%, %A_DATE%"}% &sdot; %A_SIZE% %IF{
 					"'%A_REV%'!='1'"
 					then=" &sdot; <a href='%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%;tab=history' class='foswikiUnvisited bsVersions' data-controls-modal='my-modal' data-backdrop='static'>%MAKETEXT{"versions"}%</a>"
-				}% &sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">edit</a></span>
+				}% &sdot; <a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%?filename=%ENCODE{"%A_FILE%"}%" class="foswikiUnvisited" title="%MAKETEXT{"change, update, previous revisions, move, delete..."}%" rel="nofollow">edit</a></div>
+			<div class='foswikiSummary'> %A_COMMENT% </div>
 		</li>
 	</ul>
 </li>%TMPL:END%%{

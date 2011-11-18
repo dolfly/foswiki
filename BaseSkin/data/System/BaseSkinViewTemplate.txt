@@ -8,7 +8,7 @@ Base Skin topic template
 		- attachments
 		
 ===================================================
-}%%TMPL:INCLUDE{"document"}%%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
+}%%TMPL:INCLUDE{"view"}%%TMPL:INCLUDE{"document"}%%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
 ---------------------------------------------------
 	This is a view page
 ---------------------------------------------------

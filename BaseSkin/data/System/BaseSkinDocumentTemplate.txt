@@ -7,9 +7,9 @@
 	The document template defines the structure of the html document and should be included by all script topic templates.
 	
 ===================================================
-}%%TMPL:INCLUDE{"common"}%%{
+}%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"document"}%
+}%%TMPL:INCLUDE{"common"}%%TMPL:DEF{"document"}%
 %TMPL:P{"htmldoctype"}%
 %TMPL:P{"htmlstart"}%
 %TMPL:P{"head"}%
@@ -81,9 +81,5 @@
 	Allow other templates to easy add body class names. These should make sure that class 'foswikiNoJs' is always written.
 ---------------------------------------------------
 }%%TMPL:DEF{"body:class"}%foswikiNoJs%TMPL:END%%{
----------------------------------------------------
-	Render the document
----------------------------------------------------
-}%%TMPL:P{"document"}%%{
 ===================================================
 </verbatim>}%
