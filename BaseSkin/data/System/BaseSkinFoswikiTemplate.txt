@@ -1,0 +1,11 @@
+%TMPL:INCLUDE{"foswiki"}%
+%{
+---------------------------------------------------
+	Empty old foswiki.tmpl elements
+	These might get included
+---------------------------------------------------
+}%%TMPL:DEF{"standardheader"}%%TMPL:END%
+%TMPL:DEF{"topicinfo"}%%TMPL:END%
+%TMPL:DEF{"copyright"}%%TMPL:END%%{
+---------------------------------------------------
+}%

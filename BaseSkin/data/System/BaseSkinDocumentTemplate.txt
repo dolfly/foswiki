@@ -8,14 +8,6 @@
 	
 ===================================================
 }%%{
----------------------------------------------------
-	Empty old foswiki.tmpl elements
-	These might get included
----------------------------------------------------
-}%%TMPL:DEF{"standardheader"}%%TMPL:END%
-%TMPL:DEF{"topicinfo"}%%TMPL:END%
-%TMPL:DEF{"copyright"}%%TMPL:END%%{
----------------------------------------------------
 
 ---------------------------------------------------
 }%%TMPL:INCLUDE{"common"}%%TMPL:DEF{"document"}%

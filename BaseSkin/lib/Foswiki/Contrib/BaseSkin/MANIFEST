@@ -8,6 +8,7 @@ data/System/BaseSkinAttachtablesTemplate.txt 0644
 data/System/BaseSkinAttachTemplate.txt 0644
 data/System/BaseSkinCommonTemplate.txt 0644
 data/System/BaseSkinDocumentTemplate.txt 0644
+data/System/BaseSkinFoswikiTemplate.txt 0644
 data/System/BaseSkinFormtablesTemplate.txt 0644
 data/System/BaseSkinTestPage.txt 0644 # for testing the skin in the browser
 data/System/BaseSkinViewTemplate.txt 0644
