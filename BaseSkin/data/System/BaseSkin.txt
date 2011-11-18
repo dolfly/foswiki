@@ -10,6 +10,8 @@ Base skin to build other skins upon.
 ---++ About Base Skin
 TO WRITE
 
+=basecss= and =basejs= use [[http://twitter.github.com/bootstrap/][Twitter bootstrap]] to provide a base layer of user interface functionality.
+
 ---++ Modular skin parts
 Base Skin is built with modular, progressive parts, making it possible to load only the parts you need. For instance, you might only need the CSS, not the javascript of Base Skin.
 
