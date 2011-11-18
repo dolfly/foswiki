@@ -49,6 +49,19 @@
 		format=\"<link rel='stylesheet' href='$item' />\"
 	}$percnt"
 	requires="%requires%"
+}%%{
+---------------------------------------------------
+	Macro for including Less files from *system* paths
+	Takes as arguments:
+		- id
+		- file url, must NOT include .css extension
+		- requires
+---------------------------------------------------
+}%%TMPL:DEF{"LIBLESS"}%%ADDTOZONE{
+	"head-base"
+	id="%id%"
+	text="<link rel='stylesheet/less' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.less' />"
+	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
 	Topic actions

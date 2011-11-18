@@ -17,7 +17,6 @@ Base Skin topic template
 	Content container
 ---------------------------------------------------
 }%%TMPL:DEF{"content"}%<div class="foswikiTopic">
-<div class="foswikiTopic">
 <!-- TODO: CONTEXTUAL ACTIONS -->
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
 <div class="foswikiTopicText">
@@ -33,7 +32,6 @@ Base Skin topic template
 <!--
 sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar 
 -->
-</div><!--/foswikiTopic-->
 <div class="foswikiClear"></div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
@@ -63,11 +61,11 @@ sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar cont
 ---------------------------------------------------
 	Form tab
 ---------------------------------------------------
-}%%TMPL:DEF{"form"}%%TAB{"Data form"}%%META{"form"}%%ENDTAB%%TMPL:END%%{
+}%%TMPL:DEF{"form"}%%TAB{"%MAKETEXT{"Data"}%"}%%META{"form"}%%ENDTAB%%TMPL:END%%{
 ---------------------------------------------------
 	Atachments tab
 ---------------------------------------------------
-}%%TMPL:DEF{"attachments"}%%TAB{"Attachments (%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}%)"}%%META{"attachments"}%%ENDTAB% %TMPL:END%%{
+}%%TMPL:DEF{"attachments"}%%TAB{"%MAKETEXT{"Attachments ([_1])" args="%QUERY{"length(attachments[NOT lc(attr)=~'h']"}%"}%"}%%META{"attachments"}%%ENDTAB% %TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"attachments:top"}%%TMPL:END%%{
 ---------------------------------------------------

@@ -29,11 +29,7 @@
 			requires=\"\"
 			url=\"%BASESKIN_USE_CSS_FILE%\"
 			}$percnt"
-	else="$percntTMPL:P{
-			\"LIBCSS\"
-			id=\"BaseSkinCss/base\"
-			requires=\"\"
-		}$percnt"
+	else="$percntTMPL:P{\"_less\"}$percnt"
 }%%{
 ---------------------------------------------------
 	Loads CSSs file defined in BASESKIN_ADD_CSS_FILE if set
@@ -48,34 +44,26 @@
 			}$percnt"
 }%%TMPL:END%%{
 ---------------------------------------------------
-	Development only: if url param devgrid is 1, adds JavaScript to show a baseline grid on the page.
+}%%TMPL:DEF{"_less"}%%TMPL:P{
+	"LIBJS"
+	id="BaseSkinCss/less-1.1.3.min"
+	requires=""
+}%%TMPL:P{
+	"LIBLESS"
+	id="BaseSkinCss/baseskin-bootstrap"
+	requires=""
+}%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"head:script"}%%TMPL:PREV%%IF{
-	"defined devgrid AND $devgrid='1'"
-	then="$percntTMPL:P{
-		\"dev:baselinegrid\"
-	}$percnt"
-}%%TMPL:END%%{
----------------------------------------------------
-	Development only: adds the baseline grid script to the html head.
----------------------------------------------------
-}%%TMPL:DEF{"dev:baselinegrid"}%%ADDTOZONE{
-	"script"
-	id="baselinegrid"
-	text="<script type='text/javascript'>
-jQuery(document).ready(function() {
-    var $grid = $('<div></div>').addClass('foswikiDevGrid');
-    var lineHeight = 18; // approximately
-    var i, count = $('body').height() / lineHeight;
-    for (i=0; i < count; i=i+1) {
-        var $row = $('<div class=\"foswikiDevGridRow\"></div>');
-        $grid.append($row);
-    }
-    $('body').prepend($grid);
-    $('.foswikiTopic').addClass('foswikiDevGridCol');
-});
-</script>"
-	requires="JQUERYPLUGIN"
+}%%TMPL:DEF{"_css"}%%TMPL:P{
+	"LIBCSS"
+	id="BaseSkinCss/baseskin"
+	requires=""
 }%%TMPL:END%%{
 ===================================================
 </verbatim>}%
+
+
+
+
+
+

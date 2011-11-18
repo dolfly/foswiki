@@ -4,4 +4,5 @@ jQuery(document).ready(function() {
 			jQuery(this).focus();
 		}
 	);
+
 });

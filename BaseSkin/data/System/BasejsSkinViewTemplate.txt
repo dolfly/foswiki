@@ -18,6 +18,10 @@
 	"LIBJS"
 	id="BaseSkinJs/base"
 	requires="JavascriptFiles/foswikilib,JavascriptFiles/foswikiPref,JQUERYPLUGIN"
+}%%TMPL:P{
+	"LIBJS"
+	id="BaseSkinJs/bootstrap-modal"
+	requires="JQUERYPLUGIN"
 }%%TMPL:END%%TMPL:END%%{
 ===================================================
 </verbatim>}%
