@@ -10,6 +10,10 @@ Base Skin topic template
 ===================================================
 }%%TMPL:INCLUDE{"view"}%%TMPL:INCLUDE{"document"}%%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
 ---------------------------------------------------
+	Include TopicInteractionPlugin, if installed
+---------------------------------------------------
+}%%TMPL:INCLUDE{"metadata"}%%{
+---------------------------------------------------
 	This is a view page
 ---------------------------------------------------
 }%%TMPL:DEF{"body:class"}%foswikiViewPage%TMPL:END%%{
@@ -41,8 +45,13 @@ sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar cont
 }%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:END%%{
 ---------------------------------------------------
 	topic:after contains the form and attachment tab pane
+	Conditionally include TopicInteractionPlugin meta data
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:after"}%%TABPANE{class="simple"}%
+}%%TMPL:DEF{"topic:after"}%%TMPL:P{context="TopicInteractionPluginEnabled" then="metadata" else="topic:metadata:normal"}%%TMPL:END%%{
+---------------------------------------------------
+	Fallback if TopicInteractionPlugin is not enabled
+---------------------------------------------------
+}%%TMPL:DEF{"topic:metadata:normal"}%%TABPANE{class="simple"}%
 %IF{
 	"%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}% > 0"
 	then="$percntTMPL:P{
