@@ -56,10 +56,17 @@ blockquote:after {
 
 .container {
 	width: auto;
-	margin: 0 @fw_body_side_margin
+	max-width: 1150px;
+	margin: 0 auto;
+	padding: 0 20px;
 }
 
-
+@media screen and (max-width: 1150px) {
+	.container {
+		width: 100%;
+		margin: 0 auto;
+	}
+}
 
 /* Foswiki handy stuff */
 
