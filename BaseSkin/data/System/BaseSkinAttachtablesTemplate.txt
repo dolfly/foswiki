@@ -60,6 +60,7 @@
 			<div class='foswikiSummary'> %A_COMMENT% </div>
 		</li>
 	</ul>
+	<div class='foswikiClear'></div>
 </li>%TMPL:END%%{
 ---------------------------------------------------
 	Header for topic attachment table

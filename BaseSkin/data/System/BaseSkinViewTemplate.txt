@@ -42,20 +42,23 @@ Base Skin topic template
 ---------------------------------------------------
 	Topic actions (at top)
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:actions"}%<div class='foswikiTopicActions'><ul class="nav secondary-nav foswikiGrouped">
-		<li>
-			<a href='#' class=''>Edit</a>
-		</li>
-		<li class='dropdown' data-dropdown='dropdown'>
-			<a href='#' class='dropdown-toggle nolabel'></a>
-			<ul class='dropdown-menu'>
-			  <li><a href='#'>Secondary link</a></li>
-			  <li><a href='#'>Something else here</a></li>
-			  <li class='divider'></li>
-			  <li><a href='#'>Another link</a></li>
-			</ul>
-		</li>
-	</ul>
+}%%TMPL:DEF{"topic:actions"}%<div class='foswikiTopicActions'>
+	<div class='foswikiTopicActionsContents'>
+		<ul class="nav secondary-nav foswikiGrouped">
+			<li>
+				<a href='#' class=''>Edit</a>
+			</li>
+			<li class='dropdown' data-dropdown='dropdown'>
+				<a href='#' class='dropdown-toggle nolabel'></a>
+				<ul class='dropdown-menu'>
+				  <li><a href='#'>Secondary link</a></li>
+				  <li><a href='#'>Something else here</a></li>
+				  <li class='divider'></li>
+				  <li><a href='#'>Another link</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
 	topic:after contains the form and attachment tab pane

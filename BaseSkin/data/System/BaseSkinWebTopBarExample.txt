@@ -1,36 +1,41 @@
+<noautolink>
 <div class="topbar-wrapper">
 <div id="topbar-example" class="topbar" data-dropdown="dropdown">
-  <div class="topbar-inner">
-	<div class="container">
-	  <ul>
-	  	<li><strong><a href="#">Project Name</a></strong></li>
-		<li><a href="#">Link</a></li>
-		<li><a href="#">Link</a></li>
-	  </ul>
-	  <form action="">
-		<input type="text" placeholder="Search">
-	  </form>
-	  <ul class="nav secondary-nav">
-		<li class="menu">
-		  <a href="#" class="menu">Dropdown 1</a>
-		  <ul class="menu-dropdown">
-			<li><a href="#">Secondary link</a></li>
-			<li><a href="#">Something else here</a></li>
-			<li class="divider"></li>
-			<li><a href="#">Another link</a></li>
-		  </ul>
-		</li>
-		<li class="menu">
-		  <a href="#" class="menu">Dropdown 2</a>
-		  <ul class="menu-dropdown">
-			<li><a href="#">Secondary link</a></li>
-			<li><a href="#">Something else here</a></li>
-			<li class="divider"></li>
-			<li><a href="#">Another link</a></li>
-		  </ul>
-		</li>
-	  </ul>
-	</div>
-  </div>
+<div class="topbar-inner">
+<div class="container">
+<ul>
+<li><img src='%PUBURL%/%SYSTEMWEB%/BaseSkin/foswiki-logo-top.png' /></li>
+</ul>
+<form action="">
+<input type="text" placeholder="Search">
+</form>
+<ul>
+<li>[[%WEB%.%HOMETOPIC%][%WEB%]]</li>
+<li><span>&rarr;</span></li>
+<li>[[%TOPIC%][%TOPIC%]]</li>
+</ul>
+<ul class="nav secondary-nav">
+<li class="menu">
+<a href="#" class="menu">My groups</a>
+<ul class="menu-dropdown">
+<li><a href="#">Secondary link</a></li>
+<li><a href="#">Something else here</a></li>
+<li class="divider"></li>
+<li><a href="#">Another link</a></li>
+</ul>
+</li>
+<li class="menu">
+<a href="%SCRIPTURL{view}%/%USERSWEB%/%WIKINAME%" class="menu">%WIKINAME%</a>
+<ul class="menu-dropdown">
+<li><a href="#">Secondary link</a></li>
+<li><a href="#">Something else here</a></li>
+<li class="divider"></li>
+<li><a href="#">Another link</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
+</div>
+</div>
+</noautolink>

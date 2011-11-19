@@ -7,13 +7,13 @@ data/System/BaseSkinAttachNewTemplate.txt 0644
 data/System/BaseSkinAttachtablesTemplate.txt 0644
 data/System/BaseSkinAttachTemplate.txt 0644
 data/System/BaseSkinCommonTemplate.txt 0644
-data/System/BaseSkinDocumentTemplate.txt 0644
 data/System/BaseSkinFoswikiTemplate.txt 0644
 data/System/BaseSkinFormtablesTemplate.txt 0644
 data/System/BaseSkinTestPage.txt 0644 # for testing the skin in the browser
 data/System/BaseSkinViewTemplate.txt 0644
 data/System/BaseSkinWebTopBarExample.txt 0644
 data/System/BaseSkinWebTopBarTemplate.txt 0644
+pub/System/BaseSkin/foswiki-logo-top.png 0644
 pub/System/BaseSkinCss/baseskin-bootstrap.less 0644
 pub/System/BaseSkinCss/baseskin.less 0644 # the styles in less
 pub/System/BaseSkinCss/baseskin_src.css 0644 # the styles in css
