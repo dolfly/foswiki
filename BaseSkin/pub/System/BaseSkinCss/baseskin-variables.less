@@ -6,7 +6,6 @@
 // Links
 @linkColor:         #0069d6;
 @linkColorHover:    darken(@linkColor, 15);
-@linkColorGray:     #6699c9;
 
 // Grays
 @black:             #000;
@@ -17,10 +16,10 @@
 @white:             #fff;
 
 // Accent Colors
-@blue:              #2686b8;
-@blueDark:          darken(@blue, 10%);
+@blue:              #049CDB;
+@blueDark:          #0064CD;
 @green:             #46a546;
-@red:               #d24414;
+@red:               #9d261d;
 @yellow:            #ffc40d;
 @orange:            #f89406;
 @pink:              #c3325f;
@@ -28,7 +27,7 @@
 
 // Baseline grid
 @basefont:          13px;
-@baseline:          21px;
+@baseline:          18px;
 
 // Griditude
 // Modify the grid styles in mixins.less
@@ -52,7 +51,23 @@
 @analog2:           spin(@baseColor, -22);
 
 
+
+// More variables coming soon:
+// - @basefont to @baseFontSize
+// - @baseline to @baseLineHeight
+// - @baseFontFamily
+// - @primaryButtonColor
+// - anything else? File an issue on GitHub
+
+
+
+
+
 // Added variables and mixins for Foswiki
+
+@fw_link_color:       #0069d6;
+@linkColorHover:      darken(@linkColor, 15);
+@fw_link_color_gray:  #6699c9;
 
 @fw_font_family_main: sans-serif;
 @fw_font_family_serif: georgia, serif;
@@ -69,8 +84,6 @@
 @fw_body_line_height: 21; //$ratio_golden * $body_font_size; // could be a number as well, like 18 (pixels)
 
 @fw_block_corner: 3px;
-
-@fw_topbar_height: 40px;
 
 @fw_color_primary: #3fa209; // distinctive color
 @fw_color_header_main: @fw_color_primary;
@@ -152,11 +165,6 @@
 @fw_size_h2:       @fw_strand1_ratio_up_2;
 @fw_size_h1:       @fw_strand2_ratio_up_2;
 
-// get em size
-//@fw_em(@px_size) {
-//	0em + @px_size / @basefont;
-//}
-
 // block padding
 @fw_size_block_padding_em: 0em + @fw_strand1_ratio_up_1 / @basefont;
 @fw_size_block_padding_px: 0px + @fw_strand1_ratio_up_1;
@@ -169,7 +177,8 @@
 
 @fw_contentSidePadding: (@siteWidth - @fw_strand2_ratio_up_10) / 2;
 @fw_inner_content_width: @siteWidth - 2*@fw_contentSidePadding;
-
+@fw_topbar_height: 50px;
+@fw_body_side_margin: 0em + @fw_strand2_ratio_up_1 / @basefont;
 
 .fw_em_font_size(@size) {
 	font-size: 0em + (@size / @basefont);

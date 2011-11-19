@@ -38,16 +38,30 @@ Base Skin topic template
 	topic:before contains the form:top and attachments:top, if set (not inside a tab pane)
 	TODO: test this
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:END%%{
+}%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:P{"topic:actions"}%%TMPL:END%%{
+---------------------------------------------------
+	Topic actions (at top)
+---------------------------------------------------
+}%%TMPL:DEF{"topic:actions"}%<div class='foswikiTopicActions'><ul class="nav secondary-nav">
+  <li class="dropdown" data-dropdown="dropdown" >
+    <a href="#" class="dropdown-toggle">Edit</a>
+    <ul class="dropdown-menu">
+      <li><a href="#">Secondary link</a></li>
+      <li><a href="#">Something else here</a></li>
+      <li class="divider"></li>
+      <li><a href="#">Another link</a></li>
+    </ul>
+  </li>
+</ul></div>%TMPL:END%%{
 ---------------------------------------------------
 	topic:after contains the form and attachment tab pane
 	Conditionally include TopicInteractionPlugin meta data
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:after"}%%TMPL:P{context="TopicInteractionPluginEnabled" then="metadata" else="topic:metadata:normal"}%%TMPL:END%%{
+}%%TMPL:DEF{"topic:after"}%%TMPL:P{context="TopicInteractionPluginEnabled" then="metadata" else="topic:metadata:base"}%%TMPL:END%%{
 ---------------------------------------------------
 	Fallback if TopicInteractionPlugin is not enabled
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:metadata:normal"}%%TABPANE{class="simple"}%
+}%%TMPL:DEF{"topic:metadata:base"}%%TABPANE{class="simple"}%
 %IF{
 	"%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}% > 0"
 	then="$percntTMPL:P{

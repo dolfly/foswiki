@@ -53,7 +53,7 @@ blockquote:after {
 
 .container {
 	width: auto;
-	margin: 0 4em;
+	margin: 0 @fw_body_side_margin
 }
 
 
@@ -298,8 +298,6 @@ pre,
 	}
 }
 
-
-
 .foswikiBroadcastMessage,
 .foswikiNotification,
 .foswikiHelp {
@@ -317,6 +315,24 @@ pre,
 .foswikiMessage {
 	padding: 2px 4px;
 	background-color: lighten(@fw_color_background_message, 5%);
+}
+
+.foswikiTopicActions {
+	position: fixed;
+	top: @fw_topbar_height;
+	right: @fw_body_side_margin;
+	.nav {
+		margin: 0;
+		background: #fff;
+		border: 1px solid @fw_color_border_light;
+		a {
+			background: #fff;
+			color: #000;
+		}
+		a:hover {
+			color: #000;
+		}
+	}
 }
 
 /* tables */
@@ -565,7 +581,7 @@ img {
 	color: @fw_color_alert;
 }
 .foswikiEmulatedLink {
-	color: @linkColor;
+	color: @fw_link_color;
 }
 
 /* structural elements */
@@ -673,7 +689,7 @@ img {
 			
 			a:link,
 			a:visited {
-				color: @linkColorGray;
+				color: @fw_link_color_gray;
 			}
 		}
 	}
