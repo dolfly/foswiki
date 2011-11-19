@@ -9,7 +9,15 @@
 ===================================================
 }%%TMPL:INCLUDE{"common"}%%{
 	Document structure
+-------------------------------------------------
+}%
+%TMPL:DEF{"standardheader"}%%TMPL:END%
+%TMPL:DEF{"simpleheader"}%%TMPL:END%
+%TMPL:DEF{"topicinfo"}%%TMPL:END%
+%TMPL:DEF{"copyright"}%%TMPL:END%
+%{
 ---------------------------------------------------
+
 }%%TMPL:DEF{"document"}%
 %TMPL:P{"htmldoctype"}%
 %TMPL:P{"htmlstart"}%

@@ -7,7 +7,7 @@
 		- attachagain template
 		
 ===================================================
-}%%TMPL:INCLUDE{"document"}%%TMPL:INCLUDE{"view"}%%{
+}%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------
 	This is a manage page
 ---------------------------------------------------
