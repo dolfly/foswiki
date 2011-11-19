@@ -13,7 +13,7 @@
 ---------------------------------------------------
 	TODO Link to font should be added here
 ---------------------------------------------------
-}%%ADDTOZONE{
+}%%TMPL:DEF{"head:css"}%%ADDTOZONE{
 	"head-base"
 	id="font"
 	text=""

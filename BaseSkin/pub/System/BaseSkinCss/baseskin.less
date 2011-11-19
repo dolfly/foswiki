@@ -17,6 +17,23 @@ input[type=file] {
   }
 }
 
+.topbar {
+	height: @fw_topbar_height;
+	p {
+	    line-height: @fw_topbar_height;
+	}
+}
+
+/*
+.topbar div > ul,
+.nav {
+	a {
+		padding: 20px 10px 11px;
+		line-height: 20px;
+	}
+}
+*/
+
 .alert-message {
   &.block-message {
     background-color: lighten(@fw_color_background_message, 5%);
@@ -29,6 +46,14 @@ input[type=file] {
 blockquote:before,
 blockquote:after {
 	content: none;
+}
+
+
+/* override scaffolding */
+
+.container {
+	width: auto;
+	margin: 0 @fw_em(@fw_strand2_ratio_up_2);
 }
 
 
@@ -546,7 +571,7 @@ img {
 
 .foswikiTopic {
 	position: relative;
-	padding-top: 80px; // main menu
+	padding-top: 0em + @fw_strand1_ratio_up_3 / @basefont; // main menu
 	padding-bottom: 0em + @fw_strand1_ratio_up_2 / @basefont;
 }
 
@@ -598,14 +623,13 @@ img {
 		border-bottom: 1px solid @fw_color_border_light;
 		
 		.foswikiSearchResultImage img {
-			max-width: 90px;
+			max-width: 70px;
 			float:left;
 		}
 		.foswikiSearchResultTitle {
 			font-weight: bold;
 		}
 		.foswikiSearchResultContents {
-			margin:13px;
 			margin: 0 0 0 90px;
 		}
 	}

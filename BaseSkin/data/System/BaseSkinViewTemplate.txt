@@ -20,7 +20,7 @@ Base Skin topic template
 ---------------------------------------------------
 	Content container
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%<div class="foswikiTopic">
+}%%TMPL:DEF{"content"}%foswikiTopic: <div class="foswikiTopic">
 <!-- TODO: CONTEXTUAL ACTIONS -->
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
 <div class="foswikiTopicText">
@@ -32,10 +32,6 @@ Base Skin topic template
 </div>
 <div class="foswikiContentFooter">%TMPL:P{"topic:after"}%</div>
 </div>
-<div class="sidebar">
-<!--
-sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar sidebar contentsidebarsidebar contentsidebar sidebar contentsidebar 
--->
 <div class="foswikiClear"></div>
 </div>%TMPL:END%%{
 ---------------------------------------------------

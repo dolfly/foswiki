@@ -117,10 +117,11 @@
 		<li class='foswikiSearchResultImage'>
 			<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkinFileIcons/%A_EXT%-large.png' />
 		</li><li class='foswikiSearchResultContents'>
-			<span class="foswikiSearchResultTitle"><a href="%SCRIPTURL{viewfile}%/%WEB%/%TOPIC%?filename=%ENCODE{%A_FILE%}%;rev=%A_REV%"><noautolink>%MAKETEXT{"Version [_1]" args="%A_REV%"}%</noautolink></a></span>
+			<div class="foswikiSearchResultTitle"><a href="%SCRIPTURL{viewfile}%/%WEB%/%TOPIC%?filename=%ENCODE{%A_FILE%}%;rev=%A_REV%"><noautolink>%MAKETEXT{"Version [_1]" args="%A_REV%"}%</noautolink></a></div>
 			<div class='foswikiSummary'> %A_COMMENT% </div><span class='foswikiSearchResultMeta'>%MAKETEXT{"uploaded by [_1] on [_2]" args="[[%A_USER%][%A_USERNAME%]], %A_DATE%"}%</span>
 		</li>
 	</ul>
+	<div class='foswikiClear'></div>
 </li>%TMPL:END%%{
 ---------------------------------------------------
 	Footer for versions table in attach screen

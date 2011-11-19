@@ -7,10 +7,10 @@
 	The document template defines the structure of the html document and should be included by all script topic templates.
 	
 ===================================================
-}%%{
-
+}%%TMPL:INCLUDE{"common"}%%{
+	Document structure
 ---------------------------------------------------
-}%%TMPL:INCLUDE{"common"}%%TMPL:DEF{"document"}%
+}%%TMPL:DEF{"document"}%
 %TMPL:P{"htmldoctype"}%
 %TMPL:P{"htmlstart"}%
 %TMPL:P{"head"}%

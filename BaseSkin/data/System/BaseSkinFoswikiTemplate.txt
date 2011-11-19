@@ -1,11 +1,17 @@
-%TMPL:INCLUDE{"foswiki"}%
-%{
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+	
+	This is the most top level template.
+	
+===================================================
+}%%TMPL:INCLUDE{"foswiki"}%%{
 ---------------------------------------------------
-	Empty old foswiki.tmpl elements
-	These might get included
+	Clear out legacy foswiki.tmpl elements
+	These might get included when an overriding skin still uses these elements
 ---------------------------------------------------
 }%%TMPL:DEF{"standardheader"}%%TMPL:END%
 %TMPL:DEF{"topicinfo"}%%TMPL:END%
 %TMPL:DEF{"copyright"}%%TMPL:END%%{
----------------------------------------------------
-}%
+===================================================
+</verbatim>}%

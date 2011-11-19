@@ -58,7 +58,6 @@
 @fw_font_family_serif: georgia, serif;
 @fw_font_family_code: Monaco, Andale Mono, Courier New, monospace; 
 
-
 @fw_strand1_init: @basefont;
 @fw_strand2_init: 16;
 
@@ -70,6 +69,8 @@
 @fw_body_line_height: 21; //$ratio_golden * $body_font_size; // could be a number as well, like 18 (pixels)
 
 @fw_block_corner: 3px;
+
+@fw_topbar_height: 40px;
 
 @fw_color_primary: #3fa209; // distinctive color
 @fw_color_header_main: @fw_color_primary;
@@ -150,6 +151,11 @@
 @fw_size_h3:       @fw_strand2_ratio_up_1;
 @fw_size_h2:       @fw_strand1_ratio_up_2;
 @fw_size_h1:       @fw_strand2_ratio_up_2;
+
+// get em size
+@fw_em(@px_size) {
+	0em + @px_size / @basefont;
+}
 
 // block padding
 @fw_size_block_padding_em: 0em + @fw_strand1_ratio_up_1 / @basefont;
