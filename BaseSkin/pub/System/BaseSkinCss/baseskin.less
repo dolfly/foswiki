@@ -22,6 +22,9 @@ input[type=file] {
 	p {
 	    line-height: @fw_topbar_height;
 	}
+	input {
+		border: none;
+	}
 }
 
 /*
@@ -57,7 +60,91 @@ blockquote:after {
 }
 
 
-/* Foswiki default styles */
+
+/* Foswiki handy stuff */
+
+.dropdown-btn {
+	.menu-dropdown,
+	ul.dropdown-menu {
+		background-color: #fff;
+		li a {
+			color: #333;
+			text-shadow: none;
+		}
+		.active a {
+			color: @white;
+		}
+		li.divider {
+			background-color: @fw_color_border_dark;
+			border: none;
+			height: 1px;
+		}
+	}
+}
+
+.foswikiGrouped li {
+    float: left;
+    border-radius: 0;
+    margin-left:-1px;
+}
+.foswikiGrouped li:nth-child(n+2) {
+    border-left: none;
+}
+.foswikiGrouped li:first-child {
+    border-radius: @fw_block_corner 0 0 @fw_block_corner;
+}
+.foswikiGrouped li:last-child {
+    border-radius: 0px @fw_block_corner @fw_block_corner 0px;
+}
+
+.foswikiTopic .nav {
+	margin: 0;
+	padding: 0;
+	li {
+		background: #fff;
+		border: 1px solid @fw_color_border_light;
+	}
+	a,
+	a:hover {
+		background: transparent;
+		color: #000;
+	}
+	a,
+	a.dropdown-toggle {
+		margin: 0;
+		padding: 4px 8px 5px; // a bit smaller than .btn
+		color: #999;
+	}
+	a.dropdown-toggle::after {
+		border-top: 4px solid @fw_color_text_light;
+	}
+	// dropdown without a label
+	a.dropdown-toggle.nolabel {
+		padding-left: 6px; // even less wide
+		padding-right: 6px;
+	}
+	a.dropdown-toggle.nolabel::after {
+		margin-left: 0;
+	}
+	.dropdown.open a.dropdown-toggle {
+		background: #fff;
+		color: #000;
+	}
+	ul.dropdown-menu {
+		top: auto;
+		background-color: @fw_color_tool_background_gradient_light;
+		li {
+			float: none;
+			background: none;
+			.border-radius(0);
+			border: none;
+		}
+	}
+}
+
+
+
+/* Foswiki styles */
 
 body {
 	font-size: 0px + @basefont;
@@ -319,20 +406,10 @@ pre,
 
 .foswikiTopicActions {
 	position: fixed;
-	top: @fw_topbar_height;
+	top: @fw_topbar_height + 5;
 	right: @fw_body_side_margin;
-	.nav {
-		margin: 0;
-		background: #fff;
-		border: 1px solid @fw_color_border_light;
-		a {
-			background: #fff;
-			color: #000;
-		}
-		a:hover {
-			color: #000;
-		}
-	}
+	
+	.dropdown-btn();
 }
 
 /* tables */
