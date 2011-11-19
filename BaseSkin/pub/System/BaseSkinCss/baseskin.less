@@ -208,7 +208,6 @@ pre,
 .foswikiBroadcastMessage,
 .foswikiNotification {
 	.fw_block_padding_all();
-	
 	li {
 		list-style-type: circle;
 	}
@@ -253,6 +252,7 @@ blockquote {
 		.fw_em_line_height(@fw_size_code);
 		background-color: @fw_color_background_neutral;
 		border: 1px solid @fw_color_border_light;
+		.border-radius(0);
 	}
 }
 
@@ -305,6 +305,7 @@ pre,
 .foswikiHelp {
 	.alert-message();
 	.alert-message.block-message();
+	.border-radius(0);
 }
 .foswikiBroadcastMessage,
 .foswikiNotification {
