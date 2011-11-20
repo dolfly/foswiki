@@ -8,20 +8,45 @@ Base Skin topic template
 		- attachments
 		
 ===================================================
-}%%TMPL:INCLUDE{"view"}%%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
+}%%TMPL:INCLUDE{"view"}%
+%TMPL:INCLUDE{"topicactionbuttons"}%
+%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
 ---------------------------------------------------
 	Include TopicInteractionPlugin, if installed
 ---------------------------------------------------
 }%%TMPL:INCLUDE{"metadata"}%%{
 ---------------------------------------------------
-	This is a view page
+	CSS class for body element says this is a view page
 ---------------------------------------------------
 }%%TMPL:DEF{"body:class"}%foswikiViewPage%TMPL:END%%{
 ---------------------------------------------------
+	Controls:
+		- breadcrumbs
+		- topic actions
+---------------------------------------------------
+}%%TMPL:DEF{"controls"}%<div class='foswikiTopicActions'>
+	<div class='foswikiTopicActionsContents'>
+		<ul class="foswikiNavigationControl foswikiSecondaryNavigationControl foswikiButtonGroup">
+			<li>
+				%TMPL:P{"edit_or_create"}%
+			</li>
+			<li class='dropdown' data-dropdown='dropdown'>
+				<a href='#' class='dropdown-toggle nolabel'></a>
+				<ul class='dropdown-menu'>
+				  <li><a href='#'>Secondary link</a></li>
+				  <li><a href='#'>Something else here</a></li>
+				  <li class='divider'></li>
+				  <li><a href='#'>Another link</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class='foswikiClear'></div>
+</div>%TMPL:END%%{
+---------------------------------------------------
 	Content container
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%foswikiTopic: <div class="foswikiTopic">
-<!-- TODO: CONTEXTUAL ACTIONS -->
+}%%TMPL:DEF{"content"}%<div class="foswikiTopic">%TMPL:P{"controls"}%
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
 <div class="foswikiTopicText">
 #PageTop
@@ -39,27 +64,6 @@ Base Skin topic template
 	TODO: test this
 ---------------------------------------------------
 }%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:P{"topic:actions"}%%TMPL:END%%{
----------------------------------------------------
-	Topic actions (at top)
----------------------------------------------------
-}%%TMPL:DEF{"topic:actions"}%<div class='foswikiTopicActions'>
-	<div class='foswikiTopicActionsContents'>
-		<ul class="nav secondary-nav foswikiGrouped">
-			<li>
-				<a href='#' class=''>Edit</a>
-			</li>
-			<li class='dropdown' data-dropdown='dropdown'>
-				<a href='#' class='dropdown-toggle nolabel'></a>
-				<ul class='dropdown-menu'>
-				  <li><a href='#'>Secondary link</a></li>
-				  <li><a href='#'>Something else here</a></li>
-				  <li class='divider'></li>
-				  <li><a href='#'>Another link</a></li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-</div>%TMPL:END%%{
 ---------------------------------------------------
 	topic:after contains the form and attachment tab pane
 	Conditionally include TopicInteractionPlugin meta data

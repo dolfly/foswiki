@@ -4,7 +4,7 @@
     
     The basejs template adds JavaScript files to the html head
 ===================================================
-}%%TMPL:INCLUDE{"view"}%%{
+}%%TMPL:INCLUDE{"foswiki"}%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"head:script"}%%TMPL:PREV%%TMPL:P{
 	"LIBJS"

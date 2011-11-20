@@ -8,6 +8,8 @@ input[type=file] {
 	color: @fw_color_text;
 }
 
+
+
 /* override patterns.less */
 
 .tabs {
@@ -18,6 +20,10 @@ input[type=file] {
   }
 }
 
+.btn {
+	.border-radius(@fw_block_corner);
+}
+  
 .topbar {
 	height: @fw_topbar_height;
 	line-height: @fw_topbar_height;
@@ -35,25 +41,17 @@ input[type=file] {
 		@tmp_baseline: 13px;
 		height: @tmp_baseline * 1.5; // In IE7, the height of the select element cannot be changed by height, only font-size
 		line-height: @tmp_baseline * 1.5;
+		.border-radius(@fw_block_corner);
 	}
 
 	span {
+		// same as links on black
 		display: block;
-		color: #BFBFBF;
+		color: #bfbfbf;
 		padding: 9px 2px;
 	}
 	
 }
-
-/*
-.topbar div > ul,
-.nav {
-	a {
-		padding: 20px 10px 11px;
-		line-height: 20px;
-	}
-}
-*/
 
 .alert-message {
   &.block-message {
@@ -62,12 +60,15 @@ input[type=file] {
   }
 }
 
+
+
 /* override reset.less */
 
 blockquote:before,
 blockquote:after {
 	content: none;
 }
+
 
 
 /* override scaffolding */
@@ -86,9 +87,12 @@ blockquote:after {
 	}
 }
 
+
+
 /* Foswiki handy stuff */
 
-.dropdown-btn {
+
+.fw_dropdown_btn {
 	.menu-dropdown,
 	ul.dropdown-menu {
 		background-color: #fff;
@@ -103,72 +107,6 @@ blockquote:after {
 			background-color: @fw_color_border_dark;
 			border: none;
 			height: 1px;
-		}
-	}
-}
-
-.foswikiGrouped li {
-    float: left;
-    border-radius: 0;
-    margin-left:-1px;
-}
-.foswikiGrouped li:nth-child(n+2) {
-    border-left: none;
-}
-.foswikiGrouped li:first-child {
-    border-radius: @fw_block_corner 0 0 @fw_block_corner;
-}
-.foswikiGrouped li:last-child {
-    border-radius: 0px @fw_block_corner @fw_block_corner 0px;
-}
-
-.foswikiTopic .nav {
-	margin: 0;
-	padding: 0;
-	li {
-		background-color: rgba(255,255,255,0.9);
-		border: 1px solid @fw_color_border_light;
-	}
-	li:hover {
-		background: #fff;
-	}
-	a,
-	a:hover {
-		background: transparent;
-		color: #000;
-	}
-	a,
-	a.dropdown-toggle {
-		margin: 0;
-		padding: 3px 9px 4px; // a bit smaller than .btn
-		color: #999;
-	}
-	a.dropdown-toggle::after {
-		border-top: 4px solid @fw_color_text_light;
-	}
-	a:hover.dropdown-toggle::after {
-		border-top: 4px solid @fw_color_text;
-	}
-	// dropdown without a label
-	a.dropdown-toggle.nolabel {
-		padding-left: 6px; // even less wide
-		padding-right: 6px;
-	}
-	a.dropdown-toggle.nolabel::after {
-		margin-left: 0;
-	}
-	.dropdown.open a.dropdown-toggle {
-		background: #fff;
-		color: #000;
-	}
-	ul.dropdown-menu {
-		top: auto;
-		background-color: @fw_color_tool_background_gradient_light;
-		li {
-			float: none;
-			background: none;
-			.border-radius(0);
-			border: none;
 		}
 	}
 }
@@ -442,14 +380,10 @@ pre,
 	z-index: 1; // to make it appear on top of elements in .foswikiTopic
 	position: absolute;
 
-	top: @fw_topbar_height;
+	.fw_em_margin_top(@fw_size_p);
 	right: @fw_body_side_margin;
 	
-	.dropdown-btn();
-	
-	.foswikiGrouped li {
-//		.border-radius(0);
-	}
+	.fw_dropdown_btn();
 	
 	// put all inside a new div to get it fixed within the parent container
 	.foswikiTopicActionsContents {
@@ -458,6 +392,83 @@ pre,
 		margin-left: -100%;
 	}
 }
+
+.foswikiButtonGroup li {
+    float: left;
+    .border-radius(@fw_block_corner);
+}
+.foswikiButtonGroup li:nth-child(n+2) {
+    border-left: none;
+}
+.foswikiButtonGroup li:first-child {
+    .border-radius(@fw_block_corner 0 0 @fw_block_corner);
+}
+.foswikiButtonGroup li:last-child {
+    .border-radius(0px @fw_block_corner @fw_block_corner 0px);
+}
+
+.foswikiNavigationControl {
+	.nav();
+	margin: 0;
+	padding: 0;
+	li {
+		background-color: rgba(255,255,255,0.93);
+		border: 1px solid @fw_color_border_light;
+	}
+	li:hover {
+		background: #fff;
+	}
+	a {
+		text-shadow: 0 1px 1px rgba(255,255,255,.75);
+		@shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+		color: #000;
+	}
+	a:hover {
+		background-color: @fw_color_tool_background_gradient_light;
+		color: #000;
+	}
+	a,
+	a.dropdown-toggle {
+		margin: 0;
+		padding: 3px 9px 4px; // a bit smaller than .btn
+		color: #666;
+	}
+	a.dropdown-toggle::after {
+		border-top: 4px solid @fw_color_text_light;
+	}
+	a:hover.dropdown-toggle::after,
+	.dropdown.open a.dropdown-toggle::after {
+		border-top: 4px solid @fw_color_text;
+	}
+	// dropdown without a label
+	a.dropdown-toggle.nolabel {
+		padding-left: 6px; // even less wide
+		padding-right: 6px;
+	}
+	a.dropdown-toggle.nolabel::after {
+		margin-left: 0;
+	}
+	.dropdown.open a.dropdown-toggle {
+		background-color: @fw_color_tool_background_gradient_light;
+		color: #000;
+	}
+	ul.dropdown-menu {
+		top: auto;
+		margin-top: -2px;
+		background-color: @fw_color_tool_background_gradient_light;
+		li {
+			float: none;
+			background: none;
+			.border-radius(0);
+			border: none;
+		}
+	}
+}
+.foswikiSecondaryNavigationControl {
+	.nav.secondary-nav();
+}
+
+
 
 /* tables */
 
@@ -678,6 +689,10 @@ a:hover .foswikiAccessKey {
 	text-decoration:none;
 	border:none;
 }
+.foswikiTopicActions .foswikiAccessKey {
+	text-decoration:none;
+	border:none;
+}
 img {
 	border: 0;
 	vertical-align: middle;
@@ -712,8 +727,12 @@ img {
 
 .foswikiTopic {
 	position: relative;
-	padding-top: 0em + @fw_strand1_ratio_up_3 / @basefont; // main menu
+	padding-top: 0;
 	padding-bottom: 0em + @fw_strand1_ratio_up_3 / @basefont;
+}
+
+.foswikiHeader {
+	margin: 0 0 @fw_topbar_height 0;
 }
 
 .foswikiToolHeader {
@@ -727,7 +746,14 @@ img {
 
 .foswikiToolbar,
 .foswikiWell {
-	ul.foswikiToolButtonRow {
+
+	.well();
+	.border-radius(0);
+  	.box-shadow(0 0px 0px rgba(0,0,0,0));
+	.fw_menu_padding_all();
+	margin-bottom: @fw_size_padding_menu_em;
+
+	.foswikiToolButtonRow {
 		position: relative;
 		margin: 0;
 		padding: 0;
@@ -739,9 +765,6 @@ img {
 			margin-right: 5px;
 		}
 	}
-	span {
-		margin-left: 1em;
-	}
 
 	a:link,
 	a:visited {
@@ -751,8 +774,14 @@ img {
 	.foswikiSort {
 		float: left;
 	}
+	
+	.foswikiToolbarHeader {
+		float: left;
+		line-height: 1;
+		.fw_em_font_size(@fw_size_h5);
+		.fw_menu_padding_all();
+	}
 }
-
 
 
 /* search results */
@@ -838,19 +867,11 @@ img {
 
 .foswikiForm {
 
-	.foswikiWell {
+	.foswikiToolbar {
 		margin-left: -@fw_size_padding_menu_px;
 		margin-right: -@fw_size_padding_menu_px;
 	}
 	
-}
-
-.foswikiToolbar {
-	.well();
-	.border-radius(0);
-  	.box-shadow(0 0px 0px rgba(0,0,0,0));
-	.fw_menu_padding_all();
-	margin-bottom: @fw_size_padding_menu_em;
 }
 
 /* JQueryPlugin styles */

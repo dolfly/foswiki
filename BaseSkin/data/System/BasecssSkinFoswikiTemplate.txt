@@ -9,7 +9,7 @@
 		- files defined in BASESKIN_ADD_CSS_FILE
 		- CSS text defined in BASESKIN_ADD_CSS
 ===================================================
-}%%TMPL:INCLUDE{"view"}%%{
+}%%TMPL:INCLUDE{"foswiki"}%%{
 ---------------------------------------------------
 	TODO Link to font should be added here
 ---------------------------------------------------

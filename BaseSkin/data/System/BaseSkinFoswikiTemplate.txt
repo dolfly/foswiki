@@ -34,6 +34,8 @@
 }%%TMPL:DEF{"htmlstart"}%<html lang="%LANG%" class="no-js">%TMPL:END%
 %TMPL:DEF{"htmlend"}%</html>%TMPL:END%%{
 ---------------------------------------------------
+	head
+---------------------------------------------------
 }%%TMPL:DEF{"head"}%<head>
 %TMPL:P{"head:windowtitle"}%
 %TMPL:P{"head:meta"}%%TMPL:P{"head:script"}%%TMPL:P{"head:css"}%%{
@@ -41,17 +43,6 @@
 }%%RENDERZONE{"head"}%%{
 	Render base skin CSS files after all other CSS files
 }%%RENDERZONE{"head-meta"}%%RENDERZONE{"head-base"}%%RENDERZONE{"script"}%</head>%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"body"}%<body class="%TMPL:P{"body:class"}%">
-%TMPL:P{"page"}%
-</body>%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"page"}%<section class="foswikiPage">
-<nav class="foswikiHeader">
-%TMPL:P{"topbar"}%
-</nav>
-%TMPL:P{"content"}%
-</section>%TMPL:END%%{
 ---------------------------------------------------
 	TODO: add more meta macros for author, keywords, dublincore (see natskin)
 ---------------------------------------------------
@@ -87,6 +78,25 @@
 }%%TMPL:DEF{"head:windowtitle:separator"}% | %TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"head:windowtitle"}%<title>%TMPL:P{"titleaction"}% <nop>%BASETOPIC%%TMPL:P{"head:windowtitle:separator"}%%BASEWEB%%TMPL:P{"head:windowtitle:separator"}%<nop>%WIKITOOLNAME%</title>%TMPL:END%%{
+---------------------------------------------------
+	body
+---------------------------------------------------
+}%%TMPL:DEF{"body"}%<body class="%TMPL:P{"body:class"}%">
+%TMPL:P{"page"}%
+</body>%TMPL:END%%{
+---------------------------------------------------
+	foswikiPage:
+		- top bar
+		- content
+---------------------------------------------------
+}%%TMPL:DEF{"page"}%<section class="foswikiPage">
+%TMPL:P{"topbar"}%%TMPL:P{"content"}%
+</section>%TMPL:END%%{
+---------------------------------------------------
+	Provide empty defaults
+---------------------------------------------------
+}%%TMPL:DEF{"topbar"}%%TMPL:END%
+%TMPL:DEF{"content"}%%TMPL:END%%{
 ---------------------------------------------------
 	Allow other templates to easy add body class names. These should make sure that class 'foswikiNoJs' is always written.
 ---------------------------------------------------
