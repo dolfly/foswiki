@@ -7,7 +7,9 @@
 	The document template defines the structure of the html document and should be included by all script topic templates.
 	
 ===================================================
-}%%TMPL:INCLUDE{"foswiki"}%%TMPL:INCLUDE{"common"}%%{
+}%%TMPL:INCLUDE{"foswiki"}%
+%TMPL:INCLUDE{"common"}%
+%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
 	Document structure
 -------------------------------------------------
 }%
@@ -90,13 +92,12 @@
 		- content
 ---------------------------------------------------
 }%%TMPL:DEF{"page"}%<section class="foswikiPage">
-%TMPL:P{"topbar"}%%TMPL:P{"content"}%
+%TMPL:P{"topbar"}%<div class="foswikiTopic">%TMPL:P{"content"}%</div>
 </section>%TMPL:END%%{
 ---------------------------------------------------
 	Provide empty defaults
 ---------------------------------------------------
-}%%TMPL:DEF{"topbar"}%%TMPL:END%
-%TMPL:DEF{"content"}%%TMPL:END%%{
+}%%TMPL:DEF{"content"}%%TMPL:END%%{
 ---------------------------------------------------
 	Allow other templates to easy add body class names. These should make sure that class 'foswikiNoJs' is always written.
 ---------------------------------------------------

@@ -102,7 +102,7 @@ blockquote:after {
 	ul.dropdown-menu {
 		background-color: #fff;
 		li a {
-			color: #333;
+			color: @fw_color_text_toned_down;
 			text-shadow: none;
 		}
 		.active a {
@@ -294,7 +294,7 @@ pre,
 blockquote {
 	padding-top: 0;
 	padding-bottom: 0;
-	font-family: georgia, serif;
+	font-family: @fw_font_family_main;
 	font-style: italic;
 }
 
@@ -385,7 +385,7 @@ pre,
 	z-index: 1; // to make it appear on top of elements in .foswikiTopic
 	position: absolute;
 
-	.fw_em_margin_top(@fw_size_p);
+	top: 5px;
 	right: @fw_body_side_margin;
 	
 	.fw_dropdown_btn();
@@ -400,7 +400,7 @@ pre,
 
 .foswikiButtonGroup li {
     float: left;
-    .border-radius(@fw_block_corner);
+    .border-radius(0);
 }
 .foswikiButtonGroup li:nth-child(n+2) {
     border-left: none;
@@ -417,7 +417,7 @@ pre,
 	margin: 0;
 	padding: 0;
 	li {
-		background-color: rgba(255,255,255,0.93);
+		background-color: rgba(255,255,255,0.9);
 		border: 1px solid @fw_color_border_light;
 	}
 	li:hover {
@@ -732,7 +732,7 @@ img {
 
 .foswikiTopic {
 	position: relative;
-	padding-top: 0;
+	padding-top: 0em + @fw_strand1_ratio_up_1 / @basefont;
 	padding-bottom: 0em + @fw_strand1_ratio_up_3 / @basefont;
 }
 
@@ -767,7 +767,7 @@ img {
 		
 		li {
 			float: left;
-			margin-right: 5px;
+			margin-left: 5px;
 		}
 	}
 
@@ -783,8 +783,8 @@ img {
 	.foswikiToolbarHeader {
 		float: left;
 		line-height: 1;
-		.fw_em_font_size(@fw_size_h5);
-		.fw_menu_padding_all();
+		.fw_em_font_size(@fw_size_h6);
+		.fw_menu_padding_vertical_only();
 	}
 }
 
@@ -876,7 +876,6 @@ img {
 		margin-left: -@fw_size_padding_menu_px;
 		margin-right: -@fw_size_padding_menu_px;
 	}
-	
 }
 
 /* JQueryPlugin styles */
@@ -903,7 +902,6 @@ img {
 .foswikiTabs ul li a:hover,
 .foswikiTabs ul li a:visited {
 	text-decoration:none;
-	.border-radius(0);
 }
 .foswikiTabs ul li a,
 .foswikiTabs ul li span {
@@ -939,10 +937,9 @@ img {
 .foswikiTabs ul li span,
 .jqTabPaneSimple > .jqTabGroup a,
 .jqTabPaneSimple > .jqTabGroup a:hover {
-	.border-radius(0);
 	border: none;
 	background: none;
-	color: #444;
+	color: @fw_color_text_toned_down;
 }
 .foswikiTabs ul li.foswikiActiveTab a,
 .foswikiTabs ul li.foswikiActiveTab a:hover,
@@ -952,6 +949,12 @@ img {
 	border-width: 1px;
 	border-color: #ccc #ccc #fff #ccc;
 	margin:-1px -1px 0 -1px;
+	font-weight: bold;
+	color: @fw_color_text;
+	
+	span {
+		font-weight: normal;
+	}
 }
 .jqTabPaneSimple > .jqTabGroup a:hover {
 	background: #eee;

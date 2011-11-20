@@ -9,8 +9,7 @@ Base Skin topic template
 		
 ===================================================
 }%%TMPL:INCLUDE{"view"}%
-%TMPL:INCLUDE{"topicactionbuttons"}%
-%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
+%TMPL:INCLUDE{"topicactionbuttons"}%%{
 ---------------------------------------------------
 	Include TopicInteractionPlugin, if installed
 ---------------------------------------------------
@@ -30,6 +29,9 @@ Base Skin topic template
 			<li>
 				%TMPL:P{"edit_or_create"}%
 			</li>
+			<li>
+				%TMPL:P{"subscribe_link"}%
+			</li>
 			<li class='dropdown' data-dropdown='dropdown'>
 				<a href='#' class='dropdown-toggle nolabel'></a>
 				<ul class='dropdown-menu'>
@@ -46,7 +48,7 @@ Base Skin topic template
 ---------------------------------------------------
 	Content container
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%<div class="foswikiTopic">%TMPL:P{"controls"}%
+}%%TMPL:DEF{"content"}%%TMPL:P{"controls"}%
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
 <div class="foswikiTopicText">
 #PageTop
@@ -58,7 +60,7 @@ Base Skin topic template
 <div class="foswikiContentFooter">%TMPL:P{"topic:after"}%</div>
 </div>
 <div class="foswikiClear"></div>
-</div>%TMPL:END%%{
+%TMPL:END%%{
 ---------------------------------------------------
 	topic:before contains the form:top and attachments:top, if set (not inside a tab pane)
 	TODO: test this
@@ -95,7 +97,7 @@ Base Skin topic template
 ---------------------------------------------------
 	Atachments tab
 ---------------------------------------------------
-}%%TMPL:DEF{"attachments"}%%TAB{"%MAKETEXT{"Attachments ([_1])" args="%QUERY{"length(attachments[NOT lc(attr)=~'h']"}%"}%"}%%META{"attachments"}%%ENDTAB% %TMPL:END%%{
+}%%TMPL:DEF{"attachments"}%%TAB{"%MAKETEXT{"Attachments [_1]" args="<span>%QUERY{"length(attachments[NOT lc(attr)=~'h']"}%</span>"}%"}%%META{"attachments"}%%ENDTAB% %TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"attachments:top"}%%TMPL:END%%{
 ---------------------------------------------------
