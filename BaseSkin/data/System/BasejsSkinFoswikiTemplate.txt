@@ -26,6 +26,10 @@
 	"LIBJS"
 	id="BaseSkinJs/bootstrap-dropdown"
 	requires="JQUERYPLUGIN"
-}%%TMPL:END%%TMPL:END%%{
+}%%{
+---------------------------------------------------
+	Add smooth inpage scrolling; see System.JQueryLocalScroll
+---------------------------------------------------
+}%%JQREQUIRE{"localscroll"}%%TMPL:END%%TMPL:END%%{
 ===================================================
 </verbatim>}%

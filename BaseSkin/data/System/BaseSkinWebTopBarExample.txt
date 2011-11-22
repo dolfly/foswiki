@@ -1,4 +1,4 @@
-<noautolink><div class="topbar" data-dropdown="dropdown">
+<noautolink><div class="topbar foswikiTopbar" data-dropdown="dropdown">
 	<div class="topbar-inner">
 		<div class="container">
 			<ul class="foswikiLogo">

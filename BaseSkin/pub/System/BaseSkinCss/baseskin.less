@@ -23,8 +23,9 @@ input[type=file] {
 .btn {
 	.border-radius(@fw_block_corner);
 }
-  
+
 .topbar {
+	position: absolute; // make fixed when having js; see bottom of file
 	height: @fw_topbar_height;
 	line-height: @fw_topbar_height;
 	p {
@@ -381,20 +382,12 @@ pre,
 }
 
 .foswikiTopicActions {
-	float: right;
-	z-index: 1; // to make it appear on top of elements in .foswikiTopic
-	position: absolute;
-
-	top: 5px;
-	right: @fw_body_side_margin;
-	
+	float: right;	
 	.fw_dropdown_btn();
 	
 	// put all inside a new div to get it fixed within the parent container
 	.foswikiTopicActionsContents {
-		position: fixed;
-		width: 100%;
-		margin-left: -100%;
+		// additional styles at bottom of file
 	}
 }
 
@@ -775,11 +768,7 @@ img {
 	a:visited {
 		color: @fw_color_text;
 	}
-	
-	.foswikiSort {
-		float: left;
-	}
-	
+
 	.foswikiToolbarHeader {
 		float: left;
 		line-height: 1;
@@ -787,6 +776,19 @@ img {
 		.fw_menu_padding_vertical_only();
 	}
 }
+
+
+
+/* table of contents */
+.foswikiToc {
+	.foswikiTocTitle {
+		font-weight: bold;
+	}
+	ul {
+		margin-top: 0;
+	}
+}
+
 
 
 /* search results */
@@ -1071,4 +1073,26 @@ img {
 	.fw_menu_padding_all();
 	margin-bottom: @fw_size_padding_menu_em;
 }
+
+// Modified styles when user has javascript
+
+.foswikiJs {
+	.topbar {
+		position: fixed;
+	}
+	.foswikiTopicActions {
+		z-index: 1; // to make it appear on top of elements in .foswikiTopic
+		position: relative;
+		top: 5px;
+		right: 0;
+
+		.foswikiTopicActionsContents {
+			position: fixed;
+			display: inline;
+			width: 100%;
+			margin-left: -100%;
+		}
+	}
+}
+
 

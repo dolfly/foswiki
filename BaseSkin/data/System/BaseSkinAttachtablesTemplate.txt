@@ -22,7 +22,7 @@
 		<a href="%SCRIPTURLPATH{"attach"}%/%WEB%/%TOPIC%" class="foswikiButton">Upload new</a>
 	</li>
 </ul>
-<div class='foswikiSort'><select class='foswikiSelect span3'>
+<select class='foswikiSelect foswikiSort span3'>
 	<option value="data-file">%MAKETEXT{"Sort by name"}%</option>
 	<option value="data-date">%MAKETEXT{"Sort by date"}%</option>
 	<option value="data-size">%MAKETEXT{"Sort by size"}%</option>
@@ -30,7 +30,6 @@
 	<option value="data-user">%MAKETEXT{"Sort by user"}%</option>
 	<option value="data-rev">%MAKETEXT{"Sort by version"}%</option>
 </select>
-</div>
 <div class="foswikiClear"></div>
 </div>%TMPL:P{
 	"LIBJS"
@@ -41,7 +40,7 @@
 	Header definition for topic attachments and top table in attach screen
 ---------------------------------------------------
 }%%TMPL:DEF{ATTACH:files:header(basic)}%<div class="foswikiAttachments foswikiSearchResults">
-<h4>%MAKETEXT{"Topic attachments"}%</h4>
+<h3>%MAKETEXT{"Topic attachments"}%</h3>
 %TMPL:P{ATTACH:files:header(toprow)}%<ul>%TMPL:END%%{
 ---------------------------------------------------
 	A basic row definition, for attachment table and attach screen

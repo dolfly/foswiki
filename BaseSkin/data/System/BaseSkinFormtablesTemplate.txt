@@ -13,7 +13,7 @@
 	Header definition for topic attachments and top table in attach screen
 ---------------------------------------------------
 }%%TMPL:DEF{FORM:display:header}%<div class='foswikiForm'>
-<h4>%MAKETEXT{"Topic data"}%</h4>
+<h3>%MAKETEXT{"Topic data"}%</h3>
 <div class='foswikiToolbar'>%TMPL:P{FORM:display:header:titlename}%%IF{
 	"not context preview"
 	then="%TMPL:P{FORM:display:header:titlelink}%"
