@@ -4,20 +4,17 @@ jQuery(document).ready(function($) {
 		$(this).focus();
 	});
 	
-/*
+	// stick topic action to top
 	var offset = $('.foswikiTopicActions').offset();
 	var INITIAL_TOPIC_ACTIONS_Y = offset.top;
-	console.log("INITIAL_TOPIC_ACTIONS_Y=" + INITIAL_TOPIC_ACTIONS_Y);
 	var INITIAL_TOPIC_ACTIONS_LEFT = offset.left;
-	console.log("INITIAL_TOPIC_ACTIONS_LEFT=" + INITIAL_TOPIC_ACTIONS_LEFT);
-	
-	console.log(INITIAL_TOPIC_ACTIONS_Y);
+
 	$(window).scroll(function() {
     	if ($(window).scrollTop() >= INITIAL_TOPIC_ACTIONS_Y) {
         	$('.foswikiTopicActions').css({
         		position: 'fixed',
         		left: INITIAL_TOPIC_ACTIONS_LEFT,
-        		top: 45
+        		top: 0
         	});
 		} else {
 			$('.foswikiTopicActions').css({
@@ -27,16 +24,16 @@ jQuery(document).ready(function($) {
 			});
 		}
 	});
-*/
 
 	var SCROLL_DURATION = 250;
+	var SCROLL_ANCHOR_OFFSET = 20;
 	var scrollOpts = {
 		reset: true,
 		lazy: true,
 		hash: true,
 		duration: SCROLL_DURATION,
 		axis: 'y',
-		offset: { top:-($('.foswikiTopbar').height() + 10), left:0 },
+		offset: { top:-($('.foswikiTopbar').height() + SCROLL_ANCHOR_OFFSET), left:0 },
 		easing: 'swing'
 	};
 	$('a').localScroll(scrollOpts);

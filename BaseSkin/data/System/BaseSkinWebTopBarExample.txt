@@ -1,23 +1,23 @@
-<noautolink><div class="topbar foswikiTopbar" data-dropdown="dropdown">
-	<div class="topbar-inner">
-		<div class="container">
+<noautolink><div class="foswikiTopbar" data-dropdown="dropdown">
+	<div class="foswikiTopbarContents">
+		<div class="foswikiContainer">
 			<ul class="foswikiLogo">
 				<li><img src='%PUBURL%/%SYSTEMWEB%/BaseSkin/foswiki-logo-top.png' /></li>
 			</ul>
 			<ul>
 				<li class="menu">
 					<a href="%SCRIPTURL{view}%/%WEB%/%HOMETOPIC%" class="menu">%MAKETEXT{"[_1] Web" args="%WEB%"}%</a>
-					<ul class="menu-dropdown">						
-						<li>[[%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebCreateNewTopic?topicparent=%BASETOPIC%][%ICON{"newtopic"}% %MAKETEXT{"Create New Topic"}%]]</li>						
-						<li>[[WebTopicList][%ICON{"index"}% %MAKETEXT{"Index"}%]]</li>
-						<li>[[%BASEWEB%.WebSearch][%ICON{"searchtopic"}% %MAKETEXT{"Search"}%]]</li>
-						<li>[[WebChanges][%ICON{"changes"}% %MAKETEXT{"Changes"}%]]</li>
-						<li>[[WebNotify][%ICON{"notify"}% %MAKETEXT{"Notifications"}%]]</li>
-						<li>[[WebRss][%ICON{"feed"}% %MAKETEXT{"RSS Feed"}%]]</li>
-						<li>[[WebStatistics][%ICON{"statistics"}% %MAKETEXT{"Statistics"}%]]</li>
-						<li>[[WebPreferences][%ICON{"wrench"}% %MAKETEXT{"Preferences"}%]]</li>
+					<ul class="menu-dropdown">
+						<li>[[%SCRIPTURLPATH{"view"}%/%BASEWEB%/WebCreateNewTopic?topicparent=%BASETOPIC%][%MAKETEXT{"Create New Topic"}%]]</li>						
+						<li>[[WebTopicList][%MAKETEXT{"Index"}%]]</li>
+						<li>[[%BASEWEB%.WebSearch][%MAKETEXT{"Search"}%]]</li>
+						<li>[[WebChanges][%MAKETEXT{"Changes"}%]]</li>
+						<li>[[WebNotify][%MAKETEXT{"Notifications"}%]]</li>
+						<li>[[WebRss][%MAKETEXT{"RSS Feed"}%]]</li>
+						<li>[[WebStatistics][%MAKETEXT{"Statistics"}%]]</li>
+						<li>[[WebPreferences][%MAKETEXT{"Preferences"}%]]</li>
 						<li class="divider"></li>
-						<li><span>Other Webs</span></li>
+						<li><p>Other Webs</p></li>
 						<li><a href="#">Web 2</a></li>
 						<li><a href="#">Web 3</a></li>
 						<li class="divider"></li>

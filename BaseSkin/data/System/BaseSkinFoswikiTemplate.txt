@@ -92,8 +92,7 @@
 		- content
 ---------------------------------------------------
 }%%TMPL:DEF{"page"}%<section class="foswikiPage">
-%TMPL:P{"topbar"}%<div class="foswikiTopic">%TMPL:P{"content"}%</div>
-</section>%TMPL:END%%{
+%TMPL:P{"topbar"}%%TMPL:P{"content"}%</section>%TMPL:END%%{
 ---------------------------------------------------
 	Provide empty defaults
 ---------------------------------------------------
