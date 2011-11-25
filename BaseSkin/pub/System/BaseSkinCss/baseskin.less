@@ -228,7 +228,7 @@ select,
 
 .foswikiTopbar ul .menu-dropdown li a,
 .foswikiTopbar ul .dropdown-menu li a {
-//  padding: 4px 15px;
+  padding: 4px 15px;
 }
 
 .foswikiTopbar .dropdown-menu {
@@ -696,6 +696,7 @@ pre,
 
 .foswikiTopicActions {
 	.foswikiTopbar();
+	z-index: 1000;
 	position: relative;
 	width: 100%;
 	top: 0;
@@ -708,14 +709,6 @@ pre,
 	.foswikiContainer {
 		.fw_menu_padding_all();
 	}
-/*
-	
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index: 9999;
-	overflow: visible;
-*/
 }
 
 .foswikiButtonGroup li {
@@ -1367,16 +1360,6 @@ img {
 // Modified styles when user has javascript
 
 .foswikiJs {
-/*
-	.foswikiTopbar {
-		position: fixed;
-	}
-
-	.foswikiTopicActions {
-		position: fixed;
-		top: @fw_topbar_height;
-	}
-*/
 	.foswikiTopic {
 		// make room for fixed top bar: add top bar height
 		padding-top: 0em + @fw_strand1_ratio_up_1 / @basefont + @fw_topbar_height / @basefont;
