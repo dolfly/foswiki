@@ -9,7 +9,8 @@
 ===================================================
 }%%TMPL:INCLUDE{"foswiki"}%
 %TMPL:INCLUDE{"common"}%
-%TMPL:INCLUDE{"baseskinwebtopbar"}%%{
+%TMPL:INCLUDE{"baseskinwebtopbar"}%
+%TMPL:INCLUDE{"topicactionbuttons"}%%{
 	Document structure
 -------------------------------------------------
 }%
@@ -87,12 +88,12 @@
 %TMPL:P{"page"}%
 </body>%TMPL:END%%{
 ---------------------------------------------------
-	foswikiPage:
+	page:
 		- top bar
+		- controls
 		- content
 ---------------------------------------------------
-}%%TMPL:DEF{"page"}%<section class="foswikiPage">
-%TMPL:P{"topbar"}%%TMPL:P{"content"}%</section>%TMPL:END%%{
+}%%TMPL:DEF{"page"}%<div class="foswikiPage">%TMPL:P{"topbar"}%%TMPL:P{"controls"}%%TMPL:P{"content"}%</div>%TMPL:END%%{
 ---------------------------------------------------
 	Provide empty defaults
 ---------------------------------------------------
@@ -101,5 +102,77 @@
 	Allow other templates to easy add body class names. These should make sure that class 'foswikiNoJs' is always written.
 ---------------------------------------------------
 }%%TMPL:DEF{"body:class"}%foswikiNoJs%TMPL:END%%{
+---------------------------------------------------
+	Controls:
+		- breadcrumbs
+		- topic actions
+---------------------------------------------------
+}%%TMPL:DEF{"controls"}%<noautolink><div class="foswikiBar foswikiTopicActions foswikiColorLightGray" data-dropdown="dropdown">
+	<div class="foswikiContainer">
+		<ul class="foswikiTitle">
+			<li>[[%BASEWEB%.%BASETOPIC%][%BASETOPIC%]]</li>
+		</ul>
+		<div class="foswikiTopicActionButtons">
+			<ul class="nav secondary-nav foswikiButtonGroup">
+				<li>%TMPL:P{"edit_or_create"}%</li>
+				<li class='dropdown foswikiSecondaryDropdown' data-dropdown='dropdown'>
+					<a href='#' class='dropdown-toggle nolabel'></a>
+					<ul class='dropdown-menu'>
+						<li><p>Topic</p></li>
+						<li><a href='#'>Edit topic</a></li>
+						<li><a href='#'>Edit plain wiki text</a></li>
+						<li><a href='#'>Attach files or images</a></li>
+						<li class='divider'></li>
+						<li><p>Data &amp; settings</p></li>
+						<li><a href='#'>Edit topic data</a></li>
+						<li><a href='#'>Edit topic settings</a></li>
+						<li><a href='#'>Select parent topic</a></li>
+						<li class='divider'></li>
+						<li><p>Manage</p></li>
+						<li><a href='#'>Restore to previous version</a></li>
+						<li><a href='#'>Rename topic</a></li>
+						<li><a href='#'>Move to different Web</a></li>
+						<li><a href='#'>Move to trash</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav secondary-nav foswikiButtonGroup">
+				<li><a href='#'>Info</a></li>
+				<li class='dropdown foswikiSecondaryDropdown' data-dropdown='dropdown'>
+					<a href='#' class='dropdown-toggle nolabel'></a>
+					<ul class='dropdown-menu'>
+						<li><p>Changes</p></li>
+						<li><a href='#'>Last changed</a></li>
+						<li><a href='#'>Compare versions</a></li>
+						<li class='divider'></li>
+						<li><p>Connections</p></li>
+						<li><a href='#'>Topics that link to here</a></li>
+						<li><a href='#'>Child topics</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav secondary-nav  foswikiButtonGroup">
+				<li><a href='#'>Views</a></li>
+				<li class='dropdown foswikiSecondaryDropdown' data-dropdown='dropdown'>
+					<a href='#' class='dropdown-toggle nolabel'></a>
+					<ul class='dropdown-menu'>
+						<li><p>Print & Export</p></li>
+						<li><a href='#'>Print version</a></li>
+						<li><a href='#'>PDF version</a></li>
+						<li class='divider'></li>
+						<li><p>Topic parts</p></li>
+						<li><a href='#'>Wiki text</a></li>
+						<li><a href='#'>Attachments</a></li>
+						<li><a href='#'>Topic data</a></li>
+						<li><a href='#'>Topic settings</a></li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="nav secondary-nav foswikiButtonGroup">
+				<li>%TMPL:P{"subscribe_link"}%</li>
+			</ul>
+		</div>
+	</div>
+</div></noautolink>%TMPL:END%%{
 ===================================================
 </verbatim>}%

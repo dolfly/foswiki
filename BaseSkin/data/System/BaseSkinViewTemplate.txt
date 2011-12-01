@@ -8,8 +8,7 @@ Base Skin topic template
 		- attachments
 		
 ===================================================
-}%%TMPL:INCLUDE{"view"}%
-%TMPL:INCLUDE{"topicactionbuttons"}%%{
+}%%TMPL:INCLUDE{"view"}%%{
 ---------------------------------------------------
 	Include TopicInteractionPlugin, if installed
 ---------------------------------------------------
@@ -19,81 +18,10 @@ Base Skin topic template
 ---------------------------------------------------
 }%%TMPL:DEF{"body:class"}%foswikiViewPage%TMPL:END%%{
 ---------------------------------------------------
-	Controls:
-		- breadcrumbs
-		- topic actions
----------------------------------------------------
-}%%TMPL:DEF{"content:controls"}%<noautolink><div class="foswikiTopicActions">
-	<div class="foswikiContainer">
-		<div class='foswikiRight'>
-			<ul class="foswikiNavigationControl foswikiSecondaryNavigationControl foswikiButtonGroup">
-				<li>%TMPL:P{"subscribe_link"}%</li>
-			</ul>
-			<ul class="foswikiNavigationControl foswikiSecondaryNavigationControl foswikiButtonGroup">
-				<li><a href='#'>New</a></li>
-			</ul>
-			<ul class="foswikiNavigationControl foswikiSecondaryNavigationControl foswikiButtonGroup">
-				<li><a href='#'>View</a></li>
-				<li class='dropdown foswikiSecondaryDropdown' data-dropdown='dropdown'>
-					<a href='#' class='dropdown-toggle nolabel'></a>
-					<ul class='dropdown-menu'>
-						<li><p>Views and Information</p></li>
-						<li><a href='#'>View normal</a></li>
-						<li><a href='#'>View wiki text</a></li>
-						<li><a href='#'>View attachments</a></li>
-						<li><a href='#'>View form data</a></li>
-						<li><a href='#'>View topic settings</a></li>
-						<li class='divider'></li>
-						<li><p>Printing and Exporting</p></li>
-						<li><a href='#'>Print version</a></li>
-						<li><a href='#'>PDF version</a></li>
-						<li class='divider'></li>
-						<li><p>Connections</p></li>
-						<li><a href='#'>Topics that link to here</a></li>
-						<li><a href='#'>Child topics</a></li>
-						<li><a href='#'>Parent topic</a></li>
-					</ul>
-				</li>
-				<li><a href='#'>History</a></li>
-				<li class='dropdown foswikiSecondaryDropdown' data-dropdown='dropdown'>
-					<a href='#' class='dropdown-toggle nolabel'></a>
-					<ul class='dropdown-menu'>
-						<li><a href='#'>Last changes</a></li>
-						<li><a href='#'>Restore to previous version</a></li>
-						<li><a href='#'>Compare versions</a></li>
-					</ul>
-				</li>
-				<li>%TMPL:P{"edit_or_create"}%</li>
-				<li class='dropdown foswikiSecondaryDropdown' data-dropdown='dropdown'>
-					<a href='#' class='dropdown-toggle nolabel'></a>
-					<ul class='dropdown-menu'>
-						<li><p>Edit Content</p></li>
-						<li><a href='#'>Edit topic with editor</a></li>
-						<li><a href='#'>Edit wiki text</a></li>
-						<li><a href='#'>Attach files or images</a></li>
-						<li class='divider'></li>
-						<li><p>Edit Meta Data</p></li>
-						<li><a href='#'>Modify form data</a></li>
-						<li><a href='#'>Edit topic settings</a></li>
-						<li class='divider'></li>
-						<li><p>Edit Location</p></li>
-						<li><a href='#'>Set new parent</a></li>
-						<li><a href='#'>Rename</a></li>
-						<li><a href='#'>Move to different Web</a></li>
-						<li><a href='#'>Trash this topic</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class='foswikiClear'></div>
-</div></noautolink>%TMPL:END%%{
----------------------------------------------------
 	Content container
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%%TMPL:P{"content:controls"}%<div class="foswikiTopic">
+}%%TMPL:DEF{"content"}%<div class="foswikiMain foswikiColorWhite"><div class="foswikiContainer"><div class="foswikiTopic">
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
-<div class="foswikiTopicText">
 #PageTop
 <article class='foswikiTopicText'>
 %TEXT%
@@ -104,7 +32,7 @@ Base Skin topic template
 </div>
 <div class="foswikiClear"></div>
 </div>
-%TMPL:END%%{
+</div>%TMPL:END%%{
 ---------------------------------------------------
 	topic:before contains the form:top and attachments:top, if set (not inside a tab pane)
 	TODO: test this

@@ -4,36 +4,56 @@ jQuery(document).ready(function($) {
 		$(this).focus();
 	});
 	
+	var INITIAL_TOPIC_ACTIONS_Y;
+	
 	// stick topic action to top
 	var offset = $('.foswikiTopicActions').offset();
-	var INITIAL_TOPIC_ACTIONS_Y = offset.top;
-	var INITIAL_TOPIC_ACTIONS_LEFT = offset.left;
-
+	INITIAL_TOPIC_ACTIONS_Y = offset.top;
+	var $foswikiTopicActions = $('.foswikiTopicActions');
+	var $body = $('body');
+	var hasFixedTopBar = 0;
+	
 	$(window).scroll(function() {
     	if ($(window).scrollTop() >= INITIAL_TOPIC_ACTIONS_Y) {
-        	$('.foswikiTopicActions').css({
-        		position: 'fixed',
-        		left: INITIAL_TOPIC_ACTIONS_LEFT,
-        		top: 0
-        	});
+    		if (!hasFixedTopBar) {
+	        	$body.addClass('foswikiFixedTopBar');
+    	    	hasFixedTopBar = 1;
+    	    }
 		} else {
-			$('.foswikiTopicActions').css({
-				position: 'absolute',
-				right: 0,
-				top: INITIAL_TOPIC_ACTIONS_Y
-			});
+			if (hasFixedTopBar) {
+				$body.removeClass('foswikiFixedTopBar');
+				hasFixedTopBar = 0;
+			}
 		}
 	});
 
+/*
+	$(window).scroll(function() {
+    	if ($(window).scrollTop() >= INITIAL_TOPIC_ACTIONS_Y) {
+        	$foswikiTopicActions.css({
+        		position: 'fixed',
+        		top: 0
+        	});
+		} else {
+			$foswikiTopicActions.css({
+				position: 'relative',
+				top: 0
+			});
+		}
+	});
+*/
 	var SCROLL_DURATION = 250;
-	var SCROLL_ANCHOR_OFFSET = 20;
+	var SCROLL_TOP = 20;
+	if (INITIAL_TOPIC_ACTIONS_Y !== undefined) {
+		SCROLL_TOP = INITIAL_TOPIC_ACTIONS_Y + 20;
+	}
 	var scrollOpts = {
 		reset: true,
 		lazy: true,
 		hash: true,
 		duration: SCROLL_DURATION,
 		axis: 'y',
-		offset: { top:-($('.foswikiTopbar').height() + SCROLL_ANCHOR_OFFSET), left:0 },
+		offset: { top:(-SCROLL_TOP), left:0 },
 		easing: 'swing'
 	};
 	$('a').localScroll(scrollOpts);
@@ -56,5 +76,5 @@ jQuery(document).ready(function($) {
 
 function getAnchor( url ) {
 	url = url || location.href;
-	return url.replace( /^[^#]*#?(.*)$/, '$1' );
+	return url.replace( /^[^#]*#?!?(.*)$/, '$1' );
 };

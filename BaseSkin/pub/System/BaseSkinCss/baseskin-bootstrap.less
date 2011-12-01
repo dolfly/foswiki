@@ -1,10 +1,9 @@
 /*!
- * BaseSkin @VERSION
+ * BaseSkin
  *
  * Copyright 2011 Foswiki and contributors
  *
  * Designed by Arthur Clemens
- * Date: @DATE
  */
 
 /*!
@@ -14,16 +13,6 @@
  * Imports baseskin-variables.less instead of variables.less
  */
  
-/*!
- * Bootstrap @VERSION
- *
- * Copyright 2011 Twitter, Inc
- * Licensed under the Apache License v2.0
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Designed and built with all the love in the world @twitter by @mdo and @fat.
- * Date: @DATE
- */
 
 // CSS Reset
 @import "twitter-bootstrap/reset.less";
@@ -40,7 +29,7 @@
 @import "twitter-bootstrap/type.less";
 @import "twitter-bootstrap/forms.less";
 //@import "twitter-bootstrap/tables.less"; // don't use table style but foswikiTable instead
-@import "twitter-bootstrap/patterns.less";
+@import "twitter-bootstrap/patterns.less"; // NOTE: commented out line 281
 
 
 /*!
@@ -49,3 +38,12 @@
  */
 
 @import "baseskin.less";
+@import "baseskin-overrides.less";
+@import "baseskin-mixins.less";
+@import "baseskin-type.less";
+@import "baseskin-forms.less";
+@import "baseskin-colors.less";
+@import "baseskin-screensizes.less";
+@import "baseskin-javascript.less";
+
+

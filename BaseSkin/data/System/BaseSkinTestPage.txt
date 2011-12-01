@@ -301,6 +301,18 @@ Should look the same
 %BUTTON{"%MAKETEXT{"Globe"}%" icon="world_key" onclick="alert('foo')"}%
 %CLEAR%
 
+---++ Form steps
+<div class="foswikiFormSteps">
+<div class="foswikiFormStep">
+---++ What to expect
+<p>Some explanation</p>
+<input type="text" value="Some entry" />
+</div>
+<div class="foswikiFormStep">
+<input type="submit" class="foswikiSubmit" value="foswikiSubmit" />
+</div>
+</div>
+
 ---++ Help text
 
 <div class="foswikiHelp">
