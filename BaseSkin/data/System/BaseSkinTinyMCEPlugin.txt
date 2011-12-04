@@ -20,7 +20,7 @@ theme : "advanced",
 "plugins" : "%IF{
     "defined 'TINYMCEPLUGIN_MCEPLUGINS'"
     then="%TINYMCEPLUGIN_MCEPLUGINS%"
-    else="%STARTSECTION{"MCEPLUGINS"}%autoresize, contextmenu, table, searchreplace, autosave, paste, legacyoutput, inlinepopups, fullscreen, foswiki, foswikibuttons, foswikiimage%ENDSECTION{"MCEPLUGINS"}%"
+    else="%STARTSECTION{"MCEPLUGINS"}%save, autoresize, contextmenu, table, searchreplace, autosave, paste, legacyoutput, inlinepopups, fullscreen, foswiki, foswikibuttons, foswikiimage%ENDSECTION{"MCEPLUGINS"}%"
 }%%IF{
     "defined 'TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS'"
     then=", %TINYMCEPLUGIN_ADDITIONAL_MCEPLUGINS%"
@@ -67,7 +67,7 @@ theme : "advanced",
 "theme_advanced_buttons1" : "%IF{
     "defined 'TINYMCEPLUGIN_BUTTONS1'"
     then="%TINYMCEPLUGIN_BUTTONS1%"
-    else="%STARTSECTION{"BUTTONS1"}%foswikiformat, separator, bold, italic, tt, colour, removeformat, separator, bullist, numlist, outdent, indent, blockquote, separator, link, unlink, anchor, separator, undo, redo, separator, search, replace%ENDSECTION{"BUTTONS1"}%"
+    else="%STARTSECTION{"BUTTONS1"}%save, cancel, foswikiformat, separator, bold, italic, tt, colour, removeformat, separator, bullist, numlist, outdent, indent, blockquote, separator, link, unlink, anchor, separator, undo, redo, separator, search, replace%ENDSECTION{"BUTTONS1"}%"
 }%%IF{
     "defined 'TINYMCEPLUGIN_ADDITIONAL_BUTTONS1'"
     then=", %TINYMCEPLUGIN_ADDITIONAL_BUTTONS1%"

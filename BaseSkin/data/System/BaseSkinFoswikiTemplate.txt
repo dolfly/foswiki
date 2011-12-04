@@ -11,7 +11,8 @@
 %TMPL:INCLUDE{"baseskinwebtopbar"}%
 %TMPL:INCLUDE{"baseskinwebbottombar"}%
 %TMPL:INCLUDE{"topicactionbuttons"}%%{
-	Document structure
+-------------------------------------------------
+	Empty elements from the old default tmpl files
 -------------------------------------------------
 }%
 %TMPL:DEF{"standardheader"}%%TMPL:END%
@@ -20,7 +21,11 @@
 %TMPL:DEF{"copyright"}%%TMPL:END%
 %{
 ---------------------------------------------------
-
+	Empty elements that will be filled by other templates
+---------------------------------------------------
+}%%TMPL:DEF{"titleaction"}%%TMPL:END%%{
+-------------------------------------------------
+	Document structure
 ---------------------------------------------------
 }%%TMPL:DEF{"document"}%
 %TMPL:P{"htmldoctype"}%
@@ -179,8 +184,13 @@
 	Controls: title
 ---------------------------------------------------
 }%%TMPL:DEF{"controls:title"}%<ul class="foswikiTitle">
-	<li>[[%BASEWEB%.%BASETOPIC%][%BASETOPIC%]]<span style="display: none">%TMPL:P{"titleaction"}%</span></li>
+	<li>[[%BASEWEB%.%BASETOPIC%][%BASETOPIC%]]</li>%TMPL:P{"controls:title:titleaction"}%
 </ul>%TMPL:END%%{
+---------------------------------------------------
+	Title action item
+---------------------------------------------------
+}%%TMPL:DEF{"controls:title:titleaction"}%<li class='foswikiSeparator'>/</li>
+<li><p>%TMPL:P{"titleaction"}%</p></li>%TMPL:END%%{
 ---------------------------------------------------
 	Controls: contextual
 ---------------------------------------------------

@@ -1,6 +1,6 @@
 jQuery(document).ready(function($) {
 	
-	function smoothScroll($) {
+	function smoothScroll() {
 		var offset = $('.foswikiTopicActions').offset();
 		var topicActionsY = offset.top;
 		
@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
 		}
 	}
 	
-	function fixTopicActions($, resize) {
+	function fixTopicActions(resize) {
 		
 		var $body = $('body');
 		var $fixed = $('.foswikiFixed');
@@ -106,18 +106,7 @@ jQuery(document).ready(function($) {
 		$(this).focus();
 	});
 	
-	smoothScroll($);
-	fixTopicActions($, false);
+	smoothScroll();
+	fixTopicActions(false);
 
 });
-
-function tinyMceInited() {
-	var $toolbar = jQuery('#topic_toolbargroup').parent().parent();
-	var $new = jQuery('<div class="mceEditor o2k7Skin o2k7SkinBlack">')
-		.append(jQuery('<table style="width: 100%;">')
-			.append($toolbar)
-		);
-	$new.appendTo('.foswikiContextual .foswikiContainer');
-}
-
-

@@ -1,6 +1,7 @@
 data/System/BaseajaxSkinAttachAgainTemplate.txt 0644
 data/System/BasecssSkinFoswikiTemplate.txt 0644
 data/System/BasejsSkinFoswikiTemplate.txt 0644
+data/System/BasejsSkinEditTemplate.txt 0644
 data/System/BaseSkin.txt 0644
 data/System/BaseSkinAttachAgainTemplate.txt 0644
 data/System/BaseSkinAttachNewTemplate.txt 0644
@@ -108,6 +109,9 @@ pub/System/BaseSkinFileIcons/zip-large.png 0644
 pub/System/BaseSkinJs/base_attachments_src.js 0644
 pub/System/BaseSkinJs/base_attachments.js 0644
 pub/System/BaseSkinJs/base_attachments.js.gz 0644
+pub/System/BaseSkinJs/base_edit_src.js 0644
+pub/System/BaseSkinJs/base_edit.js 0644
+pub/System/BaseSkinJs/base_edit.js.gz 0644
 pub/System/BaseSkinJs/base_src.js 0644
 pub/System/BaseSkinJs/base.js 0644
 pub/System/BaseSkinJs/base.js.gz 0644

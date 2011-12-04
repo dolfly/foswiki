@@ -83,6 +83,17 @@
 		a {
 			padding: @fw_button_padding;
 		}
+		&.foswikiTitle .foswikiSeparator {
+			margin: 0;
+			line-height: 1;
+			font-size: 1.1em;
+			padding: @fw_separator_padding;
+		}
+		&.foswikiTitle p {
+			margin: 0;
+			line-height: 1;
+			padding: @fw_separator_padding;
+		}
 	}
 }
 
@@ -623,7 +634,7 @@ body div.mceExternalToolbar {
 /* TinyMCEPlugin */
 
 #topic_external {
-	display: block !important;
+	display: block !important; /* always show */
 }
 // create space above
 .foswikiBar {
