@@ -1,0 +1,73 @@
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+
+	The view template defines the display of contents through the view script:
+		- topic text
+		- data form
+		- attachments
+		
+===================================================
+}%%TMPL:INCLUDE{"edit"}%%TMPL:INCLUDE{"messages"}%%{
+---------------------------------------------------
+	Include TopicInteractionPlugin, if installed
+---------------------------------------------------
+}%%TMPL:INCLUDE{"metadata"}%%{
+---------------------------------------------------
+	CSS class for body element says this is a view page
+---------------------------------------------------
+}%%TMPL:DEF{"body:class"}%foswikiManagePage foswikiEditPage%TMPL:END%%{
+---------------------------------------------------
+	Top bar (mini)
+---------------------------------------------------
+}%%TMPL:DEF{"topbar"}%%TMPL:P{"topbar:mini"}%%TMPL:END%%{
+---------------------------------------------------
+	Topic action buttons
+---------------------------------------------------
+}%%TMPL:DEF{"controls:topicactionbuttons"}%<div class="foswikiTopicActionButtons">
+	<ul class="nav secondary-nav">
+		<li><input type="submit" class="foswikiSubmit" name="action_save" value="Save" id="save" /></li>
+		<li><input type="submit" class="foswikiButton foswikiButtonCancel" name="action_cancel" value="Don't save" id="cancel" /></li>
+		<li><input type="submit" class="foswikiButton" name="action_preview" value="Preview" id="preview" /></li>
+		<li><input type="submit" class="foswikiButton" name="action_help" value="Help" id="help" /></li>
+	</ul>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	Controls: contextual
+---------------------------------------------------
+}%%TMPL:DEF{"controls:contextual"}%<div class="foswikiBar foswikiContextual foswikiColorGray foswikiMakeVisible">
+	<div class="foswikiContainer"><!-- contents set by javascript --></div>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	Content container
+---------------------------------------------------
+}%%TMPL:DEF{"page"}%<div class="foswikiPage">%TMPL:P{"topbar"}%%TMPL:P{"formstart"}%%TMPL:P{"controls"}%%TMPL:P{"content"}%%TMPL:P{"formend"}%%TMPL:P{"bottombar"}%</div>%TMPL:END%
+
+
+%TMPL:DEF{"content"}%<div class="foswikiMain foswikiColorWhite">
+<div class="foswikiContainer"><div class="foswikiTopic">
+%TMPL:P{"textarea"}%
+</div>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	textarea
+---------------------------------------------------
+}%%TMPL:DEF{"textarea"}%%IF{
+	"{Validation}{Method}='strikeone'"
+	then="<noscript>$percentTMPL:P{enable_js}$percent</noscript>"
+}%%IF{
+	"defined 'EDITOR_MESSAGE'"
+	then="<div class='foswikiAlert'>%EDITOR_MESSAGE%</div>"
+}%<div class="foswikiEditTextarea">
+<textarea class="foswikiTextarea foswikiEditboxStyleProportional foswikiWysiwygEdit" id="topic" name="text" rows="%EDITBOXHEIGHT%" cols="%EDITBOXWIDTH%" style='%EDITBOXSTYLE%'>
+%TEXT%
+</textarea></div>%TMPL:END%
+
+%TMPL:DEF{"formstart"}%<div class="foswikiFormHolder">
+<form name="main" class="foswikiEditForm" action="%SCRIPTURLPATH{"save"}%/%WEB%/%TOPIC%" method="post">%TMPL:END%
+
+%TMPL:DEF{"formend"}%%TMPL:P{"formparameters"}%</form></div>%TMPL:END%
+
+%{
+===================================================
+</verbatim>}%
