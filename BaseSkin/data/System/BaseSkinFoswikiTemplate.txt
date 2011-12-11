@@ -177,7 +177,7 @@
 ---------------------------------------------------
 	Controls: topic actions
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:topicactions"}%<div id="Testtop" class="foswikiBar foswikiTopicActions foswikiSticky foswikiColorSecundary" data-dropdown="dropdown" data-minpadding="2">
+}%%TMPL:DEF{"controls:topicactions"}%<div id="Testtop" class="foswikiBar foswikiTopicActions foswikiColorSecundary" data-dropdown="dropdown" data-minpadding="2">
 	<div class="foswikiContainer">
 		%TMPL:P{"controls:topicactionbuttons"}%
 		<div class="foswikiClear"></div>

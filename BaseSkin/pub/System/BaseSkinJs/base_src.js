@@ -48,14 +48,13 @@ jQuery(document).ready(function($) {
 	});
 	
 	smoothScroll();
-
-	$('.foswikiSticky').foswikiSticky();
+	$('.foswikiSticky').sticky();
 });
 
 
 (function( $ ){
 
-	$.fn.foswikiSticky = function() {
+	$.fn.sticky = function() {
 	
 		var $fixedElements = [],
 			$fixedElement,
@@ -75,13 +74,14 @@ jQuery(document).ready(function($) {
 	
 		this.each(function() {
 			$this = $(this);
-			// scrollTop: y position from where to fixate
+			// scrollY: y position from where to fixate
 			$this.scrollY = $this.position().top - offsetY;
 
 			// stickyY: y position when being sticky
 			$this.stickyY = offsetY;
-			
 			offsetY += $this.outerHeight();
+			
+			// scrollZone: to get finegrained scroll updates when sticking/unsticking happens
 			scrollZone = $this.scrollY + $this.outerHeight();
 			
 			$fixedElements.push($this);
@@ -134,7 +134,7 @@ jQuery(document).ready(function($) {
 		// update first time without scroll event
 		handleScroll();
 		
-		return this;
-		
+		return this;	
 	};
-})( jQuery );
+	
+})(jQuery);
