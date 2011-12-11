@@ -23,11 +23,7 @@ function tinyMceInited() {
 		.append(jQuery('<table style="width: 100%;">')
 			.append($toolbar)
 		);
-	$new.appendTo('.foswikiContextual .foswikiContainer');
-	
-	if (jQuery) {
-		jQuery('.foswikiContextual').removeClass('foswikiHidden');
-	}
+	$new.appendTo('.foswikiTopicActions .foswikiContainer');
 }
 
 String.prototype.capitalize = function() {

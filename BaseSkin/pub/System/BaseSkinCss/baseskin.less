@@ -30,13 +30,8 @@
 .foswikiEditPage {
 	.foswikiTopic {
 		padding-top: 0;
-		margin-top: -1px;
+		margin-top: -1px; /* hides top border */
 	}
-}
-
-
-.foswikiTopic {
-	position: relative;
 }
 
 .foswikiBar {
@@ -61,6 +56,12 @@
 	
 	a {
 		text-shadow: none;
+		display: inline;
+		padding: 0;
+		&:hover {
+			color: inherit;
+			text-decoration: underline;
+		}
 	}
 	
 	ul.menu-dropdown li p,
@@ -83,25 +84,7 @@
 		a {
 			padding: @fw_button_padding;
 		}
-		&.foswikiTitle .foswikiSeparator {
-			margin: 0;
-			line-height: 1;
-			font-size: 1.1em;
-			padding: @fw_separator_padding;
-		}
-		&.foswikiTitle p {
-			margin: 0;
-			line-height: 1;
-			padding: @fw_separator_padding;
-		}
 	}
-}
-
-.foswikiBar.foswikiFixed {
-	margin: 0;
-	padding: 0;
-	z-index: 1;
-	background: none;
 }
 
 .foswikiTopBar {
@@ -116,35 +99,97 @@
 		padding: 0;
 	}
 	
-	div > ul {	
-		a {
-			padding: 10px 10px 11px;
-		}
+	div > ul a {
+		margin: 0;
+		padding: @fw_topbar_button_padding;
+	}
+	div > ul.foswikiTitle .foswikiSeparator {
+		padding: @fw_topbar_separator_padding;
+	}
+	div > ul.foswikiTitle a {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	
+}
+
+.foswikiBottomBar {
+	.fw_block_padding_vertical_only();
+}
+
+.foswikiButtonGroup {
+	
+	> li > a,
+	> li > span a {
+		border-style: solid;
+		border-width: 1px;
+		border-color: transparent;
+	}
+	> li > a,
+	> li > span a {
+		float: left;
+		margin-left: -1px;
+		.border-radius(0);
+	}
+	> li:nth-child(n+2) > a,
+	> li:nth-child(n+2) > span a {
+		border-left-color: transparent;
+	}
+	
+	> li:first-child > a,
+	> li:first-child > span a {
+		.border-radius-left(@fw_block_corner);
+	}
+	> li:last-child > a,
+	> li:last-child > span a {
+		.border-radius-right(@fw_block_corner);
 	}
 }
 
 .foswikiTopicActions {
 	position: relative;
 	width: 100%;
+	z-index: 1;
 	top: 0;
-//	.fw_block_padding_vertical_only();
 	.box-shadow(none);
 	
-	a,
-	a.dropdown-toggle {
-		color: #666;
-		&.nolabel {
-			padding-left: 1px;
-			padding-right: 6px;
-		}
-		&:hover {
-			background: @white;
+	.nav > li {
+		> a,
+		> span a,
+		> a.dropdown-toggle,
+		> span a.dropdown-toggle {
+
+			background-color: transparent;
+			
+			color: #666;
+			border: 1px solid #ddd;
+			.box-shadow(0 1px 1px #fff);
+			.transition(.1s linear all);
+			.border-radius(@fw_block_corner);
+			
+			&.nolabel {
+				padding-left: 1px;
+				padding-right: 6px;
+				color: #ccc;
+			}
+			&:hover {
+				border-color: #999;
+			}
+			img {
+				vertical-align: text-top;
+			}
 		}
 	}
-	
-	.foswikiButtonGroup > li {
-		.border-radius(0);
-		border: none;
+	/*
+	No rounded corners in topic actions button group
+	*/
+	.foswikiButtonGroup {
+		> li:first-child a {
+			.border-radius-right(0);
+		}
+		> li:last-child a {
+			.border-radius-left(0);
+		}
 	}
 	
 	.foswikiTopicActionButtons {
@@ -161,47 +206,20 @@
 		}
 	}
 	
-	.foswikiTitle li a {
-		margin-left: -10px;
-	}
 	ul.menu-dropdown,
 	ul.dropdown-menu {
 		min-width: 180px;
 		max-width: 260px;
 		top: 26px;
+		
+		a {
+			border: none;
+			.box-shadow(none);
+		}
 	}
 }
 
-.foswikiButtonGroup {
-	@highlight_border_color: #ddd;
-	
-	> li {
-		border-style: solid;
-		border-width: 1px;
-		border-color: transparent;
-	}
-	> li {
-		float: left;
-		margin-left: -1px;
-		.border-radius(0);
-	}
-	> li:nth-child(n+2) {
-		border-left: 1px solid @highlight_border_color;
-	}
-	> li:nth-child(n+2):hover {
-		border-left: 1px solid @highlight_border_color;
-	}
-	
-	> li:first-child {
-		.border-radius-left(@fw_block_corner);
-	}
-	> li:last-child {
-		.border-radius-right(@fw_block_corner);
-	}
-	&:hover > li {
-		border-color: @highlight_border_color;
-	}
-}
+
 
 .foswikiContextual {
 	.box-shadow(inset 0 1px 1px rgba(0,0,0,.05));
@@ -260,7 +278,9 @@ hr {
 }
 
 .foswikiLogo {}
-
+.foswikiImage {
+	overflow: auto;
+}
 
 .foswikiAlert,
 .foswikiAlert code {
@@ -273,8 +293,13 @@ hr {
 /* structural elements */
 
 .foswikiTopic {
+	margin: 0;
+	padding: 0;
+}
+
+.foswikiTopicText {
 	position: relative;
-	.fw_block_padding_vertical_only();
+	padding-top: 0em + @fw_strand2_ratio_up_2 / @basefont;
 }
 
 .foswikiContentFooter {
@@ -376,7 +401,6 @@ hr {
 
 		& img,
 		& .foswikiIcon img {
-			max-width: 16px;
 			vertical-align: text-bottom;
 		}
 		&.foswikiSearchResult .foswikiSearchResultContents {
@@ -606,15 +630,6 @@ hr {
 	label {
 		width: auto;
 		float: none;
-	}
-}
-
-.foswikiHasFixed {
-	
-	// if topic actions are fixed
-	.foswikiFixed {
-		position: fixed;
-		top: 0;
 	}
 }
 

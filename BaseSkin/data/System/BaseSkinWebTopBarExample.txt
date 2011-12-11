@@ -1,4 +1,4 @@
-<noautolink><div class="foswikiBar foswikiTopBar foswikiColorBlack" data-dropdown="dropdown">
+<noautolink><div class="foswikiBar foswikiTopBar foswikiColorNavigationPrimary foswikiStickyx" data-dropdown="dropdown">
 	<div class="foswikiContainer">
 		<ul>
 			<li class="foswikiLogo">

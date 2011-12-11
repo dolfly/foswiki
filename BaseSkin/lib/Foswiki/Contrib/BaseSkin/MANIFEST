@@ -30,7 +30,7 @@ pub/System/BaseSkinCss/baseskin-type.less 0644
 pub/System/BaseSkinCss/baseskin-variables.less 0644
 pub/System/BaseSkinCss/baseskin.css 0644 # the styles minified
 pub/System/BaseSkinCss/baseskin.less 0644 # the styles in less
-pub/System/BaseSkinCss/less-1.1.3.min.js 0644
+pub/System/BaseSkinCss/less-1.1.5.min.js 0644
 pub/System/BaseSkinCss/twitter-bootstrap/bootstrap.less 0644
 pub/System/BaseSkinCss/twitter-bootstrap/forms.less 0644
 pub/System/BaseSkinCss/twitter-bootstrap/mixins.less 0644

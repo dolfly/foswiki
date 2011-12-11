@@ -349,6 +349,11 @@ Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
 Normal text. Normal text. Normal text. Normal text. Normal text. Normal text.
 <div class="foswikiImage"><img src="%PUBURLPATH%/%SYSTEMWEB%/BeginnersStartHere/Motorola_logo" height="65" alt="" /></div>
 
+---+++ Very large image
+<div class="foswikiImage">
+http://www.nano.ecs.soton.ac.uk/images/research/biomimetics/butterfly2_large.jpg
+</div>
+
 ---+++ Icons
 Normal text. Normal text. Normal text. Normal text.
 Text with :-) smilies and %ICON{info}% icons.

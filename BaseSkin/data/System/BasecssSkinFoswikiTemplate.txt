@@ -4,66 +4,50 @@
 
 	The basecss template adds CSS files to the html head:
 		- TODO: external font files
-		- base.css - unless preference BASESKIN_USE_CSS_FILE is set
-		- files defined in BASESKIN_USE_CSS_FILE
-		- files defined in BASESKIN_ADD_CSS_FILE
-		- CSS text defined in BASESKIN_ADD_CSS
+		- baseskin css or less
 ===================================================
 }%%TMPL:INCLUDE{"foswiki"}%%{
 ---------------------------------------------------
-	TODO Link to font should be added here
+	head:css
+		Adds to head:
+		- font (TODO Link to font should be added here)
+		- Default baseskin css or less files
 ---------------------------------------------------
 }%%TMPL:DEF{"head:css"}%%ADDTOZONE{
 	"head-base"
 	id="font"
 	text=""
 }%%{
----------------------------------------------------
+----------------------
 	Loads CSS files defined in BASESKIN_USE_CSS_FILE if set
----------------------------------------------------
+----------------------
 }%%IF{
-	"defined BASESKIN_USE_CSS_FILE AND $BASESKIN_USE_CSS_FILE!=''"
-	then="$percntTMPL:P{
-			\"CSS\"
-			id=\"BASESKIN_USE_CSS_FILE\"
-			requires=\"\"
-			url=\"%BASESKIN_USE_CSS_FILE%\"
-			}$percnt"
-	else="$percntTMPL:P{\"_less\"}$percnt"
-}%%{
----------------------------------------------------
-	Loads CSSs file defined in BASESKIN_ADD_CSS_FILE if set
----------------------------------------------------
-}%%IF{
-	"defined BASESKIN_ADD_CSS_FILE AND $BASESKIN_ADD_CSS_FILE!=''"
-	then="$percntTMPL:P{
-			\"CSS\"
-			id=\"BASESKIN_ADD_CSS_FILE\"
-			requires=\"BaseSkinCss/base,BASESKIN_USE_CSS_FILE\"
-			url=\"%BASESKIN_ADD_CSS_FILE%\"
-			}$percnt"
+	"defined BASESKIN_USE_LESS='1'"
+	then="$percntTMPL:P{$quot_less_basekin$quot}$percnt"
+	else="$percntTMPL:P{$quot_css_baseskin$quot}$percnt"
 }%%TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"_less"}%%TMPL:P{
+	_less_basekin
+		Less js engine
+		Baseskin less file
+---------------------------------------------------
+}%%TMPL:DEF{"_less_basekin"}%%TMPL:P{
 	"LIBJS"
-	id="BaseSkinCss/less-1.1.3.min"
+	id="BaseSkinCss/less-1.1.5.min"
 	requires=""
 }%%TMPL:P{
 	"LIBLESS"
 	id="BaseSkinCss/baseskin-bootstrap"
 	requires=""
-}%%{
+}%%TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"_css"}%%TMPL:P{
+	_css_baseskin
+		Baseskin css file
+---------------------------------------------------
+}%%TMPL:DEF{"_css_baseskin"}%%TMPL:P{
 	"LIBCSS"
 	id="BaseSkinCss/baseskin"
 	requires=""
 }%%TMPL:END%%{
 ===================================================
 </verbatim>}%
-
-
-
-
-
-

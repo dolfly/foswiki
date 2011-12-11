@@ -1,5 +1,6 @@
 /*
 FORM ELEMENTS
+Button styles execpt for colors; these are set in baseskin-colors.less
 */
 
 input[type='text'] {
@@ -34,12 +35,6 @@ input[type='radio'].foswikiRadioButton {
 .jqButton:hover {
 	.btn();
 }
-a.foswikiButton,
-a.jqButton,
-a.jqButton:hover {
-	padding: @fw_button_padding;
-//	line-height: 1;
-}
 .jqButton {
 	height: auto;
 	float: none;
@@ -61,18 +56,8 @@ a.jqButton:hover {
 }
 .foswikiSubmit {
 	.btn();
-	.btn.primary();
-}
-.foswikiSubmit:hover {
-	.btn.primary();
 }
 .btn {
-	&.danger {
-		.gradientBar(lighten(@red, 5%), darken(@red, 5%));
-	}
-	&.primary {
-		.gradientBar(lighten(@blue, 5%), darken(@blue, 5%));
-	}
 	&.small {
 		padding: 5px 9px;
 		.fw_em_font_size(@fw_size_small);
@@ -80,10 +65,6 @@ a.jqButton:hover {
 }
 .foswikiButtonCancel {
 	.btn();
-	.btn.danger();
-}
-.foswikiButtonCancel:hover {
-	.btn.danger();
 }
 // jqButton with ButtonCancel should not be red
 .jqButton.foswikiButtonCancel {
@@ -97,24 +78,12 @@ a.jqButton:hover {
 .foswikiButtonLarge {
 	.btn();
 	.btn.large();
+	.border-radius(@fw_block_corner);
 }
-
-
 
 .foswikiButtonDisabled,
 .foswikiSubmitDisabled,
 .foswikiSubmit.foswikiButtonDisabled,
 .foswikiButtonCancel.foswikiButtonDisabled {
 	.btn();
-	.btn.disabled();
-}
-.foswikiButtonDisabled:hover,
-.foswikiButtonDisabled:active,
-.foswikiSubmitDisabled:hover,
-.foswikiSubmitDisabled:active,
-.foswikiSubmit.foswikiButtonDisabled:hover,
-.foswikiSubmit.foswikiButtonDisabled:active,
-.foswikiButtonCancel.foswikiButtonDisabled:hover,
-.foswikiButtonCancel.foswikiButtonDisabled:active {
-	.btn.disabled();
 }

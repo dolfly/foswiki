@@ -24,7 +24,7 @@ Base Skin topic template
 ---------------------------------------------------
 	Content container
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%<div class="foswikiMain foswikiColorWhite"><div class="foswikiContainer"><div class="foswikiTopic">
+}%%TMPL:DEF{"content"}%<div class="foswikiMain foswikiColorPrimary"><div class="foswikiContainer"><div class="foswikiTopic">
 <div class="foswikiContentHeader">%TMPL:P{"topic:before"}%</div>
 #PageTop
 <article class='foswikiTopicText'>

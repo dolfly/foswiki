@@ -139,9 +139,9 @@
 		<li>
 			<a href='#' class="menu">Info</a>
 			<ul class="menu-dropdown">
-				<li><p>Changes</p></li>
-				<li><a href='#'>Last changed</a></li>
-				<li><a href='#'>Compare versions</a></li>
+				<li><p>Topic</p></li>
+				<li><a href='#'>View wiki text</a></li>
+				<li><a href='#'>Revision history</a></li>
 				<li class='divider'></li>
 				<li><p>Connections</p></li>
 				<li><a href='#'>Topics that link to here</a></li>
@@ -151,11 +151,16 @@
 	</ul>
 	<ul class="nav secondary-nav">
 		<li>
-			<a href='#' class="menu">View as</a>
+			<a href='#' class="menu">%ICON{"cog"}%</a>
 			<ul class="menu-dropdown">
-				<li><a href='#'>Print version</a></li>
-				<li><a href='#'>PDF version</a></li>
-				<li><a href='#'>Wiki text</a></li>
+				<li><p>Export</p></li>
+				<li><a href='#'>Print</a></li>
+				<li><a href='#'>PDF</a></li>
+				<li class='divider'></li>
+				<li><p>Display</p></li>
+				<li><a href='#'>Wide</a></li>
+				<li><a href='#'>Nice</a></li>
+				<li><a href='#'>Small</a></li>
 			</ul>
 		</li>
 	</ul><!--
@@ -168,28 +173,29 @@
 		- topic actions
 		- contextual zone
 ---------------------------------------------------
-}%%TMPL:DEF{"controls"}%<noautolink><div class="foswikiBar foswikiFixed">
-%TMPL:P{"controls:topicactions"}%%TMPL:P{"controls:contextual"}%</div>
-</noautolink>%TMPL:END%%{
+}%%TMPL:DEF{"controls"}%%TMPL:P{"controls:topicactions"}%%TMPL:END%%{
 ---------------------------------------------------
 	Controls: topic actions
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:topicactions"}%<div class="foswikiBar foswikiTopicActions foswikiColorSilver" data-dropdown="dropdown" data-minpadding="2">
+}%%TMPL:DEF{"controls:topicactions"}%<div id="Testtop" class="foswikiBar foswikiTopicActions foswikiSticky foswikiColorSecundary" data-dropdown="dropdown" data-minpadding="2">
 	<div class="foswikiContainer">
-		%TMPL:P{"controls:title"}%%TMPL:P{"controls:topicactionbuttons"}%
+		%TMPL:P{"controls:topicactionbuttons"}%
 		<div class="foswikiClear"></div>
 	</div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
-	Controls: title
+	Title bar
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:title"}%<ul class="foswikiTitle">
-	<li>[[%BASEWEB%.%BASETOPIC%][%BASETOPIC%]]</li>%TMPL:P{"controls:title:titleaction"}%
-</ul>%TMPL:END%%{
+}%%TMPL:DEF{"titlebar"}%<div class="foswikiBar foswikiTopBar foswikiColorNavigationSecundary">
+<div class="foswikiContainer">
+<ul class="foswikiTitle">	<li>[[%BASEWEB%.%BASETOPIC%][%BASETOPIC%]]</li>%TMPL:P{"titlebar:titleaction"}%
+</ul>
+</div>
+</div>%TMPL:END%%{
 ---------------------------------------------------
-	Title action item
+	Title action
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:title:titleaction"}%<li class='foswikiSeparator'>/</li>
+}%%TMPL:DEF{"titlebar:titleaction"}%<li class='foswikiSeparator'>/</li>
 <li><p>%TMPL:P{"titleaction"}%</p></li>%TMPL:END%%{
 ---------------------------------------------------
 	Controls: contextual
@@ -237,7 +243,7 @@
 		format=\"<link rel='stylesheet' href='$item' />\"
 	}$percnt"
 	requires="%requires%"
-}%%{
+}%%TMPL:END%%{
 ---------------------------------------------------
 	Macro for including Less files from *system* paths
 	Takes as arguments:
@@ -252,11 +258,22 @@
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-	Topic actions
+	Macro for including LESS files from other paths
+	Takes as arguments:
+		- id
+		- file url, must include .less extension
+		- requires
 ---------------------------------------------------
-}%%TMPL:DEF{"topicaction"}%<div class="foswikiTopicActions" >
-topicactionbuttons
-</div>%TMPL:END%%{
+}%%TMPL:DEF{"LESS"}%%ADDTOZONE{
+	"head-base"
+	id="%id%"
+	text="$percntFORMAT{
+		\"%url%\"
+		type=\"string\"
+		format=\"<link rel='stylesheet/less' href='$item' />\"
+	}$percnt"
+	requires="%requires%"
+}%%TMPL:END%%{
 ---------------------------------------------------
 	Note: non-wikiword
 ---------------------------------------------------

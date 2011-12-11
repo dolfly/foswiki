@@ -20,22 +20,25 @@ Base Skin topic template
 ---------------------------------------------------
 	Top bar (not used)
 ---------------------------------------------------
-}%%TMPL:DEF{"topbar"}%%TMPL:END%%{
+}%%TMPL:DEF{"topbar"}%%TMPL:P{"titlebar"}%%TMPL:END%%{
 ---------------------------------------------------
 	Title action
 ---------------------------------------------------
 }%%TMPL:DEF{"titleaction"}%%MAKETEXT{"edit"}%%TMPL:END%%{
 ---------------------------------------------------
-	Topic action buttons
+	Controls: topic actions
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:topicactionbuttons"}%%TMPL:END%%{
+}%%TMPL:DEF{"controls:topicactions"}%<div class="foswikiBar foswikiTopicActions foswikiColorSecundary foswikiSticky">
+	<div class="foswikiContainer">
+		%TMPL:P{"controls:topicactionbuttons"}%
+		<div class="foswikiClear"></div>
+	</div>
+</div>%TMPL:END%%{
 ---------------------------------------------------
 	Controls: contextual
 	Is made visible by javascript, if an editor can provide content for it
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:contextual"}%<div class="foswikiBar foswikiContextual foswikiColorGray foswikiHidden">
-	<div class="foswikiContainer"><!-- contents set by javascript --></div>
-</div>%TMPL:END%%{
+}%%TMPL:DEF{"controls:topicactionbuttons"}%<!-- contents set by javascript -->%TMPL:END%%{
 ---------------------------------------------------
 	Page
 ---------------------------------------------------
@@ -43,7 +46,7 @@ Base Skin topic template
 ---------------------------------------------------
 	Content
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%<div class="foswikiMain foswikiColorWhite">
+}%%TMPL:DEF{"content"}%<div class="foswikiMain foswikiColorPrimary">
 <div class="foswikiContainer"><div class="foswikiTopic">
 %TMPL:P{"textarea"}%
 </div>
@@ -58,7 +61,7 @@ Base Skin topic template
 	"defined 'EDITOR_MESSAGE'"
 	then="<div class='foswikiAlert'>%EDITOR_MESSAGE%</div>"
 }%<div class="foswikiEditTextarea">
-<textarea class="foswikiTextarea foswikiEditboxStyleProportional foswikiWysiwygEdit" id="topic" name="text" rows="%EDITBOXHEIGHT%" cols="%EDITBOXWIDTH%" style='%EDITBOXSTYLE%'>
+<textarea class="foswikiWysiwygEdit" id="topic" name="text" rows="%EDITBOXHEIGHT%" cols="%EDITBOXWIDTH%" style='%EDITBOXSTYLE%'>
 %TEXT%
 </textarea></div>%TMPL:END%%{
 ---------------------------------------------------

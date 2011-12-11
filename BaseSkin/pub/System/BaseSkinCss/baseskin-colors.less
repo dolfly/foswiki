@@ -2,36 +2,30 @@
 COLOR SCHEMES
 */
 
-.fw_color_scheme_light(@background: #fff) {
-
-	// color scheme variables
-	@color_text: #000;
-	@color_header: #444;
-	@color_header_h1: #444;
-	@color_hint: #888;
-	@color_bar_text: #333;
-	@color_dropdown_menu_bg: @background;
-	@color_dropdown_menu_text: #666;
-	@color_dropdown_menu_link: @color_dropdown_menu_text;
-	@color_dropdown_menu_link_highlight: #000;
-	@color_border: #dedfe2;
-	@color_border_secondary: #e0e0e0;
-	@color_bg_secondary: #f6f6f6;
-	@color_code: @color_text;
-	@color_code_bg: @color_bg_secondary;
-	@color_code_border: @color_border_secondary;
-	@color_link: #0069d6;
-	@color_link_hover: darken(@color_link, 15);
-	
-	// apply styles
+.fw_color_scheme(
+	@background,
+	@color_text,
+	@color_header,
+	@color_header_h1,
+	@color_hint,
+	@color_bar_text,
+	@color_dropdown_menu_bg,
+	@color_dropdown_menu_text,
+	@color_dropdown_menu_link,
+	@color_dropdown_menu_link_highlight_bg,
+	@color_dropdown_menu_link_highlight,
+	@color_border,
+	@color_border_secondary,
+	@color_bg_secondary,
+	@color_code,
+	@color_code_bg,
+	@color_code_border,
+	@color_link,
+	@color_link_hover,
+	@color_text_shadow) {
 	
 	background: @background;
-	
 	color: @color_text;
-	p,
-	li {
-		color: @color_text;
-	}
 
 	h1 {
 		color: @color_header_h1;
@@ -47,7 +41,56 @@ COLOR SCHEMES
 	.foswikiButtonGroup {
 		border-color: @color_border_secondary;
 	}
-	
+	a {
+		color: @color_link;
+	}
+	.foswikiButton,
+	.foswikiButtonSmall,
+	.foswikiButtonLarge {
+		&,
+		&.a {
+			color: @black;
+		}
+	}
+	.foswikiSubmit {
+		&,
+		&:hover,
+		&:active,
+		&.a {
+			.gradientBar(lighten(@blue, 5%), darken(@blue, 5%));
+			color: @white;
+		}		
+	}
+	.foswikiButtonCancel {
+		&,
+		&:hover,
+		&:active,
+		&.a {
+			.gradientBar(lighten(@red, 5%), darken(@red, 5%));
+			color: @white;
+		}
+	}
+	.foswikiButtonDisabled,
+	.foswikiSubmitDisabled {
+		&,
+		&.a,
+		&.foswikiButton,
+		&.foswikiSubmit,
+		&.foswikiButtonCancel,
+		&:hover,
+		&:active {
+			cursor: default;
+			background-image: none;
+			.reset-filter();
+			.opacity(50);
+			.box-shadow(none);
+			color: @color_hint;
+			text-shadow: none;
+			background-color: darken(@color_bg_secondary,5%);
+			border-color: @color_border_secondary;
+		}
+	}
+
 	pre,
 	code,
 	tt,
@@ -60,7 +103,7 @@ COLOR SCHEMES
 	}
 	
 	.btn {
-		color: #000;
+		color: @color_text;
 		&.primary {
 			color: @white;
 			.gradientBar(@blue, @blueDark)
@@ -74,18 +117,23 @@ COLOR SCHEMES
 	.foswikiFormStep {
 		border-bottom: 1px solid @color_border_secondary;
 	}
+	.foswikiImage img {
+		background: @background;
+		border-color: @color_border_secondary;
+	}
 	
 	.foswikiBar,
 	&.foswikiBar {
 		
+		.foswikiTitle,
 		.foswikiTitle a {
-			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+			text-shadow: @color_text_shadow;
+		}
+		.foswikiTitle a {
 			color: @color_link;
 			
 			&:hover {
-				background: none;
-				text-decoration: underline;
-				color: @color_link;
+				color: @color_text;
 			}
 		}
 		
@@ -96,25 +144,26 @@ COLOR SCHEMES
 			color: @color_bar_text;
 			&:hover,
 			&.open {
-				color: #000;
+				color: @color_text;
 			}
 		}
 		
 		.menu-dropdown,
-		.dropdown-menu,
-		.menu-dropdown {
+		.dropdown-menu {
 			background-color: @color_dropdown_menu_bg;
 			color: @color_dropdown_menu_text;
 			
+			
 			p {
 				color: lighten(@color_dropdown_menu_text,30%);
+				text-shadow: @color_text_shadow;
 			}
 			li a {
 				color: @color_dropdown_menu_link;
-				text-shadow: none;
+				text-shadow: @color_text_shadow;
 				&:hover {
-					background: darken(@color_dropdown_menu_bg, 10%);
-					#gradient > .vertical(darken(@color_dropdown_menu_bg, 10%),darken(@color_dropdown_menu_bg, 15%));
+					text-shadow: none;
+					background: @color_dropdown_menu_link_highlight_bg;
 					color: @color_dropdown_menu_link_highlight;
 				}
 			}
@@ -127,6 +176,10 @@ COLOR SCHEMES
 			}
 		}
 		
+		/*
+		open menu buttons,
+		.foswikiButtonGroup buttons
+		*/
 		.open a.menu,
 		.dropdown.open a.menu,
 		.open .dropdown-toggle,
@@ -134,18 +187,22 @@ COLOR SCHEMES
 		div > ul a.menu:hover,
 		div > ul li.open .menu,
 		div > ul .dropdown-toggle:hover,
-		div > ul .dropdown.open .dropdown-toggle {
-			color: #000;
-			background: @white;
+		div > ul .dropdown.open .dropdown-toggle,
+		ul.foswikiButtonGroup > li > a:hover,
+		ul.foswikiButtonGroup > li > span a:hover {
+			#gradient > .vertical-three-colors(#ffffff, #ffffff, 25%, darken(#ffffff, 10%)); // Don't use .gradientbar() here since it does a three-color gradient
+			text-shadow: @color_text_shadow;
 		}
 	
-		// arrow shape
-		a.menu:after,
-		.dropdown-toggle:after {
-			border-top: 4px solid #444;
-			.opacity(50);
+		// color of arrow shape
+		a.menu,
+		.dropdown-toggle {
+			&:after {
+				border-top: 4px solid #666;
+			}
 		}
 	}
+	
 	input[type='text'] {
 		background-color: #fff;
   		color: @fw_color_text_light;
@@ -163,7 +220,7 @@ COLOR SCHEMES
 			outline: 0;
 			background-color: @white;
 			color: @grayDark;
-			text-shadow: 0 1px 0 @white;
+			text-shadow: @color_text_shadow;
 			//border: 0;
 			.box-shadow(0 0 3px rgba(0,0,0,.15));
 		}
@@ -222,7 +279,55 @@ COLOR SCHEMES
 	.foswikiButtonGroup {
 		border-color: @color_border_secondary;
 	}
-	
+		a {
+		color: @color_link;
+	}
+	.foswikiButton,
+	.foswikiButtonSmall,
+	.foswikiButtonLarge {
+		&,
+		&.a {
+			color: @black;
+		}
+	}
+	.foswikiSubmit {
+		&,
+		&:hover,
+		&:active,
+		&.a {
+			.gradientBar(lighten(@blue, 5%), darken(@blue, 5%));
+			color: @white;
+		}		
+	}
+	.foswikiButtonCancel {
+		&,
+		&:hover,
+		&:active,
+		&.a {
+			.gradientBar(lighten(@red, 5%), darken(@red, 5%));
+			color: @white;
+		}
+	}
+	.foswikiButtonDisabled,
+	.foswikiSubmitDisabled {
+		&,
+		&.a,
+		&.foswikiButton,
+		&.foswikiSubmit,
+		&.foswikiButtonCancel,
+		&:hover,
+		&:active {
+			cursor: default;
+			background-image: none;
+			.reset-filter();
+			.opacity(50);
+			.box-shadow(none);
+			color: @color_hint;
+			text-shadow: none;
+			background-color: darken(@color_bg_secondary,5%);
+			border-color: @color_border_secondary;
+		}
+	}
 	pre,
 	code,
 	tt,
@@ -241,18 +346,23 @@ COLOR SCHEMES
 	.foswikiFormStep {
 		border-bottom: 1px solid @color_border_secondary;
 	}
+	.foswikiImage img {
+		background: @background;
+		border-color: @color_border_secondary;
+	}
 	
 	.foswikiBar,
 	&.foswikiBar {
 	
+		.foswikiTitle,
 		.foswikiTitle a {
 			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+		}
+		.foswikiTitle a {
 			color: @color_link;
 			
 			&:hover {
-				background: none;
-				text-decoration: underline;
-				color: @color_link;
+				color: @color_text;
 			}
 		}
 		
@@ -272,6 +382,7 @@ COLOR SCHEMES
 		.menu-dropdown {
 			background-color: @color_dropdown_menu_bg;
 			color: @color_dropdown_menu_text;
+			text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 			
 			p {
 				color: @color_dropdown_menu_text;
@@ -296,12 +407,9 @@ COLOR SCHEMES
 		
 		.open a.menu,
 		.dropdown.open a.menu,
-		.open .dropdown-toggle,
 		.dropdown.open .dropdown-toggle,
-		div > ul a.menu:hover,
-		div > ul li.open .menu,
 		div > ul .dropdown-toggle:hover,
-		div > ul .dropdown.open .dropdown-toggle {
+		ul.foswikiButtonGroup > li > a:hover {
 			color: @white;
 			background: #444;
 			background: rgba(255,255,255,.05);
@@ -345,62 +453,102 @@ COLOR SCHEMES
 	}
 }
 
-.foswikiColorWhite {
-	.fw_color_scheme_light(#fff);
-	
+.foswikiColorWhite(@background: #fff) {
+
+	// COLORS:
+	// color_background
+	// color_text
+	// color_header
+	// color_header_h1
+	// color_hint
+	// color_bar_text
+	// color_dropdown_menu_bg
+	// color_dropdown_menu_text
+	// color_dropdown_menu_link
+	// color_dropdown_menu_link_highlight_bg
+	// color_dropdown_menu_link_highlight
+	// color_border
+	// color_border_secondary
+	// color_bg_secondary
+	// color_code
+	// color_code_bg
+	// color_code_border
+	// color_link
+	// color_link_hover
+	// color_text-shadow
+			
+	.fw_color_scheme(
+		@background,
+		#000,
+		#444,
+		#444,
+		#888,
+		#333,
+		darken(#fff,3%),
+		#666,
+		#666,
+		#333,
+		#ddd,
+		#dedfe2,
+		#e0e0e0,
+		#f6f6f6,
+		#000,
+		#f6f6f6,
+		#e0e0e0,
+		#0069d6,
+		darken(#0069d6, 15),
+		0 1px 0 rgba(255, 255, 255, 0.7)
+	);
+		
 	&.foswikiBar {
 		border-bottom: 1px solid #dedfe2;
 	}
-/*
+}
+
+.foswikiColorSilver() {
+	.foswikiColorWhite(#f2f2f2);
+}
+
+.foswikiColorGray() {
+	.foswikiColorWhite(#e2e2e2);
+		
 	&.foswikiBar {
-		background-color: #fff;
-		#gradient > .vertical(#fff, #fff);
-		@shadow_blend: 150;
-		@shadow: 0 1px 3px rgba(@shadow_blend,@shadow_blend,@shadow_blend,.25), inset 0 -1px 0 rgba(0,0,0,.1);
+		@shadow_blend: 0;
+		@shadow: 0 1px 3px rgba(@shadow_blend,@shadow_blend,@shadow_blend,.1), inset 0 -1px 0 rgba(0,0,0,.1);
 		.box-shadow(@shadow);
 	}
-*/
 }
 
-.foswikiColorSilver {
-	.fw_color_scheme_light(#f5f5f5);
-	
-	&.foswikiBar {
-		border-bottom: 1px solid #dedfe2;
-	}
-	
-	
-/*
-	&.foswikiBar {
-		background-color: #f5f5f5;
-		#gradient > .vertical(#f5f5f5, #f5f5f5);
-		@shadow_blend: 100;
-		@shadow: 0 1px 3px rgba(@shadow_blend,@shadow_blend,@shadow_blend,.15), inset 0 -1px 0 rgba(0,0,0,.1);
-		.box-shadow(@shadow);
-	}
-*/
-}
-
-.foswikiColorGray {
-	.fw_color_scheme_light(#f2f2f2);
-	
-	&.foswikiBar {
-		border-bottom: 1px solid #dedfe2;
-	}
-}
-
-.foswikiColorBlack {
+.foswikiColorBlack() {
 	.fw_color_scheme_dark(#222);
 	
 	&.foswikiBar {
-		background-color: #222;
-		#gradient > .vertical(#333, #222);
-		@shadow_blend: 100;
+//		background-color: #222;
+//		#gradient > .vertical(#333, #222);
+		@shadow_blend: 0;
 		@shadow: 0 1px 3px rgba(@shadow_blend,@shadow_blend,@shadow_blend,.25), inset 0 -1px 0 rgba(0,0,0,.1);
 		.box-shadow(@shadow);
 	}
 }
 
-html {
-	background: #f2f2f2;
+// Set color scheme
+
+.foswikiColorPrimary {
+	.foswikiColorWhite();
+}
+.foswikiColorSecundary {
+	.foswikiColorSilver();
+}
+.foswikiColorNavigationPrimary {
+	.foswikiColorBlack();
+}
+.foswikiColorNavigationSecundary {
+	.foswikiColorGray();
+}
+
+@color_bottom_bar: #f2f2f2;
+
+html,
+.foswikiBottomBar {
+	background: @color_bottom_bar;
 }

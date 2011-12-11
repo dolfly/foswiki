@@ -1,5 +1,5 @@
-<noautolink><div class="foswikiBar foswikiBottomBar foswikiColorGray">
+<noautolink><div class="foswikiBar foswikiBottomBar">
 	<div class="foswikiContainer">
-		Bottom bar
+		%WEBCOPYRIGHT%
 	</div>
 </div></noautolink>
