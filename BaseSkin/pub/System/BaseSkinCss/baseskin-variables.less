@@ -132,6 +132,7 @@
 // smaller - sizes in pixels
 @fw_strand1_ratio_down_1: @fw_strand1_ratio_1 / @fw_ratio;
 @fw_strand1_ratio_down_2: @fw_strand1_ratio_down_1 / @fw_ratio;
+@fw_strand1_ratio_down_3: @fw_strand1_ratio_down_2 / @fw_ratio;
 
 // strand 2
 
@@ -157,13 +158,14 @@
 // smaller - sizes in pixels
 @fw_strand2_ratio_down_1: @fw_strand2_ratio_1 / @fw_ratio;
 @fw_strand2_ratio_down_2: @fw_strand2_ratio_down_1 / @fw_ratio;
+@fw_strand2_ratio_down_3: @fw_strand2_ratio_down_2 / @fw_ratio;
 
 // set ratios for common elements
 
 // font sizes
-@fw_size_small:    @fw_strand2_ratio_down_1;
 @fw_size_smallish: 0.9 * @fw_strand1_ratio_1;
 @fw_size_code:     @fw_size_smallish;
+@fw_size_small:    0.86 * @fw_strand1_ratio_1;
 @fw_size_p:        @fw_strand1_ratio_1;
 @fw_size_h6:       @fw_strand1_ratio_1;
 @fw_size_h5:       @fw_strand2_ratio_1;
@@ -179,8 +181,8 @@
 @fw_size_block_padding_flattened_em: 0em + @fw_strand1_ratio_down_1 / @basefont;
 @fw_size_block_padding_flattened_px: 0px + @fw_strand1_ratio_down_1;
 
-@fw_size_padding_menu_em: 0em + @fw_strand1_ratio_down_2 / @basefont;
-@fw_size_padding_menu_px: 0px + @fw_strand2_ratio_down_1;
+@fw_size_padding_menu_em: 0em + @fw_strand2_ratio_down_2 / @basefont;
+@fw_size_padding_menu_px: 0px + @fw_strand2_ratio_down_2;
 
 @fw_contentSidePadding: (@siteWidth - @fw_strand2_ratio_up_10) / 2;
 @fw_inner_content_width: @siteWidth - 2*@fw_contentSidePadding;

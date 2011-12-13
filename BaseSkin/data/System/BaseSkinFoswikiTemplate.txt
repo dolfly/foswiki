@@ -23,7 +23,8 @@
 ---------------------------------------------------
 	Empty elements that will be filled by other templates
 ---------------------------------------------------
-}%%TMPL:DEF{"titleaction"}%%TMPL:END%%{
+}%%TMPL:DEF{"titleaction"}%%TMPL:END%
+%TMPL:DEF{"breadcrumb"}%%TMPL:END%%{
 -------------------------------------------------
 	Document structure
 ---------------------------------------------------
@@ -177,8 +178,9 @@
 ---------------------------------------------------
 	Controls: topic actions
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:topicactions"}%<div id="Testtop" class="foswikiBar foswikiTopicActions foswikiColorSecundary" data-dropdown="dropdown" data-minpadding="2">
+}%%TMPL:DEF{"controls:topicactions"}%<div class="foswikiBar foswikiTopicActions foswikiColorSecundary" data-dropdown="dropdown" data-minpadding="2">
 	<div class="foswikiContainer">
+		%TMPL:P{"breadcrumb"}%
 		%TMPL:P{"controls:topicactionbuttons"}%
 		<div class="foswikiClear"></div>
 	</div>

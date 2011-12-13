@@ -92,8 +92,6 @@
 	height: auto;
 	min-height: 4px;
 	z-index: 2;
-	padding-top: 0;
-	padding-bottom: 0;
 	
 	.foswikiLogo a {
 		padding: 0;
@@ -152,7 +150,7 @@
 	z-index: 1;
 	top: 0;
 	.box-shadow(none);
-	
+
 	.nav > li {
 		> a,
 		> span a,
@@ -217,6 +215,17 @@
 			.box-shadow(none);
 		}
 	}
+	
+	.foswikiBreadcrumb {
+		padding: @fw_button_padding;
+		padding-left: 0;
+		float: left;
+		color: #999; // TODO: move to color schemes
+	
+		.foswikiSeparator {
+			padding: 0 .5em;
+		}
+	}
 }
 
 
@@ -263,7 +272,8 @@ hr {
 	background-color: #ccc;
 }
 
-
+.foswikiSeparator {}
+.foswikiBreadcrumb {}
 
 
 .foswikiPreviewArea {

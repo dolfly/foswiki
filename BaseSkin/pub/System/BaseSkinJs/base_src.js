@@ -3,7 +3,7 @@ jQuery(document).ready(function($) {
 	function smoothScroll() {
 		var SCROLL_DURATION = 250,
 			SCROLL_TOP = 20,
-			$fixedElements = $('.foswikiSticky'),
+			$fixedElements = $('.foswikiMakeSticky'),
 			offsetY = 0,
 			scrollOpts,
 			anchor,
@@ -48,17 +48,22 @@ jQuery(document).ready(function($) {
 	});
 	
 	smoothScroll();
-	$('.foswikiSticky').sticky();
+	$('.foswikiMakeSticky').sticky({
+		cssclass: 'foswikiSticky'
+	});
 });
 
 
 (function( $ ){
 
-	$.fn.sticky = function() {
+	$.fn.sticky = function(options) {
 	
+		var settings = $.extend( {
+		  'cssclass' : 'sticky'
+		}, options);
+		
 		var $fixedElements = [],
 			$fixedElement,
-			contentPadding = 0,
 			offsetY = 0,
 			scrollTop = 0,
 			ival,
@@ -98,8 +103,8 @@ jQuery(document).ready(function($) {
 						$fixedElement.isFixed = 1;
 						
 						// fix element at y position stickyY
+						$fixedElement.addClass(settings.cssclass);
 						$fixedElement.css({
-							position: 'fixed',
 							top: $fixedElement.stickyY + 'px'
 						});			
 						// add a div to hold the padding the fixed element has just removed
@@ -112,8 +117,8 @@ jQuery(document).ready(function($) {
 					if ($fixedElement.isFixed) {
 						$fixedElement.isFixed = 0;
 						$fixedElement.$div.remove();
+						$fixedElement.removeClass(settings.cssclass);
 						$fixedElement.css({
-							position: 'relative',
 							top: 'auto'
 						});
 					}

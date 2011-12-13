@@ -18,7 +18,7 @@ Base Skin topic template
 ---------------------------------------------------
 }%%TMPL:DEF{"body:class"}%foswikiViewPage%TMPL:END%%{
 ---------------------------------------------------
-	Content container
+	Title (void)
 ---------------------------------------------------
 }%%TMPL:DEF{"controls:title"}%%TMPL:END%%{
 ---------------------------------------------------
@@ -40,21 +40,23 @@ Base Skin topic template
 ---------------------------------------------------
 	breadcrumb
 ---------------------------------------------------
-}%%TMPL:DEF{"breadcrumb"}%<ul class="breadcrumb">
-	<li>You are here: </li>	
-	<li><a href="#">Home</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Middle page</a> <span class="divider">/</span></li>
-	<li><a href="#">Another one</a> <span class="divider">/</span></li>
-	<li class="active">You are here</li>
-</ul>%TMPL:END%%{
+}%%TMPL:DEF{"breadcrumb"}%<div class='foswikiBreadcrumb'>%TMPL:P{"breadcrumb:title"}%%TMPL:P{"breadcrumb:wikitoolname"}%%TMPL:P{"breadcrumb:currentweb"}%%TMPL:P{"breadcrumb:parents"}%%TMPL:P{"breadcrumb:currenttopic"}%</div>%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:separator"}%<span class='foswikiSeparator'>/</span>%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:parents"}%%META{"parent" nowebhome="on" prefix="%TMPL:P{"breadcrumb:separator"}%" separator="%TMPL:P{"breadcrumb:separator"}%" suffix=""}%%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:topic"}%<nop>%TOPIC%%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:title"}%<span class="patternHomePathTitle">%MAKETEXT{"You are here:"}% </span>%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:wikitoolname"}%[[%USERSWEB%.%HOMETOPIC%][%WIKITOOLNAME%]]%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:currentweb"}%%TMPL:P{"breadcrumb:separator"}%<a href="%SCRIPTURLPATH{"view"}%/%WEB%/%HOMETOPIC%">%MAKETEXT{"[_1] Web" args="<nop>%WEB%"}%</a>%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:annotation"}%%IF{"defined rev" then=" %MAKETEXT{"(revision [_1])" args="%URLPARAM{"rev"}%"}%" else=" <span class='patternRevInfo'>(%REVINFO{format="$date, $percntIF{$quotistopic '%USERSWEB%.$wikiname'$quot then=$quot[[%USERSWEB%.$wikiname][$wikiname]]$quot else=$quot$wikiname"}%$quot}$percnt)</span>"}%%IF{"defined raw" then=" %MAKETEXT{"(raw view)"}%"}%%TMPL:END%
+
+%TMPL:DEF{"breadcrumb:currenttopic"}%%TMPL:P{"breadcrumb:separator"}%<a href="%SCRIPTURL{view}%/%WEB%/%TOPIC%" title='%MAKETEXT{"Topic revision:"}% %REVINFO{format="$rev ($date - $time)"}%'>%TMPL:P{"breadcrumb:topic"}%</a>%TMPL:P{"breadcrumb:annotation"}%%TMPL:END%%{
 ---------------------------------------------------
 	topic:before contains the form:top and attachments:top, if set (not inside a tab pane)
 	TODO: test this
