@@ -28,7 +28,7 @@ Base Skin topic template
 ---------------------------------------------------
 	Controls: topic actions
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:topicactions"}%<div class="foswikiBar foswikiTopicActions foswikiColorSecundary foswikiSticky">
+}%%TMPL:DEF{"controls:topicactions"}%<div class="foswikiBar foswikiTopicActions foswikiColorSecundary foswikiMakeSticky">
 	<div class="foswikiContainer">
 		%TMPL:P{"controls:topicactionbuttons"}%
 		<div class="foswikiClear"></div>
