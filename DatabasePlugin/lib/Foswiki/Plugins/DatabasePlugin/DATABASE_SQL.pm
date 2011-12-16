@@ -22,6 +22,7 @@ sub handle {
 
             # reverse sort so we handle longer keys first
             foreach my $k ( reverse sort keys %$res ) {
+                $res->{$k} = '' unless defined $res->{$k};
                 $row =~ s/\$$k/$res->{$k}/g;
             }
             $result .= $row . $separator;
