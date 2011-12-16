@@ -54,7 +54,7 @@ sub initPlugin {
         }
         my $cmd =
 "SELECT description,driver,db_name,db_sid,table_name,ro_username,ro_password,hostname FROM $Foswiki::cfg{Plugins}{DatabasePlugin}{ConfigTable}";
-        my $sth = $dbinfo->{db}->prepare($cmd);
+        my $sth = $db->prepare($cmd);
         $sth->execute;
 
         # Fill hashes with the database information.
