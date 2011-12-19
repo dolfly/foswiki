@@ -8,8 +8,8 @@ use strict;
 use vars qw( $VERSION $RELEASE $dbinfo $SHORTDESCRIPTION );
 use Foswiki::Plugins::DatabasePlugin::Connection;
 
-$VERSION          = '2.0';
-$RELEASE          = 'Foswiki';
+$VERSION          = '$Rev$';
+$RELEASE          = '2.1';
 $SHORTDESCRIPTION = 'Provide access to data in a SQL database';
 
 sub initPlugin {

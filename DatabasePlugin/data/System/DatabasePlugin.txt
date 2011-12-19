@@ -77,6 +77,7 @@ Or let's say you wanted to display the next two upcoming scheduled events in the
 |  Plugin Author: | TWiki:Main.TaitCyrus |
 |  Plugin Version: | %$VERSION% |
 |  Change History: | |
+|  16 Dec 2011 | Tasks.Item10405: Fix a bug preventing the use of a remote !ConfigSource - Main.FlorianSchlichting |
 |  28 Nov 2008 | Tasks.Item8018: Switch to foswiki - Main.LarsEik |
 |  17 Sep 2007 | Bugs:Item4343 Minor corrections to Config.spec - TWiki:Main.CrawfordCurrie |
 |  18 March 2007 | Rewritten for efficiency and clarity, and added DATABASE_SQL - TWiki:Main.CrawfordCurrie |
