@@ -1,6 +1,10 @@
+/***
+By default we include all the CSS for the Superfish menu. We customize below
+Remember if you copy this file remember to update the following relative path
+***/
 @import "../JQueryPlugin/plugins/superfish/jquery.superfish.css";
 
-/*** JQueryMenuPlugin Customizations ***/
+/*** JQueryMenuSkin Customizations ***/
 
 .sf-menu {
 	float:			left;
@@ -13,18 +17,18 @@
     border:     0px;
 }
 .sf-menu li {
-	background:		#38708B;
+	background:		#48708B;
 	margin:	0em;
 	padding:	0em;
 }
 .sf-menu li li {
     border:     1px solid #CFDEFF;
-	background:		#38708B;
+	background:		#48708B;
 	margin:	0em;
 	padding:	0em;
 }
 .sf-menu li li li {
-	background:		#38708B;
+	background:		#48708B;
 }
 .sf-menu li:hover, .sf-menu li.sfHover,
 .sf-menu a:focus, .sf-menu a:hover, .sf-menu a:active {
@@ -32,15 +36,16 @@
 	outline:		0;
 }
 
-
+/*** Container that extends the menu bar the full width of the page ***/
 #menu_container {
     border:     1px solid #CFDEFF;
-	background-color: #38708B;
+	background-color: #48708B;
 	background-repeat: repeat-x;
 	float: left;
 	width: 100%;
     margin-bottom:  1em;
 } 
+/*** Optional customization of the height of the WebTopBar ***/
 #patternTopBar, 
 #patternClearHeaderCenter, 
 #patternClearHeaderLeft, 
