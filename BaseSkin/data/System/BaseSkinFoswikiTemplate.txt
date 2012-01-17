@@ -17,9 +17,22 @@
 -------------------------------------------------
 }%%TMPL:DEF{"standardheader"}%%TMPL:END%
 %TMPL:DEF{"simpleheader"}%%TMPL:END%
-%TMPL:DEF{"copyright"}%%TMPL:END%
-%TMPL:DEF{"JavascriptFiles/foswikiPref"}%%TMPL:END%
-%{
+%TMPL:DEF{"copyright"}%%TMPL:END%%TMPL:END%%{
+---------------------------------------------------
+	Elements that are in use by extensions.
+	So these are now part of the spec. 
+---------------------------------------------------
+}%%TMPL:DEF{"JavascriptFiles/foswikiString"}%
+%TMPL:P{"LIBJS" id="JavascriptFiles/foswikiString" requires="JQUERYPLUGIN::FOSWIKI"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"JavascriptFiles/foswikiStringUnicodeChars"}%%{
+}%%TMPL:P{"LIBJS" id="JavascriptFiles/foswikiStringUnicodeChars" requires="JQUERYPLUGIN::FOSWIKI,JavascriptFiles/foswikiString"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"JavascriptFiles/foswikiPref"}%%{
+}%%TMPL:P{"LIBJS" id="JavascriptFiles/foswikiPref" requires="JQUERYPLUGIN::FOSWIKI"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"JavascriptFiles/foswikiForm"}%%{
+}%%TMPL:P{"LIBJS" id="JavascriptFiles/foswikiForm" requires="JQUERYPLUGIN::FOSWIKI,JavascriptFiles/foswikiString"}%%TMPL:END%%{
 ---------------------------------------------------
 	Empty elements that will be filled by other templates
 ---------------------------------------------------
@@ -210,9 +223,9 @@
 					<li><a href='#'>PDF</a></li>
 					<li class='divider'></li>
 					<li><p>Display</p></li>
-					<li><a href='#'>Wide</a></li>
-					<li><a href='#'>Nice</a></li>
-					<li><a href='#'>Small</a></li>
+					<li><a href='#' class='foswikiDisplaySpatious'>Spatious</a></li>
+					<li><a href='#' class='foswikiDisplayAverage'>Nice</a></li>
+					<li><a href='#' class='foswikiDisplayMaxscreen'>Max screen</a></li>
 				</ul>
 			</li>
 		</ul><!--

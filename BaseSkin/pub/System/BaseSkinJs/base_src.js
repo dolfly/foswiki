@@ -14,51 +14,70 @@ foswiki.base = (function () {
 
 	"use strict";
 
-	var getAnchor;
-	
-	getAnchor = function (url) {
-		url = url || location.href;
+	var getIdFromAnchorUrl,
+		DEFAULT_SCROLL_OFFSET = 30,
+		DEFAULT_SCROLL_DURATION = 300,
+		DEFAULT_SCROLL_EFFECT = 'easeInOutSine',
+		STICKY_CLASS_SELECTOR = '.foswikiMakeSticky';
+		
+	getIdFromAnchorUrl = function (url) {
 		return url.replace(/^[^#]*#?!?(.*)$/, '$1');
 	};
 
 	return {
 
-		smoothScroll: function ($) {
-			var SCROLL_DURATION = 250,
-				SCROLL_TOP = 20,
-				$fixedElements = $('.foswikiMakeSticky'),
-				offsetY = 0,
-				scrollOpts,
-				anchor,
-				$target,
-				i;
-
-			for (i = 0; i < $fixedElements.length; i = i + 1) {
-				offsetY += $($fixedElements[i]).outerHeight();
+		/**
+		opts: hash with id, duration, offset, effect, callback
+		*/
+		scrollToAnchor: function ($, opts) {
+			var el = document.getElementById(opts.id);
+			if (!el) {
+				return;
 			}
-			offsetY += SCROLL_TOP;
+			var duration = opts.duration || DEFAULT_SCROLL_DURATION,
+				offset = opts.offset || 0,
+				top = offset + $(el).offset().top,
+				effect = opts.effect || DEFAULT_SCROLL_EFFECT;
 
-			scrollOpts = {
-				reset: true,
-				lazy: true,
-				hash: true,
-				duration: SCROLL_DURATION,
-				axis: 'y',
-				offset: { top: (-offsetY), left: 0 },
-				easing: 'swing'
-			};
-			$('a').localScroll(scrollOpts);
+			$('html, body').animate({
+				scrollTop: top
+			}, {
+				duration: duration,
+				easing: effect,
+				complete: opts.callback
+			});
+		},
+		
+		/*
+		Calculate offset when sticky elements are around. Pass value to scroll options and call scrollToAnchor.
+		*/
+		smartScrollDealWithStickys: function ($, opts) {
+			var $fixedElements = $(STICKY_CLASS_SELECTOR),
+				offsetY = -DEFAULT_SCROLL_OFFSET,
+				i;
+			
+			for (i = 0; i < $fixedElements.length; i = i + 1) {
+				offsetY -= $($fixedElements[i]).outerHeight();
+			}			
+			opts.offset = offsetY;
+			this.scrollToAnchor($, opts);
+		},
+		
+		handleLocalScroll: function($) {
+			var that = this,
+				id,
+				opts;
+
+			// all links with anchors
+			$("a[href*='#']").click(function() {
+				id = getIdFromAnchorUrl(this.href);
+				that.smartScrollDealWithStickys($, {id: id});
+			});
 
 			// also scroll on page load
-			anchor = getAnchor();
-			if (anchor) {
-				$target = $('a[name=\'' + anchor + '\']');
-				if ($target.length === 0) {
-					$target = $('#' + anchor);
-				}
-				if ($target.length !== 0) {
-					$('body').scrollTo($target, 1, scrollOpts);
-				}
+			id = getIdFromAnchorUrl(location.href);
+			if (id) {
+				that.smartScrollDealWithStickys($, {id: id});
 			}
 		},
 		
@@ -81,6 +100,45 @@ foswiki.base = (function () {
 					chromechk_watchdog++;
 				}, 50);
 			}
+		},
+		
+		manageDisplay: function($) { 
+			var setDisplay = function(classname) {
+				$('body').removeClass('foswikiDisplaySpatious').removeClass('foswikiDisplayAverage').removeClass('foswikiDisplayMaxscreen');
+				$('body').addClass(classname);
+				if (foswiki.Pref) {
+					foswiki.Pref.setPref('skinDisplay', classname);
+				}
+			};
+			$('a.foswikiDisplaySpatious,a.foswikiDisplayAverage,a.foswikiDisplayMaxscreen').livequery('click', function (e) {
+				var $this = $(this);
+				switch ($(this).attr('class')) {
+					case 'foswikiDisplaySpatious':
+						setDisplay('foswikiDisplaySpatious');
+						break;
+					case 'foswikiDisplayAverage':
+						setDisplay('foswikiDisplayAverage');
+						break;
+					case 'foswikiDisplayMaxscreen':
+						setDisplay('foswikiDisplayMaxscreen');
+						break;
+				}
+				e.preventDefault();
+			});
+			
+			if (foswiki.Pref) {
+				var pref = foswiki.Pref.getPref('skinDisplay');
+				if (pref) {
+					setDisplay(pref);
+				}
+			}
+		},
+
+		handleSticky: function($) { 
+			// make elements with class STICKY_CLASS_SELECTOR stick to the window	
+			$(STICKY_CLASS_SELECTOR).sticky({
+				cssclass: 'foswikiSticky'
+			});
 		}
 		
 	};
@@ -88,119 +146,13 @@ foswiki.base = (function () {
 
 jQuery(document).ready(function ($) {
 
-	foswiki.base.smoothScroll($);
 	foswiki.base.removeYellowFromInputs($);
-
+	foswiki.base.manageDisplay($);
+	foswiki.base.handleLocalScroll($);
+	foswiki.base.handleSticky($);
+	
 	// add focus to elements with class foswikiFocus
 	$('input.foswikiFocus').livequery(function () {
 		$(this).focus();
 	});
-
-	// make elements with class foswikiMakeSticky stick to the window	
-	$('.foswikiMakeSticky').sticky({
-		cssclass: 'foswikiSticky'
-	});
 });
-
-/**
-Sticky plugin
-https://github.com/ArthurClemens/jquery-sticky-plugin
-*/
-
-(function ($) {
-	"use strict";
-	$.fn.sticky = function (options) {
-
-		var settings = $.extend({
-			'cssclass': 'sticky'
-		}, options),
-			$fixedElements = [],
-			$fixedElement,
-			offsetY = 0,
-			scrollTop = 0,
-			ival,
-			i,
-			$this,
-			scrollZone,
-			fix,
-			unfix,
-			handleScroll,
-			handleScrollEvent,
-			// scroll wait duration depends if sticky element changes are within scroll zone
-			SCROLL_WAIT_FINE = 5,
-			SCROLL_WAIT_COURSE = 15,
-			scrollWait = SCROLL_WAIT_COURSE;
-
-		this.each(function () {
-			$this = $(this);
-			// scrollY: y position from where to fixate
-			$this.scrollY = $this.position().top - offsetY;
-
-			// stickyY: y position when being sticky
-			$this.stickyY = offsetY;
-			offsetY += $this.outerHeight();
-
-			// scrollZone: to get finegrained scroll updates when sticking/unsticking happens
-			scrollZone = $this.scrollY + $this.outerHeight();
-
-			$fixedElements.push($this);
-		});
-
-		fix = function ($element) {
-			// fix element at y position stickyY
-			$element.addClass(settings.cssclass);
-			$element.css({
-				top: $element.stickyY + 'px'
-			});
-			// add a div to hold the padding the fixed element has just removed
-			$element.$div = jQuery('<div></div>').css({
-				height: $element.outerHeight()
-			});
-			$element.after($element.$div);
-			$fixedElement.isFixed = 1;
-		};
-
-		unfix = function ($element) {
-			$element.$div.remove();
-			$element.removeClass(settings.cssclass);
-			$element.css({
-				top: 'auto'
-			});
-			$fixedElement.isFixed = 0;
-		};
-
-		handleScroll = function () {
-
-			scrollTop = $(window).scrollTop();
-			for (i = 0; i < $fixedElements.length; i = i + 1) {
-				$fixedElement = $fixedElements[i];
-
-				if (scrollTop >= $fixedElement.scrollY) {
-					if (!$fixedElement.isFixed) {
-						fix($fixedElement);
-					}
-				} else {
-					if ($fixedElement.isFixed) {
-						unfix($fixedElement);
-					}
-				}
-			}
-			scrollWait = scrollTop < scrollZone ? SCROLL_WAIT_FINE : SCROLL_WAIT_COURSE;
-		};
-
-		handleScrollEvent = function () {
-			clearTimeout(ival);
-			ival = setTimeout(function () {
-				handleScroll();
-			}, scrollWait);
-		};
-
-		$(window).scroll(handleScrollEvent);
-
-		// update first time without scroll event
-		handleScroll();
-
-		return this;
-	};
-
-}(jQuery));
