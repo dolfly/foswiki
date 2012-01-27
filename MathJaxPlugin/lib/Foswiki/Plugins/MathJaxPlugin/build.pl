@@ -27,15 +27,16 @@ sub target_build {
     $this->{DEBUG} && print STDERR "base_dir=[$base_dir]\n";
     chdir $base_dir or die $!;
 
-    my $mathjax = 'MathJax-v1.0.1a.zip';
+    my $mathjax = 'MathJax-v1.1a.zip';
     my $file = $base_dir . $mathjax;
     $this->{DEBUG} && print STDERR "file=[$file]\n";
 
     unless ( -e $file ) {
-	system( wget => '-O'=>$mathjax, 'http://sourceforge.net/projects/mathjax/files/MathJax/v1.0.1/MathJax-v1.0.1a.zip/download' );
+        system( wget => '-O'=>$mathjax, 'https://github.com/mathjax/MathJax/zipball/v1.1a');
     }
 
     system( unzip => '-u' => $mathjax );
+    rename('mathjax-MathJax-f5cd294', 'MathJax');
 }
 
 ################################################################################

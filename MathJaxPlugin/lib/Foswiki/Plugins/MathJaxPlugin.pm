@@ -89,12 +89,6 @@ sub handleMath {
 }
 
 ###############################################################################
-sub postRenderingHandler { 
-  return unless $core; # no math
-  $core->postRenderingHandler($web, $topic, @_)
-}
-	
-###############################################################################
 sub _MATHMODE {
     my($session, $params, $theTopic, $theWeb) = @_;
     # $session  - a reference to the Foswiki session object
