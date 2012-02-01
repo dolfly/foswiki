@@ -32,13 +32,15 @@ Base Skin topic template
 ---------------------------------------------------
 	Edit controls
 ---------------------------------------------------
-}%%TMPL:DEF{"editcontrols"}%<div class='foswikiMakeSticky foswikiColorNavigationSecondary'>
+}%%TMPL:DEF{"editcontrols"}%<div class='foswikiMakeSticky foswikiShadow foswikiColorNavigationSecondary'>
+	<div class='foswikiBar foswikiColorSecondary'>
 	<div class='foswikiContainer'>
-		<div id='foswikiEditControlsContainer' class='foswikiBar foswikiColorSecondary'>
+		<div id='foswikiEditControlsContainer'>
 			<div class='foswikiEditControls'>
 				<input type='submit' class='foswikiSubmit' name='action_save' value='%MAKETEXT{"Save"}%' id='save' /><input type='submit' class='foswikiButtonCancel' name='action_cancel' value='%MAKETEXT{"Cancel"}%' id='cancel' /><input type='submit' class='foswikiButton' name='action_preview' value='%MAKETEXT{"Preview"}%' id='preview' /><input type='submit' class='foswikiButton' value='%MAKETEXT{"WYSIWYG"}%' id='topic_2WYSIWYG' />
 			</div>
 		</div>
+	</div>
 	</div>
 </div>%TMPL:END%%{
 ---------------------------------------------------

@@ -33,7 +33,7 @@ foswiki.base = (function ($) {
 			offsetY -= $($fixedElements[i]).outerHeight();
 		}
 		return offsetY;
-	}
+	};
 	
 	return {
 
@@ -98,8 +98,9 @@ foswiki.base = (function ($) {
 		*/
 		manageDisplaySettings: function() { 
 			var setDisplay = function(classname) {
-				$('body').removeClass('foswikiDisplaySpatious').removeClass('foswikiDisplayAverage').removeClass('foswikiDisplayMaxscreen');
-				$('body').addClass(classname);
+				var viewClass = 'view-' + classname;
+				$('body').removeClass('view-foswikiDisplaySpatious').removeClass('view-foswikiDisplayAverage').removeClass('view-foswikiDisplayMaxscreen');
+				$('body').addClass(viewClass);
 				if (foswiki.Pref) {
 					foswiki.Pref.setPref('skinDisplay', classname);
 				}

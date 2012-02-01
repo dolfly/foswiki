@@ -20,6 +20,7 @@ data/System/BaseSkinWebBottomBarTemplate.txt 0644
 data/System/BaseSkinWebTopBarExample.txt 0644
 data/System/BaseSkinWebTopBarTemplate.txt 0644
 pub/System/BaseSkin/foswiki-logo-top.png 0644
+pub/System/BaseSkin/controls-icon-check.png 0644
 pub/System/BaseSkinCss/baseskin_src.css 0644 # the styles in css
 pub/System/BaseSkinCss/baseskin-bootstrap.less 0644
 pub/System/BaseSkinCss/baseskin-colors.less 0644
@@ -33,7 +34,7 @@ pub/System/BaseSkinCss/baseskin-variables.less 0644
 pub/System/BaseSkinCss/baseskin.css 0644 # the styles in css
 pub/System/BaseSkinCss/baseskin.css 0644 # the styles minified
 pub/System/BaseSkinCss/baseskin.less 0644 # the styles in less
-pub/System/BaseSkinCss/less-1.1.5.min.js 0644
+pub/System/BaseSkinCss/less-1.2.1.min.js 0644
 pub/System/BaseSkinCss/twitter-bootstrap/bootstrap.less 0644
 pub/System/BaseSkinCss/twitter-bootstrap/forms.less 0644
 pub/System/BaseSkinCss/twitter-bootstrap/mixins.less 0644

@@ -123,7 +123,7 @@
 ---------------------------------------------------
 	"startsection"
 ---------------------------------------------------
-}%%TMPL:DEF{"startsection" class="foswikiColorPrimary"}%<div class='foswikiSection %class%'><div class='foswikiContainer'>%TMPL:END%%{
+}%%TMPL:DEF{"startsection"}%<div class='foswikiSection %class%'><div class='foswikiContainer'>%TMPL:END%%{
 ---------------------------------------------------
 	"endsection"
 ---------------------------------------------------
@@ -167,7 +167,7 @@
 		- topic actions
 		If you need to have the controls fixed to the browser window: surround contents with <div class='foswikiMakeSticky'>...</div>
 ---------------------------------------------------
-}%%TMPL:DEF{"controls"}%%TMPL:P{"startsection" class="foswikiBar foswikiTopicActions foswikiColorNavigationSecondary foswikiClearfix"}%
+}%%TMPL:DEF{"controls"}%%TMPL:P{"startsection" class="foswikiBar foswikiTopicActions foswikiColorNavigationSecondary foswikiShadow foswikiClearfix"}%
 	%TMPL:P{"breadcrumb"}%
 	%TMPL:P{"controls:topicactions"}%
 %TMPL:P{"endsection"}%%TMPL:END%%{
@@ -223,9 +223,9 @@
 					<li><a href='#'>PDF</a></li>
 					<li class='divider'></li>
 					<li><p>Display</p></li>
-					<li><a href='#' class='foswikiDisplaySpatious'>Spatious</a></li>
-					<li><a href='#' class='foswikiDisplayAverage'>Nice</a></li>
-					<li><a href='#' class='foswikiDisplayMaxscreen'>Max screen</a></li>
+					<li><a href='#' class='foswikiDisplaySpatious'>Spatious<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+					<li><a href='#' class='foswikiDisplayAverage'>Nice<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+					<li><a href='#' class='foswikiDisplayMaxscreen'>Max screen<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
 				</ul>
 			</li>
 		</ul><!--
@@ -261,7 +261,7 @@
 }%%TMPL:DEF{"topicinfo"}%%IF{
 	"defined rev"
 	then=" %MAKETEXT{"revision [_1]" args="%URLPARAM{"rev"}%"}%"
-	else=" <span>%REVINFO{format="%MAKETEXT{"revision [_1]: [_2] by [_3]" args="$rev, $date, $percntIF{$quotistopic '%USERSWEB%.$wikiname'$quot then=$quot[[%USERSWEB%.$wikiname][$wikiname]]$quot else=$quot$wikiname"}%$quot}$percnt"
+	else=" <span>%REVINFO{format="%MAKETEXT{"revision [_1], [_2] by [_3]" args="$rev, $date, $percntIF{$quotistopic '%USERSWEB%.$wikiname'$quot then=$quot[[%USERSWEB%.$wikiname][$wikiname]]$quot else=$quot$wikiname"}%$quot}$percnt"
 }%</span>"}%%IF{
 	"defined raw"
 	then=" %MAKETEXT{"(raw view)"}%"

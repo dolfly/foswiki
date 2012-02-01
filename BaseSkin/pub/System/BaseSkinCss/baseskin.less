@@ -11,9 +11,9 @@
 	padding-left: 20px;
 	padding-right: 20px;
 }
-.foswikiBar .foswikiContainer {
-	padding-top: 0;
-	padding-bottom: 0;
+.foswikiBar .foswikiContainer,
+.foswikiBar.foswikiContainer {
+	.fw_tool_padding_vertical_only();
 }
 
 .foswikiSection {
@@ -185,29 +185,23 @@
 
 	.foswikiContainer {
 		.fw_tool_padding_vertical_only();
-		> nav,
-		> div {
-			margin-left: -@fw_universal_side_padding;
+	}
+	
+	.foswikiNavigation > li,
+	.foswikiNavigationSecondary > li {
+		> a {
+			margin: 0;
+			padding: @fw_topbar_button_padding;
 		}
-	}
-	
-	.foswikiLogo {
-		position: absolute;
-		left: 46%;
-		right: 46%;
-		padding: 0;
-		display: block;
-		width: 45px;
-		height: 45px;
-		text-indent: -999px;
-		overflow: hidden;
-		margin: 0px auto;
-	}
-	
-	.foswikiNavigation > li > a,
-	.foswikiNavigationSecondary > li > a {
-		margin: 0;
-		padding: @fw_topbar_button_padding;
+		&.foswikiLogo {
+			a {
+				display: block;
+				width: inherit;
+				height: inherit;
+				text-indent: -999px;
+			}
+			margin-right: 15px;
+		}
 	}
 	
 	ul.menu-dropdown,
@@ -399,14 +393,26 @@ form .foswikiFormStep.foswikiClearfix {
 .foswikiSeparator {}
 .foswikiTopicInfo {}
 
+a.foswikiDisplaySpatious,
+a.foswikiDisplayAverage,
+a.foswikiDisplayMaxscreen {
+	img {
+		display: none;
+		padding-left: 1em;
+		vertical-align: text-top;
+	}
+}
+
 .foswikiBreadcrumb {
-	> ul {
+	& > ul {
 		list-style: none;
 		margin: 0;
 		padding: 0;
-	
+		float: none;
+		
 		& > li {
 			display: inline;
+			float: none;
 			padding: @fw_button_padding;
 			padding-bottom: @fw_button_padding_bottom - 2;
 			padding-left: 0;
@@ -443,8 +449,6 @@ form .foswikiFormStep.foswikiClearfix {
 	font-style: normal;
 }
 
-.foswikiLogo {}
-
 .foswikiHorizontalList {
 	ul,
 	ol {
@@ -475,9 +479,7 @@ form .foswikiFormStep.foswikiClearfix {
 .foswikiContentHeader,
 .foswikiContentFooter {}
 
-.foswikiTopic {
-	min-height: 0em + @fw_strand1_ratio_up_8 / @fw_basefont;
-}
+.foswikiTopic {}
 
 .foswikiToolbar {
 	.fw_tool_padding_all();
@@ -743,6 +745,10 @@ td {
 .foswikiEditPage {
 	.foswikiTopicText {
 		padding-top: 0;
+		
+		> .foswikiContainer {
+			padding-top: 0;
+		}
 	}
 	
 	.foswikiEditControls {		
@@ -757,11 +763,6 @@ td {
 	
 	.foswikiEditTextarea {
 		border-style: none solid solid solid;
-		border-width: 1px;
-	}
-	
-	#foswikiEditControlsContainer {
-		border-style: solid solid none solid;
 		border-width: 1px;
 	}
 	
