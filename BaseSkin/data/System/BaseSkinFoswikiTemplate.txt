@@ -170,6 +170,7 @@
 }%%TMPL:DEF{"controls"}%%TMPL:P{"startsection" class="foswikiBar foswikiTopicActions foswikiColorNavigationSecondary foswikiShadow foswikiClearfix"}%
 	%TMPL:P{"breadcrumb"}%
 	%TMPL:P{"controls:topicactions"}%
+<div class='foswikiClear'></div>
 %TMPL:P{"endsection"}%%TMPL:END%%{
 ---------------------------------------------------
 	Controls: topic actions
@@ -223,9 +224,9 @@
 					<li><a href='#'>PDF</a></li>
 					<li class='divider'></li>
 					<li><p>Display</p></li>
-					<li><a href='#' class='foswikiDisplaySpatious'>Spatious<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
-					<li><a href='#' class='foswikiDisplayAverage'>Nice<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
-					<li><a href='#' class='foswikiDisplayMaxscreen'>Max screen<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+					<li><a href='#' class='foswikiDisplayRoomy'>%MAKETEXT{"Roomy"}%<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+					<li><a href='#' class='foswikiDisplayCosy'>%MAKETEXT{"Cosy"}%<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+					<li><a href='#' class='foswikiDisplayTight'>%MAKETEXT{"Tight"}%<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
 				</ul>
 			</li>
 		</ul><!--
