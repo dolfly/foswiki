@@ -481,7 +481,7 @@ h6{line-height:1;font-size:1em;margin-top:1.618em;margin-bottom:1.618em;}
 .foswikiFormSteps h4{line-height:1;font-size:1.2307692307692308em;margin-top:1.3146250000000002em;margin-bottom:1.3146250000000002em;}
 .foswikiFormSteps h5{line-height:1;font-size:1em;margin-top:1.618em;margin-bottom:1.618em;}
 p,pre,blockquote,iframe,input[type='text'],input[type='password'],input[type='file'],label,address,td,th,ul,li,ol,dl,dt,hr,.foswikiInputField,.foswikiTable,.foswikiBroadcastMessage,.foswikiImage,.foswikiHelp,.foswikiHint,.foswikiMessage,.foswikiNotification,.foswikiAttachments,.foswikiForm,.foswikiFormDescription{line-height:1.618em;font-size:1em;}
-p,pre,blockquote,iframe,address,ul,ol,dl,hr,.foswikiTable,.foswikiBroadcastMessage,.foswikiImage,.foswikiHelp,.foswikiNotification,.foswikiForm,.foswikiFormDescription{margin-top:1.618em;margin-bottom:1.618em;}
+p,pre,blockquote,iframe,address,ul,ol,dl,hr,.foswikiTable,.foswikiBroadcastMessage,.foswikiImage,.foswikiHelp,.foswikiNotification,.foswikiForm,.foswikiFormSteps,.foswikiFormDescription{margin-top:1.618em;margin-bottom:1.618em;}
 dt,dd,li{font-size:1em;}
 .foswikiSmallish{line-height:1.797777777777778em;font-size:0.9000000000000001em;}
 small,.foswikiSmall{line-height:1.8813953488372095em;font-size:0.86em;}
@@ -527,13 +527,14 @@ input[type='checkbox'].foswikiCheckbox,input[type='radio'].foswikiRadioButton{ma
 .jqButton .jqButtonIcon,.jqButton:active .jqButtonIcon,.foswikiButton .foswikiButtonIcon,.foswikiButton:active .foswikiButtonIcon{background-position:0 50%;display:block;height:16px;}
 .foswikiButtonSmall{padding:5px 9px;font-size:0.86em;}
 .foswikiButtonLarge{font-size:15px;line-height:normal;padding:9px 14px 9px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;-webkit-border-radius:2px;-moz-border-radius:2px;border-radius:2px;}
-.foswikiContainer{max-width:1537.5131846866284px;padding-top:2.780914306640625em;padding-bottom:2.780914306640625em;padding-right:0;padding-left:0;padding-right:50.838589668273926px;padding-left:50.838589668273926px;}
+.foswikiContainer{max-width:1537.5131846866284px;padding-top:2.433894230769231em;padding-bottom:2.433894230769231em;padding-right:0;padding-left:0;padding-right:71.49176672101021px;padding-left:71.49176672101021px;}
 .foswikiBar .foswikiContainer,.foswikiBar.foswikiContainer,.foswikiTopBar .foswikiContainer,.foswikiTopicActions .foswikiContainer,.foswikiSearchResults .foswikiSearchResult{padding-top:0.711111111111111em;padding-bottom:0.711111111111111em;}
 .foswikiViewDisplayRoomy .foswikiBar .foswikiContainer,.foswikiViewDisplayRoomy .foswikiBar.foswikiContainer,.foswikiViewDisplayRoomy .foswikiTopBar .foswikiContainer,.foswikiViewDisplayRoomy .foswikiTopicActions .foswikiContainer,.foswikiViewDisplayRoomy .foswikiSearchResults .foswikiSearchResult{padding-top:1em;padding-bottom:1em;}
-.foswikiViewDisplayRoomy .foswikiContainer{max-width:1093.3427091104913px;padding-top:3.422663762019231em;padding-bottom:3.422663762019231em;padding-right:0;padding-left:0;padding-right:36.151885986328125px;padding-left:36.151885986328125px;}
+.foswikiViewDisplayRoomy .foswikiContainer{margin:0 auto 0 0;padding-top:2.780914306640625em;padding-bottom:2.780914306640625em;padding-right:0;padding-left:0;padding-right:50.838589668273926px;padding-left:50.838589668273926px;}
+.foswikiViewDisplayRoomy .foswikiTopic .foswikiContainer{max-width:777.4881487007939px;}
 .foswikiViewDisplayRoomy a.foswikiDisplayRoomy img{display:inline;}
 .foswikiViewDisplayCosy .foswikiBar .foswikiContainer,.foswikiViewDisplayCosy .foswikiBar.foswikiContainer,.foswikiViewDisplayCosy .foswikiTopBar .foswikiContainer,.foswikiViewDisplayCosy .foswikiTopicActions .foswikiContainer,.foswikiViewDisplayCosy .foswikiSearchResults .foswikiSearchResult{padding-top:0.711111111111111em;padding-bottom:0.711111111111111em;}
-.foswikiViewDisplayCosy .foswikiContainer{max-width:1537.5131846866284px;padding-top:2.780914306640625em;padding-bottom:2.780914306640625em;padding-right:0;padding-left:0;padding-right:50.838589668273926px;padding-left:50.838589668273926px;}
+.foswikiViewDisplayCosy .foswikiContainer{max-width:1537.5131846866284px;padding-top:2.433894230769231em;padding-bottom:2.433894230769231em;padding-right:0;padding-left:0;padding-right:71.49176672101021px;padding-left:71.49176672101021px;}
 .foswikiViewDisplayCosy a.foswikiDisplayCosy img{display:inline;}
 .foswikiViewDisplayTight .foswikiBar .foswikiContainer,.foswikiViewDisplayTight .foswikiBar.foswikiContainer,.foswikiViewDisplayTight .foswikiTopBar .foswikiContainer,.foswikiViewDisplayTight .foswikiTopicActions .foswikiContainer,.foswikiViewDisplayTight .foswikiSearchResults .foswikiSearchResult{padding-top:0.505679012345679em;padding-bottom:0.505679012345679em;}
 .foswikiViewDisplayTight .foswikiContainer{max-width:auto;padding-top:1.9775390625em;padding-bottom:1.9775390625em;padding-right:0;padding-left:0;padding-right:20px;padding-left:20px;}

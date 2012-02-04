@@ -2,11 +2,13 @@
 DISPLAY DIMENSIONS ACCORDING TO UI SETTINGS
 */
 
+// defaults
+
 .foswikiContainer {
 	max-width: 0px + @fw_strand1_ratio_up_14;
 	.fw_section_padding(cosy);
-	padding-right: 0px + @fw_strand1_ratio_up_4;
-	padding-left: 0px + @fw_strand1_ratio_up_4;
+	padding-right: 0px + @fw_strand1_ratio_up_5;
+	padding-left: 0px + @fw_strand1_ratio_up_5;
 }
 .foswikiBar .foswikiContainer,
 .foswikiBar.foswikiContainer,
@@ -14,8 +16,11 @@ DISPLAY DIMENSIONS ACCORDING TO UI SETTINGS
 .foswikiTopicActions .foswikiContainer,
 .foswikiSearchResults .foswikiSearchResult {
 	.fw_tool_padding_vertical_only(cosy);
-}
-		
+}	
+
+
+// UI setting specific
+
 .foswikiViewDisplayRoomy {
 	.foswikiBar .foswikiContainer,
 	.foswikiBar.foswikiContainer,
@@ -25,10 +30,13 @@ DISPLAY DIMENSIONS ACCORDING TO UI SETTINGS
 		.fw_tool_padding_vertical_only(roomy);
 	}
 	.foswikiContainer {
-		max-width: 0px + @fw_strand1_ratio_up_13;
+		margin: 0 auto 0 0; // left aligned
 		.fw_section_padding(roomy);
-		padding-right: 0px + @fw_strand1_ratio_up_3;
-		padding-left: 0px + @fw_strand1_ratio_up_3;
+		padding-right: 0px + @fw_strand1_ratio_up_4;
+		padding-left: 0px + @fw_strand1_ratio_up_4;
+	}
+	.foswikiTopic .foswikiContainer {
+		max-width: 0px + @fw_strand1_ratio_up_12;
 	}
 
 	a.foswikiDisplayRoomy {
@@ -50,8 +58,8 @@ DISPLAY DIMENSIONS ACCORDING TO UI SETTINGS
 	.foswikiContainer {
 		max-width: 0px + @fw_strand1_ratio_up_14;
 		.fw_section_padding(cosy);
-		padding-right: 0px + @fw_strand1_ratio_up_4;
-		padding-left: 0px + @fw_strand1_ratio_up_4;
+		padding-right: 0px + @fw_strand1_ratio_up_5;
+		padding-left: 0px + @fw_strand1_ratio_up_5;
 	}
 	a.foswikiDisplayCosy {
 		img {

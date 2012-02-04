@@ -154,8 +154,8 @@ jQuery(document).ready(function ($) {
 
 	foswiki.base.removeYellowFromInputs();
 	foswiki.base.manageDisplaySettings();
-	foswiki.base.handleLocalScroll();
 	foswiki.base.handleSticky();
+	foswiki.base.handleLocalScroll();
 	
 	// add focus to elements with class foswikiFocus
 	$('input.foswikiFocus').livequery(function () {
