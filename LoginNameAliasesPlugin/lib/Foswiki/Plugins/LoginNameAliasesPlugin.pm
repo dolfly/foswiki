@@ -165,11 +165,11 @@ sub initializeUserHandler {
         my $tmp = $loginName
           if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'} );
 
-        if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} ne 'upper' ) {
+        if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} eq 'upper' ) {
             $loginName = uc($loginName);
-        } elsif ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} ne 'lower' ) {
+        } elsif ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} eq 'lower' ) {
             $loginName = lc($loginName);
-        } elsif ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} ne 'uppercasefirst' ) {
+        } elsif ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} eq 'uppercasefirst' ) {
             $loginName = ucfirst($loginName);
         }
 
