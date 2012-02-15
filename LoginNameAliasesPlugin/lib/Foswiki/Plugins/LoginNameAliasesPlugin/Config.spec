@@ -7,6 +7,8 @@ $Foswiki::cfg{LoginNameAliasesPlugin}{USE_ALIASES} = $FALSE;
 $Foswiki::cfg{LoginNameAliasesPlugin}{REMOVE_PREFIX} = '';
 # **Text**
 $Foswiki::cfg{LoginNameAliasesPlugin}{REMOVE_SUFFIX} = '';
+# **SELECT none,upper,lower,uppercasefirst **
+$Foswiki::cfg{LoginNameAliasesPlugin}{CHANGE_CASE} = 'none';
 # **Text**
 $Foswiki::cfg{LoginNameAliasesPlugin}{MAP_BLANK_USER} = '';
 # **Text**

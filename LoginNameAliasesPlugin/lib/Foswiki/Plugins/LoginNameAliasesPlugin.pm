@@ -3,6 +3,7 @@
 # LoginNameAliasesPlugin
 #
 # Copyright (C) 2004 by Carnegie Mellon University
+#               2008-2012 Foswiki Contributors
 #
 # CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS"
 # CONDITION.  CARNEGIE MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR
@@ -36,11 +37,10 @@ $VERSION = '$Rev$';
 # This is a free-form string you can use to "name" your own plugin version.
 # It is *not* used by the build automation tools, but is reported as part
 # of the version number in PLUGINDESCRIPTIONS.
-$RELEASE = '1.1';
+$RELEASE = '1.2';
 
 $pluginName = 'LoginNameAliasesPlugin';    # Name of this Plugin
 our $SHORTDESCRIPTION = 'Modify or alias Login names to simplify User mapping';
-
 our $NO_PREFS_IN_TOPIC = 1;
 
 # =========================
@@ -158,6 +158,22 @@ sub initializeUserHandler {
           if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'} );
         $loginName =~ s/$s$//;
         Foswiki::Func::writeDebug("REMOVE_SUFFIX  $tmp -->  $loginName")
+          if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'} );
+    }
+
+    if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} ne 'none' ) {
+        my $tmp = $loginName
+          if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'} );
+
+        if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} ne 'upper' ) {
+            $loginName = uc($loginName);
+        } elsif ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} ne 'lower' ) {
+            $loginName = lc($loginName);
+        } elsif ( $Foswiki::cfg{LoginNameAliasesPlugin}{'CHANGE_CASE'} ne 'uppercasefirst' ) {
+            $loginName = ucfirst($loginName);
+        }
+
+        Foswiki::Func::writeDebug("CHANGE_CASE  $tmp -->  $loginName")
           if ( $Foswiki::cfg{LoginNameAliasesPlugin}{'DEBUG'} );
     }
 
