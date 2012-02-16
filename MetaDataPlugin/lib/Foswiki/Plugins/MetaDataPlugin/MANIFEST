@@ -1,0 +1,12 @@
+data/System/MetaDataPlugin.txt 0644
+lib/Foswiki/Plugins/MetaDataPlugin/Config.spec 0644
+lib/Foswiki/Plugins/MetaDataPlugin/Core.pm 0644
+lib/Foswiki/Plugins/MetaDataPlugin.pm 0644
+pub/System/MetaDataPlugin/Makefile 0644
+pub/System/MetaDataPlugin/metadata.css 0644
+pub/System/MetaDataPlugin/metadata.css.gz 0644
+pub/System/MetaDataPlugin/metadata.js 0644
+pub/System/MetaDataPlugin/metadata.js.gz 0644
+pub/System/MetaDataPlugin/metadata.uncompressed.css 0644
+pub/System/MetaDataPlugin/metadata.uncompressed.js 0644
+pub/System/MetaDataPlugin/trash.png 0644
