@@ -29,8 +29,15 @@ our $baseTopic;
 sub initPlugin {
   ($baseTopic, $baseWeb) = @_;
 
-  Foswiki::Func::registerTagHandler('RENDERFOREDIT', \&handleRENDERFOREDIT);
-  Foswiki::Func::registerTagHandler('RENDERFORDISPLAY', \&handleRENDERFORDISPLAY);
+  Foswiki::Func::registerTagHandler('RENDERFOREDIT', sub {
+    init();
+    return Foswiki::Plugins::FlexFormPlugin::Core::handleRENDERFOREDIT(@_);
+  });
+
+  Foswiki::Func::registerTagHandler('RENDERFORDISPLAY', sub {
+    init();
+    return Foswiki::Plugins::FlexFormPlugin::Core::handleRENDERFORDISPLAY(@_);
+  });
 
   $doneInit = 0;
   return 1;
@@ -44,24 +51,16 @@ sub init {
   Foswiki::Plugins::FlexFormPlugin::Core::init($baseWeb, $baseTopic);
 }
 
-##############################################################################
-sub handleRENDERFOREDIT {
-  init();
-  Foswiki::Plugins::FlexFormPlugin::Core::handleRENDERFOREDIT(@_);
-}
-
-##############################################################################
-sub handleRENDERFORDISPLAY {
-  init();
-  Foswiki::Plugins::FlexFormPlugin::Core::handleRENDERFORDISPLAY(@_);
-}
-
-
 ###############################################################################
 # deprecated to be used as a finish handler
 sub modifyHeaderHandler {
   init();
-  Foswiki::Plugins::FlexFormPlugin::Core::finish(@_);
+  return Foswiki::Plugins::FlexFormPlugin::Core::finish(@_);
+}
+
+###############################################################################
+sub completePageHandler {
+  $_[0] =~ s/<\/?literal>//g;
 }
 
 
