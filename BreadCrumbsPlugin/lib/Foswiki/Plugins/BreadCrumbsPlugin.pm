@@ -25,10 +25,10 @@ our $doneInit = 0;
 ###############################################################################
 sub initPlugin {
 
-  Foswiki::Func::registerTagHandler('BREADCRUMBS', sub renderBreadCrumbs {
+  Foswiki::Func::registerTagHandler('BREADCRUMBS', sub {
     init();
     return Foswiki::Plugins::BreadCrumbsPlugin::Core::renderBreadCrumbs(@_);
-  }
+  });
 
   my $doRecordTrail = Foswiki::Func::getPreferencesValue('BREADCRUMBSPLUGIN_RECORDTRAIL') || '';
   $doRecordTrail = ($doRecordTrail eq 'on')?1:0;
