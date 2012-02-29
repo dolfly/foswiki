@@ -1,6 +1,6 @@
 # PingBackPlugin Core
 #
-# Copyright (C) 2006 MichaelDaum@WikiRing.com
+# Copyright (C) 2006-2012 Michael Daum http://michaeldaumconsulting.com
 #
 # Additional copyrights apply to some or all of the code in this
 # file as follows:
@@ -15,32 +15,41 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package TWiki::Plugins::PingBackPlugin::Core;
+use strict;
+use warnings;
+
+package Foswiki::Plugins::PingBackPlugin::Core;
 
 # this pacakage has three duties
 # - reveive pings
 # - send pings
 # - manage ping queues
 
-use strict;
-use vars qw($debug $pingClient);
-use TWiki::Plugins::PingBackPlugin::DB qw(getPingDB);
-$debug = 0; # toggle me
+use Foswiki::Func();
+use Foswiki::Plugins::PingBackPlugin ();
+use Foswiki::Plugins::PingBackPlugin::DB qw(getPingDB);
+
+use constant DEBUG => 0; # toggle me
 
 ###############################################################################
 sub writeDebug {
-  #&TWiki::Func::writeDebug('- PingBackPlugin::Core - '.$_[0]) if $debug;
-  print STDERR '- PingBackPlugin::Core - '.$_[0]."\n" if $debug;
+  print STDERR '- PingBackPlugin::Core - '.$_[0]."\n" if DEBUG;
 }
 
 ###############################################################################
-# construct a signleton pingClient
-sub getPingClient {
-
+# construct a pingClient
+sub getClient {
+  require Foswiki::Plugins::PingBackPlugin::Client;
+  return Foswiki::Plugins::PingBackPlugin::Client::getClient();
 }
 
 ###############################################################################
 # receive a ping
+#
+# TODO: record the IP from which this ping was received and compare it
+# with the source; for example, a ping spammer from an arbitrary host 
+# names some google query to be the source of the ping. the pingbackmanager 
+# will happily issue this query and increase some google ranking as a result
 sub handlePingbackCall {
   my ($session, $params) = @_;
 
@@ -56,13 +65,12 @@ sub handlePingbackCall {
   my $web = $session->{webName};
   my $topic = $session->{topicName};
 
-  # write twiki log
-  $session->writeLog('PING', $web.'.'.$topic);
+  # write log
+  writeEvent('ping', "source=$source, target=$target");
+  #writeDebug("source=$source");
+  #writeDebug("target=$target");
 
-  writeDebug("source=$source");
-  writeDebug("target=$target");
-
-  if ($TWiki::Plugins::PingBackPlugin::enabledPingBack) {
+  if (Foswiki::Plugins::PingBackPlugin::isPingBackEnabled) {
 
     # queue incoming ping
     my $db = getPingDB();
@@ -80,6 +88,12 @@ sub handlePingbackCall {
   }
 }
 
+##############################################################################
+sub writeEvent {
+  return unless defined &Foswiki::Func::writeEvent;
+  return Foswiki::Func::writeEvent(@_);
+}
+
 ###############################################################################
 # dispatch all sub commands
 sub handlePingbackTag {
@@ -88,7 +102,7 @@ sub handlePingbackTag {
   my $action = $params->{action} || $params->{_DEFAULT} || 'ping';
   return handlePing(@_) if $action eq 'ping';
   return handleShow(@_) if $action eq 'show';
-  return inlineWarning("ERROR: unknown action $action");
+  return inlineError("ERROR: unknown action $action");
 }
 
 ###############################################################################
@@ -96,12 +110,10 @@ sub handlePingbackTag {
 sub handlePing {
   my ($session, $params, $theTopic, $theWeb) = @_;
 
-  writeDebug("called handlePing");
+  #writeDebug("called handlePing");
 
-  eval 'use TWiki::Plugins::PingBackPlugin::Client;';
-  die $@ if $@; # never reach
 
-  my $query = TWiki::Func::getCgiQuery();
+  my $query = Foswiki::Func::getCgiQuery();
   my $action = $query->param('pingback_action') || '';
   my $source;
   my $target;
@@ -119,14 +131,12 @@ sub handlePing {
   }
 
   return '' unless $target;
-  $source = &TWiki::Func::getViewUrl($theWeb, $theTopic) unless $source;
+  $source = Foswiki::Func::getViewUrl($theWeb, $theTopic) unless $source;
 
-  writeDebug("source=$source");
-  writeDebug("target=$target");
+  #writeDebug("source=$source");
+  #writeDebug("target=$target");
 
-  
-  my $client = TWiki::Plugins::PingBackPlugin::Client::getClient();
-  my ($status, $result) = $client->ping($source, $target);
+  my ($status, $result) = getClient()->ping($source, $target);
 
   my $text = expandVariables($format, 
     status=>$status,
@@ -135,8 +145,7 @@ sub handlePing {
     source=>$source,
   );
 
-
-  writeDebug("done handlePing");
+  #writeDebug("done handlePing");
 
   return $text;
 }
@@ -149,8 +158,8 @@ sub handleShow {
   writeDebug("called handleShow");
 
   my $header = $params->{header} || 
-    '<span class="twikiAlert">$count</span> ping(s) found<p/>'.
-    '<table class="twikiTable" width="100%">';
+    '<span class="foswikiAlert">$count</span> ping(s) found<p/>'.
+    '<table class="foswikiTable" width="100%">';
   my $format = $params->{format} || 
     '<tr><th>$index</th><th>$date</th></tr>'.
     '<tr><td>&nbsp;</td><td>'. '
@@ -164,7 +173,7 @@ sub handleShow {
   my $warn = $params->{warn} || 'on';
   my $reverse = $params->{reverse} || 'on';
   my $queue = $params->{queue} || 'in';
-  return inlineWarning('ERROR: unknown queue '.$queue) unless $queue =~ /^(in|out|cur|trash)$/;
+  return inlineError('ERROR: unknown queue '.$queue) unless $queue =~ /^(in|out|cur|trash)$/;
 
   my $result = '';
   my @pings;
@@ -222,7 +231,7 @@ sub afterSaveHandler {
   # in the preference cache yet; this SMELLs
   my $found = 0;
   my $isEnabled = 0;
-  my $setRegex = TWiki::Func::getRegularExpression('setRegex');
+  my $setRegex = Foswiki::Func::getRegularExpression('setRegex');
   my $enablePingbackRegex = qr/^${setRegex}ENABLEPINGBACK\s*=\s*(on|yes|1|off|no|0)$/o;
   foreach my $line (split(/\r?\n/, $text)) {
     if ($line =~ /$enablePingbackRegex/) {
@@ -234,7 +243,7 @@ sub afterSaveHandler {
       last;
     }
   } 
-  $isEnabled = $TWiki::Plugins::PingBackPlugin::enabledPingBack unless $found;
+  $isEnabled = Foswiki::Plugins::PingBackPlugin::isPingBackEnabled unless $found;
   if ($isEnabled) {
     writeDebug("generating pingbacks for $web.$topic");
   } else {
@@ -243,8 +252,8 @@ sub afterSaveHandler {
   }
 
   # now do it
-  my $urlHost = &TWiki::Func::getUrlHost();
-  my $source = TWiki::Func::getViewUrl($web, $topic);
+  my $urlHost = &Foswiki::Func::getUrlHost();
+  my $source = Foswiki::Func::getViewUrl($web, $topic);
   my @pings;
   my $db = getPingDB();
 
@@ -258,10 +267,10 @@ sub afterSaveHandler {
   }
 
   # expand it
-  $TWiki::Plugins::SESSION->enterContext('absolute_urls');
-  $text = TWiki::Func::expandCommonVariables($text, $topic, $web);
-  $text = TWiki::Func::renderText($text, $web);
-  $TWiki::Plugins::SESSION->leaveContext('absolute_urls');
+  $Foswiki::Plugins::SESSION->enterContext('absolute_urls');
+  $text = Foswiki::Func::expandCommonVariables($text, $topic, $web);
+  $text = Foswiki::Func::renderText($text, $web);
+  $Foswiki::Plugins::SESSION->leaveContext('absolute_urls');
   writeDebug("text=$text");
 
   # analyse it
@@ -290,18 +299,17 @@ sub expandVariables {
   foreach my $key (keys %variables) {
     $text =~ s/\$$key/$variables{$key}/g;
   }
-  $text =~ s/\$percnt/\%/go;
-  $text =~ s/\$dollar/\$/go;
-  $text =~ s/\$n/\n/go;
-  $text =~ s/\\\\/\\/go;
+  $text =~ s/\$perce?nt/\%/go;
   $text =~ s/\$nop//g;
+  $text =~ s/\$n/\n/go;
+  $text =~ s/\$dollar/\$/go;
 
   return $text;
 }
 
 ###############################################################################
-sub inlineWarning {
-  return '<span class="twikiAlert">'.$_[0].'</span>';
+sub inlineError {
+  return '<span class="foswikiAlert">'.$_[0].'</span>';
 }
 
 1;

@@ -5,10 +5,10 @@ BEGIN {
   }
 }
 
-use TWiki::Contrib::Build;
+use Foswiki::Contrib::Build;
 
 # Create the build object
-my $build = new TWiki::Contrib::Build( 'PingBackPlugin' );
+my $build = new Foswiki::Contrib::Build( 'PingBackPlugin' );
 
 # Build the target on the command line, or the default target
 my $build->build($build->{target});

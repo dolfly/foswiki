@@ -15,12 +15,12 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package TWiki::Plugins::PingBackPlugin::DB;
+package Foswiki::Plugins::PingBackPlugin::DB;
 
 use strict;
 use vars qw($debug $pingDB @ISA @EXPORT_OK);
 use Fcntl qw(:flock);
-use TWiki::Plugins::PingBackPlugin::Ping qw(readPing);
+use Foswiki::Plugins::PingBackPlugin::Ping qw(readPing);
 require Exporter;
 @ISA = qw(Exporter);
 @EXPORT_OK = qw(getPingDB);
@@ -36,7 +36,7 @@ sub writeDebug {
 sub getPingDB {
   return $pingDB if $pingDB;
 
-  $pingDB = TWiki::Plugins::PingBackPlugin::DB->new();
+  $pingDB = Foswiki::Plugins::PingBackPlugin::DB->new();
 
   return $pingDB;
 }
@@ -50,7 +50,7 @@ sub new {
 
   die 'this is a singleton class, use getPingDB()' if $pingDB;
 
-  my $workarea = TWiki::Func::getWorkArea('PingBackPlugin');
+  my $workarea = Foswiki::Func::getWorkArea('PingBackPlugin');
   my $this = {
     inQueueDir=>$workarea.'/in',
     outQueueDir=>$workarea.'/out',
@@ -217,7 +217,7 @@ sub newPing {
   my $this = shift;
 
   writeDebug("called newPing");
-  return TWiki::Plugins::PingBackPlugin::Ping->new($this, @_);
+  return Foswiki::Plugins::PingBackPlugin::Ping->new($this, @_);
 }
 
 1;

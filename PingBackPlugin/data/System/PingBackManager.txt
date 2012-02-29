@@ -18,4 +18,6 @@ Manager for the PingBackPlugin
 
 <!--
    * Set ALLOWTOPICVIEW = %MAINWEB%.AdminGroup
+   * Set STYLESIDEBAR = off
+   * Set CACHEABLE = off
 -->

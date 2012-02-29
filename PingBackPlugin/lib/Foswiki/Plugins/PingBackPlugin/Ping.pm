@@ -15,7 +15,7 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package TWiki::Plugins::PingBackPlugin::Ping;
+package Foswiki::Plugins::PingBackPlugin::Ping;
 
 use strict;
 use Digest::MD5 qw(md5_hex);
@@ -244,12 +244,12 @@ sub getTargetWebTopic {
   
   unless (defined $this->{targetWeb}) {
 
-    my $viewUrl = TWiki::Func::getScriptUrl(undef,undef,'view');
+    my $viewUrl = Foswiki::Func::getScriptUrl(undef,undef,'view');
     
     if ($this->{target} =~ /^$viewUrl\/(.*)\/(.*?)$/) {
     
       ($this->{targetWeb}, $this->{targetTopic}) = 
-	TWiki::Func::normalizeWebTopicName($1, $2);
+	Foswiki::Func::normalizeWebTopicName($1, $2);
 	
     } else {
     
@@ -268,12 +268,12 @@ sub getSourceWebTopic {
 
   unless (defined $this->{sourceWeb}) {
 
-    my $viewUrl = TWiki::Func::getScriptUrl(undef,undef,'view');
+    my $viewUrl = Foswiki::Func::getScriptUrl(undef,undef,'view');
     
     if ($this->{source} =~ /^$viewUrl\/(.*)\/(.*?)$/) {
     
       ($this->{sourceWeb}, $this->{sourceTopic}) = 
-	TWiki::Func::normalizeWebTopicName($1, $2);
+	Foswiki::Func::normalizeWebTopicName($1, $2);
 	
     } else {
     
@@ -292,10 +292,10 @@ sub getSourceWebTopic {
 sub send {
   my $this = shift;
 
-  eval 'use TWiki::Plugins::PingBackPlugin::Client;';
+  eval 'use Foswiki::Plugins::PingBackPlugin::Client;';
   die $@ if $@; # never reach
 
-  my $client = TWiki::Plugins::PingBackPlugin::Client::getClient();
+  my $client = Foswiki::Plugins::PingBackPlugin::Client::getClient();
   return $client->ping($this->{source}, $this->{target});
 }
 

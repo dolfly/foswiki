@@ -1,6 +1,6 @@
 # Pingback Client
 #
-# Copyright (c) 2005 by MichaelDaum <micha@nats.informatik.uni-hamburg.de>
+# Copyright (c) 2005-2012 MichaelDaum http://michaeldaumconsulting.com
 #
 # based on Pingback Proxy Copyright (c) 2002 by Ian Hickson
 #
@@ -18,32 +18,30 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-package TWiki::Plugins::PingBackPlugin::Client;
-
 use strict;
-use LWP::UserAgent;
-use HTTP::Request;
-use RPC::XML::Client;
-use HTML::Entities;
+use warnings;
 
-use vars qw($debug $pingClient);
+package Foswiki::Plugins::PingBackPlugin::Client;
 
-$debug = 0; # toggle me
+use LWP::UserAgent ();
+use HTTP::Request ();
+use RPC::XML::Client ();
+use HTML::Entities ();
+
+our $pingClient;
+use constant DEBUG => 0; # toggle me
 
 ################################################################################
 # static
 sub writeDebug {
-  print STDERR "- PingBackPlugin::Client - " . $_[0] . "\n" if $debug;
+  print STDERR "- PingBackPlugin::Client - " . $_[0] . "\n" if DEBUG;
 }
 
 ###############################################################################
 # construct a signleton pingClient
 sub getClient {
 
-  unless ($pingClient) {
-    $pingClient = TWiki::Plugins::PingBackPlugin::Client->new();
-    die $@ unless $pingClient; # never reach
-  }
+  $pingClient = new Foswiki::Plugins::PingBackPlugin::Client() unless $pingClient;
 
   return $pingClient;
 }
@@ -68,7 +66,7 @@ sub getAgent {
   return $this->{ua} if $this->{ua};
 
   $this->{ua} = LWP::UserAgent->new();
-  $this->{ua}->agent("TWiki Pingback Client");
+  $this->{ua}->agent("Foswiki Pingback Client");
   $this->{ua}->timeout(5);
   $this->{ua}->env_proxy();
   #writeDebug("new agent=" . $this->{ua}->agent());
@@ -81,7 +79,7 @@ sub getAgent {
 sub fetchPage {
   my ($this, $source, $target) = @_;
 
-  #writeDebug("called fetchPage($source, $target)");
+  writeDebug("called fetchPage($source, $target)");
 
   my $ua = $this->getAgent();
   my $request = HTTP::Request->new('GET' => $target);
@@ -101,25 +99,24 @@ sub detectServer {
   writeDebug("called detectServer($source, $target)");
 
   # get target page
-  my $page = $this->fetchPage($source, $target);
-  if ($page->is_error) {
-    writeDebug("got an error");
-    return undef;
+  my $response = $this->fetchPage($source, $target);
+  if ($response->is_error) {
+    writeDebug("got an error code=".$response->code.", status=".$response->status_line);
+    return;
   }
-  my $content = $page->content;
-  #writeDebug("content=$content");
 
+  my $content = $response->content;
   my $server;
   # check http header
-  if (my @servers = $page->header('X-Pingback')) {
+  if (my @servers = $response->header('X-Pingback')) {
     $server = $servers[0];
     writeDebug("found server=$server in X-Pingback");
   } 
   
   # check html header
-  elsif ($content =~ m/<link\s+rel=\"pingback\"\s+href=\"([^\"]+)\"\s*\/?>/os ||
-      $content =~ m/<link\s+href=\"([^\"]+)\"\s+rel=\"pingback\"\s*\/?>/os) {
-    $server = decode_entities($1);
+  elsif ($content =~ m/<link\s+rel=["']pingback['"]\s+href=["']([^"']+)["']\s*\/?>/ ||
+      $content =~ m/<link\s+href=["']([^"']+)["']\s+rel=["']pingback["']\s*\/?>/) {
+    $server = HTML::Entities::decode_entities($1);
     writeDebug("found server=$server in html header");
   } 
   
@@ -142,12 +139,14 @@ sub detectServer {
 sub ping {
   my ($this, $source, $target, $server) = @_;
 
+  writeDebug("called ping($source, $target)");
+
   # detect client
   unless ($server) {
     $server = $this->detectServer($source, $target);
     unless ($server) {
       # no server
-      return ('501 Not Implemented', "Target has no pingback server");
+      return ('501 Not Implemented', "target not pingback enabled");
     }
   }
 
@@ -167,14 +166,13 @@ sub ping {
     $result = $value->{faultString};
   } else {
     $status = 202;
-    $result = "Accepted. Got a responce from '$server':\n" . $response->as_string . "\n";
+    $result = $response->as_string;
   }
+
+  writeDebug("status=$status, result=$result");
 
   return ($status, $result);
 }
 
-
-
-################################################################################
 1;
 

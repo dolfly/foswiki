@@ -12,14 +12,14 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-package TWiki::Plugins::PingBackPlugin::QueueManager;
+package Foswiki::Plugins::PingBackPlugin::QueueManager;
 
 use strict;
 use vars qw($debug);
 
 $debug = 0; # toggle me
 
-use TWiki::Plugins::PingBackPlugin::DB qw(getPingDB);
+use Foswiki::Plugins::PingBackPlugin::DB qw(getPingDB);
 use LWP::UserAgent;
 use HTML::TokeParser;
 use HTTP::Request;
@@ -40,23 +40,23 @@ sub writeLog {
 sub run {
   my $session = shift;
 
-  $TWiki::Plugins::SESSION = $session;
+  $Foswiki::Plugins::SESSION = $session;
 
   writeDebug("called run");
 
   # open log
-  my $time = TWiki::Func::formatTime(time());
-  my $logfile = TWiki::Func::getDataDir().'/pingback.log';
+  my $time = Foswiki::Func::formatTime(time());
+  my $logfile = Foswiki::Func::getDataDir().'/pingback.log';
   open(LOG, ">>$logfile") || die "cannot create lock $logfile - $!\n";
   writeLog("started at $time");
 
-  my $queueManager = TWiki::Plugins::PingBackPlugin::QueueManager->new();
+  my $queueManager = Foswiki::Plugins::PingBackPlugin::QueueManager->new();
 
   $queueManager->processInQueue();
   $queueManager->processOutQueue();
 
   # close log
-  $time = TWiki::Func::formatTime(time());
+  $time = Foswiki::Func::formatTime(time());
   writeLog("finished at $time");
   close LOG;
 
@@ -83,7 +83,7 @@ sub getAgent {
 
   unless ($this->{ua}) {
     $this->{ua} = LWP::UserAgent->new();
-    $this->{ua}->agent("TWiki Pingback Manager");
+    $this->{ua}->agent("Foswiki Pingback Manager");
     $this->{ua}->timeout($this->{timeout});
     $this->{ua}->env_proxy();
     writeDebug("new agent=" . $this->{ua}->agent());
@@ -228,7 +228,7 @@ sub processInQueue {
 	$ping->{targetWeb}.'.'.$ping->{targetTopic});
 
       # check if target exists
-      unless (TWiki::Func::topicExists($ping->{targetWeb}, $ping->{targetTopic})) {
+      unless (Foswiki::Func::topicExists($ping->{targetWeb}, $ping->{targetTopic})) {
 	writeLog("target does not exist ... moving to trash");
 	$ping->unqueue();
 	$ping->queue('trash');
@@ -236,7 +236,7 @@ sub processInQueue {
       }
 
       # check if source exists
-      unless (TWiki::Func::topicExists($ping->{sourceWeb}, $ping->{sourceTopic})) {
+      unless (Foswiki::Func::topicExists($ping->{sourceWeb}, $ping->{sourceTopic})) {
 	writeLog("source does not exist ... moving to trash");
 	$ping->unqueue();
 	$ping->queue('trash');
