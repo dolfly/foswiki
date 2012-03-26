@@ -7,6 +7,8 @@
 
 ---++ Examples
 
+See Sandbox.TimeTracker
+
 ---++ Installation Instructions
 
 %$INSTALL_INSTRUCTIONS%

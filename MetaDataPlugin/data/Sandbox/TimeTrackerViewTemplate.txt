@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1332761792" format="1.1" reprev="1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1332763650" format="1.1" reprev="1" version="1"}%
 %META:TOPICPARENT{name="TimeTracker"}%
 %{<verbatim class="tml">}%
 %TMPL:INCLUDE{"view"}%
@@ -34,6 +34,11 @@
 <style>
 .timeTrackerView tbody tr td:nth-child(2) {
   white-space:nowrap;
+}
+.effort {
+  margin:0;
+  padding:0;
+  border:0;
 }
 </style>
 

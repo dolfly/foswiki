@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" date="1332761875" format="1.1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1332763743" format="1.1" reprev="1" version="1"}%
 %META:TOPICPARENT{name="TimeTracker"}%
 ---+!! %TOPIC%
 
@@ -8,4 +8,4 @@ This is part of the TimeTracker app
 | Date | date | 10 | %GMTIME% |  | |
 | From | text | 6 | | | |
 | To | text | 6 | | | |
-| Description | text | 100 | | | |
+| Description | text | 80 | | | |

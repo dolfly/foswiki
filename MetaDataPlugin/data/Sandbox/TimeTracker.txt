@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1332761971" format="1.1" reprev="1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1332761971" format="1.1" reprev="1" version="1"}%
 ---+!! %TOPIC%
 
 %TWISTY{
