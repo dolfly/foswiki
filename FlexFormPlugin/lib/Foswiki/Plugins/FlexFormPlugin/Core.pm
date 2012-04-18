@@ -70,7 +70,7 @@ sub handleRENDERFORDISPLAY {
 
   my $thisTopic = $params->{_DEFAULT} || $params->{topic} || $theTopic;
   my $theFields = $params->{field} || $params->{fields};
-  my $theForm = $params->{form} || $session->{request}->param('formtemplate') || '';
+  my $theForm = $params->{form};
   my $theFormat = $params->{format};
   my $theHeader = $params->{header};
   my $theFooter = $params->{footer};
@@ -113,6 +113,7 @@ sub handleRENDERFORDISPLAY {
   ($thisWeb, $thisTopic) = Foswiki::Func::normalizeWebTopicName($thisWeb, $thisTopic);
   my $topicObj = getTopicObject($session, $thisWeb, $thisTopic); 
 
+  $theForm = $session->{request}->param('formtemplate') unless defined $theForm;
   $theForm = $topicObj->getFormName unless defined $theForm;
   return '' unless $theForm;
 
@@ -324,7 +325,7 @@ sub handleRENDERFOREDIT {
 
   my $thisTopic = $params->{_DEFAULT} || $params->{topic} || $theTopic;
   my $theFields = $params->{field} || $params->{fields};
-  my $theForm = $params->{form} || $session->{request}->param('formtemplate') || '';
+  my $theForm = $params->{form};
   my $theValue = $params->{value};
   my $theFormat = $params->{format};
   my $theHeader = $params->{header};
@@ -370,6 +371,7 @@ sub handleRENDERFOREDIT {
   $session->{plugins}->dispatch('beforeEditHandler', $text, $thisTopic, $thisWeb, $topicObj);
   $topicObj->text($text);
 
+  $theForm = $session->{request}->param('formtemplate') unless defined $theForm;
   $theForm = $topicObj->getFormName unless defined $theForm;
   return '' unless $theForm;
 
