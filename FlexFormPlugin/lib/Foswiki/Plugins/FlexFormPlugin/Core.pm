@@ -70,7 +70,7 @@ sub handleRENDERFORDISPLAY {
 
   my $thisTopic = $params->{_DEFAULT} || $params->{topic} || $theTopic;
   my $theFields = $params->{field} || $params->{fields};
-  my $theForm = $params->{form};
+  my $theForm = $params->{form} || $session->{request}->param('formtemplate') || '';
   my $theFormat = $params->{format};
   my $theHeader = $params->{header};
   my $theFooter = $params->{footer};
@@ -324,7 +324,7 @@ sub handleRENDERFOREDIT {
 
   my $thisTopic = $params->{_DEFAULT} || $params->{topic} || $theTopic;
   my $theFields = $params->{field} || $params->{fields};
-  my $theForm = $params->{form};
+  my $theForm = $params->{form} || $session->{request}->param('formtemplate') || '';
   my $theValue = $params->{value};
   my $theFormat = $params->{format};
   my $theHeader = $params->{header};
