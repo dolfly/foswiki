@@ -71,8 +71,16 @@ sub registerDeleteHandler {
 sub NEWMETADATA {
   my ($this, $params) = @_;
 
+  my $theMetaData = lc($params->{_DEFAULT} || $params->{meta} || '');
+  my $theTitle = $params->{title} || '';
+  my $theFormat = $params->{format};
+  my $theTemplate = $params->{template} || 'metadata::new';
+
+  $theFormat = Foswiki::Func::expandTemplate($theTemplate) unless defined $theFormat;
+  $theFormat =~ s/%meta%/$theMetaData/g;
+  $theFormat =~ s/%title%/$theTitle/g;
   
-  return 'todo';
+  return $theFormat;
 }
 
 ##############################################################################
@@ -110,7 +118,6 @@ sub renderMetaData {
 
   my $theAction = $params->{action} || 'view';
   my $theFields = $params->{field} || $params->{fields};
-  my $theTopic = $params->{topic} || $this->{baseTopic};
   my $theFormat = $params->{format};
   my $theHeader = $params->{header};
   my $theFooter = $params->{footer};
@@ -123,7 +130,7 @@ sub renderMetaData {
   my $theMandatory = $params->{mandatory};
   my $theHiddenFormat = $params->{hiddenformat};
   my $theHideEmpty = Foswiki::Func::isTrue($params->{hideempty}, 0);
-  my $theSort = Foswiki::Func::isTrue($params->{sort}, 0);
+  #my $theSort = Foswiki::Func::isTrue($params->{sort}, 0);
   my $theAutolink = Foswiki::Func::isTrue($params->{autolink}, 1);
   my $theFieldFormat = $params->{fieldformat};
 
@@ -217,7 +224,7 @@ sub renderMetaData {
         grep {$_->{name} ne 'name'}
         @selectedFields).' $actions |$n';
     } else {
-      $theFormat = '<div class=\'foswikiFormStep $form\'>$n<table class=\'foswikiLayoutTable\'>$n'.
+      $theFormat = '<div class=\'foswikiFormStep $metadata\'>$n<table class=\'foswikiLayoutTable\'>$n'.
         join('$n', map {'$'.$_->{name}} @selectedFields).
         '$n</table></div>';
     }
@@ -227,7 +234,7 @@ sub renderMetaData {
     if ($theAction eq 'view') {
       $theFieldFormat = '$value';
     } else {
-      $theFieldFormat = '  <tr class="$form $name">$n'.
+      $theFieldFormat = '  <tr class="$metadata $name">$n'.
         '    <th>$title:</th>$n'.
         '    <td>$n$edit$n</td>'.
         '    <td><div class=\'foswikiFormDescription foswikiHidden\'>$description</div></td>$n'.
@@ -335,6 +342,12 @@ sub renderMetaData {
       }
       #writeDebug("fieldOrigAllowedValues=$fieldOrigAllowedValues");
 
+      # get the default value
+      my $fieldDefault = '';
+      if ($field->can('getDefaultValue')) {
+        $fieldDefault = $field->getDefaultValue() || '';
+      } 
+
       my $fieldValue = $record->{$fieldName};
 
       $fieldSize = $params->{$fieldName.'_size'} if defined $params->{$fieldName.'_size'};
@@ -346,6 +359,7 @@ sub renderMetaData {
       $fieldType = $params->{$fieldName.'_type'} if defined $params->{$fieldName.'_type'};
       $fieldValue = $params->{$fieldName.'_value'} if defined $params->{$fieldName.'_value'}; # or get value from macro invocation
       $fieldFormat = $params->{$fieldName.'_format'} if defined $params->{$fieldName.'_format'};
+      $fieldDefault = $params->{$fieldName.'_default'} if defined $params->{$fieldName.'_default'};
 
       my $fieldIsHidden = Foswiki::Func::isTrue($params->{$fieldName.'_hidden'}, 0);
       my $fieldMandatory = $field->isMandatory?$theMandatory:'';
@@ -368,7 +382,7 @@ sub renderMetaData {
       next if $theIncludeAttr && $fieldAttrs !~ /^($theIncludeAttr)$/;
       next if $theExcludeAttr && $fieldAttrs =~ /^($theExcludeAttr)$/;
 
-      $fieldValue = '' unless defined $fieldValue;
+      $fieldValue = $fieldDefault unless defined $fieldValue;
       $fieldDescription = '' unless defined $fieldDescription;
       #writeDebug("metaData=$metaData, fieldName=$fieldName, fieldValue=$fieldValue");
 
@@ -447,6 +461,7 @@ sub renderMetaData {
       $line =~ s/\$size\b/$fieldSize/g;
       $line =~ s/\$attrs\b/$fieldAttrs/g;
       $line =~ s/\$(orig)?value\b/$fieldValue/g;
+      $line =~ s/\$default\b/$fieldDefault/g;
       $line =~ s/\$(tooltip|description)\b/$fieldDescription/g;
       $line =~ s/\$title\b/$fieldTitle/g;
       $line =~ s/\$extra\b/$fieldExtra/g;
@@ -475,7 +490,6 @@ sub renderMetaData {
     $fieldActions =~ s/\%meta\%/$metaData/g;
 
     $row =~ s/\$actions\b/$fieldActions/g;
-    $row =~ s/\$form\b/$metaData/g; # the meta data name
     $row =~ s/\$index\b/$index/g;
 
     push @result, $row;
@@ -485,6 +499,11 @@ sub renderMetaData {
   return '' if $theHideEmpty && !@result;
 
   my $result = $theHeader.join($theSep, @result).$theFooter;
+
+  $index--;
+  $result =~ s/\$count/$index/g;
+  $result =~ s/\$metadata\b/$metaData/g; # the meta data name
+  $result =~ s/\$form\b/$formWeb.$formTopic/g; # the meta data name
   $result =~ s/\$nop//g;
   $result =~ s/\$n/\n/g;
   $result =~ s/\$perce?nt/%/g;
