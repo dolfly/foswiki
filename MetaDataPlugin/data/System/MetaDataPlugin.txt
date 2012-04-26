@@ -159,7 +159,11 @@ have a database of efforts recorded on that tracker.
    * %SANDBOXWEB%.TimeTrackerEditTemplate: this is the edit template to edit !TimeTracker topics
    * %SANDBOXWEB%.TimeTrackerViewTemplate: this is the view template to view a !TimeTracker topic and all tracked efforts for it.
 
-%X% Note: to run this application, you'll need the Foswiki:Extensions/JQGridPlugin as well as the Foswiki:Extensions/FlexFormPlugin.
+%X% Note: to run this application, you'll need:
+
+   * Foswiki:Extensions/JQGridPlugin
+   * Foswiki:Extensions/FlexFormPlugin
+   * Foswiki:Extensions/JsonRpcContrib
 
 ---++ Installation Instructions
 
@@ -176,7 +180,7 @@ have a database of efforts recorded on that tracker.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  26 Apr 2012: | fixing table editor for firefox |
+|  26 Apr 2012: | fixing table editor for firefox; adding dependency on Foswiki:Extensions/JsonRpcContrib |
 |  25 Apr 2012: | initial release | 
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
