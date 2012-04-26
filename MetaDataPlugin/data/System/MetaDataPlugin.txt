@@ -180,7 +180,9 @@ have a database of efforts recorded on that tracker.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  26 Apr 2012: | fixing table editor for firefox; adding dependency on Foswiki:Extensions/JsonRpcContrib |
+|  26 Apr 2012: | fixing table editor for firefox; \
+                  adding dependency on Foswiki:Extensions/JsonRpcContrib; \
+                  fixed row click in table editor |
 |  25 Apr 2012: | initial release | 
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
