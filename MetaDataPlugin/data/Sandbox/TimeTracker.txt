@@ -12,7 +12,7 @@
 | <nop>TopicTitle | text | 75 | | title of this topic | |
 | Summary | text | 75 | | short description of the role of this topic | c |
 | Rate | text | 6 | 100 | %MAKETEXT{"hourly rates"}% | c |
-| Tax | select+values | 1 | 0%=0, 7%=7, 19%=19 | %MAKETEXT{"tax fee per effort in percent"}% | c |
+| Tax | select | 1 | 0, 7, 19 | %MAKETEXT{"tax fee per effort in percent"}% | c |
 | Invoiced | radio | 2 | no, yes | %MAKETEXT{"flag indicating whether these efforts have already been invoiced"}% | |
 %ENDTWISTY%
 
