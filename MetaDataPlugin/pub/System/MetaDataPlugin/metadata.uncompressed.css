@@ -1,7 +1,5 @@
 .metaDataView table {
   margin-right:60px;
-}
-.metaDataView table td {
   position:relative;
   cursor:pointer;
 }
@@ -16,10 +14,8 @@
 .metaDataActions {
   display:none;
   position:absolute;
-  top:0px;
-  right:0px;
-  margin-right:-84px; /* TODO: 3 actions */
-  margin-right:-63px;
+  right:-63px;
+  margin-top:-10px;
   padding:5px;
 }
 .metaDataActions a {
