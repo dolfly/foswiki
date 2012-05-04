@@ -9,7 +9,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
+# GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::Stringifier::Plugins::DOC_antiword;
@@ -18,22 +18,25 @@ our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 
 my $antiword = $Foswiki::cfg{StringifierContrib}{antiwordCmd} || 'antiword';
 
-if (!defined($Foswiki::cfg{StringifierContrib}{WordIndexer}) || 
-    ($Foswiki::cfg{StringifierContrib}{WordIndexer} eq 'antiword')) {
+if ( !defined( $Foswiki::cfg{StringifierContrib}{WordIndexer} )
+    || ( $Foswiki::cfg{StringifierContrib}{WordIndexer} eq 'antiword' ) )
+{
+
     # Only if antiword exists, I register myself.
-    if (__PACKAGE__->_programExists($antiword)){
-        __PACKAGE__->register_handler("application/word", ".doc");
+    if ( __PACKAGE__->_programExists($antiword) ) {
+        __PACKAGE__->register_handler( "application/word", ".doc" );
     }
 }
 
 sub stringForFile {
-    my ($self, $file) = @_;
-    
-    my $cmd = $antiword . ' %FILENAME|F%';
-    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $file);
+    my ( $self, $file ) = @_;
 
-    return '' unless ($exit == 0);
-    
+    my $cmd = $antiword . ' %FILENAME|F%';
+    my ( $text, $exit ) =
+      Foswiki::Sandbox->sysCommand( $cmd, FILENAME => $file );
+
+    return '' unless ( $exit == 0 );
+
     $text =~ s/^\s+//g;
     $text =~ s/\s+$//g;
 

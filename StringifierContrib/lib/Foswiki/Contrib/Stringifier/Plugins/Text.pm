@@ -9,7 +9,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
+# GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::Stringifier::Plugins::Text;
@@ -25,13 +25,13 @@ sub stringForFile {
     # check it is a text file
     return '' unless ( -T $file );
 
-    open($in, $file) or return "";
+    open( $in, $file ) or return "";
     local $/ = undef;    # set to read to EOF
     my $text = <$in>;
     close($in);
 
     $text = $self->fromUtf8($text);
-    $text =~ s/^\?//; # remove bom
+    $text =~ s/^\?//;    # remove bom
 
     return $text;
 }

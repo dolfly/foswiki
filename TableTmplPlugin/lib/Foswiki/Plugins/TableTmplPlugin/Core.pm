@@ -77,53 +77,92 @@ BEGIN {
     $didWriteDefaultStyle = 0;
     my %defaultCssAttrs = ();
 
-	#Initialise CSS classes
-	if (defined $Foswiki::cfg{Plugins}{CssPlugin}{Enabled} && defined $Foswiki::cfg{Plugins}{CssPlugin}{Enabled})
-	#if (0)
-		{
-		#my $conf=$Foswiki::cfg{Plugins}{CssPlugin};
-		my $conf=\%Foswiki::Plugins::CssPlugin::classMap;
-		
-		%cssClasses = (
-			'table', (defined $conf->{'table'}?$conf->{'table'}:'foswikiTable'),
-			'sorted', (defined $conf->{'sorted'}?$conf->{'sorted'}:'foswikiSortedCol'),
-			'tr', (defined $conf->{'tr'}?$conf->{'tr'}:''),		
-			'th', (defined $conf->{'th'}?$conf->{'th'}:''),
-			'td', (defined $conf->{'td'}?$conf->{'td'}:''),
-			'tr-prefix', (defined $conf->{'tr-prefix'}?$conf->{'tr-prefix'}:'foswikiTableRow'),
-			'col-prefix', (defined $conf->{'col-prefix'}?$conf->{'col-prefix'}:'foswikiTableCol'),
-			'first-col', (defined $conf->{'first-col'}?$conf->{'first-col'}:'foswikiFirstCol'),
-			'last-col',	(defined $conf->{'last-col'}?$conf->{'last-col'}:'foswikiLastCol'),
-			'last', (defined $conf->{'last'}?$conf->{'last'}:'foswikiLast'),
-			'ascending', (defined $conf->{'ascending'}?$conf->{'ascending'}:'foswikiSortedAscendingCol'),
-			'descending', (defined $conf->{'descending'}?$conf->{'descending'}:'foswikiSortedDescendingCol'),
-			'even', (defined $conf->{'even'}?$conf->{'even'}:'foswikiTableEven'),
-			'odd', (defined $conf->{'odd'}?$conf->{'odd'}:'foswikiTableOdd'),
-			'caption', (defined $conf->{'caption'}?$conf->{'caption'}:'')
-			);		
-		}
-	else
-		{
-		#Original table plugin style
-		%cssClasses = (
-			'table', 'foswikiTable',
-			'sorted', 'foswikiSortedCol',
-			'tr', '',		
-			'th', '',
-			'td', '',
-			'tr-prefix', 'foswikiTableRow',
-			'col-prefix', 'foswikiTableCol',
-			'first-col', 'foswikiFirstCol',
-			'last-col',	'foswikiLastCol',
-			'last', 'foswikiLast',
-			'ascending', 'foswikiSortedAscendingCol',
-			'descending', 'foswikiSortedDescendingCol',
-			'even', 'foswikiTableEven',
-			'odd', 'foswikiTableOdd',
-			'caption', ''
-			);
-				
-		}	
+    #Initialise CSS classes
+    if (   defined $Foswiki::cfg{Plugins}{CssPlugin}{Enabled}
+        && defined $Foswiki::cfg{Plugins}{CssPlugin}{Enabled} )
+
+      #if (0)
+    {
+
+        #my $conf=$Foswiki::cfg{Plugins}{CssPlugin};
+        my $conf = \%Foswiki::Plugins::CssPlugin::classMap;
+
+        %cssClasses = (
+            'table',
+            ( defined $conf->{'table'} ? $conf->{'table'} : 'foswikiTable' ),
+            'sorted',
+            (
+                defined $conf->{'sorted'} ? $conf->{'sorted'}
+                : 'foswikiSortedCol'
+            ),
+            'tr',
+            ( defined $conf->{'tr'} ? $conf->{'tr'} : '' ),
+            'th',
+            ( defined $conf->{'th'} ? $conf->{'th'} : '' ),
+            'td',
+            ( defined $conf->{'td'} ? $conf->{'td'} : '' ),
+            'tr-prefix',
+            (
+                defined $conf->{'tr-prefix'} ? $conf->{'tr-prefix'}
+                : 'foswikiTableRow'
+            ),
+            'col-prefix',
+            (
+                defined $conf->{'col-prefix'} ? $conf->{'col-prefix'}
+                : 'foswikiTableCol'
+            ),
+            'first-col',
+            (
+                defined $conf->{'first-col'} ? $conf->{'first-col'}
+                : 'foswikiFirstCol'
+            ),
+            'last-col',
+            (
+                defined $conf->{'last-col'} ? $conf->{'last-col'}
+                : 'foswikiLastCol'
+            ),
+            'last',
+            ( defined $conf->{'last'} ? $conf->{'last'} : 'foswikiLast' ),
+            'ascending',
+            (
+                defined $conf->{'ascending'} ? $conf->{'ascending'}
+                : 'foswikiSortedAscendingCol'
+            ),
+            'descending',
+            (
+                defined $conf->{'descending'} ? $conf->{'descending'}
+                : 'foswikiSortedDescendingCol'
+            ),
+            'even',
+            ( defined $conf->{'even'} ? $conf->{'even'} : 'foswikiTableEven' ),
+            'odd',
+            ( defined $conf->{'odd'} ? $conf->{'odd'} : 'foswikiTableOdd' ),
+            'caption',
+            ( defined $conf->{'caption'} ? $conf->{'caption'} : '' )
+        );
+    }
+    else {
+
+        #Original table plugin style
+        %cssClasses = (
+            'table',      'foswikiTable',
+            'sorted',     'foswikiSortedCol',
+            'tr',         '',
+            'th',         '',
+            'td',         '',
+            'tr-prefix',  'foswikiTableRow',
+            'col-prefix', 'foswikiTableCol',
+            'first-col',  'foswikiFirstCol',
+            'last-col',   'foswikiLastCol',
+            'last',       'foswikiLast',
+            'ascending',  'foswikiSortedAscendingCol',
+            'descending', 'foswikiSortedDescendingCol',
+            'even',       'foswikiTableEven',
+            'odd',        'foswikiTableOdd',
+            'caption',    ''
+        );
+
+    }
 }
 
 sub _setDefaults {
@@ -1154,7 +1193,8 @@ sub _addStylesToHead {
                 $rowSelector .= $count;
                 my $attr = 'background-color:' . $color . ';';
                 push( @styles,
-                    "$selector tr.$rowSelector td.$cssClasses{sorted} {$attr}" );
+                    "$selector tr.$rowSelector td.$cssClasses{sorted} {$attr}"
+                );
                 $count++;
             }
         }
@@ -1277,32 +1317,32 @@ sub addDefaultSizeUnit {
 }
 
 #sub loadTemplateDef {
-	#my ($def) = @_;
-	#$templates{$def}=Foswiki::Func::expandTemplate($def);		
-	#Could use that to read the meta, and thus enabling meta in templates
-	##my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
-	#$templates{$def}=Foswiki::Func::expandCommonVariables($templates{$def},$topic,$web);	
-	#}
+#my ($def) = @_;
+#$templates{$def}=Foswiki::Func::expandTemplate($def);
+#Could use that to read the meta, and thus enabling meta in templates
+##my ($meta, $text) = Foswiki::Func::readTopic( $web, $topic );
+#$templates{$def}=Foswiki::Func::expandCommonVariables($templates{$def},$topic,$web);
+#}
 
 sub emitTable {
 
-	#unless (defined $templates{'table'})
-	#	{
-		#Load our templates only once
-		#Foswiki::Func::loadTemplate('table'); #Load the template file first
-		#Then the defs
-		#loadTemplateDef('table');
-		#loadTemplateDef('caption');
-		#loadTemplateDef('thead');
-		#loadTemplateDef('tbody');
-		#loadTemplateDef('tfoot');				
-		#loadTemplateDef('tr');		
-		#loadTemplateDef('th');
-		#loadTemplateDef('td');
-		##loadTemplateDef('td-sorted');
-	#	}
-	
-	#return $templates{'table'};
+    #unless (defined $templates{'table'})
+    #	{
+    #Load our templates only once
+    #Foswiki::Func::loadTemplate('table'); #Load the template file first
+    #Then the defs
+    #loadTemplateDef('table');
+    #loadTemplateDef('caption');
+    #loadTemplateDef('thead');
+    #loadTemplateDef('tbody');
+    #loadTemplateDef('tfoot');
+    #loadTemplateDef('tr');
+    #loadTemplateDef('th');
+    #loadTemplateDef('td');
+    ##loadTemplateDef('td-sorted');
+    #	}
+
+    #return $templates{'table'};
 
     #Validate headerrows/footerrows and modify if out of range
     if ( $headerRows > @curTable ) {
@@ -1328,7 +1368,10 @@ sub emitTable {
     $tattrs->{width} = $tableWidth if defined $tableWidth && $tableWidth ne '';
 
     my $text = $currTablePre . CGI::start_table($tattrs);
-    $text .= $currTablePre . CGI::caption({class => $cssClasses{'caption'}},$tableCaption) if ($tableCaption);
+    $text .=
+      $currTablePre
+      . CGI::caption( { class => $cssClasses{'caption'} }, $tableCaption )
+      if ($tableCaption);
     my $stype = '';
 
     # count the number of cols to prevent looping over non-existing columns
@@ -1607,17 +1650,21 @@ sub emitTable {
                           . $tableAnchor;
                     }
                 }
-						
-			#Add th class name
-			$attr->{class} = _appendToClassList( $attr->{class}, $cssClasses{'th'} );					
+
+                #Add th class name
+                $attr->{class} =
+                  _appendToClassList( $attr->{class}, $cssClasses{'th'} );
             }
             else {
-				if ($type eq 'td') #Is that needed? What else could it be? Should be td if not th really
-					{
-					#Add td class name
-					$attr->{class} = _appendToClassList( $attr->{class}, $cssClasses{'td'} );					
-					}
-				
+                if ( $type eq 'td'
+                  ) #Is that needed? What else could it be? Should be td if not th really
+                {
+
+                    #Add td class name
+                    $attr->{class} =
+                      _appendToClassList( $attr->{class}, $cssClasses{'td'} );
+                }
+
                 # $type is not 'th'
                 if (@dataBg) {
                     my $bgcolor;
@@ -1679,30 +1726,30 @@ sub emitTable {
             use strict 'refs';
         }    # foreach my $fcell ( @$row )
 
-		#Determine where we are in the rows: header rows, body rows or footer
+        #Determine where we are in the rows: header rows, body rows or footer
         my $isHeaderRow = ( $headerCellCount == $colCount );
         my $isFooterRow = ( ( $numberOfRows - $rowCount ) <= $footerRows );
-		my $isBodyRow = 0;
+        my $isBodyRow   = 0;
 
         if ( !$isHeaderRow && !$isFooterRow ) {
 
         # don't include non-adjacent header rows to the top block of header rows
             $isPastHeaderRows = 1;
-			$isBodyRow = 1;
+            $isBodyRow        = 1;
         }
-		
+
         # assign css class names to tr
         # based on settings: dataBg, dataBgSorted
         my $trClassName = $cssClasses{'tr'};
 
         # just 2 css names is too limited, but we will keep it for compatibility
-        # with existing style sheets		
-		#SL: Header and footer rows are not even nor odd
-		if ($isBodyRow)
-			{
-			my $rowTypeName = ( $rowCount % 2 ) ? $cssClasses{'even'} : $cssClasses{'odd'};
-			$trClassName = _appendToClassList( $trClassName, $rowTypeName );
-			}
+        # with existing style sheets
+        #SL: Header and footer rows are not even nor odd
+        if ($isBodyRow) {
+            my $rowTypeName =
+              ( $rowCount % 2 ) ? $cssClasses{'even'} : $cssClasses{'odd'};
+            $trClassName = _appendToClassList( $trClassName, $rowTypeName );
+        }
 
         if ( scalar @dataBgSorted ) {
             my $modRowNum = $dataColorCount % ( $#dataBgSorted + 1 );
@@ -1814,8 +1861,9 @@ sub handler {
 
         $pluginAttrs =
           Foswiki::Func::getPreferencesValue('TABLEPLUGIN_TABLEATTRIBUTES')
-		      || 'cellpadding="0" cellspacing="0" valign="top"';
-              #|| 'tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#ffffff" headerbg="#687684" headerbgsorted="#334455" databg="#ffffff,#edf4f9" databgsorted="#f1f7fc,#ddebf6" tablerules="rows"';
+          || 'cellpadding="0" cellspacing="0" valign="top"';
+
+#|| 'tableborder="1" cellpadding="0" cellspacing="0" valign="top" headercolor="#ffffff" headerbg="#687684" headerbgsorted="#334455" databg="#ffffff,#edf4f9" databgsorted="#f1f7fc,#ddebf6" tablerules="rows"';
         $prefsAttrs = Foswiki::Func::getPreferencesValue('TABLEATTRIBUTES');
         _setDefaults();
 

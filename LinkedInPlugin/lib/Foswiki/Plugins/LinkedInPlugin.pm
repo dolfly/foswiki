@@ -76,7 +76,6 @@ sub SHARE {
     return $html;
 }
 
-
 =begin TML
 
 ---++ StaticMethod validateUrl($url) -> $url
@@ -88,11 +87,11 @@ validation with untaint(). Returns the url, or undef if it is invalid.
 
 sub validateUrl {
     my $url = shift;
-    
+
     #ignore any ? or # params
-    if ($url =~ m|^(https?://)([a-zA-Z0-9.]*)(/[^#?]*)| ) {
-        my $out = $1.$2.$3;
-        if (lc($2) =~ /linkedin.com$/) {
+    if ( $url =~ m|^(https?://)([a-zA-Z0-9.]*)(/[^#?]*)| ) {
+        my $out = $1 . $2 . $3;
+        if ( lc($2) =~ /linkedin.com$/ ) {
             return $out;
         }
     }
@@ -100,10 +99,10 @@ sub validateUrl {
 }
 
 my %valid_types = (
-    inline=>1,
-    hover=>1,
-    click=>1,
-    popup=>1
+    inline => 1,
+    hover  => 1,
+    click  => 1,
+    popup  => 1
 );
 
 sub PROFILE {
@@ -114,32 +113,41 @@ sub PROFILE {
       || $params->{user}
       || Foswiki::Func::getWikiName( Foswiki::Func::getCanonicalUserID() );
     my $type = lc( $params->{type} ) || 'inline';
-    $type = 'inline' if ( not defined($valid_types{$type}) );
-    $type = 'click' if ($type eq 'popup');
-    
-    
+    $type = 'inline' if ( not defined( $valid_types{$type} ) );
+    $type = 'click' if ( $type eq 'popup' );
+
     my $shareto = $params->{shareto} || 'linkedin';
 
     Foswiki::Func::loadTemplate($shareto);
 
-    if ($user eq '%LINKEDINPLUGIN_DEFAULTPROFILE%') {
-        $user = Foswiki::Func::getPreferencesValue( 'LINKEDINPLUGIN_DEFAULTPROFILE') || 'disabled';
+    if ( $user eq '%LINKEDINPLUGIN_DEFAULTPROFILE%' ) {
+        $user =
+          Foswiki::Func::getPreferencesValue('LINKEDINPLUGIN_DEFAULTPROFILE')
+          || 'disabled';
     }
 
     my $url = $params->{url};
-    if (defined($url))  {
-        #need to untaint, and to confirm this is indeed a valid url to linkedin - not some spammers / hackers way to get the user's login
+    if ( defined($url) ) {
+
+#need to untaint, and to confirm this is indeed a valid url to linkedin - not some spammers / hackers way to get the user's login
         $url = Foswiki::Sandbox::untaint( $url, \&validateUrl );
     }
-    if (!defined($url))  {
-        if (lc($user) eq 'disabled') {
+    if ( !defined($url) ) {
+        if ( lc($user) eq 'disabled' ) {
             return Foswiki::Func::expandTemplate('profile:disabled');
         }
-        $url = Foswiki::Func::expandTemplate('"profile:url" USER="' . $user . '"' );
+        $url =
+          Foswiki::Func::expandTemplate( '"profile:url" USER="' . $user . '"' );
     }
 
-    my $html = Foswiki::Func::expandTemplate(
-        '"profile" USER="' . $user . '" URL="' . $url . '" TYPE="' . $type . '"' );
+    my $html =
+      Foswiki::Func::expandTemplate( '"profile" USER="' 
+          . $user
+          . '" URL="'
+          . $url
+          . '" TYPE="'
+          . $type
+          . '"' );
     return $html;
 }
 

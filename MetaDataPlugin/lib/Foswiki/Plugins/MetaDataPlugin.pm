@@ -18,14 +18,14 @@ package Foswiki::Plugins::MetaDataPlugin;
 use strict;
 use warnings;
 
-use Foswiki::Func ();
-use Foswiki::Plugins ();
+use Foswiki::Func                    ();
+use Foswiki::Plugins                 ();
 use Foswiki::Contrib::JsonRpcContrib ();
 use Foswiki::Plugins::MetaDataPlugin::Core();
 
-our $VERSION = '$Rev$';
-our $RELEASE = '1.10';
-our $SHORTDESCRIPTION = 'Bring custom meta data to wiki apps';
+our $VERSION           = '$Rev$';
+our $RELEASE           = '1.10';
+our $SHORTDESCRIPTION  = 'Bring custom meta data to wiki apps';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;
 our $baseWeb;
@@ -34,30 +34,35 @@ our $baseTopic;
 ##############################################################################
 sub earlyInitPlugin {
 
-  my $session = $Foswiki::Plugins::SESSION;
-  $core = new Foswiki::Plugins::MetaDataPlugin::Core($session);
+    my $session = $Foswiki::Plugins::SESSION;
+    $core = new Foswiki::Plugins::MetaDataPlugin::Core($session);
 
-  return 0;
+    return 0;
 }
-
 
 ##############################################################################
 sub initPlugin {
-  ($baseTopic, $baseWeb) = @_;
+    ( $baseTopic, $baseWeb ) = @_;
 
-  # register macro handlers
-  Foswiki::Func::registerTagHandler('RENDERMETADATA', sub {
-    my $session = shift;
-    return $core->RENDERMETADATA(@_);
-  });
-  Foswiki::Func::registerTagHandler('NEWMETADATA', sub {
-    my $session = shift;
-    return $core->NEWMETADATA(@_);
-  });
+    # register macro handlers
+    Foswiki::Func::registerTagHandler(
+        'RENDERMETADATA',
+        sub {
+            my $session = shift;
+            return $core->RENDERMETADATA(@_);
+        }
+    );
+    Foswiki::Func::registerTagHandler(
+        'NEWMETADATA',
+        sub {
+            my $session = shift;
+            return $core->NEWMETADATA(@_);
+        }
+    );
 
-  # register meta definitions
-  my $webMetaData = Foswiki::Func::getPreferencesValue("WEBMETADATA") || '';
-  registerMetaData($webMetaData);
+    # register meta definitions
+    my $webMetaData = Foswiki::Func::getPreferencesValue("WEBMETADATA") || '';
+    registerMetaData($webMetaData);
 
 #  Foswiki::Contrib::JsonRpcContrib::registerMethod("MetaDataPlugin", "get", sub {
 #     my $session = shift;
@@ -74,101 +79,109 @@ sub initPlugin {
 #    return $core->jsonRpcUpdate(@_);
 #  });
 
-  Foswiki::Contrib::JsonRpcContrib::registerMethod("MetaDataPlugin", "delete", sub {
-    my $session = shift;
-    return $core->jsonRpcDelete(@_);
-  });
+    Foswiki::Contrib::JsonRpcContrib::registerMethod(
+        "MetaDataPlugin",
+        "delete",
+        sub {
+            my $session = shift;
+            return $core->jsonRpcDelete(@_);
+        }
+    );
 
-  $core->init;
+    $core->init;
 
-  return 1;
+    return 1;
 }
 
 ##############################################################################
 sub finishPlugin {
-  $core = undef;
+    $core = undef;
 }
 
 ##############################################################################
 sub registerDeleteHandler {
-  return $core->registerDeleteHandler(@_);
+    return $core->registerDeleteHandler(@_);
 }
 
 ##############################################################################
-sub beforeSaveHandler { 
-  $core->beforeSaveHandler(@_); 
+sub beforeSaveHandler {
+    $core->beforeSaveHandler(@_);
 }
 
 ##############################################################################
 sub registerMetaData {
-  my $topics = shift;
+    my $topics = shift;
 
-  foreach my $item (split(/\s*,\s*/, $topics)) {
-    my ($web, $topic) = Foswiki::Func::normalizeWebTopicName($baseWeb, $item);
-    my $metaDef = getMetaDataDefinition($web, $topic);
-    my ($key) = topicName2MetaData($topic);
-    #print STDERR "meta data key = $key\n";
-    Foswiki::Meta::registerMETA($key, %$metaDef); 
-  }
+    foreach my $item ( split( /\s*,\s*/, $topics ) ) {
+        my ( $web, $topic ) =
+          Foswiki::Func::normalizeWebTopicName( $baseWeb, $item );
+        my $metaDef = getMetaDataDefinition( $web, $topic );
+        my ($key) = topicName2MetaData($topic);
+
+        #print STDERR "meta data key = $key\n";
+        Foswiki::Meta::registerMETA( $key, %$metaDef );
+    }
 }
 
 ##############################################################################
 # convert a web.topic pointing to a DataForm definition to a pair
 # (key, alias) used to register metadata types based on this DataForm
 sub topicName2MetaData {
-  my $topic = shift;
+    my $topic = shift;
 
-  # 1. strip off the the web part
-  (undef, $topic) = Foswiki::Func::normalizeWebTopicName($baseWeb, $topic);
+    # 1. strip off the the web part
+    ( undef, $topic ) =
+      Foswiki::Func::normalizeWebTopicName( $baseWeb, $topic );
 
-  # 2. generate alias which are all lowercase and strip off any ...Topic suffix
-  # from the DataForm name
-  my $alias = $topic;
-  $alias =~ s/Topic$//; 
-  $alias =~ s/Form$//; 
-  $alias = lc($alias);
+   # 2. generate alias which are all lowercase and strip off any ...Topic suffix
+   # from the DataForm name
+    my $alias = $topic;
+    $alias =~ s/Topic$//;
+    $alias =~ s/Form$//;
+    $alias = lc($alias);
 
-  # 3. the real metadata key used to register it is the upper case version
-  # of the alias
-  my $key = uc($alias);
+    # 3. the real metadata key used to register it is the upper case version
+    # of the alias
+    my $key = uc($alias);
 
-  return ($key, $alias);
+    return ( $key, $alias );
 }
 
 ##############################################################################
 sub getMetaDataDefinition {
-  my ($web, $topic) = @_;
-  
-  return unless Foswiki::Func::topicExists($web, $topic);
+    my ( $web, $topic ) = @_;
 
-  my $formDef = new Foswiki::Form($Foswiki::Plugins::SESSION, $web, $topic);
-  return unless defined $formDef;
+    return unless Foswiki::Func::topicExists( $web, $topic );
 
-  my @other = ();
-  my @require = ();
+    my $formDef = new Foswiki::Form( $Foswiki::Plugins::SESSION, $web, $topic );
+    return unless defined $formDef;
 
-  push @require, 'name'; # is always required
+    my @other   = ();
+    my @require = ();
 
-  foreach my $field (@{$formDef->getFields}) {
-    my $name = $field->{name};
-    if ($field->isMandatory) {
-      push @require, $name;
-    } else {
-      push @other, $name;
+    push @require, 'name';    # is always required
+
+    foreach my $field ( @{ $formDef->getFields } ) {
+        my $name = $field->{name};
+        if ( $field->isMandatory ) {
+            push @require, $name;
+        }
+        else {
+            push @other, $name;
+        }
     }
-  }
 
-  my ($key, $alias) = topicName2MetaData($topic);
-  my $metaDef = {
-    alias => $alias,
-    many => 1,
-    form => $web.'.'.$topic,
-  };
+    my ( $key, $alias ) = topicName2MetaData($topic);
+    my $metaDef = {
+        alias => $alias,
+        many  => 1,
+        form  => $web . '.' . $topic,
+    };
 
-  $metaDef->{require} = [ @require ] if @require;
-  $metaDef->{other} = [ @other ] if @other;
+    $metaDef->{require} = [@require] if @require;
+    $metaDef->{other}   = [@other]   if @other;
 
-  return $metaDef;
+    return $metaDef;
 }
 
 1;

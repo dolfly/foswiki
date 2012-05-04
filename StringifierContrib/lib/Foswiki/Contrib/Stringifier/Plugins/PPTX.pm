@@ -20,17 +20,18 @@ our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 my $pptx2txt = $Foswiki::cfg{StringifierContrib}{pptx2txtCmd} || 'pptx2txt.pl';
 
 # Only if ppthtml.pl exists, I register myself.
-if (__PACKAGE__->_programExists($pptx2txt)){
-    __PACKAGE__->register_handler("text/pptx", ".pptx");
+if ( __PACKAGE__->_programExists($pptx2txt) ) {
+    __PACKAGE__->register_handler( "text/pptx", ".pptx" );
 }
 
 sub stringForFile {
-    my ($self, $filename) = @_;
-    
+    my ( $self, $filename ) = @_;
+
     my $cmd = $pptx2txt . ' %FILENAME|F% -';
-    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
-    
-    return '' unless ($exit == 0);
+    my ( $text, $exit ) =
+      Foswiki::Sandbox->sysCommand( $cmd, FILENAME => $filename );
+
+    return '' unless ( $exit == 0 );
     return $self->fromUtf8($text);
 }
 

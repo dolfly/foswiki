@@ -18,23 +18,23 @@ package Foswiki::Plugins::FirebugLitePlugin;
 # Always use strict to enforce variable scoping
 use strict;
 
-require Foswiki::Func;    # The plugins API
-require Foswiki::Plugins; # For the API version
+require Foswiki::Func;       # The plugins API
+require Foswiki::Plugins;    # For the API version
 
-use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN_TOPIC );
+use vars
+  qw( $VERSION $RELEASE $SHORTDESCRIPTION $debug $pluginName $NO_PREFS_IN_TOPIC );
 $VERSION = '$Rev$';
 $RELEASE = '24 Oct 2009';
-$SHORTDESCRIPTION = 'FirebugLite javascript based debugger for IE, Opera, Safari and FireFox';
+$SHORTDESCRIPTION =
+  'FirebugLite javascript based debugger for IE, Opera, Safari and FireFox';
 $NO_PREFS_IN_TOPIC = 1;
-$pluginName = 'FirebugLitePlugin';
-
+$pluginName        = 'FirebugLitePlugin';
 
 sub initPlugin {
+
     # Plugin should really be a Contrib :-)
 
     return 1;
 }
-
-
 
 1;

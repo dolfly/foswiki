@@ -9,9 +9,8 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
+# GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
-
 
 package Foswiki::Contrib::Stringifier::Plugins::HTML;
 use Foswiki::Contrib::Stringifier::Base ();
@@ -19,17 +18,18 @@ our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 
 my $html2text = $Foswiki::cfg{StringifierContrib}{htmltotextCmd} || 'html2text';
 
-__PACKAGE__->register_handler("text/html", ".html");
+__PACKAGE__->register_handler( "text/html", ".html" );
 
 sub stringForFile {
-    my ($self, $filename) = @_;
-    
+    my ( $self, $filename ) = @_;
+
     # check it is a text file
     return '' unless ( -T $filename );
 
     my $cmd = $html2text . ' -nobs -ascii %FILENAME|F%';
-    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
-    
+    my ( $text, $exit ) =
+      Foswiki::Sandbox->sysCommand( $cmd, FILENAME => $filename );
+
     # encode text
     $text =~ s/<\?xml.*?\?>\s*//g;
     return $self->fromUtf8($text);

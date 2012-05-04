@@ -10,8 +10,8 @@ package Foswiki::Plugins::TweetOnSavePlugin;
 
 use strict;
 
-require Foswiki::Func;    # The plugins API
-require Foswiki::Plugins; # For the API version
+require Foswiki::Func;       # The plugins API
+require Foswiki::Plugins;    # For the API version
 
 require Net::Twitter;
 require WWW::Shorten::Bitly;
@@ -28,7 +28,8 @@ our $VERSION = '$Rev: 3417 (2009-04-12) $';
 # of the version number in PLUGINDESCRIPTIONS.
 our $RELEASE = '$Date: 2008-12-14 18:49:56 +0100 (Sun, 14 Dec 2008) $';
 
-our $SHORTDESCRIPTION = 'Update status on twitter or compatible network on topic save';
+our $SHORTDESCRIPTION =
+  'Update status on twitter or compatible network on topic save';
 
 our $NO_PREFS_IN_TOPIC = 1;
 
@@ -48,12 +49,12 @@ our @excludeWebs = ();
 =cut
 
 sub initPlugin {
-    my( $topic, $web, $user, $installWeb ) = @_;
+    my ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $Foswiki::Plugins::VERSION < 2.0 ) {
+    if ( $Foswiki::Plugins::VERSION < 2.0 ) {
         Foswiki::Func::writeWarning( 'Version mismatch between ',
-                                     __PACKAGE__, ' and Plugins.pm' );
+            __PACKAGE__, ' and Plugins.pm' );
         return 0;
     }
 
@@ -69,8 +70,10 @@ sub initPlugin {
 
     #Foswiki::Func::registerRESTHandler('example', \&restExample);
 
-    if(defined($Foswiki::cfg{Plugins}{TweetOnSavePlugin}{ExcludeWebs})) {
-      @excludeWebs=split(/\s*,\s*/,$Foswiki::cfg{Plugins}{TweetOnSavePlugin}{ExcludeWebs});
+    if ( defined( $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{ExcludeWebs} ) ) {
+        @excludeWebs =
+          split( /\s*,\s*/,
+            $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{ExcludeWebs} );
     }
 
     # Plugin correctly initialized
@@ -419,11 +422,13 @@ text format.
 sub beforeSaveHandler {
     my ( $text, $topic, $web, $meta ) = @_;
 
-    if ( Foswiki::Func::topicExists($web, $topic) ) {
-      $isNewTopic{$$}=0;
-    } else {
-      $isNewTopic{$$}=1;
+    if ( Foswiki::Func::topicExists( $web, $topic ) ) {
+        $isNewTopic{$$} = 0;
     }
+    else {
+        $isNewTopic{$$} = 1;
+    }
+
     # You can work on $text in place by using the special perl
     # variable $_[0]. These allow you to operate on $text
     # as if it was passed by reference; for example:
@@ -456,42 +461,47 @@ sub afterSaveHandler {
     # as if it was passed by reference; for example:
     # $_[0] =~ s/SpecialString/my alternative/ge;
 
-    return if(grep(/^$web$/,@excludeWebs));
+    return if ( grep( /^$web$/, @excludeWebs ) );
 
-    my $tweet=$Foswiki::cfg{Plugins}{TweetOnSavePlugin}{Template} || '$user $action topic $web.$topic $url';
+    my $tweet = $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{Template}
+      || '$user $action topic $web.$topic $url';
 
-    my $action='saved';
-    $action='created' if($isNewTopic{$$});
+    my $action = 'saved';
+    $action = 'created' if ( $isNewTopic{$$} );
 
-    my $user=$Foswiki::Plugins::SESSION->{'user'};
+    my $user = $Foswiki::Plugins::SESSION->{'user'};
 
     # only shorten url if url is actually used
-    my $url=Foswiki::Func::getViewUrl($web,$topic);
-    if( ($tweet=~/\$url/) and (defined($Foswiki::cfg{Plugins}{TweetOnSavePlugin}{BitlyUser})) ) {
-      $url=WWW::Shorten::Bitly::makeashorterlink(
-	$url,
-	$Foswiki::cfg{Plugins}{TweetOnSavePlugin}{BitlyUser},
-        $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{BitlyKey}
-      );
+    my $url = Foswiki::Func::getViewUrl( $web, $topic );
+    if (    ( $tweet =~ /\$url/ )
+        and ( defined( $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{BitlyUser} ) )
+      )
+    {
+        $url = WWW::Shorten::Bitly::makeashorterlink(
+            $url,
+            $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{BitlyUser},
+            $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{BitlyKey}
+        );
     }
 
-    $tweet=~s/\$web/$web/g;
-    $tweet=~s/\$topic/$topic/g;  
-    $tweet=~s/\$action/$action/g;
-    $tweet=~s/\$user/$user/g;
-    $tweet=~s/\$url/$url/g;
+    $tweet =~ s/\$web/$web/g;
+    $tweet =~ s/\$topic/$topic/g;
+    $tweet =~ s/\$action/$action/g;
+    $tweet =~ s/\$user/$user/g;
+    $tweet =~ s/\$url/$url/g;
 
     Foswiki::Func::writeDebug("tweet: $tweet");
 
     my $twitter = Net::Twitter->new(
-      traits   => [qw/API::REST/],
-      username => $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{StatusUser},
-      password => $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{StatusPassword}
+        traits   => [qw/API::REST/],
+        username => $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{StatusUser},
+        password => $Foswiki::cfg{Plugins}{TweetOnSavePlugin}{StatusPassword}
     );
 
     my $result = $twitter->update($tweet);
 
-    Foswiki::Func::writeDebug("result for twitter update: ".join(', ',keys %{$result}));
+    Foswiki::Func::writeDebug(
+        "result for twitter update: " . join( ', ', keys %{$result} ) );
 
 }
 

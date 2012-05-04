@@ -9,7 +9,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
+# GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::Stringifier::Plugins::XLS;
@@ -19,17 +19,18 @@ our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 my $xls2txt = $Foswiki::cfg{StringifierContrib}{xls2txtCmd} || 'xls2txt.pl';
 
 # Only if xls2txt.pl exists, I register myself.
-if (__PACKAGE__->_programExists($xls2txt)){
-    __PACKAGE__->register_handler("application/excel", ".xls");
+if ( __PACKAGE__->_programExists($xls2txt) ) {
+    __PACKAGE__->register_handler( "application/excel", ".xls" );
 }
 
 sub stringForFile {
-    my ($self, $filename) = @_;
-    
+    my ( $self, $filename ) = @_;
+
     my $cmd = $xls2txt . ' %FILENAME|F% -';
-    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
-    
-    return '' unless ($exit == 0);
+    my ( $text, $exit ) =
+      Foswiki::Sandbox->sysCommand( $cmd, FILENAME => $filename );
+
+    return '' unless ( $exit == 0 );
     return $self->fromUtf8($text);
 }
 

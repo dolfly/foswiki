@@ -32,7 +32,6 @@ the text had been included from another topic.
 
 =cut
 
-
 package Foswiki::Plugins::TableTmplPlugin;
 
 # Always use strict to enforce variable scoping
@@ -112,10 +111,10 @@ sub initPlugin {
     # Optional: See %SYSTEMWEB%.DevelopingPlugins#ConfigSpec for information
     # on integrating your plugin configuration with =configure=.
 
-    # Always provide a default in case the setting is not defined in
-    # LocalSite.cfg. See %SYSTEMWEB%.Plugins for help in adding your plugin
-    # configuration to the =configure= interface.
-    # my $setting = $Foswiki::cfg{Plugins}{TableTmplPlugin}{ExampleSetting} || 0;
+   # Always provide a default in case the setting is not defined in
+   # LocalSite.cfg. See %SYSTEMWEB%.Plugins for help in adding your plugin
+   # configuration to the =configure= interface.
+   # my $setting = $Foswiki::cfg{Plugins}{TableTmplPlugin}{ExampleSetting} || 0;
 
     # Register the _EXAMPLETAG function to handle %EXAMPLETAG{...}%
     # This will be called whenever %EXAMPLETAG% or %EXAMPLETAG{...}% is

@@ -26,21 +26,21 @@ $RELEASE = 'Dakar';
 
 $pluginName = 'MostPopularPlugin';
 
-
 sub initPlugin {
-    my( $topic, $web, $user, $installWeb ) = @_;
+    my ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $TWiki::Plugins::VERSION < 1.026 ) {
-        TWiki::Func::writeWarning( "Version mismatch between $pluginName and Plugins.pm" );
+    if ( $TWiki::Plugins::VERSION < 1.026 ) {
+        TWiki::Func::writeWarning(
+            "Version mismatch between $pluginName and Plugins.pm");
         return 0;
     }
 
-    # Get plugin preferences, variables defined by:
-    #   * Set EXAMPLE = ...
+# Get plugin preferences, variables defined by:
+#   * Set EXAMPLE = ...
 #    my $exampleCfgVar = TWiki::Func::getPreferencesValue( "\U$pluginName\E_EXAMPLE" );
 
-#    $exampleCfgVar ||= 'default'; # make sure it has a value
+    #    $exampleCfgVar ||= 'default'; # make sure it has a value
 
     TWiki::Func::registerTagHandler( 'MOSTPOPULAR', \&_MOSTPOPULAR );
 
@@ -48,69 +48,73 @@ sub initPlugin {
 }
 
 sub _MOSTPOPULAR {
-    my($session, $params, $theTopic, $theWeb) = @_;
+    my ( $session, $params, $theTopic, $theWeb ) = @_;
 
-    my $limit = $params->{limit} || 10;
+    my $limit  = $params->{limit}  || 10;
     my $format = $params->{format} || "| \$web | \$topic | \$views |";
     my $header = $params->{header} || "| *Web* | *Topic* | *Views* |";
-    my $noheader = TWiki::Func::isTrue( $params->{noheader} );
-    my $groupbyweb = TWiki::Func::isTrue( $params->{groupbyweb} );
-    my $excludedRaw = $params->{excluded} || "";
+    my $noheader         = TWiki::Func::isTrue( $params->{noheader} );
+    my $groupbyweb       = TWiki::Func::isTrue( $params->{groupbyweb} );
+    my $excludedRaw      = $params->{excluded} || "";
     my $excludedtopicRaw = $params->{excludetopic} || "";
 
-    my @excluded = split(",",$excludedRaw);
-    my @excludedtopic = split(",",$excludedtopicRaw);
+    my @excluded      = split( ",", $excludedRaw );
+    my @excludedtopic = split( ",", $excludedtopicRaw );
 
     # strip leading & trailing whitespace
-    for (0..$#excluded) {
-      $excluded[$_]=~s/^\s+//g;
-      $excluded[$_]=~s/\s+$//g;
+    for ( 0 .. $#excluded ) {
+        $excluded[$_] =~ s/^\s+//g;
+        $excluded[$_] =~ s/\s+$//g;
     }
 
     my $dir = TWiki::Func::getWorkArea("MostPopularPlugin");
 
-    my  $rv=$noheader?"":($header."\n");
-    my  $used=0;
-    if($groupbyweb) {
+    my $rv = $noheader ? "" : ( $header . "\n" );
+    my $used = 0;
+    if ($groupbyweb) {
 
-      my @lines=split("\n",TWiki::Func::readFile("$dir/statfileweb.txt"));
+        my @lines =
+          split( "\n", TWiki::Func::readFile("$dir/statfileweb.txt") );
 
-      my $idx=0;
-      while($idx<=$#lines && $used<$limit) {
-        my ($web,$views) = split(" ",$lines[$idx]);
+        my $idx = 0;
+        while ( $idx <= $#lines && $used < $limit ) {
+            my ( $web, $views ) = split( " ", $lines[$idx] );
 
-        if(not (grep { /^$web$/ } @excluded) ) {
-          my $entry=$format;
-          $entry=~s/\$web/$web/g;
-          $entry=~s/\$views/$views/g;
-          $rv.=$entry."\n";
-	  $used++;
+            if ( not( grep { /^$web$/ } @excluded ) ) {
+                my $entry = $format;
+                $entry =~ s/\$web/$web/g;
+                $entry =~ s/\$views/$views/g;
+                $rv .= $entry . "\n";
+                $used++;
+            }
+
+            $idx++;
         }
+    }
+    else {
 
-        $idx++;
-      }
-    } else {
+        # how would this perform if there are say thousands of topics?
+        my @lines = split( "\n", TWiki::Func::readFile("$dir/statfile.txt") );
 
-      # how would this perform if there are say thousands of topics?
-      my @lines=split("\n",TWiki::Func::readFile("$dir/statfile.txt"));
+        $rv = $noheader ? "" : ( $header . "\n" );
+        $used = 0;
+        my $idx = 0;
+        while ( $idx <= $#lines && $used < $limit ) {
+            my ( $web, $topic, $views ) = split( " ", $lines[$idx] );
 
-      $rv=$noheader?"":($header."\n");
-      $used=0;
-      my $idx=0;
-      while($idx<=$#lines && $used<$limit) {
-        my ($web,$topic,$views) = split(" ",$lines[$idx]);
+            if (   not( grep { /^$web$/ } @excluded )
+                && not( grep { /^$topic$/ } @excludedtopic ) )
+            {
+                my $entry = $format;
+                $entry =~ s/\$web/$web/g;
+                $entry =~ s/\$topic/$topic/g;
+                $entry =~ s/\$views/$views/g;
+                $rv .= $entry . "\n";
+                $used++;
+            }
 
-        if(not (grep { /^$web$/ } @excluded) && not (grep { /^$topic$/ } @excludedtopic) ) {
-          my $entry=$format;
-          $entry=~s/\$web/$web/g;
-          $entry=~s/\$topic/$topic/g;
-          $entry=~s/\$views/$views/g;
-          $rv.=$entry."\n";
-	  $used++;
+            $idx++;
         }
-
-        $idx++;
-      }
     }
 
     chomp($rv);

@@ -17,7 +17,9 @@ package Foswiki::Contrib::Stringifier::Plugins::XLSX;
 use Foswiki::Contrib::Stringifier::Base ();
 our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 
-__PACKAGE__->register_handler("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", ".xlsx");
+__PACKAGE__->register_handler(
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".xlsx" );
 
 use Error qw(:try);
 
@@ -27,10 +29,11 @@ sub stringForFile {
     my $book;
 
     try {
-	require Spreadsheet::XLSX;
+        require Spreadsheet::XLSX;
         $book = Spreadsheet::XLSX->new($file);
-    } catch Error with {
-	return '';
+    }
+    catch Error with {
+        return '';
     };
 
     return '' unless $book;

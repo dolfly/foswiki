@@ -11,9 +11,8 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
+# GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
-
 
 package Foswiki::Contrib::Stringifier;
 use strict;
@@ -26,15 +25,15 @@ use File::Spec::Functions qw(rel2abs);
 our $magic = File::MMagic->new();
 
 sub stringFor {
-  my ($class, $filename) = @_;
+    my ( $class, $filename ) = @_;
 
-  return unless -r $filename;
-  my $mime = $magic->checktype_filename($filename);
-  my $self = $class->handler_for($filename, $mime)->new();
+    return unless -r $filename;
+    my $mime = $magic->checktype_filename($filename);
+    my $self = $class->handler_for( $filename, $mime )->new();
 
-  #print STDERR "file $filename is a $mime ... using $self\n";
+    #print STDERR "file $filename is a $mime ... using $self\n";
 
-  return $self->stringForFile($filename);
+    return $self->stringForFile($filename);
 }
 
 1;

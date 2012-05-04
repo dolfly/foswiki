@@ -20,17 +20,18 @@ our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
 my $docx2txt = $Foswiki::cfg{StringifierContrib}{docx2txtCmd} || 'docx2txt.pl';
 
 # Only if docx2txt.pl exists, I register myself.
-if (__PACKAGE__->_programExists($docx2txt)){
-    __PACKAGE__->register_handler("text/docx", ".docx");
+if ( __PACKAGE__->_programExists($docx2txt) ) {
+    __PACKAGE__->register_handler( "text/docx", ".docx" );
 }
 
 sub stringForFile {
-    my ($self, $filename) = @_;
-    
-    my $cmd = $docx2txt . ' %FILENAME|F% -';
-    my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
+    my ( $self, $filename ) = @_;
 
-    return '' unless ($exit == 0);
+    my $cmd = $docx2txt . ' %FILENAME|F% -';
+    my ( $text, $exit ) =
+      Foswiki::Sandbox->sysCommand( $cmd, FILENAME => $filename );
+
+    return '' unless ( $exit == 0 );
     return $self->fromUtf8($text);
 }
 

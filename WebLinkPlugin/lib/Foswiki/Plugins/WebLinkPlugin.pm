@@ -26,14 +26,13 @@ use warnings;
 
 use Foswiki::Func ();
 
-our $VERSION = '$Rev$';
-our $RELEASE = '1.10';
-our $SHORTDESCRIPTION = 'A parametrized %WEB macro';
+our $VERSION           = '$Rev$';
+our $RELEASE           = '1.10';
+our $SHORTDESCRIPTION  = 'A parametrized %WEB macro';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
 our $baseTopic;
 our $doneInit;
-
 
 =begin TML
 
@@ -42,16 +41,19 @@ our $doneInit;
 =cut
 
 sub initPlugin {
-  ($baseTopic, $baseWeb) = @_;
+    ( $baseTopic, $baseWeb ) = @_;
 
-  Foswiki::Func::registerTagHandler('WEBLINK', sub {
-    require Foswiki::Plugins::WebLinkPlugin::Core;
-    Foswiki::Plugins::WebLinkPlugin::Core::init($baseWeb, $baseTopic);
-    return Foswiki::Plugins::WebLinkPlugin::Core::WEBLINK(@_);
-  });
+    Foswiki::Func::registerTagHandler(
+        'WEBLINK',
+        sub {
+            require Foswiki::Plugins::WebLinkPlugin::Core;
+            Foswiki::Plugins::WebLinkPlugin::Core::init( $baseWeb, $baseTopic );
+            return Foswiki::Plugins::WebLinkPlugin::Core::WEBLINK(@_);
+        }
+    );
 
-  $doneInit = 0;
-  return 1;
+    $doneInit = 0;
+    return 1;
 }
 
 1;

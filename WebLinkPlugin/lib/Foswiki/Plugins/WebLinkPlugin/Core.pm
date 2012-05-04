@@ -29,7 +29,7 @@ use Foswiki::Func ();
 our $baseWeb;
 our $baseTopic;
 
-use constant DEBUG => 0; # toggle me
+use constant DEBUG => 0;    # toggle me
 
 =begin TML
 
@@ -40,7 +40,7 @@ prints a debug message to STDERR when this module is in DEBUG mode
 =cut
 
 sub writeDebug {
-  print STDERR "WebLinkPlugin::Core - $_[0]\n" if DEBUG;
+    print STDERR "WebLinkPlugin::Core - $_[0]\n" if DEBUG;
 }
 
 =begin TML
@@ -52,7 +52,7 @@ initializer for the plugin core; called before any macro hanlder is executed
 =cut
 
 sub init {
-  ($baseWeb, $baseTopic) = @_;
+    ( $baseWeb, $baseTopic ) = @_;
 }
 
 =begin TML
@@ -64,106 +64,112 @@ implementation of this macro
 =cut
 
 sub WEBLINK {
-  my ($session, $params, $topic, $web) = @_;
+    my ( $session, $params, $topic, $web ) = @_;
 
-  writeDebug("called WEBLINK()");
+    writeDebug("called WEBLINK()");
 
-  # get params
-  my $theWeb = $params->{_DEFAULT} || $params->{web} || $web;
-  my $theName = $params->{name};
-  my $theMarker = $params->{marker} || 'current';
-  my $theClass = $params->{class} || 'webLink';
+    # get params
+    my $theWeb    = $params->{_DEFAULT} || $params->{web} || $web;
+    my $theName   = $params->{name};
+    my $theMarker = $params->{marker} || 'current';
+    my $theClass  = $params->{class} || 'webLink';
 
-  my $defaultFormat =
-    '<a class="'.$theClass.' $marker" href="$url" title="%ENCODE{"$tooltip" type="html"}%">$title</a>';
+    my $defaultFormat =
+        '<a class="'
+      . $theClass
+      . ' $marker" href="$url" title="%ENCODE{"$tooltip" type="html"}%">$title</a>';
 
-  my $theFormat = $params->{format} || $defaultFormat;
+    my $theFormat = $params->{format} || $defaultFormat;
 
-  #writeDebug("theFormat=$theFormat, theWeb=$theWeb");
+    #writeDebug("theFormat=$theFormat, theWeb=$theWeb");
 
-  my $theTooltip = $params->{tooltip} ||
-    Foswiki::Func::getPreferencesValue('WEBSUMMARY', $theWeb) || 
-    Foswiki::Func::getPreferencesValue('SITEMAPUSETO', $theWeb) || '';
+    my $theTooltip =
+         $params->{tooltip}
+      || Foswiki::Func::getPreferencesValue( 'WEBSUMMARY',   $theWeb )
+      || Foswiki::Func::getPreferencesValue( 'SITEMAPUSETO', $theWeb )
+      || '';
 
-  my $homeTopic = Foswiki::Func::getPreferencesValue('HOMETOPIC') 
-    || $Foswiki::cfg{HomeTopicName} 
-    || 'WebHome';
+    my $homeTopic =
+         Foswiki::Func::getPreferencesValue('HOMETOPIC')
+      || $Foswiki::cfg{HomeTopicName}
+      || 'WebHome';
 
-  my $theUrl = $params->{url} ||
-    $session->getScriptUrl(0, 'view', $theWeb, $homeTopic);
+    my $theUrl = $params->{url}
+      || $session->getScriptUrl( 0, 'view', $theWeb, $homeTopic );
 
-  # unset the marker if this is not the current web 
-  $theMarker = '' unless $theWeb eq $baseWeb;
+    # unset the marker if this is not the current web
+    $theMarker = '' unless $theWeb eq $baseWeb;
 
-  # normalize web name
-  $theWeb =~ s/\//\./go;
+    # normalize web name
+    $theWeb =~ s/\//\./go;
 
-  # get a good default name
-  unless ($theName) {
-    $theName = $theWeb;
-    $theName = $2 if $theName =~ /^(.*)[\.](.*?)$/;
-  }
-
-  my $title = '';
-  if ($theFormat =~ /\$title/) {
-    if (Foswiki::Func::getContext()->{DBCachePluginEnabled}) {
-      require Foswiki::Plugins::DBCachePlugin;
-      $title = getTopicTitle($theWeb, $homeTopic);
+    # get a good default name
+    unless ($theName) {
+        $theName = $theWeb;
+        $theName = $2 if $theName =~ /^(.*)[\.](.*?)$/;
     }
-    $title = $theName if $title eq $homeTopic;
-  }
 
-  my $result = $theFormat;
-  $result =~ s/\$default/$defaultFormat/g;
-  $result =~ s/\$marker/$theMarker/g;
-  $result =~ s/\$url/$theUrl/g;
-  $result =~ s/\$tooltip/$theTooltip/g;
-  $result =~ s/\$name/$theName/g;
-  $result =~ s/\$title/$title/g;
-  $result =~ s/\$web/$theWeb/g;
-  $result =~ s/\$topic/$homeTopic/g;
+    my $title = '';
+    if ( $theFormat =~ /\$title/ ) {
+        if ( Foswiki::Func::getContext()->{DBCachePluginEnabled} ) {
+            require Foswiki::Plugins::DBCachePlugin;
+            $title = getTopicTitle( $theWeb, $homeTopic );
+        }
+        $title = $theName if $title eq $homeTopic;
+    }
 
-  #writeDebug("result=$result");
-  return Foswiki::Func::decodeFormatTokens($result);
+    my $result = $theFormat;
+    $result =~ s/\$default/$defaultFormat/g;
+    $result =~ s/\$marker/$theMarker/g;
+    $result =~ s/\$url/$theUrl/g;
+    $result =~ s/\$tooltip/$theTooltip/g;
+    $result =~ s/\$name/$theName/g;
+    $result =~ s/\$title/$title/g;
+    $result =~ s/\$web/$theWeb/g;
+    $result =~ s/\$topic/$homeTopic/g;
+
+    #writeDebug("result=$result");
+    return Foswiki::Func::decodeFormatTokens($result);
 }
 
 sub getTopicTitle {
-  my ($web, $topic) = @_;
+    my ( $web, $topic ) = @_;
 
-  if (Foswiki::Func::getContext()->{DBCachePluginEnabled}) {
-    #print STDERR "using DBCachePlugin\n";
-    require Foswiki::Plugins::DBCachePlugin;
-    return Foswiki::Plugins::DBCachePlugin::getTopicTitle($web, $topic);
-  } 
+    if ( Foswiki::Func::getContext()->{DBCachePluginEnabled} ) {
 
-  #print STDERR "using foswiki core means\n";
+        #print STDERR "using DBCachePlugin\n";
+        require Foswiki::Plugins::DBCachePlugin;
+        return Foswiki::Plugins::DBCachePlugin::getTopicTitle( $web, $topic );
+    }
 
-  my ($meta, undef) = Foswiki::Func::readTopic($web, $topic);
+    #print STDERR "using foswiki core means\n";
 
-  # read the formfield value
-  my $title = $meta->get('FIELD', 'TopicTitle');
-  $title = $title->{value} if $title;
+    my ( $meta, undef ) = Foswiki::Func::readTopic( $web, $topic );
 
-  # read the topic preference
-  unless ($title) {
-    $title = $meta->get('PREFERENCE', 'TOPICTITLE');
+    # read the formfield value
+    my $title = $meta->get( 'FIELD', 'TopicTitle' );
     $title = $title->{value} if $title;
-  }
 
-  # read the preference
-  unless ($title)  {
-    Foswiki::Func::pushTopicContext($web, $topic);
-    $title = Foswiki::Func::getPreferencesValue('TOPICTITLE');
-    Foswiki::Func::popTopicContext();
-  }
+    # read the topic preference
+    unless ($title) {
+        $title = $meta->get( 'PREFERENCE', 'TOPICTITLE' );
+        $title = $title->{value} if $title;
+    }
 
-  # default to topic name
-  $title ||= $topic;
+    # read the preference
+    unless ($title) {
+        Foswiki::Func::pushTopicContext( $web, $topic );
+        $title = Foswiki::Func::getPreferencesValue('TOPICTITLE');
+        Foswiki::Func::popTopicContext();
+    }
 
-  $title =~ s/\s*$//;
-  $title =~ s/^\s*//;
+    # default to topic name
+    $title ||= $topic;
 
-  return $title;
-} 
+    $title =~ s/\s*$//;
+    $title =~ s/^\s*//;
+
+    return $title;
+}
 
 1;

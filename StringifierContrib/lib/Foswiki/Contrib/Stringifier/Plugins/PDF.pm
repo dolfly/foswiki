@@ -9,7 +9,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at 
+# GNU General Public License for more details, published at
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::Stringifier::Plugins::PDF;
@@ -20,21 +20,24 @@ use Foswiki::Contrib::Stringifier ();
 my $pdftotext = $Foswiki::cfg{StringifierContrib}{pdftotextCmd} || 'pdftotext';
 
 # Only if pdftotext exists, I register myself.
-if (__PACKAGE__->_programExists($pdftotext)){
-    __PACKAGE__->register_handler("application/pdf", ".pdf");
+if ( __PACKAGE__->_programExists($pdftotext) ) {
+    __PACKAGE__->register_handler( "application/pdf", ".pdf" );
 }
 
 sub stringForFile {
-  my ($self, $filename) = @_;
+    my ( $self, $filename ) = @_;
 
-  my $cmd = $pdftotext . ' %FILENAME|F% - -q -nopgbrk -enc Latin1'; # SMELL: not using UTF-8 here as pdftotext does not speak utf-8 fluently
-  my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
+    my $cmd = $pdftotext
+      . ' %FILENAME|F% - -q -nopgbrk -enc Latin1'
+      ; # SMELL: not using UTF-8 here as pdftotext does not speak utf-8 fluently
+    my ( $text, $exit ) =
+      Foswiki::Sandbox->sysCommand( $cmd, FILENAME => $filename );
 
-  return '' unless ($exit == 0);
+    return '' unless ( $exit == 0 );
 
-  # convert to site charset
-  $text = $self->toUtf8($text);
-  return $self->fromUtf8($text);
+    # convert to site charset
+    $text = $self->toUtf8($text);
+    return $self->fromUtf8($text);
 }
 
 1;

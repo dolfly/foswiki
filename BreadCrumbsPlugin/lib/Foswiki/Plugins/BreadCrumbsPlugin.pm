@@ -16,39 +16,46 @@ package Foswiki::Plugins::BreadCrumbsPlugin;
 
 use strict;
 
-our $VERSION = '$Rev$';
-our $RELEASE = '2.43';
+our $VERSION           = '$Rev$';
+our $RELEASE           = '2.43';
 our $NO_PREFS_IN_TOPIC = 1;
-our $SHORTDESCRIPTION = 'A flexible way to display breadcrumbs navigation';
-our $doneInit = 0;
+our $SHORTDESCRIPTION  = 'A flexible way to display breadcrumbs navigation';
+our $doneInit          = 0;
 
 ###############################################################################
 sub initPlugin {
 
-  Foswiki::Func::registerTagHandler('BREADCRUMBS', sub {
-    init();
-    return Foswiki::Plugins::BreadCrumbsPlugin::Core::renderBreadCrumbs(@_);
-  });
+    Foswiki::Func::registerTagHandler(
+        'BREADCRUMBS',
+        sub {
+            init();
+            return Foswiki::Plugins::BreadCrumbsPlugin::Core::renderBreadCrumbs(
+                @_);
+        }
+    );
 
-  my $doRecordTrail = Foswiki::Func::getPreferencesValue('BREADCRUMBSPLUGIN_RECORDTRAIL') || '';
-  $doRecordTrail = ($doRecordTrail eq 'on')?1:0;
+    my $doRecordTrail =
+      Foswiki::Func::getPreferencesValue('BREADCRUMBSPLUGIN_RECORDTRAIL') || '';
+    $doRecordTrail = ( $doRecordTrail eq 'on' ) ? 1 : 0;
 
-  if ($doRecordTrail) {
-    init();
-    Foswiki::Plugins::BreadCrumbsPlugin::Core::recordTrail($_[1], $_[0]);
-  } else {
-    #print STDERR "not recording the click path trail\n";
-  }
+    if ($doRecordTrail) {
+        init();
+        Foswiki::Plugins::BreadCrumbsPlugin::Core::recordTrail( $_[1], $_[0] );
+    }
+    else {
 
-  return 1;
+        #print STDERR "not recording the click path trail\n";
+    }
+
+    return 1;
 }
 
 ###############################################################################
 sub init {
-  return if $doneInit;
-  $doneInit = 1;
-  require Foswiki::Plugins::BreadCrumbsPlugin::Core;
-  Foswiki::Plugins::BreadCrumbsPlugin::Core::init(@_);
+    return if $doneInit;
+    $doneInit = 1;
+    require Foswiki::Plugins::BreadCrumbsPlugin::Core;
+    Foswiki::Plugins::BreadCrumbsPlugin::Core::init(@_);
 }
 
 1;

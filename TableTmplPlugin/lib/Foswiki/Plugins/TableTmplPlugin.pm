@@ -26,23 +26,25 @@ use strict;
 
 package Foswiki::Plugins::TableTmplPlugin;
 
-use Foswiki::Func ();    # The plugins API
-use Foswiki::Plugins (); # For the API version
+use Foswiki::Func    ();    # The plugins API
+use Foswiki::Plugins ();    # For the API version
 
 use vars qw( $topic $installWeb $initialised );
 
 our $VERSION = '$Rev: 3457 $';
 our $RELEASE = '1.038';
-our $SHORTDESCRIPTION = 'Control attributes of tables and sorting of table columns';
+our $SHORTDESCRIPTION =
+  'Control attributes of tables and sorting of table columns';
 our $NO_PREFS_IN_TOPIC = 1;
 
 sub initPlugin {
-    my( $web, $user );
+    my ( $web, $user );
     ( $topic, $web, $user, $installWeb ) = @_;
 
     # check for Plugins.pm versions
-    if( $Foswiki::Plugins::VERSION < 1.026 ) {
-        Foswiki::Func::writeWarning( 'Version mismatch between TablePlugin and Plugins.pm' );
+    if ( $Foswiki::Plugins::VERSION < 1.026 ) {
+        Foswiki::Func::writeWarning(
+            'Version mismatch between TablePlugin and Plugins.pm');
         return 0;
     }
 
@@ -51,28 +53,27 @@ sub initPlugin {
 
     $initialised = 0;
 
+    #Init
+    $Foswiki::Plugins::TableTmplPlugin::Core::topic     = $topic;
+    $Foswiki::Plugins::TableTmplPlugin::Core::web       = $web;
+    $Foswiki::Plugins::TableTmplPlugin::Core::user      = $user;
+    $Foswiki::Plugins::TableTmplPlugin::Core::templates = ();
 
-	#Init	
-	$Foswiki::Plugins::TableTmplPlugin::Core::topic=$topic;
-	$Foswiki::Plugins::TableTmplPlugin::Core::web=$web;
-	$Foswiki::Plugins::TableTmplPlugin::Core::user=$user;
-	$Foswiki::Plugins::TableTmplPlugin::Core::templates=();
-	
-	
     return 1;
 }
 
 sub preRenderingHandler {
     ### my ( $text, $removed ) = @_;
 
-    my $sort = Foswiki::Func::getPreferencesValue( 'TABLEPLUGIN_SORT' )
+    my $sort = Foswiki::Func::getPreferencesValue('TABLEPLUGIN_SORT')
       || 'all';
-    return unless ($sort && $sort =~ /^(all|attachments)$/) ||
-      $_[0] =~ /%TABLE{.*?}%/;
+    return
+      unless ( $sort && $sort =~ /^(all|attachments)$/ )
+      || $_[0] =~ /%TABLE{.*?}%/;
 
     # on-demand inclusion
     require Foswiki::Plugins::TableTmplPlugin::Core;
-    Foswiki::Plugins::TableTmplPlugin::Core::handler( @_ );
+    Foswiki::Plugins::TableTmplPlugin::Core::handler(@_);
 }
 
 1;
