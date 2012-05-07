@@ -223,7 +223,7 @@ sub handleFilter {
   }
   $result = $theNullFormat unless $result;
   $result = $theHeader.$result.$theFooter;
-  $result = expandVariables($result);
+  expandVariables($result);
 
   delete $this->{filteredTopic}{"$theWeb.$theTopic"};
 
@@ -280,7 +280,8 @@ sub handleMakeIndex {
   $maxCols = 1 if $maxCols < 1;
 
   # compute the list
-  $theList = expandVariables($theList);
+  $theList = Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
+    if expandVariables($theList);
 
   #writeDebug("theList=$theList");
 
@@ -423,7 +424,8 @@ sub handleMakeIndex {
           }
         }
 
-        my $groupFormat = expandVariables($theGroup,
+        my $groupFormat = $theGroup;
+        expandVariables($groupFormat,
           anchor=>$anchor,
           group=>$group,
           cont=>$cont,
@@ -437,7 +439,8 @@ sub handleMakeIndex {
       }
 
       # construct line
-      my $text = expandVariables("  <li>$format</li>\n",
+      my $text = "  <li>$format</li>\n";
+      expandVariables($text,
         group=>$group,
         cont=>'',
         index=>$listIndex+1,
@@ -482,12 +485,14 @@ sub handleMakeIndex {
     }
   }
   #writeDebug("anchors=$anchors");
+  expandVariables($theHeader, count=>$listSize, anchors=>$anchors);
+  expandVariables($theFooter, count=>$listSize, anchors=>$anchors);
 
   $result = 
     "<div class='fltMakeIndexWrapper'>".
-      expandVariables($theHeader, count=>$listSize, anchors=>$anchors).
+      $theHeader.
       $result.
-      expandVariables($theFooter, count=>$listSize, anchors=>$anchors).
+      $theFooter.
     "</div>";
   #writeDebug("result=$result");
 
@@ -533,7 +538,8 @@ sub handleFormatList {
   $theMarker = ' selected ' unless defined $theMarker;
   $theSeparator = ', ' unless defined $theSeparator;
 
-  $theList = expandVariables($theList);
+  $theList = Foswiki::Func::expandCommonVariables($theList, $theTopic, $theWeb)
+    if expandVariables($theList);
 
   #writeDebug("theList='$theList'");
   #writeDebug("thePattern='$thePattern'");
@@ -674,7 +680,8 @@ sub handleFormatList {
   $result = $theHeader.$result.$theFooter;
   $result =~ s/\$count/$count/g;
 
-  return expandVariables($result);
+  expandVariables($result);
+  return $result;
 }
 
 ###############################################################################
@@ -698,20 +705,22 @@ sub getAnchorName {
 sub expandVariables {
   my ($text, %params) = @_;
 
-  if ($text) {
+  return 0 unless $text;
 
-    foreach my $key (keys %params) {
-      $text =~ s/\$$key\b/$params{$key}/g;
-    }
+  my $found = 0;
 
-    $text =~ s/\$perce?nt/\%/go;
-    $text =~ s/\$nop//go;
-    $text =~ s/\$n/\n/go;
-    $text =~ s/\$dollar/\$/go;
-
+  foreach my $key (keys %params) {
+    $found = 1 if $text =~ s/\$$key\b/$params{$key}/g;
   }
 
-  return $text;
+  $found = 1 if $text =~ s/\$perce?nt/\%/go;
+  $found = 1 if $text =~ s/\$nop//go;
+  $found = 1 if $text =~ s/\$n/\n/go;
+  $found = 1 if $text =~ s/\$dollar/\$/go;
+
+  $_[0] = $text if $found;
+
+  return $found;
 }
 
 ###############################################################################

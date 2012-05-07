@@ -266,6 +266,7 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  05 May 2012: | fixed lists not being processed properly before iterating over them in FORMATLIST and MAKEINDEX |
 |  19 Apr 2012: | modernized plugin by using a proper OO-core; \
                   fixed processing of =tokenize= properly;\
                   added =replace= parameter for FORMATLIST; \
