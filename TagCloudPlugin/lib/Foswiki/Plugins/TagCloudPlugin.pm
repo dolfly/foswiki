@@ -19,41 +19,39 @@ package Foswiki::Plugins::TagCloudPlugin;
 
 use strict;
 use vars qw(
-  $VERSION $RELEASE $SHORTDESCRIPTION $NO_PREFS_IN_TOPIC
+  $VERSION $RELEASE $SHORTDESCRIPTION $NO_PREFS_IN_TOPIC 
   $isInitialized
 );
 
-$VERSION           = '$Rev$';
-$RELEASE           = 'v2.21';
+$VERSION = '$Rev$';
+$RELEASE = '2.21';
 $NO_PREFS_IN_TOPIC = 1;
-$SHORTDESCRIPTION  = 'Renders a tag cloud given a list of terms';
+$SHORTDESCRIPTION = 'Renders a tag cloud given a list of terms';
 
 ###############################################################################
 sub initPlugin {
+  #my ($topic, $web, $user, $installWeb) = @_;
 
-    #my ($topic, $web, $user, $installWeb) = @_;
+  # check for Plugins.pm versions
+  if ($Foswiki::Plugins::VERSION < 1.1) {
+    return 0;
+  }
 
-    # check for Plugins.pm versions
-    if ( $Foswiki::Plugins::VERSION < 1.1 ) {
-        return 0;
-    }
+  Foswiki::Func::registerTagHandler('TAGCLOUD', \&_TAGCLOUD);
+  $isInitialized = 0;
 
-    Foswiki::Func::registerTagHandler( 'TAGCLOUD', \&_TAGCLOUD );
-    $isInitialized = 0;
-
-    return 1;
+  return 1;
 }
 
 ###############################################################################
 sub _TAGCLOUD {
+  #my($session, $params, $theTopic, $theWeb) = @_;
 
-    #my($session, $params, $theTopic, $theWeb) = @_;
-
-    unless ($isInitialized) {
-        require Foswiki::Plugins::TagCloudPlugin::Core;
-        $isInitialized = 1;
-    }
-    return Foswiki::Plugins::TagCloudPlugin::Core::handleTagCloud(@_);
+  unless ($isInitialized) {
+    require Foswiki::Plugins::TagCloudPlugin::Core;
+    $isInitialized = 1;
+  }
+  return Foswiki::Plugins::TagCloudPlugin::Core::handleTagCloud(@_);
 }
 
 ###############################################################################
