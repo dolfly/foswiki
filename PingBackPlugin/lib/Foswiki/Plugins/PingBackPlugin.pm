@@ -20,56 +20,47 @@ use warnings;
 
 package Foswiki::Plugins::PingBackPlugin;
 
-our $VERSION           = '$Rev$';
-our $RELEASE           = '0.06';
+our $VERSION = '$Rev$';
+our $RELEASE = '0.06';
 our $NO_PREFS_IN_TOPIC = 1;
-our $SHORTDESCRIPTION  = 'Pingback service for Foswiki';
+our $SHORTDESCRIPTION = 'Pingback service for Foswiki';
 
 our $currentWeb;
 our $currentTopic;
 our $doneHeader;
 
-use constant DEBUG => 0;    # toggle me
+use constant DEBUG => 0; # toggle me
 
-use Foswiki::Func                   ();
+use Foswiki::Func ();
 use Foswiki::Contrib::XmlRpcContrib ();
 
 ###############################################################################
 sub writeDebug {
-    print STDERR "- PingBackPlugin - " . $_[0] . "\n" if DEBUG;
+  print STDERR "- PingBackPlugin - " . $_[0] . "\n" if DEBUG;
 }
 
 ###############################################################################
 sub initPlugin {
-    ( $currentTopic, $currentWeb ) = @_;
+  ($currentTopic, $currentWeb) = @_;
 
-    $doneHeader = 0;
+  $doneHeader = 0;
 
-    Foswiki::Func::registerTagHandler(
-        'PINGBACK',
-        sub {
-            require Foswiki::Plugins::PingBackPlugin::Core;
-            return Foswiki::Plugins::PingBackPlugin::Core::handlePingbackTag(
-                @_);
-        }
-    );
+  Foswiki::Func::registerTagHandler('PINGBACK', sub {
+    require Foswiki::Plugins::PingBackPlugin::Core;
+    return Foswiki::Plugins::PingBackPlugin::Core::handlePingbackTag(@_);
+  });
 
-    Foswiki::Contrib::XmlRpcContrib::registerMethod(
-        'pingback.ping',
-        sub {
-            require Foswiki::Plugins::PingBackPlugin::Core;
-            return Foswiki::Plugins::PingBackPlugin::Core::handlePingbackCall(
-                @_);
-        }
-    );
+  Foswiki::Contrib::XmlRpcContrib::registerMethod('pingback.ping', sub {
+    require Foswiki::Plugins::PingBackPlugin::Core;
+    return Foswiki::Plugins::PingBackPlugin::Core::handlePingbackCall(@_);
+  });
 
-    return 1;
+  return 1;
 }
 
 ###############################################################################
 sub isPingBackEnabled {
-    return Foswiki::Func::isTrue(
-        Foswiki::Func::getPreferencesFlag('ENABLEPINGBACK') );
+  return  Foswiki::Func::isTrue(Foswiki::Func::getPreferencesFlag('ENABLEPINGBACK'));
 }
 
 ###############################################################################
@@ -79,21 +70,20 @@ sub isPingBackEnabled {
 # _end_ of the <head>...</head> section rather than to the start
 sub postRenderingHandler {
 
-    if ( isPingBackEnabled() && !$doneHeader ) {
-        $doneHeader = 1;
-        my $xmlRpcUrl =
-          Foswiki::Func::getScriptUrl( $currentWeb, $currentTopic, 'xmlrpc' );
-        my $xmlRpcLink = "<link rel='pingback' href='$xmlRpcUrl' />";
-        $_[0] =~ s/<title>(.*?[\r\n]+)/<title>$1$xmlRpcLink\n/;
-    }
+  if (isPingBackEnabled() && !$doneHeader) {
+    $doneHeader = 1;
+    my $xmlRpcUrl = Foswiki::Func::getScriptUrl($currentWeb, $currentTopic, 'xmlrpc');
+    my $xmlRpcLink = "<link rel='pingback' href='$xmlRpcUrl' />";
+    $_[0] =~ s/<title>(.*?[\r\n]+)/<title>$1$xmlRpcLink\n/;
+  }
 
-    $_[0] =~ s/%(START|STOP)PINGBACK%//go;
+  $_[0] =~ s/%(START|STOP)PINGBACK%//go;
 }
 
 ###############################################################################
 sub afterSaveHandler {
-    require Foswiki::Plugins::PingBackPlugin::Core;
-    return Foswiki::Plugins::PingBackPlugin::Core::afterSaveHandler(@_);
+  require Foswiki::Plugins::PingBackPlugin::Core;
+  return Foswiki::Plugins::PingBackPlugin::Core::afterSaveHandler(@_);
 }
 
 1;
