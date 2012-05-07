@@ -9,53 +9,49 @@ our @ISA = ('Foswiki::Form::Select');
 our $APPLICATIONS = 'Applications';
 
 sub getOptions {
-    my $this = shift;
+  my $this = shift;
 
-    my $vals = $this->{_options};
-    return $vals if $vals;
+  my $vals = $this->{_options};
+  return $vals if $vals;
 
-    require Foswiki::WebFilter;
-    my $f    = new Foswiki::WebFilter('allowed');
-    my @apps = ();
+  require Foswiki::WebFilter;
+  my $f = new Foswiki::WebFilter('allowed');
+  my @apps = ();
 
-    foreach my $app ( $Foswiki::Plugins::SESSION->deepWebList($f) ) {
-        next unless $app =~ /^$APPLICATIONS/;
-        $app =~ s/\//./g;
-        $app =~ s/.*\.(.+?)$/$1/;
+  foreach my $app ($Foswiki::Plugins::SESSION->deepWebList($f)) {
+    next unless $app =~ /^$APPLICATIONS/;
+    $app =~ s/\//./g;
+    $app =~ s/.*\.(.+?)$/$1/;
 
-        $app = 'WikiWorkbench' if $app eq $APPLICATIONS;
-        push @apps, $app;
-    }
+    $app = 'WikiWorkbench' if $app eq $APPLICATIONS;
+    push @apps, $app;
+  }
 
-    @apps = sort @apps;
-    unshift @apps, 'none';
+  @apps = sort @apps;
+  unshift @apps, 'none';
 
-    $this->{_options} = \@apps;
+  $this->{_options} = \@apps;
 
-    return $this->{_options};
+  return $this->{_options};
 }
 
 sub renderForDisplay {
-    my ( $this, $format, $value, $attrs ) = @_;
+  my ($this, $format, $value, $attrs) = @_;
 
-    unless ( $value eq 'none' ) {
-        my $label = $value;
 
-        if ( $value eq 'WikiWorkbench' ) {
-            $value = $APPLICATIONS;
-        }
-        else {
-            $value = $APPLICATIONS . '.' . $value;
-        }
+  unless ($value eq 'none') {
+    my $label = $value;
 
-        $value =
-            '<a href="%SCRIPTURLPATH{"view"}%/' 
-          . $value . '/'
-          . $Foswiki::cfg{HomeTopicName} . '">'
-          . $label . '</a>';
+    if ($value eq 'WikiWorkbench') {
+      $value = $APPLICATIONS;
+    } else {
+      $value = $APPLICATIONS . '.' . $value;
     }
 
-    return $this->SUPER::renderForDisplay( $format, $value, $attrs );
+    $value = '<a href="%SCRIPTURLPATH{"view"}%/' . $value . '/' . $Foswiki::cfg{HomeTopicName} . '">' . $label . '</a>';
+  }
+
+  return $this->SUPER::renderForDisplay($format, $value, $attrs);
 }
 
 1;
