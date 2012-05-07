@@ -299,7 +299,8 @@ sub handleVote {
             push(
                 @rows,
                 showSelect(
-                    $id, $prompt, $submit, $select, $keyValueFreq{$id}{$key},
+                    $id, $prompt, $submit, $select,
+                    $keyValueFreq{$id}{$key},
                     $totalVotes{$key}, $params
                 )
             );
