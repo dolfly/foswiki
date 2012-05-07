@@ -4,62 +4,49 @@
 # it will not take down all of the foswiki process. See http://foswiki.org/Tasks/ItemXXX
 
 use strict;
-use Spreadsheet::ParseExcel             ();
-use Spreadsheet::ParseExcel::FmtUnicode ();
-use Error qw(:try);
+use Spreadsheet::ParseExcel ();
 use Encode ();
+use utf8;
 
 my $file = $ARGV[0];
 
 unless ($file) {
-    print STDERR "usage: xls2txt <file>\n";
-    exit 1;
+  print STDERR "usage: xls2txt <file>\n";
+  exit 1;
 }
 
-unless ( -e $file ) {
-    print STDERR "file not found: $file\n";
-    exit 1;
+unless (-e $file) {
+  print STDERR "file not found: $file\n";
+  exit 1;
 }
 
 my $format = Spreadsheet::ParseExcel::FmtDefault->new();
-my $book;
-
-try {
-    $book = Spreadsheet::ParseExcel::Workbook->Parse( $file, $format );
-}
-catch Error with {
-
-    # file not opened, possibly passworded
-    print STDERR shift->{-text} . "\n";
-    exit 1;
-};
+my $book = Spreadsheet::ParseExcel::Workbook->Parse($file, $format);
 
 return '' unless $book;
 
 my $text = '';
 
-foreach my $sheet ( @{ $book->{Worksheet} } ) {
-    last if !defined $sheet->{MaxRow};
-    foreach my $row ( $sheet->{MinRow} .. $sheet->{MaxRow} ) {
-        foreach my $col ( $sheet->{MinCol} .. $sheet->{MaxCol} ) {
-            my $cell = $sheet->{Cells}[$row][$col];
-            if ($cell) {
-                my $cell_text;
-                if ( $cell->{Type} eq "Numeric" ) {
-                    $cell_text = $cell->{Val};
-                }
-                else {
-                    $cell_text = $cell->Value;
-                }
-                next if ( $cell_text eq "" );
-
-                $text .= $cell_text;
-            }
-            $text .= " ";
+foreach my $sheet (@{ $book->{Worksheet} }) {
+  last if !defined $sheet->{MaxRow};
+  foreach my $row ($sheet->{MinRow} .. $sheet->{MaxRow}) {
+    foreach my $col ($sheet->{MinCol} .. $sheet->{MaxCol}) {
+      my $cell = $sheet->{Cells}[$row][$col];
+      if ($cell) {
+        my $cell_text;
+        if ($cell->{Type} eq "Numeric") {
+          $cell_text = $cell->{Val};
+        } else {
+          $cell_text = $cell->Value;
         }
-        $text .= "\n";
+        next if ($cell_text eq "");
+
+        $text .= $cell_text;
+      }
+      $text .= " ";
     }
     $text .= "\n";
+  }
+  $text .= "\n";
 }
-$text = Encode::encode( 'iso-8859-1', $text, 0 ) if utf8::is_utf8($text);
-print $text;
+print Encode::encode_utf8($text);

@@ -9,43 +9,38 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at
+# GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::Stringifier::Plugins::PPT;
 use Foswiki::Contrib::Stringifier::Base ();
 our @ISA = qw( Foswiki::Contrib::Stringifier::Base );
-use Foswiki::Contrib::Stringifier ();
+use Foswiki::Contrib::Stringifier  ();
 use File::Temp qw/tmpnam/;
 
 my $ppthtml = $Foswiki::cfg{StringifierContrib}{ppthtmlCmd} || 'ppthtml';
 
 # Only if ppthtml exists, I register myself.
-if ( __PACKAGE__->_programExists($ppthtml) ) {
-    __PACKAGE__->register_handler( "text/ppt", ".ppt" );
+if (__PACKAGE__->_programExists($ppthtml)){
+    __PACKAGE__->register_handler("text/ppt", ".ppt");
 }
 
 sub stringForFile {
-    my ( $self, $filename ) = @_;
-    my $tmp_file = tmpnam();
-
-    return '' if ( -f $tmp_file );
-
+    my ($self, $filename) = @_;
+    
     # First I convert PPT to HTML
     my $cmd = $ppthtml . ' %FILENAME|F%';
-    my ( $output, $exit ) =
-      Foswiki::Sandbox->sysCommand( $cmd, FILENAME => $filename );
-
-    return '' unless ( $exit == 0 );
-    $output = $self->toUtf8($output);
+    my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
+    
+    return '' unless ($exit == 0);
 
     # put the html into a temporary file
-    open( TMPFILE, ">$tmp_file" );
-    print TMPFILE $output;
-    close(TMPFILE);
+    my ($fh, $tmp_file) = tmpnam();
+    print $fh $output;
 
     # use the HTML stringifier to convert HTML to TXT
-    my $text = Foswiki::Contrib::Stringifier->stringFor($tmp_file);
+    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::HTML->new();
+    my $text = $stringifier->stringForFile($tmp_file);
 
     unlink($tmp_file);
 

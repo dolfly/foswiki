@@ -11,11 +11,11 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at
+# GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 
 package Foswiki::Contrib::StringifierContrib;
 our $VERSION = '$Rev: 9950 (2010-11-12) $';
-our $RELEASE = '2.10';
+our $RELEASE = '2.20';
 
 1;
