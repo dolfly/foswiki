@@ -18,15 +18,14 @@ package Foswiki::Contrib::HyphenatorContrib;
 use strict;
 use warnings;
 
-our $VERSION           = '$Rev$';
-our $RELEASE           = '2.01';
-our $SHORTDESCRIPTION  = 'Automatically hyphenates text';
+our $VERSION = '$Rev$';
+our $RELEASE = '2.01';
+our $SHORTDESCRIPTION = 'Automatically hyphenates text';
 our $NO_PREFS_IN_TOPIC = 1;
 
 sub init {
-    require Foswiki::Plugins::JQueryPlugin();
-    Foswiki::Plugins::JQueryPlugin::registerPlugin( "Hyphenator",
-        "Foswiki::Contrib::HyphenatorContrib::Core" );
+  require Foswiki::Plugins::JQueryPlugin ();
+  Foswiki::Plugins::JQueryPlugin::registerPlugin("Hyphenator", "Foswiki::Contrib::HyphenatorContrib::Core");
 }
 
 1;
