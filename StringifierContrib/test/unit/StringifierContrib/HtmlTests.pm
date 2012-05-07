@@ -1,13 +1,13 @@
 # Test for HTML.pm
 package HtmlTests;
-use StringifierTest;
-our @ISA = qw( StringifierTest );
+use FoswikiFnTestCase;
+our @ISA = qw( FoswikiFnTestCase );
 
 use strict;
-use utf8;
 
 use Foswiki::Contrib::Stringifier::Base();
 use Foswiki::Contrib::Stringifier();
+use utf8;
 
 sub set_up {
         my $this = shift;
@@ -39,7 +39,8 @@ sub test_stringForFile {
     my $ok = $text =~ /Cern/;
     $this->assert($ok, "Text Cern not included");
 
-    $this->assert_matches($this->encode('geöffnet'), $text, "Text geöffnet not found.");
+    $ok = $text =~ /geöffnet/;
+    $this->assert($ok, "Text geöffnet not included");
 }
 
 sub test_SpecialCharacters {
@@ -50,12 +51,11 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.html');
 
-    $this->assert_matches($this->encode('geöffnet'), $text, "Text geöffnet not found.");
+    $this->assert_matches('geöffnet', $text, "Text geöffnet not found.");
 }
 
 # test what would happen if someone uploaded a png and called it a .html
-# SMELL: strange test
-sub DONT_test_maliciousFile {
+sub test_maliciousFile {
     my $this = shift;
     my $stringifier = Foswiki::Contrib::Stringifier::Plugins::HTML->new();
 

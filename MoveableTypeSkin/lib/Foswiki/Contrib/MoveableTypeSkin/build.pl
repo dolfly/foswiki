@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 use strict;
-
 #
 # Example build class. Copy this file to the equivalent place in your
 # plugin or contrib and edit.
@@ -31,7 +30,7 @@ our @ISA = qw( Foswiki::Contrib::Build );
 
 sub new {
     my $class = shift;
-    return bless( $class->SUPER::new("MoveableTypeSkin"), $class );
+    return bless( $class->SUPER::new( "MoveableTypeSkin" ), $class );
 }
 
 # Example: Override the build target
@@ -47,5 +46,5 @@ sub target_build {
 my $build = new BuildBuild();
 
 # Build the target on the command line, or the default target
-$build->build( $build->{target} );
+$build->build($build->{target});
 

@@ -27,20 +27,24 @@ if (__PACKAGE__->_programExists($ppthtml)){
 
 sub stringForFile {
     my ($self, $filename) = @_;
+    my $tmp_file = tmpnam();
+    
+    return '' if (-f $tmp_file);
     
     # First I convert PPT to HTML
     my $cmd = $ppthtml . ' %FILENAME|F%';
     my ($output, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
     
     return '' unless ($exit == 0);
-
+    $output = $self->toUtf8($output);
+    
     # put the html into a temporary file
-    my ($fh, $tmp_file) = tmpnam();
-    print $fh $output;
+    open(TMPFILE, ">$tmp_file");
+    print TMPFILE $output;
+    close(TMPFILE);
 
     # use the HTML stringifier to convert HTML to TXT
-    my $stringifier = Foswiki::Contrib::Stringifier::Plugins::HTML->new();
-    my $text = $stringifier->stringForFile($tmp_file);
+    my $text = Foswiki::Contrib::Stringifier->stringFor($tmp_file);
 
     unlink($tmp_file);
 

@@ -32,11 +32,9 @@ sub stringForFile {
 
   return '' unless ($exit == 0);
 
-  $text = $self->decode($text, $Foswiki::cfg{StringifierContrib}{CharSet}{pdftotext} || 'iso-8859-1');
-  $text = $self->encode($text);
-  $text =~ s///g; # remove any page break leftover
-
-  return $text;
+  # convert to site charset
+  $text = $self->toUtf8($text);
+  return $self->fromUtf8($text);
 }
 
 1;

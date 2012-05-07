@@ -38,8 +38,9 @@ sub stringForFile {
     my $cmd = $odt2text . ' --encoding=UTF-8 %FILENAME|F%';
     my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
 
-    $text = $self->decode($text, $Foswiki::cfg{StringifierContrib}{CharSet}{odt2txt} || 'utf-8');
-    return $self->encode($text);
+    #print STDERR "text=$text, exit=$exit\n";
+    
+    return $self->fromUtf8($text);
 }
 
 1;

@@ -30,7 +30,6 @@
 Statistics extraction and presentation
 
 =cut
-
 package TWiki::Plugins::MostPopularPlugin::Statistics;
 
 use strict;
@@ -46,9 +45,8 @@ use File::Copy;
 my $debug = 0;
 
 BEGIN {
-
     # Do a dynamic 'use locale' for this module
-    if ( $TWiki::cfg{UseLocale} ) {
+    if( $TWiki::cfg{UseLocale} ) {
         require locale;
         import locale();
     }
@@ -73,43 +71,37 @@ sub statistics {
     my $webName = $session->{webName};
 
     my $tmp = '';
-
     # web to redirect to after finishing
     my $destWeb = $TWiki::cfg{UsersWebName};
-    my $logDate = $session->{cgiQuery}->param('logdate') || '';
-    $logDate =~ s/[^0-9]//g;    # remove all non numerals
-    $debug = $session->{cgiQuery}->param('debug');
+    my $logDate = $session->{cgiQuery}->param( 'logdate' ) || '';
+    $logDate =~ s/[^0-9]//g;  # remove all non numerals
+    $debug = $session->{cgiQuery}->param( 'debug' );
 
-    my $dir = "$TWiki::cfg{RCS}{WorkAreaDir}/MostPopularPlugin";
+    my $dir="$TWiki::cfg{RCS}{WorkAreaDir}/MostPopularPlugin";
 
-    unless ( -d $dir ) {
-        mkdir($dir)
-          || throw Error::Simple(
-            'RCS: failed to create MostPopularPlugin work area: ' . $! );
-    }
+    unless( -d $dir ) {
+        mkdir( $dir ) || throw Error::Simple(
+            'RCS: failed to create MostPopularPlugin work area: '.$! );
+    }       
 
-    unless ( $session->inContext('command_line') ) {
-
+    unless( $session->inContext( 'command_line' )) {
         # running from CGI
         $session->writePageHeader();
-        print CGI::start_html( -title => 'TWiki: Create Usage Statistics' );
+        print CGI::start_html(-title=>'TWiki: Create Usage Statistics');
     }
-
     # Initial messages
     _printMsg( $session, 'TWiki: Create Usage Statistics' );
     _printMsg( $session, '!Do not interrupt this script!' );
     _printMsg( $session, '(Please wait until page download has finished)' );
 
+
     # FIXME move the temp dir stuff to TWiki.cfg
     my $tmpDir;
-    if ( $TWiki::cfg{OS} eq 'UNIX' ) {
-        $tmpDir = $ENV{'TEMP'} || "/tmp";
-    }
-    elsif ( $TWiki::cfg{OS} eq 'WINDOWS' ) {
-        $tmpDir = $ENV{'TEMP'} || "c:/";
-    }
-    else {
-
+    if ( $TWiki::cfg{OS} eq 'UNIX' ) { 
+        $tmpDir = $ENV{'TEMP'} || "/tmp"; 
+    } elsif ( $TWiki::cfg{OS} eq 'WINDOWS' ) {
+        $tmpDir = $ENV{'TEMP'} || "c:/"; 
+    } else {
         # FIXME handle other OSs properly - assume Unix for now.
         $tmpDir = "/tmp";
     }
@@ -117,189 +109,162 @@ sub statistics {
     my $logFile = $TWiki::cfg{LogFileName};
 
     my $logWildCard = $logFile;
-    $logWildCard =~ s/%DATE%/*/g;
+    $logWildCard=~s/%DATE%/*/g;
 
-    my @files = glob($logWildCard);
+    my @files=glob($logWildCard);
 
     # hash of hashes (web -> topic) with grand totals
-    my %totalViews    = ();
-    my %totalWebViews = ();
+    my %totalViews=();
+    my %totalWebViews=();
 
-    foreach (@files) {
-        $logFile = $_;
+    foreach(@files) {
+      $logFile = $_;
 
-        if ( $logFile =~ /log([0-9][0-9][0-9][0-9])([0-9][0-9])\.txt/ ) {
-            my $logMonth     = $2;
-            my $logYear      = $1;
-            my $logMonthYear = "$logMonth $logYear";
+      if($logFile=~/log([0-9][0-9][0-9][0-9])([0-9][0-9])\.txt/) {
+        my $logMonth=$2; my $logYear=$1; my $logMonthYear="$logMonth $logYear";
 
-            unless ( -e $logFile ) {
-                _printMsg( $session,
-                    "!Log file $logFile does not exist; aborting" );
-                return;
-            }
-
-           # Copy the log file to temp file, since analysis could take some time
-
-            my $randNo = int( rand 1000 );    # For mod_perl with threading...
-            my $tmpFilename = TWiki::Sandbox::untaintUnchecked(
-                "$tmpDir/twiki-stats.$$.$randNo");
-
-            File::Copy::copy( $logFile, $tmpFilename )
-              or throw Error::Simple( 'Cannot backup log file: ' . $! );
-
-            my $TMPFILE = new IO::File;
-            open $TMPFILE, $tmpFilename
-              or throw Error::Simple( 'Cannot open backup file: ' . $! );
-
-            # Do a single data collection pass on the temporary copy of logfile,
-            # then process each web once.
-            my (
-                $viewRef,      $contribRef, $statViewsRef,
-                $statSavesRef, $statUploadsRef
-              )
-              = TWiki::UI::Statistics::_collectLogData( $session, $TMPFILE,
-                $logMonthYear );
-
-            foreach my $web ( keys %{$viewRef} ) {
-                foreach my $topic ( keys %{ $viewRef->{$web} } ) {
-                    $totalViews{$web}{$topic} += $viewRef->{$web}->{$topic};
-                    $totalWebViews{$web} += $viewRef->{$web}->{$topic};
-                }
-            }
+        unless( -e $logFile ) {
+          _printMsg( $session, "!Log file $logFile does not exist; aborting" );
+          return;
         }
+
+        # Copy the log file to temp file, since analysis could take some time
+
+        my $randNo = int ( rand 1000);	# For mod_perl with threading...
+        my $tmpFilename = TWiki::Sandbox::untaintUnchecked( "$tmpDir/twiki-stats.$$.$randNo" );
+
+        File::Copy::copy ($logFile, $tmpFilename)
+          or throw Error::Simple( 'Cannot backup log file: '.$! );
+
+        my $TMPFILE = new IO::File;
+        open $TMPFILE, $tmpFilename
+          or throw Error::Simple( 'Cannot open backup file: '.$! );
+
+        # Do a single data collection pass on the temporary copy of logfile,
+        # then process each web once.
+        my ($viewRef, $contribRef, $statViewsRef, $statSavesRef, $statUploadsRef) =
+          TWiki::UI::Statistics::_collectLogData( $session, $TMPFILE, $logMonthYear );
+
+	foreach my $web (keys %{$viewRef}) {
+	  foreach my $topic (keys %{$viewRef->{$web}}) {
+	    $totalViews{$web}{$topic}+=$viewRef->{$web}->{$topic};
+	    $totalWebViews{$web}+=$viewRef->{$web}->{$topic};
+          }
+        }
+      }
     }
 
-    my @sortView  = ();
-    my @sortWeb   = ();
-    my @sortTopic = ();
+    my @sortView=();
+    my @sortWeb=();
+    my @sortTopic=();
 
     # sort per topic stats
-    foreach my $web ( keys %totalViews ) {
-        foreach my $topic ( keys %{ $totalViews{$web} } ) {
-            push( @sortView,  $totalViews{$web}{$topic} );
-            push( @sortWeb,   $web );
-            push( @sortTopic, $topic );
-        }
+    foreach my $web (keys %totalViews) {
+      foreach my $topic (keys %{$totalViews{$web}}) {
+	push(@sortView,$totalViews{$web}{$topic});
+	push(@sortWeb,$web);
+	push(@sortTopic,$topic);
+      }
     }
 
-    my $done = 0;
-    while ( !$done ) {
-        $done = 1;
-        for ( 0 .. $#sortView - 1 ) {
-            if ( $sortView[$_] < $sortView[ $_ + 1 ] ) {
-                $done                = 0;
-                $tmp                 = $sortView[$_];
-                $sortView[$_]        = $sortView[ $_ + 1 ];
-                $sortView[ $_ + 1 ]  = $tmp;
-                $tmp                 = $sortWeb[$_];
-                $sortWeb[$_]         = $sortWeb[ $_ + 1 ];
-                $sortWeb[ $_ + 1 ]   = $tmp;
-                $tmp                 = $sortTopic[$_];
-                $sortTopic[$_]       = $sortTopic[ $_ + 1 ];
-                $sortTopic[ $_ + 1 ] = $tmp;
-            }
-        }
+    my $done=0;
+    while(!$done) {
+      $done=1;
+      for (0..$#sortView-1) {
+        if($sortView[$_]<$sortView[$_+1]) {
+	  $done=0;
+	  $tmp=$sortView[$_]; $sortView[$_]=$sortView[$_+1]; $sortView[$_+1]=$tmp;
+	  $tmp=$sortWeb[$_]; $sortWeb[$_]=$sortWeb[$_+1]; $sortWeb[$_+1]=$tmp;
+	  $tmp=$sortTopic[$_]; $sortTopic[$_]=$sortTopic[$_+1]; $sortTopic[$_+1]=$tmp;
+	}
+      }
     }
 
     # sort per web stats
-    my @sortWebs     = ();
-    my @sortWebViews = ();
+    my @sortWebs=();
+    my @sortWebViews=();
 
-    foreach my $web ( keys %totalWebViews ) {
-        push( @sortWebs,     $web );
-        push( @sortWebViews, $totalWebViews{$web} );
+    foreach my $web (keys %totalWebViews) {
+      push(@sortWebs,$web);
+      push(@sortWebViews,$totalWebViews{$web});
     }
 
-    $done = 0;
-    while ( !$done ) {
-        $done = 1;
-        for ( 0 .. $#sortWebs - 1 ) {
-            if ( $sortWebViews[$_] < $sortWebViews[ $_ + 1 ] ) {
-                $done                   = 0;
-                $tmp                    = $sortWebViews[$_];
-                $sortWebViews[$_]       = $sortWebViews[ $_ + 1 ];
-                $sortWebViews[ $_ + 1 ] = $tmp;
-                $tmp                    = $sortWebs[$_];
-                $sortWebs[$_]           = $sortWebs[ $_ + 1 ];
-                $sortWebs[ $_ + 1 ]     = $tmp;
-            }
-        }
+    $done=0;
+    while(!$done) {
+      $done=1;
+      for (0..$#sortWebs-1) {
+	if($sortWebViews[$_]<$sortWebViews[$_+1]) {
+	  $done=0;
+	  $tmp=$sortWebViews[$_]; $sortWebViews[$_]=$sortWebViews[$_+1]; $sortWebViews[$_+1]=$tmp;
+	  $tmp=$sortWebs[$_]; $sortWebs[$_]=$sortWebs[$_+1]; $sortWebs[$_+1]=$tmp;
+	}
+      }
     }
 
-    open( STATFILE, ">$dir/statfile.tmp" )
-      || throw Error::Simple("Unable to open $dir/statfile.tmp");
-    for ( 0 .. $#sortView ) {
-        print STATFILE "$sortWeb[$_] $sortTopic[$_] $sortView[$_]\n";
+    open(STATFILE,">$dir/statfile.tmp") || throw Error::Simple(
+	"Unable to open $dir/statfile.tmp");
+    for (0..$#sortView) {
+      print STATFILE "$sortWeb[$_] $sortTopic[$_] $sortView[$_]\n";
     }
     close(STATFILE);
-    move( "$dir/statfile.tmp", "$dir/statfile.txt" )
-      || throw Error::Simple(
-        "Unable to move $dir/statfile.tmp to $dir/statfile.txt");
+    move("$dir/statfile.tmp","$dir/statfile.txt")
+	|| throw Error::Simple("Unable to move $dir/statfile.tmp to $dir/statfile.txt");
 
-    open( STATFILE, ">$dir/statfileweb.tmp" )
-      || throw Error::Simple("Unable to open $dir/statfileweb.tmp");
-    for ( 0 .. $#sortWebs ) {
-        print STATFILE "$sortWebs[$_] $sortWebViews[$_]\n";
+    open(STATFILE,">$dir/statfileweb.tmp") || throw Error::Simple(
+	"Unable to open $dir/statfileweb.tmp");
+    for (0..$#sortWebs) {
+      print STATFILE "$sortWebs[$_] $sortWebViews[$_]\n";
     }
     close(STATFILE);
-    move( "$dir/statfileweb.tmp", "$dir/statfileweb.txt" )
-      || throw Error::Simple(
-        "Unable to move $dir/statfileweb.tmp to $dir/statfileweb.txt");
+    move("$dir/statfileweb.tmp","$dir/statfileweb.txt")
+	|| throw Error::Simple("Unable to move $dir/statfileweb.tmp to $dir/statfileweb.txt");
 
     _printMsg( $session, 'End creating usage statistics' );
-    print CGI::end_html() unless ( $session->inContext('command_line') );
+    print CGI::end_html() unless( $session->inContext( 'command_line' ) );
 }
 
 # Debug only
 # Print all entries in a view or contrib hash, sorted by web and item name
 sub _debugPrintHash {
     my ($statsRef) = @_;
-
-# print "Main.WebHome views = " . ${$statsRef}{'Main'}{'WebHome'}."\n";
-# print "Main web, WikiGuest contribs = " . ${$statsRef}{'Main'}{'Main.WikiGuest'}."\n";
-    foreach my $web ( sort keys %$statsRef ) {
+    # print "Main.WebHome views = " . ${$statsRef}{'Main'}{'WebHome'}."\n";
+    # print "Main web, WikiGuest contribs = " . ${$statsRef}{'Main'}{'Main.WikiGuest'}."\n";
+    foreach my $web ( sort keys %$statsRef) {
         my $count = 0;
-        print $web, ' web:', "\n";
-
+        print $web,' web:',"\n";
         # Get reference to the sub-hash for this web
         my $webhashref = ${$statsRef}{$web};
-
-        # print 'webhashref is ' . ref ($webhashref) ."\n";
+		# print 'webhashref is ' . ref ($webhashref) ."\n";
         # Items can be topics (for view hash) or users (for contrib hash)
         foreach my $item ( sort keys %$webhashref ) {
-            print "  $item = ", ( ${$webhashref}{$item} || 0 ), "\n";
+            print "  $item = ",( ${$webhashref}{$item} || 0 ),"\n";
             $count += ${$webhashref}{$item};
         }
         print "  WEB TOTAL = $count\n";
     }
 }
 
+
 sub _printMsg {
-    my ( $session, $msg ) = @_;
+    my( $session, $msg ) = @_;
 
-    if ( $session->inContext('command_line') ) {
+    if( $session->inContext('command_line') ) {
         $msg =~ s/&nbsp;/ /go;
-    }
-    else {
-        if ( $msg =~ s/^\!// ) {
-            $msg = CGI::h4( CGI::span( { class => 'twikiAlert' }, $msg ) );
-        }
-        elsif ( $msg =~ /^[A-Z]/ ) {
-
+    } else {
+        if( $msg =~ s/^\!// ) {
+            $msg = CGI::h4( CGI::span( { class=>'twikiAlert' }, $msg ));
+        } elsif( $msg =~ /^[A-Z]/ ) {
             # SMELL: does not support internationalised script messages
             $msg =~ s/^([A-Z].*)/CGI::h3($1)/ge;
-        }
-        else {
+        } else {
             $msg =~ s/(\*\*\*.*)/CGI::span( { class=>'twikiAlert' }, $1 )/ge;
             $msg =~ s/^\s\s/&nbsp;&nbsp;/go;
             $msg =~ s/^\s/&nbsp;/go;
             $msg .= CGI::br();
         }
-        $msg =~
-          s/==([A-Z]*)==/'=='.CGI::span( { class=>'twikiAlert' }, $1 ).'=='/ge;
+        $msg =~ s/==([A-Z]*)==/'=='.CGI::span( { class=>'twikiAlert' }, $1 ).'=='/ge;
     }
-    print $msg, "\n";
+    print $msg,"\n";
 }
 
 1;

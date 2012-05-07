@@ -5,8 +5,9 @@
 
 use strict;
 use Spreadsheet::ParseExcel ();
+use Spreadsheet::ParseExcel::FmtUnicode (); 
+use Error qw(:try);
 use Encode ();
-use utf8;
 
 my $file = $ARGV[0];
 
@@ -21,7 +22,17 @@ unless (-e $file) {
 }
 
 my $format = Spreadsheet::ParseExcel::FmtDefault->new();
-my $book = Spreadsheet::ParseExcel::Workbook->Parse($file, $format);
+my $book;
+
+try {
+  $book = Spreadsheet::ParseExcel::Workbook->Parse($file, $format);
+}
+catch Error with {
+
+  # file not opened, possibly passworded
+  print STDERR shift->{-text} . "\n";
+  exit 1;
+};
 
 return '' unless $book;
 
@@ -49,4 +60,5 @@ foreach my $sheet (@{ $book->{Worksheet} }) {
   }
   $text .= "\n";
 }
-print Encode::encode_utf8($text);
+$text = Encode::encode('iso-8859-1', $text, 0) if utf8::is_utf8($text);
+print $text;

@@ -1,13 +1,13 @@
 # Test for PDF.pm
 package PdfTests;
-use StringifierTest;
-our @ISA = qw( StringifierTest );
+use FoswikiFnTestCase;
+our @ISA = qw( FoswikiFnTestCase );
 
 use strict;
-use utf8;
 
 use Foswiki::Contrib::Stringifier::Base();
 use Foswiki::Contrib::Stringifier();
+use utf8;
 
 sub set_up {
     my $this = shift;
@@ -39,7 +39,8 @@ sub test_stringForFile {
     my $ok = $text =~ /Adobe/;
     $this->assert($ok, "Text Adobe not included");
 
-    $this->assert_matches($this->encode('Äußerung'), $text, "Text Äußerung not found.");
+    $ok = $text =~ /Äußerung/;
+    $this->assert($ok, "Text Äußerung not included");
 }
 
 sub test_SpecialCharacters {
@@ -50,7 +51,7 @@ sub test_SpecialCharacters {
 
     my $text  = $stringifier->stringForFile($this->{attachmentDir}.'Simple_example.pdf');
 
-    $this->assert_matches($this->encode('Überflieger'), $text, "Text Überflieger not found.");
+    $this->assert_matches('Überflieger', $text, "Text Überflieger not found.");
 }
 
 # test what would happen if someone uploaded a png and called it a .pdf

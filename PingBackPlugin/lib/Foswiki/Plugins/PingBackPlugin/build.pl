@@ -11,5 +11,5 @@ use Foswiki::Contrib::Build;
 my $build = new Foswiki::Contrib::Build( 'PingBackPlugin' );
 
 # Build the target on the command line, or the default target
-$build->build($build->{target});
+my $build->build($build->{target});
 

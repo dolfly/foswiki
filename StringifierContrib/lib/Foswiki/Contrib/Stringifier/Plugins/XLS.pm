@@ -30,9 +30,7 @@ sub stringForFile {
     my ($text, $exit) = Foswiki::Sandbox->sysCommand($cmd, FILENAME => $filename);
     
     return '' unless ($exit == 0);
-
-    $text = $self->decode($text, $Foswiki::cfg{StringifierContrib}{CharSet}{xls2txt} || 'utf-8');
-    return $self->encode($text);
+    return $self->fromUtf8($text);
 }
 
 1;

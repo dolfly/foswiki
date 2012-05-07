@@ -19,6 +19,5 @@ use vars qw( $VERSION $RELEASE $SHORTDESCRIPTION );
 
 $VERSION = '$Rev$';
 $RELEASE = '';
-$SHORTDESCRIPTION =
-  'Add snazzy curved bordered boxes (with INCLUDED content) to Foswiki topics';
+$SHORTDESCRIPTION = 'Add snazzy curved bordered boxes (with INCLUDED content) to Foswiki topics';
 
