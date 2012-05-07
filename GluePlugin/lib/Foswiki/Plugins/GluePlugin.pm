@@ -10,7 +10,7 @@
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details, published at
+# GNU General Public License for more details, published at 
 # http://www.gnu.org/copyleft/gpl.html
 #
 # =========================
@@ -19,18 +19,18 @@ use strict;
 
 # =========================
 use vars qw(
-  $VERSION $RELEASE
-  $NO_PREFS_IN_TOPIC $SHORTDESCRIPTION
-);
+        $VERSION $RELEASE 
+	$NO_PREFS_IN_TOPIC $SHORTDESCRIPTION
+    );
 
-$VERSION           = '$Rev$';
-$RELEASE           = '2.20';
+$VERSION = '$Rev$';
+$RELEASE = '2.20';
 $NO_PREFS_IN_TOPIC = 1;
-$SHORTDESCRIPTION  = 'Enable markup to span multiple lines';
+$SHORTDESCRIPTION = 'Enable markup to span multiple lines';
 
 # =========================
-sub initPlugin {
-    return 1;
+sub initPlugin { 
+  return 1; 
 }
 
 # =========================
@@ -38,12 +38,11 @@ sub initPlugin {
 # be much more efficient. We don't use the beforeCommonTagsHandler
 # as we'd loose verbatim handling.
 sub commonTagsHandler {
-
-    # apply glue
-    $_[0] =~ s/^#~~(.*?)$//gom;               # #~~
-    $_[0] =~ s/%~~\s+([A-Z]+[{%])/%$1/gos;    # %~~
-    $_[0] =~ s/\s*[\n\r]+~~~\s+/ /gos;        # ~~~
-    $_[0] =~ s/\s*[\n\r]+\*~~\s+//gos;        # *~~
+  # apply glue
+  $_[0] =~ s/^#~~(.*?)$//gom;  # #~~
+  $_[0] =~ s/%~~\s+([A-Z]+[{%])/%$1/gos;  # %~~
+  $_[0] =~ s/\s*[\n\r]+~~~\s+/ /gos;   # ~~~
+  $_[0] =~ s/\s*[\n\r]+\*~~\s+//gos;   # *~~
 }
 
 # =========================
