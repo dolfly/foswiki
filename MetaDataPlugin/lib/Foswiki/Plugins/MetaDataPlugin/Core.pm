@@ -385,7 +385,7 @@ sub renderMetaData {
       }
 
       my $fieldAutolink = Foswiki::Func::isTrue($params->{$fieldName.'_autolink'}, $theAutolink);
-#      my $fieldSort = Foswiki::Func::isTrue($params->{$fieldName.'_sort'});
+      my $fieldSort = Foswiki::Func::isTrue($params->{$fieldName.'_sort'});
 #      $fieldAllowedValues = sortValues($fieldAllowedValues, $fieldSort) if $fieldSort;
 
       next if $theIncludeAttr && $fieldAttrs !~ /^($theIncludeAttr)$/;
