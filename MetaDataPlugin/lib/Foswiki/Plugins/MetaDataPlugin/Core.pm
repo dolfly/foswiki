@@ -21,6 +21,7 @@ use warnings;
 use Foswiki::Func ();
 use Foswiki::Meta ();
 use Foswiki::Form ();
+use Foswiki::Time ();
 use Foswiki::Form::Label ();
 use Error qw( :try );
 #use Data::Dumper();
@@ -130,12 +131,16 @@ sub renderMetaData {
   my $theMandatory = $params->{mandatory};
   my $theHiddenFormat = $params->{hiddenformat};
   my $theHideEmpty = Foswiki::Func::isTrue($params->{hideempty}, 0);
-  #my $theSort = Foswiki::Func::isTrue($params->{sort}, 0);
+  my $theSort = $params->{sort};
+  my $theReverse = Foswiki::Func::isTrue($params->{reverse});
   my $theAutolink = Foswiki::Func::isTrue($params->{autolink}, 1);
   my $theFieldFormat = $params->{fieldformat};
 
   $theMandatory = " <span class='foswikiAlert'>**</span> " unless defined $theMandatory;
   $theHiddenFormat = '<input type="hidden" name="$name" value="$value" />' unless defined $theHiddenFormat; 
+
+  $theSort = 'name' unless defined $theSort;
+  $theSort = '' if $theSort eq 'off';
 
   my $metaDataKey = uc($metaData);
   my $metaDataDef = $Foswiki::Meta::VALIDATE{$metaDataKey};
@@ -276,9 +281,13 @@ sub renderMetaData {
     push @metaDataRecords, $topicObj->find($metaDataKey);
   }
 
+  # sort and reverse
+  sortRecords(\@metaDataRecords, $theSort) if $theSort;
+  @metaDataRecords = reverse @metaDataRecords if $theReverse;
+
   # loop over all meta data records
   my $index = 1;
-  foreach my $record (sort {$a->{name} cmp $b->{name}} @metaDataRecords) {
+  foreach my $record (@metaDataRecords) {
     my $row = $theFormat;
     my $name = $record->{name};
     my $title = $name;
@@ -376,7 +385,7 @@ sub renderMetaData {
       }
 
       my $fieldAutolink = Foswiki::Func::isTrue($params->{$fieldName.'_autolink'}, $theAutolink);
-      my $fieldSort = Foswiki::Func::isTrue($params->{$fieldName.'_sort'});
+#      my $fieldSort = Foswiki::Func::isTrue($params->{$fieldName.'_sort'});
 #      $fieldAllowedValues = sortValues($fieldAllowedValues, $fieldSort) if $fieldSort;
 
       next if $theIncludeAttr && $fieldAttrs !~ /^($theIncludeAttr)$/;
@@ -704,6 +713,48 @@ sub jsonRpcDelete {
 sub inlineError {
   my $msg = shift;
   return "<span class='foswikiAlert'>$msg</span>";
+}
+
+##############################################################################
+sub sortRecords {
+  my ($records, $crit) = @_;
+
+  my $isNumeric = 1;
+  my $isDate = 1;
+  my %sortCrits = ();
+  foreach my $rec (@$records) {
+    my $item = $rec->{$crit};
+    next unless defined $item;
+
+    $item =~ s/\s*$//;
+    $item =~ s/^\s*//;
+
+    unless ($item =~ /^(\s*[+-]?\d+(\.?\d+)?\s*)$/) {
+      $isNumeric = 0;
+    }
+
+    unless (defined Foswiki::Time::parseTime($item)) {
+      $isDate = 0;
+    }
+
+    $sortCrits{$rec->{name}} = $item;
+  }
+
+  if ($isDate) {
+    # convert to epoch seconds if we sort per date
+    foreach my $item (keys %sortCrits) {
+      $sortCrits{$item} = Foswiki::Time::parseTime($sortCrits{$item});
+    }
+    $isNumeric = 1;
+  }
+
+  #print STDERR "crit=$crit, isNumeric=$isNumeric, isDate=$isDate\n";
+
+  if ($isNumeric) {
+    @{$records} = sort {($sortCrits{$a->{name}}||0) <=> ($sortCrits{$b->{name}}||0)} @$records;
+  } else {
+    @{$records} = sort {lc($sortCrits{$a->{name}}||'') cmp lc($sortCrits{$b->{name}}||'')} @$records;
+  }
 }
 
 1;
