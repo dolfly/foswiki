@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# MetaDataPlugin is Copyright (C) 2011 Michael Daum http://michaeldaumconsulting.com
+# MetaDataPlugin is Copyright (C) 2011-2012 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -37,7 +37,6 @@ sub writeDebug {
 sub new {
   my ($class, $session) = @_;
 
-
   my $this = bless({
     baseWeb => $session->{webName},
     baseTopic => $session->{topicName},
@@ -73,11 +72,18 @@ sub NEWMETADATA {
   my ($this, $params) = @_;
 
   my $theMetaData = lc($params->{_DEFAULT} || $params->{meta} || '');
-  my $theTitle = $params->{title} || '';
+  my $theTitle = $params->{title};
   my $theFormat = $params->{format};
   my $theTemplate = $params->{template} || 'metadata::new';
+  my $theTopic = $params->{topic} || $this->{baseWeb}.'.'.$this->{baseTopic};
+
+  my ($web, $topic) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $theTopic);
+  $theTopic = "$web.$topic";
+
+  $theTitle = "New ".ucfirst($theMetaData) unless defined $theTitle;
 
   $theFormat = Foswiki::Func::expandTemplate($theTemplate) unless defined $theFormat;
+  $theFormat =~ s/%topic%/$theTopic/g;
   $theFormat =~ s/%meta%/$theMetaData/g;
   $theFormat =~ s/%title%/$theTitle/g;
   
@@ -162,13 +168,11 @@ sub renderMetaData {
   #writeDebug("formWeb=$formWeb, formTopic=$formTopic");
 
   unless (Foswiki::Func::topicExists($formWeb, $formTopic)) {
-    print STDERR "error: form definition for $formWeb.$formTopic does not exist";
-    return inlineError("form definition for $formWeb.$formTopic does not exist");
+    return inlineError("form definition for <nop>$metaDataKey not found");
   }
   
   my $formDef = new Foswiki::Form($this->{session}, $formWeb, $formTopic);
   unless (defined $formDef) {
-    print STDERR "error: can't parse form definition at $formWeb.$formTopic";
     return inlineError("can't parse form definition at $formWeb.$formTopic");
   }
 
@@ -359,6 +363,11 @@ sub renderMetaData {
 
       my $fieldValue = $record->{$fieldName};
 
+      # try not to break foswiki tables
+      if ($theAction eq 'view') {
+        $fieldValue =~ s/\n/<br \/>/g;
+      }
+
       $fieldSize = $params->{$fieldName.'_size'} if defined $params->{$fieldName.'_size'};
       $fieldAttrs = $params->{$fieldName.'_attributes'} if defined $params->{$fieldName.'_attributes'};
       $fieldDescription = $params->{$fieldName.'_tooltip'} if defined $params->{$fieldName.'_tooltip'};
@@ -494,9 +503,11 @@ sub renderMetaData {
     $fieldDuplicateAction = ''; # TODO: disabled
 
     my $fieldActions = '<span class="metaDataActions">'.$fieldEditAction.$fieldDuplicateAction.$fieldDeleteAction.'</div>';
+    my $topic = $topicObj->getPath;
     $fieldActions =~ s/\%title\%/$title/g;
     $fieldActions =~ s/\%name\%/$name/g;
     $fieldActions =~ s/\%meta\%/$metaData/g;
+    $fieldActions =~ s/\%topic\%/$topic/g;
 
     $row =~ s/\$actions\b/$fieldActions/g;
     $row =~ s/\$index\b/$index/g;
@@ -729,11 +740,11 @@ sub sortRecords {
     $item =~ s/\s*$//;
     $item =~ s/^\s*//;
 
-    unless ($item =~ /^(\s*[+-]?\d+(\.?\d+)?\s*)$/) {
+    if ($isNumeric && $item !~ /^(\s*[+-]?\d+(\.?\d+)?\s*)$/) {
       $isNumeric = 0;
     }
 
-    unless (defined Foswiki::Time::parseTime($item)) {
+    if ($isDate && ! defined Foswiki::Time::parseTime($item)) {
       $isDate = 0;
     }
 
