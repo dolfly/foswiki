@@ -100,10 +100,11 @@ The =format= parameter may contain the following pseudo-variables:
    * =$size=: size parameter of the formfield as given in the !DataForm definition
    * =$title=: the fieldtitle derived from the fieldname and remapped as specified in the =map= parameter
    * =$type=: type of formfield as given in the !DataForm definition
-   * =$value=: current value of the formfield; for =+value= formfields this is the _mapped_ value use =$origvalue= to get the original one
    * =$values=: list of all allowed values for the formfield as defined in the !DataForm definition
    * =$&lt;field_name>=: value of the given field
-   * =$orig&lt;field_name>=: original value of the formfield as stored in; for =+value= formfields this is the original _unmapped_ value of the formfield
+   * =$orig&lt;field_name>=: original value of the formfield as stored; for =+value= formfields this is the original _unmapped_ value of the formfield
+   * =$value=: (in &lt;field_name>_format) current value of the formfield; for =+value= formfields this is the _mapped_ value use =$origvalue= to get the original one
+   * =$origvalue=: (in &lt;field_name>_format) original value of the formfield as stored
 
 ---+++ =%<nop>NEWMETADATA{...}%=
 
@@ -183,7 +184,8 @@ have a database of efforts recorded on that tracker.
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
 |  10 May 2012: | fixed error when meta data definition is read-protected; \
-                  implemented a way to store meta data in a distant / hidden topic |
+                  implemented a way to store meta data in a distant / hidden topic;
+                  added =$origvalue= for field-specific format strings |
 |  08 May 2012: | added =sort= and =reverse= parameters to RENDERMETADATA |
 |  27 Apr 2012: | fixed access to the original value of +values formfields |
 |  26 Apr 2012: | fixing table editor for firefox; \

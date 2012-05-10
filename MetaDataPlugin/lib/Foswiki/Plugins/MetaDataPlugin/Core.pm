@@ -482,11 +482,12 @@ sub renderMetaData {
       $line =~ s/\$(tooltip|description)\b/$fieldDescription/g;
       $line =~ s/\$title\b/$fieldTitle/g;
       $line =~ s/\$extra\b/$fieldExtra/g;
+      $line =~ s/\$origvalue\b/$fieldValue/g;
 
       $title = $fieldValue if $fieldName =~ /^(Topic)?Title/i;
 
-      $row =~ s/\$orig$fieldName/$fieldValue/g;
       $row =~ s/\$$fieldName/$line/g;
+      $row =~ s/\$orig$fieldName/$fieldValue/g;
 
       # cleanup
       $fieldClone->finish() if defined $fieldClone;

@@ -25,7 +25,7 @@ use Foswiki::Plugins::MetaDataPlugin::Core();
 use Error qw( :try );
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.30';
+our $RELEASE = '1.40';
 our $SHORTDESCRIPTION = 'Bring custom meta data to wiki apps';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;
