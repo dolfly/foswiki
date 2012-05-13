@@ -12,5 +12,4 @@ pub/System/BibtexPlugin/bibtex-cite-ex.png
 pub/System/BibtexPlugin/bibtex-inline-ex.png
 pub/System/BibtexPlugin/bibtex-ref-ex.png
 pub/System/BibtexPlugin/bibtex-select-ex.png
-tools/render.pl 
 tools/render.sh 
