@@ -411,4 +411,7 @@ lines to the =.htaccess= or Apache =conf= file:
 %META:FILEATTACHMENT{name="style.css" attr="" autoattached="1" comment="" date="1336870795" path="style.css" size="1083" user="ProjectContributor" version=""}%
 %META:FILEATTACHMENT{name="bibtoolrsc" attr="" autoattached="1" comment="" date="1136505651" path="bibtoolrsc" size="1905" user="ProjectContributor" version=""}%
 %META:FILEATTACHMENT{name="sample.bib" attr="" autoattached="1" comment="" date="1066305348" path="sample.bib" size="1713" user="ProjectContributor" version=""}%
-
+%META:FILEATTACHMENT{name="bibtex-cite-ex.png" attachment="bibtex-cite-ex.png" attr="" comment="" date="1336874137" path="bibtex-cite-ex.png" size="1222" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="bibtex-inline-ex.png" attachment="bibtex-inline-ex.png" attr="" comment="" date="1336874150" path="bibtex-inline-ex.png" size="52989" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="bibtex-ref-ex.png" attachment="bibtex-ref-ex.png" attr="" comment="" date="1336874175" path="bibtex-ref-ex.png" size="8732" user="ProjectContributor" version="1"}%
+%META:FILEATTACHMENT{name="bibtex-select-ex.png" attachment="bibtex-select-ex.png" attr="" comment="" date="1336874188" path="bibtex-select-ex.png" size="26604" user="ProjectContributor" version="1"}%
