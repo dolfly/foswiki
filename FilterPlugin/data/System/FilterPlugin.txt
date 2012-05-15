@@ -105,13 +105,14 @@ prepended with a header and appended with a footer in case the list is not empty
    * map="key1=value1,key2=value2, ...": this establishes a key-value hash available via the =$map()= variable. (see also the =replace= parameter for means
      to preprocess list items automatically.)
 
-The pattern string shall group matching substrings in the list item to which you can refer to by 
-using $1, $2, ... in the format string. Any format string (=format=, =header=, =footer=) may
-contain variables =$percnt$=, =$nop=, =$dollar= and =$n=. The variable
-=$index= referse to the position number within the list being formatted; using =$count= in the
-footer or header argument refers to the total number of list elements; =$marker= is set if
-the =selection= regular expression matches the current item. The =$map(key)= macro returns the value for "key"
-as specified in the =map= argument.
+The pattern string shall group matching substrings in the list item to which
+you can refer to by using $1, $2, ... in the format string. Any format string
+(=format=, =header=, =footer=) may contain variables =$percnt$=, =$nop=,
+=$dollar= and =$n=. The variable =$index= referse to the position number within
+the list being formatted; =$count= refers to the total number of matched list
+elementsr;=$marker= is set if the =selection= regular expression matches the
+current item. The =$map(key)= macro returns the value for "key" as specified in
+the =map= argument.
 
 ---+++ MAKEINDEX
 *Syntax*: =%<nop>MAKEINDEX{"&lt;list>" ...}%=
@@ -266,6 +267,7 @@ compare with [[http://en.wikipedia.org/wiki/Category:Philosophy_articles_needing
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  15 May 2012: | fixed paging through lists in FORMATLIST |
 |  05 May 2012: | fixed lists not being processed properly before iterating over them in FORMATLIST and MAKEINDEX |
 |  19 Apr 2012: | modernized plugin by using a proper OO-core; \
                   fixed processing of =tokenize= properly;\
