@@ -29,12 +29,15 @@ bibfiles="$*"
 cmd1="$bibtoolCmd -r $bibtoolRsc $bibfiles | $bib2bibCmd -q -oc /dev/null $bib2bibSelect"
 cmd2="$cmd1 | $bibtex2htmlCmd $bibtex2htmlArgs"
 
-if [ "$os" == "darwin" ]; then
-	# Note for Mac OSX users: TeXlive 2010 prevents bibtex2html to run bibtex in a temporary directory
-	# http://www.lri.fr/~filliatr/bibtex2html/
-	# A workaround consists in telling bibtex2html to use the current directory for temporary files, using the following shell command before running bibtex2html:
+# Note for Mac OSX users: TeXlive 2010 prevents bibtex2html to run bibtex in a temporary directory
+# http://www.lri.fr/~filliatr/bibtex2html/
+# A workaround consists in telling bibtex2html to use the current directory for temporary files, using the following shell command before running bibtex2html.
+#
+# Note Arthur Clemens: this seems to work well on Linux as well, so $os commented out.
+#
+#if [ "$os" == "darwin" ]; then
 	export TMPDIR=.
-fi
+#fi
 
 # execute
 (

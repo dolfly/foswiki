@@ -16,10 +16,11 @@ use vars qw(
 
 use Foswiki::Func;
 use File::Basename;
+use File::Path qw(make_path);
 use Config;
 
-our $VERSION           = '$Rev$';
-our $RELEASE           = '2.1.1';
+our $VERSION           = '$Rev: 14850 (2012-05-18) $';
+our $RELEASE           = '2.2.0';
 our $pluginName        = 'BibtexPlugin';
 our $NO_PREFS_IN_TOPIC = 0;
 our $SHORTDESCRIPTION  = 'Embed <nop>BibTeX entries.';
@@ -56,16 +57,6 @@ $bibcite = ($Foswiki::Plugins::BibliographyPlugin::VERSION) ? 1 : 0;
 
 =cut
 
-sub writeDebug {
-    &Foswiki::Func::writeDebug( "$pluginName - " . $_[0] ) if $DEBUG;
-
-    # print STDERR "$pluginName - $_[0]\n" if $DEBUG;
-}
-
-=pod
-
-=cut
-
 sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
 
@@ -79,6 +70,7 @@ sub initPlugin {
     $script = basename($0);
     $bibtoolRsc =
       $Foswiki::cfg{PubDir} . "/$installWeb" . "/$pluginName" . '/bibtoolrsc';
+    createTempDir();
 
     $isInitialized = 0;
 
@@ -869,7 +861,11 @@ sub getTempFileName {
     my $name = shift;
     $name = "" unless $name;
 
-    my $temp_dir = -d '/tmp' ? '/tmp' : $ENV{TMPDIR} || $ENV{TEMP};
+    my $temp_dir = $Foswiki::cfg{Plugins}{BibtexPlugin}{tmpdir};
+    $temp_dir = ( -d '/tmp' ? '/tmp' : $ENV{TMPDIR} || $ENV{TEMP} )
+      if !$temp_dir;
+    $temp_dir .= "/$pluginName";
+
     my $base_name = sprintf( "%s/$name-%d-%d-0000", $temp_dir, $$, time() );
     my $count = 0;
     while ( -e $base_name && $count < 100 ) {
@@ -882,6 +878,19 @@ sub getTempFileName {
     }
     else {
         return Foswiki::Sandbox::normalizeFileName($base_name);
+    }
+}
+
+sub createTempDir {
+    my $temp_dir = $Foswiki::cfg{Plugins}{BibtexPlugin}{tmpdir};
+    if ($temp_dir) {
+        $temp_dir = ( -d '/tmp' ? '/tmp' : $ENV{TMPDIR} || $ENV{TEMP} )
+          if !$temp_dir;
+        $temp_dir .= "/$pluginName";
+        if ( !( -d $temp_dir ) ) {
+            my @dirs = make_path( $temp_dir, { mode => 0755 } );
+            writeDebug( "createTempDir; dir created:" . join( ',', @dirs ) );
+        }
     }
 }
 
@@ -945,6 +954,16 @@ sub getBibfiles {
 sub showError {
     my $msg = shift;
     return "<span class=\"Alert\">Error: $msg</span>";
+}
+
+=pod
+
+=cut
+
+sub writeDebug {
+    &Foswiki::Func::writeDebug( "$pluginName - " . $_[0] ) if $DEBUG;
+
+    # print STDERR "$pluginName - $_[0]\n" if $DEBUG;
 }
 
 1;

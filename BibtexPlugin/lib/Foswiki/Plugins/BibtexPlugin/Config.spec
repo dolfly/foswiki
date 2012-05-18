@@ -18,9 +18,19 @@ $Foswiki::cfg{Plugins}{BibtexPlugin}{bibtex2html} = '/usr/bin/bibtex2html';
 
 # **PATH**
 # Location of the <code>texmf</code> tree path. 
-# For custom .bst styles, bibtex processing needs to know where to find them.  The easiest way is to use a texmf tree below 'HOME'. On UNIX this is usually <code>~/texmf</code>, on MacOSX <code>~/Library/texmf</code> or when using MacPorts, <code>/opt/local/share/texmf</code>.
+# For custom <code>.bst</code> styles, bibtex processing needs to know where to find them.  The easiest way is to use a texmf tree below 'HOME'. On UNIX this is usually <code>~/texmf</code>, on MacOSX <code>~/Library/texmf</code> or when using MacPorts, <code>/opt/local/share/texmf</code>.
 # See: <a href='http://en.wikibooks.org/wiki/LaTeX/Packages/Installing_Extra_Packages'>Wikibooks: LaTeX/Packages/Installing Extra Packages</a>.
 $Foswiki::cfg{Plugins}{BibtexPlugin}{texmftree} = '/home/nobody';
+
+# **PATH**
+# Location of temporary files.
+# Usually this <code>/tmp</code>, but you can assign an arbitrary directory. 
+# Inside this directory, a directory <code>BibtexPlugin</code> will be created.
+# Note that the directory must be emptied manually or by a custom cronjob if 
+# it's not a regular system tmp directory. You can use 
+# <code>$Foswiki::cfg{WorkingDir}/tmp</code> to use the default temporary files 
+# location for Foswiki.
+$Foswiki::cfg{Plugins}{BibtexPlugin}{tmpdir} = '/tmp';
 
 # **PATH**
 # URL of the CSS file.
