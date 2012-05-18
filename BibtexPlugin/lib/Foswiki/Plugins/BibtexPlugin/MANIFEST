@@ -12,5 +12,7 @@ pub/System/BibtexPlugin/bibtex-ref-ex.png 0644
 pub/System/BibtexPlugin/bibtex-select-ex.png 0644
 pub/System/BibtexPlugin/bibtoolrsc 0644
 pub/System/BibtexPlugin/sample.bib 0644
+pub/System/BibtexPlugin/style_src.css 0644
 pub/System/BibtexPlugin/style.css 0644
+pub/System/BibtexPlugin/style.css.gz 0644
 tools/bibtex_render.sh 0644
