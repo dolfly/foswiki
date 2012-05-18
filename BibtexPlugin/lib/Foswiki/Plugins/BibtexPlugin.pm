@@ -19,12 +19,12 @@ use File::Basename;
 use Config;
 
 our $VERSION           = '$Rev$';
-our $RELEASE           = '2.1';
+our $RELEASE           = '2.1.1';
 our $pluginName        = 'BibtexPlugin';
 our $NO_PREFS_IN_TOPIC = 0;
 our $SHORTDESCRIPTION  = 'Embed <nop>BibTeX entries.';
 our $RENDER_SCRIPT     = $Foswiki::cfg{ToolsDir} . '/bibtex_render.sh';
-our $DEBUG             = 1;
+our $DEBUG             = $Foswiki::cfg{Plugins}{BibtexPlugin}{Debug};
 
 my $bibtexCmd = $Foswiki::cfg{Plugins}{BibtexPlugin}{bibtex}
   || '/usr/bin/bibtex';
