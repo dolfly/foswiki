@@ -36,7 +36,7 @@ $Foswiki::cfg{Plugins}{BibtexPlugin}{tmpdir} = '/tmp';
 # URL of the CSS file.
 $Foswiki::cfg{Plugins}{BibtexPlugin}{styleurl} = '$Foswiki::cfg{PubUrlPath}/$Foswiki::cfg{SystemWebName}/BibtexPlugin/style.css';
 
-# **PERL**
+# **PERL H**
 # This setting is required to enable executing the cgibibsearch script from the bin directory
 $Foswiki::cfg{SwitchBoard}{bibsearch} = {
     package  => 'Foswiki::Plugins::BibtexPlugin::CgiBibSearch',

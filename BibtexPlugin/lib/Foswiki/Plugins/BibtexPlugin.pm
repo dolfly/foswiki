@@ -20,7 +20,7 @@ use File::Path qw(make_path);
 use Config;
 
 our $VERSION           = '$Rev: 14850 (2012-05-18) $';
-our $RELEASE           = '2.2.0';
+our $RELEASE           = '2.2.1';
 our $pluginName        = 'BibtexPlugin';
 our $NO_PREFS_IN_TOPIC = 0;
 our $SHORTDESCRIPTION  = 'Embed <nop>BibTeX entries.';

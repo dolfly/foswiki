@@ -386,6 +386,7 @@ lines to the =.htaccess= or Apache =conf= file:
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  01 Jun 2012: | (v.2.2.1) Fix Foswiki:Tasks.Item11919 Workaround for !MacOSX fails on other platforms. |
 |  18 May 2012: | (v.2.2.0) added Configure setting to specify the tmp directory. |
 |  12 May 2012: | (v2.1) various bug fixes; path settings moved to Configure; made available on foswiki.org |
 |  14 Jan 2009: | (v2.0) ported to Foswiki |
