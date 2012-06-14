@@ -57,6 +57,18 @@ sub init {
 }
 
 ##############################################################################
+sub getQueryParser {
+  my $this = shift;
+
+  unless (defined $this->{_queryParser}) {
+    require Foswiki::Query::Parser;
+    $this->{_queryParser} = new Foswiki::Query::Parser();
+  }
+
+  return $this->{_queryParser};
+}
+
+##############################################################################
 sub registerDeleteHandler {
   my ($this, $metaData, $function, $options) = @_;
 
@@ -72,6 +84,12 @@ sub NEWMETADATA {
   my ($this, $params) = @_;
 
   my $theMetaData = lc($params->{_DEFAULT} || $params->{meta} || '');
+  my $theHideError = Foswiki::Func::isTrue($params->{hideerror}, 0);
+
+  my $metaDataKey = uc($theMetaData);
+  my $metaDataDef = $Foswiki::Meta::VALIDATE{$metaDataKey};
+  return $theHideError?'':inlineError("can't find meta data definition for $metaDataKey") unless defined $metaDataDef;
+
   my $theTitle = $params->{title};
   my $theFormat = $params->{format};
   my $theTemplate = $params->{template} || 'metadata::new';
@@ -79,6 +97,7 @@ sub NEWMETADATA {
 
   my ($web, $topic) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $theTopic);
   $theTopic = "$web.$topic";
+
 
   $theTitle = "New ".ucfirst($theMetaData) unless defined $theTitle;
 
@@ -99,8 +118,21 @@ sub RENDERMETADATA {
   my $metaData  = $params->{_DEFAULT};
   my $topic = $params->{topic} || $this->{baseTopic};
   my $web = $params->{web} || $this->{baseWeb};
+  my $hideError = Foswiki::Func::isTrue($params->{hideerror}, 0);
 
   ($web, $topic) = Foswiki::Func::normalizeWebTopicName($web, $topic);
+
+  my $action = $params->{action} || 'view';
+  my $wikiName = Foswiki::Func::getWikiName();
+
+  return $hideError?'':inlineError("Error: access denied to view $web.$topic") 
+    if $action eq 'view' && ! Foswiki::Func::checkAccessPermission("VIEW", $wikiName, undef, $web, $topic);
+
+  return $hideError?'':inlineError("Error: access denied to change $web.$topic") 
+    if $action eq 'edit' && ! Foswiki::Func::checkAccessPermission("CHANGE", $wikiName, undef, $web, $topic);
+
+  return $hideError?'':inlineError("Error: unknown action '$action'") unless $action =~ /^(view|edit)$/;
+
   my $topicObj = getTopicObject($this, $web, $topic); 
 
 
@@ -141,6 +173,46 @@ sub renderMetaData {
   my $theReverse = Foswiki::Func::isTrue($params->{reverse});
   my $theAutolink = Foswiki::Func::isTrue($params->{autolink}, 1);
   my $theFieldFormat = $params->{fieldformat};
+  my $theFilter = $params->{filter};
+  my $theHideError = Foswiki::Func::isTrue($params->{hideerror}, 0);
+
+  my %includeMap = ();
+  if (defined $theInclude) {
+    foreach my $item (split(/\s*,\s*/, $theInclude)) {
+      $includeMap{$item} = 1;
+    }
+  }
+
+  my %excludeMap = ();
+  if (defined $theExclude) {
+    foreach my $item (split(/\s*,\s*/, $theExclude)) {
+      $excludeMap{$item} = 1;
+    }
+  }
+
+  if (defined $theFilter) {
+    %excludeMap = ();
+    %includeMap = ();
+    my $queryParser = $this->getQueryParser();
+    my $error;
+    my $query = "'".$topicObj->getPath()."'/".$metaData."[".$theFilter."].name";
+    try {
+      my $node = $queryParser->parse($query);
+      my $result = $node->evaluate(tom => $topicObj, data => $topicObj);
+      if (defined $result) {
+        if (ref($result) ne 'ARRAY') {
+          $result = [$result];
+        }
+        $theInclude = ''; # dummy
+        %includeMap = map {$_ => 1} @$result;
+      }
+    }
+    catch Foswiki::Infix::Error with {
+      $error = $theHideError?'':inlineError("Error: " . shift);
+    };
+    return $error if defined $error;
+  }
+
 
   $theMandatory = " <span class='foswikiAlert'>**</span> " unless defined $theMandatory;
   $theHiddenFormat = '<input type="hidden" name="$name" value="$value" />' unless defined $theHiddenFormat; 
@@ -150,7 +222,7 @@ sub renderMetaData {
 
   my $metaDataKey = uc($metaData);
   my $metaDataDef = $Foswiki::Meta::VALIDATE{$metaDataKey};
-  return inlineError("meta data $metaDataKey not found") unless defined $metaDataDef;
+  return $theHideError?'':inlineError("can't find meta data definition for $metaDataKey") unless defined $metaDataDef;
 
   my $formWeb = $this->{baseWeb};
   my $formTopic = $metaDataDef->{form};
@@ -160,20 +232,41 @@ sub renderMetaData {
 
 # unless (defined $formTopic) {
 #   print STDERR "error: no form definition found for metadata $metaDataKey\n";
-#   return inlineError("no form definition found for metadata $metaDataKey");
+#   return $theHideError?'':inlineError("no form definition found for metadata $metaDataKey");
 # }
 
   ($formWeb, $formTopic) = Foswiki::Func::normalizeWebTopicName($formWeb, $formTopic);
 
   #writeDebug("formWeb=$formWeb, formTopic=$formTopic");
+  my $wikiName = Foswiki::Func::getWikiName();
+  unless (Foswiki::Func::checkAccessPermission("VIEW", $wikiName, undef, $formWeb, $formTopic)) {
+    return $theHideError?'':inlineError("access denied to form definition for <nop>$metaDataKey");
+  }
 
   unless (Foswiki::Func::topicExists($formWeb, $formTopic)) {
-    return inlineError("form definition for <nop>$metaDataKey not found");
+    return $theHideError?'':inlineError("form definition for <nop>$metaDataKey not found");
   }
   
-  my $formDef = new Foswiki::Form($this->{session}, $formWeb, $formTopic);
+  my $formDef;
+  try {
+    $formDef = new Foswiki::Form($this->{session}, $formWeb, $formTopic);
+  } catch Error::Simple with {
+
+    # just in case, cus when this fails it takes down more of foswiki
+    Foswiki::Func::writeWarning("MetaDataPlugin::Core::renderMetaData() failed for $formWeb.$formTopic: ".shift);
+  } catch Foswiki::AccessControlException with {
+    # catch but simply bail out
+    #print STDERR "can't access form at $formWeb.$formTopic in renderMetaData()\n";
+
+    # SMELL: manually invalidate the forms cache for a partially build form object 
+    if (exists $this->{session}{forms}{"$formWeb.$formTopic"}) {
+      #print STDERR "WARNING: bug present in Foswiki::Form - invalid form object found in cache - deleting it manually\n";
+      delete $this->{session}{forms}{"$formWeb.$formTopic"};
+    }
+  };
+  
   unless (defined $formDef) {
-    return inlineError("can't parse form definition at $formWeb.$formTopic");
+    return $theHideError?'':inlineError("can't parse form definition at $formWeb.$formTopic");
   }
 
   my @selectedFields = ();
@@ -296,8 +389,8 @@ sub renderMetaData {
     my $name = $record->{name};
     my $title = $name;
 
-    next if $theInclude && $name !~ /^($theInclude)$/;
-    next if $theExclude && $name =~ /^($theExclude)$/;
+    next if defined $theInclude && !defined($includeMap{$name});
+    next if defined $theExclude && $excludeMap{$name};
 
     # loop over all fields of a record
     foreach my $field (@selectedFields) {
