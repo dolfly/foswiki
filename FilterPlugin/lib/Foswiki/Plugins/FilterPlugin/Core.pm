@@ -518,6 +518,7 @@ sub handleFormatList {
   my $theFooter = $params->{footer} || '';
   my $theSplit = $params->{split};
   my $theSeparator = $params->{separator};
+  my $theLastSeparator = $params->{lastseparator};
   my $theLimit = $params->{limit};
   my $theSkip = $params->{skip} || 0; 
   my $theSort = $params->{sort} || 'off';
@@ -547,6 +548,7 @@ sub handleFormatList {
   #writeDebug("theFormat='$theFormat'");
   #writeDebug("theSplit='$theSplit'");
   #writeDebug("theSeparator='$theSeparator'");
+  #writeDebug("theLastSeparator='$theLastSeparator'");
   #writeDebug("theLimit='$theLimit'");
   #writeDebug("theSkip='$theSkip'");
   #writeDebug("theSort='$theSort'");
@@ -602,14 +604,15 @@ sub handleFormatList {
   if ($theLimit) {
     my %seen = ();
     foreach my $item (@theList) {
-      $count++;
-      next if $count <= $theSkip;
-      last if $theLimit > 0 && $hits >= $theLimit;
 
       #writeDebug("found '$item'");
       next if $theExclude && $item =~ /^($theExclude)$/;
       next if $theInclude && $item !~ /^($theInclude)$/;
       next if $item =~ /^$/; # skip empty elements
+
+      $count++;
+      next if $count <= $theSkip;
+      last if $theLimit > 0 && $hits >= $theLimit;
 
       my $arg1 = '';
       my $arg2 = '';
@@ -680,7 +683,12 @@ sub handleFormatList {
     return '' unless $theNullFormat;
     $result = $theNullFormat;
   } else {
-    $result = join($theSeparator, @result);
+    if (defined($theLastSeparator) && ($count > 1)) {
+      my $lastElement = pop(@result);
+      $result = join($theSeparator, @result) . $theLastSeparator . $lastElement;
+    } else {
+      $result = join($theSeparator, @result);
+    }
   }
 
   $result = $theHeader.$result.$theFooter;
