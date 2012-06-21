@@ -25,7 +25,7 @@ use Foswiki::Plugins::MetaDataPlugin::Core();
 use Error qw( :try );
 
 our $VERSION = '$Rev$';
-our $RELEASE = '2.00';
+our $RELEASE = '2.01';
 our $SHORTDESCRIPTION = 'Bring custom meta data to wiki apps';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;
@@ -80,14 +80,12 @@ sub initPlugin {
     return $core->jsonRpcDelete(@_);
   });
 
-  $core->init;
-
   return 1;
 }
 
 ##############################################################################
 sub finishPlugin {
-  $core = undef;
+  undef $core;
 }
 
 ##############################################################################
