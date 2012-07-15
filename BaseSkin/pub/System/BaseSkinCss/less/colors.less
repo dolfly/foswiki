@@ -328,7 +328,7 @@
 			}
 			
 			&.foswikiActive > a {
-			    color: @navigation_link_text_hover;
+//			    color: @navigation_link_text_hover;
 			}
 		}
 	}
@@ -358,6 +358,18 @@
             }
         }
     }
+    
+    .foswikiToolbar {
+        .foswikiControls,
+        .foswikiControlsSecondary {
+            > li {
+                > a,
+                > .foswikiRequiresChangePermission > a {
+                    border-color: darken(@border_secondary, 5%);
+                }
+            }
+        }
+    }
 			
 	.foswikiDropdownMenu {
 		background: @dropdown_menu_background;
@@ -382,8 +394,8 @@
         }
 		
 		.foswikiMenuDivider {
-			background-color: @border_secondary;
-			border-color: @border_secondary;
+			background-color: lighten(@border_secondary, 6%);
+			border-color: lighten(@border_secondary, 6%);
 		}
 	}
 	
@@ -600,15 +612,15 @@
 	@button_text: #333;
 	@button_text_shadow: @_text_shadow_dark_on_medium;
 	@dropdown_menu_border: #ddd;
-	@dropdown_menu_background: darken(@background, 3%);
-	@dropdown_menu_text: #ccc;
+	@dropdown_menu_background: #fff;
+	@dropdown_menu_text: #bbb;
 	@dropdown_menu_link: #666;
-	@dropdown_menu_link_highlight_background: #333;
-	@dropdown_menu_link_highlight: #ddd;
-    @input_border: @border;
+	@dropdown_menu_link_highlight_background: #eee;
+	@dropdown_menu_link_highlight: #000;
+	@input_border: @border;
 	@input_border_focus: rgba(0, 0, 0, 0.4);
-	@input_background: @background;
-	@input_box_shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+	@input_background: #fff;
+	@input_box_shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
 	@input_box_shadow_focus: inset 2px 2px 4px #ddd;
 	@alert_text: #f00;
 	@message_background: #fdf5d9;
@@ -696,16 +708,16 @@
 	@button_text: #333;
 	@button_text_shadow: @text_shadow;
 	@dropdown_menu_border: #ddd;
-	@dropdown_menu_background: lighten(@background, 5%);
-	@dropdown_menu_text: #ccc;
+	@dropdown_menu_background: #fff;
+	@dropdown_menu_text: #bbb;
 	@dropdown_menu_link: #666;
 	@dropdown_menu_link_highlight_background: #eee;
 	@dropdown_menu_link_highlight: #000;
 	@input_border: @border;
-	@input_border_focus: @border;
+	@input_border_focus: rgba(0, 0, 0, 0.4);
 	@input_background: #fff;
-	@input_box_shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-	@input_box_shadow_focus: none;
+	@input_box_shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+	@input_box_shadow_focus: inset 2px 2px 4px #ddd;
 	@alert_text: #f00;
 	@message_background: #fdf5d9;
 	

@@ -91,8 +91,7 @@ h6 {
 .foswikiFormSteps h2 {
 	.fw_heading_3();
 }
-.foswikiFormSteps h3,
-.foswikiInputForm legend {
+.foswikiFormSteps h3 {
 	.fw_heading_4();
 }
 .foswikiFormSteps h4 {
@@ -169,13 +168,13 @@ li {
 abbr, code, kbd, samp, small, var {}
 
 /* smaller text */
-.foswikiSmallish,
-.foswikiTopicInfo {
+.foswikiSmallish {
 	.fw_em_line_height(@fw_size_smallish);
 	.fw_em_font_size(@fw_size_smallish);
 }
 small,
-.foswikiSmall {
+.foswikiSmall,
+.foswikiTopicInfo {
 	.fw_em_line_height(@fw_size_small);
 	.fw_em_font_size(@fw_size_small);
 }
@@ -261,7 +260,7 @@ dd,
 ul,
 ol {
 	margin-top: 0;
-	margin-left: 0px + @fw_body_line_height;
+	margin-left: 0;
 }
 /* prevent double margins with nested list elements */
 ul ul, ul ol, ol ol, ol ul {

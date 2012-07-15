@@ -329,5 +329,9 @@
 	then="$percntTMPL:P{$quotnonwikiwordwarning$quot}$percnt" 
 	else="$percntTMPL:P{$quotnonwikiwordallowed$quot}$percnt"
 }%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"LOG_IN"}%%MAKETEXT{"Login"}%%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"LOG_OUT"}%%MAKETEXT{"Logout"}%%TMPL:END%%{
 ===================================================
 </verbatim>}%

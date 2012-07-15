@@ -67,6 +67,7 @@ Base Skin topic template
 	<div class='foswikiFormInputGroup'>
 		%TMPL:P{"usernamefield"}%%TMPL:P{"usernamenote"}%
 	</div>
+	<div class='foswikiClear'></div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
 }%%TMPL:DEF{"usernamefield"}%<input tabindex='1' type='text' class='foswikiInputField foswikiFocus' size='40' name='username' id='username' value='<nop>%URLPARAM{"usernamestep"}%' %TMPL:P{

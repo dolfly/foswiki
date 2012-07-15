@@ -41,6 +41,7 @@ pub/System/BaseSkinCss/less/base.less 0644
 pub/System/BaseSkinCss/less/buttons.less 0644
 pub/System/BaseSkinCss/less/colors.less 0644
 pub/System/BaseSkinCss/less/content.less 0644
+pub/System/BaseSkinCss/less/forms.less 0644
 pub/System/BaseSkinCss/less/menus.less 0644
 pub/System/BaseSkinCss/less/mixins.less 0644
 pub/System/BaseSkinCss/less/overrides.less 0644
