@@ -9,6 +9,7 @@ Copy these settings to !SitePreferences:
 <verbatim>
    * Set SKIN = basejs,basecss,base
    * Set SKIN_USE_LESS = 1
+   * Set SKIN_WEBFONTS_URL = %PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/webfonts-opensans.css
 </verbatim>
 </div>
 
