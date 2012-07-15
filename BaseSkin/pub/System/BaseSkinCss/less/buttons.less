@@ -272,8 +272,7 @@ input[type="submit"].foswikiSubmit {
 }
 
 /* On active and open, don't show outline */
-.foswikiButtonGroup .foswikiDropdownToggle:active,
-.foswikiButtonGroup.open .foswikiDropdownToggle {
+.foswikiButtonGroup .foswikiDropdownToggle:active {
 	outline: 0;
 }
 
@@ -307,36 +306,10 @@ input[type="submit"].foswikiSubmit {
 	padding-right: 12px;
 }
 
-.foswikiButtonGroup.open {
-	/*
-	IE7's z-index only goes to the nearest positioned ancestor, which would
-	make the menu appear below buttons that appeared later on the page
-	(*/
-	*z-index: @zindexDropdown;
-	
-	// Reposition menu on open and round all corners
-	.foswikiDropdownMenu {
-		display: block;
-		margin-top: 1px;
-		.fw_border-radius(5px);
-	}
-
-	.foswikiDropdownToggle {
-		background-image: none;
-		@shadow: inset 0 1px @fw_corner_radius_button_large rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
-		.fw_box-shadow(@shadow);
-	}
-}
-
 // Reposition the caret
 .foswikiButton .foswikiCaret {
 	margin-top: 0;
 	margin-left: 0;
-//	.fw_opacity(70);
-}
-.foswikiButton:hover .foswikiCaret,
-.open.foswikiButtonGroup .foswikiCaret {
-//	.fw_opacity(100);
 }
 // Carets in other button sizes
 .foswikiButton-mini .foswikiCaret {
@@ -349,28 +322,7 @@ input[type="submit"].foswikiSubmit {
 	margin-top: @fw_corner_radius_button_large;
 	border-left:  5px solid transparent;
 	border-right: 5px solid transparent;
-//	border-top:   5px solid @black;
 }
-
-
-// Account for other colors
-/*
-.foswikiButton-primary,
-.foswikiButton-warning,
-.foswikiButton-danger,
-.foswikiButton-info,
-.foswikiButton-success,
-.foswikiButton-inverse {
-  .foswikiCaret {
-    border-top-color: @white;
-    border-bottom-color: @white;
-    .fw_opacity(75);
-  }
-}
-*/
-
-
-
 
 
 // colors TODO
@@ -407,4 +359,83 @@ input[type="submit"].foswikiSubmit {
 	background-color: darken(#fff, 10%);
 	.fw_opacity(65);
 	.fw_box-shadow(none);
+}
+
+
+/*
+ * DROPDOWNS
+ * -------------------------------------------------------------------------- */
+
+
+// The dropdown menu (ul)
+// ----------------------
+.foswikiDropdownMenu {
+	position: absolute;
+	top: 94%; // cover the bottom of the button
+	left: 0;
+	z-index: @zindexDropdown;
+	float: left;
+	display: none; // none by default, but block on menu button hover
+	min-width: 160px;
+	padding: @fw_dropdown_extra_spacing 0;
+	margin: 0; // override default ul
+	list-style: none;
+
+	border-style: solid;
+	border-width: 1px;
+	
+	// Aligns the dropdown menu to right
+	&.foswikiPullRight {
+		right: 0;
+		left: auto;
+	}
+	
+	// Dividers (basically an hr) within the dropdown
+	.foswikiDivider {
+		.fw_nav-divider();
+	}
+	
+	// Links within the dropdown menu
+	p,
+	span,
+	a {
+		display: block;
+		padding: 3px 10px; 
+		margin: 0;
+		clear: both;
+		font-weight: normal;
+		white-space: nowrap;
+	}
+	
+	span.foswikiRequiresChangePermission,
+	span.foswikiAccessKey {
+	    display: inline;
+	    padding: 0;
+	    clear: none;
+	}
+	
+	a:hover {
+		text-decoration: none;
+	}
+	
+	p {
+		text-transform: uppercase;
+	}
+	
+}
+
+// Hover state
+// -----------
+.foswikiDropdownMenu li > a:hover,
+.foswikiDropdownMenu .active > a,
+.foswikiDropdownMenu .active > a:hover {
+//	color: @dropdownLinkColorHover;
+	text-decoration: none;
+//	background-color: @dropdownLinkBackgroundHover;
+}
+
+// Right aligned dropdowns
+.foswikiPullRight .foswikiDropdownMenu {
+	left: auto;
+	right: 0;
 }

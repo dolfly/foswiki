@@ -87,6 +87,13 @@ strong,
 	font-family: 'DejaVuSansBold';
 	font-weight: normal;
 }
+.foswikiNavigation > li > a,
+.foswikiNavigationSecondary > li > a,
+.foswikiNavigation > li > .foswikiRequiresChangePermission > a,
+.foswikiNavigationSecondary > li > .foswikiRequiresChangePermission > a {
+    font-family: 'DejaVuSansBold';
+    font-weight: normal;
+}
 
 /* italic */
 em,

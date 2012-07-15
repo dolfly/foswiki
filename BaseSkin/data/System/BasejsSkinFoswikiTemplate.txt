@@ -30,11 +30,6 @@
 	requires="base"
 }%%TMPL:P{
 	"LIBJS"
-	name="bootstrap-dropdown"
-	id="BaseSkinJs/bootstrap-dropdown"
-	requires="base"
-}%%TMPL:P{
-	"LIBJS"
 	name="bootstrap-tab"
 	id="BaseSkinJs/bootstrap-tab"
 	requires="base"

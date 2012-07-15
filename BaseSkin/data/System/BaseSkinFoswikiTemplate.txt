@@ -170,7 +170,7 @@
 		
 	controls:topicactions: topic actions buttons are imported from separate template BaseSkinTopicActionsTemplate
 ---------------------------------------------------
-}%%TMPL:DEF{"controls"}%%TMPL:P{"startsection" class="foswikiBar foswikiTopicActions foswikiColorNavigationSecondary foswikiClearfix"}%
+}%%TMPL:DEF{"controls"}%%TMPL:P{"startsection" class="foswikiBar foswikiTopicActions foswikiColorTopicActions foswikiClearfix"}%
 %TMPL:P{"controls:topicactions"}%
 <div class='foswikiClear'></div>
 %TMPL:P{"endsection"}%%TMPL:END%%{

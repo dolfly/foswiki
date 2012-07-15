@@ -36,7 +36,7 @@ Base Skin topic template
 ---------------------------------------------------
 	Edit controls
 ---------------------------------------------------
-}%%TMPL:DEF{"editcontrols"}%<div class='foswikiMakeSticky foswikiShadow foswikiColorNavigationSecondary'>
+}%%TMPL:DEF{"editcontrols"}%<div class='foswikiMakeSticky foswikiShadow foswikiColorTopicActions'>
 	<div class='foswikiBar foswikiColorSecondary'>
 	<div class='foswikiContainer'>
 		<div id='foswikiEditControlsContainer'>

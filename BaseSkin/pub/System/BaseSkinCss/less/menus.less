@@ -89,6 +89,26 @@
     }
 }
 
+/*
+// hysteresis
+// should be only when has dropdown
+// and needs a js controller
+.foswikiControls,
+.foswikiControlsSecondary {
+    > li {
+        > a,
+        > .foswikiRequiresChangePermission > a {
+            .fw_transition(0s all);
+            .fw_transition_delay(1s);
+            &:hover {
+                .fw_transition(0s);
+                .fw_transition_delay(0s);
+            }
+        }
+    }
+}
+*/
+
 .foswikiControls,
 .foswikiNavigation {
     float: left;
@@ -144,7 +164,6 @@
 	border-left:  4px solid transparent;
 	border-right: 4px solid transparent;
 	border-top:   4px solid @black; // final color is set in colors.less
-//	.fw_opacity(100);
 	content: "";
 }
 
@@ -153,8 +172,3 @@
 	margin-top: 9px;
 	margin-left: 4px;
 }
-li:hover .foswikiCaret,
-.foswikiDropdownToggle.open .foswikiCaret {
-//	.fw_opacity(100);
-}
-

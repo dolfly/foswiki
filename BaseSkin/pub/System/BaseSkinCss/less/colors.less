@@ -340,7 +340,7 @@
             > .foswikiRequiresChangePermission > a {
                 .fw_btn();   
                 background: none;
-                border-color: @border_secondary;
+                border-color: transparent;
                 .fw_box-shadow(none);
             } 
             &:hover {
@@ -350,6 +350,10 @@
                     background-color: darken(@background, 5%);
                     border-color: darken(@border_secondary, 5%);
                     color: @text;
+                }
+                
+                .foswikiCaret {			
+                    border-top-color: darken(@dropdown_menu_border, 10%);
                 }
             }
         }
@@ -384,7 +388,7 @@
 	}
 	
 	.foswikiCaret {			
-		border-top-color: @dropdown_menu_border;
+		border-top-color: darken(@dropdown_menu_border, 5%);
 	}
     .foswikiButtonGroup > li.foswikiDropdownToggle {
 	    border-color: @dropdown_menu_border;
@@ -587,7 +591,7 @@
 	@navigation_link_text: lighten(@text, 10%);
 	@navigation_link_background: @background;
 	@navigation_link_text_hover: lighten(@text, 10%);
-	@navigation_link_background_hover: darken(@navigation_link_background, 5%);
+	@navigation_link_background_hover: darken(@navigation_link_background, 10%);
 	// unfortunately we cannot pass 1 variable without an error
 	@button_gradient_vertical_three_colors_start: #fff;
 	@button_gradient_vertical_three_colors_mid: #fff;
@@ -595,7 +599,7 @@
 	@button_gradient_vertical_three_colors_end: darken(#ffffff, 10%);
 	@button_text: #333;
 	@button_text_shadow: @_text_shadow_dark_on_medium;
-	@dropdown_menu_border: #ccc;
+	@dropdown_menu_border: #ddd;
 	@dropdown_menu_background: darken(@background, 3%);
 	@dropdown_menu_text: #ccc;
 	@dropdown_menu_link: #666;
@@ -683,7 +687,7 @@
 	@navigation_link_text: lighten(@text, 10%);
 	@navigation_link_background: @background;
 	@navigation_link_text_hover: #fff;
-	@navigation_link_background_hover: darken(@navigation_link_background, 5%);
+	@navigation_link_background_hover: darken(@navigation_link_background, 10%);
 	// unfortunately we cannot pass 1 variable without an error
 	@button_gradient_vertical_three_colors_start: #fff;
 	@button_gradient_vertical_three_colors_mid: #fff;
@@ -691,7 +695,7 @@
 	@button_gradient_vertical_three_colors_end: darken(#fff, 10%);
 	@button_text: #333;
 	@button_text_shadow: @text_shadow;
-	@dropdown_menu_border: #ccc;
+	@dropdown_menu_border: #ddd;
 	@dropdown_menu_background: lighten(@background, 5%);
 	@dropdown_menu_text: #ccc;
 	@dropdown_menu_link: #666;
@@ -775,7 +779,7 @@
 	@navigation_link_text: lighten(@text, 10%);
 	@navigation_link_background: @background;
 	@navigation_link_text_hover: #fff;
-	@navigation_link_background_hover: darken(@navigation_link_background, 5%);
+	@navigation_link_background_hover: darken(@navigation_link_background, 10%);
 	// unfortunately we cannot pass 1 variable without an error
 	@button_gradient_vertical_three_colors_start: #fff;
 	@button_gradient_vertical_three_colors_mid: #fff;
@@ -783,7 +787,7 @@
 	@button_gradient_vertical_three_colors_end: darken(#fff, 10%);
 	@button_text: #333;
 	@button_text_shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
-	@dropdown_menu_border: #ccc;
+	@dropdown_menu_border: #ddd;
 	@dropdown_menu_background: lighten(@background, 5%);
 	@dropdown_menu_text: darken(@text, 10%);
 	@dropdown_menu_link: lighten(@text, 5%);
@@ -852,11 +856,11 @@
 
 // Set color scheme
 
-.foswikiColorNavigationPrimary {
-	.foswikiColorMedium(#e0e0e0);
+.foswikiColorNavigation {
+	.foswikiColorMedium(#e6e6e6);
 }
-.foswikiColorNavigationSecondary {
-	.foswikiColorMedium(#f4f4f4);
+.foswikiColorTopicActions {
+	.foswikiColorMedium(#f8f8f8);
 }
 .foswikiColorPrimary {
 	.foswikiColorLight(#fff);

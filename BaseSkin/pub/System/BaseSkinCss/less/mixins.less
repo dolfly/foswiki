@@ -61,21 +61,21 @@
 }
 
 .fw_section_padding (@display) when (@display = roomy) {
-	@padding: 0em + @fw_strand1_ratio_up_3 / @fw_basefont;
-	padding-top: @padding;
-	padding-bottom: @padding;
-	padding-right: 0;
-	padding-left: 0;
-}
-.fw_section_padding (@display) when (@display = cosy) {
 	@padding: 0em + @fw_strand2_ratio_up_2 / @fw_basefont;
 	padding-top: @padding;
 	padding-bottom: @padding;
 	padding-right: 0;
 	padding-left: 0;
 }
-.fw_section_padding (@display) when (@display = tight) {
+.fw_section_padding (@display) when (@display = cosy) {
 	@padding: 0em + @fw_strand1_ratio_up_2 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+	padding-right: 0;
+	padding-left: 0;
+}
+.fw_section_padding (@display) when (@display = tight) {
+	@padding: 0em + @fw_strand1_ratio_up_1 / @fw_basefont;
 	padding-top: @padding;
 	padding-bottom: @padding;
 	padding-right: 0;
@@ -327,6 +327,13 @@
       -ms-transition: @transition;
        -o-transition: @transition;
           transition: @transition;
+}
+.fw_transition_delay(@delay) {
+  -webkit-transition-delay: @delay;
+     -moz-transition-delay: @delay;
+      -ms-transition-delay: @delay;
+       -o-transition-delay: @delay;
+          transition-delay: @delay;
 }
 
 // Opacity

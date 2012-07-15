@@ -41,7 +41,6 @@ pub/System/BaseSkinCss/less/base.less 0644
 pub/System/BaseSkinCss/less/buttons.less 0644
 pub/System/BaseSkinCss/less/colors.less 0644
 pub/System/BaseSkinCss/less/content.less 0644
-pub/System/BaseSkinCss/less/dropdowns.less 0644
 pub/System/BaseSkinCss/less/menus.less 0644
 pub/System/BaseSkinCss/less/mixins.less 0644
 pub/System/BaseSkinCss/less/overrides.less 0644
@@ -200,9 +199,6 @@ pub/System/BaseSkinJs/base_edit_tinymce.js.gz 0644
 pub/System/BaseSkinJs/base_src.js 0644
 pub/System/BaseSkinJs/base.js 0644
 pub/System/BaseSkinJs/base.js.gz 0644
-pub/System/BaseSkinJs/bootstrap-dropdown_src.js 0644
-pub/System/BaseSkinJs/bootstrap-dropdown.js 0644
-pub/System/BaseSkinJs/bootstrap-dropdown.js.gz 0644
 pub/System/BaseSkinJs/bootstrap-modal_src.js 0644
 pub/System/BaseSkinJs/bootstrap-modal.js 0644
 pub/System/BaseSkinJs/bootstrap-modal.js.gz 0644

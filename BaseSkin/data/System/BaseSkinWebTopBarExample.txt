@@ -1,4 +1,4 @@
-%TMPL:P{"startsection" class="foswikiBar foswikiTopBar foswikiColorNavigationPrimary"}%<ul class='foswikiNavigation'>
+%TMPL:P{"startsection" class="foswikiBar foswikiTopBar foswikiColorNavigation"}%<ul class='foswikiNavigation'>
     <!--
     <li class='foswikiLogo'>
         <a href='%SCRIPTURL{view}%/%BASEWEB%/%HOMETOPIC%'></a>	
