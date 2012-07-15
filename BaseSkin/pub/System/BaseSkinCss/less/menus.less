@@ -1,0 +1,160 @@
+/*
+ * MENU ELEMENTS
+ * -------------------------------------------------------------------------- */
+
+.foswikiBar {
+
+	form {
+		display: inline;
+	}
+	ul {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+	}
+}
+
+.foswikiTopBar {
+	z-index: 1;
+	border: none;
+	height: auto;
+	
+	// padding is set in screensizes
+    
+	.foswikiLogo {			
+        padding: 0 15px 0 0;
+
+        a {
+            background-repeat: no-repeat;
+            background-color: transparent;
+            display: inline-block;
+            padding: 0;
+            margin: 0;
+            float: left;
+            text-indent: -1234em;
+        }
+    }	
+}
+
+.foswikiControls,
+.foswikiControlsSecondary,
+.foswikiNavigation,
+.foswikiNavigationSecondary {
+    
+    > li {
+        float: left;
+        vertical-align: middle;
+        padding: 0 @fw_button_spacing 0 0;
+
+        > a,
+        > .foswikiRequiresChangePermission > a {
+            display: inline-block;
+            text-decoration: none;
+            padding: @fw_button_padding_top @fw_button_padding_side @fw_button_padding_bottom @fw_button_padding_side;
+            
+            .foswikiCaret {
+                margin-top: -3px;
+            }
+        }
+        &:hover {
+            ul {
+                display: block;
+                z-index: 2;
+            }
+        }
+
+        > a,
+        > .foswikiRequiresChangePermission > a {
+            
+            &.nolabel {
+                padding-left: 1px;
+                padding-right: 6px;
+            }
+            img {
+                vertical-align: text-top;
+            }
+        }
+    }
+    
+    .foswikiLarge {
+        padding: .45em 0;
+        margin: 0;
+    }
+    
+    &.foswikiButtonGroup {
+        > li {
+            margin: 0;
+            padding: 0;
+        }
+    }
+}
+
+.foswikiControls,
+.foswikiNavigation {
+    float: left;
+    
+    > li {
+        > ul {
+            left: 0;
+        }
+    }
+    
+    &.foswikiButtonGroup {
+        margin: 0 @fw_button_spacing 0 0;
+    }
+}
+
+.foswikiControlsSecondary,
+.foswikiNavigationSecondary {
+    float: right;
+    
+    > li {
+        padding: 0 0 0 @fw_button_spacing;
+        
+        > ul {
+            right: 0;
+        }
+    }
+    
+    &.foswikiButtonGroup {
+        margin: 0 0 0 @fw_button_spacing;
+    }
+}
+
+.foswikiNavigation,
+.foswikiNavigationSecondary {
+     > li {
+        > a,
+        > .foswikiRequiresChangePermission > a {
+            .fw_border-radius(0);
+            font-weight: bold;
+        }
+    }
+}
+
+.foswikiMenuDivider {
+	.fw_nav-divider();
+}
+
+.foswikiCaret {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	border-left:  4px solid transparent;
+	border-right: 4px solid transparent;
+	border-top:   4px solid @black; // final color is set in colors.less
+//	.fw_opacity(100);
+	content: "";
+}
+
+// Place the caret
+.foswikiCaret {
+	margin-top: 9px;
+	margin-left: 4px;
+}
+li:hover .foswikiCaret,
+.foswikiDropdownToggle.open .foswikiCaret {
+//	.fw_opacity(100);
+}
+

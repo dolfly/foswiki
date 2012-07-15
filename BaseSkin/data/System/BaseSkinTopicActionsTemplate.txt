@@ -1,0 +1,86 @@
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+	
+===================================================
+}%%TMPL:DEF{"controls:topicactions"}%<ul class='foswikiControlsSecondary'>
+    <li class='foswikiDropdownToggle'>
+        <a href='#'>%ICON{"cog"}%<b class='foswikiCaret'></b></a>
+        <ul class='foswikiDropdownMenu foswikiPullRight'>
+            <li><p>%MAKETEXT{"Export"}%</p></li>
+            <li><a href='#'>%MAKETEXT{"Print"}%</a></li>
+            <li><a href='#'>%MAKETEXT{"PDF"}%</a></li>
+            <li class='foswikiMenuDivider'></li>
+            <li><p>%MAKETEXT{"Display"}%</p></li>
+            <li><a href='#' class='foswikiDisplayTight'>%MAKETEXT{"Tight"}%<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+            <li><a href='#' class='foswikiDisplayCosy'>%MAKETEXT{"Cosy"}%<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+            <li><a href='#' class='foswikiDisplayRoomy'>%MAKETEXT{"Roomy"}%<img src='%PUBURLPATH%/%SYSTEMWEB%/BaseSkin/controls-icon-check.png' /></a></li>
+        </ul>
+    </li>
+</ul>
+<ul class='foswikiControlsSecondary'>
+    <li class='foswikiDropdownToggle'>
+        %TMPL:P{"edit_or_create_dropdown"}%
+        <ul class='foswikiDropdownMenu foswikiPullRight'>
+            <li>%TMPL:P{"edit_or_create"}%</li>
+			<li>%TMPL:P{"raw_edit_link"}%</li>
+			<li><a href='#'>Attach files or images</a></li>
+			<li class='foswikiMenuDivider'></li>
+			<li><p>Data &amp; settings</p></li>
+			<li>%TMPL:P{"edit_formdata_link"}%</li>
+			<li><a href='#'>Edit topic settings</a></li>
+			<li><a href='#'>Set parent topic</a></li>
+			<li class='foswikiMenuDivider'></li>
+			<li><p>Manage</p></li>
+			<li><a href='#'>Restore topic</a></li>
+			<li><a href='#'>Rename topic</a></li>
+			<li><a href='#'>Move to different Web</a></li>
+			<li><a href='#'>Move to trash</a></li>
+        </ul>
+    </li>
+</ul>
+<ul class='foswikiControlsSecondary'>
+    <li class='foswikiDropdownToggle'>
+        <a href='#'>%MAKETEXT{"Topic info"}%<b class='foswikiCaret'></b></a>
+        <ul class='foswikiDropdownMenu foswikiPullRight'>
+            <li><p>Topic</p></li>
+            <li><a href='#'>View wiki text</a></li>
+            <li><a href='#'>Revision history</a></li>
+            <li class='foswikiMenuDivider'></li>
+            <li><p>Connections</p></li>
+            <li><a href='#'>Topics that link to here</a></li>
+            <li><a href='#'>Child topics</a></li>
+        </ul>
+    </li>
+</ul>
+<ul class='foswikiControls'>
+    <li class='foswikiDropdownToggle'>
+        <a href='%SCRIPTURL{view}%/%BASEWEB%/%HOMETOPIC%'>%MAKETEXT{"[_1] Web" args="%BASEWEB%"}%<b class='foswikiCaret'></b></a>
+        <ul class='foswikiDropdownMenu'>
+            <li>[[WebHome][%MAKETEXT{"Home"}%]]</li>
+            <li>[[WebTopicList][%MAKETEXT{"Index"}%]]</li>
+            <li>[[%BASEWEB%.WebSearch][%MAKETEXT{"Search"}%]]</li>
+            <li>[[WebChanges][%MAKETEXT{"Changes"}%]]</li>
+			<li class='foswikiMenuDivider'></li>
+            <li>[[WebNotify][%MAKETEXT{"Notifications"}%]]</li>
+            <li>[[WebRss][%MAKETEXT{"RSS Feed"}%]]</li>
+			<li class='foswikiMenuDivider'></li>
+            <li>%IF{
+"istopic '%STATISTICSTOPIC%'"
+then="[[$percntSTATISTICSTOPIC$percnt][$percntMAKETEXT{\"Statistics\"}$percnt]]"
+else="$percntMAKETEXT{\"Statistics\"}$percnt" 
+                }%</li>
+            <li>[[WebPreferences][%MAKETEXT{"Preferences"}%]]</li>
+        </ul>
+    </li>
+</ul>
+%TMPL:END%
+
+%TMPL:DEF{"edit_or_create_dropdown"}%%TMPL:P{context="new_topic" then="create_topic_dropdown" else="edit_topic_dropdown"}%%TMPL:END%
+
+%TMPL:DEF{"create_topic_dropdown"}%<span class="foswikiRequiresChangePermission"><a href='%SCRIPTURL{"edit"}%/%BASEWEB%/%BASETOPIC%?t=%GMTIME{"$epoch"}%%TMPL:P{"url_param_editaction"}%%IF{"context TinyMCEPluginEnabled" else=";nowysiwyg=1"}%' rel='nofollow' %MAKETEXT{"title='Create new topic' accesskey='c'>&Create"}%<b class='foswikiCaret'></b></a></span>%TMPL:END%
+
+
+%TMPL:DEF{"edit_topic_dropdown"}%<span class="foswikiRequiresChangePermission"><a href='%SCRIPTURL{"edit"}%/%BASEWEB%/%BASETOPIC%?t=%GMTIME{"$epoch"}%%TMPL:P{"url_param_editaction"}%%IF{"context TinyMCEPluginEnabled" then="" else=";nowysiwyg=1"}%' rel='nofollow' %MAKETEXT{"title='Edit this topic text' accesskey='e'>&Edit"}%<b class='foswikiCaret'></b></a></span>%TMPL:END%%{
+===================================================
+</verbatim>}%

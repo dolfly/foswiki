@@ -73,10 +73,10 @@ h6 {
 .foswikiManagePage h1 {
 	.fw_heading_3();
 }
-.foswikiLarge,
 .foswikiManagePage h2 {
 	.fw_heading_4();
 }
+.foswikiLarge,
 .foswikiManagePage h3 {
 	.fw_heading_5();
 }
@@ -105,9 +105,12 @@ p,
 pre,
 blockquote,
 iframe,
+/*
+input[type='submit'],
 input[type='text'],
 input[type='password'],
 input[type='file'],
+*/
 label,
 address,
 td,
@@ -122,12 +125,14 @@ hr,
 .foswikiTable,
 .foswikiBroadcastMessage,
 .foswikiImage,
+.foswikiFormStep,
 .foswikiHelp,
 .foswikiHint,
 .foswikiMessage,
 .foswikiNotification,
 .foswikiAttachments,
 .foswikiForm,
+form,
 .foswikiFormDescription {
 	.fw_type_p();
 }
@@ -143,11 +148,14 @@ ol,
 dl,
 hr,
 .foswikiTable,
+.foswikiBreadcrumb,
 .foswikiBroadcastMessage,
 .foswikiImage,
 .foswikiHelp,
 .foswikiNotification,
+.foswikiAttachments,
 .foswikiForm,
+form,
 .foswikiFormSteps,
 .foswikiFormDescription {
 	.fw_block_p();
@@ -161,7 +169,8 @@ li {
 abbr, code, kbd, samp, small, var {}
 
 /* smaller text */
-.foswikiSmallish {
+.foswikiSmallish,
+.foswikiTopicInfo {
 	.fw_em_line_height(@fw_size_smallish);
 	.fw_em_font_size(@fw_size_smallish);
 }
@@ -171,6 +180,8 @@ small,
 	.fw_em_font_size(@fw_size_small);
 }
 
+/*
+input[type='submit'],
 input[type='text'],
 input[type='password'],
 input[type='file'],
@@ -178,6 +189,7 @@ label {
 	margin-bottom: @fw_tool_padding_em;
 }
 
+input[type='submit'],
 input[type='text'],
 input[type='password'],
 input[type='file'],
@@ -188,7 +200,17 @@ label,
 	margin-bottom: @fw_tool_padding_em;
 	padding: 4px;
 }
+*/
+
+select,
+.foswikiSelect {
+    padding: @fw_button_padding;
+    height: 0px + 1.5 * @fw_body_line_height;
+    line-height: 0px + 1.5 * @fw_body_line_height;
+}
+
 .foswikiToolbar {
+	input[type='submit'],
 	input[type='text'],
 	input[type='password'],
 	input[type='file'],
@@ -203,7 +225,6 @@ label,
 label {
 	padding-left: 0;
 	padding-right: 0;
-	line-heigth: 1
 }
 
 /* code texts */
@@ -216,23 +237,33 @@ blockquote {
 	kbd,
 	samp,
 	.foswikiDiffDebug {
-		font-family: @fw_font_family_code;
-		font-style: normal;
-		.fw_em_font_size(@fw_size_code);
-		.fw_em_line_height(@fw_size_code);
-		border-style: solid;
-		border-width: 1px;
-		.border-radius(0);
+		&,
+		b,
+		strong,
+		i,
+		em {
+			font-family: @fw_font_family_code;
+			font-style: normal;
+			.fw_em_font_size(@fw_size_code);
+		}
 	}
 }
 
+body,
+blockquote {
+	pre,
+	.foswikiDiffDebug {
+		.fw_em_line_height(@fw_size_code);
+	}
+}
 
-/* prevent double margins with nested list elements */
 dd,
 ul,
 ol {
+	margin-top: 0;
 	margin-left: 0px + @fw_body_line_height;
 }
+/* prevent double margins with nested list elements */
 ul ul, ul ol, ol ol, ol ul {
 	margin-top: 0;
 	margin-bottom: 0;
@@ -253,30 +284,28 @@ a:hover .foswikiAccessKey {
 }
 .foswikiMessage {
 	padding: 3px 3px;
-	.border-radius(0);
-}
-
-.foswikiBreadcrumb {
-	.foswikiTopicInfo {
-		.fw_em_line_height(@fw_size_smallish);
-		.fw_em_font_size(@fw_size_smallish);
-	}
+	.fw_border-radius(0);
 }
 
 /* Form input elements */
-
+/*
+input[type='submit'],
 input[type='text'],
 input[type='password'],
 input[type='file'] {
-	@tmp_baseline: 13px;
-	height: @tmp_baseline * 1.5; // In IE7, the height of the select element cannot be changed by height, only font-size
-	line-height: @tmp_baseline * 1.5;
-	.border-radius(@fw_corner_radius_button);
+	padding: @fw_button_padding_top 8px @fw_button_padding_bottom;	
+//	line-height: @fw_basefont * 1.5;
+	.fw_border-radius(@fw_corner_radius_button);
 }
+input[type='submit'] {
+	padding: @fw_button_padding_top - 3 8px @fw_button_padding_bottom - 3;	
+}
+*/
+
 input[type='image'] {
 	width: auto;
 	border: none;
-	.border-radius(0);
+	.fw_border-radius(0);
 	padding: 0;
 	@select_baseline: 18px;
 	line-height: @select_baseline * 1.5;
@@ -288,3 +317,19 @@ input[type='radio'].foswikiRadioButton {
 	padding: 0 0 0 .5em;
 	border: 0;
 }
+
+/* rounded elements */
+
+input[type='text'],
+input[type='password'] {
+    border-width: 1px;
+    line-height: 0px + @fw_body_line_height;
+	.fw_border-radius(0);
+	padding: 1px @fw_button_padding_side;
+}
+
+.foswikiToolbar {
+    padding: @fw_tool_padding_em;
+}
+
+

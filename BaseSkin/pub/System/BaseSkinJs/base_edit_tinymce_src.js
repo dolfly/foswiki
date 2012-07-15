@@ -5,10 +5,13 @@ if (!foswiki) {
 if (!foswiki.base) {
 	foswiki.base = {};
 }
+if (!foswiki.base.edit) {
+	foswiki.base.edit = {};
+}
 var FoswikiTiny,
 	tinymce;
 
-foswiki.base.edit = (function ($) {
+foswiki.base.edit.tinymce = (function ($) {
 
 	"use strict";
 
@@ -60,9 +63,6 @@ foswiki.base.edit = (function ($) {
 
 			// move toolbar to our container
 			$toolbar.appendTo($container);
-
-
-//			jQuery('body').addClass(CSS_CLASS_HAS_WYSIWYG);
 
 			// remove original toolbar table cells
 			jQuery('#topic_tbl .mceToolbar').remove();

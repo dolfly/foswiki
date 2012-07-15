@@ -1,16 +1,38 @@
-/* Variables.less
- * Variables to customize the look and feel of Bootstrap
- * ----------------------------------------------------- */
+// TEMP
+
+@white: #fff;
+@btnBackground:                     @white;
+@btnBackgroundHighlight:            darken(@white, 10%);
+@btnBorder:                         darken(@white, 20%);
+
+// Tables
+// -------------------------
+@tableBackground:                   transparent; // overall background-color
+@tableBackgroundAccent:             #f9f9f9; // for striping
+@tableBackgroundHover:              #f5f5f5; // for hover
+@tableBorder:                       #ddd; // table and cell border
+
+// Z-index master list
+// -------------------------
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+@zindexDropdown:          1000;
+@zindexPopover:           1010;
+@zindexTooltip:           1020;
+@zindexFixedNavbar:       1030;
+@zindexModalBackdrop:     1040;
+@zindexModal:             1050;
+
 
 // Variables and mixins for Foswiki
 
 @fw_font_family_main: "Helvetica Neue", Helvetica, Arial, sans-serif;
 @fw_font_family_serif: Georgia, "Times New Roman", Times, serif;
-@fw_font_family_code: Monaco, "Andale Mono", "Courier New", monospace; 
+@fw_font_family_code: "Andale Mono", "Courier New", monospace; 
 
 @fw_basefont: 13;
 @fw_strand1_init: @fw_basefont;
-@fw_strand2_init: 16;
+@fw_strand2_init: 1.3333333333333333 * @fw_basefont;
 
 @fw_ratio_golden: 1.618;			// 1.618:1
 @fw_ratio_musical_fifth: 1.5;		// 3:2
@@ -26,15 +48,38 @@
 @fw_display_cosy: cosy;
 @fw_display_tight: tight;
 
-@fw_topbar_height: 50;
-@fw_corner_radius_button: 2px;
-@fw_corner_radius_block: 3px;
-@fw_button_padding_top: 4px;
-@fw_button_padding_bottom: 5px;
-@fw_button_padding: @fw_button_padding_top 8px @fw_button_padding_bottom;
+@fw_corner_radius_button: 3px;
+@fw_corner_radius_button_large: 5px;
+@fw_corner_radius_block: 0;
+
+@fw_button_padding_top: 3px;
+@fw_button_padding_bottom: 3px;
+@fw_button_padding_side: 7px;
+@fw_button_padding: @fw_button_padding_top @fw_button_padding_side @fw_button_padding_bottom;
 @fw_universal_side_padding: 10px;
-@fw_topbar_button_padding: 10px @fw_universal_side_padding 10.5px;
+@fw_topbar_height: 48px;
+@fw_topbar_button_height: 32px;
+@fw_topbar_button_padding: (@fw_topbar_height/2 - @fw_body_line_height/2) @fw_universal_side_padding (@fw_topbar_height/2 - @fw_body_line_height/2);
 @fw_button_spacing: 6px;
+@fw_dropdown_extra_spacing: 0px + ((@fw_body_line_height / 4) - 1);
+
+// GRID
+// --------------------------------------------------
+
+// Default 940px grid
+// -------------------------
+@fw_gridColumns:             12;
+@fw_gridColumnWidth:         60px;
+@fw_gridGutterWidth:         20px;
+@fw_gridRowWidth:            (@fw_gridColumns * @fw_gridColumnWidth) + (@fw_gridGutterWidth * (@fw_gridColumns - 1));
+
+
+// Fluid grid
+// -------------------------
+@fw_fluidGridColumnWidth:    6.382978723%;
+@fw_fluidGridGutterWidth:    2.127659574%;
+
+
 
 
 // Modular Scale units
@@ -94,7 +139,7 @@
 
 // font sizes
 @fw_size_smallish: 0.9 * @fw_strand1_ratio_1;
-@fw_size_code:     0.86 * @fw_strand1_ratio_1;
+@fw_size_code:     0.9 * @fw_strand1_ratio_1;
 @fw_size_small:    0.86 * @fw_strand1_ratio_1;
 @fw_size_p:        @fw_strand1_ratio_1;
 @fw_size_h6:       @fw_strand1_ratio_1;
@@ -107,123 +152,7 @@
 // block paddings
 @fw_section_padding_em: 0em + @fw_strand1_ratio_up_3 / @fw_basefont;
 @fw_component_padding_em: 0em + @fw_strand1_ratio_up_1 / @fw_basefont;
-@fw_component_padding_h_em: 0em + @fw_strand1_ratio_up_2 / @fw_basefont;
 @fw_component_padding_v_em: 0em + @fw_strand1_ratio_up_1 / @fw_basefont;
-@fw_tool_padding_em: 0em + @fw_strand1_ratio_down_1 / @fw_basefont;
-
-.fw_em_font_size(@size) {
-	font-size: 0em + (@size / @fw_basefont);
-}
-.fw_em_line_height(@size) {
-	line-height: 0em + (@fw_body_line_height / @size);
-}
-.fw_em_margin_top(@size) {
-	margin-top: 0em + (@fw_body_line_height / @size);
-}
-.fw_em_margin_bottom(@size) {
-	margin-bottom: 0em + (@fw_body_line_height / @size);
-}
-
-.fw_heading_1() {
-	line-height: 1;
-	.fw_em_font_size(@fw_size_h1);
-	.fw_em_margin_top(@fw_size_h1);
-	.fw_em_margin_bottom(@fw_size_h1);
-}
-.fw_heading_2() {
-	line-height: 1;
-	.fw_em_font_size(@fw_size_h2);
-	.fw_em_margin_top(@fw_size_h2);
-	.fw_em_margin_bottom(@fw_size_h2);
-}
-.fw_heading_3() {
-	line-height: 1;
-	.fw_em_font_size(@fw_size_h3);
-	.fw_em_margin_top(@fw_size_h3);
-	.fw_em_margin_bottom(@fw_size_h3);
-}
-.fw_heading_4() {
-	line-height: 1;
-	.fw_em_font_size(@fw_size_h4);
-	.fw_em_margin_top(@fw_size_h4);
-	.fw_em_margin_bottom(@fw_size_h4);
-}
-.fw_heading_5() {
-	line-height: 1;
-	.fw_em_font_size(@fw_size_h5);
-	.fw_em_margin_top(@fw_size_h5);
-	.fw_em_margin_bottom(@fw_size_h5);
-}
-.fw_heading_6() {
-	line-height: 1;
-	.fw_em_font_size(@fw_size_h6);
-	.fw_em_margin_top(@fw_size_h6);
-	.fw_em_margin_bottom(@fw_size_h6);
-}
-.fw_type_p() {
-	.fw_em_line_height(@fw_size_p);
-	.fw_em_font_size(@fw_size_p);
-}
-.fw_block_p() {
-	.fw_em_margin_top(@fw_size_p);
-	.fw_em_margin_bottom(@fw_size_p);
-}
-
-.fw_section_padding (@display) when (@display = roomy) {
-	@padding: 0em + @fw_strand1_ratio_up_3 / @fw_basefont;
-	padding-top: @padding;
-	padding-bottom: @padding;
-	padding-right: 0;
-	padding-left: 0;
-}
-.fw_section_padding (@display) when (@display = cosy) {
-	@padding: 0em + @fw_strand2_ratio_up_2 / @fw_basefont;
-	padding-top: @padding;
-	padding-bottom: @padding;
-	padding-right: 0;
-	padding-left: 0;
-}
-.fw_section_padding (@display) when (@display = tight) {
-	@padding: 0em + @fw_strand1_ratio_up_2 / @fw_basefont;
-	padding-top: @padding;
-	padding-bottom: @padding;
-	padding-right: 0;
-	padding-left: 0;
-}
+@fw_tool_padding_em: 0em + @fw_strand1_ratio_down_2 / @fw_basefont;
 
 
-.fw_component_padding () {
-	padding-top: @fw_component_padding_em;
-	padding-bottom: @fw_component_padding_em;
-	padding-left: @fw_component_padding_em;
-	padding-right: @fw_component_padding_em;
-}
-.fw_component_padding_h () {
-	padding-top: @fw_component_padding_v_em;
-	padding-bottom: @fw_component_padding_v_em;
-	padding-left: @fw_component_padding_h_em;
-	padding-right: @fw_component_padding_h_em;
-}
-.fw_tool_padding_all () {
-	padding-top: @fw_tool_padding_em;
-	padding-bottom: @fw_tool_padding_em;
-	padding-left: @fw_tool_padding_em;
-	padding-right: @fw_tool_padding_em;
-}
-
-
-.fw_tool_padding_vertical_only (@display) when (@display = roomy) {
-	@padding: 0em + @fw_strand1_ratio_1 / @fw_basefont;
-	padding-top: @padding;
-	padding-bottom: @padding;
-}
-.fw_tool_padding_vertical_only (@display) when (@display = cosy) {
-	@padding: 0em + @fw_strand1_ratio_down_1 / @fw_basefont;
-	padding-top: @padding;
-	padding-bottom: @padding;
-}
-.fw_tool_padding_vertical_only (@display) when (@display = tight) {
-	@padding: 0em + @fw_strand1_ratio_down_2 / @fw_basefont;
-	padding-top: @padding;
-	padding-bottom: @padding;
-}

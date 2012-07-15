@@ -84,9 +84,10 @@ b,
 strong,
 .foswikiSummary em,
 .foswikiTocTitle,
-.foswikiSearchResultTitle {
+.foswikiSearchResultTitle,
+.foswikiLabel {
 	font-family: 'opensans-bold';
-	font-weight: bold;
+	font-weight: normal;
 }
 
 /* italic */
@@ -94,6 +95,7 @@ em,
 i {
 	font-family: 'opensans-italic';
 	font-weight: normal;
+	font-style: normal;
 }
 
 /* bolditalic */
@@ -102,5 +104,6 @@ b i,
 strong em,
 strong i {
 	font-family: 'opensans-bolditalic';
-	font-weight: bold;
+	font-weight: normal;
+	font-style: normal;
 }
