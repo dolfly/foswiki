@@ -21,9 +21,9 @@ sub new {
         puburl        => '%PUBURLPATH%/%SYSTEMWEB%/Html5EditContrib',
         documentation => "$Foswiki::cfg{SystemWebName}.Html5EditContrib",
         summary       => $Foswiki::Contrib::Html5EditContrib::SHORTDESCRIPTION,
-        dependencies  => ['JQUERYPLUGIN', 'UI'],
-        javascript    => [ "hallo.js" ]
-#        css    => [ "css/bootstrap.min.css", "css/bootstrap-responsive.min.css" ]
+        dependencies  => ['bootstrap', 'JQUERYPLUGIN', 'UI', 'UI::Button'],
+        javascript    => [ "hallo.js" ],
+        css    => [ "hallo.css" ]
         );
     
     return $this;
@@ -51,10 +51,15 @@ sub renderJS {
     $text =
       "<script type='text/javascript' src='$this->{puburl}/$text'></script>\n".
       "<script type='text/javascript'>jQuery(function(){jQuery('.foswikiTopicText').hallo({
+  toolbar: 'halloToolbarFixed',  
   plugins: {
-    'halloformat': {}
+    'halloformat': {},
+    'halloheadings': {},
+    'hallolists': {},
+    'halloreundo': {},
+    'hallolink': {}
   }
-}).bind('hallodeactivated', function(){alert('post to wysiwyg/natedit..');});
+}).bind('hallodeactivated', function(){return false;});
 })</script>\n";
     return $text;
 }
