@@ -64,22 +64,16 @@
 	@padding: 0em + @fw_strand2_ratio_up_2 / @fw_basefont;
 	padding-top: @padding;
 	padding-bottom: @padding;
-	padding-right: 0;
-	padding-left: 0;
 }
 .fw_section_padding (@display) when (@display = cosy) {
 	@padding: 0em + @fw_strand1_ratio_up_2 / @fw_basefont;
 	padding-top: @padding;
 	padding-bottom: @padding;
-	padding-right: 0;
-	padding-left: 0;
 }
 .fw_section_padding (@display) when (@display = tight) {
 	@padding: 0em + @fw_strand1_ratio_up_1 / @fw_basefont;
 	padding-top: @padding;
 	padding-bottom: @padding;
-	padding-right: 0;
-	padding-left: 0;
 }
 
 
@@ -103,12 +97,23 @@
 	padding-bottom: @padding;
 }
 .fw_tool_padding_vertical_only (@display) when (@display = cosy) {
-	@padding: 0em + @fw_strand1_ratio_down_1 / @fw_basefont;
+	@padding: 0em + @fw_strand1_ratio_1 / @fw_basefont;
 	padding-top: @padding;
 	padding-bottom: @padding;
 }
 .fw_tool_padding_vertical_only (@display) when (@display = tight) {
 	@padding: 0em + @fw_strand1_ratio_down_2 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+
+.fw_topbar_padding_vertical_only {
+	@padding: 0em + @fw_strand2_ratio_down_3 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+.fw_topicactions_padding_vertical_only {
+	@padding: 0em + @fw_strand1_ratio_down_1 / @fw_basefont;
 	padding-top: @padding;
 	padding-bottom: @padding;
 }
@@ -328,7 +333,7 @@
 }
 
 // Drop shadows
-.fw_box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+.fw_box-shadow(@shadow: 0 1px 2px rgba(0,0,0,.25)) {
   -webkit-box-shadow: @shadow;
      -moz-box-shadow: @shadow;
           box-shadow: @shadow;

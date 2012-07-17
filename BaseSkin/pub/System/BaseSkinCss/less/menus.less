@@ -47,22 +47,31 @@
         padding: 0 @fw_button_spacing 0 0;
 
         > a,
-        > .foswikiRequiresChangePermission > a {
+        > .foswikiRequiresChangePermission > a {            
+            .fw_btn(); 
             display: inline-block;
             text-decoration: none;
             padding: @fw_button_padding_top @fw_button_padding_side @fw_button_padding_bottom @fw_button_padding_side;
+            .fw_border-radius(0);
+            border: none;
             
             .foswikiCaret {
                 margin-top: -3px;
             }
         }
+        
+        ul.foswikiDropdownMenu {
+           	padding: @fw_dropdown_extra_spacing 0;
+        }
+        
         &:hover {
+            // reveal menu
             ul {
                 display: block;
-                z-index: 2;
+                z-index: @zindexDropdown;
             }
         }
-
+        
         > a,
         > .foswikiRequiresChangePermission > a {
             
@@ -75,7 +84,7 @@
             }
         }
     }
-    
+
     .foswikiLarge {
         padding: .45em 0;
         margin: 0;
@@ -88,26 +97,6 @@
         }
     }
 }
-
-/*
-// hysteresis
-// should be only when has dropdown
-// and needs a js controller
-.foswikiControls,
-.foswikiControlsSecondary {
-    > li {
-        > a,
-        > .foswikiRequiresChangePermission > a {
-            .fw_transition(0s all);
-            .fw_transition_delay(1s);
-            &:hover {
-                .fw_transition(0s);
-                .fw_transition_delay(0s);
-            }
-        }
-    }
-}
-*/
 
 .foswikiControls,
 .foswikiNavigation {
@@ -146,8 +135,27 @@
      > li {
         > a,
         > .foswikiRequiresChangePermission > a {
-            .fw_border-radius(0);
             font-weight: bold;
+        }
+    }
+}
+
+.foswikiNavigation {
+    > li {
+        > a,
+        > .foswikiRequiresChangePermission > a {
+            padding: @fw_button_padding_top 0 @fw_button_padding_bottom 0;
+            margin: 0 @fw_button_padding_side 0 0;
+        }
+    }
+}
+
+.foswikiNavigationSecondary {
+     > li {
+        > a,
+        > .foswikiRequiresChangePermission > a {
+            padding: @fw_button_padding_top 0 @fw_button_padding_bottom 0;
+            margin: 0 0 0 @fw_button_padding_side;
         }
     }
 }
@@ -175,9 +183,8 @@
 
 
 /*
- * DROPDOWNS
+ * DROPDOWN MENUS
  * -------------------------------------------------------------------------- */
-
 
 // The dropdown menu (ul)
 // ----------------------
@@ -189,7 +196,6 @@
 	float: left;
 	display: none; // none by default, but block on menu button hover
 	min-width: 180px;
-	padding: @fw_dropdown_extra_spacing 0;
 	margin: 0; // override default ul
 	list-style: none;
 
@@ -241,14 +247,12 @@
 	
 }
 
-// Hover state
+// Hover state within menu
 // -----------
 .foswikiDropdownMenu li > a:hover,
 .foswikiDropdownMenu .active > a,
 .foswikiDropdownMenu .active > a:hover {
-//	color: @dropdownLinkColorHover;
 	text-decoration: none;
-//	background-color: @dropdownLinkBackgroundHover;
 }
 
 // Right aligned dropdowns

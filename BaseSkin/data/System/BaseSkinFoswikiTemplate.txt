@@ -136,7 +136,7 @@
 		- content
 		- bottom bar
 ---------------------------------------------------
-}%%TMPL:DEF{"page"}%<div class='foswikiPage'>%TMPL:P{"topbar"}%%TMPL:P{"main"}%%TMPL:P{"bottombar"}%</div>%TMPL:END%%{
+}%%TMPL:DEF{"page"}%<div class='foswikiPage'><header>%TMPL:P{"topbar"}%%TMPL:P{"controls"}%</header>%TMPL:P{"main"}%%TMPL:P{"bottombar"}%</div>%TMPL:END%%{
 ---------------------------------------------------
 	"main"
 		- controls
@@ -144,7 +144,6 @@
 		- meta
 ---------------------------------------------------
 }%%TMPL:DEF{"main"}%<div class='foswikiMain'>
-%TMPL:P{"controls"}%
 <div class='foswikiTopic'>
 %TMPL:P{"topic"}%</div>
 %TMPL:P{"meta"}%</div>%TMPL:END%%{
