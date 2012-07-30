@@ -61,10 +61,9 @@ sub renderJS {
 }).bind('hallodeactivated', function(event, data){
    var item = jQuery(this).data('hallo');
     if (item.isModified()) {
-        jQuery.post('%SCRIPTURL{save}%/%BASEWEB%/%BASETOPIC%', { text: this.innerHTML, wysiwyg_edit: 'go' },
-           function(data) {
-             alert('Data saved: ' + data);
-           }).error(function(event, data) { 
+        foswiki.post('save', { text: this.innerHTML, wysiwyg_edit: 'go', web: foswiki.getPreference('WEB'), topic: foswiki.getPreference('TOPIC') })
+           .success(function(event, data) {alert('Data saved: ' + data);}) 
+           .error(function(event, data) { 
         //TODO: this darstadly hack is because i've not made a POST form and used that to submit the save, so strikeone has a hissyfit
         //OH BOY YOU CANT BE SERIOUS         - and it relies on the strikeone.js being loaded due to the bootstrap search being POST..
                var entirehtml = jQuery(event.responseText).filter('.foswikiMain');
