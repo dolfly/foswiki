@@ -61,22 +61,7 @@ sub renderJS {
 }).bind('hallodeactivated', function(event, data){
    var item = jQuery(this).data('hallo');
     if (item.isModified()) {
-        foswiki.post('save', { text: this.innerHTML, wysiwyg_edit: 'go', web: foswiki.getPreference('WEB'), topic: foswiki.getPreference('TOPIC') })
-           .success(function(event, data) {alert('Data saved: ' + data);}) 
-           .error(function(event, data) { 
-        //TODO: this darstadly hack is because i've not made a POST form and used that to submit the save, so strikeone has a hissyfit
-        //OH BOY YOU CANT BE SERIOUS         - and it relies on the strikeone.js being loaded due to the bootstrap search being POST..
-               var entirehtml = jQuery(event.responseText).filter('.foswikiMain');
-               var last = entirehtml[0];
-               var message = jQuery(last.innerHTML).filter('.container-fluid');
-               message.dialog({
-               			height: 410,
-               			width: 600,
-               			modal: true,
-               			title: 'confirm change'
-               }); 
-               jQuery('.s1js_available').show();
-        });
+        foswiki.post('save', { text: this.innerHTML, wysiwyg_edit: 'go', web: foswiki.getPreference('WEB'), topic: foswiki.getPreference('TOPIC') });
     }
 }).bind('halloactivated', function(event, data){
 });
