@@ -1,0 +1,17 @@
+data/System/JQGanttContrib.txt 0644
+lib/Foswiki/Contrib/JQGanttContrib/Config.spec 0644
+lib/Foswiki/Contrib/JQGanttContrib/Core.pm 0644
+lib/Foswiki/Contrib/JQGanttContrib.pm 0644
+pub/System/JQGanttContrib/img/buttons.png 0644
+pub/System/JQGanttContrib/img/buttons.svg 0644
+pub/System/JQGanttContrib/img/loader-bg.png 0644
+pub/System/JQGanttContrib/jquery.gantt.css 0644
+pub/System/JQGanttContrib/jquery.gantt.css.gz 0644
+pub/System/JQGanttContrib/jquery.gantt.init.js 0644
+pub/System/JQGanttContrib/jquery.gantt.init.js.gz 0644
+pub/System/JQGanttContrib/jquery.gantt.init.uncompressed.js 0644
+pub/System/JQGanttContrib/jquery.gantt.js 0644
+pub/System/JQGanttContrib/jquery.gantt.js.gz 0644
+pub/System/JQGanttContrib/jquery.gantt.uncompressed.css 0644
+pub/System/JQGanttContrib/jquery.gantt.uncompressed.js 0644
+pub/System/JQGanttContrib/Makefile 0644

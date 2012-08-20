@@ -1,0 +1,87 @@
+%META:TOPICINFO{author="micha" comment="save topic" date="1323775312" format="1.1" reprev="2" version="2"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Summary
+%STARTSECTION{"summary"}%
+This is a gantt chart useful to display simple resource views.
+%ENDSECTION{"summary"}%
+
+---++ Features
+
+   * Read json data
+   * Paging results
+   * Display different colours for each task
+   * Display short description as hints
+   * Mark holidays
+
+---++ Upstream
+
+   * http://mbielanczuk.com/?p=34
+   * https://github.com/mbielanczuk/jQuery.Gantt (orig)
+   * https://github.com/taitems/jQuery.Gantt
+
+---++ Demo
+
+%JQREQUIRE{"gantt" warn="off"}%
+
+<div class="jqGantt"></div>
+
+---++ Usage
+
+Available parameters:
+
+   * source: String containing url to witch data request is send
+   * itemsPerPage: Number of items on one page.
+   * months: Array containing month names (0 based index).
+   * dow: Array containing short day of week names (0 based index, first day of week is Sunday).
+   * navigate: Navigate mechanism type: ‘buttons’/'scroll’.
+   * scale: Initial scale (‘hours’, ‘days’, ‘weeks’, ‘months’).
+   * maxScale: Maximal scale.
+   * minScale: Minimal scale.
+   * holidays: Array with holidays
+
+Plugin uses data in JSON formated as below:
+
+<verbatim class="js">
+[{  "name"  : "Task#1"
+  , "desc"  : " Task Desc"
+  , "values": [
+      {  "from"       : "/Date(1296547200000)/"
+       , "to"         : "/Date(1296554400000)/"
+       , "desc"       : "<b>Task #1<br>"
+       , "customClass": "ganttRed" (optional)
+       , "label"      : "Task #1" (optional)
+      },
+      {  "from"       : "/Date(1296637200000)/"
+       , "to"         : "/Date(1296649800000)/"
+       , "desc": "<b>Task #</b>"
+       , "customClass": "ganttOrange" (optional)
+       , "label": "Task #1" (optional)
+      }
+  ]
+ },
+ ...
+]
+</verbatim>
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+|  Author(s): | Marek Bielańczuk (jquery.gantt); Michael Daum (foswiki package) |
+|  Copyright: | &copy; Copyright (c) 2011 Marek Bielańczuk |
+|  License: |  Released under the MIT and GPL Licenses |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
