@@ -939,7 +939,6 @@
                     default:
                         var cd = Date.parse(new Date());
                         cd = (Math.floor(cd / 36400000) * 36400000);
-console.log("cd=",cd);
                         $(element).find(':findday("' + cd + '")').removeClass('wd').addClass('today');
                         break;
                 }
