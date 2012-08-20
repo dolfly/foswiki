@@ -29,6 +29,7 @@
 
         $.extend($.expr[":"], {
             findday: function (a, i, m) {
+                if (typeof(m) === 'undefined') return false;
                 var cd = new Date(parseInt(m[3],10));
                 var id = $(a).attr("id");
                 id = id ? id : "";
@@ -42,6 +43,7 @@
 
         $.extend($.expr[":"], {
             findweek: function (a, i, m) {
+                if (typeof(m) === 'undefined') return false;
                 var cd = new Date(parseInt(m[3],10));
                 var id = $(a).attr("id");
                 id = id ? id : "";
@@ -54,6 +56,7 @@
 
         $.extend($.expr[":"], {
             findmonth: function (a, i, m) {
+                if (typeof(m) === 'undefined') return false;
                 var cd = new Date(parseInt(m[3],10));
                 cd = cd.getFullYear() + "-" + cd.getMonth();
                 var id = $(a).attr("id");
@@ -936,6 +939,7 @@
                     default:
                         var cd = Date.parse(new Date());
                         cd = (Math.floor(cd / 36400000) * 36400000);
+console.log("cd=",cd);
                         $(element).find(':findday("' + cd + '")').removeClass('wd').addClass('today');
                         break;
                 }

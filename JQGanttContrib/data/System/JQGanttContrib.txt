@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="save topic" date="1323775312" format="1.1" reprev="2" version="2"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1345447020" format="1.1" version="3"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -25,9 +25,8 @@ This is a gantt chart useful to display simple resource views.
 
 ---++ Demo
 
-%JQREQUIRE{"gantt" warn="off"}%
+See Sandbox.JQueryGanttTest
 
-<div class="jqGantt"></div>
 
 ---++ Usage
 
@@ -78,7 +77,7 @@ Plugin uses data in JSON formated as below:
 
 |  Author(s): | Marek Bielańczuk (jquery.gantt); Michael Daum (foswiki package) |
 |  Copyright: | &copy; Copyright (c) 2011 Marek Bielańczuk |
-|  License: |  Released under the MIT and GPL Licenses |
+|  License: | Released under the MIT and GPL Licenses |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
