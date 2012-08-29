@@ -1,0 +1,9 @@
+!noci
+data/System/TablesContrib.txt 0644 Documentation page
+lib/Foswiki/Contrib/TablesContrib.pm  Perl module 
+lib/Foswiki/Contrib/TablesContrib/Config.spec 0444 Configuration
+lib/Foswiki/Tables/Cell.pm 0644 model
+lib/Foswiki/Tables/Parser.pm 0644 parser
+lib/Foswiki/Tables/Reader.pm 0644 reader
+lib/Foswiki/Tables/Row.pm 0644 model
+lib/Foswiki/Tables/Table.pm 0644 model
