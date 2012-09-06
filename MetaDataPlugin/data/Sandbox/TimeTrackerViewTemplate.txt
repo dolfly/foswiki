@@ -25,10 +25,14 @@
 ||||| %MAKETEXT{"Total"}% |||  <b>&euro;&nbsp;$percntCALC{\"$FORMAT(NUMBER, 2, $EVAL($T(R$ROW(-1):C$COLUMN())+$T(R$ROW(-1):C$COLUMN(-1))))\"}$percnt</b> |
   </div>"
   sort="Date"
+  edittitle="%MAKETEXT{"Edit this effort"}%"
 }%
 </noautolink>
 
-%NEWMETADATA{"effort" title="Add effort"}%
+%NEWMETADATA{"effort" 
+  buttontitle="%MAKETEXT{"Add effort"}%"
+  title="%MAKETEXT{"Add a new effort"}%"
+}%
 %INCLUDE{"%SYSTEMWEB%/JSCalendarContribInline"}%
 
 <style>

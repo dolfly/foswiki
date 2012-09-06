@@ -38,7 +38,7 @@ sub writeDebug {
 sub new {
   my ($class, $session) = @_;
 
-  writeDebug("called new()");
+  #writeDebug("called new()");
 
   my $this = bless({
     baseWeb => $session->{webName},
@@ -46,7 +46,7 @@ sub new {
     session => $session,
   }, $class);
 
-  writeDebug("done new()");
+  #writeDebug("done new()");
 
   return $this;
 }
@@ -58,13 +58,15 @@ sub init {
   return if $this->{_init};
   $this->{_init} = 1;
 
-  writeDebug("called init()");
-
+  #writeDebug("called init()");
 
   Foswiki::Func::readTemplate("metadataplugin");
 
   Foswiki::Plugins::JQueryPlugin::createPlugin("ui::dialog");
   Foswiki::Plugins::JQueryPlugin::createPlugin("ui::button");
+  Foswiki::Plugins::JQueryPlugin::createPlugin("ui::validate");
+  Foswiki::Plugins::JQueryPlugin::createPlugin("blockui");
+  Foswiki::Plugins::JQueryPlugin::createPlugin("form");
 
     #my ( $zone, $tag, $data, $requires ) = @_;
   Foswiki::Func::addToZone("script", "METADATAPLUGIN", <<'EOB', "JQUERYPLUGIN, JQUERYPLUGIN::UI::DIALOG, JQUERYPLUGIN::UI::BUTTON");
@@ -75,21 +77,21 @@ EOB
 <link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/MetaDataPlugin/metadata.css' media='all' />
 EOB
 
-  writeDebug("done init()");
+  #writeDebug("done init()");
 }
 
 ##############################################################################
 sub getQueryParser {
   my $this = shift;
 
-  writeDebug("called getQueryParser()");
+  #writeDebug("called getQueryParser()");
 
   unless (defined $this->{_queryParser}) {
     require Foswiki::Query::Parser;
     $this->{_queryParser} = new Foswiki::Query::Parser();
   }
 
-  writeDebug("done getQueryParser()");
+  #writeDebug("done getQueryParser()");
   return $this->{_queryParser};
 }
 
@@ -97,21 +99,21 @@ sub getQueryParser {
 sub registerDeleteHandler {
   my ($this, $metaData, $function, $options) = @_;
 
-  writeDebug("called registerDeleteHandler()");
+  #writeDebug("called registerDeleteHandler()");
 
   push @{$this->{deleteHandler}{$metaData}}, {
     function => $function,
     options => $options,
   };
 
-  writeDebug("done registerDeleteHandler()");
+  #writeDebug("done registerDeleteHandler()");
 }
 
 ##############################################################################
 sub NEWMETADATA {
   my ($this, $params) = @_;
 
-  writeDebug("called NEWMETADATA()");
+  #writeDebug("called NEWMETADATA()");
   $this->init();
 
   my $theMetaData = lc($params->{_DEFAULT} || $params->{meta} || '');
@@ -122,9 +124,33 @@ sub NEWMETADATA {
   return ($theWarn?inlineError("can't find meta data definition for $metaDataKey"):'') unless defined $metaDataDef;
 
   my $theTitle = $params->{title};
+  my $theButtonTitle = $params->{buttontitle};
   my $theFormat = $params->{format};
   my $theTemplate = $params->{template} || 'metadata::new';
   my $theTopic = $params->{topic} || $this->{baseWeb}.'.'.$this->{baseTopic};
+  my $theMap = $params->{map} || '';
+
+  foreach my $map (split(/\s*,\s*/, $theMap)) {
+    $map =~ s/\s*$//;
+    $map =~ s/^\s*//;
+    if ($map =~ /^(.*)=(.*)$/) {
+      $params->{$1.'_title'} = $2;
+    }
+  }
+
+  # rebuild the mapping string
+  my @mapping = ();
+  foreach my $key (keys %$params) {
+    if ($key =~ /_title$/) {
+      my $val = $params->{$key};
+      $key =~ s/_title$//;
+      push @mapping, $key.'='.$val;
+    }
+  }
+  $theMap = join(",", @mapping);
+
+  $theTitle = '%MAKETEXT{"New [_1]" args="'.ucfirst($theMetaData).'"}%' unless defined $theTitle;
+  $theButtonTitle = $theTitle unless defined $theButtonTitle;
 
   my ($web, $topic) = Foswiki::Func::normalizeWebTopicName($this->{baseWeb}, $theTopic);
   $theTopic = "$web.$topic";
@@ -135,14 +161,15 @@ sub NEWMETADATA {
     if !Foswiki::Func::checkAccessPermission("VIEW", $wikiName, undef, $topic, $web) ||
        !Foswiki::Func::checkAccessPermission("CHANGE", $wikiName, undef, $topic, $web);
 
-  $theTitle = "New ".ucfirst($theMetaData) unless defined $theTitle;
 
   $theFormat = Foswiki::Func::expandTemplate($theTemplate) unless defined $theFormat;
   $theFormat =~ s/%topic%/$theTopic/g;
   $theFormat =~ s/%meta%/$theMetaData/g;
   $theFormat =~ s/%title%/$theTitle/g;
+  $theFormat =~ s/%buttontitle%/$theButtonTitle/g;
+  $theFormat =~ s/%map%/$theMap/g;
 
-  writeDebug("done NEWMETADATA()");
+  #writeDebug("done NEWMETADATA()");
   
   return $theFormat;
 }
@@ -151,7 +178,7 @@ sub NEWMETADATA {
 sub RENDERMETADATA {
   my ($this, $params) = @_;
 
-  writeDebug("called RENDERMETADATA()");
+  #writeDebug("called RENDERMETADATA()");
   $this->init();
 
   my $metaData  = $params->{_DEFAULT};
@@ -168,6 +195,18 @@ sub RENDERMETADATA {
 
   $params->{_gotViewAccess} = Foswiki::Func::checkAccessPermission("VIEW", $wikiName, undef, $topic, $web, $topicObj);
   $params->{_gotWriteAccess} = Foswiki::Func::checkAccessPermission("CHANGE", $wikiName, undef, $topic, $web, $topicObj);
+  (undef, $params->{_lockedBy}) = Foswiki::Func::checkTopicEditLock($web, $topic);
+
+  $params->{_lockedBy} = Foswiki::Func::getWikiName($params->{_lockedBy})
+    if $params->{_lockedBy};
+
+  my $currentWikiName = Foswiki::Func::getWikiName();
+  $params->{_isLocked} = ($params->{_lockedBy} ne '' && $params->{_lockedBy} ne $currentWikiName)?1:0;
+
+  #print STDERR "currentWikiName=$currentWikiName, lockedBy=$params->{_lockedBy}, isLocked=$params->{_isLocked}\n";
+
+  return ($warn?inlineError("%MAKETEXT{\"Warning: this topic is locked by user [_1].\" args=\"$params->{_lockedBy}\"}%"):'')
+    if $action eq 'edit' && $params->{_isLocked};
 
   return ($warn?inlineError("Error: access denied to view $web.$topic"):'') 
     if $action eq 'view' && ! $params->{_gotViewAccess};
@@ -176,6 +215,9 @@ sub RENDERMETADATA {
     if $action eq 'edit' && ! $params->{_gotWriteAccess};
 
   return ($warn?inlineError("Error: unknown action '$action'"):'') unless $action =~ /^(view|edit)$/;
+
+  Foswiki::Func::setTopicEditLock($web, $topic, 1)
+    if $action eq 'edit';
 
   my $result = '';
   if (defined $metaData) {
@@ -187,7 +229,7 @@ sub RENDERMETADATA {
     }
   }
 
-  writeDebug("called RENDERMETADATA()");
+  #writeDebug("called RENDERMETADATA()");
   return $result;
 }
 
@@ -195,7 +237,7 @@ sub RENDERMETADATA {
 sub renderMetaData {
   my ($this, $topicObj, $params, $metaData) = @_;
 
-  writeDebug("called renderMetaData()");
+  #writeDebug("called renderMetaData()");
 
   my $query = Foswiki::Func::getCgiQuery();
 
@@ -219,6 +261,26 @@ sub renderMetaData {
   my $theFieldFormat = $params->{fieldformat};
   my $theFilter = $params->{filter};
   my $theWarn = Foswiki::Func::isTrue($params->{warn}, 1);
+  my $theMap = $params->{map} || '';
+
+  foreach my $map (split(/\s*,\s*/, $theMap)) {
+    $map =~ s/\s*$//;
+    $map =~ s/^\s*//;
+    if ($map =~ /^(.*)=(.*)$/) {
+      $params->{$1.'_title'} = $2;
+    }
+  }
+
+  # rebuild the mapping string
+  my @mapping = ();
+  foreach my $key (keys %$params) {
+    if ($key =~ /_title$/) {
+      my $val = $params->{$key};
+      $key =~ s/_title$//;
+      push @mapping, $key.'='.$val;
+    }
+  }
+  $theMap = join(",", @mapping);
 
   my %includeMap = ();
   if (defined $theInclude) {
@@ -349,7 +411,7 @@ sub renderMetaData {
     if ($theAction eq 'view') {
       $theHeader = '<div class=\'metaDataView '.($params->{_gotWriteAccess}?'':'metaDataReadOnly').'\'>$n| *'.join('* | *', 
         map {
-          my $title = $_->{title}; defined($params->{$title.'_title'})?$params->{$title.'_title'}:$title
+          my $title = $_->{name}; defined($params->{$title.'_title'})?$params->{$title.'_title'}:$title
         } 
         grep {$_->{name} ne 'name'}
         @selectedFields).'* |$n';
@@ -378,7 +440,7 @@ sub renderMetaData {
       $theFieldFormat = '$value';
     } else {
       $theFieldFormat = '  <tr class="$metadata $name">$n'.
-        '    <th>$title:</th>$n'.
+        '    <th>$title:$mandatory</th>$n'.
         '    <td>$n$edit$n</td>'.
         '    <td><div class=\'foswikiFormDescription foswikiHidden\'>$description</div></td>$n'.
         '  </tr>';
@@ -498,7 +560,7 @@ sub renderMetaData {
       my $fieldValue = $record->{$fieldName};
 
       # try not to break foswiki tables
-      if ($theAction eq 'view') {
+      if ($theAction eq 'view' && defined($fieldValue)) {
         $fieldValue =~ s/\n/<br \/>/g;
       }
 
@@ -634,7 +696,7 @@ sub renderMetaData {
 
     my $fieldActions = '';
 
-    if (1 || $params->{_gotWriteAccess}) {
+    if ($params->{_gotWriteAccess}) {
       my $fieldEditAction = Foswiki::Func::expandTemplate("metadata::edit");
       my $fieldDeleteAction = Foswiki::Func::expandTemplate("metadata::delete");
       my $fieldDuplicateAction = Foswiki::Func::expandTemplate("metadata::duplicate");
@@ -643,10 +705,17 @@ sub renderMetaData {
       $fieldActions = '<span class="metaDataActions">'.$fieldEditAction.$fieldDuplicateAction.$fieldDeleteAction.'</div>';
 
       my $topic = $topicObj->getPath;
+      if (defined $params->{edittitle}) {
+        $title = $params->{edittitle};
+      } else {
+        $title = '%MAKETEXT{"Edit"}% '.$title;
+      }
+
       $fieldActions =~ s/\%title\%/$title/g;
       $fieldActions =~ s/\%name\%/$name/g;
       $fieldActions =~ s/\%meta\%/$metaData/g;
       $fieldActions =~ s/\%topic\%/$topic/g;
+      $fieldActions =~ s/\%map\%/$theMap/g;
     }
 
     $row =~ s/\$actions\b/$fieldActions/g;
@@ -668,8 +737,10 @@ sub renderMetaData {
   $result =~ s/\$n/\n/g;
   $result =~ s/\$perce?nt/%/g;
   $result =~ s/\$dollar/\$/g;
+  $result =~ s/\$lockedby/$params->{_lockedBy}/g;
+  $result =~ s/\$islocked/$params->{_isLocked}/g;
 
-  writeDebug("done renderMetaData()");
+  #writeDebug("done renderMetaData()");
   return $result;
 }
 
@@ -677,7 +748,7 @@ sub renderMetaData {
 sub getTopicObject {
   my ($this, $web, $topic) = @_;
 
-  writeDebug("called getTopicObject()");
+  #writeDebug("called getTopicObject()");
 
   $web ||= '';
   $topic ||= '';
@@ -691,7 +762,7 @@ sub getTopicObject {
     $this->{_topicObjs}{$key} = $topicObj;
   }
 
-  writeDebug("done getTopicObject()");
+  #writeDebug("done getTopicObject()");
   return $topicObj;
 }
 
@@ -699,7 +770,7 @@ sub getTopicObject {
 sub getKnownMetaData {
   my $this = shift;
 
-  writeDebug("called getKnownMetaData()");
+  #writeDebug("called getKnownMetaData()");
 
   unless (defined $this->{_knownMetaData}) {
     $this->{_knownMetaData} = [];
@@ -709,7 +780,7 @@ sub getKnownMetaData {
     }
   };
 
-  writeDebug("done getKnownMetaData()");
+  #writeDebug("done getKnownMetaData()");
   return @{$this->{_knownMetaData}};
 }
 
@@ -717,7 +788,7 @@ sub getKnownMetaData {
 sub beforeSaveHandler {
   my ($this, $text, $topic, $web, $meta) = @_;
 
-  writeDebug("called beforeSaveHandler($web.$topic)");
+  #writeDebug("called beforeSaveHandler($web.$topic)");
 
   my $request = Foswiki::Func::getCgiQuery();
   my %records = ();
@@ -764,7 +835,7 @@ sub beforeSaveHandler {
     }
     $value = '' unless defined $value;
 
-    writeDebug("$urlParam=$value");
+    #writeDebug("$urlParam=$value");
 
     # when duplicating a field, the name parameter will have a dummy 'id'
     # to flag that we need to create a new record based on the give one
@@ -790,14 +861,14 @@ sub beforeSaveHandler {
     }
   }
 
-  writeDebug("done beforeSaveHandler($web.$topic)");
+  #writeDebug("done beforeSaveHandler($web.$topic)");
 }
 
 ##############################################################################
 sub getMaxId {
   my ($this, $name, $meta) = @_;
 
-  writeDebug("called getMaxId()");
+  #writeDebug("called getMaxId()");
   my $maxId = 0;
 
   foreach my $record ($meta->find($name)) {
@@ -807,21 +878,81 @@ sub getMaxId {
   }
 
   #writeDebug("getMaxId($name) = $maxId");
-  writeDebug("done getMaxId()");
+  #writeDebug("done getMaxId()");
 
   return $maxId;
 }
 
+##############################################################################
+sub jsonRpcLockTopic {
+  my ($this, $request) = @_;
+
+  my $web = $this->{baseWeb};
+  my $topic = $request->param('topic') || $this->{baseTopic};
+  ($web, $topic) = Foswiki::Func::normalizeWebTopicName($web, $topic);
+
+  my (undef, $loginName, $unlockTime) = Foswiki::Func::checkTopicEditLock($web, $topic);
+
+  my $wikiName = Foswiki::Func::getWikiName($loginName);
+  my $currentWikiName = Foswiki::Func::getWikiName();
+
+  # TODO: localize
+  if ($loginName && $wikiName ne $currentWikiName) {
+    my $time = int($unlockTime);
+    if ($time > 0) {
+      throw Foswiki::Contrib::JsonRpcContrib::Error(423, 
+        "Topic is locked by $wikiName for another $time minute(s). Please try again later.");
+    }
+  }
+
+  Foswiki::Func::setTopicEditLock($web, $topic, 1);
+
+  return 'ok';
+}
+
+##############################################################################
+sub jsonRpcUnlockTopic {
+  my ($this, $request) = @_;
+
+  my $web = $request->{baseWeb};
+  my $topic = $request->param('topic') || $this->{baseTopic};
+  ($web, $topic) = Foswiki::Func::normalizeWebTopicName($web, $topic);
+
+  writeDebug("called jsonRpcUnlockTopic($web, $topic)");
+
+  my (undef, $loginName) = Foswiki::Func::checkTopicEditLock($web, $topic);
+
+  return 'ok' unless $loginName; # nothing to unlock
+
+  my $wikiName = Foswiki::Func::getWikiName($loginName);
+  my $currentWikiName = Foswiki::Func::getWikiName();
+
+  if ($wikiName ne $currentWikiName) {
+    throw Foswiki::Contrib::JsonRpcContrib::Error(500, "Can't clear lease of user $wikiName")
+      if $request->param("warn") ne 'off';
+  } else {
+    Foswiki::Func::setTopicEditLock($web, $topic, 0);
+  }
+
+  return 'ok';
+}
 
 ##############################################################################
 sub jsonRpcDelete {
   my ($this, $request) = @_;
 
-  writeDebug("called jsonRpcDelete()");
+  #writeDebug("called jsonRpcDelete()");
 
-  my $wikiName = Foswiki::Func::getWikiName();
   my $web = $this->{baseWeb};
   my $topic = $this->{baseTopic};
+
+  my $loginName;
+  (undef, $loginName) = Foswiki::Func::checkTopicEditLock($web, $topic);
+  my $wikiName = Foswiki::Func::getWikiName($loginName) if $loginName;
+
+  my $currentWikiName = Foswiki::Func::getWikiName();
+  throw Foswiki::Contrib::JsonRpcContrib::Error(405, "Topic is locked by $wikiName") 
+    if $loginName ne '' && $wikiName ne $currentWikiName;
 
   throw Foswiki::Contrib::JsonRpcContrib::Error(404, "Topic $web.$topic does not exist") 
     unless Foswiki::Func::topicExists($web, $topic);
@@ -829,7 +960,7 @@ sub jsonRpcDelete {
   my ($meta, $text) = Foswiki::Func::readTopic($web, $topic);
 
   throw Foswiki::Contrib::JsonRpcContrib::Error(401, "Access denied")
-    unless Foswiki::Func::checkAccessPermission("CHANGE", $wikiName, undef, $topic, $web, $meta);
+    unless Foswiki::Func::checkAccessPermission("CHANGE", $currentWikiName, undef, $topic, $web, $meta);
 
   my $name = $request->param('metadata::name') || '';
   my $metaData = $request->param('metadata') || '';
@@ -844,14 +975,14 @@ sub jsonRpcDelete {
   throw Foswiki::Contrib::JsonRpcContrib::Error(1001, "$metaData name=$name not found")
     unless $record;
 
-  writeDebug("$this, checking deleteHandler for $metaDataKey ... ".$this->{deleteHandler}{$metaDataKey});
+  #writeDebug("$this, checking deleteHandler for $metaDataKey ... ".$this->{deleteHandler}{$metaDataKey});
   if (defined $this->{deleteHandler}{$metaDataKey}) {
     foreach my $deleteHandler (@{$this->{deleteHandler}{$metaDataKey}}) {
       my $function = $deleteHandler->{function};
       my $result;
       my $error;
 
-      writeDebug("executing $function for $metaDataKey");
+      #writeDebug("executing $function for $metaDataKey");
       try {
         no strict 'refs';
         $result = &$function($web, $topic, $record, $deleteHandler->{options});
@@ -868,7 +999,7 @@ sub jsonRpcDelete {
   $meta->remove($metaDataKey, $name);
 
   Foswiki::Func::saveTopic($web, $topic, $meta, $text, {ignorepermissions=>1});
-  writeDebug("done jsonRpcDelete()");
+  #writeDebug("done jsonRpcDelete()");
 
   return 'ok';
 }

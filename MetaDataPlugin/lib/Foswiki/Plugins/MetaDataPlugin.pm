@@ -25,7 +25,7 @@ use Foswiki::Plugins::MetaDataPlugin::Core();
 use Error qw( :try );
 
 our $VERSION = '$Rev$';
-our $RELEASE = '2.01';
+our $RELEASE = '3.00';
 our $SHORTDESCRIPTION = 'Bring custom meta data to wiki apps';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;
@@ -78,6 +78,16 @@ sub initPlugin {
   Foswiki::Contrib::JsonRpcContrib::registerMethod("MetaDataPlugin", "delete", sub {
     my $session = shift;
     return $core->jsonRpcDelete(@_);
+  });
+
+  Foswiki::Contrib::JsonRpcContrib::registerMethod("MetaDataPlugin", "lock", sub {
+    my $session = shift;
+    return $core->jsonRpcLockTopic(@_);
+  });
+
+  Foswiki::Contrib::JsonRpcContrib::registerMethod("MetaDataPlugin", "unlock", sub {
+    my $session = shift;
+    return $core->jsonRpcUnlockTopic(@_);
   });
 
   return 1;
