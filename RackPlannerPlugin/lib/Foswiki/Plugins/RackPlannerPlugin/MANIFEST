@@ -1,7 +1,6 @@
 lib/Foswiki/Plugins/RackPlannerPlugin/RackPlanner.pm
 lib/Foswiki/Plugins/RackPlannerPlugin.pm
 data/System/RackPlannerPlugin.txt
-pub/System/RackPlannerPlugin/rackplannertooltips.js
 pub/System/RackPlannerPlugin/aix.png
 pub/System/RackPlannerPlugin/amiga.png
 pub/System/RackPlannerPlugin/apple.png
