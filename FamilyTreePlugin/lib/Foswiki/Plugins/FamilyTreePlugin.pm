@@ -360,8 +360,8 @@ sub _tabulateDescendants {
 sub _getMarriages {
     my $who  = shift;
     my $list = Foswiki::Func::expandCommonVariables(
-            '%SEARCH{ "(^' 
-          . $who . 'X|X' 
+            '%SEARCH{ "(^'
+          . $who . 'X|X'
           . $who . '$)"
                   type="regex"
                   format="$topic"

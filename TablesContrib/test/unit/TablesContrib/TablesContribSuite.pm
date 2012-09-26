@@ -1,12 +1,14 @@
-package 'TablesContrib'Suite;
+package TablesContribSuite;
 
 use Unit::TestSuite;
 our @ISA = qw( Unit::TestSuite );
 
 sub name {
-    '' TablesContrib'Suite ' }
+    'TablesContribSuite';
+}
 
-sub include_tests { qw(' TablesContrib'Tests );
+sub include_tests {
+    qw(TablesContribTests);
 }
 
 1;

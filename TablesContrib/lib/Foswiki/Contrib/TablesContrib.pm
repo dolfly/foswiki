@@ -6,7 +6,7 @@
 
 =cut
 
-package Foswiki::Contrib::'TablesContrib ';
+package Foswiki::Contrib::TablesContrib;
 
 use strict;
 use warnings;

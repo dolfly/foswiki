@@ -201,7 +201,7 @@ sub getRevision {
     my ( $this, $version ) = @_;
     return $this->SUPER::getRevision()
       unless defined $version
-          && -e $this->{file};
+      && -e $this->{file};
 
     my ( $output, $exit ) = Foswiki::Sandbox->sysCommand(
         $Foswiki::cfg{SubversionContrib}{svnCommand}
