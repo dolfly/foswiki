@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 our $VERSION = '$Rev$';
-our $RELEASE = '1.11';
+our $RELEASE = '1.12';
 our $SHORTDESCRIPTION = 'Infinite scrolling layouts';
 our $NO_PREFS_IN_TOPIC = 1;
 

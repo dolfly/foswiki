@@ -397,12 +397,11 @@
                     case 'html+callback':
 
                         instance._debug('Using HTML via .load() method');
-                        box.load(desturl + ' ' + opts.itemSelector, null, function(jqXHR, textStatus) {
+                        box.load(desturl + ' ' + opts.itemSelector, undefined, function(jqXHR, textStatus) {
                             instance._loadcallback(box, jqXHR.responseText);
                         });
 
                         break;
-
                     case 'html':
                     case 'json':
 

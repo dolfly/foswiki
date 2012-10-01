@@ -225,6 +225,7 @@ Example:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  01 Oct 2012 | fix for newer jqueries |
 |  24 Feb 2012 | fixed syntax error breaking dependency check of configure and pseudo-install |
 |  06 Jun 2011 | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
