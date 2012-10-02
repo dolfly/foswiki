@@ -3,6 +3,7 @@ data/Applications/ApplicationTopicEditTemplate.txt 0644
 data/Applications/ApplicationTopic.txt 0644
 data/Applications/ApplicationTopicViewTemplate.txt 0644
 data/Applications/AtomViewTemplate.txt 0644
+data/Applications/CompleteDocumentation.txt 0644
 data/Applications/DataFormAttributeTemplate.txt 0644
 data/Applications/DataFormAttribute.txt 0644
 data/Applications/DataFormTemplate.txt 0644
@@ -17,7 +18,9 @@ data/Applications/RenderApplicationDocumentation.txt 0644
 data/Applications/RenderApplicationManifest.txt 0644
 data/Applications/RenderDataFormList.txt 0644
 data/Applications/RenderFunctionCallers.txt 0644
+data/Applications/RenderImageSelector.txt 0644
 data/Applications/RenderIndexItem.txt 0644
+data/Applications/RenderRecentChanges.txt 0644
 data/Applications/RenderSideBar.txt 0644
 data/Applications/RenderSimpleTopicCreator.txt 0644
 data/Applications/RenderTopicInstaller.txt 0644
@@ -66,7 +69,6 @@ data/Applications/WikiApplicationViewTemplate.txt 0644
 data/Applications/WikiTopicEditTemplate.txt 0644
 data/Applications/WikiTopic.txt 0644
 data/Applications/WikiTopicViewTemplate.txt 0644
-data/Applications/CompleteDocumentation.txt 0644
 data/System/WikiWorkbenchContrib.txt 0644
 data/_WikiApplicationTemplate/ApplicationLicense.txt 0644
 data/_WikiApplicationTemplate/ApplicationTopic.txt 0644
@@ -95,8 +97,8 @@ data/_WikiApplicationTemplate/WebTopicList.txt 0644
 data/_WikiApplicationTemplate/WebTopicViewTemplate.txt 0644
 data/_WikiApplicationTemplate/WikiApplication.txt 0644
 data/_WikiApplicationTemplate/WikiTopic.txt 0644
-lib/Foswiki/Form/Wikiapp.pm 0644
 lib/Foswiki/Contrib/WikiWorkbenchContrib.pm 0644
+lib/Foswiki/Form/Wikiapp.pm 0644
 pub/Applications/twb.js 0644
 pub/System/WikiWorkbenchContrib/book.png 0644
 pub/System/WikiWorkbenchContrib/exec.png 0644

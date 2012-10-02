@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1283845925" format="1.1" version="6"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1347625126" format="1.1" version="7"}%
 %META:TOPICPARENT{name="TopicType"}%
 ---++ Documentation
 %STARTSECTION{"documentation"}%
@@ -17,7 +17,7 @@ See also: %TOPIC%Template
       "TopicType='WikiApplication'" 
       web="%BASEWEB%" 
       limit="1"
-      format="<input type='hidden' name='Copyright' value='$encode(&copy;)$flatten($expand(Copyright))' />
+      format="<input type='hidden' name='Copyright' value='&amp;copy; $flatten($expand(Copyright))' />
         <input type='hidden' name='License' value='$flatten($expand(License))' />"
     }%"
 }%
@@ -27,7 +27,7 @@ See also: %TOPIC%Template
 
 %META:FORM{name="Applications.TopicType"}%
 %META:FIELD{name="TopicType" title="TopicType" value="TopicType, DocuTopic"}%
-%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
 %META:FIELD{name="Inheritance" attributes="" title="Inheritance" value="ApplicationTopic"}%
 %META:FIELD{name="Summary" attributes="c" title="Summary" value="Function library"}%
 %META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

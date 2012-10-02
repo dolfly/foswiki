@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1320320012" format="1.1" reprev="15" version="17"}%
+%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1347620207" format="1.1" version="19"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -34,7 +34,7 @@ This function renders a topic creator form that holds a set of initial input ele
 }%
 
 <noautolink>
-<form class='createTopicForm' action="%SCRIPTURLPATH{"%IF{"defined ACTION" then="%ACTION%" else="edit"}%"}%/%BASEWEB%/" method="%IF{"'%ACTION%'='save'" then="post" else"get"}%">
+<form class='createTopicForm' action="%SCRIPTURLPATH{"%IF{"defined ACTION" then="%ACTION%" else="edit"}%"}%/%BASEWEB%/" method="%IF{"'%ACTION%'='save'" then="post" else="get"}%">
 <div class='foswikiFormSteps'>
 <input type="hidden" name="web" value="%BASEWEB%" />
 <input type="hidden" name="onlynewtopic" value="on" />

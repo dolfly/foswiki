@@ -1,5 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" date="1111929255" format="1.0" version="$Rev$"}%
-%STARTSECTION{name="message"}%
+%META:TOPICINFO{author="ProjectContributor" date="1111929255" format="1.0" version="1"}%
+%STARTSECTION{"message"}%
 ---+ <span class="foswikiAlert">Warning: this page does not exist.</span>
 
 *Do you want to create '<nop>%BASETOPIC%'?*
@@ -19,4 +19,4 @@ Contact <a href="mailto:%WIKIWEBMASTER%?subject=%ENCODE{"%WIKITOOLNAME%: Request
 if you have any questions.
 
 
-%ENDSECTION{name="message"}%
+%ENDSECTION{"message"}%

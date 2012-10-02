@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1173050334" format="1.1" reprev="1.1" version="1"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1340979831" format="1.1" reprev="2" version="2"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -20,14 +20,13 @@ conventional programming towards wiki applications. These are:
 
 While these concepts are nothing new for a normal programmer, they do have a
 clear equivalent using Foswiki as an application framework. Wiki applications
-still are written in TML using your browser on your foswiki site. However, all
+still are written in TML using your browser on your Foswiki site. However, all
 bits are managed in a clean way to guarantee that you will still find them
 years later. People trained to write wiki applications the !WikiWorkbench way
 will immediately know where to look and fix applications written by others, as
 they all share the same concepts.  So by establishing a clear teminology and
 best practice, you will be able to maintain even large wiki apps consisting of
-hundrets of different components working
-together long term. 
+hundrets of different components working together long term. 
 
 !WikiWorkbench has been developed over the last 5 years working together with a
 series of companies in need of large scale wiki applications, custom tailored to their
@@ -45,38 +44,109 @@ business needs, covering fields like
    * corporate blogging
    * enterprise search applications 
 
+Wiki applications can then be packaged and reused on different deployments like
+ordinary Foswiki plugins that extend your site. The main difference is that wiki applications
+are fully developed, documented and maintained using the browser. All
+parts of an application are a wiki page, so working on an application
+is done by interacting with the wiki directly.
+
 ---++ Getting started
 
-When installing the !WikiWorkbench, you will get two new webs: 
+This chapter gives you a quick overview on how to start a new wiki application.
+We will create a first custom !TopicType and deploy it into a user web.
+Finally we will create a new topic of that type by using the standard topic factory.
+
+The new wiki application is a web that serves as the container and library for things that you are planning to build
+and which belong together as one. You might either consider creating one
+singular wiki application located in one subweb of its own, or separate it into
+several wiki applications that can be used individually without one another, or
+which other wiki applications build on top.
+
+When installing the !WikiWorkbenchContrib, you will get two new webs: 
 
    * Applications: the core of the !WikiWorkbench
    * _WikiApplicationTemplate: an application template to bootstrap a new wiki app
 
+You won't need to change these as they make up the infrastructure. Take care not to mix
+up your own stuff with wiki applications coming from third parties. Instead, build up
+a separate wiki application that won't be harmed when you have to upgrade third party applications
+later.
+
+---+++ Creating a new wiki application
+
 The [[Applications.WebHome][Applications web]] is the starting point accessing and creating
-all wiki applications. There's a button to create a new wiki application.
+all wiki applications. There's a button to create a new wiki application. And that's where we start.
 
    1 Click on the button "New !WikiApplication".
-   1 Enter the name of your new wiki application, e.g. !MyCompanyApp (this must be a valid web name for foswiki)
+   1 Enter the name of your new wiki application, e.g. !MyCompanyApp (this must be a valid web name for Foswiki)
    1 Enter a short description what this application is about.
    1 Click "Submit".
 
-This will create a new subweb under Applications web (e.g. !Applications.MyCompanyApp). 
-
-All !WikiWorkbench applications are located under the Applications web. Any
-code part of your application will be contained in this newly created subweb.
+This will create a new subweb under the Applications web, that is !Applications.MyCompanyApp in our example.
+This newly created web is the container for all components part of this application. No part of the application
+is located outside of this web.
 
 In this sense a "wiki application" is the sum of all components stored in the
-Applications subweb (Applications.MyCompanyApp).  You will be able to write and
-maintain the wiki application by going to this web.
+Applications subweb (!Applications.MyCompanyApp).  You will be able to write and
+maintain the wiki application by going to this web now.
+
+When finishing or installing a wiki application, the additional features are made available in other
+areas of your wiki site by a dedicated deployment step. The !WikiWorkbench infrastructure helps you
+in doing so. For example, each !TopicType that you will create will have an Install button that 
+lets you establish a link between the area where you'd like to deploy the feature back to the
+application itself.
+
+---+++ Creating a new !TopicType
+
+---+++ Deploying a !TopicType into a user web
+
+---++ The !WikiWorkbench type hierarchy
+
+The concept of "typed content" isn't new to Foswiki as a content management system. Many other
+CMSes out there have a concrete notion of different document types depending on the
+material that the site is going to host. If you are a programmer then types shouldn't be new 
+to you. They most commonly come as a class hierarchy or set of structured data definitions.
+As we are dealing with topics, it is called <em>Topic</em>Types in Foswiki.
+
+!TopicTypes make up a hierarchy with a kind of "IS A" relation between parent and child types.
+So any child type inherits all structural properties of its parents. Parent topics can either
+be abstract only to let your write wiki applications for sub types not yet in existence but
+will inherit from this abstract parent topic some time later.
+
+For example: given there's a !ContactsApp to model contact data for persons and organizations.
+There are !TopicTypes "PersonTopic" and "OrganizationTopic". Both inherit from a "PartyTopic"
+as a common root in your application. So both - persons and organizations - are a "party" with regards to the
+rest of the wiki application. 
+
+<div class="jqTreeview foswikiRight" style="border:1px solid #bbb;padding:1em;margin:0 0 1em 1em;">
+*Fragment of the type hierarchy:*
+
+   * !WikiTopic
+      * !TaggedTopic, !CategorizedTopic
+         * !ClassifiedTopic
+            * !PartyTopic
+               * !PersonTopic
+               * !OrganizationTopic
+</div>
+%JQREQUIRE{"treeview"}%
+
+Furthermore, all !PartyTopics should be tagged and categorized, a feature being implemented in
+a separate wiki application that comes with a !ClassifiedTopic type. The !ClassifiedTopic type
+itself is implementing two features: that of !TaggedTopics and !CategorizedTopics. (footnote: these
+!TopicTypes are part of the [[Foswiki:Extensions/ClassificationPlugin][ClassificationPlugin]])
+
+All topic types finally are some kind of a !WikiTopic, which finally is the root of all content types
+as definied in the !WikiWorkbench.
+
+In Foswiki a !TopicType establishes a label for a specific kind of !DataForm to be used by
+one or more wiki applications.
 
 A wiki application is made up of different components that are used when deploying it to one or more 
 target webs...
 
-
 ---++ Installation Instructions
 %$INSTALL_INSTRUCTIONS%
-      
----++ Installation Instructions
+
 <!--
    * Set SHORTDESCRIPTION = Framework for <nop>WikiApplications
 -->

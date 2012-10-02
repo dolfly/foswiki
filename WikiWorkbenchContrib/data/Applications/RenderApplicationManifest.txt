@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="save topic" date="1335190795" format="1.1" reprev="4" version="4"}%
+%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1335190795" format="1.1" reprev="4" version="4"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---++ Parameters
    * NAME: name of WikiApplication, defaults to BASEWEB

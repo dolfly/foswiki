@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1335190733" format="1.1" reprev="5" version="5"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1335190733" format="1.1" reprev="5" version="5"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 ---++ Documentation
 %STARTSECTION{"documentation"}%

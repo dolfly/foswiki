@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" date="1335192177" format="1.1" version="2"}%
+%META:TOPICINFO{author="ProjectContributor" date="1335192177" format="1.1" version="2"}%
 %META:TOPICPARENT{name="TopicTemplate"}%
 %STARTSECTION{type="templateonly"}%
 %RED%Note, this is only a template.%ENDCOLOR%

@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1335188783" format="1.1" reprev="15" version="15"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1335188783" format="1.1" reprev="15" version="15"}%
 %DBCALL{"RenderTopicInstaller" TYPE="TopicType" PARENT="TopicType"}%
 ---++ Documentation
 %STARTSECTION{"documentation"}%

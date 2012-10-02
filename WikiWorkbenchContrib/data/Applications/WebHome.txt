@@ -1,9 +1,11 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1325758483" format="1.1" reprev="6" version="6"}%
+%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1347619947" format="1.1" version="10"}%
 Welcome to the %WEB% web.
 This web contains a set of WikiApplications that can be used in
-different parts of your <nop>%WIKITOOLNAME% wiki. It is used as a 
+different parts of your wiki site. It is used as a 
 library and repository as well as a development interface to write
 new applications. 
+
+See the CompleteDocumentation to learn more about the !WikiWorkbench and all of its components.
 
 %DBCALL{"RenderWikiApplicationFactory"}%
 
@@ -12,6 +14,7 @@ new applications.
   pattern="(.*);(.*)"
   format="   1 [[$1.WebHome][$2]]: $percntVAR{\"WEBSUMMARY\" web=\"$1\"}$percnt"
   separator="$n"
+  exclude=".*Metainfo.*"
 }%
 
 
