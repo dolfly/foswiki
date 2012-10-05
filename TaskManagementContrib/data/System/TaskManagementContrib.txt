@@ -28,8 +28,9 @@ After installation, information about setup and use can be found in TMS.TMSAdmin
 |  Copyright &copy;: | Alexis Hazell |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Dependencies: | http://foswiki.org/Extensions/FilterPlugin, http://foswiki.org/Extensions/JQueryPlugin, http://foswiki.org/Extensions/RenderPlugin, http://foswiki.org/Extensions/SetVariablePlugin, http://foswiki.org/Extensions/TwistyPlugin |
-|  Version: | 0.1.0 |
-|  Change History: | 0.1.0 (05 Oct 2012) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | &nbsp; |
 |  0.1.0 (05 Oct 2012): | Initial version |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
