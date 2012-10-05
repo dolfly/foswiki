@@ -100,6 +100,7 @@ data/_WikiApplicationTemplate/WikiTopic.txt 0644
 lib/Foswiki/Contrib/WikiWorkbenchContrib.pm 0644
 lib/Foswiki/Form/Wikiapp.pm 0644
 pub/Applications/twb.js 0644
+pub/Applications/RenderImageSelector/nobody.jpeg 0644
 pub/System/WikiWorkbenchContrib/book.png 0644
 pub/System/WikiWorkbenchContrib/exec.png 0644
 pub/System/WikiWorkbenchContrib/model.png 0644

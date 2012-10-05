@@ -1,0 +1,73 @@
+%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1347547013" format="1.1" reprev="3" version="3"}%
+%META:TOPICPARENT{name="TopicFunction"}%
+%TOC{depth="2"}%
+
+---++ Documentation
+%STARTSECTION{"documentation"}%
+This uses solr and infintescroll to create a frontpage widget.
+
+---+++++ Parameters
+   * HEIGHT: height of scroll container, defaults to 40em
+   * LIMIT: number of rows to render, defaults to 50
+   * THEWEB: the web to render recent changes for
+   * FILTER: lucene filter to be added to the search query
+
+%ENDSECTION{"documentation"}%
+
+---++ Implementation
+<verbatim class="tml">
+%STARTINCLUDE%<!-- -->
+<div class="jqInfiniteScroll recentChanges {itemSelector:'.clsIndexItem', localMode:true, bufferPx:200}">
+%DBCALL{"%WEB%.%TOPIC%" 
+  section="backend" 
+  LIMIT="%IF{"defined LIMIT" then="%LIMIT%" else="50"}%"
+  THEWEB="%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%"
+  FILTER="%IF{"defined FILTER" then="%FILTER%"}%"
+}%
+</div>
+<div class="jqInfiniteScrollNavi foswikiHidden">
+  <a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?page=1;section=backend;web=%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%;filter=%IF{"defined FILTER" then="%FILTER%"}%" class='jqInfiniteScrollNext'>More</a>
+</div>
+<literal><style>
+.recentChanges {
+  overflow-y:auto;
+  padding-right:1em;
+  height:%IF{"defined HEIGHT" then="%HEIGHT%" else="40em"}%;
+}
+</style></literal>
+<!-- %JQREQUIRE{"infinitescroll"}% -->%STOPINCLUDE%
+</verbatim>
+
+---++ Backend
+<verbatim class="tml">
+%STARTSECTION{"backend"}%<noautolink>
+%SOLRSEARCH{
+  "type:topic web:%URLPARAM{"web" default="%THEWEB%"}%  %URLPARAM{"filter" default="%FILTER%"}% NOT topic:(WebChanges OR WebPreferences OR WebTopicLinks OR WebIndex OR WebNotify OR WebHome OR WebLinks OR TopCategory OR Category OR ClassifiedTopic OR TopicType OR WebTopicEditTemplate) NOT field_TopicType_lst:Category" 
+  start="%URLPARAM{"page" default="0"}%"
+  rows="%LIMIT%" 
+  sort="date desc"
+  format="$percntDBCALL{\"$web.$topic->RenderIndexItem\"}$percnt"
+  separator="$n"
+  fields="web, topic"
+}%
+</noautolink>%ENDSECTION{"backend"}%
+</verbatim>
+
+---++ Test
+%DBCALL{"%TOPIC%" HEIGHT="20em"}%
+
+%DBCALL{"Applications.RenderFunctionCallers"}%
+
+---++ Copyright
+&copy;2006-2012 Michael Daum http://michaeldaumconsulting.com
+
+%DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
+
+</verbatim>
+
+%META:FORM{name="Applications.ApplicationTopic"}%
+%META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="renders a list of recent changes in a web"}%
+%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="none"}%
+%META:PREFERENCE{name="EDIT_TEMPLATE" title="EDIT_TEMPLATE" type="Set" value="Applications.WikiTopicEdit"}%
