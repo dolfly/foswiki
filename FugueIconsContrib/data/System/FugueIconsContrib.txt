@@ -1,7 +1,7 @@
 ---+!! !FugueIconsContrib
 <!--
 One line description, required for extensions repository catalog.
-   * Set SHORTDESCRIPTION = 1,755 Fugue Icons from http://pinvoke.com
+   * Set SHORTDESCRIPTION = 3,480 Fugue Icons from http://pinvoke.com
 -->
 <img class="foswikiRight" src="%ATTACHURL%/all-preview.png" alt="icon preview" />
 
@@ -11,13 +11,13 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
-This contrib contains a rather wonderful work of 2,757 icons made by Yusuke Kamiyamane that can be found at http://p.yusukekamiyamane.com/.
+This contrib contains a rather wonderful work of 3,480 icons made by Yusuke Kamiyamane that can be found at http://p.yusukekamiyamane.com/.
 
-It contains not only 16x16 png icons, but also 48x48 source =.psd= files that can be used to extend, combine and customise.
+It contains 16x16 png icons, (I've not included the source files, which can be downloaded separately now).
 <verbatim>
 Fugue Icons
 
-Copyright (C) 2010 Yusuke Kamiyamane. All rights reserved.
+Copyright (C) 2012 Yusuke Kamiyamane. All rights reserved.
 The icons are licensed under a Creative Commons Attribution
 3.0 license. <http://creativecommons.org/licenses/by/3.0/>
 
@@ -69,10 +69,11 @@ suggestions are always welcome!
 
 
 |  Author(s): | Yusuke Kamiyamane - http://www.pinvoke.com/ & Foswiki:Main.SvenDowideit - http://fosiki.com |
-|  Copyright: | icons &copy;  2009 Yusuke Kamiyamane |
+|  Copyright: | icons &copy;  2012 Yusuke Kamiyamane |
 |  License: | [[http://creativecommons.org/licenses/by/3.0/][Creative Commons Attribution 3.0 license.]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Oct 2012: | updated to 3.4.5 |
 |  Apr 2010: | updated to 2.7.2 |
 |  Mar 2009: | initial version using 1.7.2 | 
 |  Dependencies: | %$DEPENDENCIES% |
