@@ -1,21 +1,21 @@
 data/System/TaskManagementContrib.txt 0664 Initial documentation page
-data/TMS/PublicTasksAvailable 0664 Page listing public tasks available
-data/TMS/PublicTasksAvailableCSS 0664 Styling for PublicTasksAvailable page
-data/TMS/PublicTasksAvailableViewTemplate 0664 ViewTemplate for PublicTasksAvailable page
-data/TMS/TaskDetailsJavaScript 0664 JavaScript for Task Details page
-data/TMS/TaskForm 0664 Form defining fields for all tasks
-data/TMS/TaskList 0664 Main page listing tasks stored in the TMS
-data/TMS/TaskListCSS 0664 Styling for TaskList page
-data/TMS/TaskListFilterTable 0664 Table providing options for filtering a task list
-data/TMS/TaskListJavaScript 0664 JavaScript for generating a task list
-data/TMS/TaskTemplate 0664 Template topic for new tasks
-data/TMS/TMSAdministratorHelp 0664 Help page for TMS administrators
-data/TMS/TMSDesignDecisions 0664 Notable points about how the TMS was designed
-data/TMS/TMSDevelopmentCredits 0664 Page listing those who have contributed to TMS development
-data/TMS/TMSKnownIssues 0664 Known issues with the TMS
-data/TMS/TMSUserHelp 0664 Help page for regular TMS users
-data/TMS/WebHome 0664 TMS web home page
-data/TMS/WebIndex 0664 TMS web topic index
-data/TMS/WebPreferences 0664 TMS web preferences
-data/TMS/WebTopicList 0664 TMS web topic list
+data/TMS/PublicTasksAvailable.txt 0664 Page listing public tasks available
+data/TMS/PublicTasksAvailableCSS.txt 0664 Styling for PublicTasksAvailable page
+data/TMS/PublicTasksAvailableViewTemplate.txt 0664 ViewTemplate for PublicTasksAvailable page
+data/TMS/TaskDetailsJavaScript.txt 0664 JavaScript for Task Details page
+data/TMS/TaskForm.txt 0664 Form defining fields for all tasks
+data/TMS/TaskList.txt 0664 Main page listing tasks stored in the TMS
+data/TMS/TaskListCSS.txt 0664 Styling for TaskList page
+data/TMS/TaskListFilterTable.txt 0664 Table providing options for filtering a task list
+data/TMS/TaskListJavaScript.txt 0664 JavaScript for generating a task list
+data/TMS/TaskTemplate.txt 0664 Template topic for new tasks
+data/TMS/TMSAdministratorHelp.txt 0664 Help page for TMS administrators
+data/TMS/TMSDesignDecisions.txt 0664 Notable points about how the TMS was designed
+data/TMS/TMSDevelopmentCredits.txt 0664 Page listing those who have contributed to TMS development
+data/TMS/TMSKnownIssues.txt 0664 Known issues with the TMS
+data/TMS/TMSUserHelp.txt 0664 Help page for regular TMS users
+data/TMS/WebHome.txt 0664 TMS web home page
+data/TMS/WebIndex.txt 0664 TMS web topic index
+data/TMS/WebPreferences.txt 0664 TMS web preferences
+data/TMS/WebTopicList.txt 0664 TMS web topic list
 templates/taskdetails.tmpl 0664 Template for Task Details page
