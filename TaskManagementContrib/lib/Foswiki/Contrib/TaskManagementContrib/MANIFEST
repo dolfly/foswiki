@@ -1,0 +1,22 @@
+!noci
+data/System/TaskManagementContrib.txt 0644 Initial documentation page
+data/TMS/PublicTasksAvailable 0644 Page listing public tasks available
+data/TMS/PublicTasksAvailableCSS 0644 Styling for PublicTasksAvailable page
+data/TMS/PublicTasksAvailableViewTemplate 0644 ViewTemplate for PublicTasksAvailable page
+data/TMS/TaskDetailsJavaScript 0644 JavaScript for Task Details page
+data/TMS/TaskForm 0644 Form defining fields for all tasks
+data/TMS/TaskList 0644 Main page listing tasks stored in the TMS
+data/TMS/TaskListCSS 0644 Styling for TaskList page
+data/TMS/TaskListFilterTable 0644 Table providing options for filtering a task list
+data/TMS/TaskListJavaScript 0644 JavaScript for generating a task list
+data/TMS/TaskTemplate 0644 Template topic for new tasks
+data/TMS/TMSAdministratorHelp 0644 Help page for TMS administrators
+data/TMS/TMSDesignDecisions 0644 Notable points about how the TMS was designed
+data/TMS/TMSDevelopmentCredits 0644 Page listing those who have contributed to TMS development
+data/TMS/TMSKnownIssues 0644 Known issues with the TMS
+data/TMS/TMSUserHelp 0644 Help page for regular TMS users
+data/TMS/WebHome 0644 TMS web home page
+data/TMS/WebIndex 0644 TMS web topic index
+data/TMS/WebPreferences 0644 TMS web preferences
+data/TMS/WebTopicList 0644 TMS web topic list
+templates/taskdetails.tmpl 0644 Template for Task Details page

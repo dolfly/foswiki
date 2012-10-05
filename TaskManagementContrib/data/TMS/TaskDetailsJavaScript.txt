@@ -1,0 +1,269 @@
+<!--
+   * Set ALLOWTOPICVIEW = TMSUsersGroup
+   * Set ALLOWTOPICCHANGE = AdminGroup
+   * Set ALLOWTOPICRENAME = AdminGroup
+-->
+<script type="text/javascript">
+
+  // Wait until critical page elements are ready before trying to call init().
+  //
+  // In theory, we should be able to either use:
+  //
+  // * jQuery's $(document).ready() function alone, without a call to
+  //   the 'checkReady' function; or
+  // * jQuery's .livequery function,
+  // 
+  // but testing found neither worked in practice in this case.
+
+  $(document).ready( checkReady );
+ 
+  function checkReady() {
+    (function () {
+
+        var deadlineDisplay = document.getElementById('DeadlineDisplay');
+        var details = document.getElementById('Details');
+        var initiatedOnDisplay = document.getElementById('InitiatedOnDisplay');
+
+        if (deadlineDisplay && details && initiatedOnDisplay) {
+            init();
+        }
+        else {
+            setTimeout(arguments.callee, 500); // Call myself again in 500 msecs
+        }
+
+    }());
+  };
+
+  function init() {
+
+    // Initialisation tasks.
+
+    var dateComponents;
+    var dateObj;
+    var isoDate;
+    var isoDateRegex;
+    var storableDate;
+    var storedDate;
+    var storedDateRegex = /^(\d{4})\.(\d{2})\.(\d{2})\.23\.59$/;
+
+    // Make 'Details' textarea resizable.
+    $( "#Details" ).resizable();
+
+    // Ensure Deadline fields have an appropriate date; today's date if none already specified.
+
+    storedDate = document.getElementById("Deadline").value;
+
+    if (storedDate == 'Today') {
+      dateObj = new Date();
+      storableDate = dateObjectToStorableDate(dateObj);
+      $( "#Deadline" ).val(storableDate);
+    } else {
+      dateComponents = storedDateRegex.exec(storedDate);
+      dateObj = new Date(dateComponents[1] + '-' + dateComponents[2] + '-' + dateComponents[3]);
+    }
+ 
+    var deadlineDisplayDate = $.datepicker.formatDate("D d M yy", dateObj);
+    $( "#DeadlineDisplay" ).val(deadlineDisplayDate);
+    $( "#DeadlineDisplay" ).datepicker({ dateFormat: "D d M yy", altField: "#Deadline", altFormat: "yy.mm.dd.23.59" });
+
+    // Ensure InitiatedOn fields have an appropriate date; today's date if none already specified.
+
+    storedDate = document.getElementById("InitiatedOn").value;
+
+    if (storedDate == 'Today') {
+      dateObj = new Date();
+      storableDate = dateObjectToStorableDate(dateObj);
+      $( "#InitiatedOn" ).val(storableDate);
+    } else {
+      dateComponents = storedDateRegex.exec(storedDate);
+      dateObj = new Date(dateComponents[1] + '-' + dateComponents[2] + '-' + dateComponents[3]);
+    }
+ 
+    var initiatedOnDisplayDate = $.datepicker.formatDate("D d M yy", dateObj);
+    $( "#InitiatedOnDisplay" ).val(initiatedOnDisplayDate);
+    $( "#InitiatedOnDisplay" ).datepicker({ dateFormat: "D d M yy", altField: "#InitiatedOn", altFormat: "yy.mm.dd.23.59" });
+
+ }
+
+ function addAssistant() {
+
+    var assistantList = document.getElementById("AssistantList");
+    var chosenAssistant = assistantList.options[assistantList.selectedIndex].value;
+    var assistants = document.getElementById("Assistants");
+    var currentAssistants = assistants.value;
+    if ( currentAssistants != '') {
+      if ( currentAssistants.match(chosenAssistant) ) {
+        alert("That assistant has already been added.");
+      } else {
+        $("#Assistants").val(assistants.value + ', ' + chosenAssistant);
+      }
+    } else {
+      $("#Assistants").val(chosenAssistant);
+    }
+
+  }
+
+  function addTag() {
+
+    var tagList = document.getElementById("TagList");
+    var chosenTag = tagList.options[tagList.selectedIndex].value;
+    var tags = document.getElementById("Tags");
+    var currentTags = tags.value;
+    if ( currentTags != '') {
+      if ( currentTags.match(chosenTag) ) {
+        alert("That tag has already been added.");
+      } else {
+        $("#Tags").val(tags.value + ', ' + chosenTag);
+      }
+    } else {
+      $("#Tags").val(chosenTag);
+    }
+
+  }
+
+  function detailsChanged() {
+
+    // Maximum length of 'Details' field specified in %TMSWEBNAME%.TaskForm.
+
+    var detailsLength = $("#Details").val().length;
+    var message = 'Characters available: ' + (500 - detailsLength).toString();
+
+    $("#DetailsCharsAvailable").text(message);
+
+  }
+
+  function setDeadlineFarFuture () {
+
+    // Set arbitrary "far future" date as 1st January 2100.
+
+    $( "#Deadline" ).val('2100.01.01.23.59');
+    dateObj = new Date(2100,1,1);
+    var deadlineDisplayDate = $.datepicker.formatDate("D d M yy", dateObj);
+    $( "#DeadlineDisplay" ).val(deadlineDisplayDate);
+
+  }
+
+  function setDeadlineToday () {
+
+    var dateObj = new Date();
+    var storableDate = dateObjectToStorableDate(dateObj);
+    $( "#Deadline" ).val(storableDate);
+ 
+    var deadlineDisplayDate = $.datepicker.formatDate("D d M yy", dateObj);
+    $( "#DeadlineDisplay" ).val(deadlineDisplayDate);
+
+  }
+
+  function specifyLead() {
+
+    var leadList = document.getElementById("LeadList");
+    var chosenLead = leadList.options[leadList.selectedIndex].value;
+ 
+    $("#Lead").val(chosenLead);
+
+  }
+
+  function validateFormData() {
+
+    var validity = true;
+
+    var assistants = document.getElementById("Assistants");
+    var chosenAssistants = assistants.value;
+    var contact = document.getElementById("Contact");
+    var chosenContact = contact.value;
+    var deadline = document.getElementById("Deadline");
+    var chosenDeadline = deadline.value;
+    var lead = document.getElementById("Lead");
+    var chosenLead = lead.value;
+    var status = document.getElementById("Status");
+    var chosenStatus = status.options[status.selectedIndex].value;
+    var summary = document.getElementById("Summary");
+    var chosenSummary = summary.value;    
+    var tags = document.getElementById("Tags");
+    var chosenTags = tags.value;
+    var uncompleted = document.getElementById("UncompletedCount");
+    var uncompletedCount = parseInt(uncompleted.innerText);
+    var visibility = document.getElementById("Visibility");
+    var chosenVisibility = visibility.options[visibility.selectedIndex].value;
+
+    // 'Assistants' field must only contain 'word' characters with no in-assistant spaces,
+    // with comma as the assistant separator.
+    if (chosenAssistants != '') {
+      var assistantsRegex = /^\w+(,\s?\w+)*$/;
+      if (assistantsRegex.test(chosenAssistants) == false) {
+        alert("An 'assistant' name must consist of alphabetical characters, without spaces. Comma must be used as the tag separator.");
+        validity = false;
+      }
+    }
+
+    // If 'Lead' field has data, it must not contain spaces.
+    var leadRegex = /^\w+$/;
+    if (chosenLead != '' && (leadRegex.test(chosenLead) == false)) {
+      alert("'Task lead' cannot have spaces in name; use format 'FirstnameLastname'.");
+      validity = false;
+    }
+
+    // If 'Lead' field has data, 'Status' field must not be 'Unassigned'.
+    if (chosenLead != '' && chosenStatus == 'Unassigned') {
+      alert("'Status' cannot be 'Unassigned' when 'Task lead' has been specified.");
+      validity = false;
+    }
+
+    // Person cannot be listed in both the 'Lead' field and the 'Assistants' field.
+    if (chosenLead != '' && chosenAssistants != '' && chosenAssistants.match(chosenLead)) {
+      alert("Same person cannot be listed as both 'task lead' and 'task assistant'.");
+      validity = false;
+    }
+
+    // If 'Lead' field has no data, 'Status' field must not be anything other than 'Unassigned'.
+    if (chosenLead == '' && chosenStatus != 'Unassigned') {
+      alert("'Status' must be 'Unassigned' when no 'Task lead' specified.");
+      validity = false;
+    }
+
+    // 'Summary' field must not be empty.
+    if (chosenSummary == '') {
+      alert("'Summary' field must not be left empty.");
+      validity = false;
+    }
+
+    // 'Tags' field must only contain lower-case alphanumeric characters with no in-tag spaces,
+    // with comma as the tag separator.
+    if (chosenTags != '') {
+      var tagsRegex = /^([a-z]|[0-9])+(,\s?([a-z]|[0-9])+)*$/;
+      if (tagsRegex.test(chosenTags) == false) {
+        alert("A tag must consist of lower-case alphanumeric characters, without spaces. Comma must be used as the tag separator.");
+        validity = false;
+      }
+    }
+
+    // 'Contact' field must not be empty if this is a 'public' task.
+    if (chosenVisibility == 'Public' && chosenContact == '') {
+      alert("Contact field must not be empty when task is 'Public'.");
+      validity = false;
+    }
+
+    // 'Status' field must not be set to completed whilst uncompleted subtasks exist.
+    if (chosenStatus == 'Completed' && uncompletedCount > 0) {
+      alert("Task cannot be set to 'Completed' whilst uncompleted subtasks exist.");
+      validity = false;
+    }
+
+    return validity;
+
+  }
+
+  // Utility functions.
+
+  function dateObjectToStorableDate(obj) {
+
+    var isoDate = obj.toISOString();
+    var isoDateRegex = /^(\d{4})-(\d{2})-(\d{2})/;
+    var dateComponents = isoDateRegex.exec(isoDate);
+    var storableDate = dateComponents[1] + '.' + dateComponents[2] + '.' + dateComponents[3] + '.23.59';
+
+    return storableDate;
+
+   }
+
+</script>

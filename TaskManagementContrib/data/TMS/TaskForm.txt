@@ -1,0 +1,17 @@
+%META:TOPICPARENT{name="WebHome"}%
+<!--
+   * Set DENYTOPICVIEW = 
+-->
+| *Name* | *Type* | *Size* | *Values* | *Tooltip message* | *Attributes* |
+| Summary | text | 50 | | Summary of task ||
+| Visibility | select | 1 | Private, Public | Is this task private to staff only, or available to the public? ||
+| Priority | select | 1 | 1 - Critical, 2 - High, 3 - Normal, 4 - Low | Priority of task ||
+| Deadline | date | 16 | 2001.01.01.23.59 | Deadline for task ||
+| Status | select | 1 | Unassigned, In progress, On hold, Completed | Status of task ||
+| Details | text | 500 | | Details of task ||
+| Contact | text | 50 | | Email address or phone number for further information ||
+| InitiatedBy | text | 50 | | Name of person or group who initiated this task ||
+| InitiatedOn | date | 16 | 2001.01.01.23.59 | Date on which the task was initiated ||
+| Tags | text | 250 | | Tags applicable to task ||
+| Lead | text | 20 | | Person assigned as the lead for this task ||
+| Assistants | text | 100 | | People assisting with this task ||

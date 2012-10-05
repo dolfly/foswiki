@@ -1,0 +1,73 @@
+%META:TOPICPARENT{name="WebHome"}%
+%ADDTOZONE{
+  "head"
+  text="
+    <style type='text/css'>
+      p.note {
+        background: #f5f5f5;
+        border-bottom: solid 1px #dddddd;
+        border-top: solid 1px #dddddd;
+        margin-left: 0;
+        margin-right: 0;
+        padding-bottom: 1ex;
+        padding-left: 2ex;
+        padding-right: 2ex;
+        padding-top: 1ex;
+      }
+    </style>
+  "
+}%
+---+!! %SPACEOUT{"%TOPIC%"}%
+
+<p class="note">%ICON{"warning"}% Users and administrators need to read TMSKnownIssues before using the system. Administrators need to read TMSAdministratorHelp before making the system available to users.</p>
+
+%TOC%
+
+This Task Management System ("TMS") provides basic functionality for tracking tasks.
+
+---++ The Task List
+
+The central page in the TMS is the TaskList. You use this page to view and sort (that is, 'filter') tasks in various ways (for example, displaying only completed tasks, or sorting tasks by their deadline). To filter tasks:
+   * open the "%ICON{"toggleopen-small"}% Filter tasks" twisty (you do this by clicking the "%ICON{"toggleopen-small"}%" icon)
+   * choose your filter criteria
+   * click the *Go* button.
+
+The Task List will redisplay according to your selected criteria.
+
+---++ Creating new tasks
+
+Any task can have one or more subtasks associated with it. The procedure for creating a top-level task is different to creating a sub-task.
+---+++ Create a new top-level task
+
+You create a new task at the TaskList page.
+   * Click the *Create new top-level task* button
+A new page called <i>Task Details </i>&#xFEFF;appears.
+   * Specify the details of the new task. Extra help is available for many of the fields via a "%ICON{"toggleopen-small"}% Help" twisty
+   * Save or cancel any changes you make via the *Save* and *Cancel* buttons at the bottom of the _Task Details_ page
+   * When you save the task, the system will check the data you have entered. If there are problems with the data, a popup window will appear.
+
+<p class="note">%ICON{"warning"}% Make sure you definitely want to create a task before saving it! Since accidentally deleting a task could create problems for system integrity, users cannot directly delete tasks (only mark a task as 'Completed'). Administrators can delete task topics if required, after reading TMSAdministratorHelp first.</p>
+
+---+++ Create a new subtask
+
+At the TaskList page:
+   * Click the task that will be the 'parent' of the sub-task you wish to create.
+
+The _Task Details_ page for that task appears. Now you can create the sub-task of this task that you're currently viewing. To do this:
+   * open the "%ICON{"toggleopen-small"}% Subtasks" twisty (you do this by selecting the "%ICON{"toggleopen-small"}%" icon)
+   * select the *Create new subtask of this task* button.
+
+A new _Task Details_ page will appear.
+   * Specify the details of the new sub-task. Extra help is available for many of the fields via a "%ICON{"toggleopen-small"}% Help" twisty
+   * Save or cancel any changes you make via the *Save* and *Cancel* buttons at the bottom of the _Task Details_ page.
+   * When you save the sub-task, the system will check the data you have entered. If there are problems with the data, a popup window will appear.
+
+<p class="note">%ICON{"warning"}% Make sure to save any changes you've made to a task before trying to create a new subtask! Otherwise, those changes will be lost.</p>
+
+---++ Known issues
+
+There are a number of [[TMSKnownIssues][known issues]] with the TMS. If you encounter any further problems, please report them to your Foswiki administrator. They will pass them on to the TMS developers.
+
+---++ Credits
+
+Information about those who have contributed to the development of this TMS is available on the TMSDevelopmentCredits page.

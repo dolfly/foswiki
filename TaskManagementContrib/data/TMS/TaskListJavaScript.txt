@@ -1,0 +1,180 @@
+%META:TOPICPARENT{name="TaskList"}%
+<!--
+   * Set ALLOWTOPICVIEW = TMSUsersGroup
+   * Set ALLOWTOPICCHANGE = AdminGroup
+   * Set ALLOWTOPICRENAME = AdminGroup
+-->
+<script type="text/javascript">
+
+  // Wait until critical page elements are ready before trying to call init().
+  // In theory, we should be able to use jQuery's $(document).ready() for this,
+  // but testing found it didn't work in practice in this case.
+
+  window.onload = function () {
+    (function () {
+
+        var taskList = document.getElementById('TaskList');
+
+        if (taskList) {
+          displayTasks('init');
+        }
+        else {
+            setTimeout(arguments.callee, 100); // Call myself again in 100 msecs
+        }
+
+    }());
+  };
+
+  // Wait until critical page elements are ready before trying to call displayTasks().
+  $(document).ready(displayTasks('init'));
+  
+  function displayTasks(type) {
+
+    var searchQuery;
+    var sortOrder;
+
+    var pageTypeRegex = /TaskID\d+/;
+    var parentTask = '';
+    if (pageTypeRegex.test(document.URL) == true) {
+      parentTask = pageTypeRegex.exec(document.URL);
+    }
+
+    if (type == 'init') {
+
+      $(function() {
+        $( "#DeadlineFilterDisplay" ).datepicker({ dateFormat: "D d M yy", altField: "#DeadlineFilter", altFormat: "yy.mm.dd.23.59" });
+        $( "#InitiatedOnFilterDisplay" ).datepicker({ dateFormat: "D d M yy", altField: "#InitiatedOnFilter", altFormat: "yy.mm.dd.23.59" });
+      })
+      
+      sortOrder = 'topic';
+
+      if (parentTask != '') {
+        searchQuery = 'name~"TaskID*" AND parent.name~\"' + parentTask + '\" AND (fields[name="Status"].value~"Unassigned" OR fields[name="Status"].value~"In progress")';
+      } else {
+        searchQuery = 'name~"TaskID*" AND (fields[name="Status"].value~"Unassigned" OR fields[name="Status"].value~"In progress")';
+      }
+ 
+    } else {
+
+      var status = document.getElementById("StatusFilter");
+      var chosenStatus = status.options[status.selectedIndex].value;
+      var priority = document.getElementById("PriorityFilter");
+      var chosenPriority = priority.options[priority.selectedIndex].value;
+      var tags = document.getElementById("TagsFilter");
+      var chosenTags = '';
+      var lead = document.getElementById("LeadFilter");
+      var chosenLead = lead.options[lead.selectedIndex].value;
+      var assistants = document.getElementById("AssistantsFilter");
+      var chosenAssistant = assistants.options[assistants.selectedIndex].value;
+      var deadline = document.getElementById("DeadlineFilter");
+      var chosenDeadline = deadline.value;
+      var initiatedBy = document.getElementById("InitiatedByFilter");
+      var chosenInitiatedBy = initiatedBy.options[initiatedBy.selectedIndex].value;
+      var initiatedOn = document.getElementById("InitiatedOnFilter");
+      var chosenInitiatedOn = initiatedOn.value;
+  
+      if (chosenAssistant != '*') {
+        chosenAssistant = '*' + chosenAssistant + '*';
+      }
+      if (chosenDeadline == '') {
+        chosenDeadline = '9999.99.99.23.59';
+      }
+      if (chosenInitiatedOn == '') {
+        chosenInitiatedOn = '*';
+      }
+
+      for (x=0; x<tags.length; x++) {
+        if (tags[x].selected) {
+          if (tags[x].value == '*') {
+            chosenTags = 'fields[name="Tags"].value~"*"';
+            break;
+          } else {
+             if (chosenTags == '') {
+               chosenTags = 'fields[name="Tags"].value~"*' + tags[x].value + '*"';
+             } else {
+               chosenTags = chosenTags + ' AND fields[name="Tags"].value~"*' + tags[x].value + '*"';
+             } 
+          }
+        }
+      }
+
+      if (chosenTags == '') {
+        chosenTags = 'fields[name="Tags"].value~"*"';
+      }
+      chosenTags = '(' + chosenTags + ')';
+
+      if (parentTask != '') {
+        searchQuery = 'name~"TaskID*" AND parent.name~"' + parentTask + '" AND fields[name="Status"].value~"' + chosenStatus + '" AND fields[name="Priority"].value~"' + chosenPriority + '" AND ' + chosenTags + ' AND fields[name="Lead"].value~"' + chosenLead + '" AND fields[name="Assistants"].value~"' + chosenAssistant + '" AND fields[name="Deadline"].value<"' + chosenDeadline +'" AND fields[name="InitiatedBy"].value~"' + chosenInitiatedBy + '" AND fields[name="InitiatedOn"].value~"' + chosenInitiatedOn + '"';
+      } else {
+        searchQuery = 'name~"TaskID*" AND fields[name="Status"].value~"' + chosenStatus + '" AND fields[name="Priority"].value~"' + chosenPriority + '" AND ' + chosenTags + ' AND fields[name="Lead"].value~"' + chosenLead + '" AND fields[name="Assistants"].value~"' + chosenAssistant + '" AND fields[name="Deadline"].value<"' + chosenDeadline + '" AND fields[name="InitiatedBy"].value~"' + chosenInitiatedBy + '" AND fields[name="InitiatedOn"].value~"' + chosenInitiatedOn + '"';
+      }
+
+      var sort = document.getElementById("SortFilter");
+      var chosenSort = sort.options[sort.selectedIndex].value;
+
+      switch(chosenSort) {
+        case 'Priority-hightolow':
+          sortOrder='formfield(Priority)';
+          break;
+        case 'Priority-lowtohigh':
+          sortOrder='formfield(Priority);reverse=on';
+          break;
+        case 'Deadline-earliestfirst':
+          sortOrder='formfield(Deadline)';
+          break;
+        case 'Deadline-latestfirst':
+          sortOrder='formfield(Deadline);reverse=on';
+          break;
+        default:
+          sortOrder='topic';
+          break;
+      }
+
+    }
+
+    var rowFormat = '<tr><td colspan=\'5\' class=\'task\'><strong>Task:</strong> <a href=\'/foswiki/bin/edit/%TMSWEBNAME%/$topic?t=%GMTIME{"$epoch"}%;template=taskdetails\'>$formfield(Summary)</a></td></tr><tr><td colspan=\'5\'><em>Parent:</em> <span class=\'parent\'>$parent</span></td></tr><tr><td class=\'priority\'><em>Priority:</em><br>$formfield(Priority)</td><td class=\'deadline\'><em>Deadline:</em><br><span class=\'deadline\'>$formfield(Deadline)</span></td><td class=\'status\'><em>Status:</em><br>$formfield(Status)</td><td class=\'lead\'><em>Lead:</em><br><span class=\'lead\'>$formfield(Lead)</span></td><td class=\'tags\'><em>Tags:</em><br>$formfield(Tags)</td></tr>';
+
+    var loadString = '/foswiki/bin/rest/RenderPlugin/tag?name=SEARCH;type=query;web=%TMSWEBNAME%;nonoise=on;format=' + encodeURIComponent(rowFormat) + ';order=' + sortOrder + ';param=' + encodeURIComponent(searchQuery);
+    $('#TaskList').load(loadString, function (response, status, xhr) {
+
+      if (status == "error") {
+        var msg = "Error: ";
+        alert(msg + xhr.status + " " + xhr.statusText);
+      }
+
+      // Modify display of 'Deadline' field.
+
+       $('span.deadline').each(function () {
+         var storedDeadline = $(this).text();
+         var displayDeadline = storedDeadline.substr(0,10);
+         displayDeadline = displayDeadline.replace(/\./g, '-');
+         $(this).text(displayDeadline);
+       });
+
+      // Modify display of 'Lead' field.
+      $('span.lead').each(function () {
+        var storedLead = $(this).text();
+        if (storedLead == '') {
+          $(this).text('[none]');
+        }
+      });
+
+      // Modify display of 'Parent' field.
+
+      $('span.parent').each(function () {
+        var storedParent = $(this).text();
+        if (storedParent == '') {
+          $(this).text('[no parent]');
+        } else {
+          var resultFormat = '$formfield(Summary)'; 
+          var searchQuery = 'name="' + storedParent +'"';
+          $(this).load('/foswiki/bin/rest/RenderPlugin/tag?name=SEARCH;type=query;web=%TMSWEBNAME%;nonoise=on;format=' + encodeURIComponent(resultFormat) + ';param=' + encodeURIComponent(searchQuery));
+        }
+      }); 
+
+    });
+
+  }
+
+</script>
+  

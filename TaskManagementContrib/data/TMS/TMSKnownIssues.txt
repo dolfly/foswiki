@@ -1,0 +1,13 @@
+%META:TOPICPARENT{name="WebHome"}%
+---+ %SPACEOUT{"%TOPIC%"}%
+
+The following are known issues with [[%TMSWEBNAME%.TaskList][the Task Management System]]:
+
+---++ Visual issues
+
+   * On 'PublicTasksAvailable' page, selecting "More info" for a task display at the bottom of the browser window does not reposition the task so that all task particulars are visible.
+   * Should be able to view a hierarchical tree of tasks, sub-tasks, sub-sub-tasks etc.
+
+---++ Behavioural issues
+
+   * Datepicker widget is occasionally not available on the 'Deadline' field on the Task Details page. Forcing the browser to refresh the page can fix the problem.

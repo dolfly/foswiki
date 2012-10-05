@@ -1,0 +1,38 @@
+%META:TOPICPARENT{name="PublicTasksAvailable"}%
+<!--
+   * Set ALLOWTOPICVIEW = WikiGuest
+   * Set ALLOWTOPICCHANGE = AdminGroup
+   * Set ALLOWTOPICRENAME = AdminGroup
+-->
+<style type="text/css">
+  div#Filter {
+    color: #373737;
+    font-family: 'Trebuchet MS', Arial, Helvetica;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+  }
+  div#IntroText {
+    color: #373737;
+    font-family: 'Trebuchet MS', Arial, Helvetica;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+  }
+  div#TaskList {
+    color: #373737;
+    font-family: 'Trebuchet MS', Arial, Helvetica;
+    font-size: 12px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+  }
+  span.label {
+    font-style: italic;
+  }
+  span.tasksummary{
+    font-weight: bold;
+  }
+</style>

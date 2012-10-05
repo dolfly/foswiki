@@ -1,0 +1,5 @@
+%META:TOPICPARENT{name="PublicTasksAvailable"}%
+<!--
+   * Set ALLOWTOPICVIEW = WikiGuest
+-->
+%TMPL:INCLUDE{"view.plain"}%

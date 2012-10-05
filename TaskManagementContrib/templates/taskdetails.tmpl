@@ -1,0 +1,200 @@
+%JQREQUIRE{"UI::Datepicker"}%
+%ADDTOZONE{
+  "head"
+  topic="%TMSWEBNAME%.TaskListCSS"
+}%
+%ADDTOZONE{
+  "script"
+  topic="%TMSWEBNAME%.TaskListJavaScript"
+}%
+%ADDTOZONE{
+  "script"
+  topic="%TMSWEBNAME%.TaskDetailsJavaScript"
+}%
+%TMPL:INCLUDE{"view"}%
+%TMPL:DEF{"form"}%%TMPL:END%
+%TMPL:DEF{"taskbody"}%
+<h1>Task Details</h1>
+<p><strong>Do NOT navigate away from this page using your browser's 'Back' functionality! Use the 'Save' or 'Cancel' buttons, at the bottom of this page.</strong></p>
+<h2><noautolink>%TOPIC%</noautolink></h2>
+%TWISTY{
+  showlink="Subtasks"
+  hidelink="Hide subtasks"
+  showimgleft="%ICONURLPATH{toggleopen-small}%"
+  hideimgleft="%ICONURLPATH{toggleclose-small}%"
+}%
+<h2>Subtasks</h2>
+<form name="new" method="post" action="%SCRIPTURLPATH{save}%/%TMSWEBNAME%.TaskIDAUTOINC00001">
+<input type='hidden' name='topicparent' value='%TOPIC%' />
+<input type='hidden' name='templatetopic' value='%TMSWEBNAME%.TaskTemplate' />
+<input type='hidden' name='template' value='taskdetails' />
+<input type='submit' class='foswikiSubmit' name='action_checkpoint' value='Create new subtask of current task' /><br>
+<p>Uncompleted subtasks: <span id='UncompletedCount'>%SEARCH{"parent.name='%TOPIC%' AND fields[name='Status'].value!='Completed'" type="query" nosummary="on" nosearch="on" nototal="on" noheader="on" footer="$ntopics" zeroresults="$ntopics" format=""}%</span></p>
+</form>
+%TWISTY{
+  showlink="Filter tasks ...."
+  hidelink="Hide"
+  showimgleft="%ICONURLPATH{toggleopen-small}%"
+  hideimgleft="%ICONURLPATH{toggleclose-small}%"
+}%
+%INCLUDE{"%TMSWEBNAME%.TaskListFilterTable"}%
+%ENDTWISTY%
+<br>
+<table id='TaskList'>
+</table>
+<br>
+%ENDTWISTY%
+<form id="taskform" name="task" action="%SCRIPTURLPATH{save}%/%WEB%/%TOPIC%" method="post" onSubmit='return validateFormData()'>
+<input type='hidden' name='templatetopic' value='%TMSWEBNAME%.TaskTemplate' />
+<input type='hidden' name='formtemplate' value='%TMSWEBNAME%.TaskForm' />
+<input type='hidden' name='topicparent' value='%URLPARAM{"topicparent"}%' />
+<input type='hidden' name='redirectto' value='%HTTP{Referer}%' />
+  <h3>Summary</h3>
+  <strong>Nb. This field must not be left empty.</strong><br>
+  <input id='Summary' name='Summary' type='text' size='50' class='foswikiInputField' value='%ENCODE{"%FORMFIELD{"Summary"}%" old="\',\"" new="&apos;,&quot;"}%' />
+  <h3>Visibility</h3>
+  %TWISTY{
+    showlink="Help"
+    hidelink="Hide help"
+    showimgleft="%ICONURLPATH{toggleopen-small}%"
+    hideimgleft="%ICONURLPATH{toggleclose-small}%"
+  }%
+  <em>'Public' tasks are visible to people without Foswiki logins.</em><br>
+  <em>'Private' tasks are visible to staff only.</em>
+  %ENDTWISTY%
+  <br>
+  <select id='Visibility' name='Visibility' class='foswikiSelect'>
+    <option class='foswikiOption' value='Private' %IF{"'%FORMFIELD{Visibility}%'='Private'" then="selected='selected'" else=""}%>Private</option>
+    <option class='foswikiOption' value='Public' %IF{"'%FORMFIELD{Visibility}%'='Public'" then="selected='selected'" else=""}%>Public</option>
+  </select>
+  <h3>Priority</h3>
+  <select id='Priority' name='Priority' class='foswikiSelect'>
+    <option class='foswikiOption' value='1 - Critical' %IF{"'%FORMFIELD{Priority}%'='1 - Critical'" then="selected='selected'" else=""}%>1 - Critical</option>
+    <option class='foswikiOption' value='2 - High' %IF{"'%FORMFIELD{Priority}%'='2 - High'" then="selected='selected'" else=""}%>2 - High</option>
+    <option class='foswikiOption' value='3 - Normal' %IF{"'%FORMFIELD{Priority}%'='3 - Normal' OR '%ENCODE{"%FORMFIELD{"Summary"}%" old="\',\"" new="&apos;,&quot;"}%'=''" then="selected='selected'" else=""}%>3 - Normal</option>
+    <option class='foswikiOption' value='4 - Low' %IF{"'%FORMFIELD{Priority}%'='4 - Low'" then="selected='selected'" else=""}%>4 - Low</option>
+  </select>
+  <h3>Deadline</h3>
+  <input id='Deadline' name='Deadline' type='hidden' class='foswikiInputField' value='%FORMFIELD{"Deadline"}%' />
+  <input id='DeadlineDisplay' name='DeadlineDisplay' type='text' size='20' value='' />
+  <br>
+  <button id='SetDeadlineToday' type='button' onclick='setDeadlineToday()'>Today</button>
+  <button id='SetDeadlineFarFuture' type='button' onclick='setDeadlineFarFuture()'>Far future</button>
+  <h3>Status</h3>
+  <select id='Status' name='Status' class='foswikiSelect'>
+    <option class='foswikiOption' value='Unassigned' %IF{"'%FORMFIELD{Status}%'='Unassigned'" then="selected='selected'" else=""}%>Unassigned</option>
+    <option class='foswikiOption' value='In progress' %IF{"'%FORMFIELD{Status}%'='In progress'" then="selected='selected'" else=""}%>In progress</option>
+    <option class='foswikiOption' value='On hold' %IF{"'%FORMFIELD{Status}%'='On hold'" then="selected='selected'" else=""}%>On hold</option>
+    <option class='foswikiOption' value='Completed' %IF{"'%FORMFIELD{Status}%'='Completed'" then="selected='selected'" else=""}%>Completed</option>
+  </select>
+  <h3>Details</h3>
+  <textarea id='Details' name='Details' cols='40' rows='4' class='foswikiInputField' onfocus='detailsChanged()' onkeydown='detailsChanged()'>%FORMFIELD{"Details"}%</textarea><br>
+  <small id="DetailsCharsAvailable">Characters available: </small>
+  <h3>Initiated By</h3>
+  %TWISTY{
+    showlink="Help"
+    hidelink="Hide help"
+    showimgleft="%ICONURLPATH{toggleopen-small}%"
+    hideimgleft="%ICONURLPATH{toggleclose-small}%"
+  }%
+  <em>Person or group who initiated this task.</em>
+  %ENDTWISTY%
+  <br>
+  <input id='InitiatedBy' name='InitiatedBy' type='text' size='50' class='foswikiInputField' value='%FORMFIELD{"InitiatedBy"}%' />
+  <h3>Initiated On</h3>
+  %TWISTY{
+    showlink="Help"
+    hidelink="Hide help"
+    showimgleft="%ICONURLPATH{toggleopen-small}%"
+    hideimgleft="%ICONURLPATH{toggleclose-small}%"
+  }%
+  <em>Date on which this task was initiated.</em>
+  %ENDTWISTY%
+  <br>
+  <input id='InitiatedOn' name='InitiatedOn' type='hidden' class='foswikiInputField' value='%FORMFIELD{"InitiatedOn"}%' />
+  <input id='InitiatedOnDisplay' name='InitiatedOnDisplay' type='text' size='20' value='' />
+  <h3>Tags</h3>
+  %TWISTY{
+    showlink="Help"
+    hidelink="Hide help"
+    showimgleft="%ICONURLPATH{toggleopen-small}%"
+    hideimgleft="%ICONURLPATH{toggleclose-small}%"
+  }%
+  <em>Select an existing tag from the list,</em><br>
+  <em>or enter a new tag directly into the text box.</em><br>
+  <em>Multiple tags permitted, each separated by a comma and a space.</em>
+  %ENDTWISTY%
+  <br>
+  <input id='Tags' name='Tags' type='text' size='50' class='foswikiInputField' value='%FORMFIELD{"Tags"}%' /><br>
+  <select id='TagList' name='TagList' class='foswikiSelect'>
+%FORMATLIST{"%TMSDEFAULTTAGS%,%SEARCH{"name ~ 'TaskID*'" type="query" web="%TMSWEBNAME%" nonoise="on" separator="," format="$formfield(Tags)" }%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="    <option class='foswikiOption' value='$1'>$1</option>"
+}%
+  </select>
+  <button id='AddTagButton' type='button' onclick='addTag()'>Add tag</button><br>
+  <h3>Task lead</h3>
+  %TWISTY{
+    showlink="Help"
+    hidelink="Hide help"
+    showimgleft="%ICONURLPATH{toggleopen-small}%"
+    hideimgleft="%ICONURLPATH{toggleclose-small}%"
+  }%
+  <em>Select an existing task lead from the list,</em><br>
+  <em>or enter a new task lead directly into the text box.</em>
+  %ENDTWISTY%
+  <br>
+  <input id='Lead' name='Lead' type='text' size='20' class='foswikiInputField' value='%FORMFIELD{"Lead"}%' /><br>
+  <select id='LeadList' name='LeadList' class='foswikiSelect'>
+%FORMATLIST{"%GROUPINFO{"TMSUsersGroup" format="$wikiname"}%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="    <option class='foswikiOption' value='$1'>$1</option>"
+}%
+  </select>
+  <button id='SpecifyLeadButton' type='button' onclick='specifyLead()'>Specify lead</button><br>
+  <h3>Contact details</h3>
+  <p><em>Please complete this field if this is a 'Public' task.</em></p>
+  %TWISTY{
+    showlink="Help"
+    hidelink="Hide help"
+    showimgleft="%ICONURLPATH{toggleopen-small}%"
+    hideimgleft="%ICONURLPATH{toggleclose-small}%"
+  }%
+  <em>Task lead's email address or phone number.</em><br>
+  %ENDTWISTY%
+  <br>
+  <input id='Contact' name='Contact' type='text' size='20' class='foswikiInputField' value='%FORMFIELD{"Contact"}%' />
+  <h3>Assistants</h3>
+  %TWISTY{
+    showlink="Help"
+    hidelink="Hide help"
+    showimgleft="%ICONURLPATH{toggleopen-small}%"
+    hideimgleft="%ICONURLPATH{toggleclose-small}%"
+  }%
+  <em>Select an existing assistant from the list,</em><br>
+  <em>or enter a new assistant directly into the text box.</em><br>
+  <em>Multiple assistants permitted, each separated by a comma and a space.</em>
+  %ENDTWISTY%
+  <br>
+  <input id='Assistants' name='Assistants' type='text' size='100' class='foswikiInputField' value='%FORMFIELD{"Assistants"}%' /><br>
+  <select id='AssistantList' name='AssistantList' class='foswikiSelect'>
+%FORMATLIST{"%GROUPINFO{"TMSUsersGroup" format="$wikiname"}%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="    <option class='foswikiOption' value='$1'>$1</option>"
+}%
+  </select>
+  <button id='AddAssistantButton' type='button' onclick='addAssistant()'>Add assistant</button><br>
+  <br><br>
+  <input type='submit' class='foswikiSubmit' name='action_save' value='Save' />&nbsp;<input type='button' class='foswikiButtonCancel' onclick='window.location.href="%HTTP{Referer}%"'  value='Cancel' />
+  %BR%
+</form>
+%TMPL:END%
+%TMPL:DEF{"content"}%<div class="foswikiTopicText">%TMPL:P{"taskbody"}%
+#TopicEnd
+</div>%TMPL:END%

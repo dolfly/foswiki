@@ -1,0 +1,5 @@
+Foswiki::Plugins::FilterPlugin,>=3.10,perl,Required for basic functionality
+Foswiki::Plugins::JQueryPlugin,>=4.33,perl,Required for basic functionality
+Foswiki::Plugins::RenderPlugin,>=3.1,perl,Required for rendering task lists
+Foswiki::Plugins::SetVariablePlugin,>=2.20,perl,Required for making tasks 'public' or 'private'
+Foswiki::Plugins::TwistyPlugin,>=1.6.15,perl,Required for 'twisty' functionality

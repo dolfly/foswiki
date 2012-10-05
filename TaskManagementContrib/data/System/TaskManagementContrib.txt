@@ -1,0 +1,36 @@
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = A simple Task Management System Wiki App.
+-->
+---+!! TaskManagementContrib
+
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Features
+
+   * Create tasks and subtasks.
+   * Specify task deadline, priority, task lead, current status and more.
+   * Assign one or more tags to tasks.
+   * Additionally specify particular tasks as being available to volunteers from the general public.
+   * Filter and sort tasks by various criteria, including task lead, task assistants, tags, deadline and priority.
+   * UI designed with smartphones in mind.
+   * Easily modify presentation of particular UI components via CSS.
+
+---++ Installation
+
+After installation, information about setup and use can be found in TMS.TMSAdministratorHelp and TMS.TMSUserHelp.
+
+---++ Info
+
+|  Author: | AlexisHazell |
+|  Copyright &copy;: | Alexis Hazell |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Dependencies: | http://foswiki.org/Extensions/FilterPlugin, http://foswiki.org/Extensions/JQueryPlugin, http://foswiki.org/Extensions/RenderPlugin, http://foswiki.org/Extensions/SetVariablePlugin, http://foswiki.org/Extensions/TwistyPlugin |
+|  Version: | 0.1.0 |
+|  Change History: | 0.1.0 (05 Oct 2012) |
+|  0.1.0 (05 Oct 2012): | Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+

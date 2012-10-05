@@ -1,0 +1,15 @@
+%META:TOPICPARENT{name="WebHome"}%
+---+ %SPACEOUT{"%TOPIC%"}%
+
+This Task Management System has been developed by Alexis Hazell. Responsibility for any issues regarding design and implementation rests solely with her.
+
+Many thanks to:
+
+   * Tom Cho, for his testing work, and for providing feedback regarding functionality and UI.
+   * Several Foswiki developers, who provided invaluable assistance with various technical issues:
+      * George Clark
+      * Crawford Currie
+      * Sven Dowideit
+      * Paul Harvey
+      * Olivier Raginel
+   * Zoe Belle Gender Centre, for contributing funding towards the system's development.

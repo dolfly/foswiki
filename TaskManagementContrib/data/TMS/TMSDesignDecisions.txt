@@ -1,0 +1,12 @@
+%META:TOPICPARENT{name="WebHome"}%
+---+ %SPACEOUT{"%TOPIC%"}%
+
+   * The TMS makes use of skin templates rather than !ViewTemplates in certain places in order to avoid !ViewTemplates becoming the parent task topic of subtask topics.
+   * The Task List only displays a restricted number of fields from each task in order to minimise space usage and keep the list more smartphone-friendly.
+   * The TMS has no 'Category' field as well as 'Tags' field, to avoid end-user confusion between classifying via 'Category' in addition to via 'Tags'. Further, categories would force tasks into a fixed ontology; tags avoid this.
+   * The 'Deadline' and 'InitiatedOn' fields require dates in yyyy.mm.dd.23.59 format to ease date sorting, and to be compatible with date formats accepted by Foswiki 1.1.4 forms.
+   * No validation check is performed on the 'Deadline' field, so that users do not have to keep modifying the deadline to a later date should a task not be completed by the original deadline.  
+   * No validation check is performed on the 'InitiatedOn' field, to allow for the possibility of the task having been initiated prior to the day the task was first entered into the TMS.
+   * The 'InitiatedBy' field is freeform text, rather than drawing on !WikiNames, to allow for the possibility of non-wiki users having initiated tasks.
+   * Task tags can only consist of lower-case alphanumerics, without spaces, in order to avoid creation of semantically similar tags that are seen as distinct by the system. For example: to avoiding creation of a series of tags like 'QuickTask', 'quick Task', 'Quick task' etc.
+   * !PublicTasksAvailable doesn't use AJAX for filtering functionality, as doing so would require the 'rest' script to be made available to unauthenticated users, possibly creating security vulnerabilities.

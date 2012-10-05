@@ -1,0 +1,51 @@
+%META:TOPICPARENT{name="WebHome"}%
+%ADDTOZONE{
+  "head"
+  topic="%TMSWEBNAME%.PublicTasksAvailableCSS"
+}%<!--
+   * Set VIEW_TEMPLATE = PublicTasksAvailableView
+   * Set ALLOWTOPICVIEW = WikiGuest
+   * Set ALLOWTOPICCHANGE = AdminGroup
+   * Set ALLOWTOPICRENAME = AdminGroup
+-->
+<div id="IntroText">
+  <p>[ Currently displaying %IF{"defined tag" then="tasks tagged '%URLPARAM{"tag"}%'" else="all available tasks"}%. ]</p>
+  <br />
+</div>
+<div id="Filter">
+  <span class="label">Filter tasks by tag: </span>
+  <form action="http://gendercentre.com/foswiki/bin/view/%TMSWEBNAME%/PublicTasksAvailable" method="get">
+    <select id="TagsFilter" class="filter" name="tag">
+      <option value="*">Any</option>
+%FORMATLIST{"%SEARCH{"name ~ 'TaskID*'" type="query" web="%TMSWEBNAME%" nonoise="on" separator="," format="$formfield(Tags)" }%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="      <option class='foswikiOption' value='$1'>$1</option>"
+}%
+    </select>
+    <input type="submit" value="Go" />
+  </form>
+</div>
+
+<div id="TaskList">
+%SEARCH{
+  "name~'TaskID*' AND Visibility='Public' AND fields[name=\"Tags\"].value~%IF{"defined tag" then="'*%URLPARAM{"tag"}%*'" else="'*'"}%"
+  web="%TMSWEBNAME%"
+  type="query"
+  order="formfield(Priority)"
+  nonoise="on"
+  zeroresults="No matching tasks were found."
+  format="<hr>
+    <span class='tasksummary'>$formfield(Summary)</span><br />
+    <span class='label'>Priority:</span> $formfield(Priority)<br />
+    <span class='label'>Tags</span>: $formfield(Tags)<br />
+    $percentTWISTY{showlink=$quotMore info$quot hidelink=$quotLess info$quot showimgleft=$quot$percentICONURLPATH{toggleopen-small}$percent$quot hideimgleft=$quot$percentICONURLPATH{toggleclose-small}$percent$quot}$percent
+    <span class='label'>Details:</span> $formfield(Details)<br />
+    <span class='label'>Contact:</span> $formfield(Contact)<br />
+    $percentENDTWISTY$percent"
+}%
+</div>
+---
+
+%META:PREFERENCE{name="SKIN" title="SKIN" type="Set" value="PlainSkin"}%

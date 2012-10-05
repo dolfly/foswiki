@@ -1,0 +1,53 @@
+%META:TOPICPARENT{name="WebHome"}%
+%SETVAR{
+  field="Visibility"
+  regex="Public" 
+  var="DENYTOPICVIEW"
+  type="Set"
+  value=" "
+}%
+%SETVAR{
+  field="Visibility"
+  regex="Public" 
+  var="DENYTOPICCHANGE"
+  type="Set"
+  value=" "
+}%
+%SETVAR{
+  field="Visibility"
+  regex="Private" 
+  var="DENYTOPICVIEW"
+  type="Set"
+  value="WikiGuest"
+}%
+%SETVAR{
+  field="Visibility"
+  regex="Private" 
+  var="DENYTOPICCHANGE"
+  type="Set"
+  value="WikiGuest"
+}%
+%SETVAR{
+  field="Summary"
+  regex=".*"
+  var="ALLOWTOPICRENAME"
+  type="Set"
+  value="AdminGroup"
+}%
+
+%META:FORM{name="TaskForm"}%
+%META:FIELD{name="Summary" attributes="" title="Summary" value=""}%
+%META:FIELD{name="Visibility" attributes="" title="Visibility" value="Private"}%
+%META:FIELD{name="Priority" attributes="" title="Priority" value="1 - Critical"}%
+%META:FIELD{name="Deadline" attributes="" title="Deadline" value="Today"}%
+%META:FIELD{name="Status" attributes="" title="Status" value="Unassigned"}%
+%META:FIELD{name="Details" attributes="" title="Details" value=""}%
+%META:FIELD{name="Contact" attributes="" title="Contact" value=""}%
+%META:FIELD{name="InitiatedBy" attributes="" title="InitiatedBy" value=""}%
+%META:FIELD{name="InitiatedOn" attributes="" title="InitiatedOn" value="Today"}%
+%META:FIELD{name="Tags" attributes="" title="Tags" value=""}%
+%META:FIELD{name="Lead" attributes="" title="Lead" value=""}%
+%META:FIELD{name="Assistants" attributes="" title="Assistants" value=""}%
+%META:PREFERENCE{name="DENYTOPICVIEW" title="DENYTOPICVIEW" type="Set" value="WikiGuest"}%
+%META:PREFERENCE{name="DENYTOPICCHANGE" title="DENYTOPICCHANGE" type="Set" value="WikiGuest"}%
+%META:PREFERENCE{name="ALLOWTOPICRENAME" title="ALLOWTOPICRENAME" type="Set" value="AdminGroup"}%

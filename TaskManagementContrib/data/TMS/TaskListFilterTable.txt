@@ -1,0 +1,129 @@
+%META:TOPICPARENT{name="TaskList"}%
+<table id="FilterTable">
+  <tr>
+    <td class="fieldlabel">Status:</td>
+    <td>
+      <form>
+        <select id="StatusFilter" class="filter">
+          <option value="*">Any</option>
+          <option value="Unassigned">Unassigned</option>
+          <option value="In progress">In progress</option>
+          <option value="On hold">On hold</option>
+          <option value="Completed">Completed</option>
+        </select>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td class="fieldlabel">Priority:</td>
+    <td>
+      <form> 
+        <select id="PriorityFilter" class="filter">
+          <option value="*">Any</option>
+          <option value="1 - Critical">1 - Critical</option>
+          <option value="2 - High">2 - High</option>
+          <option value="3 - Normal">3 - Normal</option>
+          <option value="4 - Low">4 - Low</option>
+        </select>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td class="fieldlabel">Task lead:</td>
+    <td>
+      <form>
+        <select id="LeadFilter" class="filter">
+          <option value="*">Anyone</option>
+%FORMATLIST{"%SEARCH{"name ~ 'TaskID*'" type="query" web="%TMSWEBNAME%" nonoise="on" separator="," format="$formfield(Lead)" }%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="          <option class='foswikiOption' value='$1'>$1</option>"
+}%
+        </select>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td class="fieldlabel">Task assistant:</td>
+    <td>
+      <form>
+        <select id="AssistantsFilter" class="filter">
+          <option value="*">Anyone</option>
+%FORMATLIST{"%SEARCH{"name ~ 'TaskID*'" type="query" web="%TMSWEBNAME%" nonoise="on" separator="," format="$formfield(Assistants)" }%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="          <option class='foswikiOption' value='$1'>$1</option>"
+}%
+        </select>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td class="fieldlabel">Deadline:</td>
+    <td>
+      <form> 
+        <input id="DeadlineFilter" type="hidden" />
+        <input id="DeadlineFilterDisplay" type="text" class="filter" />
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td class="fieldlabel">Initiated by:</td>
+    <td>
+      <form>
+        <select id="InitiatedByFilter" class="filter">
+          <option value="*">Anyone</option>
+%FORMATLIST{"%SEARCH{"name ~ 'TaskID*'" type="query" web="%TMSWEBNAME%" nonoise="on" separator="," format="$formfield(InitiatedBy)" }%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="          <option class='foswikiOption' value='$1'>$1</option>"
+}%
+        </select>
+      </form>
+    </td>
+  </tr> 
+  <tr>
+    <td class="fieldlabel">Initiated on:</td>
+    <td>
+      <form> 
+        <input id="InitiatedOnFilter" type="hidden" />
+        <input id="InitiatedOnFilterDisplay" type="text" class="filter" />
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td class="fieldlabel">Tags: <img src="%ICONURLPATH{"tip"}%" title="Multiple tags may be selected. Depending on your browser, this might involve holding down the CTRL key as you make your selections." alt="Multiple tags may be selected."></td>
+    <td>
+      <form>
+        <select id="TagsFilter" class="filter" multiple>
+          <option value="*">Any</option>
+%FORMATLIST{"%TMSDEFAULTTAGS%,%SEARCH{"name ~ 'TaskID*'" type="query" web="%TMSWEBNAME%" nonoise="on" separator="," format="$formfield(Tags)" }%"
+  unique="on"
+  sort="alpha"
+  separator="%BR%"
+  format="          <option class='foswikiOption' value='$1'>$1</option>"
+}%
+        </select>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td>Sort by:</td>
+    <td>
+      <form>
+        <select id="SortFilter" class="filter">
+          <option value="Priority-hightolow">Priority - highest to lowest</option>
+          <option value="Priority-lowtohigh">Priority - lowest to highest</option>
+          <option value="Deadline-earliestfirst">Deadline - earliest first</option>
+          <option value="Deadline-latestfirst">Deadline - latest first</option>
+        </select>
+      </form>
+    </td>
+  </tr>
+  <tr>
+    <td colspan='2'><input type="button" value="Go" onclick="displayTasks()" /></td>
+  </tr>
+</table>

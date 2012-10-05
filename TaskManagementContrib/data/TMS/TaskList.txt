@@ -1,0 +1,36 @@
+%META:TOPICPARENT{name="WebHome"}%
+%JQREQUIRE{"UI::Datepicker"}%
+%ADDTOZONE{
+  "script"
+  topic="%TMSWEBNAME%.TaskListJavaScript"
+}%
+%ADDTOZONE{
+  "head"
+  topic="%TMSWEBNAME%.TaskListCSS"
+}%
+---+ %SPACEOUT{"%TOPIC%"}%
+
+If you're new to this TMS, please read TMSUserHelp.
+
+<form name="new" method="post" action="%SCRIPTURLPATH{save}%/%TMSWEBNAME%.TaskIDAUTOINC00001">
+<input type='hidden' name='topicparent' value='' />
+<input type='hidden' name='templatetopic' value='%TMSWEBNAME%.TaskTemplate' />
+<input type='hidden' name='template' value='taskdetails' />
+<input type='submit' class='foswikiSubmit' name='action_checkpoint' value='Create new top-level task' /><br />
+<br />
+</form>
+_To create a subtask of an existing task, access the details for that existing task and select the 'Create new subtask' button._
+
+By default, all 'Unassigned' and 'In progress' tasks are displayed; use the below filter to list tasks according to other criteria.
+
+%TWISTY{
+  showlink="Filter tasks ...."
+  hidelink="Hide"
+  showimgleft="%ICONURLPATH{toggleopen-small}%"
+  hideimgleft="%ICONURLPATH{toggleclose-small}%"
+}%
+%INCLUDE{"%TMSWEBNAME%.TaskListFilterTable"}%
+%ENDTWISTY%
+<br>
+<table id="TaskList">
+</table>
