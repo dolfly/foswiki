@@ -18,6 +18,36 @@ One line description, required for extensions repository catalog.
    * UI designed with smartphones in mind.
    * Easily modify presentation of particular UI components via CSS.
 
+---++ Screenshots
+
+*Task List page*
+
+<img src="%ATTACHURL%/tms1.png" width="400" /><br>
+
+*Task List page with filtering functionality displayed*
+
+<img src="%ATTACHURL%/tms2.png" width="400" /><br>
+
+*Task Details page - part 1*
+
+<img src="%ATTACHURL%/tms3.png" width="400" /><br>
+
+*Task Details page - part 2*
+
+<img src="%ATTACHURL%/tms4.png" width="200" /><br>
+
+*Task Details page - part 3*
+
+<img src="%ATTACHURL%/tms5.png" width="200" /><br>
+
+*Task Details page with "Create new subtask" functionality displayed*
+
+<img src="%ATTACHURL%/tms6.png" width="400" /><br>
+
+*Task Details page with subtasks of current task displayed*
+
+<img src="%ATTACHURL%/tms7.png" width="400" /><br>
+
 ---++ Installation
 
 After installation, information about setup and use can be found in TMS.TMSAdministratorHelp and TMS.TMSUserHelp.
@@ -31,7 +61,17 @@ After installation, information about setup and use can be found in TMS.TMSAdmin
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | &nbsp; |
+|  0.1.1 (16 Oct 2012): | Removed some hard-coded paths, added screenshots to docs |
 |  0.1.0 (05 Oct 2012): | Initial version |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 
+%META:FILEATTACHMENT{name="tms1.png" attachment="tms1.png" attr="" comment="TMS screenshot 1" date="1350307182" path="tms1.png" size="27697" version="1"}%
+%META:FILEATTACHMENT{name="tms2.png" attachment="tms2.png" attr="" comment="TMS screenshot 2" date="1350307200" path="tms2.png" size="31077" version="1"}%
+%META:FILEATTACHMENT{name="tms3.png" attachment="tms3.png" attr="" comment="TMS screenshot 3" date="1350307218" path="tms3.png" size="18843" version="1"}%
+%META:FILEATTACHMENT{name="tms4.png" attachment="tms4.png" attr="" comment="TMS screenshot 4" date="1350307234" path="tms4.png" size="15687" version="1"}%
+%META:FILEATTACHMENT{name="tms5.png" attachment="tms5.png" attr="" comment="TMS screenshot 5" date="1350307250" path="tms5.png" size="19571" version="1"}%
+%META:FILEATTACHMENT{name="tms6.png" attachment="tms6.png" attr="" comment="TMS screenshot 6" date="1350307269" path="tms6.png" size="21140" version="1"}%
+%META:FILEATTACHMENT{name="tms7.png" attachment="tms7.png" attr="" comment="TMS screenshot 7" date="1350307286" path="tms7.png" size="27442" version="1"}%
+%META:PREFERENCE{name="ALLOWTOPICVIEW" title="ALLOWTOPICVIEW" type="Set" value=""}%
+%META:PREFERENCE{name="PERMSET_VIEW" title="PERMSET_VIEW" type="Local" value="details"}%

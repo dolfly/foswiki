@@ -132,9 +132,9 @@
 
     }
 
-    var rowFormat = '<tr><td colspan=\'5\' class=\'task\'><strong>Task:</strong> <a href=\'/foswiki/bin/edit/%TMSWEBNAME%/$topic?t=%GMTIME{"$epoch"}%;template=taskdetails\'>$formfield(Summary)</a></td></tr><tr><td colspan=\'5\'><em>Parent:</em> <span class=\'parent\'>$parent</span></td></tr><tr><td class=\'priority\'><em>Priority:</em><br>$formfield(Priority)</td><td class=\'deadline\'><em>Deadline:</em><br><span class=\'deadline\'>$formfield(Deadline)</span></td><td class=\'status\'><em>Status:</em><br>$formfield(Status)</td><td class=\'lead\'><em>Lead:</em><br><span class=\'lead\'>$formfield(Lead)</span></td><td class=\'tags\'><em>Tags:</em><br>$formfield(Tags)</td></tr>';
+    var rowFormat = '<tr><td colspan=\'5\' class=\'task\'><strong>Task:</strong> <a href=\'%SCRIPTURLPATH{view}%/%TMSWEBNAME%/$topic?t=%GMTIME{"$epoch"}%;template=taskdetails\'>$formfield(Summary)</a></td></tr><tr><td colspan=\'5\'><em>Parent:</em> <span class=\'parent\'>$parent</span></td></tr><tr><td class=\'priority\'><em>Priority:</em><br>$formfield(Priority)</td><td class=\'deadline\'><em>Deadline:</em><br><span class=\'deadline\'>$formfield(Deadline)</span></td><td class=\'status\'><em>Status:</em><br>$formfield(Status)</td><td class=\'lead\'><em>Lead:</em><br><span class=\'lead\'>$formfield(Lead)</span></td><td class=\'tags\'><em>Tags:</em><br>$formfield(Tags)</td></tr>';
 
-    var loadString = '/foswiki/bin/rest/RenderPlugin/tag?name=SEARCH;type=query;web=%TMSWEBNAME%;nonoise=on;format=' + encodeURIComponent(rowFormat) + ';order=' + sortOrder + ';param=' + encodeURIComponent(searchQuery);
+    var loadString = '%SCRIPTURLPATH{rest}%/RenderPlugin/tag?name=SEARCH;type=query;web=%TMSWEBNAME%;nonoise=on;format=' + encodeURIComponent(rowFormat) + ';order=' + sortOrder + ';param=' + encodeURIComponent(searchQuery);
     $('#TaskList').load(loadString, function (response, status, xhr) {
 
       if (status == "error") {
@@ -168,7 +168,7 @@
         } else {
           var resultFormat = '$formfield(Summary)'; 
           var searchQuery = 'name="' + storedParent +'"';
-          $(this).load('/foswiki/bin/rest/RenderPlugin/tag?name=SEARCH;type=query;web=%TMSWEBNAME%;nonoise=on;format=' + encodeURIComponent(resultFormat) + ';param=' + encodeURIComponent(searchQuery));
+          $(this).load('%SCRIPTURLPATH{rest}%/RenderPlugin/tag?name=SEARCH;type=query;web=%TMSWEBNAME%;nonoise=on;format=' + encodeURIComponent(resultFormat) + ';param=' + encodeURIComponent(searchQuery));
         }
       }); 
 
@@ -177,4 +177,4 @@
   }
 
 </script>
-  
+ 

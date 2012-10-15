@@ -18,4 +18,11 @@ data/TMS/WebHome.txt 0664 TMS web home page
 data/TMS/WebIndex.txt 0664 TMS web topic index
 data/TMS/WebPreferences.txt 0664 TMS web preferences
 data/TMS/WebTopicList.txt 0664 TMS web topic list
+pub/System/TaskManagementContrib/tms1.png 0664 TMS screenshot 1
+pub/System/TaskManagementContrib/tms2.png 0664 TMS screenshot 2
+pub/System/TaskManagementContrib/tms3.png 0664 TMS screenshot 3
+pub/System/TaskManagementContrib/tms4.png 0664 TMS screenshot 4
+pub/System/TaskManagementContrib/tms5.png 0664 TMS screenshot 5
+pub/System/TaskManagementContrib/tms6.png 0664 TMS screenshot 6
+pub/System/TaskManagementContrib/tms7.png 0664 TMS screenshot 7
 templates/taskdetails.tmpl 0664 Template for Task Details page
