@@ -15,6 +15,8 @@
 package Foswiki::Plugins::BreadCrumbsPlugin::Core;
 
 use strict;
+use warnings;
+
 use vars qw($homeTopic $lowerAlphaRegex $upperAlphaRegex $numericRegex);
 use Foswiki::Plugins ();
 
@@ -24,7 +26,7 @@ use constant DEBUG => 0;    # toggle me
 sub writeDebug {
   return unless DEBUG;
 
-  #&Foswiki::Func::writeDebug('- BreadCrumbPlugin - '.$_[0]);
+  #Foswiki::Func::writeDebug('- BreadCrumbPlugin - '.$_[0]);
   print STDERR '- BreadCrumbPlugin - ' . $_[0] . "\n";
 }
 
@@ -249,7 +251,7 @@ sub getLocationBreadCrumbs {
     while (1) {
 
       # get parent
-      my ($meta, $dumy) = &Foswiki::Func::readTopic($web, $topic);
+      my ($meta) = Foswiki::Func::readTopic($web, $topic);
       my $parentMeta = $meta->get('TOPICPARENT');
       last unless $parentMeta;
       my $parentName = $parentMeta->{name};
