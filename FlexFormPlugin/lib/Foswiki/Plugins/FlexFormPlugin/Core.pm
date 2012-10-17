@@ -265,10 +265,10 @@ sub handleRENDERFORDISPLAY {
     next if $theHideEmpty && (!defined($fieldValue) || $fieldValue eq '');
     $fieldValue = $fieldDefault unless defined $fieldValue;
     
-    next if $theInclude && $fieldName !~ /^($theInclude)$/;
-    next if $theExclude && $fieldName =~ /^($theExclude)$/;
-    next if $theIncludeAttr && $fieldAttrs !~ /^($theIncludeAttr)$/;
-    next if $theExcludeAttr && $fieldAttrs =~ /^($theExcludeAttr)$/;
+    next if $theInclude && $fieldName !~ /$theInclude/;
+    next if $theExclude && $fieldName =~ /$theExclude/;
+    next if $theIncludeAttr && $fieldAttrs !~ /$theIncludeAttr/;
+    next if $theExcludeAttr && $fieldAttrs =~ /$theExcludeAttr/;
 
     my $line = $fieldFormat;
     unless ($fieldName) { # label
@@ -347,7 +347,7 @@ sub handleRENDERFOREDIT {
     $theHeader = '<div class=\'foswikiFormSteps\'>';
     $theFooter = '</div>';
     $theFormat = '<div class=\'foswikiFormStep\'>
-      <h3> $title: </h3>
+      <h3> $title:$mandatory </h3>
       $edit 
       <div class=\'foswikiFormDescription\'>$description</div>
     </div>';
@@ -539,10 +539,10 @@ sub handleRENDERFOREDIT {
 
     $fieldValue = $fieldDefault unless defined $fieldValue;
 
-    next if $theInclude && $fieldName !~ /^($theInclude)$/;
-    next if $theExclude && $fieldName =~ /^($theExclude)$/;
-    next if $theIncludeAttr && $fieldAttrs !~ /^($theIncludeAttr)$/;
-    next if $theExcludeAttr && $fieldAttrs =~ /^($theExcludeAttr)$/;
+    next if $theInclude && $fieldName !~ /$theInclude/;
+    next if $theExclude && $fieldName =~ /$theExclude/;
+    next if $theIncludeAttr && $fieldAttrs !~ /$theIncludeAttr/;
+    next if $theExcludeAttr && $fieldAttrs =~ /$theExcludeAttr/;
 
     unless (defined $fieldValue) {
       $fieldValue = "\0"; # prevent dropped value attr in CGI.pm

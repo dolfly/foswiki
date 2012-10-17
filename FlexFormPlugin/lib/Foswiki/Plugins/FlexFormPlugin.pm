@@ -18,7 +18,7 @@ package Foswiki::Plugins::FlexFormPlugin;
 use strict;
 
 our $VERSION = '$Rev: 1340 $';
-our $RELEASE = '2.60';
+our $RELEASE = '2.61';
 our $SHORTDESCRIPTION = 'Flexible way to render <nop>DataForms';
 our $NO_PREFS_IN_TOPIC = 1;
 our $doneInit;
