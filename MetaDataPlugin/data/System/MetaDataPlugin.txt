@@ -194,6 +194,7 @@ have a database of efforts recorded on that tracker.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  01 Nov 2012: | replace TML table default format strings with HTML tables for more robustness; removed automatic \n -> &lt;br /> conversion |
 |  06 Sep 2012: | implemented proper locking |
 |  05 Sep 2012: | added form validation editing metadata records; \
                   propagate fieldname mapping to modal dialogs; \

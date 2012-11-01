@@ -409,12 +409,12 @@ sub renderMetaData {
   # default formats
   unless (defined $theHeader) {
     if ($theAction eq 'view') {
-      $theHeader = '<div class=\'metaDataView '.($params->{_gotWriteAccess}?'':'metaDataReadOnly').'\'>$n| *'.join('* | *', 
+      $theHeader = '<div class=\'metaDataView '.($params->{_gotWriteAccess}?'':'metaDataReadOnly').'\'>$n<table class="foswikiTable"><tr><th>$n'.join(' </th><th>$n', 
         map {
           my $title = $_->{name}; defined($params->{$title.'_title'})?$params->{$title.'_title'}:$title
         } 
         grep {$_->{name} ne 'name'}
-        @selectedFields).'* |$n';
+        @selectedFields).' </th></tr>$n';
     } else {
       $theHeader = '<div class=\'metaDataEdit foswikiFormSteps\'>$n';
     }
@@ -422,12 +422,12 @@ sub renderMetaData {
 
   unless (defined $theFormat) {
     if ($theAction eq 'view') {
-      $theFormat = '| '.join(' | ', 
+      $theFormat = '<tr><td>$n'.join(' </td><td>$n', 
         map {
           '$'.$_->{name}
         } 
         grep {$_->{name} ne 'name'}
-        @selectedFields).' '.($params->{_gotWriteAccess}?'$actions':'').' |$n';
+        @selectedFields).' '.($params->{_gotWriteAccess}?'$actions':'').' </td></tr>$n';
     } else {
       $theFormat = '<div class=\'foswikiFormStep $metadata\'>$n<table class=\'foswikiLayoutTable\'>$n'.
         join('$n', map {'$'.$_->{name}} @selectedFields).
@@ -449,7 +449,7 @@ sub renderMetaData {
 
   unless (defined $theFooter) {
     if ($theAction eq 'view') {
-      $theFooter = '</div>';
+      $theFooter = '</table></div>';
     } else {
       $theFooter = '</div>';
     }
@@ -560,9 +560,9 @@ sub renderMetaData {
       my $fieldValue = $record->{$fieldName};
 
       # try not to break foswiki tables
-      if ($theAction eq 'view' && defined($fieldValue)) {
-        $fieldValue =~ s/\n/<br \/>/g;
-      }
+#      if ($theAction eq 'view' && defined($fieldValue)) {
+#        $fieldValue =~ s/\n/<br \/>/g;
+#      }
 
       $fieldSize = $params->{$fieldName.'_size'} if defined $params->{$fieldName.'_size'};
       $fieldAttrs = $params->{$fieldName.'_attributes'} if defined $params->{$fieldName.'_attributes'};
