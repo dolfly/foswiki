@@ -106,7 +106,9 @@ sub updateFile {
 
     my $patched;
 
-    eval { $patched = patch( $src, $diff, { STYLE => 'Unified' } ); };
+    eval {
+        $patched = Text::Patch::patch( $src, $diff, { STYLE => 'Unified' } );
+    };
 
     return "FAILED: $@" if $@;
 

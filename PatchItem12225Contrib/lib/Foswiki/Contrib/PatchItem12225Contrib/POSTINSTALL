@@ -22,12 +22,6 @@ foreach my $key ( grep /^working.*\.patch/, keys %{ $this->{_manifest} } ) {
           Foswiki::Configure::PatchFile::applyPatch( $this->{_root}, \%result );
     }
 
-    if ( $this->can('log') ) {
-        $this->log($msgs);
-    }
-    else {
-        return $msgs;
-    }
-
+    return $msgs;
 }
 
