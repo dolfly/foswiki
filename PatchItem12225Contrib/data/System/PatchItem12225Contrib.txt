@@ -105,7 +105,8 @@ Date:   Mon Nov 5 05:07:25 2012 +0000
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  1.0.0 (09 Nov 2012) | Initial version |
+|  1.1 (15 Nov 2012) | Don't include / when matching filenam, causes undefined variables on Windows. |
+|  1.0 (09 Nov 2012) | Initial version |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
 

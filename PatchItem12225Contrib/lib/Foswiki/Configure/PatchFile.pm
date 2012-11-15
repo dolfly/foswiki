@@ -37,7 +37,7 @@ sub parsePatch {
         return %patches;
     }
 
-    ( $patches{identifier} ) = $file =~ m/.*\/(Item.*?)\.patch$/;
+    ( $patches{identifier} ) = $file =~ m/.*(Item.*?)\.patch$/;
     my $foundPatch = 'summary';
     my $md5        = 'na';
 
