@@ -2,7 +2,8 @@
 my $this = shift;
 my $msgs = '';
 
-foreach my $key ( grep /^working.*\.patch/, keys %{ $this->{_manifest} } ) {
+foreach my $key ( grep /^working.*\.patch/, sort keys %{ $this->{_manifest} } )
+{
 
     my $patchFile = Foswiki::Configure::Util::mapTarget( $this->{_root}, $key );
 
@@ -22,6 +23,7 @@ foreach my $key ( grep /^working.*\.patch/, keys %{ $this->{_manifest} } ) {
           Foswiki::Configure::PatchFile::applyPatch( $this->{_root}, \%result );
     }
 
-    return $msgs;
 }
+
+return $msgs;
 

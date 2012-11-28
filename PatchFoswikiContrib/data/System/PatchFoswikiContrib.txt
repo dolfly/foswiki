@@ -2,7 +2,7 @@
 One line description, required for extensions repository catalog.
    * Set SHORTDESCRIPTION = File patch tool for Foswiki
 -->
----+!! PatchItem12225Contrib
+---+!! PatchFoswikiContrib
 
 %SHORTDESCRIPTION%
 
@@ -13,9 +13,14 @@ One line description, required for extensions repository catalog.
 This extension allows you to "hotfix" urgent issues on your Foswiki system.  It has been tested on Foswiki 1.1.0 and beyond.  It does not work on Foswiki 1.0.
 
 When this extension is installed, it adds some required libraries to your Foswiki system, and then in the Post-installation exit, applies any patch files found in the manifest.  This extension ships with a hotfix for the following items:
-   * [[http://foswiki.org/Tasks/Item12225][Item12225]]: Extensions released with new style Perl version strings prevents installation of any further extensions.
+
+| *Original Issue* | *Patch File* | *Description* |
+| [[http://foswiki.org/Tasks/Item12225][Item12225]] | =Item11267-001= | Extensions released with new style Perl version strings prevents installation of any further extensions. |
+| [[http://foswiki.org/Tasks/Item11267][Item11267]] | =Item11267-002= | Extensions are re-installed because of dependency on svn Revision levels. |
 
 Patches are only applied if the target file is an _exact_ match to the original file.  There is no attempt to do "fuzzy" patching.   Note however that a patch can be built to cover multiple versions of the file.
+
+There is no "dependency" of patches.  Patches are installed in order of their patch file name.  In the above patch list, =Item11267-001.patch= makes unrelated changes to the file patched in =Item11267-002.patch=, but __must__ be installed first so that the patch signatures match.
 
 Patches will be mapped from the default Foswiki filename to the directory location used on the target system.
 

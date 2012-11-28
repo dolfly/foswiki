@@ -1,4 +1,4 @@
-package PatchItem12225ContribTests;
+package PatchFoswikiContribTests;
 
 use strict;
 use warnings;
