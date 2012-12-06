@@ -1,0 +1,107 @@
+Author: MichaelDaum 
+Date:   Mon Nov 26 04:32:23 2012 +0000
+
+    Item11983: prevent excessive calls into the revision system 
+
+    This patch removes calls to the RevisionControlSystem (RCS) to verify the
+    META::TOPICINFO for the topic.  This change trades performance with some risk
+    manually edited or externally modified will report incorrect revision information
+
+    Foswiki 1.2 will have a more extensive fix that avoids incorrect revision information
+    without incuring the performance penalty.
+
+~~~PATCH 596b5999cb61f941b5425555d9d232c4  lib/Foswiki/Store/VC/Store.pm (Foswiki 1.1.5, Foswiki 1.1.6)
+--- ./lib/Foswiki/Store/VC/Store.pm.orig	2012-12-06 00:56:34.138034928 -0500
++++ ./lib/Foswiki/Store/VC/Store.pm	2012-12-06 00:56:53.163811954 -0500
+@@ -93,15 +93,16 @@
+     $text =~ s/\r//g;    # Remove carriage returns
+     $topicObject->setEmbeddedStoreForm($text);
+ 
+-    unless ( $handler->noCheckinPending() ) {
+-
+-        # If a checkin is pending, fix the TOPICINFO
+-        my $ri    = $topicObject->get('TOPICINFO');
+-        my $truth = $handler->getInfo($version);
+-        for my $i (qw(author version date)) {
+-            $ri->{$i} = $truth->{$i};
+-        }
+-    }
++    # Item11983 - switched off for performance reasons
++#   unless ( $handler->noCheckinPending() ) {
++#
++#       # If a checkin is pending, fix the TOPICINFO
++#       my $ri    = $topicObject->get('TOPICINFO');
++#       my $truth = $handler->getInfo($version);
++#       for my $i (qw(author version date)) {
++#           $ri->{$i} = $truth->{$i};
++#       }
++#   }
+ 
+     my $gotRev = $version;
+     unless ( defined $gotRev ) {
+@@ -260,8 +261,16 @@
+ 
+ sub getVersionInfo {
+     my ( $this, $topicObject ) = @_;
+-    my $handler = $this->getHandler($topicObject);
+-    return $handler->getInfo( $topicObject->getLoadedRev() );
++
++    $topicObject->loadVersion() unless $topicObject->latestIsLoaded();
++    my $info = $topicObject->get('TOPICINFO');
++
++    if ( not defined $info ) {
++        my $handler = $this->getHandler($topicObject);
++        $info = $handler->getInfo( $topicObject->getLoadedRev() );
++    }
++
++    return $info;
+ }
+ 
+ sub saveAttachment {
+
+~~~PATCH d6e0928805bfcc5442a4b329e50488a5  lib/Foswiki/Store/VC/Handler.pm (Foswiki 1.1.5)
+--- ./lib/Foswiki/Store/VC/Handler.pm.orig	2012-12-06 00:56:34.142034883 -0500
++++ ./lib/Foswiki/Store/VC/Handler.pm	2012-12-06 00:56:53.163811954 -0500
+@@ -446,7 +446,17 @@
+ sub getLatestRevisionID {
+     my $this = shift;
+     return 0 unless -e $this->{file};
+-    my $rev = $this->_numRevisions() || 1;
++
++    my $info = {};
++    my $rev;
++
++    $this->_getTOPICINFO($info);
++    $rev = $info->{version};
++
++    unless ( defined $rev ) {
++        $rev = $this->_numRevisions() || 1;
++    }
++
+ 
+     # If there is a pending pseudo-revision, need n+1, but only if there is
+     # an existing history
+
+~~~PATCH 497d27bc2cd58232e9b54eaa63877851  lib/Foswiki/Store/VC/Handler.pm (Foswiki 1.1.6)
+--- ./lib/Foswiki/Store/VC/Handler.pm.orig	2012-12-06 10:25:55.865698878 -0500
++++ ./lib/Foswiki/Store/VC/Handler.pm	2012-12-06 10:27:51.505358144 -0500
+@@ -446,7 +446,17 @@
+ sub getLatestRevisionID {
+     my $this = shift;
+     return 0 unless -e $this->{file};
+-    my $rev = $this->_numRevisions() || 1;
++
++    my $info = {};
++    my $rev;
++
++    $this->_getTOPICINFO($info);
++    $rev = $info->{version};
++
++    unless ( defined $rev ) {
++        $rev = $this->_numRevisions() || 1;
++    }
++
+ 
+     # If there is a pending pseudo-revision, need n+1, but only if there is
+     # an existing history
+
