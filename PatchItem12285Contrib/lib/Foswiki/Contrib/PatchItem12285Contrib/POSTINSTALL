@@ -1,0 +1,24 @@
+
+my $this = shift;
+my $msgs = '';
+
+my $patchFile = Foswiki::Configure::Util::mapTarget( $this->{_root}, 'working/configure/patch/Item12285-001.patch' );
+
+$msgs .= "Processing $patchFile\n";
+
+require Foswiki::Configure::PatchFile;
+my %result = Foswiki::Configure::PatchFile::parsePatch($patchFile);
+
+$msgs .= $result{error}   if ( $result{error} );
+$msgs .= $result{summary} if ( $result{summary} );
+
+unless ( $result{error} ) {
+    $msgs .=
+      Foswiki::Configure::PatchFile::backupTargets( $this->{_root},
+        \%result );
+    $msgs .=
+      Foswiki::Configure::PatchFile::applyPatch( $this->{_root}, \%result );
+}
+
+return $msgs;
+

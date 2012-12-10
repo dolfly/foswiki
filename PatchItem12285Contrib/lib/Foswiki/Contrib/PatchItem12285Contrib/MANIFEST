@@ -1,0 +1,4 @@
+!noci
+data/System/PatchItem12285Contrib.txt 0644
+lib/Foswiki/Contrib/PatchItem12285Contrib.pm 0444
+working/configure/patch/Item12285-001.patch 0644 Patch to improve Store performance.
