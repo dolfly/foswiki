@@ -31,8 +31,7 @@ There is no "dependency order" established between patches.  Patches are install
 
 Patches will be mapped from the default Foswiki filename to the directory location used on the target system.
 
-Note:  This extension was re-released with a slightly different patch.  The previous fix works fine, but escaped more than was required.  The new version will re-apply the patch regardless of whether or not the old version was applied.
-
+Note:  This extension was re-released with a slightly different patch.  It is strongly recommmended that prior versions of the patch be reverted and the final version be applied.
 
 ---++ Installation
 %$INSTALL_INSTRUCTIONS%
@@ -45,6 +44,7 @@ Note:  This extension was re-released with a slightly different patch.  The prev
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.3 (10 Dec 2012) | Re-issue with more updates. |
 |  1.2 (10 Dec 2012) | Reissue with different fix. |
 |  1.1 (10 Dec 2012) | Minor changes |
 |  1.0 (10 Dec 2012) | Initial version |
