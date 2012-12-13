@@ -2,22 +2,27 @@
 my $this = shift;
 my $msgs = '';
 
-my $patchFile = Foswiki::Configure::Util::mapTarget( $this->{_root}, 'working/configure/patch/Item12285-001.patch' );
+foreach my $key ( grep /^working.*\.patch/, sort keys %{ $this->{_manifest} } )
+{
 
-$msgs .= "Processing $patchFile\n";
+    my $patchFile = Foswiki::Configure::Util::mapTarget( $this->{_root}, $key );
 
-require Foswiki::Configure::PatchFile;
-my %result = Foswiki::Configure::PatchFile::parsePatch($patchFile);
+    $msgs .= "Processing $patchFile\n";
 
-$msgs .= $result{error}   if ( $result{error} );
-$msgs .= $result{summary} if ( $result{summary} );
+    require Foswiki::Configure::PatchFile;
+    my %result = Foswiki::Configure::PatchFile::parsePatch($patchFile);
 
-unless ( $result{error} ) {
-    $msgs .=
-      Foswiki::Configure::PatchFile::backupTargets( $this->{_root},
-        \%result );
-    $msgs .=
-      Foswiki::Configure::PatchFile::applyPatch( $this->{_root}, \%result );
+    $msgs .= $result{error}   if ( $result{error} );
+    $msgs .= $result{summary} if ( $result{summary} );
+
+    unless ( $result{error} ) {
+        $msgs .=
+          Foswiki::Configure::PatchFile::backupTargets( $this->{_root},
+            \%result );
+        $msgs .=
+          Foswiki::Configure::PatchFile::applyPatch( $this->{_root}, \%result );
+    }
+
 }
 
 return $msgs;

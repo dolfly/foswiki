@@ -19,8 +19,9 @@ Foswiki vulnerability and should be installed as soon as possible. </div>
 
 When this extension is installed, it uses the Post-installation exit to apply any patch files found in the manifest.  This extension ships with a hotfix for the following items:
 
-| *Original Issue* | *Patch File* | *Description* |
-| [[http://foswiki.org/Tasks/Item12285][Item12285]] | =Item12285-001= | Addresses a vulnerability in Locale::Maketext. |
+| *Original Issue* | *Patch File* | *Description* | *Applies to* |
+| [[http://foswiki.org/Tasks/Item12285][Item12285]] | =Item12285-001= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.0 - Foswiki 1.1.2 |
+| [[http://foswiki.org/Tasks/Item12285][Item12285]] | =Item12285-002= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.3 - Foswiki 1.1.6 |
 
 Before any file is patched, a backup is copied to =working/configure/backup/&lt;Item12285-001-date-time&gt;=. Each file that is a candidate to be patched is backed up.  If the extensions is installed multple times, a new backup is made for each run, regardless of whether or not the patch will be applied.  For this patch, the following files are copied:
    * =lib/Foswiki/Macros/MAKETEXT.pm=
@@ -44,6 +45,7 @@ Note:  This extension was re-released with a slightly different patch.  It is st
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.4 (12 Dec 2012) | Split patch file so it can be used with patch utility as well. |
 |  1.3 (10 Dec 2012) | Re-issue with more updates. |
 |  1.2 (10 Dec 2012) | Reissue with different fix. |
 |  1.1 (10 Dec 2012) | Minor changes |
