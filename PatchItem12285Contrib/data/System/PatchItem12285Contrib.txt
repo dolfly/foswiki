@@ -17,6 +17,8 @@ This extensions applies a "hotfix" for Item12285 to your Foswiki 1.1.0 thru 1.1.
 Foswiki vulnerability and should be installed as soon as possible. </div>
 </blockquote>
 
+If a warning about MAKETEXT Rejected is displayed here, your system is patched:  %MAKETEXT{"[_101]"}%
+
 When this extension is installed, it uses the Post-installation exit to apply any patch files found in the manifest.  This extension ships with a hotfix for the following items:
 
 | *Original Issue* | *Patch File* | *Description* | *Applies to* |
@@ -45,6 +47,7 @@ Note:  This extension was re-released with a slightly different patch.  It is st
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.5 (12 Dec 2012) | Minor patch file cleanup. Remove file paths. |
 |  1.4 (12 Dec 2012) | Split patch file so it can be used with patch utility as well. |
 |  1.3 (10 Dec 2012) | Re-issue with more updates. |
 |  1.2 (10 Dec 2012) | Reissue with different fix. |
