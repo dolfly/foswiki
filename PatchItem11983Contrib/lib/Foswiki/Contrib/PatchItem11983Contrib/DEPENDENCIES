@@ -1,2 +1,1 @@
-ONLYIF ( $Foswiki::Plugins::VERSION < 2.3)
-Foswiki::Contrib::PatchFoswikiContrib, >=1.3, perl, Required for old Foswiki versions.
+Foswiki::Contrib::PatchFoswikiContrib, >=1.5, perl, Required for old Foswiki versions.

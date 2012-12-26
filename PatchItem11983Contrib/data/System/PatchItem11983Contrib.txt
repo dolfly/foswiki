@@ -48,6 +48,7 @@ Patches will be mapped from the default Foswiki filename to the directory locati
 |  Dependencies: | %$DEPENDENCIES% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.1 (26 Dec 2012) | No functional change. Update patch format to allow better reporting and uninstall. |
 |  1.0 (05 Dec 2012) | Initial version |
 |  Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% |
