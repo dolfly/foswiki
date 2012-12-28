@@ -19,15 +19,21 @@ use warnings;
 # $VERSION is referred to by Foswiki, and is the only global variable that
 # *must* exist in this package.  Two version formats are supported:
 #
-# Recommended:  Dotted triplet.  Use "v1.2.3" format for releases,  and
+# Recommended:  Simple decimal version.   Use "1.2" format for releases, and
+# "1.2_001" for "alpha" versions.  Do NOT use the "v" prefix.  This style
+# is set either by using the "parse" method, or by a simple assignment.
+#    use version; our $VERSION = version->parse("1.20_001");  OR
+#    our $VERSION = "1.20_001";   # version->parse isn't really needed
+#
+# Alternative:  Dotted triplet.  Use "v1.2.3" format for releases,  and
 # "v1.2.3_001" for "alpha" versions.  The v prefix is required.
 # This format uses the "declare" format
 #     use version; our $VERSION = version->declare("v1.2.0");
 #
-# Alternative:  Simple decimal version.   Use "1.2" format for releases, and
-# "1.2_001" for "alpha" versions.  Do NOT use the "v" prefix.  This style
-# must be set using the "parse" method
-#    use version; our $VERSION = version->parse("1.20_001");
+# To convert from a decimal version to a dotted version, first normalize the
+# decimal version, then increment it.
+# perl -Mversion -e 'print version->parse("4.44")->normal'  ==>  v4.440.0
+# In this example the next version would be v4.441.0.
 #
 # Note:  Alpha versions compare as numerically lower than the non-alpha version
 # so the versions in ascending order are:
@@ -35,7 +41,7 @@ use warnings;
 #
 # These statements MUST be on the same line. See "perldoc version" for more
 # information on version strings.
-use version; our $VERSION = version->declare("v1.0.0_001");
+our $VERSION = '1.0';
 
 # $RELEASE is used in the "Find More Extensions" automation in configure.
 # It is a manually maintained string used to identify functionality steps.
@@ -47,7 +53,9 @@ use version; our $VERSION = version->declare("v1.0.0_001");
 # date    - a date in 1 Jun 2009 format. Three letter English month names only.
 # Note: it's important that this string is exactly the same in the extension
 # topic - if you use %$RELEASE% with BuildContrib this is done automatically.
-our $RELEASE = '1.0.0';
+# It is preferred to keep this compatible with $VERSION. At some future
+# date, Foswiki will deprecate RELEASE and use the VERSION string.
+our $RELEASE = '1.0';
 
 our $SHORTDESCRIPTION = 'One line description of the extension';
 
