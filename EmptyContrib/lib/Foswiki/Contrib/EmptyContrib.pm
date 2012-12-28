@@ -5,7 +5,9 @@
 ---+ package Foswiki::Contrib::EmptyContrib
 
 This is a stub module for a new contrib. Customise this module as
-required. 
+required.  It is typically not used by the Contrib.  Foswiki does not load it
+automatically.  It is used by the Extensions Installer to detect the currently
+installed version of the Contrib.
 
 =cut
 
@@ -22,12 +24,14 @@ use warnings;
 # Recommended:  Simple decimal version.   Use "1.2" format for releases, and
 # "1.2_001" for "alpha" versions.  Do NOT use the "v" prefix.  This style
 # is set either by using the "parse" method, or by a simple assignment.
-#    use version; our $VERSION = version->parse("1.20_001");  OR
-#    our $VERSION = "1.20_001";   # version->parse isn't really needed
+#
+#    our $VERSION = "1.20_001";
 #
 # Alternative:  Dotted triplet.  Use "v1.2.3" format for releases,  and
 # "v1.2.3_001" for "alpha" versions.  The v prefix is required.
-# This format uses the "declare" format
+# This format uses the "declare" format These statements MUST be on the same
+# line. See "perldoc version" for more information on version strings.
+#
 #     use version; our $VERSION = version->declare("v1.2.0");
 #
 # To convert from a decimal version to a dotted version, first normalize the
@@ -39,8 +43,6 @@ use warnings;
 # so the versions in ascending order are:
 #   v1.2.1_001 -> v1.2.1 -> v1.2.2_001 -> v1.2.2
 #
-# These statements MUST be on the same line. See "perldoc version" for more
-# information on version strings.
 our $VERSION = '1.0';
 
 # $RELEASE is used in the "Find More Extensions" automation in configure.
@@ -55,6 +57,7 @@ our $VERSION = '1.0';
 # topic - if you use %$RELEASE% with BuildContrib this is done automatically.
 # It is preferred to keep this compatible with $VERSION. At some future
 # date, Foswiki will deprecate RELEASE and use the VERSION string.
+#
 our $RELEASE = '1.0';
 
 our $SHORTDESCRIPTION = 'One line description of the extension';
