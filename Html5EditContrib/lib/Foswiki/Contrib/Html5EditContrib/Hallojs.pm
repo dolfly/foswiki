@@ -71,7 +71,7 @@ jQuery(function(){
       }).bind('hallodeactivated', function(event, data){
          var item = jQuery(this).data('hallo');
           if (item.isModified()) {
-              foswiki.post('save', { text: this.innerHTML, wysiwyg_edit: 'go', web: foswiki.getPreference('WEB'), topic: foswiki.getPreference('TOPIC') });
+              foswiki.post('save', { text: this.innerHTML, wysiwyg_edit: '1', web: foswiki.getPreference('WEB'), topic: foswiki.getPreference('TOPIC') });
           }
       }).bind('halloactivated', function(event, data){
       });
