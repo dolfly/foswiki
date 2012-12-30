@@ -1,3 +1,3 @@
 %TMPL:INCLUDE{viewtopicactionbuttons}%
 
-%TMPL:DEF{"topicactionbuttons"}%<span class="foswikiRequiresChangePermission"><a rel='nofollow' class="foswikiHallojsEditEnabler">fast edit</a></span>  %TMPL:P{sep}% %TMPL:PREV%%TMPL:END%
+%TMPL:DEF{"topicactionbuttons"}%<span class="foswikiRequiresChangePermission">%IF{"'%BASEWEB%.%BASETOPIC%' allows 'CHANGE'" then="$percntJQREQUIRE{\"hallojs\" warn=\"off\"}$percnt"}%<a rel='nofollow' class="foswikiHallojsEditEnabler">fast edit</a></span>  %TMPL:P{sep}% %TMPL:PREV%%TMPL:END%
