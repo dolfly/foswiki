@@ -53,6 +53,7 @@ sub renderJS {
 var halloObj;      
 jQuery(function(){
     jQuery('.foswikiHallojsEditEnabler').bind('click', function() {
+      //removeClass needs to deactivate hallojs :/
       jQuery('.foswikiTopicText').toggleClass('foswikiHallojsEdit');
     });
 
