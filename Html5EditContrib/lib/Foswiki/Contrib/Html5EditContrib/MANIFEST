@@ -5,3 +5,5 @@ lib/Foswiki/Contrib/Html5EditContrib/Hallojs.pm  Perl module
 lib/Foswiki/Contrib/Html5EditContrib/Config.spec 0444 Configuration
 pub/System/Html5EditContrib/hallo.js
 pub/System/Html5EditContrib/hallo.css
+templates/foswiki.hallojs.tmpl
+templates/viewtopicactionbuttons.hallojs.tmpl

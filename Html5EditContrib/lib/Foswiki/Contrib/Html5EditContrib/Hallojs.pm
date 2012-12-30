@@ -49,23 +49,34 @@ sub renderJS {
     $text .= '?version=' . $this->{version} if ( $this->{version} =~ '$Rev$' );
     $text =
         "<script type='text/javascript' src='$this->{puburl}/$text'></script>\n"
-      . "<script type='text/javascript'>jQuery(function(){jQuery('.foswikiTopicText').hallo({
-  toolbar: 'halloToolbarFixed',  
-  plugins: {
-    'halloformat': {},
-    'halloheadings': {},
-    'hallolists': {},
-    'halloreundo': {},
-    'hallolink': {}
-  }
-}).bind('hallodeactivated', function(event, data){
-   var item = jQuery(this).data('hallo');
-    if (item.isModified()) {
-        foswiki.post('save', { text: this.innerHTML, wysiwyg_edit: 'go', web: foswiki.getPreference('WEB'), topic: foswiki.getPreference('TOPIC') });
-    }
-}).bind('halloactivated', function(event, data){
-});
-})</script>\n";
+      . "<script type='text/javascript'>
+var halloObj;      
+jQuery(function(){
+    jQuery('.foswikiHallojsEditEnabler').bind('click', function() {
+      jQuery('.foswikiTopicText').toggleClass('foswikiHallojsEdit');
+    });
+
+    jQuery('.foswikiHallojsEdit').livequery(function() {
+        halloObj = jQuery(this).hallo({
+        toolbar: 'halloToolbarFixed',  
+        toolbarPositionAbove: true,        
+        plugins: {
+          'halloformat': {},
+          'halloheadings': {},
+          'hallolists': {},
+          'halloreundo': {},
+          'hallolink': {}
+        }
+      }).bind('hallodeactivated', function(event, data){
+         var item = jQuery(this).data('hallo');
+          if (item.isModified()) {
+              foswiki.post('save', { text: this.innerHTML, wysiwyg_edit: 'go', web: foswiki.getPreference('WEB'), topic: foswiki.getPreference('TOPIC') });
+          }
+      }).bind('halloactivated', function(event, data){
+      });
+    });
+})
+</script>\n";
     return $text;
 }
 
