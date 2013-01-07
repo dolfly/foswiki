@@ -1,4 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1327004278" format="1.1" reprev="14" version="14"}%
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278736" format="1.1" version="15"}%
+
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -72,7 +73,7 @@ is returned if no image attachment is found.
 %DBCALL{"Applications.RenderFunctionCallers"}%
 
 ---++ Copyright
-&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com
+&copy; 2006-2013 Michael Daum http://michaeldaumconsulting.com
 
 %DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
 

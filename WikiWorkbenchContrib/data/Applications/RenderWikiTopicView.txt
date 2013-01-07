@@ -1,4 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1310632051" format="1.1" reprev="5" version="5"}%
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278736" format="1.1" version="6"}%
+
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -14,27 +15,30 @@ showing its title and the summary line.
 
 ---++ Implementation
 <verbatim class="tml">
-%STARTINCLUDE%<!-- render wiki topics view -->
-<noautolink>
+%STARTINCLUDE%<!-- -->
+%IF{"'%BASEWEB%.%BASETOPIC%'/text=~'\-\-\-\+[^\+]'" 
+  else="$percntDBCALL{\"%WEB%.%TOPIC%\" section=\"title\"}$percnt"
+}%<!-- -->%STOPINCLUDE%
+</verbatim>
+
+---++ Render title
+<verbatim class="tml">
+%STARTSECTION{"title"}%<noautolink>
 %DBQUERY{topic="%BASEWEB%.%BASETOPIC%"
-  format="<h1 >[[$web.$topic][$expand(topictitle)]] %IF{"defined 'TITLE_EXTRA'" then="<span class='foswikiTopicExtra'>%TITLE_EXTRA%</span>"}% $expand('<br /><span class=\"foswikiTopicSummary\">' and Summary and '</span>')</h1>%CLEAR%"
-}%
-</noautolink>
-<!-- //render wiki topics view -->%STOPINCLUDE%
+  format="<h1 >[[$web.$topic][$expand(topictitle)]] %IF{"defined 'TITLE_EXTRA'" then="<span class='foswikiTopicExtra'>%TITLE_EXTRA%</span>"}% $expand('<br /><span class=\"foswikiTopicSummary\">' and Summary and '</span>')</h1>"
+}%</noautolink>
+%ENDSECTION{"title"}%
 </verbatim>
 
 ---++ Test
-<div class="alt">
 %DBCALL{"%TOPIC%" TITLE_EXTRA="(approved)"}%
-</div>
 
 %DBCALL{"Applications.RenderFunctionCallers"}%
 
 ---++ Copyright
-&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com
+&copy; 2006-2013 Michael Daum http://michaeldaumconsulting.com
 
 %DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
-
 
 %META:FORM{name="Applications.ApplicationTopic"}%
 %META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%

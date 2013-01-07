@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1340979831" format="1.1" reprev="2" version="2"}%
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278807" format="1.1" version="3"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -152,12 +152,12 @@ target webs...
 -->
 
 |  Authors: | Foswiki:Main.MichaelDaum |
-|  Copyright &copy;: | 2007-2012 Michael Daum http://michaeldaumconsulting.com |
+|  Copyright &copy;: | 2007-2013 Michael Daum http://michaeldaumconsulting.com |
 |  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | |
-|  01 Mar 2012 | first public release |
+|  07 Jan 2013 | first public release |
 |  30 Oct 2007 | first version in svn |
 |  30 Apr 2007 | initial version |
 |  Dependencies: | %$DEPENDENCIES% |

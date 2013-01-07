@@ -1,4 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1335190733" format="1.1" reprev="5" version="5"}%
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278736" format="1.1" version="6"}%
+
 %META:TOPICPARENT{name="TopicFunction"}%
 ---++ Documentation
 %STARTSECTION{"documentation"}%
@@ -44,7 +45,7 @@
 %DBCALL{"RenderFunctionCallers"}%
 
 ---++ Copyright
-&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com
+&copy; 2006-2013 Michael Daum http://michaeldaumconsulting.com
 
 %DBCALL{"GnuGeneralPublicLicense" section="notice"}%
 

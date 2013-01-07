@@ -1,4 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1347625014" format="1.1" version="9"}%
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278736" format="1.1" version="10"}%
+
 %META:TOPICPARENT{name="WikiApplication"}%
 %TOC{depth="4" title="Table of Contents"}%
 
@@ -25,6 +26,6 @@ The !WikiWorkbench is a standardized way to write and deploy WikiApplications. I
 %META:FIELD{name="Summary" attributes="c" title="Summary" value="WikiApplication to develop WikiApplications"}%
 %META:FIELD{name="Version" attributes="" title="Version" value="0.9"}%
 %META:FIELD{name="Author" attributes="" title="Author" value="Michael Daum"}%
-%META:FIELD{name="Copyright" attributes="" title="Copyright" value="&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com"}%
+%META:FIELD{name="Copyright" attributes="" title="Copyright" value="&copy; 2006-2013 Michael Daum http://michaeldaumconsulting.com"}%
 %META:FIELD{name="License" attributes="" title="License" value="Applications.GnuGeneralPublicLicense"}%
 %META:FIELD{name="Dependencies" attributes="" title="Dependencies" value=""}%

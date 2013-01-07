@@ -1,4 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1307448305" format="1.1" reprev="4" version="4"}%
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278736" format="1.1" version="7"}%
+
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -29,6 +30,18 @@ displayed at the topic of the text tab.
     TopicTitle_title="%MAKETEXT{"Title"}%"
     Summary_title="%MAKETEXT{"Summary"}%"
   }%
+  %IF{"'%BASEWEB%.%BASETOPIC%'/text=~'\-\-\-\+[^\+]'" 
+     then="$percntTWISTY{
+         remember=\"on\" 
+         firststart=\"show\" 
+         showimgleft=\"%ICONURLPATH{toggleopen-small}%\"
+         hideimgleft=\"%ICONURLPATH{toggleclose-small}%\"
+         showlink=\"%MAKETEXT{"Show message"}%\" 
+         hidelink=\"%MAKETEXT{"Hide message"}%\"
+       }$percnt
+       <div class='foswikiWarningMessage'>%MAKETEXT{"Note: there's an explicit title (h1) in the topic text. Therefore, the above information won't be displayed. To remove this warning message, move the h1 heading from the text to the title field, or use only h2-h6 within the text."}%</div>
+        $percntENDTWISTY$percnt"
+  }%<!-- -->
 </div>
 </literal>
 <!-- //render wiki topic editor -->%STOPINCLUDE%
@@ -40,10 +53,9 @@ displayed at the topic of the text tab.
 %DBCALL{"Applications.RenderFunctionCallers"}%
 
 ---++ Copyright
-&copy; 2006-2010 Michael Daum http://michaeldaumconsulting.com
+&copy; 2006-2013 Michael Daum http://michaeldaumconsulting.com
 
 %DBCALL{"Applications.GnuGeneralPublicLicense" section="notice"}%
-
 
 %META:FORM{name="Applications.ApplicationTopic"}%
 %META:FIELD{name="TopicType" title="TopicType" value="DocuTopic, TopicFunction"}%

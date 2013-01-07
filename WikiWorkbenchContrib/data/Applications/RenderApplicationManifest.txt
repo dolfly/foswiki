@@ -1,4 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1335190795" format="1.1" reprev="4" version="4"}%
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278736" format="1.1" version="5"}%
+
 %META:TOPICPARENT{name="TopicFunction"}%
 ---++ Parameters
    * NAME: name of WikiApplication, defaults to BASEWEB
@@ -31,7 +32,7 @@
 %DBCALL{"RenderFunctionCallers"}%
 
 ---++ Copyright
-&copy; 2006-2012 Michael Daum http://michaeldaumconsulting.com
+&copy; 2006-2013 Michael Daum http://michaeldaumconsulting.com
 
 %DBCALL{"GnuGeneralPublicLicense" section="notice"}%
 

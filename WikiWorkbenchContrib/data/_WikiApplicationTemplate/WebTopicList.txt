@@ -1,16 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" date="1212998721" format="1.1" version="1"}%
-%META:TOPICPARENT{}%
-<noautolink>
-%~~ DBQUERY{
-~~~   format="   $index 
-~~~     <a href=\"%SCRIPTURLPATH{"view"}%/%WEB%/$topic\"
-~~~        title=\"$formfield(Summary)\"
-~~~     >$topic</a>"
-~~~ }%
-<noautolink>
+%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1357565283" format="1.1" version="2"}%
 
-%META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" attributes="M" title="TopicType" value="WebTool"}%
-%META:FIELD{name="Summary" attributes="M" title="Summary" value="List of all topics in this web"}%
-%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%
-%META:PREFERENCE{name="VIEW_TEMPLATE" title="VIEW_TEMPLATE" type="Set" value="WebTopicListView"}%
+
+%INCLUDE{"%SYSTEMWEB%.%TOPIC%"}%
