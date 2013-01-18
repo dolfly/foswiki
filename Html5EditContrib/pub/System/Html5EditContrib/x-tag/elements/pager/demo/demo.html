@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    
+    <title>Pager Demo - X-Tag</title>
+    
+    <link rel="stylesheet" type="text/css" href="../pager.css"/>    
+    
+    <script type="text/javascript" src="../../lib/x-tag/x-tag.js"></script>   
+    <script type="text/javascript" src="../pager.js"></script>    
+    <style type="text/css">
+      
+    </style>
+  </head>
+
+<body>
+      
+  <x-pager id="simple_pager1" 
+    pages="10" 
+    current-page="5"
+    url="/articles?p={current-page}"
+    prevent-default>
+  </x-pager>
+
+  <x-pager id="advanced_pager1" 
+    pages="50" 
+    current-offset="250" 
+    page-size="10" 
+    url="/articles?skip={current-offset}"
+    prevnext
+    firstlast
+    prevent-default
+    page-padding="2">
+  </x-pager>
+
+</body>
+
+<script type="text/javascript">
+
+  var pagers = document.getElementsByTagName('x-pager');
+  for(var i=0; i<pagers.length;i++){
+    pagers[i].addEventListener('pagechanged', function(e){
+      console.log("Do ajax call", e.target.href);
+    });
+  }
+
+</script>
+
+</html>
