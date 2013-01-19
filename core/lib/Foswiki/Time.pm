@@ -123,9 +123,11 @@ sub parseTime {
       : \&Time::Local::timegm;
 
     # try "31 Dec 2001 - 23:59"  (Foswiki date)
-    # or "31 Dec 2001"
+    # or "31 Dec 2001", or even "31 Dec 2001 - 23:59:59"
     #TODO: allow /.: too
-    if ( $date =~ /(\d+)[-\s]+([a-z]{3})[-\s]+(\d+)(?:[-\s]+(\d+):(\d+))?/i ) {
+    if ( $date =~
+        /(\d+)[-\s]+([a-z]{3})[-\s]+(\d+)(?:[-\s]+(\d+):(\d+)(?::(\d+))?)?/i )
+    {
         my $year = $3;
         $year -= 1900 if ( $year > 1900 );
 
@@ -134,7 +136,7 @@ sub parseTime {
 
         #TODO: %MON2NUM needs to be updated to use i8n
         #TODO: and should really work for long form of the month name too.
-        return &$timelocal( 0, $5 || 0, $4 || 0, $1, $mon, $year );
+        return &$timelocal( $6 || 0, $5 || 0, $4 || 0, $1, $mon, $year );
     }
 
     # ISO date 2001-12-31T23:59:59+01:00
@@ -631,7 +633,7 @@ sub _parseDuration {
 __END__
 Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
-Copyright (C) 2008-2011 Foswiki Contributors. Foswiki Contributors
+Copyright (C) 2008-2013 Foswiki Contributors. Foswiki Contributors
 are listed in the AUTHORS file in the root of this distribution.
 NOTE: Please extend that file, not this notice.
 
