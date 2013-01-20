@@ -35,7 +35,6 @@ use warnings;
 
 use Assert;
 use Foswiki::Configure::Load ();
-Foswiki::Configure::Load::readConfig();
 
 # Constants
 our @ISOMONTH = (
@@ -263,6 +262,9 @@ sub formatTime {
     my $value = $epochSeconds;
 
     ASSERT( defined $epochSeconds ) if DEBUG;
+
+    # Ensure we have %Foswiki::cfg - should be a no-op
+    Foswiki::Configure::Load::readConfig();
 
     # use default Foswiki format "31 Dec 1999 - 23:59" unless specified
     $formatString   ||= '$longdate';
