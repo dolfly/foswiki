@@ -34,7 +34,8 @@ use strict;
 use warnings;
 
 use Assert;
-use Foswiki ();
+use Foswiki::Configure::Load ();
+Foswiki::Configure::Load::readConfig();
 
 # Constants
 our @ISOMONTH = (
