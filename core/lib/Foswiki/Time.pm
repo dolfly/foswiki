@@ -263,8 +263,9 @@ sub formatTime {
 
     ASSERT( defined $epochSeconds ) if DEBUG;
 
-    # Ensure we have %Foswiki::cfg - should be a no-op
-    Foswiki::Configure::Load::readConfig();
+    # Ensure we have %Foswiki::cfg
+    Foswiki::Configure::Load::readConfig()
+      unless $Foswiki::cfg{ConfigurationFinished};
 
     # use default Foswiki format "31 Dec 1999 - 23:59" unless specified
     $formatString   ||= '$longdate';
