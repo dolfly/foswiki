@@ -7,81 +7,25 @@
 ===================================================
 }%%TMPL:INCLUDE{"foswiki"}%%{
 ---------------------------------------------------
-	"head:css"
-		- base:screen
-		- base:webfont
-		- base:print
-		- base:dynamic
+	head:css
+	    Loads standard (base) theme
+	    Any files loaded with LIBCSS are added using the macro ADDTOZONE
 ---------------------------------------------------
-}%%TMPL:DEF{"head:css"}%%TMPL:P{"head:css:screen"}%
-%TMPL:P{"head:css:webfont"}%
-%TMPL:P{"head:css:print"}%
-%TMPL:P{"head:css:inline"}%%TMPL:END%%{
+}%%TMPL:DEF{"head:css"}%%IF{
+    "$JQUERY_THEME"
+    then="$percntJQTHEME{$quot%JQUERY_THEME%$quot}$percnt"
+}%%TMPL:P{"head:css:theme"}%%TMPL:END%%{
 ---------------------------------------------------
-	"head:css:screen"
-		Conditionally loads CSS or LESS
+	head:css:theme
 ---------------------------------------------------
-}%%TMPL:DEF{"head:css:screen"}%%IF{
-	"defined SKIN_USE_LESS AND $SKIN_USE_LESS='1'"
-	then="$percntTMPL:P{$quothead:css:screen:_less$quot}$percnt"
-	else="$percntTMPL:P{$quothead:css:screen:_css$quot}$percnt"
-}%%TMPL:END%%{
----------------------------------------------------
-	"head:css:webfont"
----------------------------------------------------
-}%%TMPL:DEF{"head:css:webfont"}%%IF{
-	"defined SKIN_WEBFONTS_URL AND $SKIN_WEBFONTS_URL!=''"
-	then="$percntTMPL:P{
-	$quotWEBFONT_CSSFILE$quot
-	name=$quotbase:webfonts$quot
-	url=$quot%SKIN_WEBFONTS_URL%$quot
-}$percnt"
-}%%TMPL:END%%{
----------------------------------------------------
-	"head:css:print"
-		TODO
----------------------------------------------------
-}%%TMPL:DEF{"head:css:print"}%%TMPL:END%%{
----------------------------------------------------
-	"head:css:inline"
-		TESTING
----------------------------------------------------
-}%%TMPL:DEF{"head:css:inline"}%%TMPL:P{
-	"INLINE_CSSTEXT"
-	name="base:dynamic"
-	text="
-$percntIF{
-$quot$WIKILOGOIMG$quot
-then=$quot.foswikiLogo a {
-    width: 40px;
-    height: 40px;
-	background-image:url(%WIKILOGOIMG%);
-}$quot
-}$percnt
-"
-}%%TMPL:END%%{
----------------------------------------------------
-	"head:css:screen:_less"
-		Less js engine
-		Baseskin less file
----------------------------------------------------
-}%%TMPL:DEF{"head:css:screen:_less"}%%TMPL:P{
-	"LIBJS"
-	id="BaseSkinCss/less/less-1.3.0.min"
-	name="lessparser"
-}%%TMPL:P{
-	"LIBLESS"
-	id="BaseSkinCss/less/base"
-	name="base:screen"
-}%%TMPL:END%%{
----------------------------------------------------
-	"head:css:screen:_css"
-		Baseskin css file
----------------------------------------------------
-}%%TMPL:DEF{"head:css:screen:_css"}%%TMPL:P{
+}%%TMPL:DEF{"head:css:theme"}%%TMPL:P{
 	"LIBCSS"
-	id="BaseSkinCss/base"
-	name="base:screen"
+	id="BasecssSkin/css/base"
+	requires="JQUERYPLUGIN::FOSWIKI"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/iconfonts/fontawesome/stylesheet"
+	requires="BasecssSkin/css/base"
 }%%TMPL:END%%{
 ===================================================
 </verbatim>}%

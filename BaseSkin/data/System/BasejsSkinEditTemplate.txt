@@ -8,9 +8,16 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"head:script"}%%TMPL:PREV%%TMPL:P{
 	"LIBJS"
-	name="base_edit"
-	id="BaseSkinJs/base_edit"
-	requires="JQUERYPLUGIN,TinyMCEPlugin,base"
+	id="JavascriptFiles/foswiki_edit"
+	requires="JQUERYPLUGIN::FOSWIKI,JQUERYPLUGIN::TINYMCE,BasejsSkin/base,TinyMCEPluginTextArea"
+}%%TMPL:P{
+	"LIBJS"
+	id="BasejsSkin/base_textarea"
+	requires="JavascriptFiles/foswiki_edit"
+}%%TMPL:P{
+	"LIBJS"
+	id="BasejsSkin/base_edit_tinymce"
+	requires="BasejsSkin/base_textarea"
 }%%TMPL:END%%{
 ===================================================
 </verbatim>}%

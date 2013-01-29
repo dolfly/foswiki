@@ -285,5 +285,47 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"attach:history:info"}%
 %ATTACHTABLE%%TMPL:END%%{
+---------------------------------------------------
+	modal:header
+	    Variant for modal dialog
+---------------------------------------------------
+}%%TMPL:DEF{"modal:header"}%<noautolink><div class='foswikiModalManage'><form name="main" enctype="multipart/form-data" action="%SCRIPTURLPATH{"upload"}%/%WEB%/%TOPIC%" method="post"><div class='foswikiModalHeader'><h3>%MAKETEXT{"Attachment [_1]" args="%FILENAME%"}%</h3></div>%TMPL:END%%{
+---------------------------------------------------
+	modal:body
+	    Variant for modal dialog
+---------------------------------------------------
+}%%TMPL:DEF{"modal:body"}%<div class='foswikiModalBody'>
+%TABPANE{
+	class="simple"
+}%
+%TAB{
+	%MAKETEXT{"Update"}%
+}%
+<div class='foswikiFormStep'>
+<h5>%MAKETEXT{"Attach new file"}%</h5>
+<input type="file" name="filepath" value="%FILEPATH%" size="50" /></noautolink>
+</div>
+<div class='foswikiFormStep'>
+<h5>%MAKETEXT{"Comment"}%</h5>
+<textarea class='foswikiInputField span8' name='filecomment' rows='2' cols='60' placeholder='%MAKETEXT{"Describe the file so other people know what it is."}%'>%FILECOMMENT%</textarea>
+</div>
+<div class='foswikiFormStep'>
+<h5>%MAKETEXT{"Properties"}%</h5>
+<p><label><input type='checkbox' class='foswikiCheckbox' name='hidefile' %HIDEFILE% />%MAKETEXT{"Do not show in topic attachment list"}%</label></p>
+</div>
+%ENDTAB%
+%TAB{
+	%MAKETEXT{"Create link"}%
+}%
+create link form...
+%ENDTAB%%ENDTABPANE%
+</div>%TMPL:END%%{
+---------------------------------------------------
+	modal:footer
+	    Variant for modal dialog
+---------------------------------------------------
+}%%TMPL:DEF{"modal:footer"}%<div class='foswikiModalFooter'><input type="submit" class="foswikiButton foswikiSubmit" name="changeproperties" value='%MAKETEXT{"Update"}%' /></div>
+<input type="hidden" name="filename" value="%URLPARAM{"filename"}%" />
+</form></div></noautolink>%TMPL:END%%{
 ===================================================
 </verbatim>}%

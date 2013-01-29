@@ -10,44 +10,20 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"head:script"}%%TMPL:PREV%%TMPL:P{
 	"LIBJS"
-	name="JavascriptFiles/foswikilib"
-	id="JavascriptFiles/foswikilib"
+	id="JavascriptFiles/foswikiPref"
 	requires="JQUERYPLUGIN::FOSWIKI"
 }%%TMPL:P{
 	"LIBJS"
-	name="JavascriptFiles/foswikiPref"
-	id="JavascriptFiles/foswikiPref"
-	requires="JavascriptFiles/foswikilib,JQUERYPLUGIN::FOSWIKI"
+	id="BasejsSkin/base"
+	requires="JavascriptFiles/foswikiPref"
 }%%TMPL:P{
 	"LIBJS"
-	name="base"
-	id="BaseSkinJs/base"
-	requires="JavascriptFiles/foswikilib,JavascriptFiles/foswikiPref,JQUERYPLUGIN::FOSWIKI"
+	id="BasejsSkin/base_textarea"
+	requires="BasejsSkin/base"
 }%%TMPL:P{
 	"LIBJS"
-	id="BaseSkinJs/bootstrap-modal"
-	name="bootstrap-modal"
-	requires="base"
-}%%TMPL:P{
-	"LIBJS"
-	name="bootstrap-tab"
-	id="BaseSkinJs/bootstrap-tab"
-	requires="base"
-}%%TMPL:P{
-	"LIBJS"
-	name="sticky"
-	id="BaseSkinJs/jquery.sticky"
-	requires="base"
-}%%TMPL:P{
-	"LIBJS"
-	name="page-scroll"
-	id="BaseSkinJs/jquery.page-scroll"
-	requires="base"
-}%%TMPL:P{
-	"LIBJS"
-	name="easing"
-	id="BaseSkinJs/jquery.easing.1.3"
-	requires="base"
-}%%TMPL:END%%{
+	id="BasejsSkin/base_modal"
+	requires="BasejsSkin/base"
+}%%{
 ===================================================
 </verbatim>}%

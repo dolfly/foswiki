@@ -1,13 +1,60 @@
 %{<verbatim class="tml">
 ===================================================
 	Base Skin topic template
-	
-	The webtopbar template defines the page top bar. It INCLUDEs the BaseSkinWebTopBar topic of the current web, or if it doesn't exist, the BaseSkinWebTopBarExample topic.
+
 ===================================================
-}%%TMPL:DEF{"topbar"}%%IF{
-	"istopic '%SYSTEMWEB%.WebTopBar'"
-	then="$percntINCLUDE{$quot%SYSTEMWEB%.BaseSkinWebTopBar$quot}$percnt" 	
-	else="$percntINCLUDE{$quot%SYSTEMWEB%.BaseSkinWebTopBarExample$quot}$percnt"
+}%%TMPL:DEF{"topbar"}%<div class='foswikiSection foswikiTopBar'>
+<div class='foswikiContainer'><ul class='foswikiLeft'><li><a href='%WEBLOGOURL%' class='foswikiLogo'><img src='%WIKILOGOIMG%' alt='%WEBLOGOALT%' /></a></li>%TMPL:P{"topbar:meta"}%</ul>
+</div>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	topbar:button
+---------------------------------------------------
+}%%TMPL:DEF{"topbar:button"}%<li%IF{
+    "'$ID' and '%ID%'!=''"
+    then=" data-id='%ID%'"
+}%%IF{
+    "'%DESTWEB%'='%BASEWEB%'"
+    then=" class='foswikiActive'"
+}%><a href='%SCRIPTURL{"view"}%/%DESTWEB%/%DESTTOPIC%'>%LABEL%</a></li>%TMPL:END%%{
+---------------------------------------------------
+	topbar:languageselector
+---------------------------------------------------
+}%%TMPL:DEF{"topbar:languageselector"}%<li class='foswikiRight'><a class='foswikiDropdownToggle'><i class='foswikiIcon icon-globe'></i><span class='foswikiHidden'>%MAKETEXT{"Language"}%</span><span class='foswikiCaret'></span></a>
+<ul class='foswikiHasActiveState'>%LANGUAGES{
+    format="<li$marker><i class='foswikiIcon icon-maybe'></i><a href='%SCRIPTURLPATH{"oops"}%/%BASEWEB%/%BASETOPIC%?template=oopslanguagechanged;language=$langtag;%QUERYPARAMS{encoding="url" separator=";"}%' data-lang='$langtag'>$langname</a></li>"
+    selection="%LANGUAGE%"
+    separator=""
+    marker=" class='foswikiActive'"
+}%</ul></li>%TMPL:END%%{
+---------------------------------------------------
+	topbar:meta
+---------------------------------------------------
+}%%TMPL:DEF{"topbar:meta"}%<li class='foswikiSpacer'></li><li class='foswikiRight'><form class='foswikiRight' action='%SCRIPTURLPATH{view}%/%BASEWEB%/WebSearch'><input type='text' name='search' value='%URLPARAM{search}%' placeholder='%MAKETEXT{"Search"}%' class='foswikiInputField' /><i class='foswikiIcon icon-search'></i></form></li><li class='foswikiRight'><form class='foswikiRight' action='%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%'><input placeholder='%MAKETEXT{"Jump"}%' type='text' class='foswikiInputField foswikiDefaultText' name='topic' value='' size='7' /><i class='foswikiIcon icon-jump'></i></form></li>%IF{"context i18n_enabled"
+    then="$percentTMPL:P{$quottopbar:languageselector$quot}$percent"
+}%%IF{
+    "context authenticated"
+    then="<li class='foswikiRight foswikiUserName%IF{"context isadmin" then=" foswikiAdmin"}%'><a href='%SCRIPTURL{"view"}%/%USERSWEB%/%USERNAME%' class='foswikiDropdownToggle'><i class='foswikiIcon icon-user'></i> %SPACEOUT{%WIKINAME%}%<span class='foswikiCaret'></span></a>%IF{
+  "$ LOGOUT != ''" 
+  then="<ul>
+<li>[[%WIKIUSERNAME%][%MAKETEXT{"My page"}%]]</li>%IF{
+    "istopic '%USERSWEB%.%WIKINAME%PersonalLinks'"
+	then="<li><div>
+$percntINCLUDE{$quot%USERSWEB%.%WIKINAME%PersonalLinks$quot warn=$quotoff$quot}$percnt
+</div>
+<a class='foswikiSmallish' href='%SCRIPTURLPATH{"edit"}%/%USERSWEB%/%WIKINAME%PersonalLinks?t=%GMTIME{"$epoch"}%;redirectto=%BASEWEB%.%BASETOPIC%'>%MAKETEXT{"edit"}%</a>
+</li>"
+	else="<li><a href='%SCRIPTURLPATH{edit}%/%USERSWEB%/%WIKINAME%PersonalLinks?templatetopic=%SYSTEMWEB%.PersonalLinksTemplate&amp;topicparent=%WIKINAME%&amp;redirectto=%BASEWEB%.%BASETOPIC%'>%MAKETEXT{"Create personal links"}%</a></li>"
+}%<li class='foswikiSeparator'></li>
+<li>$dollarpercntLOGOUT$dollarpercnt</li>
+</ul>"
+}%</li>"
+}%%IF{
+  "$ LOGIN != '' and not context authenticated" 
+  then="<li class='foswikiRight'>$percntLOGIN{data-toggle=$quotmodal$quot data-target=$quot#foswikiModal$quot}$percnt</li>%IF{
+      "context registration_supported AND context registration_enabled" 
+      then="<li class='foswikiRight'>[[%SYSTEMWEB%.UserRegistration][%MAKETEXT{"Register"}%]]</li>"
+    }%"
 }%%TMPL:END%%{
 ===================================================
 </verbatim>}%

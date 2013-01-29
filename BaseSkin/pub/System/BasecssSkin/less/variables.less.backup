@@ -1,0 +1,233 @@
+
+
+
+
+// GRID SETTINGS 
+
+@fw_basefont: 14;
+@fw_strand1_init: @fw_basefont;
+@fw_strand2_init: 1.3333333333333333 * @fw_basefont;
+
+@fw_ratio_golden: 1.618;			// 1.618:1
+@fw_ratio_musical_fifth: 1.5;		// 3:2
+@fw_ratio_musical_fourth: 1.333;	// 4:3
+@fw_ratio_musical_diatonic_tritone: 45/32;	// 45:32
+@fw_ratio_musical_minor_sixth: 8/5; // 8:5
+// for other scales: see http://en.wikipedia.org/wiki/Music_and_mathematics
+@fw_ratio: @fw_ratio_musical_diatonic_tritone;
+
+//@fw_body_line_height: @fw_ratio_musical_fifth * @fw_basefont; // could be a number as well, like 18 (pixels)
+@fw_body_line_height: 21px;
+
+// Modular Scale units
+// Using 2 strands to be used interleaved.
+
+@fw_scale_1: @fw_strand1_init;
+
+// larger - sizes in pixels
+@fw_scale_up_1: @fw_scale_1 * @fw_ratio;
+@fw_scale_up_2: @fw_scale_up_1 * @fw_ratio;
+@fw_scale_up_3: @fw_scale_up_2 * @fw_ratio;
+@fw_scale_up_4: @fw_scale_up_3 * @fw_ratio;
+@fw_scale_up_5: @fw_scale_up_4 * @fw_ratio;
+@fw_scale_up_6: @fw_scale_up_5 * @fw_ratio;
+@fw_scale_up_7: @fw_scale_up_6 * @fw_ratio;
+@fw_scale_up_8: @fw_scale_up_7 * @fw_ratio;
+@fw_scale_up_9: @fw_scale_up_8 * @fw_ratio;
+@fw_scale_up_10: @fw_scale_up_9 * @fw_ratio;
+@fw_scale_up_11: @fw_scale_up_10 * @fw_ratio;
+@fw_scale_up_12: @fw_scale_up_11 * @fw_ratio;
+@fw_scale_up_13: @fw_scale_up_12 * @fw_ratio;
+@fw_scale_up_14: @fw_scale_up_13 * @fw_ratio;
+@fw_scale_up_15: @fw_scale_up_14 * @fw_ratio;
+
+// smaller - sizes in pixels
+@fw_scale_down_1: @fw_scale_1 / @fw_ratio;
+@fw_scale_down_2: @fw_scale_down_1 / @fw_ratio;
+@fw_scale_down_3: @fw_scale_down_2 / @fw_ratio;
+
+// strand 2
+
+@fw_strand2_ratio_1: @fw_strand2_init;
+
+// larger - sizes in pixels
+@fw_strand2_ratio_up_1: @fw_strand2_ratio_1 * @fw_ratio;
+@fw_strand2_ratio_up_2: @fw_strand2_ratio_up_1 * @fw_ratio;
+@fw_strand2_ratio_up_3: @fw_strand2_ratio_up_2 * @fw_ratio;
+@fw_strand2_ratio_up_4: @fw_strand2_ratio_up_3 * @fw_ratio;
+@fw_strand2_ratio_up_5: @fw_strand2_ratio_up_4 * @fw_ratio;
+@fw_strand2_ratio_up_6: @fw_strand2_ratio_up_5 * @fw_ratio;
+@fw_strand2_ratio_up_7: @fw_strand2_ratio_up_6 * @fw_ratio;
+@fw_strand2_ratio_up_8: @fw_strand2_ratio_up_7 * @fw_ratio;
+@fw_strand2_ratio_up_9: @fw_strand2_ratio_up_8 * @fw_ratio;
+@fw_strand2_ratio_up_10: @fw_strand2_ratio_up_9 * @fw_ratio;
+@fw_strand2_ratio_up_11: @fw_strand2_ratio_up_10 * @fw_ratio;
+@fw_strand2_ratio_up_12: @fw_strand2_ratio_up_11 * @fw_ratio;
+@fw_strand2_ratio_up_13: @fw_strand2_ratio_up_12 * @fw_ratio;
+@fw_strand2_ratio_up_14: @fw_strand2_ratio_up_13 * @fw_ratio;
+@fw_strand2_ratio_up_15: @fw_strand2_ratio_up_14 * @fw_ratio;
+
+// smaller - sizes in pixels
+@fw_strand2_ratio_down_1: @fw_strand2_ratio_1 / @fw_ratio;
+@fw_strand2_ratio_down_2: @fw_strand2_ratio_down_1 / @fw_ratio;
+@fw_strand2_ratio_down_3: @fw_strand2_ratio_down_2 / @fw_ratio;
+
+// set ratios for common elements
+
+// font sizes
+@fw_size_smallish: 0.9 * @fw_scale_1;
+@fw_size_code:     0.9 * @fw_scale_1;
+@fw_size_small:    0.86 * @fw_scale_1;
+@fw_size_p:        @fw_scale_1;
+@fw_size_h6:       @fw_scale_1;
+@fw_size_h5:       @fw_strand2_ratio_1;
+@fw_size_h4:       @fw_scale_up_1;
+@fw_size_h3:       @fw_strand2_ratio_up_1;
+@fw_size_h2:       @fw_scale_up_2;
+@fw_size_h1:       @fw_strand2_ratio_up_2;
+
+// block paddings
+@fw_section_padding_em: 0em + @fw_scale_up_3 / @fw_basefont;
+@fw_component_padding_em: 0em + @fw_scale_up_1 / @fw_basefont;
+@fw_component_padding_v_em: 0em + @fw_scale_up_1 / @fw_basefont;
+@fw_tool_padding_em: 0em + @fw_scale_down_2 / @fw_basefont;
+
+
+
+
+// BOOTSTRAP OVERRIDES
+
+@navbarHeight: 80px;
+@inputBorder: #e0e0e0;
+@headingsColor: @fw_brand_first_color;
+@inputBorder: #d0d0d0;
+@textColor: #222;
+@btnBackground:                     #f5f5f5;
+@btnBackgroundHighlight:            @btnBackground;
+@btnBorder:                         #dcdcdc;
+@btnPrimaryBackground:              #2aa3d6;
+@btnPrimaryBackgroundHighlight:     @btnPrimaryBackground;
+@btnDangerBackground:               #e05b5b;
+@btnDangerBackgroundHighlight:      @btnDangerBackground;
+@linkColor:             #0082c0;
+@linkColorHover:        darken(@linkColor, 10%);
+@fw_link_color_visited: #0072ab;
+@btnBorder:                         #bbb;
+
+// BOOTSTRAP ADDITIONS
+
+// ...
+
+// FONT AWESOME
+
+@fontAwesomePath: "../iconfonts/fontawesome";
+
+// FOSWIKI VARIABLES
+
+@fw_brand_first_color: #52af00; // green
+@fw_brand_second_color: #3e89d3; // blue
+@fw_brand_third_color: #2e1b3e; // dark purple
+@fw_brand_fourth_color: #000; // black
+
+@fw_font_family_main: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@fw_font_family_serif: Georgia, "Times New Roman", Times, serif;
+@fw_font_family_code: Monaco, Menlo, Consolas, 'Courier New', monospace;
+
+@fw_corner_radius_button: 2px;
+@fw_corner_radius_button_large: 5px;
+@fw_corner_radius_input: 3px;
+@fw_corner_radius_block: 3px;
+
+@fw_text_size: 0px + @fw_basefont;
+@fw_button_color: #444;
+@fw_button_border_color: #dcdcdc;
+@fw_button_font_size: @fw_text_size;
+@fw_button_padding_side: 0.8 * @fw_button_font_size;
+@fw_button_padding_top: 3px;
+@fw_button_padding_bottom: 3px;
+@fw_button_padding: @fw_button_padding_top @fw_button_padding_side @fw_button_padding_bottom;
+@fw_button_disabled_color: @fw_text_muted_color;
+@fw_button_disabled_background_color: #eee;
+@fw_button_disabled_border_color: #d0d0d0;
+@fw_button_highlight_color: #222;
+@fw_button_highlight_shadow: inset 0 1px 2px rgba(0, 0, 0, 0.11);
+
+
+@fw_info_text_color: #317aa2;
+@fw_info_background_color: #ddf4fb;
+@fw_info_border_color: #caecf5;
+
+@fw_note_text_color: #665024;
+@fw_note_background_color: #fef7e3;
+@fw_note_border_color: #fbeed2;
+
+@fw_code_block_text_color: #48484c;
+@fw_code_block_background_color: #f7f7f9;
+@fw_code_block_border_color: #ddd;
+@fw_code_block_shadow: none;
+@fw_code_color: #834CB1;
+
+@fw_selection_color: @textColor;
+@fw_selection_background_color: #fff2a8;
+
+@fw_icon_size: 18px;
+@fw_button_icon_size: 16px;
+@fw_icon_color: #333;
+@fw_icon_muted_color: #bbb;
+
+@fw_border_color: #ddd;
+@fw_border_secondary_color: @grayLighter;
+
+@fw_background_secondary_color: #f7f7f9;
+
+@fw_form_background_color: @fw_background_secondary_color;
+@fw_form_border_color: @fw_border_secondary_color;
+
+//@fw_input_box_shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+//@fw_input_box_shadow_focus: inset 2px 2px 4px #ddd;
+@fw_input_border_focus: rgba(0, 0, 0, 0.4);
+@fw_box_shadow: 0 1px 2px rgba(0,0,0,.25);
+@fw_text_shadow: 0 1px 0 white;
+@fw_text_muted_color: #aaa;
+
+@fw_topbar_background_color: #fff;
+@fw_topbar_highlight_background_color: lighten(@fw_topbar_background_color, 3%);
+@fw_topbar_text_color: #0c4c68;
+@fw_topbar_link_color: @fw_brand_first_color;
+@fw_topbar_link_active_color: darken(@fw_topbar_link_color, 10%);
+@fw_topbar_item_side_margin: .5em;
+
+@fw_section_border_color: @fw_border_secondary_color;
+@fw_section_background_color: #fff;
+
+@fw_intro_background_gradient_start: @fw_brand_third_color;
+@fw_intro_background_gradient_end: @fw_brand_third_color;
+@fw_intro_text_color: #fff;
+@fw_intro_border_color: @fw_brand_third_color;
+
+//@fw_breadcrumb_border_color: lighten(@fw_brand_fourth_color, 15%);
+//@fw_breadcrumb_background_color: @fw_brand_fourth_color;
+//@fw_breadcrumb_text_color: @grayLight;
+//@fw_breadcrumb_text_shadow: none;
+
+@fw_breadcrumb_border_color: @fw_border_secondary_color;
+@fw_breadcrumb_background_color: @fw_background_secondary_color;
+@fw_breadcrumb_text_color: @grayLight;
+@fw_breadcrumb_text_shadow: none;
+
+@fw_dropdown_min_width: 180px;
+@fw_dropdown_border: 1px solid #ccc;
+@fw_dropdown_color: @fw_button_color;
+@fw_dropdown_text_shadow: @fw_text_shadow;
+@fw_dropdown_background_color: #fff;
+@fw_dropdown_highlight_color: #fff;
+@fw_dropdown_highlight_background_start: @fw_brand_second_color;
+@fw_dropdown_highlight_background_end: @fw_dropdown_highlight_background_start;
+@fw_dropdown_highlight_text_shadow: none;
+
+@fw_bottom_bar_background_color: @fw_background_secondary_color;
+
+@fw_display_roomy: roomy;
+@fw_display_cosy: cosy;
+@fw_display_tight: tight;
+@display: roomy;

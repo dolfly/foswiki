@@ -2,7 +2,7 @@
 ===================================================
 	Base Skin topic template
 	
-	This is the most top level template; it only includes 'common' for handy definitions.
+	This is the most top level template
 	
 	The document template defines the structure of the html document and should be included by all script topic templates.
 	
@@ -10,15 +10,16 @@
 }%%TMPL:INCLUDE{"foswiki"}%
 %TMPL:INCLUDE{"zoneformats"}%
 %TMPL:INCLUDE{"topicactions"}%
-%TMPL:INCLUDE{"baseskinwebtopbar"}%
-%TMPL:INCLUDE{"baseskinwebbottombar"}%
+%TMPL:INCLUDE{"webtopbar"}%
+%TMPL:INCLUDE{"webnavigationbar"}%
+%TMPL:INCLUDE{"webbottombar"}%
 %TMPL:INCLUDE{"viewtopicactionbuttons"}%%{
 -------------------------------------------------
 	Empty elements from the old default tmpl files
 -------------------------------------------------
 }%%TMPL:DEF{"standardheader"}%%TMPL:END%
 %TMPL:DEF{"simpleheader"}%%TMPL:END%
-%TMPL:DEF{"copyright"}%%TMPL:END%%TMPL:END%%{
+%TMPL:DEF{"copyright"}%%TMPL:END%%{
 ---------------------------------------------------
 	Elements that are in use by extensions.
 	So these are now part of the spec. 
@@ -35,11 +36,12 @@
 }%%TMPL:DEF{"JavascriptFiles/foswikiForm"}%%{
 }%%TMPL:P{"LIBJS" id="JavascriptFiles/foswikiForm" requires="JQUERYPLUGIN::FOSWIKI,JavascriptFiles/foswikiString"}%%TMPL:END%%{
 ---------------------------------------------------
-	Empty elements that will be filled by other templates
+	titleaction
+	    Default: the topic name
 ---------------------------------------------------
-}%%TMPL:DEF{"titleaction"}%%TMPL:END%%{
--------------------------------------------------
-	"document"
+}%%TMPL:DEF{"titleaction"}%<nop>%BASETOPIC%%TMPL:END%%{
+---------------------------------------------------
+	document
 		Document structure
 ---------------------------------------------------
 }%%TMPL:DEF{"document"}%
@@ -48,36 +50,59 @@
 %TMPL:P{"head"}%
 %TMPL:P{"body"}%
 %TMPL:P{"htmlend"}%%TMPL:END%%{
-	HTML5 doctype
+---------------------------------------------------
+	htmldoctype
+	    HTML5
+---------------------------------------------------
 }%%TMPL:DEF{"htmldoctype"}%<!DOCTYPE html>%TMPL:END%%{
 ---------------------------------------------------
-	"htmlstart"
+	htmlstart
 		HTML5 root element
-		Add class "no-js" for Modernizr script
+		Add browser targeting classes. See http://nefariousdesigns.co.uk/sniff-my-browser-the-modernizr-inadequacy.html why we shouldn't use Modrnizer.
 ---------------------------------------------------
-}%%TMPL:DEF{"htmlstart"}%<html lang="%LANG%" class='no-js'>%TMPL:END%
-%TMPL:DEF{"htmlend"}%</html>%TMPL:END%%{
+}%%TMPL:DEF{"htmlstart"}%<literal><!--[if lt IE 7 ]>
+<html lang='%LANG%' dir='ltr' class='ie ie6'>
+<![endif]-->
+<!--[if IE 7 ]>
+<html lang='%LANG%' dir='ltr' class='ie ie7'>
+<![endif]-->
+<!--[if IE 8 ]>
+<html lang='%LANG%' dir='ltr' class='ie ie8'>
+<![endif]-->
+<!--[if IE 9 ]>
+<html lang='%LANG%' dir='ltr' class='ie ie9'>
+<![endif]-->
+<!--[if gt IE 9]>
+<html lang='%LANG%' dir='ltr' class='ie'>
+<![endif]-->
+<!--[if !IE]><!-->
+<html lang='%LANG%' dir='ltr'>
+<!--<![endif]--></literal>%TMPL:END%%{
 ---------------------------------------------------
-	"head"
-		<head>
-			head:windowtitle
-			Reads TMPL:Ps and adds to zones:
-				head:meta
-				head:script
-				head:css
-			Renders zones:
-				head
-				script
-				inline-css
+    htmlend
+---------------------------------------------------
+}%%TMPL:DEF{"htmlend"}%</html>%TMPL:END%%{
+---------------------------------------------------
+	head
+        head:windowtitle
+        Reads TMPL:Ps and adds to zones:
+            head:meta
+            head:script
+            head:css
+        Renders zones:
+            head
+            script
+            inline-css
+        Puts styles before scripts:
+        https://developers.google.com/speed/docs/best-practices/rtt#PutStylesBeforeScripts
+        
 ---------------------------------------------------
 }%%TMPL:DEF{"head"}%<head>
 %TMPL:P{"head:windowtitle"}%
-%TMPL:P{"head:meta"}%%TMPL:P{"head:script"}%%TMPL:P{"head:css"}%%{
-	Render head css and js after all TMPL:DEFs are read
-}%%TMPL:P{"renderzone" zone="head"}%%TMPL:P{"renderzone" zone="script"}%%TMPL:P{"renderzone:jsonpreference"}%%TMPL:P{"renderzone" zone="webfont-css"}%%TMPL:P{"renderzone" zone="inline-css"}%</head>%TMPL:END%%{
+%TMPL:P{"head:meta"}%%TMPL:P{"renderzone" zone="head"}%%TMPL:P{"head:css"}%%TMPL:P{"renderzone" zone="inline-css"}%%TMPL:P{"head:script"}%%TMPL:P{"renderzone" zone="script"}%%TMPL:P{"renderzone:jsonpreference"}%</head>%TMPL:END%%{
 ---------------------------------------------------
-	"head:meta"
-		TODO: add more meta macros for author, keywords, dublincore (see natskin)
+	head:meta
+		TODO: meta description
 ---------------------------------------------------
 }%%TMPL:DEF{"head:meta"}%<meta charset='%CHARSET%' />
 <meta name='robots' content='noindex' />%HTTP_EQUIV_ON_VIEW%
@@ -85,21 +110,14 @@
 <link rel='shortcut icon' href='%FAVICON%' />
 <link rel='alternate' href='%SCRIPTURL{edit}%/%BASEWEB%/%BASETOPIC%?t=%GMTIME{"$epoch"}%' type='application/x-wiki' title='%MAKETEXT{"Edit this page"}%' />
 <meta name='description' content='%TMPL:P{"head:meta:description"}%' />
-%{
-	Item1157: In Internet Explorer 6 a self closing base tag causes the browser to not allow selecting text in the topic area. Solution is to put the closing tag inside a IE conditional tag.
-}%
-<base href='%SCRIPTURL{%SCRIPTNAME%}%/%WEB%/%TOPIC%' /><!--[if IE]></base><![endif]-->%TMPL:END%%{
+<base href='%SCRIPTURL{%SCRIPTNAME%}%/%WEB%/%TOPIC%' />%TMPL:END%%{
 ---------------------------------------------------
 	Default Base Skin javascripts.
-	
-	Modernizr script (http://www.modernizr.com/) to enable the use of html5 elements in older browsers.
-	Modernizr runs through a little loop in JavaScript to enable the various elements from HTML5 (as well as abbr) for styling in Internet Explorer. Note that this does not mean it suddenly makes IE support the Audio or Video element, it just means that you can use section instead of div and style them in CSS.
+	    Uses "script" module for legacy templates.
 ---------------------------------------------------
-}%%TMPL:DEF{"head:script"}%%TMPL:P{
-	"LIBJS"
-	name="modernizr"
-	id="BaseSkinJs/modernizr-1.7"
-}%%TMPL:END%%{
+}%%TMPL:DEF{"head:script"}%%TMPL:P{"script"}%%TMPL:END%%{
+---------------------------------------------------
+    head:css
 ---------------------------------------------------
 }%%TMPL:DEF{"head:css"}%%TMPL:END%%{
 ---------------------------------------------------
@@ -108,140 +126,160 @@
 ---------------------------------------------------
 }%%TMPL:DEF{"head:meta:description"}%%TOPIC%%TMPL:END%%{
 ---------------------------------------------------
+
+---------------------------------------------------
 }%%TMPL:DEF{"head:windowtitle:separator"}% / %TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"head:windowtitle"}%<title>%TMPL:P{"titleaction"}% <nop>%BASETOPIC%%TMPL:P{"head:windowtitle:separator"}%%BASEWEB%%TMPL:P{"head:windowtitle:separator"}%<nop>%WIKITOOLNAME%</title>%TMPL:END%%{
+
 ---------------------------------------------------
-	"body"
+}%%TMPL:DEF{"head:windowtitle"}%<title>%TMPL:P{"titleaction"}%%TMPL:P{"head:windowtitle:separator"}%%BASEWEB%%TMPL:P{"head:windowtitle:separator"}%<nop>%WIKITOOLNAME%</title>%TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"body"}%<body class='%TMPL:P{"body:class"}%'>
+	body
+---------------------------------------------------
+}%%TMPL:DEF{"body"}%<body class='foswikiNoJs %TMPL:P{"body:class"}%'>
 %TMPL:P{"page"}%
 </body>%TMPL:END%%{
 ---------------------------------------------------
-	Allow other templates to easy add body class names. These should make sure that class 'foswikiNoJs' is always written.
+	body:class
+	    Allow other templates to easy add body class names.
 ---------------------------------------------------
-}%%TMPL:DEF{"body:class"}%foswikiNoJs%TMPL:END%%{
+}%%TMPL:DEF{"body:class"}%%TMPL:END%%{
 ---------------------------------------------------
-	"startsection"
+	page
 ---------------------------------------------------
-}%%TMPL:DEF{"startsection"}%<div class='foswikiSection %class%'><div class='foswikiContainer'>%TMPL:END%%{
+}%%TMPL:DEF{"page"}%%TMPL:P{"topbar"}%%TMPL:P{"navigationbar"}%%TMPL:P{"topicintroduction"}%%TMPL:P{"controls"}%%TMPL:P{"main"}%%TMPL:P{"bottombar"}%%TMPL:P{"modals"}%%TMPL:END%%{
 ---------------------------------------------------
-	"endsection"
+	controls
+	    Set by sub templates
 ---------------------------------------------------
-}%%TMPL:DEF{"endsection"}%</div></div>%TMPL:END%%{
+}%%TMPL:DEF{"controls"}%%TMPL:END%%{
 ---------------------------------------------------
-	"page"
-		- top bar
-		- controls
-		- content
-		- bottom bar
+	topictitle
 ---------------------------------------------------
-}%%TMPL:DEF{"page"}%<div class='foswikiPage'><header>%TMPL:P{"topbar"}%%TMPL:P{"controls"}%</header>%TMPL:P{"main"}%%TMPL:P{"bottombar"}%</div>%TMPL:END%%{
+}%%TMPL:DEF{"topictitle"}%%IF{"defined 'TOPICTITLE'" then="%TOPICTITLE%"}%%TMPL:END%%{
 ---------------------------------------------------
-	"main"
-		- controls
-		- topic
-		- meta
+	main
 ---------------------------------------------------
-}%%TMPL:DEF{"main"}%<div class='foswikiMain'>
-<div class='foswikiTopic'>
-%TMPL:P{"topic"}%</div>
-%TMPL:P{"meta"}%</div>%TMPL:END%%{
+}%%TMPL:DEF{"main"}%%TMPL:P{"section:topic"}%%TMPL:P{"meta"}%%TMPL:END%%{
 ---------------------------------------------------
-	"topic"
+	section:topic
+---------------------------------------------------
+}%%TMPL:DEF{"section:topic"}%<div class='foswikiSection foswikiTopic foswikiMain'>
+<div class='foswikiContainer'>%TMPL:P{"topic"}%</div>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	topicintroduction
+	    implemented in view template
+---------------------------------------------------
+}%%TMPL:DEF{"topicintroduction"}%%TMPL:END%%{
+---------------------------------------------------
+	section:topicintroduction
+---------------------------------------------------
+}%%TMPL:DEF{"section:topicintroduction"}%<div class='foswikiSection foswikiIntroduction'><div class='foswikiContainer'>%TOPIC_INTRO%
+</div>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	newsection
+	    Helper module for topics
+	    Example use:
+	        TMPL:P{"topic:newsection" class="foswikiTopic"}
+---------------------------------------------------
+}%%TMPL:DEF{"topic:newsection" class=""}%</div></div>
+<div class='foswikiSection %class%'><div class='foswikiContainer'>%TMPL:END%%{
+---------------------------------------------------
+	topic
 		- topic:before
 		- content
 		- topic:after
 ---------------------------------------------------
-}%%TMPL:DEF{"topic"}%<span id='PageTop'></span>
-%TMPL:P{"topic:before"}%%TMPL:P{"startsection" class="foswikiTopicText foswikiColorPrimary"}%%TMPL:P{"content"}%%TMPL:P{"endsection"}%
-%TMPL:P{"topic:after"}%<span id='PageBottom'></span>
-%TMPL:END%%{
+}%%TMPL:DEF{"topic"}%<span id='PageTop'></span>%TMPL:P{"topic:before"}%%TMPL:P{"content"}%%TMPL:P{"topic:after"}%<span id='PageBottom'></span>%TMPL:END%%{
 ---------------------------------------------------
 	content
 		In templates always define the content DEF.
 ---------------------------------------------------
 }%%TMPL:DEF{"content"}%%TEXT%%TMPL:END%%{
 ---------------------------------------------------
-	controls
-		- topic actions
-		If you need to have the controls fixed to the browser window: surround contents with <div class='foswikiMakeSticky'>...</div>
-		
-	controls:topicactions: topic actions buttons are imported from separate template BaseSkinTopicActionsTemplate
----------------------------------------------------
-}%%TMPL:DEF{"controls"}%%TMPL:P{"startsection" class="foswikiBar foswikiTopicActions foswikiColorTopicActions foswikiClearfix"}%
-%TMPL:P{"controls:topicactions"}%
-<div class='foswikiClear'></div>
-%TMPL:P{"endsection"}%%TMPL:END%%{
----------------------------------------------------
-	"breadcrumb"
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb"}%<div class='foswikiBreadcrumb'><ul><li>%TMPL:P{"breadcrumb:title"}%</li>
-<li>%TMPL:P{"breadcrumb:wikitoolname"}%</li><li>%TMPL:P{"breadcrumb:separator"}%%TMPL:P{"breadcrumb:currentweb"}%</li><li>%TMPL:P{"breadcrumb:parents"}%</li><li>%TMPL:P{"breadcrumb:separator"}%%TMPL:P{"breadcrumb:currenttopic"}%<span class='foswikiTopicInfo'>%TMPL:P{"breadcrumb:annotation"}%</span></li></ul></div>%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:separator"}%<span class='foswikiSeparator'>/</span>%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:parents"}%%META{"parent" nowebhome="on" prefix="%TMPL:P{"breadcrumb:separator"}%" separator="%TMPL:P{"breadcrumb:separator"}%" suffix=""}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:topic"}%<nop>%TOPIC%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:title"}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:wikitoolname"}%[[%USERSWEB%.%HOMETOPIC%][%WIKITOOLNAME%]]%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:currentweb"}%<a href="%SCRIPTURLPATH{"view"}%/%WEB%/%HOMETOPIC%">%MAKETEXT{"[_1] Web" args="<nop>%WEB%"}%</a>%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:annotation"}%%TMPL:P{"topicinfo"}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"breadcrumb:currenttopic"}%<a href='%SCRIPTURL{view}%/%WEB%/%TOPIC%' title='%MAKETEXT{"Topic revision:"}% %REVINFO{format="$rev ($date - $time)"}%'>%TMPL:P{"breadcrumb:topic"}%</a>%TMPL:END%%{
----------------------------------------------------
     topicinfo
 ---------------------------------------------------
 }%%TMPL:DEF{"topicinfo"}%%IF{
 	"defined rev"
-	then=" %MAKETEXT{"revision [_1]" args="%URLPARAM{"rev"}%"}%"
-	else=" %REVINFO{format="%MAKETEXT{"revision [_1], [_2] by [_3]" args="$rev, $date, $percntIF{$quotistopic '%USERSWEB%.$wikiname'$quot then=$quot[[%USERSWEB%.$wikiname][$wikiname]]$quot else=$quot$wikiname"}%$quot}$percnt"
-}%"}%%IF{
-	"defined raw"
-	then=" %MAKETEXT{"(raw view)"}%"
-}%%TMPL:END%%{
+	then="%MAKETEXT{"revision [_1]" args="%URLPARAM{"rev"}%"}%"
+	else="%REVINFO{format="%MAKETEXT{"revision [_1], [_2] by [_3]" args="$rev, $date, $percntIF{$quotistopic '%USERSWEB%.$wikiname'$quot then=$quot[[%USERSWEB%.$wikiname][$wikiname]]$quot else=$quot$wikiname"}%$quot}$percnt"
+}%"}%%TMPL:END%%{
 ---------------------------------------------------
-	Macro for including JavaScript files from system paths
-	Takes as arguments:
-		- name
-		- id: resource id
-		- requires
+    modals
+---------------------------------------------------
+}%%TMPL:DEF{"modals"}%%TMPL:P{"modal:wrapper" id="foswikiModal"}%%TMPL:END%%{
+---------------------------------------------------
+    modal
+        Displays the DEFs:
+            modal:header
+            modal:body
+            modal:footer
+        These are loaded with templates view, login, attach and so on.
+    Modal is loaded by "modal skin" in BasemodalSkinFoswikiTemplate.
+    Needs modal:wrapper
+---------------------------------------------------
+}%%TMPL:DEF{"modal"}%<div class='foswikiModalContents'><div class='foswikiModalClose'><a href='#' data-dismiss='modal' aria-hidden='true'><i class='foswikiIcon icon-cancel'></i></a></div>%TMPL:P{"modal:header"}%%TMPL:P{"modal:body"}%%TMPL:P{"modal:footer"}%</div>%TMPL:END%%{
+---------------------------------------------------
+    modal:wrapper
+---------------------------------------------------
+}%%TMPL:DEF{"modal:wrapper"}%<div class='foswikiModal hide fade foswikiMakeVisible' id='%id%'></div>%TMPL:END%%{
+---------------------------------------------------
+	modal:header
+	    Variant for modal dialog
+---------------------------------------------------
+}%%TMPL:DEF{"modal:header"}%%TMPL:END%%{
+---------------------------------------------------
+	modal:body
+	    Variant for modal dialog
+---------------------------------------------------
+}%%TMPL:DEF{"modal:body"}%%TEXT%%TMPL:END%%{
+---------------------------------------------------
+	modal:footer
+	    Variant for modal dialog
+---------------------------------------------------
+}%%TMPL:DEF{"modal:footer"}%%TMPL:END%%{
+---------------------------------------------------
+	LIBJS
+	    Macro for including JavaScript files from system paths
+    	Takes as arguments:
+	    	- name
+		    - id: resource id
+    		- requires
 ---------------------------------------------------
 }%%TMPL:DEF{"LIBJS" requires="" name="%id%"}%%ADDTOZONE{
 	"script"
-	id="%name%"
+	id="%id%"
 	text="<script type='text/javascript' src='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.js'></script>"
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-	Macro for including CSS files from *system* paths
-	Takes as arguments:
-		- name
-		- id: resource id
-		- requires
+	LIBCSS
+	    Macro for including CSS files from *system* paths
+    	Takes as arguments:
+	    	- name
+    		- id: resource id
+    		- requires
 ---------------------------------------------------
 }%%TMPL:DEF{"LIBCSS" requires="" name="%id%"}%%ADDTOZONE{
 	"head"
-	id="%name%"
+	id="%id%"
 	text="<link rel='stylesheet' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.css' />"
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-	Macro for including CSS files from other paths
-	Takes as arguments:
-		- name
-		- id: resource id
-		- url: file url, must include .css extension
-		- requires
+	CSS
+	    Macro for including CSS files from other paths
+    	Takes as arguments:
+	    	- name
+    		- id: resource id
+    		- url: file url, must include .css extension
+    		- requires
 ---------------------------------------------------
 }%%TMPL:DEF{"CSS" requires="" name="%id%"}%%ADDTOZONE{
 	"head"
-	id="%name%"
+	id="%id%"
 	text="$percntFORMAT{
 		\"%url%\"
 		type=\"string\"
@@ -250,69 +288,28 @@
 	requires="%requires%"
 }%%{
 ---------------------------------------------------
-	Macro for including CSS text
-	Takes as arguments:
-		- name
-		- text: css string, will be written inside <literal> tags
-		- requires
+	INLINE_CSSTEXT
+	    Macro for including CSS text
+    	Takes as arguments:
+    		- name
+    		- text: css string, will be written inside <literal> tags
+    		- requires
 ---------------------------------------------------
 }%%TMPL:DEF{"INLINE_CSSTEXT" requires="" name="%id%"}%%ADDTOZONE{
 	"inline-css"
-	id="%name%"
+	id="%id%"
 	text="<style type='text/css'><literal>%text%</literal></style>"
 	requires="%requires%"
 }%%TMPL:END%%{
 ---------------------------------------------------
-	Macro for including CSS file
-	Takes as arguments:
-		- name
-		- url: css URL
-		- requires
----------------------------------------------------
-}%%TMPL:DEF{"WEBFONT_CSSFILE" requires="" name="%id%"}%%ADDTOZONE{
-	"webfont-css"
-	id="%name%"
-	text="<link rel='stylesheet' href='%url%' />"
-	requires="%requires%"
-}%%TMPL:END%%{
----------------------------------------------------
-	Macro for including Less files from *system* paths
-	Takes as arguments:
-		- name
-		- id: resource id
-		- url: file url, must NOT include .css extension
-		- requires
----------------------------------------------------
-}%%TMPL:DEF{"LIBLESS" requires="" name="%id%"}%%ADDTOZONE{
-	"head"
-	id="%name%"
-	text="<link rel='stylesheet/less' href='%PUBURLPATH%/%SYSTEMWEB%/%id%%FWSRC%.less' />"
-	requires="%requires%"
-}%%TMPL:END%%{
----------------------------------------------------
-	Macro for including LESS files from other paths
-	Takes as arguments:
-		- name
-		- url: file url, must include .less extension
-		- requires
----------------------------------------------------
-}%%TMPL:DEF{"LESS" requires="" name="%id%"}%%ADDTOZONE{
-	"head"
-	id="%name%"
-	text="$percntFORMAT{
-		\"%url%\"
-		type=\"string\"
-		format=\"<link rel='stylesheet/less' href='$item' />\"
-	}$percnt"
-	requires="%requires%"
-}%%TMPL:END%%{
----------------------------------------------------
-	Note: non-wikiword
+	nonwikiwordwarning
 ---------------------------------------------------
 }%%TMPL:DEF{"nonwikiwordwarning"}%<p class='foswikiAllowNonWikiWord'><label><input type='checkbox' class='foswikiCheckbox' name='nonwikiword' %IF{
 	"$nonwikiword='on'"
 	then="checked='checked'"
 }% />%MAKETEXT{"Allow non <nop>WikiWord for the new topic name"}%</label> %TMPL:P{"nonwikiwordhelp"}%</p>%TMPL:END%%{
+---------------------------------------------------
+    nonwikiwordhelp
 ---------------------------------------------------
 }%%TMPL:DEF{"nonwikiwordhelp"}%%TWISTY{
 	mode="span"
@@ -321,7 +318,11 @@
 	label="WikiWord"
 }%"}%%JQREQUIRE{"popupwindow"}%%ENDTWISTY%%TMPL:END%%{
 ---------------------------------------------------
-}%%TMPL:DEF{"nonwikiwordallowed"}%<input type='hidden' name='nonwikiword' value='%URLPARAM{"nonwikiword" default="on"}%" />%TMPL:END%%{
+    nonwikiwordallowed
+---------------------------------------------------
+}%%TMPL:DEF{"nonwikiwordallowed"}%<input type='hidden' name='nonwikiword' value='%URLPARAM{"nonwikiword" default="on"}%' />%TMPL:END%%{
+---------------------------------------------------
+    nonwikiword
 ---------------------------------------------------
 }%%TMPL:DEF{"nonwikiword"}%%IF{
 	"$HIDE_NON_WIKI_WORD_WARNINGS!='on'" 
@@ -329,7 +330,19 @@
 	else="$percntTMPL:P{$quotnonwikiwordallowed$quot}$percnt"
 }%%TMPL:END%%{
 ---------------------------------------------------
+    topicaction:goback
+---------------------------------------------------
+}%%TMPL:DEF{"topicaction:goback"}%<a href='#' class='foswikiMakeVisible' onclick='history.go(-1); return false;'>%MAKETEXT{"Go back"}%</a>%TMPL:END%%{
+---------------------------------------------------
+    topicaction:goback:button
+---------------------------------------------------
+}%%TMPL:DEF{"topicaction:goback:button"}%<a class='foswikiButton foswikiMakeVisible' href='#' onclick='history.go(-1); return false;'>%MAKETEXT{"Go back"}%</a>%TMPL:END%%{
+---------------------------------------------------
+    LOG_IN
+---------------------------------------------------
 }%%TMPL:DEF{"LOG_IN"}%%MAKETEXT{"Login"}%%TMPL:END%%{
+---------------------------------------------------
+    LOG_OUT
 ---------------------------------------------------
 }%%TMPL:DEF{"LOG_OUT"}%%MAKETEXT{"Logout"}%%TMPL:END%%{
 ===================================================

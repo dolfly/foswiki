@@ -3,7 +3,7 @@
 Base Skin topic template
 		
 ===================================================
-}%%TMPL:INCLUDE{"edit"}%%TMPL:DEF{"body:class"}%foswikiManagePage foswikiEditPage%TMPL:END%%{
+}%%TMPL:INCLUDE{"edit"}%%TMPL:DEF{"body:class"}%foswikiEditPage%TMPL:END%%{
 ---------------------------------------------------
 	Title action
 ---------------------------------------------------

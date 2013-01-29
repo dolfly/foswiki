@@ -2,99 +2,109 @@
 ===================================================
 Base Skin topic template
 
-	The view template defines the display of contents through the view script:
-		- topic text
-		- data form
-		- attachments
+	The edit view template defines the display of contents through the edit script
 		
 ===================================================
-}%%TMPL:INCLUDE{"edit"}%%TMPL:INCLUDE{"messages"}%%{
+}%%TMPL:INCLUDE{"view"}%%TMPL:INCLUDE{"messages"}%%{
 ---------------------------------------------------
-	Include TopicInteractionPlugin, if installed
+	body:class
+	    This is an edit page
 ---------------------------------------------------
-}%%TMPL:INCLUDE{"metadata"}%%{
+}%%TMPL:DEF{"body:class"}%foswikiEditPage%TMPL:END%%{
 ---------------------------------------------------
-	CSS class for body element says this is an edit page
----------------------------------------------------
-}%%TMPL:DEF{"body:class"}%foswikiManagePage foswikiEditPage%TMPL:END%%{
----------------------------------------------------
-	Title action
+	titleaction
 ---------------------------------------------------
 }%%TMPL:DEF{"titleaction"}%%MAKETEXT{"(edit)"}%%TMPL:END%%{
 ---------------------------------------------------
-	Void topicinfo
+	Hide
+	    topbar
+	    navigationbar
+	    topicintroduction
+	    topicinfo
+	    meta:contents
 ---------------------------------------------------
-}%%TMPL:DEF{"topicinfo"}%%TMPL:END%%{
+}%%TMPL:DEF{"topbar"}%%TMPL:END%
+%TMPL:DEF{"navigationbar"}%%TMPL:END%
+%TMPL:DEF{"topicintroduction"}%%TMPL:END%
+%TMPL:DEF{"topicinfo"}%%TMPL:END%
+%TMPL:DEF{"meta:contents"}%%TMPL:END%%{
 ---------------------------------------------------
-	Main (content container)
+	topic
 ---------------------------------------------------
 }%%TMPL:DEF{"topic"}%%TMPL:P{"formstart"}%
-%TMPL:P{"editcontrols"}%
-%TMPL:P{"startsection" class="foswikiTopicText foswikiColorPrimary foswikiNoBorder"}%
-%TMPL:P{"content"}%%TMPL:P{"endsection"}%
-%TMPL:P{"formend"}%%TMPL:END%%{
+%TMPL:P{"editcontrols"}%%TMPL:P{"content"}%%TMPL:P{"formend"}%%TMPL:END%%{
 ---------------------------------------------------
-	Edit controls
+	editcontrols
 ---------------------------------------------------
-}%%TMPL:DEF{"editcontrols"}%<div class='foswikiMakeSticky foswikiShadow foswikiColorTopicActions'>
-	<div class='foswikiBar foswikiColorSecondary'>
-	<div class='foswikiContainer'>
-		<div id='foswikiEditControlsContainer'>
-			<div class='foswikiEditControls'>
-				<input type='submit' class='foswikiSubmit' name='action_save' value='%MAKETEXT{"Save"}%' id='save' /><input type='submit' class='foswikiButtonCancel' name='action_cancel' value='%MAKETEXT{"Cancel"}%' id='cancel' /><input type='submit' class='foswikiButton' name='action_preview' value='%MAKETEXT{"Preview"}%' id='preview' /><input type='submit' class='foswikiButton' value='%MAKETEXT{"WYSIWYG"}%' id='topic_2WYSIWYG' />
-			</div>
-		</div>
-	</div>
-	</div>
+}%%TMPL:DEF{"editcontrols"}%<div class='foswikiMakeSticky foswikiMakeVisible'>
+<div id='foswikiEditControls' class='foswikiTopicActions'>
+    <div class='foswikiButtonToolbar'>
+        %TMPL:P{"editcontrols:actions"}%
+    </div>
+</div>
 </div>%TMPL:END%%{
 ---------------------------------------------------
-	Topic content
+	editcontrols:actions
+---------------------------------------------------
+}%%TMPL:DEF{"editcontrols:actions"}%%TMPL:P{"editcontrols:save"}%%TMPL:P{"editcontrols:preview"}%%TMPL:P{"editcontrols:cancel"}%%TMPL:END%%{
+---------------------------------------------------
+	editcontrols:save
+---------------------------------------------------
+}%%TMPL:DEF{"editcontrols:save"}%<input type='submit' class='foswikiButton foswikiSubmit' name='action_save' value='%MAKETEXT{"Save"}%' id='save' />%TMPL:END%%{
+---------------------------------------------------
+	editcontrols:preview
+	    When showing WYSIWYG, the preview button is hidden by CSS and JS
+---------------------------------------------------
+}%%TMPL:DEF{"editcontrols:preview"}%<input type='submit' class='foswikiButton' name='action_preview' value='%MAKETEXT{"Preview"}%' id='preview' />%TMPL:END%%{
+---------------------------------------------------
+	editcontrols:cancel
+---------------------------------------------------
+}%%TMPL:DEF{"editcontrols:cancel"}%<a class='foswikiButton foswikiRight' href='%SCRIPTURLPATH{"view"}%/%BASEWEB%/%BASETOPIC%?release_lock=1;%QUERYPARAMS{separator=";"}%' title='%MAKETEXT{"Cancel editing and discard changes"}%'><i class='foswikiIcon icon-cancel'></i><span class='foswikiLabel'>%MAKETEXT{"Discard"}%</span></a>%TMPL:END%%{
+---------------------------------------------------
+	content
 ---------------------------------------------------
 }%%TMPL:DEF{"content"}%%TMPL:P{"textarea"}%%TMPL:END%%{
 ---------------------------------------------------
-	Textarea
+	textarea
 ---------------------------------------------------
 }%%TMPL:DEF{"textarea"}%%IF{
 	"{Validation}{Method}='strikeone'"
-	then="<noscript>$percentTMPL:P{enable_js}$percent</noscript>"
+	then="<div class='foswikiMakeHidden'>$percentTMPL:P{enable_js}$percent</div>"
 }%%IF{
 	"defined EDITOR_MESSAGE"
 	then="<div class='foswikiAlert'>%EDITOR_MESSAGE%</div>"
-}%<div class='foswikiEditTextarea'>
-%TMPL:P{"topiceditor"}%</div>%TMPL:END%%{
+}%%TMPL:P{"topiceditor"}%%TMPL:END%%{
 ---------------------------------------------------
-	"topiceditor"
+	topiceditor
 		Default: WYSIWYG
 ---------------------------------------------------
 }%%TMPL:DEF{"topiceditor"}%%IF{
-	"$NOWYSIWYG='1'"
+	"$NOWYSIWYG='1' OR $nowysiwyg='1'"
 	then="$percntTMPL:P{topiceditor:tml}$percnt"
 	else="$percntTMPL:P{topiceditor:wysiwyg}$percnt"
 }%%TMPL:END%%{
 ---------------------------------------------------
-	"topiceditor:tml"
+	topiceditor:tml
 		Plain TML editor, not wysiwyg
 ---------------------------------------------------
-}%%TMPL:DEF{"topiceditor:tml"}%<textarea class='' id='topic' name='text'>
+}%%TMPL:DEF{"topiceditor:tml"}%<textarea class='foswikiEditTextarea foswikiMakeVisible' id='topic' name='text'>
 %TEXT%
 </textarea>%TMPL:END%%{
 ---------------------------------------------------
-	"topiceditor:wysiwyg"
+	topiceditor:wysiwyg
 ---------------------------------------------------
-}%%TMPL:DEF{"topiceditor:wysiwyg"}%<textarea class='foswikiWysiwygEdit' id='topic' name='text'>
+}%%TMPL:DEF{"topiceditor:wysiwyg"}%<textarea class='foswikiMakeVisible foswikiWysiwygEdit' id='topic' name='text'>
 %TEXT%
 </textarea>%TMPL:END%%{
 ---------------------------------------------------
-	Form start
+	formstart
 ---------------------------------------------------
 }%%TMPL:DEF{"formstart"}%<div class='foswikiFormHolder'>
 <form name='main' class='foswikiEditForm' action='%SCRIPTURLPATH{"save"}%/%WEB%/%TOPIC%' method='post'>%TMPL:END%%{
 ---------------------------------------------------
-	Form parameters
+	formparameters
 ---------------------------------------------------
-}%%TMPL:DEF{"formparameters"}%%TMPL:P{"formparameters:edit"}%%TMPL:END%%{
----------------------------------------------------
-}%%TMPL:DEF{"formparameters:edit"}%<input type='hidden' name='originalrev' value='%ORIGINALREV%' />
+}%%TMPL:DEF{"formparameters"}%<input type='hidden' name='originalrev' value='%ORIGINALREV%' />
 <input type='hidden' name='skin' value='%URLPARAM{"skin"}%' />
 <input type='hidden' name='cover' value='%URLPARAM{"cover"}%' />
 <input type='hidden' name='redirectto' value='%REDIRECTTO%' />
@@ -113,7 +123,7 @@ Base Skin topic template
 }%' />
 <input type='hidden' name='action' value='%URLPARAM{"action"}%' />%TMPL:END%%{
 ---------------------------------------------------
-	Form end
+	formend
 ---------------------------------------------------
 }%%TMPL:DEF{"formend"}%%TMPL:P{"formparameters"}%</form></div>%TMPL:END%%{
 ===================================================

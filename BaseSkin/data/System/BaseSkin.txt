@@ -1,37 +1,61 @@
 %META:TOPICINFO{author="BaseUserMapping_333" comment="" date="1323296849" format="1.1" version="4"}%
 %META:TOPICPARENT{name="Skins"}%
 ---+!! Base Skin
-Base skin to build other skins upon.
+A basic skin.
 
-<div class="foswikiNotification">
----++ Test settings
-Copy these settings to !SitePreferences:
+<div class='foswikiHelp'>
+---+++!! This is work in progress
+Settings for Main.SitePreferences:
 <verbatim>
+   * Set WIKILOGOIMG = %PUBURL%/%SYSTEMWEB%/ProjectLogos/foswiki-logo.png
+   * Set WIKILOGOICONIMG = %PUBURL%/%SYSTEMWEB%/ProjectLogos/foswiki-logo-icon.png
+   * Set EDITBOXSTYLE =
    * Set SKIN = basejs,basecss,base
-   * Set SKIN_USE_LESS = 1
-   * Set SKIN_WEBFONTS_URL = %PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/webfonts-opensans.css
+   * Set JQUERY_THEME = BasecssSkinTheme
 </verbatim>
+
+TODO:
+   * raw view
+   * edit
+      * remove unused js from foswiki_edit (in own file)
+      * raw: add "are you sure" warning
+   * attach
+   * history
+   * search results
+   * check existing content pages
 </div>
 
 %TOC%
 
 ---++ About Base Skin
-TO WRITE
+Base Skin arose out of a wish to create standardization in Foswiki skin development, to create a standard skin that would be easy to skin or just minimally override. The current skin hopes to address a number of those requests, in implementing some best practices that long term Foswiki developers have learned.
+
+The main features of Base Skin:
+   * modular skin parts
+   * formalized but adaptable page structure
+   * uniform look for Foswiki and jQuery interface elements (work in progress)
+   * easy to skin and theme
+
+Additional features:
+   * layout based on [[http://www.alistapart.com/articles/more-meaningful-typography/][Modular Scale]]
+   
 
 ---++ Modular skin parts
-Base Skin is built with modular, progressive parts, making it possible to load only the parts you need. For instance, you might only need the CSS, not !BaseSkin's javascript.
+Base Skin is built with modular, progressive parts, making it possible to load  the parts that you need. For instance, you might only need the base template structure, and implement CSS and !JavaScript yourself.
 
-The progressive loading is done by using a topic template for each part.
+The progressive loading is done by using a sub-skin for each part, where each sub-skin part is defined in its own template.
 
-%TABLE{columnwidths="10%,50%,40%" headeralign="left"}%
-| *Part name* | *What it does* | *Defined in topic template* |
+%TABLE{%TABLE_STYLE% columnwidths="10%,50%,40%" headeralign="left"}%
+| *Part name* | *What it does* | *Defined in template* |
 | =base=   | Sets the base structure of the document (HTML page). | %SYSTEMWEB%.BaseSkinFoswikiTemplate |
-| =basecss= | Loads CSS file [[%PUBURLPATH%/%SYSTEMWEB%/BaseSkinCss/base_src.css][base.css]] that contains a style reset, sets default styling for HTML elements and implements Foswiki styles. %BR% =base.css= is not loaded if preference =BASESKIN_TAKE= is set to another CSS file. | %SYSTEMWEB%.BasecssSkinFoswikiTemplate |
-| =basejs= | Loads a javascript file that implements dynamic interaction with topic contents. | %SYSTEMWEB%.BasejsSkinFoswikiTemplate |
-| =basenocontrols= | Removes edit buttons from the page, useful for Foswiki as CMS. | %SYSTEMWEB%.BasenocontrolsSkinFoswikiTemplate |
+| =basecss= | Loads CSS file [[%PUBURLPATH%/%SYSTEMWEB%/BasecssSkin/css/base_src.css][base.css]] that contains a style reset, default styling for HTML and Foswiki elements. | %SYSTEMWEB%.BasecssSkinFoswikiTemplate |
+| =baselegacy= | Loads CSS for macros =WEBBGCOLOR=, =WEBHEADERBGCOLOR=, =WEBHEADERART= | %SYSTEMWEB%.BaselegacySkinFoswikiTemplate |
+| =basejs= | Loads !JavaScript files that implements dynamic interaction with topic contents. | %SYSTEMWEB%.BasejsSkinFoswikiTemplate |
+| =basetheme= | Default theme for Base Skin | %SYSTEMWEB%.BasethemeSkinFoswikiTemplate |
 
----+++ Specifying the skin parts
-Base Skin parts can be loaded independently, as long as the rules for the [[%SYSTEMWEB%.Skins#Activating_Skins][skin path]] are met. As you may know, a skin is set using skin path elements, the most specific skin first.
+
+---+++ Specifying skin parts
+Base Skin parts can be loaded independently, as long as the rules for the [[%SYSTEMWEB%.Skins#Activating_Skins][skin path]] are met. As you may know, a skin path is a comma-delimited string of skin names, the most specific skin first.
 
 For example:
 <pre class="tml">
@@ -43,77 +67,291 @@ When you are developing your own skin on top of Base Skin, your skin will be the
    * <nop>Set SKIN = myskin,%SKIN_PATH%
 </pre>
 
-How to choose the right skin parts from Base Skin? The table below describes what you can expect.
 
-%TABLE{columnwidths="30%,5%,30%,35%" headeralign="left"}%
-| *Skin setting* | *Try* | *What do you see* | *Why would I need this* |
-| =Set SKIN = %RED%base%ENDCOLOR%= | [[%SCRIPTURL{view}%/%WEB%/%TEST_TOPIC%?skin=base][test]] | No Base Skin CSS or Javascript is loaded, only that what is inserted by other extensions. | You are building something from scratch using the bare minimum. You might be developing a new skin that uses Foswiki's template structure, and you are building your own CSS and Javascript from the ground up. | 
-| =Set SKIN = %RED%basecss%ENDCOLOR%,base= | [[%SCRIPTURL{view}%/%WEB%/%TEST_TOPIC%?skin=basecss,base][test]] | Pages are styled. Foswiki styles like =foswikiNotification= and =foswikiAlert= are implemented. But menu dropdowns, smooth scrolling or sticky navigation won't work. | You are using Foswiki topic contents and it would be handy to have styles already defined. You are developing your own application with your own Javascript. |
-| =Set SKIN = %RED%basejs%ENDCOLOR%,base= | [[%SCRIPTURL{view}%/%WEB%/%TEST_TOPIC%?skin=basejs,base][test]] | The page looks unstyled, but Javascript additions like smooth scrolling work. | You want to use Foswiki's Javascript functionalities but write your own stylesheets. |
-| =Set SKIN = %RED%basejs,basecss%ENDCOLOR%,base= | [[%SCRIPTURL{view}%/%WEB%/%TEST_TOPIC%?skin=basejs,basecss,base][test]] | The page looks styled, javascript additions work. | You want to build on top of existing functionalities and perhaps make small changes to styling. |
-| =Set COVER = %RED%basenocontrols%ENDCOLOR%= | [[%SCRIPTURL{view}%/%WEB%/%TEST_TOPIC%?skin=basejs,basecss,base;cover=basenocontrols][test]] | Everything works as normal, but edit and info buttons are missing. | You want to hide edit buttons from non-logged in users. Or you want to use this style to publish static HTML pages. |
+---++ Template topics
+Base Skin is completely defined as topics, so no template resides in the =templates= directory. This makes it possible to inspect or change skin parts from a web browser.
 
-The default skin setting would be:
-<pre class="tml">
-   * <nop>Set SKIN = %SKIN_PATH%
-</pre>
+For a complete list of template topics, see [[#TemplateOverview]].
 
 ---++ Page structure
-Pages generated by the view template are divided into a number of horizontal (screen wide) sections:
-   * top bar
-   * actions bar
-   * topic text
-   * meta info (form and attachments)
-   * bottom bar
+The page generated by the view template is built up with stacked sections:
 
-Other templates use the same structure, but will have different content for  topic and meta info.
+<div class='page'>
+<div class='section'>
+---++++!! foswikiTopBar
+<p>
+Logo, top navigation, search, language switch, login
+</p>
+</div>
+<div class='section'>
+---++++!! foswikiNavigationBar
+<p>
+Breadcrumb
+</p>
+</div>
+<div class='section'>
+---++++!! foswikiIntro
+<p>
+Optional section set by macro =%<nop>INTRO%=
+</p>
+</div>
+<div class='section main'>
+---++++!! foswikiTopic
+<p>
+Breadcrumb, topic actions, topic text
+</p>
+</div>
+<div class='section'>
+---++++!! foswikiMeta
+<p>
+Attachments, topic data
+</p>
+</div>
+<div class='section'>
+---++++!! foswikiBottombar
+<p>
+Footer with copyright
+</p>
+</div>
+</div>
 
----+++ Sections
-Sections have a consistent top and bottom padding, making them easy to stack.  Sections that are at the same time a navigation bar will have different paddings.
+Each section has the additional class name =foswikiSection=.
 
-Sections can be styled by adding a color class.
+%ADDTOZONE{
+"head"
+text="<noautolink><literal><style>
+.page {
+  border: none;
+  padding: 4px;
+  max-width: 30em;
+  background: rgba(0, 0, 0, 0.02);
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+.section {
+  background: #fafafa;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #eee;
+  padding: 1em;
+  *zoom: 1;
+}
+.section.main {
+  background: #fff;
+}
+.section:before,
+.section:after {
+  display: table;
+  content: \"\";
+  line-height: 0;
+}
+.section:after {
+  clear: both;
+}
+.section *:last-child {
+  margin-bottom: 0;
+}
+.section + .section {
+  border-top: 0;
+}
+</style></literal></noautolink>"
+}%
 
-You can create a new section anywhere in a topic. For instance, to create a section with a black background, write in a topic:
+
+
+
+---++ Themes
+A Base Skin theme can be created and applied just like a sub-skin in the skin path:
+<pre class="tml">
+   * <nop>Set SKIN = mytheme,basejs,basecss,base
+</pre>
+
+Create the theme by creating a topic =&lt;Theme&gt;SkinFoswikiTemplate= in %SYSTEMWEB% web, for instance: !MythemeSkinFoswikiTemplate (note the capitalization of Mytheme).
+
+This file will contain Foswiki template code.
+
+---+++ Theme template
+For more in-depth information on the working and structure of templates, read SkinTemplates.
+
+To simply load a custom CSS file from %SYSTEMWEB% web, write:
 <verbatim>
-%TMPL:P{"endsection"}%
-%TMPL:P{"startsection" class="foswikiColorBlack"}%
+%TMPL:INCLUDE{"foswiki"}%
+%TMPL:DEF{"head:css:theme"}%%TMPL:P{
+	"LIBCSS"
+	id="MythemeSkinFoswikiTemplate/style"
+}%%TMPL:END%
 </verbatim>
 
+This will load the file =style.css= residing in directory =pub/%SYSTEMWEB%/MythemeSkinFoswikiTemplate=.
+
+You can choose any location for your CSS file, even an external URL, but easiest is to attach the CSS file to the template topic, or to a familiar place like %USERSWEB%.SitePreferences.
+
+For a destination other than %SYSTEMWEB% web, use =TMPL:P{"CSS"}= and pass the full URL:
+<verbatim>
+%TMPL:INCLUDE{"foswiki"}%
+%TMPL:DEF{"head:css:theme"}%%TMPL:P{
+	"CSS"
+	url="%PUBURLPATH%/%USERSWEB%/SitePreferences/style.css"
+	id="mytheme"
+}%%TMPL:END%
+</verbatim>
+
+With custom CSS you may choose to replace base CSS, or to add to the base CSS. To add (and keep the default base.css), use =TMPL:PREV=:
+
+<verbatim>
+%TMPL:INCLUDE{"foswiki"}%
+%TMPL:DEF{"head:css:theme"}%%TMPL:PREV%%TMPL:P{
+	"LIBCSS"
+	id="MythemeSkinFoswikiTemplate/style"
+	requires="BasecssSkin/css/base"
+}%%TMPL:END%
+</verbatim>
+
+The =requires= parameter is used to make sure the theme CSS is placed after the base CSS.
 
 
----++ Colors
-
----++ Developing
-
----+++ LESS instead of CSS
-Developing in [[http://lesscss.org][LESS]] without compiling to CSS works fine if you set:
-<pre class="tml">
-   * <nop>Set BASESKIN_USE_LESS = 1
-</pre>
-Due to the fairly large compile time in the browser I suggest to always use the compiled CSS for production sites.
+---+++ Theme CSS
+Base Skin CSS is written in [[http://lesscss.org][LESS]] and compiled to CSS. LESS makes it possible to use variables and mixins, which comes in handy when writing themes.
 
 
----+++ Rolling your own Javascript
-If you replace the default javascript, you'll need to take a few things into consideration.
+---++++ Using LESS
+To compile LESS files to CSS makes most sense if you have file access to the Foswiki server.
 
----++++ Scroll javascript is needed when using a fixed top bar
-Base Skin default behaviour is to let the bar scroll with the page.
+Create a file =style.less= in directory =pub/%SYSTEMWEB%/MythemeSkinFoswikiTemplate= and write:
+<verbatim>
+@import "../BasecssSkin/less/base.less";
+</verbatim>
 
-But if you use Twitter's top bar style, the top bar stays glued at the top, even when the page is scrolled.
+Compile with:
+<verbatim>
+lessc style.less > style.css
+</verbatim>
 
-The height of the top bar will overlap the page contents. When clicking an anchor link, the anchored header would then be hidden behind the top bar. A smart scrolling script reads the top bar height and lets the page scroll just a bit less to make the anchor visible. See =base_src.js= how this works.
+You will certainly wish to change CSS styles. You can do that by writing CSS code, or by changing the defined LESS variables, for example:
+<verbatim>
+@fw_brand_first_color: red;
+</verbatim>
 
-When no javascript is available the topic action bar will not have a fixed position and will scroll along with the page contents.
+See %PUBURL%/%SYSTEMWEB%/BasecssSkin/less/variables.less for the complete list of LESS variables.
 
+---+++++ Variations using LESS
+A couple of layout variations are built-in and can be changed by writing different values in your LESS file.
+
+%TABLE{%TABLE_STYLE%}%
+| *Element* | *Description* | *Default&nbsp;value* | *LESS code* |
+| Navigation pointer | The current web is indicated with a pointer | Pointer | Hide pointer with: <verbatim>@fw_navbar_pointer: false;</verbatim> |
+| Header sizes | Sizes of h1..h6 | Sizes between h1 and h6 are evenly distributed. | Change values of =@fw_header_h1= and/or =@fw_header_h6= or change the calculation. |
+| Breadcrumb | Breadcrumb as an arrow path | Text with links | Show as arrow path: <verbatim>
+@fw_breadcrumb_arrows: true;
+</verbatim> |
+| Intro block inverse color | TO WRITE |||
+
+
+---++++ Web fonts
+A couple of web fonts are distributed with Base Skin, but you can use any web font. [[http://www.fontsquirrel.com/][Font Squirrel]] has offers a wide collection of free web fonts with many international language subsets.
+
+When downloading a web font, make sure it has the font faces Regular, Bold, Italic and Bold Italic (names may differ).
+
+Load the webfont CSS exactly like any custom CSS file - see above. In the default theme it is written like this:
+<verbatim>
+%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/webfonts/noticia-text/stylesheet"
+}%
+</verbatim>
+
+If you would set =font-weight: bold= to a regular web font face, you would get a faux bold, and that [[http://www.alistapart.com/articles/say-no-to-faux-bold/][doesn't look right]]. To make sure that all font weights are used correctly, override these mixins in your LESS file:
+<verbatim>
+.fw_regular
+.fw_bold
+.fw_italic
+.fw_bold_italic
+</verbatim>
+
+For isntance in the default theme:
+<verbatim>
+.fw_regular() {
+    font-family: 'NoticiaTextRegular';
+    font-weight: normal;
+    font-style: normal;
+}
+.fw_bold() {
+    font-family: 'NoticiaTextBold';
+    font-weight: normal;
+}
+.fw_italic() {
+    font-family: 'NoticiaTextItalic';
+    font-weight: normal;
+    font-style: normal;
+}
+.fw_bold_italic() {
+    font-family: 'NoticiaTextBoldItalic';
+    font-weight: normal;
+    font-style: normal;
+}
+</verbatim>
+
+The mixins are used like this:
+<verbatim>
+.fw_btn() {
+    ...
+    .fw_bold;
+}
+</verbatim>
+
+---++++ Icon fonts
+Base Skin uses [[http://fortawesome.github.com/Font-Awesome/][Font Awesome webfont]] icon set. You can use a different set, as long as the following class names are implemented:
+
+%TABLE{%TABLE_STYLE% databg="#ffffff" dataalign="left,left,left,center"}%
+| *CSS class* | *Used with* | *Interpretation* | *Display* |
+| =icon-search= | search | magnifying glass | <i class='foswikiIcon icon-search'></i> |
+| =icon-pencil= | edit | pencil | <i class='foswikiIcon icon-pencil'></i> |
+| =icon-doc= | view, new document/attachment | document | <i class='foswikiIcon icon-doc'></i> |
+| =icon-upload= | upload attachment | arrow | <i class='foswikiIcon icon-upload'></i> |
+| =icon-globe= | change language | globe | <i class='foswikiIcon icon-globe'></i> |
+| =icon-user= | user, account | head | <i class='foswikiIcon icon-user'></i> |
+| =icon-yes= | checked, selected, ok | checkmark | <i class='foswikiIcon icon-yes'></i> |
+| =icon-cog= | actions, manage | cog, gear | <i class='foswikiIcon icon-cog'></i> |
+| =icon-jump= | jump | forward | <i class='foswikiIcon icon-jump'></i> |
+| =icon-cancel= | cancel | x in circle | <i class='foswikiIcon icon-cancel'></i> |
+| =icon-subscribe= | subscribe | empty bookmark | <i class='foswikiIcon icon-subscribe'></i> |
+| =icon-subscribed= | subscribed | filled bookmark | <i class='foswikiIcon icon-subscribed'></i> |
+| =icon-view-grid= | view as grid | grid | <i class='foswikiIcon icon-view-grid'></i> |
+| =icon-view-list= | view as list | list | <i class='foswikiIcon icon-view-list'></i> |
+| =icon-calendar= | calendar | grid, table, calendar | <i class='foswikiIcon icon-calendar'></i> |
+| =icon-empty= | Used to create a icon height space, useful to make adjacent buttons the same height. |||
+| =icon-maybe= | Used in lists; by default no icon (=icon-empty=), but with =li.foswikiActive= equal to =icon-yes=. |||
+
+Example CSS code:
+<verbatim>
+.icon-search:before { content: "z"; }
+</verbatim>
+
+Exmple usage:
+<verbatim>
+<i class='foswikiIcon icon-globe'></i>Languages
+</verbatim>
+
+---++ Modal dialogs
+!BaseSkin uses Bootstrap !JavaScript code for modal dialogs. To evoke a modal dialog, create a link with attributes =data-toggle='modal'= and =data-target='#foswikiModal'=:
+
+<a href='%SCRIPTURL{"view"}%/%SYSTEMWEB%/%HOMETOPIC%' data-toggle='modal' data-target='#foswikiModal'>Show modal</a>
+
+
+
+---++ Browser support
+The following browsers are supported:
+   * Windows
+      * IE8
+      * IE9
+   * Mac
+      * Safari 5.1
+      * Firefox
 
 
 ---++ Testing
----+++ Test page
-A page with a lot of different markup:
-   * %TEST_TOPIC%
-
----++ Background
-This skin has all templates as topics. This makes it easier to have access to template code. The downside is that template topics will be searchable and will show up in search results.
+A page with a lot of different markup: %TEST_TOPIC%
 
 
 ---++ Installation Instructions
@@ -121,10 +359,37 @@ Note: this skin will not work with a Foswiki version earlier than 1.2.
 
 %$INSTALL_INSTRUCTIONS%
 
+#TemplateOverview
+---+++ List of template topics
+%TABLE{%TABLE_STYLE%}%
+| *Template* | *Description* |
+| BaseSkinAttachAgainTemplate | TODO |
+| BaseSkinAttachNewTemplate | TODO |
+| BaseSkinAttachtablesTemplate | TODO |
+| BaseSkinAttachTemplate | TODO |
+| BaseSkinBreadcrumbTemplate | TODO |
+| BaseSkinEditFormTemplate | TODO |
+| BaseSkinEditTemplate | TODO |
+| BaseSkinFormtablesTemplate | TODO |
+| BaseSkinFoswikiTemplate | TODO |
+| BaseSkinLoginTemplate | TODO |
+| BaseSkinTestPage | TODO |
+| BaseSkinTinyMCEPlugin | TODO |
+| BaseSkinTopicActionsTemplate | TODO |
+| BaseSkinViewTemplate | TODO |
+| BaseSkinWebBottomBarExample | TODO |
+| BaseSkinWebBottomBarTemplate | TODO |
+| BaseSkinWebTopBarTemplate | TODO |
+| BaseSkinZoneformats | TODO |
+
+---+++ Copyrights
+%TABLE{databg="#fff" headerbg="#fff" sort="off"}%
+| *Code* | *Used in* | *Copyright* |
+| jQuery.fn.sortElements | =base_attachments.js= | James Padolsey (http://james.padolsey.com) |
 
 ---++ Plugin Info
 |  Author(s): | Arthur Clemens |
-|  Copyright: | 2012 Arthur Clemens  |
+|  Copyright: | 2012 Arthur Clemens |
 |  License: | GPL |
 |  Screenshot: | no screenshot yet |
 |  Preview: | [[%SCRIPTURL{view}%/%WEB%/%TOPIC%?skin=%SKIN_PATH%][Preview with this skin]] |
@@ -132,7 +397,7 @@ Note: this skin will not work with a Foswiki version earlier than 1.2.
 |  Version: | %$VERSION% | 
 |  Release: | %$RELEASE% |
 |  History: | <!-- specify latest version first -->&nbsp; |
-|  12 Jan 2011: | 0.0.1 Alpha release |
+|  23 Oct 2012: | 0.0.1 Alpha release |
 |  Dependencies: | Foswiki:Extensions/JQueryPlugin (automatically provided with Foswiki) |
 |  Skin Home: | http://foswiki.org/Extensions/%TOPIC% |
 |  Support: | http://foswiki.org/Support/%TOPIC% | %STOPINCLUDE%
@@ -146,4 +411,6 @@ Leave remarks, suggestions and other feedback in http://foswiki.org/Support/%TOP
 <!--
    * Local TEST_TOPIC = BaseSkinTestPage
    * Local SKIN_PATH = basejs,basecss,base
+   * Local TOPICTITLE = Base Skin
+   * Local TABLE_STYLE = sort="off" databg="#fff" tablerules="rows"
 -->

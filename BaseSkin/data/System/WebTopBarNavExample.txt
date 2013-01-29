@@ -1,0 +1,39 @@
+---+!! Web top navigation links
+To create a custom menu, copy this topic to a web and name it !WebTopBarNav.
+
+---++ Menu button
+Buttons are rendered with module =topbar:button=. The default !BaseSkin implementation creates a =li= element for each button, with a link inside. The list elements are placed in a =ul= container.
+
+<verbatim class='tml'>
+%TMPL:P{"topbar:button"
+    ID=""
+    DESTWEB="%USERSWEB%"
+    DESTTOPIC="%HOMETOPIC%"
+    LABEL="%USERSWEB%"
+}%
+</verbatim>
+
+---++ Parameters
+| =ID= | Will give the menu item a CSS id |
+| =DESTWEB= | The web part of the link |
+| =DESTTOPIC= | The topic part of the link |
+| =LABEL= | The link label |
+
+<verbatim class="tml">
+%STARTINCLUDE%<ul>%TMPL:P{"topbar:button"
+    ID=""
+    DESTWEB="%USERSWEB%"
+    DESTTOPIC="%HOMETOPIC%"
+    LABEL="%USERSWEB%"
+}%%TMPL:P{"topbar:button"
+    ID=""
+    DESTWEB="%SYSTEMWEB%"
+    DESTTOPIC="%HOMETOPIC%"
+    LABEL="%SYSTEMWEB%"
+}%%TMPL:P{"topbar:button"
+    ID=""
+    DESTWEB="%SANDBOXWEB%"
+    DESTTOPIC="%HOMETOPIC%"
+    LABEL="%SANDBOXWEB%"
+}%</ul>%STOPINCLUDE%
+</verbatim>

@@ -1,0 +1,201 @@
+body {
+    font-size: 0px + @fw_basefont;
+	.fw_em_line_height(@fw_size_p);
+}
+
+* {
+    .fw_type_p;
+}
+
+.foswikiLast {
+    margin-bottom: 0;    
+}
+
+/*
+You will find 2 ways to set the line height of elements, and they are both wrong:
+
+   1. @body_line_height / @size : leads to very small line heights that cause overlap
+   
+   2. don't set line height at all but let the browser use body's line height : with a setting of 1.5 that leads to very high line heights with too much whitespace.
+
+The solution is to use line-height: 1 (right, no em!) for headers, and the desired line height for normal text only.
+*/
+
+h1 {
+	.fw_heading(@fw_size_h1);
+}
+h2 {
+	.fw_heading(@fw_size_h2);
+}
+h3 {
+	.fw_heading(@fw_size_h3);
+}
+h4 {
+	.fw_heading(@fw_size_h4);
+}
+h5 {
+	.fw_heading(@fw_size_h5);
+}
+h6 {
+	.fw_heading(@fw_size_h6);
+}
+h1, h2, h3 {
+    &:first-of-type {
+	    margin-top: 0;
+	}
+}
+h1, h2, h3, h4, h5, h6 {
+	&:first-child {
+	    margin-top: 0;
+	}
+}
+legend {
+	.fw_heading(@fw_size_h4);
+}
+.foswikiLarge {
+	.fw_heading(@fw_size_h4);
+}
+
+/* vertical margin for block level elements */
+p,
+pre,
+blockquote,
+iframe,
+address,
+ul,
+ol,
+dl,
+hr,
+.foswikiTable,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiHelp,
+.foswikiNotification,
+.foswikiFormSteps,
+.foswikiFormStep,
+.foswikiFormDescription,
+div.foswikiAlert {
+	.fw_block_p;
+}
+
+dt,
+dd,
+li {
+	.fw_em_font_size(@fw_size_p);
+}
+
+/* smaller text */
+.foswikiSmallish {
+	.fw_em_line_height(@fw_size_smallish);
+	.fw_em_font_size(@fw_size_smallish);
+}
+small,
+.foswikiSmall {
+	.fw_em_line_height(@fw_size_small);
+	.fw_em_font_size(@fw_size_small);
+}
+
+.foswikiTopicActionTitle {
+    .fw_em_font_size(@fw_size_h4);
+}
+
+select,
+.foswikiSelect {
+    padding: @fw_button_padding;
+    height: 0px + 1.5 * @fw_body_line_height;
+    line-height: 0px + 1.5 * @fw_body_line_height;
+}
+
+.foswikiToolbar {
+	input[type='submit'],
+	input[type='text'],
+	input[type='password'],
+	input[type='file'],
+	textarea,
+	select,
+	label,
+	.uneditable-input {
+		margin-bottom: 0;
+	}
+}
+
+label {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+body,
+blockquote {
+	pre,
+	.foswikiDiffDebug {
+		.fw_em_line_height(@fw_size_code);
+	}
+}
+
+dd,
+ul,
+ol {
+	margin-top: 0;
+	margin-left: 0;
+}
+
+/* prevent double margins with nested list elements */
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+/* prevent double padding with bullet list in block */
+blockquote,
+pre,
+.foswikiHelp,
+.foswikiBroadcastMessage,
+.foswikiNotification {
+	ol:first-child,
+	ul:first-child {
+		margin-top: 0;
+	}
+	ol:last-child,
+	ul:last-child {
+		margin-bottom: 0;
+	}
+}
+
+/* prevent double padding inside block */
+blockquote,
+pre,
+.foswikiLogin,
+.foswikiHelp,
+.foswikiBroadcastMessage,
+.foswikiNotification,
+.foswikiFormStep,
+.foswikiSection,
+.foswikiTopicText,
+.foswikiTabContent,
+.jqTabContents,
+div.foswikiAlert,
+td {
+    h1:first-child,
+    h2:first-child,
+    h3:first-child,
+    h4:first-child,
+    h5:first-child,
+    h6:first-child {
+        margin-top: 0;
+    }
+    // removing the bottom margin of last-child is not possible
+    // because Foswiki does not create p tags around text
+    // so the last item is often the header above the text
+    // removing the bottom border of the header makes the text
+    // too compressed
+}
+
+div.foswikiAlert {
+    *:last-child {
+        margin-bottom: 0;
+    }
+}
+

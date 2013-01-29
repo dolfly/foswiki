@@ -8,38 +8,59 @@ Base Skin topic template
 		- attachments
 		
 ===================================================
-}%%TMPL:INCLUDE{"foswiki"}%%{
+}%%TMPL:INCLUDE{"foswiki"}%
+%TMPL:INCLUDE{"breadcrumb"}%%{
 ---------------------------------------------------
-	Include TopicInteractionPlugin, if installed
+	
 ---------------------------------------------------
 }%%TMPL:INCLUDE{"metadata"}%%{
 ---------------------------------------------------
-	CSS class for body element says this is a view page
+	titleaction
 ---------------------------------------------------
-}%%TMPL:DEF{"body:class"}%foswikiViewPage%TMPL:END%%{
+}%%TMPL:DEF{"titleaction"}%%IF{
+	"defined raw"
+	then="%MAKETEXT{"Wiki text of [_1]" args="<nop>%BASETOPIC%"}%"
+	else="<nop>%BASETOPIC%"
+}%%TMPL:END%%{
 ---------------------------------------------------
-	controls:title
-	    emptied
+	body:class
+	    CSS class for body element says this is a view page
 ---------------------------------------------------
-}%%TMPL:DEF{"controls:title"}%%TMPL:END%%{
+}%%TMPL:DEF{"body:class"}%foswikiViewPage%IF{
+	"defined TOPIC_INTRO" 
+	then=" foswikiHasIntroduction"
+}%%TMPL:END%%{
 ---------------------------------------------------
-	topic:before contains the form:top and attachments:top, if set (not inside a tab pane)
+	topic:before
+	    Contains the form:top and attachments:top, if set (not inside a tab pane)
 	TODO: test this
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:P{"topic:actions"}%%TMPL:END%%{
+}%%TMPL:DEF{"topic:before"}%%TMPL:P{"form:top"}%%TMPL:P{"attachments:top"}%%TMPL:END%%{
 ---------------------------------------------------
 	content
 ---------------------------------------------------
-}%%TMPL:DEF{"content"}%
-%TMPL:P{"breadcrumb"}%
-%TEXT%%TMPL:END%%{
+}%%TMPL:DEF{"content"}%%TMPL:P{"breadcrumb"}%%TMPL:P{"topicactions"}%%TMPL:P{"topictitle:h1:FIXME"}%%TEXT%%TMPL:END%%{
 ---------------------------------------------------
-	meta contains the form and attachment tab pane
-	Conditionally include TopicInteractionPlugin meta data
+	topicintroduction
+	    conditionally renders section:topicintroduction
+---------------------------------------------------
+}%%TMPL:DEF{"topicintroduction"}%%IF{
+	"defined TOPIC_INTRO" 
+	then="$percntTMPL:P{$quotsection:topicintroduction$quot}$percnt"
+}%%TMPL:END%%{
+---------------------------------------------------
+	topictitle:h1
+---------------------------------------------------
+}%%TMPL:DEF{"topictitle:h1"}%%IF{"defined 'TOPICTITLE'" then="
+---+ %TOPICTITLE%
+"}%%TMPL:END%%{
+---------------------------------------------------
+	meta
+	    Contains the form and attachment tab pane
 ---------------------------------------------------
 }%%TMPL:DEF{"meta"}%%IF{
 	"%QUERY{
-		"length(attachments[NOT lc(attributes)=~'h']) AND length(fields[NOT lc(attributes)=~'h'])"
+		"length(attachments[NOT lc(attributes)=~'h']) OR length(fields[NOT lc(attributes)=~'h'])"
 	}% > 0"
 	then="$percntTMPL:P{
 		\"meta:contents\"
@@ -48,19 +69,19 @@ Base Skin topic template
 ---------------------------------------------------
 	meta:contents
 ---------------------------------------------------
-}%%TMPL:DEF{"meta:contents"}%%TMPL:P{"startsection" class="foswikiMeta foswikiColorSecondary"}%
-%TMPL:P{"topic:metadata:base"}%
-%TMPL:P{"endsection"}%%TMPL:END%%{
+}%%TMPL:DEF{"meta:contents"}%<div class='foswikiSection foswikiMeta'>
+<div class='foswikiContainer'>%TMPL:P{"topic:metadata"}%
+</div>
+</div>%TMPL:END%%{
 ---------------------------------------------------
-	Fallback if TopicInteractionPlugin is not enabled
+	topic:metadata
+	    Conditionally show attachment and data tabs
 ---------------------------------------------------
-}%%TMPL:DEF{"topic:metadata:base"}%%TABPANE{
+}%%TMPL:DEF{"topic:metadata"}%%TABPANE{
 	class="simple"
 }%%IF{
 	"%QUERY{"length(attachments[NOT lc(attr)=~'h'])"}% > 0"
-	then="$percntTMPL:P{
-		\"attachments\"
-	}$percnt"
+	then="$percntTMPL:P{\"attachments\"}$percnt"
 }%%IF{
 	"%QUERY{"length(fields[NOT lc(attributes)=~'h'])"}% > 0"
 	then="$percntTMPL:P{
@@ -68,17 +89,25 @@ Base Skin topic template
 	}$percnt"
 }%%ENDTABPANE%%TMPL:END%%{
 ---------------------------------------------------
+    form:top
+        Emptied
+---------------------------------------------------
 }%%TMPL:DEF{"form:top"}%%TMPL:END%%{
+---------------------------------------------------
+    form:bottom
+        contains the form
 ---------------------------------------------------
 }%%TMPL:DEF{"form:bottom"}%%TMPL:P{"form"}%%TMPL:END%%{
 ---------------------------------------------------
-	Form tab
+	form
+	    Form tab
 ---------------------------------------------------
 }%%TMPL:DEF{"form"}%%TAB{
 	"%MAKETEXT{"Data"}%"
 }%%META{"form"}%%ENDTAB%%TMPL:END%%{
 ---------------------------------------------------
-	Atachments tab
+	attachments
+	    Atachments tab
 ---------------------------------------------------
 }%%TMPL:DEF{"attachments"}%%TAB{
 	"%MAKETEXT{"Attachments [_1]" args="<span>%QUERY{"length(attachments[NOT lc(attr)=~'h']"}%</span>"}%"
