@@ -8,6 +8,7 @@
 
 ---+++ TML example 
 You type:
+
 <verbatim class="tml">
 %GOOGLEMAPS{
   height="350px" 
@@ -33,6 +34,7 @@ You type:
 </verbatim>
 
 You get (if installed):
+
 %IF{"context GoogleMapsPluginEnabled"
   then="$percntINCLUDE{\"%WEB%.%TOPIC%\" section=\"example1\"}$percnt"
   else="<img src='%ATTACHURLPATH%/GoogleMapsSnap1.png' />"

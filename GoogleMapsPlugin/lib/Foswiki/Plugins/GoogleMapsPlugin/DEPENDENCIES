@@ -1,1 +1,2 @@
+JSON,>=2.51,cpan,Required
 Foswiki::Plugins::JQueryPlugin,>=4.10,perl,Required
