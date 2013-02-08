@@ -1,0 +1,212 @@
+%META:TOPICINFO{author="ProjectContributor" date="1360334835" format="1.1" version="1"}%
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Examples
+
+---+++ TML example 
+You type:
+<verbatim class="tml">
+%GOOGLEMAPS{
+  height="350px" 
+  width="600px"
+  zoom="15" 
+  address="Union Station, Los Angeles, USA" 
+  infowindowaddress="Union Station, Los Angeles, USA"
+  infowindow="<b>Here it is!</b>"
+}%
+</verbatim>
+
+<verbatim class="foswikiHidden">
+%STARTSECTION{"example1"}%
+%GOOGLEMAPS{
+  height="350px" 
+  width="600px"
+  zoom="15" 
+  address="Union Station, Los Angeles, USA" 
+  infowindowaddress="Union Station, Los Angeles, USA"
+  infowindow="<b>Here it is!</b>"
+}%
+%ENDSECTION{"example1"}%
+</verbatim>
+
+You get (if installed):
+%IF{"context GoogleMapsPluginEnabled"
+  then="$percntINCLUDE{\"%WEB%.%TOPIC%\" section=\"example1\"}$percnt"
+  else="<img src='%ATTACHURLPATH%/GoogleMapsSnap1.png' />"
+}%
+
+---+++ !JavaScript example 
+
+As <nop>%TOPIC% is based on [[http://gmap3.net][gmap3]], using its !JavaScript API isn't that hard either
+while opening up a few more possibilities.
+
+%IF{"context GoogleMapsPluginEnabled"
+  then="$percntINCLUDE{\"%WEB%.%TOPIC%\" section=\"example2\"}$percnt"
+}%
+
+<verbatim class="foswikiHidden">
+%STARTSECTION{"example2"}%
+<div id="example2" style="height:350px;width:600px"></div>
+
+<div class="foswikiPageForm">
+<table class="foswikiLayoutTable" style="width:600px">
+<tr>
+  <th>Address:</th>
+  <td><input type="text" class="foswikiInputField" size="50" id="address" /> <a href="#" id="searchAddress">%JQICON{"find"}%</a></td>
+</tr>
+<tr>
+  <th>Lat:</th>
+  <td><input type="text" class="foswikiInputField" size="50" id="lat" /></td>
+</tr>
+<tr>
+  <th>Long:</th>
+  <td><input type="text" class="foswikiInputField" size="50" id="lng" /></td>
+</tr>
+<tr>
+  <th>Zoom:</th>
+  <td><input type="text" class="foswikiInputField" size="50" id="zoom" /></td>
+</tr>
+</table>
+</div>
+
+%JQREQUIRE{"googlemaps"}%
+<literal>
+<script>
+jQuery(function($) {
+  $('#example2').gmap3({
+    marker:{
+      address: "London"
+    },
+    map:{
+      options:{
+         zoom: 15,
+      },
+      events:{
+        bounds_changed: function(map){
+          var center = map.getCenter();
+          $("#lat").val(center.lat());
+          $("#lng").val(center.lng());
+          $("#zoom").val(map.getZoom());
+          $(this).gmap3({
+            getaddress:{
+              latLng:center,
+              callback:function(results){
+                var address = results && results[0] ? results[0].formatted_address : "no address";
+                $("#address").val(address);
+              }
+            }
+           });
+        }
+      }
+    },
+  });
+
+  function updateMap() {
+    $("#example2").gmap3({
+      clear: {},
+      getlatlng: {
+        address: $("#address").val(), 
+        callback: function(results) { 
+          if (results) {
+            var pos = results[0].geometry.location;
+            $(this).gmap3({
+              map: {
+                options: {
+                  center: pos,
+                  zoom: parseInt($("#zoom").val(),10)
+                }
+              },
+              marker: {
+                latLng: pos
+              }
+            });
+          }
+        }
+      }
+    });
+  };
+
+  $("#searchAddress").click(function() {
+    updateMap();
+    return false;
+  });
+  $("#address, #zoom").keydown(function(ev) {
+    if (ev.keyCode == 13) {
+      updateMap();
+    }
+  });
+  $("#lat, #lng").keydown(function(ev) {
+    if (ev.keyCode == 13) {
+      var lat = parseFloat($("#lat").val()),
+          lng = parseFloat($("#lng").val());
+      $("#example2").gmap3({
+        map: {
+          options: {
+            center: [lat, lng]
+          }
+        },
+        latLng: {
+          position: [lat, lng]
+        }
+      });
+    }
+  });
+  
+});
+</script>
+</literal>
+%ENDSECTION{"example2"}%
+</verbatim>
+
+---++ Syntax
+
+=%<nop>GOOGLEMAPS{...}%=
+
+   * address: free form address to center the map on
+   * center: comma-separated latitude and longitude position to center the map on, e.g. =53, 9= (use either =address= or =center=);
+   * zoom: integer zoom factor
+   * markeraddress: the address to display a marker on the map
+   * infowindow: content of the info window to be displayed at the marker, or at the =infowindowaddress=
+   * infowindowaddress: position where to put the infowindow
+   * infowindowposition: coma-separated latitude and longitude position of the infowindow (use either =infowindowaddress= or =infowindowposition=);
+   * type: map type, can be =roadmap=, =sattelite=, =hybrid= or =terrain=
+   * typecontrol: boolean flag whether to display the type control widget
+   * navigationcontrol: boolean flag whether to display the navigation control 
+   * streetviewcontrol: boolean flag whether to display the streetview control 
+   * scrollwheel: boolean flag whether to enable/disable zooming using the scroll wheel
+   * height: height of the map (%RED%required%ENDCOLOR%)
+   * width: width of the map, defaults to 100% expanding to the size of the container
+   * id: the html id of the container holding the map, defaults to a random id
+
+---++ Further reading
+
+See 
+
+   * http://gmap3.net/en/catalog/ 
+   * https://github.com/jbdemonte
+   * https://developers.google.com/maps/documentation/javascript/reference
+
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+|  Author(s): | Michael Daum|
+|  Copyright: | &copy; 2013 Michael Daum http://michaeldaumconsulting.com (Foswiki integration), &copy; 2010-2012 Jean-Baptiste Demonte (gmap3) |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  08 Feb 2013: | initial release |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
+
+%META:FILEATTACHMENT{name="GoogleMapsSnap1.png" attachment="GoogleMapsSnap1.png" attr="" comment="" date="1360334835" size="270907" user="micha" version="1"}%

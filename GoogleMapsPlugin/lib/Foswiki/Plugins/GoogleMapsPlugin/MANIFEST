@@ -1,0 +1,9 @@
+data/System/GoogleMapsPlugin.txt 0644
+lib/Foswiki/Plugins/GoogleMapsPlugin/Config.spec 0644
+lib/Foswiki/Plugins/GoogleMapsPlugin/Core.pm 0644
+lib/Foswiki/Plugins/GoogleMapsPlugin.pm 0644
+pub/System/GoogleMapsPlugin/gmap3.js 0644
+pub/System/GoogleMapsPlugin/gmap3.js.gz 0644
+pub/System/GoogleMapsPlugin/gmap3.uncompressed.js 0644
+pub/System/GoogleMapsPlugin/GoogleMapsSnap1.png 0644
+pub/System/GoogleMapsPlugin/Makefile 0644
