@@ -1,0 +1,24 @@
+.foswikiPage {
+    margin: 0;
+    padding: 0;
+}
+
+.foswikiContainer {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    .fw_clearfix;
+}
+
+.foswikiSection {
+    position: relative;
+    // section padding is set in responsive queries
+    background-color: @fw_section_background_color;
+    border-style: @fw_section_border_style;
+    border-width: @fw_section_border_width;
+    border-color: @fw_section_border_color;
+}
+
+.foswikiMain {
+    min-height: 300px; // TODO: move to responsive.less    
+}

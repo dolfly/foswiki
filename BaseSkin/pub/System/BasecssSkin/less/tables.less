@@ -1,0 +1,38 @@
+/* TABLES */
+
+.foswikiTable {
+    max-width: 100%;
+	margin-bottom: @fw_body_line_height;
+	padding: 0;
+	border-spacing: 0;
+	border-collapse: collapse;
+	border-style: solid;
+	border-width: 1px;
+	
+	th, td {
+		.fw_tool_padding();
+		line-height: 0px + @fw_body_line_height;
+		text-align: left;
+		border-style: none none solid none;
+		border-width: 1px;
+	}
+	th {
+		vertical-align: middle;
+		.fw_bold;
+	}
+	td {
+		vertical-align: top;
+	}
+	td + td {
+		border-left-style: solid;
+	}
+	tr + tr td {
+		border-top-style: solid;
+	}
+	
+	&,
+    th,
+    td {
+        border-color: @fw_table_border_color;
+    }
+}

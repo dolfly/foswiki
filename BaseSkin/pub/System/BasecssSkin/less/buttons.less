@@ -1,0 +1,146 @@
+/*
+* BUTTONS
+*/
+
+.foswikiButton,
+.foswikiButtonSmall,
+.foswikiButtonLarge,
+.foswikiButtonMini {
+    .fw_btn();
+    
+    &,
+    &:link {
+        text-decoration: none;
+    }
+    
+    &,
+    &:link,
+    &:visited {
+        #button > .normal;
+    }
+    
+    &:hover,
+    &.foswikiActive,
+    > .foswikiRequiresChangePermission a:hover {
+        #button > .highlight;
+        text-decoration: none;
+    }
+    .foswikiAccessKey {
+        border: none;
+    }
+}
+
+.foswikiButtonSmall {
+	.fw_btn_small;
+}
+
+.foswikiButtonMini {
+	.fw_btn_mini;
+}
+
+.foswikiSubmit {
+    .fw_btn();
+
+    &,
+	&:link {
+	    text-decoration: none;
+	}
+	
+    &,
+	&:link,
+	&:visited {
+	    #button_submit > .normal;
+    }
+    
+    &:hover,
+    &:active {
+        #button_submit > .highlight;
+        text-decoration: none;
+    }
+}
+
+.foswikiButtonCancel {
+    .fw_btn();
+    
+    &,
+	&:link {
+	    text-decoration: none;
+	}
+	
+    &,
+	&:link,
+	&:visited {
+	    #button_cancel > .normal;
+    }
+    
+    &:hover,
+    &:active {
+        #button_cancel > .highlight;
+        text-decoration: none;
+    }
+}
+
+.foswikiButtonDisabled,
+.foswikiSubmitDisabled {
+    .fw_btn();
+
+    &,
+    &:link,
+    &:hover {
+        cursor: default;
+        text-decoration: none;
+    }
+    
+    &,
+    &:link,
+    &:visited,
+    &:hover {
+        #button_disabled > .normal;
+    }
+}
+ 
+.foswikiRight {
+    .foswikiButton,
+    .foswikiButtonSmall,
+    .foswikiButtonLarge,
+    .foswikiButtonMini,
+    .foswikiButtonDisabled,
+    .foswikiSubmit,
+    .foswikiSubmitDisabled,
+    .foswikiButtonCancel {    
+        margin-right: 0;
+        margin-left: @fw_button_spacing; 
+    }
+}
+
+.foswikiButton,
+.foswikiButtonSmall,
+.foswikiButtonLarge,
+.foswikiButtonMini,
+.foswikiButtonDisabled,
+.foswikiSubmit,
+.foswikiSubmitDisabled,
+.foswikiButtonCancel { 
+    &.foswikiRight,
+    &.foswikiLeft {
+        display: inline;
+    }
+}
+
+.foswikiCaret {
+    #fw_caret(4px, #555, down);
+}
+
+// Icons
+.foswikiButton .foswikiButtonIcon,
+.foswikiButton:active .foswikiButtonIcon {
+    .fw_16px_icon;
+}
+
+// add room for label
+.foswikiButton .foswikiLabel {
+    padding-left: 8px;
+}
+.foswikiButton .foswikiIcon.icon-empty + .foswikiLabel {
+    padding-left: 0;
+}

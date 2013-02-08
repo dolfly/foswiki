@@ -1,0 +1,35 @@
+@fw_ratio_golden: 1.618;			        // 1.618:1
+@fw_ratio_musical_fifth: 1.5;		        // 3:2
+@fw_ratio_musical_fourth: 1.333;	        // 4:3
+@fw_ratio_musical_diatonic_tritone: 45/32;	// 45:32
+@fw_ratio_musical_major_sixth: 5/3;         // 5:3
+@fw_ratio_musical_minor_sixth: 8/5;         // 8:5
+@fw_ratio_musical_minor_seventh: 9/5;       // 9:5
+
+// for other scales: see http://en.wikipedia.org/wiki/Music_and_mathematics
+
+// Modular Scale units
+
+@fw_scale_1: @fw_strand1_init;
+
+// larger - sizes in pixels
+@fw_scale_up_1: @fw_scale_1 * @fw_ratio;
+@fw_scale_up_2: @fw_scale_up_1 * @fw_ratio;
+@fw_scale_up_3: @fw_scale_up_2 * @fw_ratio;
+@fw_scale_up_4: @fw_scale_up_3 * @fw_ratio;
+@fw_scale_up_5: @fw_scale_up_4 * @fw_ratio;
+@fw_scale_up_6: @fw_scale_up_5 * @fw_ratio;
+@fw_scale_up_7: @fw_scale_up_6 * @fw_ratio;
+@fw_scale_up_8: @fw_scale_up_7 * @fw_ratio;
+@fw_scale_up_9: @fw_scale_up_8 * @fw_ratio;
+@fw_scale_up_10: @fw_scale_up_9 * @fw_ratio;
+@fw_scale_up_11: @fw_scale_up_10 * @fw_ratio;
+@fw_scale_up_12: @fw_scale_up_11 * @fw_ratio;
+@fw_scale_up_13: @fw_scale_up_12 * @fw_ratio;
+@fw_scale_up_14: @fw_scale_up_13 * @fw_ratio;
+@fw_scale_up_15: @fw_scale_up_14 * @fw_ratio;
+
+// smaller - sizes in pixels
+@fw_scale_down_1: @fw_scale_1 / @fw_ratio;
+@fw_scale_down_2: @fw_scale_down_1 / @fw_ratio;
+@fw_scale_down_3: @fw_scale_down_2 / @fw_ratio;

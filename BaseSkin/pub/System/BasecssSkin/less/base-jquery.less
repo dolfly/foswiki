@@ -1,0 +1,33 @@
+@import "twitter-bootstrap/variables.less";
+@import "twitter-bootstrap/mixins.less";
+@import "variables.less";
+@import "mixins.less";
+@import "jquery-ui.less";
+@import "buttons-jquery.less";
+
+@ps_img_path: "jquery-images/";
+
+// PATTERN SKIN STYLES
+
+// VARIABLE OVERRIDES
+@fw_font_family: sans-serif;
+@fw_text_size: 14px;
+@fw_body_line_height: 20px;
+@fw_font_family: sans-serif;
+
+// buttons
+@button_gradient_amount: 5%;
+@button_highlight_amount: 5%;
+@fw_button_color: #555;
+@fw_button_background_color: darken(#eee, 1%);
+@fw_button_border_color: darken(@fw_button_background_color, 10%);
+@fw_button_submit_color: #fff;
+@fw_button_submit_background_color: #118acb;
+@fw_button_submit_border_color: darken(@fw_button_submit_background_color, 5%);
+@fw_button_cancel_color: #fff;
+@fw_button_cancel_background_color: #df3c3c; // red
+@fw_button_cancel_border_color: darken(@fw_button_cancel_background_color, 5%);
+
+
+// compile using:
+// lessc base-jquery.less > ../css/jquery-ui.uncompressed.css

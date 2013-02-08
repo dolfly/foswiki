@@ -1,0 +1,33 @@
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+	
+===================================================
+}%%TMPL:INCLUDE{"edit"}%%{
+---------------------------------------------------
+	head:css:theme
+---------------------------------------------------
+}%%TMPL:DEF{"head:css:theme"}%%TMPL:PREV%%TMPL:P{
+	"INLINE_CSSTEXT"
+	name="base:dynamic"
+	id="dynamic"
+	text="
+.mceContentBody .WYSIWYG_PROTECTED:before {
+    content: '%MAKETEXT{"Protected"}%';
+}
+.mceContentBody .WYSIWYG_STICKY:before {
+    content: '%MAKETEXT{"Sticky"}%';
+}
+.mceContentBody .WYSIWYG_LITERAL:before {
+    content: '%MAKETEXT{"Literal"}%';
+}
+.mceContentBody .TMLverbatim:before {
+    content: '%MAKETEXT{"Verbatim"}%';
+}
+.mceContentBody .mceContentBody .foswikiHidden:before {
+    content: '%MAKETEXT{"Hidden"}%';
+}
+"
+}%%TMPL:END%%{
+===================================================
+</verbatim>}%

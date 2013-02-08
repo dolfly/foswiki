@@ -1,0 +1,16 @@
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+
+    Shows only modal content.
+    This template is not used directly in a SKIN setting, but called from
+    a modal dialog.
+		
+===================================================
+}%%TMPL:INCLUDE{"foswiki"}%%{
+---------------------------------------------------
+
+---------------------------------------------------
+}%%TMPL:DEF{"document"}%%TMPL:P{"modal"}%%TMPL:END%%{
+===================================================
+</verbatim>}%

@@ -1,0 +1,17 @@
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+
+===================================================
+}%%TMPL:DEF{"navigationbar"}%<div class='foswikiSection foswikiNavigationBar'>
+<div class='foswikiContainer'>%IF{
+	"istopic '%SYSTEMWEB%.WebTopBarNav'"
+	then="$percntINCLUDE{$quot%SYSTEMWEB%.WebTopBarNav$quot}$percnt" 	
+	else="$percntINCLUDE{$quot%SYSTEMWEB%.WebTopBarNavExample$quot}$percnt"
+}%</div>
+</div>%TMPL:END%%{
+===================================================
+</verbatim>}%
+
+
+

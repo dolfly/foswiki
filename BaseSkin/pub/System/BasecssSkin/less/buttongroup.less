@@ -1,0 +1,263 @@
+/*
+* BUTTON GROUPS
+*/
+
+// code mostly by Twitter Bootstrap
+// --------------------------------------------------
+
+// Make the div behave like a button
+.foswikiButtonGroup {
+    position: relative;
+    font-size: 0; // remove as part 1 of font-size inline-block hack
+    white-space: nowrap; // prevent buttons from wrapping when in tight spaces (e.g., the table on the tests page)
+    .ie7-restore-left-whitespace();
+}
+
+// Space out series of button groups
+.foswikiButtonGroup + .foswikiButtonGroup {
+    margin-left: 8px;
+}
+
+.foswikiButtonGroup {
+    // nested button group
+    // for instance for having dropdowns next to each other
+    .foswikiButtonGroup {
+        display: inline-block;
+        .ie7-inline-block();
+        
+        .foswikiButton,
+        > .foswikiButton:first-child {
+            // remove rounded corner now
+            // and add it later back
+            .border-radius(0);
+        }
+    }
+    
+    > .foswikiButton {
+        margin-right: 0;
+    }
+    
+    .foswikiButtonGroup + .foswikiButtonGroup {
+        margin-left: -1px;
+    }
+}
+
+// Optional: Group multiple button groups together for a toolbar
+.foswikiButtonToolbar {
+    font-size: 0; // Hack to remove whitespace that results from using inline-block
+    .foswikiButtonGroup {
+        display: inline-block;
+        .ie7-inline-block();
+    }
+    .foswikiButton + .foswikiButton,
+    .foswikiButtonGroup + .foswikiButton,
+    .foswikiButton + .foswikiButtonGroup {
+        margin-left: @fw_toolbar_button_margin;
+    }
+}
+
+// Float them, remove border radius, then re-add to first and last elements
+.foswikiButtonGroup > .foswikiButton {
+    position: relative;
+    .border-radius(0);
+    text-decoration: none;
+}
+.foswikiButtonGroup > .foswikiButton + .foswikiButton {
+    margin-left: -1px;
+}
+.foswikiButtonGroup {
+    > .foswikiButton,
+    > .foswikiDropdownToggle,
+    > .foswikiDropdownMenu {
+        font-size: @fw_button_font_size; // redeclare as part 2 of font-size inline-block hack
+    }
+}
+
+// Reset fonts for other sizes
+.foswikiButtonGroup > .foswikiButtonMini {
+    font-size: 11px;
+}
+.foswikiButtonGroup > .foswikiButtonSmall {
+    font-size: 12px;
+}
+.foswikiButtonGroup > .foswikiButtonLarge {
+    font-size: 16px;
+}
+
+// Set corners individual because sometimes a single button can be in a .foswikiButtonGroup and we need :first-child and :last-child to both match
+.foswikiButtonGroup > .foswikiButton:first-child,
+.foswikiButtonGroup .foswikiButtonGroup:first-child > .foswikiButton {
+  margin-left: 0;
+     -webkit-border-top-left-radius: @fw_corner_radius_button;
+         -moz-border-radius-topleft: @fw_corner_radius_button;
+             border-top-left-radius: @fw_corner_radius_button;
+  -webkit-border-bottom-left-radius: @fw_corner_radius_button;
+      -moz-border-radius-bottomleft: @fw_corner_radius_button;
+          border-bottom-left-radius: @fw_corner_radius_button;
+}
+// Need .foswikiDropdownToggle since :last-child does not apply given a .foswikiDropdownMenu immediately after it
+.foswikiButtonGroup > .foswikiButton:last-child,
+.foswikiButtonGroup .foswikiButtonGroup:last-child .foswikiButton,
+.foswikiButtonGroup > .foswikiDropdownToggle {
+     -webkit-border-top-right-radius: @fw_corner_radius_button;
+         -moz-border-radius-topright: @fw_corner_radius_button;
+             border-top-right-radius: @fw_corner_radius_button;
+  -webkit-border-bottom-right-radius: @fw_corner_radius_button;
+      -moz-border-radius-bottomright: @fw_corner_radius_button;
+          border-bottom-right-radius: @fw_corner_radius_button;
+}
+// Reset corners for large buttons
+.foswikiButtonGroup > .foswikiButton.large:first-child {
+  margin-left: 0;
+     -webkit-border-top-left-radius: 6px;
+         -moz-border-radius-topleft: 6px;
+             border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+      -moz-border-radius-bottomleft: 6px;
+          border-bottom-left-radius: 6px;
+}
+.foswikiButtonGroup > .foswikiButton.large:last-child,
+.foswikiButtonGroup > .large.foswikiDropdownToggle {
+     -webkit-border-top-right-radius: 6px;
+         -moz-border-radius-topright: 6px;
+             border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+      -moz-border-radius-bottomright: 6px;
+          border-bottom-right-radius: 6px;
+}
+
+// On hover/focus/active, bring the proper btn to front
+.foswikiButtonGroup > .foswikiButton:hover,
+.foswikiButtonGroup > .foswikiButton:focus,
+.foswikiButtonGroup > .foswikiButton:active,
+.foswikiButtonGroup > .foswikiButton.active {
+    z-index: 2;
+}
+
+// On active and open, do not show outline
+.foswikiButtonGroup .foswikiDropdownToggle:active,
+.foswikiButtonGroup.open .foswikiDropdownToggle {
+    outline: 0;
+}
+
+
+
+// Split button dropdowns
+// ----------------------
+
+// Give the line between buttons some depth
+.foswikiButtonGroup > .foswikiButton + .foswikiDropdownToggle {
+    padding-left: 8px;
+    padding-right: 8px;
+    //  .box-shadow(~"inset 1px 0 0 rgba(255,255,255,.125), inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05)");
+    *padding-top: 5px;
+    *padding-bottom: 5px;
+}
+.foswikiButtonGroup > .foswikiButtonMini + .foswikiDropdownToggle {
+    padding-left: 5px;
+    padding-right: 5px;
+    *padding-top: 2px;
+    *padding-bottom: 2px;
+}
+.foswikiButtonGroup > .foswikiButtonSmall + .foswikiDropdownToggle {
+    *padding-top: 5px;
+    *padding-bottom: 4px;
+}
+.foswikiButtonGroup > .foswikiButtonLarge + .foswikiDropdownToggle {
+    padding-left: 12px;
+    padding-right: 12px;
+    *padding-top: 7px;
+    *padding-bottom: 7px;
+}
+
+.foswikiButtonGroup.open {
+
+  // The clickable button for toggling the menu
+  // Remove the gradient and set the same inset shadow as the :active state
+  .foswikiDropdownToggle {
+        background-image: none;
+        //    .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)");
+    }
+
+    // Keep the hover`s background when dropdown is open
+    
+    .foswikiButton.foswikiDropdownToggle {
+        background-color: @btnBackgroundHighlight;
+    }
+    .foswikiButton-primary.foswikiDropdownToggle {
+        background-color: @btnPrimaryBackgroundHighlight;
+    }
+    .foswikiButton-warning.foswikiDropdownToggle {
+        background-color: @btnWarningBackgroundHighlight;
+    }
+    .foswikiButton-danger.foswikiDropdownToggle {
+        background-color: @btnDangerBackgroundHighlight;
+    }
+    .foswikiButton-success.foswikiDropdownToggle {
+        background-color: @btnSuccessBackgroundHighlight;
+    }
+    .foswikiButton-info.foswikiDropdownToggle {
+        background-color: @btnInfoBackgroundHighlight;
+    }
+    .foswikiButton-inverse.foswikiDropdownToggle {
+        background-color: @btnInverseBackgroundHighlight;
+    }
+}
+
+
+// Reposition the caret
+.foswikiButton .foswikiCaret {
+    margin-top: 8px;
+    margin-left: 7px;
+}
+.foswikiButton+.foswikiButton.foswikiDropdownToggle .foswikiCaret {
+    margin-left: 0;
+}
+
+// Carets in other button sizes
+.foswikiButtonMini .foswikiCaret,
+.foswikiButtonSmall .foswikiCaret,
+.foswikiButtonLarge .foswikiCaret {
+    margin-top: 6px;
+}
+.foswikiButtonLarge .foswikiCaret {
+    border-left-width:  5px;
+    border-right-width: 5px;
+    border-top-width:   5px;
+}
+// Upside down carets for .dropup
+.dropup .foswikiButtonLarge .foswikiCaret {
+    border-bottom: 5px solid @black;
+    border-top: 0;
+}
+
+
+// Vertical button groups
+// ----------------------
+
+.foswikiButtonGroupVertical {
+    display: inline-block; // makes buttons only take up the width they need
+    .ie7-inline-block();
+}
+.foswikiButtonGroupVertical .foswikiButton {
+    display: block;
+    float: none;
+    width: 100%;
+    .border-radius(0);
+}
+.foswikiButtonGroupVertical .foswikiButton + .foswikiButton {
+    margin-left: 0;
+    margin-top: -1px;
+}
+.foswikiButtonGroupVertical .foswikiButton:first-child {
+    .border-radius(@fw_corner_radius_button @fw_corner_radius_button 0 0);
+}
+.foswikiButtonGroupVertical .foswikiButton:last-child {
+    .border-radius(0 0 @fw_corner_radius_button @fw_corner_radius_button);
+}
+.foswikiButtonGroupVertical .foswikiButtonLarge:first-child {
+    .border-radius(6px 6px 0 0);
+}
+.foswikiButtonGroupVertical .foswikiButtonLarge:last-child {
+    .border-radius(0 0 6px 6px);
+}

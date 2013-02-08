@@ -1,0 +1,85 @@
+.foswikiTopBar {
+    #foswikiTopBar;
+}
+
+#foswikiTopBar() {
+    .fw_clearfix;
+    .fw_navigation;
+    margin: 0;
+    background: @fw_topbar_background_color;
+    border-style: @fw_topbar_border_style;
+    border-width: @fw_topbar_border_width;
+    border-color: @fw_topbar_border_color;
+    color: @fw_topbar_color;
+    text-shadow: @fw_topbar_text_shadow;
+    .box-shadow(@fw_topbar_box_shadow);
+    .border-radius(0);
+    
+    // padding set in responsive.less
+    
+    .foswikiContainer {
+        > ul {
+            > li {
+                > a,
+                > form {
+                    margin: 0 @fw_topbar_item_side_margin 0 0;
+                    vertical-align: middle;
+                }
+                
+                > a {
+                    color: @fw_topbar_link_color;
+                    text-decoration: none;
+                    padding: @fw_topbar_item_padding;
+                    .fw_regular;
+                    
+                    &.foswikiLogo {
+                        padding: 0;
+                        display: block;
+                    }
+                    img {
+                        vertical-align: middle;
+                    }
+                }
+                
+                &.foswikiAdmin {
+                    > a:link,
+                    > a:visited,
+                    > a:hover {
+                        color: @fw_admin_color;
+
+                        > .foswikiIcon {
+                            color: @fw_admin_color;
+                        }
+                    }
+                }
+                
+                .foswikiCaret {
+                    vertical-align: middle;
+                    border-top-color: fade(@fw_topbar_color, 40%);
+                }
+                
+                input {
+                    background: transparent;
+                    width: 120px;
+                    
+                    &:hover,
+                    &:focus {
+                        background: @fw_input_background_color;
+                    }
+                    .transition(width @fw_animation_duration);
+                    &:focus {
+                        width: 210px;
+                    }
+                }
+                
+                // items positioned at right
+                &.foswikiRight {
+                    > a,
+                    > form {
+                        margin: 0 0 0 @fw_topbar_item_side_margin;
+                    }
+                }   
+            }
+        }
+    }
+}

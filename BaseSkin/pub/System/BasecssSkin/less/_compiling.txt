@@ -1,0 +1,2 @@
+lessc base.less > ../css/base_src.css
+lessc base-jquery.less > ../css/jquery-ui.uncompressed.css

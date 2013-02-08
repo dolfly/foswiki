@@ -1,0 +1,418 @@
+/* apply a natural box layout model to all elements */
+/* http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+* {
+    .box-sizing(border-box);
+}
+
+body {
+    text-shadow: @fw_text_shadow;
+    margin: 0;
+    color: @fw_text_color;
+    background-color: @fw_body_background_color;
+}
+
+h1,
+h2 {
+    color: @fw_big_header_color;
+}
+h3, h4, h5, h6 {
+    color: @fw_header_color;
+}
+
+a,
+.foswikiUnvisited a,
+.foswikiUnvisited a:visited {
+    #fw_link > .regular;
+}
+a:visited {
+    #fw_link > .visited;
+}
+a:hover {
+    #fw_link > .hover;
+}
+
+::selection {
+	background: @fw_selection_background_color;
+	color: @fw_selection_color;
+	text-shadow: none;
+}
+::-moz-selection {
+	background: @fw_selection_background_color;
+	color: @fw_selection_color;
+	text-shadow: none;
+}
+
+code {
+    color: @fw_code_text_color;
+}
+
+pre {
+    white-space: pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    width:auto;
+    padding:1em;
+    .border-radius(@fw_code_block_border_radius);
+    background-color: @fw_code_block_background_color;
+    border-style: @fw_code_block_border_style;
+    border-width: @fw_code_block_border_width;
+    border-color: @fw_code_block_border_color;
+    
+    &,
+    h1, h2, h3, h4, h5, h6 {
+        color: @fw_code_block_text_color;
+    }
+}
+.foswikiHelp,
+.foswikiNotification {
+    pre {
+        background-color: @fw_info_nested_background_color;
+        border-color: @fw_info_nested_border_color;
+    }
+}
+
+fieldset {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+table blockquote,
+blockquote.foswikiHelp {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+hr {
+	height:1px;
+	border:none;
+	border-bottom-color: @fw_border_color;
+	background-color: @fw_border_color;
+}
+
+/* colors */
+.foswikiYellowFG { color:#ffff00; }
+.foswikiOrangeFG { color:#ff6600; }
+.foswikiRedFG    { color:#ff0000; }
+.foswikiPinkFG   { color:#ff00ff; }
+.foswikiPurpleFG { color:#800080; }
+.foswikiTealFG   { color:#008080; }
+.foswikiNavyFG   { color:#000080; }
+.foswikiBlueFG   { color:#0000ff; }
+.foswikiAquaFG   { color:#00ffff; }
+.foswikiLimeFG   { color:#00ff00; }
+.foswikiGreenFG  { color:#008000; }
+.foswikiOliveFG  { color:#808000; }
+.foswikiMaroonFG { color:#800000; }
+.foswikiBrownFG  { color:#996633; }
+.foswikiBlackFG  { color:#000000; }
+.foswikiGrayFG   { color:#808080; }
+.foswikiSilverFG { color:#c0c0c0; }
+.foswikiWhiteFG  { color:#ffffff; }
+
+.foswikiYellowBG { background-color:#ffff00; }
+.foswikiOrangeBG { background-color:#ff6600; } 
+.foswikiRedBG    { background-color:#ff0000; } 
+.foswikiPinkBG   { background-color:#ff00ff; } 
+.foswikiPurpleBG { background-color:#800080; } 
+.foswikiNavyBG   { background-color:#000080; } 
+.foswikiBlueBG   { background-color:#0000ff; } 
+.foswikiTealBG   { background-color:#008080; } 
+.foswikiAquaBG   { background-color:#00ffff; } 
+.foswikiLimeBG   { background-color:#00ff00; } 
+.foswikiGreenBG  { background-color:#008000; } 
+.foswikiOliveBG  { background-color:#808000; } 
+.foswikiMaroonBG { background-color:#800000; } 
+.foswikiBrownBG  { background-color:#996633; } 
+.foswikiBlackBG  { background-color:#000000; } 
+.foswikiGrayBG   { background-color:#808080; } 
+.foswikiSilverBG { background-color:#c0c0c0; } 
+.foswikiWhiteBG  { background-color:#ffffff; } 
+
+
+
+// foswikiTopic
+
+.foswikiTopic {
+    border-style: @fw_topic_border_style;
+    border-width: @fw_topic_border_width;
+    border-color: @fw_topic_border_color;
+    background: @fw_topic_background_color;
+
+    a {
+        text-decoration: underline;
+    }
+    
+    .foswikiToc a {
+        text-decoration: none;
+    }
+
+    a.foswikiNewLink {
+        color: @fw_newlink_color;
+        text-decoration: none;
+        border-bottom: 1px dotted @fw_newlink_color;
+        
+        &:hover {
+            color: @fw_link_hover_color;
+            border-bottom: 1px solid @fw_link_hover_color;
+        }
+    }
+}
+
+.foswikiClearfix {
+    .fw_clearfix;
+}
+.foswikiLeft {
+	float: left;
+	position: relative;
+}
+.foswikiRight {
+	position: relative;
+	float: right;
+}
+.foswikiClear {
+	/* to clean up floats */
+	margin: 0;
+	padding: 0;
+	height: 0;
+	line-height: 0;
+	clear: both;
+	display: block;
+}
+.foswikiHidden {
+	display: none;
+}
+
+// ICONS
+.foswikiIcon,
+a .foswikiIcon {
+    color: @fw_text_color;
+    font-size: @fw_icon_size;
+    vertical-align: baseline;
+}
+.foswikiHasActiveState .foswikiIcon {
+    line-height: inherit;
+}
+
+.foswikiToolbar {
+    .fw_clearfix;
+    .border-radius(@fw_toolbar_corner_radius);
+    border-style: @fw_toolbar_border_style;
+    border-width: @fw_toolbar_border_width;
+    border-color: @fw_toolbar_border_color;
+    background: @fw_toolbar_background_color;
+    // padding set in responsive.less
+    
+    a {
+        color: @fw_text_color;
+    }
+}
+
+.foswikiLogin {
+    width: 350px;
+    input[type='text'],
+    input[type='password'] {
+        width: 100%;
+    }
+    
+    ul {
+        .fw_no_bullets;
+    }
+}
+
+.foswikiHelp {
+    .border-radius(@fw_info_border_radius);
+    background-color: @fw_info_background_color;
+    border-style: @fw_info_border_style;
+    border-width: @fw_info_border_width;
+    border-color: @fw_info_border_color;
+    &,
+    h1, h2, h3, h4, h5, h6 {
+        color: @fw_info_text_color;
+    }
+    // make sure that links stick out on a colored background
+    a {
+        text-decoration: underline;
+    }
+}
+
+.foswikiBroadcastMessage,
+.foswikiNotification {
+    .border-radius(@fw_corner_radius_block);
+    background-color: @fw_note_background_color;
+    border-style: @fw_note_border_style;
+    border-width: @fw_note_border_width;
+    border-color: @fw_note_border_color;
+    &,
+    h1, h2, h3, h4, h5, h6 {
+        color: @fw_note_text_color;
+    }
+    // make sure that links stick out on a colored background
+    a {
+        text-decoration: underline;
+    }
+}
+
+img {
+	border: 0;
+	vertical-align: middle;
+}
+.foswikiImage {
+	overflow: auto;
+		
+	img {
+		padding: @fw_image_padding;
+		border-style: @fw_image_border_style;
+		border-width: @fw_image_border_width;
+        border-color: @fw_image_border_color;
+		background: @fw_image_background_color;
+	}
+}
+
+.foswikiTocTitle {
+    .fw_bold;
+}
+
+.foswikiSearchResults {
+
+	.foswikiSearchResult {
+	    // padding is set in responsive.less
+		position: relative;
+		border-style: @fw_search_result_border_style;
+		border-width: @fw_search_result_border_width;
+		border-color: @fw_search_result_border_color;
+		
+		.foswikiSearchResultImage img {
+			max-width: @fw_search_result_image_width;
+			float:left;
+		}
+		.foswikiSearchResultMeta {
+			color: @fw_text_muted_color;
+		}
+	}
+	> ul, 
+	> ul > li > ul {
+	    .fw_no_bullets;
+	}
+	
+	.foswikiSearchResultsHeader {}
+	.foswikiSearchResultsPager {
+		margin:1em 0;
+		padding:.25em 0;
+	}
+}
+
+//.foswikiSearchResultContents {
+//    margin: 0 0 0 1.3 * @fw_search_result_image_width;
+//}
+
+.foswikiSearchResultTitle {
+    .fw_bold;
+}
+
+.foswikiAlert,
+.foswikiAlert code {
+	color: @fw_alert_color;
+}
+div.foswikiAlert {
+    background-color: @fw_alert_background_color;
+    .border-radius(@fw_alert_border_radius);
+}
+
+span.foswikiMessage {
+	background-color: @fw_note_background_color;
+	border:none;
+	padding: 3px;
+	.border-radius(0);
+}
+
+.foswikiHorizontalList {
+    ul,
+    ol {
+        .fw_horizontal_list;
+    }
+}
+
+.foswikiAccessKey {
+	text-decoration: none;
+	border-width: 0 0 1px 0;
+	border-style: solid;
+}
+a:hover .foswikiAccessKey {
+	text-decoration:none;
+	border:none;
+}
+.foswikiTopicActions .foswikiAccessKey {
+	text-decoration:none;
+	border:none;
+}
+
+.foswikiInverse,
+.foswikiTopic.foswikiInverse {
+    #fw_inverse_colors;
+}
+
+// FORMSTEPS
+
+.foswikiFormSteps {
+    // padding set in responsive.less
+	border-width: @fw_formsteps_border_width;
+	border-style: @fw_formsteps_border_style;
+	border-color: @fw_formsteps_border_color;
+	background-color: @fw_formsteps_background_color;
+    .border-radius(@fw_formsteps_border_radius);
+    
+    hr {
+        // negative margin set in responsive.less
+        border-color: @fw_formsteps_border_color;
+        background-color: @fw_formsteps_border_color;
+    }
+}
+.foswikiFormStep {
+    // margin set in responsive.less
+    &:last-child {
+        margin-bottom:0;
+    }
+    p:last-child {
+        margin-bottom:0;
+    }
+}
+
+// INTRO
+
+.foswikiIntroduction {
+    #foswikiIntroduction();
+}
+
+#foswikiIntroduction() {
+    border-width: @fw_intro_border_width;
+    background-color: @fw_intro_background_color;
+    & p {
+        font-size: 24px;
+        .fw_regular;
+        margin: 1em; 
+    }
+}
+
+#foswikiIntroduction() when (@fw_intro_inverse) {
+    #fw_inverse_colors; 
+}
+
+// BOTTOM BAR
+
+.foswikiBottomBar {
+    #foswikiBottomBar();    
+}
+
+#foswikiBottomBar() {
+    border-style: @fw_bottom_bar_border_style;
+    border-width: @fw_bottom_bar_border_width;
+    border-color: @fw_bottom_bar_border_color;
+    .foswikiSmall;
+}
+
+#foswikiBottomBar() when (@fw_bottom_bar_inverse) {
+    #fw_inverse_colors; 
+}

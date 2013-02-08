@@ -1,0 +1,100 @@
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+	Defines the topic controls in a horizontal bar above the topic
+===================================================
+}%%TMPL:DEF{"topicactions"}%<div class='foswikiRight foswikiTopicActions'>
+<div class='foswikiButtonGroup'>%TMPL:P{
+    "topicactions:edit"
+}%%TMPL:P{
+    "topicactions:attach"
+}%%TMPL:P{
+    "topicactions:new"
+}%%TMPL:P{
+    "topicactions:additions"
+}%%TMPL:P{
+    "topicactions:more"
+}%</div>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	edit
+---------------------------------------------------
+}%%TMPL:DEF{"topicactions:edit"}%<div class='foswikiButtonGroup'>
+    <a href='%SCRIPTURL{"edit"}%/%BASEWEB%/%BASETOPIC%?t=%GMTIME{"$epoch"}%%TMPL:P{"url_param_editaction"}%%IF{"context TinyMCEPluginEnabled" then="" else=";nowysiwyg=1"}%' rel='nofollow' class='foswikiButton foswikiDropdownToggle'>%MAKETEXT{"Edit"}%<span class='foswikiCaret'></span></a>
+    <ul class='foswikiHasActiveState'>
+        <li>%TMPL:P{"Edit"}%</li>
+        <li>%TMPL:P{"raw_edit_link"}%</li>
+        <li class='foswikiSeparator'></li>
+        <li>%TMPL:P{"edit_formdata_link"}%</li>
+        <li><a href='#'>%MAKETEXT{"Edit topic settings"}%</a></li>
+        <li><a href='#'>%MAKETEXT{"Set parent topic"}%</a></li>
+        <li class='foswikiSeparator'></li>
+        <li><a href='#'>%MAKETEXT{"Restore topic"}%</a></li>
+        <li><a href='#'>%MAKETEXT{"Rename or move"}%</a></li>
+        <li><a href='#'>%MAKETEXT{"Delete"}%</a></li>
+    </ul>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	attach
+---------------------------------------------------
+}%%TMPL:DEF{"topicactions:attach"}%<div class='foswikiButtonGroup'>
+    <a href='%SCRIPTURLPATH{"attach"}%/%BASEWEB%/%BASETOPIC%' rel='nofollow' class='foswikiButton'>%MAKETEXT{"Attach"}%</a>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	new
+---------------------------------------------------
+}%%TMPL:DEF{"topicactions:new"}%<div class='foswikiButtonGroup'>
+    <a href='#' rel='nofollow' class='foswikiButton foswikiDropdownToggle'>%MAKETEXT{"New"}%<span class='foswikiCaret'></span></a>
+    <ul>
+        <li><a href='#'>%MAKETEXT{"Create new topic"}%</a></li>
+        <li><a href='#'>%MAKETEXT{"Copy this topic"}%</a></li>
+    </ul>
+</div>%TMPL:END%%{
+---------------------------------------------------
+	additions
+	    Hook to add more topic actions
+	    Always use TMPL:PREV to leave any other additions intact
+---------------------------------------------------
+}%%TMPL:DEF{"topicactions:additions"}%%TMPL:PREV%%TMPL:P{context="SubscribePluginEnabled" "action:subscribe"}%%TMPL:END%%{
+---------------------------------------------------
+	more
+---------------------------------------------------
+}%%TMPL:DEF{"topicactions:more"}%<div class='foswikiButtonGroup'>
+        <a class='foswikiButton foswikiDropdownToggle'><i class='foswikiIcon icon-cog'></i><span class='foswikiCaret'></span></a>
+        <ul class='foswikiHasActiveState'>
+            <li>%TMPL:P{"raw_link"}%</li>
+            <li><a href='#'>%MAKETEXT{"View history"}%</a></li>
+            <li class='foswikiSeparator'></li>
+            <li><a href='#'>%MAKETEXT{"Topics linking here"}%</a></li>
+            <li><a href='#'>%MAKETEXT{"Child topics"}%</a></li>
+            <li class='foswikiSeparator'></li>
+            <li><a href='#'>%MAKETEXT{"Print version"}%</a></li>
+            <li><a href='#'>%MAKETEXT{"View as PDF"}%</a></li>
+        </ul>
+    </div>%TMPL:END%%{
+---------------------------------------------------
+	action:subscribe
+---------------------------------------------------
+}%%TMPL:DEF{"action:subscribe"}%%SUBSCRIBE{format="%TMPL:P{
+    "action:subscribe:format"
+    activeclass=""
+    icon="icon-subscribe"
+    title="%MAKETEXT{"Subscribe to this topic"}%"
+}%"
+formatunsubscribe="%TMPL:P{
+    "action:subscribe:format"
+    activeclass="foswikiActive"
+    icon="icon-subscribed"
+    title="%MAKETEXT{"Unsubscribe from this topic"}%"
+}%"}%%TMPL:END%%{
+---------------------------------------------------
+	action:subscribe:format
+---------------------------------------------------
+}%%TMPL:DEF{"action:subscribe:format" activeclass="" icon="icon-subscribe"}%<div class='foswikiButtonGroup'><a href='$url' rel='nofollow' class='foswikiButton foswikiDropdownToggle'><i class='foswikiIcon %icon%'></i><span class='foswikiCaret'></span></a>
+    <ul class='foswikiHasActiveState'>
+        <li class='%activeclass%'><i class='foswikiIcon icon-maybe'></i><a href='$url' rel='nofollow' title='%title%'>%MAKETEXT{"Subscribe to this topic"}%</a></li>
+        <li><p>%MAKETEXT{"Get automatically notified by e-mail when this topic is updated"}%</p></li>
+    </ul>
+</div>%TMPL:END%%{
+===================================================
+</verbatim>}%

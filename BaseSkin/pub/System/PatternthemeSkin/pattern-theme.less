@@ -1,0 +1,60 @@
+@import "../BasecssSkin/less/twitter-bootstrap/variables.less";
+@import "../BasecssSkin/less/twitter-bootstrap/mixins.less";
+@import "../BasecssSkin/less/variables.less";
+@import "../BasecssSkin/less/mixins.less";
+@import "../BasecssSkin/less/buttons.less";
+@import "../BasecssSkin/less/forms.less";
+@import "../BasecssSkin/less/textareas.less";
+@import "pattern-configure-theme.less";
+
+// VARIABLE OVERRIDES
+@fw_font_family: sans-serif;
+@fw_text_size: 14px;
+@fw_body_line_height: 20px;
+@fw_font_family: sans-serif;
+
+// buttons
+@button_gradient_amount: 5%;
+@button_highlight_amount: 5%;
+@fw_button_color: #555;
+@fw_button_background_color: darken(#eee, 1%);
+@fw_button_border_color: darken(@fw_button_background_color, 10%);
+@fw_button_submit_color: #fff;
+@fw_button_submit_background_color: #118acb;
+@fw_button_submit_border_color: darken(@fw_button_submit_background_color, 5%);
+@fw_button_cancel_color: #fff;
+@fw_button_cancel_background_color: #df3c3c; // red
+@fw_button_cancel_border_color: darken(@fw_button_cancel_background_color, 5%);
+
+/* PATTERNTOOLBAR */
+
+.patternToolBar > a:link,
+.patternToolBar > a:visited,
+.patternToolBar > .foswikiRequiresChangePermission > a:link,
+.patternToolBar > .foswikiRequiresChangePermission > a:visited {
+    .fw_btn;
+    
+    &,
+    &:link {
+        text-decoration: none;
+    }
+    
+    &,
+    &:link,
+    &:visited {
+        #button > .normal;
+    }
+    
+    &:hover,
+    &.foswikiActive,
+    > .foswikiRequiresChangePermission a:hover {
+        #button > .highlight;
+        text-decoration: none;
+    }
+    
+    margin:0 0 6px 6px;
+
+    .foswikiAccessKey {
+        border: none;
+    }
+}

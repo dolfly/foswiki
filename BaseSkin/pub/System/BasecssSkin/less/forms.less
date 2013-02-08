@@ -1,0 +1,213 @@
+/* FORMS */
+
+form {
+  margin: 0 0 @baseLineHeight;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+textarea,
+.foswikiTextarea,
+input[type='text'],
+input[type='file'],
+input[type='password'],
+.foswikiInputField {
+    padding: @fw_input_padding;
+    height: auto;
+    .border-radius(@fw_corner_radius_input);
+    border-style: @fw_input_border_style;
+    border-width: @fw_input_border_width;
+    border-color: @fw_input_border_color;
+    background-color: @fw_input_background_color;
+    color: @fw_text_color;
+    line-height: 0px + @fw_body_line_height;
+    
+    &:-moz-placeholder {
+        color: @fw_input_placeholder_color;
+    }
+    &::-webkit-input-placeholder {
+      color: @fw_input_placeholder_color;
+    }
+    &:hover,
+    &:focus,
+    &.focused {
+        background-color: @fw_input_focus_background_color;
+        border-color: @fw_input_focus_border_color;
+        .box-shadow(@fw_input_focus_box_shadow);
+        color: @fw_text_color;
+    }
+}
+
+select,
+.foswikiSelect,
+textarea,
+.foswikiTextarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input,
+.foswikiInputField {
+    vertical-align: middle;
+    padding: @fw_input_padding;
+    .fw_block_p;
+//    margin-bottom: 0;
+}
+
+// add same bottom margin to button if next to an input field or textarea
+.foswikiInputField,
+.foswikiTextArea {
+    & + .foswikiButton,
+    & + .foswikiSubmit,
+    & + .foswikiButtonCancel,
+    & + .jqButton,
+    & + a.jqButton,
+    & + .foswikiButtonSmall,
+    & + .foswikiButtonLarge,
+    & + .foswikiButtonMini {
+//        .fw_block_p;
+        margin-left: .5em;
+    }
+}
+
+// Reset appearance properties for textual inputs and textarea
+// Declare width for legacy (can't be on input[type=*] selectors or it's too specific)
+input,
+textarea {
+  width: 210px;
+}
+// Reset height since textareas have rows
+textarea {
+  height: auto;
+}
+
+// Reset width of input images, buttons, radios, checkboxes
+input[type="file"],
+input[type="image"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto; // Override of generic input selector
+}
+
+// Set the height of select and file controls to match text inputs
+select {
+  height: 30px; /* In IE7, the height of the select element cannot be changed by height, only font-size */
+  *margin-top: 4px; /* For IE7, add top margin to align select with labels */
+  line-height: 30px;
+}
+
+// Make select elements obey height by applying a border
+select {
+  width: 220px; // default input width + 10px of padding that doesn't get applied
+  border: 1px solid #bbb;
+  background-color: @inputBackground; // Chrome on Linux and Mobile Safari need background-color
+}
+
+// Make multiple select elements height not fixed
+select[multiple],
+select[size] {
+  height: auto;
+}
+
+// Focus for select, file, radio, and checkbox
+select:focus,
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  .tab-focus();
+}
+
+// Placeholder text gets special styles; can't be bundled together though for some reason
+input,
+textarea {
+  .placeholder();
+}
+
+// no bottom margin if inside a table or foswikiFormGroup
+.foswikiFormGroup,
+table {
+    select,
+    .foswikiSelect,
+    textarea,
+    .foswikiTextarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input,
+    .foswikiInputField {
+        margin-bottom: 0;
+    }
+}
+
+
+textarea[readonly],
+input[readonly],
+.foswikiInputFieldReadOnly {
+
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+        cursor: default;
+        background-color: @fw_input_readonly_background_color;
+        color: @fw_input_readonly_color;
+        border-color: @fw_input_readonly_border_color;
+        .box-shadow(none);
+    }
+    &:focus {
+        background-color: @fw_input_readonly_focus_background_color;
+        border-color: @fw_input_readonly_focus_border_color;
+    }
+}
+
+input[disabled],
+textarea[disabled],
+.foswikiInputFieldDisabled {
+    &,
+    &:hover,
+    &:active,
+    &:focus {
+        cursor: default;
+        background-color: @fw_input_disabled_background_color;
+        color: @fw_input_disabled_color;
+        border-color: @fw_input_disabled_border_color;
+        .box-shadow(none);
+    }
+}
+
+
+form {
+    display: inline;
+}
+
+legend {
+    border: none;
+}

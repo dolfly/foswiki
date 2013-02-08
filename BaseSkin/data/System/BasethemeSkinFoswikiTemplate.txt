@@ -1,0 +1,25 @@
+%{<verbatim class="tml">
+===================================================
+Default theme for BaseSkin.
+
+===================================================
+}%%TMPL:INCLUDE{"foswiki"}%%{
+---------------------------------------------------
+}%%TMPL:DEF{"head:css:theme"}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/iconfonts/fontawesome/stylesheet"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasethemeSkin/base-theme"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/webfonts/droid-sans/stylesheet"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/webfonts/droid-sans-mono/stylesheet"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/webfonts/droid-serif/stylesheet"
+}%%TMPL:END%%{
+===================================================
+</verbatim>}%

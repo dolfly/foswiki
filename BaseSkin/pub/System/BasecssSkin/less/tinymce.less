@@ -1,0 +1,21 @@
+.foswikiHasWysiwyg {
+
+	/* hide preview button until this works again: Item10065 */
+    .foswikiButton[name="action_preview"] {
+        display: none;
+    }
+
+    .foswikiSticky td.mceToolbar {
+        width: 100% !important;
+    }
+        
+    .foswikiEditTextarea {
+        border-color: @fw_border_secondary_color;
+    }
+}
+
+body.mceContentBody {
+    margin: 0;
+    padding: 1em;
+    background: @fw_content_background_color;
+}

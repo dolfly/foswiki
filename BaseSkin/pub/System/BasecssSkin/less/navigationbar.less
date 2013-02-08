@@ -1,0 +1,67 @@
+.foswikiNavigationBar {
+    #fw_nav_bar;
+}
+
+#fw_nav_bar() {
+    margin: 0;
+    padding: 0;
+    #gradient > .vertical(@fw_navbar_background_start_color, @fw_navbar_background_end_color);
+    border-style: @fw_navbar_border_style;
+    border-width: @fw_navbar_border_width;
+    border-color: @fw_navbar_border_color;
+    .border-radius(0);
+    color: @fw_navbar_color;
+    text-shadow: @fw_navbar_text_shadow;
+    .box-shadow(@fw_navbar_box_shadow);
+        
+    .foswikiContainer {
+        > ul {
+            .fw_horizontal_list;
+        }
+        a {
+            display: inline-block;
+            vertical-align: middle;
+            color: @fw_navbar_link_color;
+            text-decoration: none;
+            margin-right: @fw_navbar_item_side_margin;
+            .fw_bold;
+            
+            &:hover {
+                color: @fw_navbar_link_active_color;
+            }
+        }
+        li.foswikiActive {
+            a {
+                position: relative;
+                color: @fw_navbar_link_active_color;
+            }
+        }
+    }   
+}
+
+#fw_nav_bar_intro () {
+    .foswikiContainer li.foswikiActive a:after {
+        #fw_triangle_up(@fw_navbar_pointer_size, @fw_intro_background_color);
+    }
+}
+
+#fw_nav_bar_intro () when (@fw_intro_inverse) {
+    .foswikiContainer li.foswikiActive a:after {
+        #fw_triangle_up(@fw_navbar_pointer_size, @fw_inverse_background_color);
+    }
+}
+
+#fw_nav_bar() when (@fw_navbar_pointer) {
+    .foswikiContainer li.foswikiActive a:after {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        #fw_triangle_up(@fw_navbar_pointer_size, @fw_navbar_link_active_color);
+    }
+}
+
+.foswikiHasIntroduction {
+    .foswikiNavigationBar {
+        #fw_nav_bar_intro;
+    }
+}

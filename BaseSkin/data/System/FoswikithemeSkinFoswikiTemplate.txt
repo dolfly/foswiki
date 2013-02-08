@@ -1,0 +1,18 @@
+%{<verbatim class="tml">
+===================================================
+Foswiki branded theme for BaseSkin.
+
+===================================================
+}%%TMPL:INCLUDE{"foswiki"}%
+%TMPL:DEF{"head:css:theme"}%%TMPL:P{
+	"LIBCSS"
+	id="FoswikithemeSkin/foswiki-theme"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/iconfonts/fontawesome/stylesheet"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/webfonts/rokkitt/stylesheet"
+}%%TMPL:END%%{
+===================================================
+</verbatim>}%

@@ -1,0 +1,127 @@
+@foswikiContainerPadding: 30px;
+
+#media(roomy);
+
+#media(@display) {
+    .foswikiContainer {
+        .fw_component_padding_horizontal_only(@display);
+    }
+    .foswikiSection {
+        .fw_section_padding(@display);
+    }
+    .foswikiTopBar {
+        .fw_topbar_padding(@display);
+    }
+    .foswikiNavigationBar {
+        padding-top: 0;
+        padding-bottom: 0;
+        
+        li > a {
+            .fw_navbar_padding(@display);
+        }
+    }
+    .foswikiIntroduction {
+        .fw_intro_padding_vertical_only(@display);
+    }
+    .foswikiBreadcrumb {
+        .fw_breadcrumb_margin(@display);
+    }
+    .foswikiSearchResult {
+        .fw_tool_padding_vertical_only(@display);
+        
+        .foswikiSearchResultContents {
+			.fw_tool_padding_left_only(@display);
+		}
+    }
+    .foswikiBottomBar {
+        padding-bottom: 10em;
+    }
+    pre,
+    .foswikiHelp,
+    .foswikiBroadcastMessage,
+    .foswikiNotification,
+    .foswikiFormSteps,
+    .foswikiTabContent,
+    .jqTabContents,
+    .foswikiNoJs .jqTabContents,
+    div.foswikiAlert {
+        .fw_component_padding(@display);
+    }
+    
+    // modal
+    .foswikiModal {
+        padding: 0;
+    }
+    .foswikiModalHeader,
+    .foswikiModalBody,
+    .foswikiModalFooter {
+        .fw_component_padding(@display);
+    }
+    .foswikiModalClose {
+        .fw_component_padding(@display);
+    }
+    
+    .foswikiFormSteps hr {
+        .fw_component_negative_margin(@display);
+    }
+    table {
+        pre,
+        .foswikiHelp,
+        .foswikiBroadcastMessage,
+        .foswikiNotification,
+        .foswikiFormStep,
+        .foswikiNoJs .jqTabContents,
+        .jqTabContents {
+            .fw_nested_component_padding(@display);
+        }
+    }
+    .foswikiFormGroup {
+        .fw_block_p;
+    }
+    .foswikiTopicActions {
+        .fw_tool_margin_bottom_only(@display);
+    }
+    .foswikiToolbar {
+        .fw_tool_padding;
+    }
+}
+
+/* Responsive: Large desktop and up */
+
+@media (min-width: 1200px) {
+    #media(roomy);
+    .foswikiContainer {
+        width: 1024px - @foswikiContainerPadding;
+    }
+    #grid > .fluid(@fluidGridColumnWidth1200, @fluidGridGutterWidth1200);
+}
+
+@media (min-width: 980px) and (max-width: 1199px) {
+    #media(roomy);
+    .foswikiContainer {
+        width: 980px - @foswikiContainerPadding;
+    }
+    #grid > .fluid(@fluidGridColumnWidth980, @fluidGridGutterWidth980);
+}
+
+/* Responsive: Tablet to desktop */
+
+@media (min-width: 768px) and (max-width: 979px) {
+    #media(cosy);
+    .foswikiContainer {
+        width: 768 - @foswikiContainerPadding;
+    }
+    #grid > .fluid(@fluidGridColumnWidth768, @fluidGridGutterWidth768);
+}
+
+/* Responsive: Landscape phone to desktop/tablet */
+
+@media (max-width: 767px) {
+    #media(tight);
+}
+
+/* Responsive: up to landscape phone */
+
+@media (max-width: 480px) {
+    #media(tight);
+}

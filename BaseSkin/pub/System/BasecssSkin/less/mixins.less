@@ -1,0 +1,711 @@
+// MIXINS
+
+.fw_em_font_size(@size) {
+	font-size: 0em + (@size / @fw_basefont);
+}
+.fw_em_line_height(@size) {
+	line-height: 0em + (@fw_body_line_height / @size);
+}
+.fw_em_margin_top(@size) {
+	margin-top: 0em + (@fw_body_line_height / @size);
+}
+.fw_em_margin_bottom(@size) {
+	margin-bottom: 0em + (@fw_body_line_height / @size);
+}
+
+.fw_heading(@size) {
+    line-height: 1;
+	.fw_em_font_size(@size);
+	.fw_em_margin_top(@size);
+	.fw_em_margin_bottom(@size);
+}
+.fw_type_p() {
+	.fw_em_line_height(@fw_size_p);
+	.fw_em_font_size(@fw_size_p);
+}
+.fw_block_p() {
+	.fw_em_margin_bottom(@fw_size_p);
+}
+.fw_block_p_top_only() {
+	.fw_em_margin_top(@fw_size_p);
+}
+
+// SECTION
+
+.fw_section_padding (roomy) {
+	@padding: 0em + @fw_scale_up_3 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+.fw_section_padding (cosy) {
+	@padding: 0em + @fw_scale_up_2 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+.fw_section_padding (tight) {
+	@padding: 0em + @fw_scale_up_1 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+
+
+// COMPONENT
+
+// .foswikiHelp, .foswikiBroadcastMessage, .foswikiNotification, .foswikiFormStep
+
+.fw_component_padding (roomy) {
+	@padding_h: 0em + @fw_scale_up_2 / @fw_basefont;
+	@padding_v: 0em + @fw_scale_up_1 / @fw_basefont;
+	padding: @padding_v @padding_h;
+}
+.fw_component_padding (cosy) {
+    @padding_h: 0em + @fw_scale_1 / @fw_basefont;
+	@padding_v: 0em + @fw_scale_1 / @fw_basefont;
+	padding: @padding_v @padding_h;
+}
+.fw_component_padding (tight) {
+    @padding_h: 0em + @fw_scale_1 / @fw_basefont;
+	@padding_v: 0em + @fw_scale_1 / @fw_basefont;
+	padding: @padding_v @padding_h;
+}
+
+.fw_component_negative_margin (roomy) {
+	@margin: 0em - @fw_scale_up_2 / @fw_basefont;
+	margin-left: @margin;
+	margin-right: @margin;
+}
+.fw_component_negative_margin (cosy) {
+    @margin: 0em - @fw_scale_1 / @fw_basefont;
+	margin-left: @margin;
+	margin-right: @margin;
+}
+.fw_component_negative_margin (tight) {
+    @margin: 0em - @fw_scale_1 / @fw_basefont;
+	margin-left: @margin;
+	margin-right: @margin;
+}
+
+.fw_nested_component_padding (roomy) {
+	@padding_h: 0em + @fw_scale_down_1 / @fw_basefont;
+	@padding_v: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding: @padding_v @padding_h;
+}
+.fw_nested_component_padding (cosy) {
+    @padding_h: 0em + @fw_scale_down_1 / @fw_basefont;
+	@padding_v: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding: @padding_v @padding_h;
+}
+.fw_nested_component_padding (tight) {
+    @padding_h: 0em + @fw_scale_down_1 / @fw_basefont;
+	@padding_v: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding: @padding_v @padding_h;
+}
+
+.fw_component_padding_horizontal_only (roomy) {
+	@padding: 0em + @fw_scale_up_1 / @fw_basefont;
+	padding-left: @padding;
+	padding-right: @padding;
+}
+.fw_component_padding_horizontal_only (cosy) {
+	@padding: 0em + @fw_scale_up_1 / @fw_basefont;
+	padding-left: @padding;
+	padding-right: @padding;
+}
+.fw_component_padding_horizontal_only (tight) {
+	@padding: 0em + @fw_scale_up_1 / @fw_basefont;
+	padding-left: @padding;
+	padding-right: @padding;
+}
+
+// TOOL
+
+.fw_tool_padding () {
+    padding: 0em + @fw_scale_down_2 / @fw_basefont;
+}
+.fw_tool_padding (roomy) {
+    padding: 0em + @fw_scale_down_1 / @fw_basefont;
+}
+.fw_tool_padding (cosy) {
+    padding: 0em + @fw_scale_down_1 / @fw_basefont;
+}
+.fw_tool_padding (tight) {
+    padding: 0em + @fw_scale_down_1 / @fw_basefont;
+}
+
+.fw_tool_padding_vertical_only (roomy) {
+	@padding: 0em + @fw_scale_1 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+.fw_tool_padding_vertical_only (cosy) {
+	@padding: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+.fw_tool_padding_vertical_only (tight) {
+	@padding: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+
+.fw_tool_padding_left_only (roomy) {
+	@padding: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding-left: @padding;
+}
+.fw_tool_padding_left_only (cosy) {
+	@padding: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding-left: @padding;
+}
+.fw_tool_padding_left_only (tight) {
+	@padding: 0em + @fw_scale_down_2 / @fw_basefont;
+	padding-left: @padding;
+}
+
+.fw_tool_margin_bottom_only (roomy) {
+	margin-bottom: 0em + @fw_scale_down_1 / @fw_basefont;
+}
+.fw_tool_margin_bottom_only (cosy) {
+	margin-bottom: 0em + @fw_scale_down_1 / @fw_basefont;
+}
+.fw_tool_margin_bottom_only (tight) {
+	margin-bottom: 0em + @fw_scale_down_2 / @fw_basefont;
+}
+
+// TOP BAR
+
+.fw_topbar_padding (roomy) {
+	@padding: 0em + @fw_scale_1 / @fw_basefont;
+	padding: @padding 0;
+}
+.fw_topbar_padding (cosy) {
+	@padding: 0em + @fw_scale_down_2 / @fw_basefont;
+	padding: @padding 0;
+}
+.fw_topbar_padding (tight)  {
+	@padding: 0em + @fw_scale_down_2 / @fw_basefont;
+	padding: @padding 0;
+}
+
+// NAVIGATION BAR
+
+.fw_navbar_padding (roomy) {
+	@padding: 0em + @fw_scale_down_1 / @fw_basefont;
+	padding: @padding 0;
+}
+.fw_navbar_padding (cosy) {
+	@padding: 0em + @fw_scale_down_2 / @fw_basefont;
+	padding: @padding 0;
+}
+.fw_navbar_padding (tight)  {
+	@padding: 0em + @fw_scale_down_2 / @fw_basefont;
+	padding: @padding 0;
+}
+
+// INTRO
+
+.fw_intro_padding_vertical_only (roomy) {
+	@padding: 0em + @fw_scale_up_4 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+.fw_intro_padding_vertical_only (cosy) {
+	@padding: 0em + @fw_scale_up_3 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+.fw_intro_padding_vertical_only (tight) {
+	@padding: 0em + @fw_scale_up_2 / @fw_basefont;
+	padding-top: @padding;
+	padding-bottom: @padding;
+}
+
+
+// BREADCRUMB
+
+.fw_breadcrumb_margin (roomy) {
+	@margin: 0em + @fw_scale_up_1 / @fw_basefont;
+	margin: 0 0 @margin 0;
+}
+.fw_breadcrumb_margin (cosy) {
+	@margin: 0em + @fw_scale_up_1 / @fw_basefont;
+	margin: 0 0 @margin 0;
+}
+.fw_breadcrumb_margin (tight)  {
+	@margin: 0em + @fw_scale_1 / @fw_basefont;
+	margin: 0 0 @margin 0;
+}
+
+.fw_clearfix() {
+    .clearfix;
+//    overflow: hidden;
+//	width: 100%;
+}
+
+// HORIZONTAL LIST
+
+.fw_horizontal_list() {
+    .fw_no_bullets;
+    display: block;
+    .fw_clearfix;
+    
+    > li {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+.fw_dropdown_list() {
+    .fw_no_bullets;
+    position: absolute;
+    margin: -3px 0 0 0;
+    padding: 5px 0;
+    min-width: @fw_dropdown_min_width;
+    max-width: @fw_dropdown_max_width;
+    width: @fw_dropdown_max_width;
+    border-style: @fw_dropdown_border_style;
+    border-width: @fw_dropdown_border_width;
+    border-color: @fw_dropdown_border_color;
+    .fw_clearfix;
+    background: @fw_dropdown_background_color;
+    z-index: @zindexDropdown; 
+    .box-shadow(@fw_dropdown_box_shadow);
+    .border-radius(@fw_dropdown_border_radius);
+    text-shadow: @fw_dropdown_text_shadow;
+    
+    > li {
+        display: list-item;
+        position: relative;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        color: @fw_dropdown_color;
+        
+        &.foswikiSeparator {
+            height: 1px;
+            margin: 5px 0;
+            overflow: hidden;
+            background-color: @fw_border_secondary_color;
+            border-bottom: 1px solid @fw_border_secondary_color;
+        }
+
+        > a,
+        > .foswikiRequiresChangePermission a,
+        > p,
+        > h1,
+        > h2,
+        > h3,
+        > h4,
+        > h5,
+        > h6 {
+            padding: 3px 20px;
+            margin: 0;
+            display: block;
+            text-decoration: none;
+            white-space: pre-wrap;
+        }
+        
+        > a,
+        > .foswikiRequiresChangePermission a {
+            color: @fw_dropdown_link_color;
+        }
+        
+        > h1,
+        > h2,
+        > h3,
+        > h4,
+        > h5,
+        > h6 {
+            .fw_type_p;
+            .fw_regular;
+            text-transform: uppercase;
+            color: @fw_dropdown_header_color;
+        }
+        > p {
+            color: @fw_dropdown_header_color;
+        }
+        
+        &:hover {
+            > a,
+            > .foswikiRequiresChangePermission a {
+                text-decoration: none;
+                .buttonBackground(@fw_dropdown_highlight_background_start, @fw_dropdown_highlight_background_end, @fw_dropdown_highlight_color);
+                text-shadow: @fw_dropdown_highlight_text_shadow;
+                text-decoration: none;
+            }
+            .foswikiIcon {
+                background: none;
+                color: @fw_dropdown_highlight_color;
+                text-shadow: @fw_dropdown_highlight_text_shadow;
+                text-decoration: none;
+            }
+        }
+        
+        .foswikiIcon {
+            position: absolute;
+            left: 10px;
+            padding: 3px 0; // same as links
+            line-height: inherit;
+            color: @fw_dropdown_link_color;
+        }
+    }
+    &.foswikiHasActiveState > li {
+        > a,
+        > .foswikiRequiresChangePermission a,
+        > p {
+            padding-left: 2.25em;
+        }
+    }
+}
+
+.fw_navigation() {
+    .foswikiIcon,
+    a .foswikiIcon {
+        color: @fw_icon_muted_color;
+    }
+    
+    > .foswikiContainer > ul {
+        .fw_horizontal_list;
+        display: table-row;
+        width: 100%;
+        white-space: nowrap;
+        
+        > li { 
+            position: relative;
+            display: table-cell;
+            vertical-align: middle;
+     
+            // items positioned at right
+            &.foswikiRight {
+                // we are using this class not to make rows/cells float right but to flip the side margin
+                float: none;
+            }
+            
+            &.foswikiSpacer {
+                width: 100%;
+            }
+        }           
+    }
+    
+    form {
+        .fw_search_form();
+    }
+}
+
+.fw_search_form() {
+    display: inline;
+    position: relative;
+    
+    @iconLeft: @fw_icon_size / 2;
+    
+    // search bar
+    input[type="text"] {
+        vertical-align: middle;
+        margin: 0;
+        padding-left: (@iconLeft + @fw_icon_size + 2);
+    }
+    .foswikiIcon {
+        position: absolute;
+        left: @iconLeft;
+        top: -1px;
+        padding: @fw_input_padding;
+        padding-left: 0;
+        padding-right: 0;
+        color: @fw_icon_muted_color;
+    }  
+    .foswikiButton {
+        vertical-align: baseline;
+    }
+}
+
+.fw_gradient_button(@background, @border, @text, @textshadow, @highlight, @grad_perc: @button_gradient_amount) when (@highlight = false) {
+    @hoverbackground: lighten(@background, @grad_perc);
+    
+    .fw_button_background(@hoverbackground, @background, @border, @text, @textshadow);
+}
+
+.fw_gradient_button(@background, @border, @text, @textshadow, @highlight, @grad_perc: @button_gradient_amount) when (@highlight = true) and (lightness(@text) >= 50%) {
+    @high_perc: @button_highlight_amount;
+    @hoverbackground: lighten(@background, @grad_perc);
+    
+    .fw_button_background(darken(@hoverbackground, @high_perc), darken(@background, @high_perc), darken(@border, @high_perc), lighten(@text, @high_perc), @textshadow);
+}
+
+.fw_gradient_button(@background, @border, @text, @textshadow, @highlight, @grad_perc: @button_gradient_amount) when (@highlight = true) and (lightness(@text) < 50%) {
+    @high_perc: @button_highlight_amount;
+    @hoverbackground: lighten(@background, @grad_perc);
+    
+    .fw_button_background(darken(@hoverbackground, @high_perc), darken(@background, @high_perc), darken(@border, @high_perc), darken(@text, @high_perc), @textshadow);
+}
+
+.fw_plain_button(@background, @border, @text, @textshadow, @highlight) when (@highlight = false) {    
+    .fw_button_background(@background, @background, @border, @text, @textshadow);
+}
+
+.fw_plain_button(@background, @border, @text, @textshadow, @highlight) when (@highlight = true) and (lightness(@text) >= 50%) {
+    @high_perc: @button_highlight_amount;
+    
+    .fw_button_background(darken(@background, @high_perc), darken(@background, @high_perc), darken(@border, @high_perc), lighten(@text, @high_perc), @textshadow);
+}
+
+.fw_plain_button(@background, @border, @text, @textshadow, @highlight) when (@highlight = true) and (lightness(@text) < 50%) {
+    @high_perc: @button_highlight_amount;
+    
+    .fw_button_background(darken(@background, @high_perc), darken(@background, @high_perc), darken(@border, @high_perc), darken(@text, @high_perc), @textshadow);
+}
+
+// Button background
+// copied from Bootstrap and minimized
+.fw_button_background(@startColor, @endColor, @borderColor, @textColor: #fff, @textShadow: 0 -1px 0 rgba(0,0,0,.25)) {
+    // gradientBar will set the background to a pleasing blend of these, to support IE<=9
+    .gradientBar(@startColor, @endColor, @textColor, @textShadow);
+    *background-color: @endColor; /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+    .reset-filter();
+    border: 1px solid @borderColor;
+
+    .foswikiIcon {
+        color: @textColor;
+    }
+    .foswikiCaret {
+        border-top-color: fade(@textColor, 40%);
+    }
+}
+
+.fw_border-radius-left(@radius: 5px) {
+	-webkit-border-top-left-radius: @radius;
+	-webkit-border-bottom-left-radius: @radius;
+	
+	-moz-border-top-left-radius: @radius;
+	-moz-border-bottom-left-radius: @radius;
+	
+	border-top-left-radius: @radius;
+	border-bottom-left-radius: @radius;
+}
+
+.fw_border-radius-right(@radius: 5px) {
+	-webkit-border-top-right-radius: @radius;
+	-webkit-border-bottom-right-radius: @radius;
+	
+	-moz-border-top-right-radius: @radius;
+	-moz-border-bottom-right-radius: @radius;
+	
+	border-top-right-radius: @radius;
+	border-bottom-right-radius: @radius;
+}
+
+.fw_border-radius-top(@radius: 5px) {
+	-webkit-border-top-left-radius: @radius;
+	-webkit-border-top-right-radius: @radius;
+	
+	-moz-border-top-left-radius: @radius;
+	-moz-border-top-right-radius: @radius;
+	
+	border-top-left-radius: @radius;
+	border-top-right-radius: @radius;
+}
+
+.fw_striped_background(@backgroundColor: gray, @size: 10px, @opacity: .4) {
+    background-color: @backgroundColor;
+    background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent @size, rgba(255,255,255,@opacity) @size, rgba(255,255,255,@opacity) 2*@size);
+    background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent @size, rgba(255,255,255,@opacity) @size, rgba(255,255,255,@opacity) 2*@size);
+    background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent @size, rgba(255,255,255,@opacity) @size, rgba(255,255,255,@opacity) 2*@size);
+    background-image: repeating-linear-gradient(-45deg, transparent, transparent @size, rgba(255,255,255,@opacity) @size, rgba(255,255,255,@opacity) 2*@size);
+}
+
+.fw_tab_ul () {
+    .fw_no_bullets;
+	position: relative;
+	bottom: 0;
+	
+	li {
+	
+		&,
+		&.foswikiActiveTab,
+		&.current {
+			display: inline;
+			border: none;
+			background: none;
+			margin: 0;
+		}
+		
+		& {
+			a,
+			a:hover,
+			span {
+				display: block;
+				float: left;
+				margin: 0 @fw_button_spacing 0 0;
+				padding: @fw_button_padding;
+				border-style: solid;
+				border-width: 1px;
+				text-decoration: none;
+			}
+		}
+		
+		img {
+			vertical-align: text-top;
+		}
+	}
+}
+
+// list without bullets
+.fw_no_bullets() {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+// icon
+.fw_16px_icon() {
+	@size: 16px;
+	background-repeat: no-repeat;
+	background-position: 0 50%;
+	padding: 0 0 0 @size + 7;
+	display: inline-block;
+//	line-height: 1;
+	vertical-align: baseline;
+}
+
+// INVERSE COLOR
+
+#fw_inverse_colors() {  
+    background-color: @fw_inverse_background_color;
+    border-color: @fw_inverse_border_color;
+    color: @fw_inverse_text_color;
+    text-shadow: @fw_inverse_text_shadow;
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: @fw_inverse_header_color;
+        text-shadow: @fw_inverse_text_shadow;
+    }
+    
+    a,
+    a:visited {
+        color: @fw_inverse_link_color;
+    }
+}
+
+// Caret, triangles
+
+#fw_caret(@size: 4px, @color: #555, @direction) when (@direction = down) {
+    #fw_triangle_down(@size, @color);
+    margin: 0 0 0 (2 * @size - 1);
+    vertical-align: text-top;
+}
+
+#fw_caret(@size: 4px, @color: #555, @direction) when (@direction = right) {
+    #fw_triangle_right(@size, @color);
+    margin: -(@size - 1) 0 0 (2 * @size - 1);
+    vertical-align: baseline;
+}
+
+#fw_triangle_down(@size: 6px, @color:white) {
+    #fw_triangle(@size, @color);
+    border-top: @size solid @color;
+    border-right: @size solid transparent;
+    border-left: @size solid transparent;
+}
+#fw_triangle_up(@size: 6px, @color:white) {
+    #fw_triangle(@size, @color);
+    border-bottom: @size solid @color;
+    border-right: @size solid transparent;
+    border-left: @size solid transparent;
+}
+#fw_triangle_right(@size: 6px, @color:white) {
+    #fw_triangle(@size, @color);
+    border-left: @size solid @color;
+    border-top: @size solid transparent;
+    border-bottom: @size solid transparent;
+}
+#fw_triangle(@size: 6px, @color:white) {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: -@size;
+    content: " ";
+}
+
+// Links
+
+#fw_link() {
+    .regular() {
+        color: @fw_link_color;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .visited() {
+        color: @fw_link_color_visited;
+    }
+    .hover() {
+        color: @fw_link_hover_color;
+        text-decoration: underline;
+    }
+}
+
+// Buttons
+
+.fw_btn(@inlineblock: true) when (@inlineblock = false) {
+    ._fw_btn;
+}
+
+.fw_btn(@inlineblock: true) when (@inlineblock = true) {
+    ._fw_btn_inline_block;
+    ._fw_btn;
+}
+
+._fw_btn_inline_block() {
+    display: inline-block;
+    .ie7-inline-block();
+}
+
+._fw_btn() {
+    padding: @fw_button_padding;
+    margin: 0 @fw_button_spacing 0 0;
+    line-height: 0px + @fw_body_line_height;
+    *line-height: 0px + @fw_body_line_height;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
+    *border: 0; // Remove the border to prevent IE7s black border on input:focus
+    .ie7-restore-left-whitespace(); // Give IE7 some love
+	.border-radius(@fw_corner_radius_button);
+	.box-shadow(none);
+	.fw_button;
+    font-size: @fw_button_font_size;
+    text-decoration: none;
+
+    .foswikiIcon {
+        vertical-align: middle;
+        line-height: .5; // do not stick out
+    }
+}
+
+.fw_btn_large() {
+    padding: 9px 14px;
+    font-size: @fw_text_size + 2px;
+    line-height: normal;
+    .border-radius(5px);
+
+    [class^="icon-"] {
+        margin-top: 2px;
+    }
+}
+
+.fw_btn_small() {
+    padding: 3px 9px;
+    font-size: @fw_text_size - 2px;
+    line-height: 0px + @fw_body_line_height - 2px;
+    
+    [class^="icon-"] {
+        margin-top: 0;
+    }
+}
+
+.fw_btn_mini() {
+    padding: 2px 6px;
+    font-size: @fw_text_size - 3px;
+    line-height: 0px + @fw_body_line_height - 4px;
+}
+

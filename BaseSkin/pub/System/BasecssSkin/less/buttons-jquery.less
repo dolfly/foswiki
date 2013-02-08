@@ -1,0 +1,156 @@
+/*
+* BUTTONS
+*/
+
+// Unify style
+.jqButton,
+.jqButton:hover {
+	height: auto;
+    float: none;
+    background-image: none;
+}
+
+.jqButton {
+    margin: 0 @fw_button_spacing 0 0;
+}
+
+.jqButton span {
+	background: none;
+	float: none;
+	height: auto;
+	line-height: 0px + @fw_body_line_height;
+	padding: 0;
+	margin: 0;
+}
+
+.jqButton,
+a.jqButton {
+    .fw_btn(false);
+    
+    &,
+    &:link {
+        text-decoration: none;
+    }
+    
+    &,
+    &:link,
+    &:visited {
+        #button > .normal;
+    }
+    
+    &:hover,
+    &.foswikiActive,
+    > .foswikiRequiresChangePermission a:hover {
+        #button > .highlight;
+        text-decoration: none;
+    }
+    .foswikiAccessKey {
+        border: none;
+    }
+}
+
+a.jqButton.foswikiButtonCancel,
+.jqButton.foswikiButtonCancel {
+    .fw_btn(false);
+    
+    &,
+	&:link {
+	    text-decoration: none;
+	}
+	
+    &,
+	&:link,
+	&:visited {
+	    #button_cancel > .normal;
+    }
+    
+    &:hover,
+    &:active {
+        #button_cancel > .highlight;
+        text-decoration: none;
+    }
+}
+
+/* Special jQuery buttons */
+.jqButton.jqButtonSimple,
+a.jqButton.jqButtonSimple {
+    background: none;
+    padding: 0;
+    margin-left: 0;
+    border: none;
+    
+    span {
+        #fw_link > .regular;
+    }
+    &:visited span {
+        #fw_link > .visited;
+    }
+    &:hover span {
+        #fw_link > .hover;
+    }
+}
+a.jqButton.jqButtonRed {
+    &,
+	&:link,
+	&:visited {
+	    #button_red > .normal;
+    }
+    
+    &:hover,
+    &:active {
+        #button_red > .highlight;
+        text-decoration: none;
+    }
+}
+a.jqButton.jqButtonCyan {
+    &,
+	&:link,
+	&:visited {
+	    #button_cyan > .normal;
+    }
+    
+    &:hover,
+    &:active {
+        #button_cyan > .highlight;
+        text-decoration: none;
+    }
+}
+a.jqButton.jqButtonGreen {
+    &,
+	&:link,
+	&:visited {
+	    #button_green > .normal;
+    }
+    
+    &:hover,
+    &:active {
+        #button_green > .highlight;
+        text-decoration: none;
+    }
+}
+
+.jqButton { 
+    &.foswikiRight,
+    &.foswikiLeft {
+        display: inline;
+    }
+}
+
+.foswikiRight {
+    .jqButton + .jqButton {
+        margin-left: 0;
+        margin-right: @fw_button_spacing; 
+    }
+}
+.foswikiLeft {
+    .jqButton + .jqButton {
+        margin-right: 0;
+        margin-left: @fw_button_spacing; 
+    }
+}
+
+// Icons
+.jqButton .jqButtonIcon,
+.jqButton:active .jqButtonIcon {
+    .fw_16px_icon;
+}

@@ -1,0 +1,161 @@
+.foswikiBreadcrumb {
+    .foswikiSmall;
+    // padding set in responsive.less
+    #fw_breadcrumb;
+}
+
+#fw_breadcrumb() when (@fw_breadcrumb_arrows = false) {
+    ul {
+        .fw_horizontal_list;
+        margin: 0;
+        color: @fw_breadcrumb_color;
+        
+        a {
+            text-decoration: none;
+        }
+        
+        a,
+        a:visited {
+            color: @fw_breadcrumb_link_color;
+        }
+        
+        // hide "you are here"
+        .foswikiListItemTitle {
+            display: none;
+        }
+        
+        .foswikiSeparator {
+            padding: 0 .35em;
+        }
+    }
+    
+    // hover over breadcrumb div
+    &:hover {
+        a,
+        a:visited {
+            color: @fw_link_color;
+        }
+        a {
+            color: @fw_link_color;
+            text-decoration: underline;
+            
+            &:hover {
+                color: @fw_link_hover_color;
+            }
+        }
+    }
+}
+
+#fw_breadcrumb() when (@fw_breadcrumb_arrows = true) {
+    ul {
+        .fw_horizontal_list;
+        margin: 0;
+        
+        &,
+        .foswikiSeparator {
+            color: @fw_breadcrumb_color;
+        }
+        
+        @item_height: @fw_breadcrumb_item_height;
+        @item_outer_height: @item_height + @fw_breadcrumb_item_border_width * 2;
+        @arrow_depth: @item_outer_height / 2.5;
+        @arrow_part_height: @item_outer_height/2;
+        @item_padding_left: 1.75 * @arrow_depth;
+        
+        > li > a {
+            display: inline-block;
+            position: relative;
+            color: @fw_breadcrumb_item_color;
+            border-style: @fw_breadcrumb_item_border_style;
+            border-width: @fw_breadcrumb_item_border_width;
+            border-color: @fw_breadcrumb_item_border_color;
+            padding: 0 @item_padding_left/4 0 @item_padding_left; //@fw_breadcrumb_item_padding;
+            /* ie8 adjustment below */
+            height: @item_outer_height;
+            line-height: @item_height;
+            background: @fw_breadcrumb_item_background_color;
+            text-shadow: @fw_breadcrumb_item_text_shadow;
+            
+            &:after,
+            &:before {
+                overflow:hidden;
+                display: block; 
+                width: 0; 
+                height: 0;
+                content: " ";
+                overflow: visible;
+                position: absolute;
+                top: 50%;
+                left: 100%;
+                margin-top: -@arrow_part_height;
+                border-top: @arrow_part_height solid transparent; /* Go big on the size, and let overflow hide */
+                border-bottom: @arrow_part_height solid transparent;
+                z-index: 1;
+            }
+            
+            &:before { 
+                border-left: @arrow_depth solid @fw_breadcrumb_item_border_color;
+                z-index: 2; 
+                margin-left: 1px;
+            }
+            
+            &:after {
+                border-left: @arrow_depth solid @fw_breadcrumb_item_background_color;
+                z-index: 3;
+            }
+            
+            &:hover {
+                color: @fw_breadcrumb_item_hover_color;
+                background-color: @fw_breadcrumb_item_hover_background_color;
+                text-shadow: @fw_breadcrumb_item_hover_text_shadow;
+                
+                &:after {
+                    border-left-color: @fw_breadcrumb_item_hover_background_color;
+                }
+            }
+        }
+        > li:first-child > a {
+            padding-left: @item_padding_left - @arrow_depth;
+        }
+
+        a {
+            text-decoration: none;
+        }
+        
+        a,
+        a:visited {
+            color: @fw_breadcrumb_link_color;
+        }
+
+        .foswikiSeparator {
+            padding: 0 .35em;
+            display: none;
+        }
+        .foswikiTopicInfo {
+            display: inline-block;
+            padding-left: @item_padding_left;
+            
+            &:hover {
+                a {
+                    text-decoration: underline;
+                }
+            }
+            a:hover {
+                color: @fw_breadcrumb_link_hover_color;
+            }
+        }
+    }
+}
+
+#fw_breadcrumb_ie8() when (@fw_breadcrumb_arrows = true) {
+    ul > li > a {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+#fw_breadcrumb_ie8() when (@fw_breadcrumb_arrows = false) {}
+
+.ie8 .foswikiBreadcrumb {
+    #fw_breadcrumb_ie8;
+}

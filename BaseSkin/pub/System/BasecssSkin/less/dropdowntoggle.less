@@ -1,0 +1,43 @@
+/*
+* DROPDOWN TOGGLE
+*/
+
+// make it work on rollover, and without JavaScript
+@arrow_size: 10px;
+@arrow_offset: 1.25 * @arrow_size;
+
+.foswikiDropdownToggle + ul {
+    .fw_dropdown_list;
+    display: none;
+    right: auto;
+    left: 0;
+    
+    hr {
+        margin: 0;
+        display: inline-block;
+    }
+//    margin-top: @arrow_size/2;
+//    &:before {
+//        position: absolute;
+//        left: @arrow_offset;
+//        right: auto;
+//        top: -(@arrow_size + @fw_dropdown_border_width);
+//        #fw_triangle_up(@arrow_size, @fw_dropdown_border_color);
+//    }
+}
+.foswikiRight {
+    .foswikiDropdownToggle+ul {
+        right: 0;
+        left: auto;
+        
+//        &:before {
+//            left: auto;
+//            right: @arrow_offset;
+//        }
+    }
+}
+.foswikiDropdownToggle:hover+ul,
+.foswikiDropdownToggle+ul:hover {
+    display: block;
+    font-size: @fw_button_font_size; // redeclare as part 2 of font-size inline-block hack
+}

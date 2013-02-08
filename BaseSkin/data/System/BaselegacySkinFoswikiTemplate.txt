@@ -1,0 +1,39 @@
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+
+	Legacy support for:
+	    WEBBGCOLOR
+	    WEBHEADERBGCOLOR
+	    WEBHEADERART
+	
+===================================================
+}%%TMPL:INCLUDE{"foswiki"}%%{
+---------------------------------------------------
+	head:css:inline
+	    TODO
+            % IF{
+"$WEBBGCOLOR"
+then=".foswikiBreadcrumb {
+    background: %WEBBGCOLOR%;
+}"
+} %
+---------------------------------------------------
+}%%TMPL:DEF{"head:css:inline"}%%TMPL:PREV%%TMPL:P{
+	"INLINE_CSSTEXT"
+	id="dynamic"
+	text="%IF{
+"$WEBHEADERBGCOLOR"
+then=".foswikiTopBar {
+    background: %WEBHEADERBGCOLOR%;
+}"
+}% %IF{
+"$WEBHEADERART"
+then=".foswikiTopBar {
+    background-image: url(%WEBHEADERART%);
+    background-repeat: no-repeat;
+}"
+}%"
+}%%TMPL:END%%{
+===================================================
+</verbatim>}%

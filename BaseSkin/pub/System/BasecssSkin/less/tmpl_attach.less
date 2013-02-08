@@ -1,0 +1,73 @@
+.foswikiAttachments {
+    &.foswikiDisplayList {
+        .foswikiAttachment {
+//            #grid > .fluid > .span(12);
+            margin-left: 0;
+    
+            & img,
+            & .foswikiIcon img {
+                vertical-align: text-bottom;
+            }
+            .foswikiSearchResultContents {
+                margin: 0 0 0 @fw_search_result_image_width;
+                word-wrap: break-word;
+            }
+            
+            .foswikiSearchResultTitle {
+                a {
+                    .fw_type_p();
+                }
+            }	
+            
+            .foswikiSearchResultMeta {
+                .foswikiSmall;
+            }
+        }
+    }
+    &.foswikiDisplayGrid {
+        .row-fluid {
+            border-style: none none solid none;
+            border-width: @fw_search_result_border_width;
+            border-color: @fw_search_result_border_color;
+        }
+        
+        .foswikiAttachment {
+            border: none;
+            
+            &.span3 {
+                margin-left: 0;
+            }
+    
+            .foswikiSearchResultImage {
+                display: block;
+                
+                img {
+                    float: none;
+                }
+            }
+            
+            & img,
+            & .foswikiIcon img {
+                vertical-align: text-bottom;
+            }
+            .foswikiSearchResultContents {
+                margin: 0;
+                word-wrap: break-word;
+            }
+            
+            .foswikiSummary {
+                max-height: 3em;
+                overflow: hidden;
+            }
+            .foswikiSearchResultTitle {
+                a {
+                    .fw_type_p();
+                }
+            }	
+            
+            .foswikiSearchResultMeta {
+                .foswikiSmall;
+            }
+        }
+    }
+}

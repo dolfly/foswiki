@@ -1,0 +1,109 @@
+/* MODALS */
+
+.foswikiModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: @zindexModal;
+    overflow: auto;
+    width: 560px;
+    max-height: 80%;
+    min-height: 100px;
+    margin: -250px 0 0 -280px;
+    background-color: @fw_content_background_color;
+    background-image: url(../img/processing-32-bg.gif);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    border-style: @fw_modal_border_style;
+    border-width: @fw_modal_border_width;
+    border-color: @fw_modal_border_color;
+    .border-radius(@fw_modal_border_radius);
+    .box-shadow(@fw_modal_box_shadow);
+    .background-clip(padding-box);
+    
+    &.fade {
+        .transition(e(@fw_modal_transition));
+    }
+    
+    .foswikiModalContents {
+        background: @fw_content_background_color;
+        overflow: scroll;
+    }
+    
+    .foswikiModalClose {
+        position: absolute;
+        top: 0; // set final in responsive.less
+        right: 0; // set final in responsive.less
+        
+        a {
+            .foswikiIcon {
+                font-size: 22px;
+                line-height: 1;
+                color: @fw_text_muted_color;
+            }
+            
+            &:hover {
+                .foswikiIcon {
+                    color: @fw_text_color;
+                }
+                text-decoration: none;
+            }
+        }
+    }
+    
+    .foswikiModalManage {
+        textarea {
+            width: 100%;
+        }
+    }
+    
+    .foswikiModalHeader,
+    .foswikiModalFooter {
+        background-color: @fw_background_secondary_color;
+    }
+    
+    .foswikiModalHeader,
+    .foswikiModalFooter,
+    .foswikiModalBody {
+        h1 {
+            .fw_heading(@fw_size_h4);
+        }
+        h2 {
+            .fw_heading(@fw_size_h5);
+        }
+        h3 {
+            .fw_heading(@fw_size_h6);
+        }
+        h4, h5, h6 {
+            .fw_heading(@fw_size_p);
+            font-weight: bold;
+        }
+    }
+    .foswikiModalHeader,
+    .foswikiModalFooter {
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+    }
+    
+    .foswikiModalBody {
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0 0 .5em 0;
+            color: @fw_header_color;
+        }
+        .jqTab {
+            margin: 0;
+        }
+        p {
+            margin: 0 0 .5em 0;
+        }
+        input, textarea {
+            margin-bottom: 0;
+        }
+    }
+}
+
+/* Prevent that content beneath the dialog scrolls */
+body.modal-open {
+    overflow: hidden;
+}

@@ -1,0 +1,50 @@
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+	
+===================================================
+}%%{
+---------------------------------------------------
+	breadcrumb
+	    HTML list
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb"}%<div class='foswikiBreadcrumb'><ul>%TMPL:P{"breadcrumb:home"}%%TMPL:P{"breadcrumb:currentweb"}%%TMPL:P{"breadcrumb:parents"}%<li>%TMPL:P{"breadcrumb:separator"}%%TMPL:P{"breadcrumb:currenttopic"}%%TMPL:P{"breadcrumb:info-separator"}%<span class='foswikiTopicInfo'>%TMPL:P{"breadcrumb:annotation"}%</span></li></ul></div>%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:separator
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:separator"}%<span class='foswikiSeparator'>/</span>%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:info-separator
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:info-separator"}%<span class='foswikiSeparator'>/</span>%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:parents
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:parents"}%%META{"parent" nowebhome="on" prefix="<li>%TMPL:P{"breadcrumb:separator"}%" separator="</li><li>%TMPL:P{"breadcrumb:separator"}%" suffix="</li>"}%%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:topic
+	    The current topic. In most breadcrumbs this would be plain text, but for Foswiki it is handy to use the topic link to reset url params.
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:topic"}%<nop>%TOPIC%%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:title
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:title"}%<li class='foswikiListItemTitle'>%MAKETEXT{"You are here:"}%</li>%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:home
+    	The first item
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:home"}%<li>[[%WIKIHOMEURL%][%MAKETEXT{"Home"}%]]</li>%TMPL:END%%{
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:currentweb"}%<li>%TMPL:P{"breadcrumb:separator"}%<a href="%SCRIPTURLPATH{"view"}%/%WEB%/%HOMETOPIC%">%MAKETEXT{"[_1] Web" args="<nop>%WEB%"}%</a></li>%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:annotation
+    	Topic info
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:annotation"}%%TMPL:P{"topicinfo"}%%TMPL:END%%{
+---------------------------------------------------
+	breadcrumb:currenttopic
+---------------------------------------------------
+}%%TMPL:DEF{"breadcrumb:currenttopic"}%<a href='%SCRIPTURL{view}%/%WEB%/%TOPIC%' title='%MAKETEXT{"Topic revision:"}% %REVINFO{format="$rev ($date - $time)"}%'>%TMPL:P{"breadcrumb:topic"}%</a>%TMPL:END%%{
+===================================================
+</verbatim>}%

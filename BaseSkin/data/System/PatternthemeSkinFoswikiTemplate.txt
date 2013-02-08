@@ -1,0 +1,23 @@
+%{<verbatim class="tml">
+===================================================
+    PatternSkin theme for BaseSkin
+    
+    Use as:
+        COVER = patterntheme
+    or:
+        myurl?cover=patterntheme
+    or:
+        SKIN = patterntheme,basecss,base
+    
+===================================================
+}%%TMPL:INCLUDE{"foswiki"}%%{
+---------------------------------------------------
+}%%TMPL:DEF{"head:css:theme"}%%TMPL:P{
+	"LIBCSS"
+	id="PatternthemeSkin/pattern-theme"
+}%%TMPL:P{
+	"LIBCSS"
+	id="BasecssSkin/iconfonts/fontawesome/stylesheet"
+}%%TMPL:END%%{
+===================================================
+</verbatim>}%

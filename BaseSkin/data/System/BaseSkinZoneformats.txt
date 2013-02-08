@@ -1,0 +1,36 @@
+%{<verbatim class="tml">
+===================================================
+	Base Skin topic template
+	
+===================================================
+}%%{
+---------------------------------------------------
+	"renderzone"
+		Pass zone name, for example:
+		TMPL:P{"renderzone" zone="script"}
+		defaults to "head"
+---------------------------------------------------
+}%%TMPL:DEF{"renderzone" zone="head"}%%RENDERZONE{"%zone%"}%%TMPL:END%%{
+---------------------------------------------------
+	"renderzone:script"
+---------------------------------------------------
+}%%TMPL:DEF{"renderzone:script"}%%RENDERZONE{"script"}%%TMPL:END%%{
+---------------------------------------------------
+	"renderzone:head"
+---------------------------------------------------
+}%%TMPL:DEF{"renderzone:head"}%%RENDERZONE{"head"}%%TMPL:END%%{
+---------------------------------------------------
+	"renderzone:jsonpreference"
+---------------------------------------------------
+}%%TMPL:DEF{"renderzone:jsonpreference"}%%RENDERZONE{
+	"jsonpreference"
+	header="<script type='text/javascript'>
+foswiki.preferences = {
+"
+	footer="$n};$n</script>"
+	type="string"
+	format="   $item"
+	separator=",$n"
+}%%TMPL:END%%{
+===================================================
+</verbatim>}%

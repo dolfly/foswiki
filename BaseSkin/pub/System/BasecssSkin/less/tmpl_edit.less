@@ -1,0 +1,91 @@
+.fw_wysiwyg_block(@textColor, @backgroundColor) {
+    .fw_striped_background(@backgroundColor, @fw_edit_striped_background_size);
+	color: @textColor;
+	white-space: pre;
+	display: inline-block;
+	.fw_label(mix(@textColor, #000, 80%));
+}
+
+.fw_label(@color:#09c) {
+	position: relative;
+    @padding: 3px;
+	@lineHeight: 0px + @fw_size_small;    
+	padding-top: 0px + @lineHeight + 2*@padding;
+	
+    &:before {
+	    position: absolute;
+	    .fw_regular;
+	    top: 0;
+	    left: 0;
+	    line-height: 0px + @lineHeight;
+	    font-size: 0px + @fw_size_small;
+	    background: @color;
+	    color: #fff;
+	    padding: @padding;
+//	    content: @content; // label set in html
+	    opacity: .7;
+	    text-transform: uppercase;
+	}
+	
+	br:first-child {
+	    display: none;
+	}
+}
+
+.WYSIWYG_LINK {
+	color: @fw_link_color;
+	text-decoration: underline;
+}
+
+.WYSIWYG_PROTECTED,
+.WYSIWYG_STICKY,
+.WYSIWYG_LITERAL,
+.TMLverbatim,
+.WYSIWYG_TT {
+	.fw_code;
+}
+
+/* blank line */
+p.WYSIWYG_NBNL {
+    padding: 0;
+    margin: 0;
+}
+
+.WYSIWYG_PROTECTED {
+   .fw_wysiwyg_block(@fw_edit_protected_text_color, @fw_edit_protected_background_color);
+}
+
+.WYSIWYG_STICKY {
+    .fw_wysiwyg_block(@fw_edit_sticky_text_color, @fw_edit_sticky_background_color);
+}
+
+.WYSIWYG_LITERAL {
+    .fw_wysiwyg_block(@fw_edit_literal_text_color, @fw_edit_literal_background_color);
+}
+
+.TMLverbatim {
+    .fw_wysiwyg_block(@fw_edit_verbatim_text_color, @fw_edit_verbatim_background_color);
+	white-space: pre nowrap;
+}
+
+// code
+.WYSIWYG_TT {
+    color: @fw_code_text_color;
+}
+
+/* Make the text in tables the same size as normal paragraph text */
+.mceContentBody table {
+    .foswikiTable;
+    
+    &,
+    th,
+    td {
+        .fw_type_p;
+    }
+}
+
+.mceContentBody .foswikiHidden {
+    .fw_wysiwyg_block(@fw_edit_hidden_text_color, @fw_edit_hidden_background_color);
+	white-space: pre nowrap;
+    display: block;
+}

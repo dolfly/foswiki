@@ -1,0 +1,50 @@
+/*
+Defaults for font family
+*/
+body,
+select,
+input,
+label,
+textarea,
+blockquote {
+	.fw_regular;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-rendering: optimizeLegibility; 
+	-webkit-margin-before:0;
+	-webkit-margin-after:0;
+	.fw_bold;
+}
+
+b, strong {
+    .fw_bold;
+    
+    i, em {
+        .fw_bold_italic;
+    }
+}
+i, em {
+    .fw_italic;
+    
+    b, strong {
+        .fw_bold_italic;
+    }
+}
+
+legend {
+	.fw_bold;
+}
+
+body,
+blockquote {
+	pre,
+	code,
+	tt,
+	kbd,
+	samp,
+	.foswikiDiffDebug {
+        .fw_code;
+        .fw_em_font_size(@fw_size_code);
+    }
+}

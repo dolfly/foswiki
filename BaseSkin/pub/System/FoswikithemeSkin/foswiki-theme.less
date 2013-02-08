@@ -1,0 +1,60 @@
+@import "../BasecssSkin/less/base.less";
+
+// VARIABLE OVERRIDES
+
+@fw_ratio: @fw_ratio_musical_diatonic_tritone;
+
+// 'brand' colors
+@fw_brand_first_color: #333; // dark gray
+@fw_brand_second_color: #3e89d3; // blue
+@fw_brand_third_color: #2e1b3e; // dark purple
+@fw_brand_fourth_color: #999; // middle gray
+@fw_interaction_color: rgba(48, 114, 179, 1); // blue (button, dropdown highlight)
+@fw_interaction_color_tp: rgba(48, 114, 179, .5); // transparent interaction color
+
+@fw_intro_background_color: transparent;
+@fw_border_tertiary_color: #eaeaea;
+@fw_topbar_background_color: transparent;
+
+// Plain buttons
+
+#button {
+    .normal() { .fw_plain_button(#f5f5f5, #ddd, #444, @fw_text_shadow, false); }
+    .highlight() { .fw_plain_button(#f5f5f5, #ddd, #444, @fw_text_shadow, true); }
+}
+#button_submit {
+    .normal() { .fw_plain_button(@fw_interaction_color, @fw_interaction_color, #fff, @fw_light_text_shadow, false); }
+    .highlight() { .fw_plain_button(@fw_interaction_color, @fw_interaction_color, #fff, @fw_light_text_shadow, true); }
+}
+#button_cancel {
+    .normal() { .fw_plain_button(#df3e3e, #df3e3e, #fff, @fw_light_text_shadow, false); }
+    .highlight() { .fw_plain_button(#df3e3e, #df3e3e, #fff, @fw_light_text_shadow, true); }
+}
+
+
+h1, h2, h3, h4, h5, h6,
+.foswikiLarge {
+	font-family: 'RokkittBold';
+	font-weight: 400;
+}
+
+.foswikiTopBar {
+    .foswikiContainer > ul > li > a {
+        font-family: 'RokkittBold';
+        font-weight: 400;
+        font-size: 17px;
+    }
+}
+
+.foswikiNavigationBar {
+    .foswikiContainer > ul > li > a {
+        font-family: 'RokkittBold';
+        font-weight: 400;
+        font-size: 19px;
+    }
+}
+
+body {
+    background-color: #f3f4f6;
+    background-image:url(bg-pattern-linen.png);
+}

@@ -1,0 +1,39 @@
+@import "../BasecssSkin/less/vertical-grid.less";
+
+//@fw_button_padding_top: 2px;
+//@fw_button_padding_right: .6 * @fw_button_font_size;
+
+
+@fw_basefont: 13;
+@fw_body_line_height: 18;
+@fw_ratio: @fw_ratio_musical_fourth;
+
+#button_feedback {
+    @fb_color: #fff;
+    @fb_background_color: #81ca9c;
+    @fb_border_color: darken(@fb_background_color, 7%);
+    .normal() { .fw_gradient_button(@fb_background_color, @fb_border_color, @fb_color, @fw_light_text_shadow, false); }
+    .highlight() { .fw_gradient_button(@fb_background_color, @fb_border_color, @fb_color, @fw_light_text_shadow, true); }
+}
+
+[class^=configureFeedbackButton] {
+    .fw_btn();
+
+    &,
+	&:link {
+	    text-decoration: none;
+	}
+	
+    &,
+	&:link,
+	&:visited {
+	    #button_feedback > .normal;
+    }
+    
+    &:hover,
+    &:active {
+        #button_feedback > .highlight;
+        text-decoration: none;
+    }
+}
+

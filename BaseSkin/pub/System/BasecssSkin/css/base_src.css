@@ -1,0 +1,4751 @@
+/*! normalize.css v2.0.1 | MIT License | git.io/normalize */
+/* ==========================================================================
+   HTML5 display definitions
+   ========================================================================== */
+/*
+ * Corrects `block` display not defined in IE 8/9.
+ */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+nav,
+section,
+summary {
+  display: block;
+}
+/*
+ * Corrects `inline-block` display not defined in IE 8/9.
+ */
+audio,
+canvas,
+video {
+  display: inline-block;
+}
+/*
+ * Prevents modern browsers from displaying `audio` without controls.
+ * Remove excess height in iOS 5 devices.
+ */
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+/*
+ * Addresses styling for `hidden` attribute not present in IE 8/9.
+ */
+[hidden] {
+  display: none;
+}
+/* ==========================================================================
+   Base
+   ========================================================================== */
+/*
+ * 1. Sets default font family to sans-serif.
+ * 2. Prevents iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+  font-family: sans-serif;
+  /* 1 */
+
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+
+  -ms-text-size-adjust: 100%;
+  /* 2 */
+
+}
+/*
+ * Removes default margin.
+ */
+body {
+  margin: 0;
+}
+/* ==========================================================================
+   Links
+   ========================================================================== */
+/*
+ * Addresses `outline` inconsistency between Chrome and other browsers.
+ */
+a:focus {
+  outline: thin dotted;
+}
+/*
+ * Improves readability when focused and also mouse hovered in all browsers.
+ */
+a:active,
+a:hover {
+  outline: 0;
+}
+/* ==========================================================================
+   Typography
+   ========================================================================== */
+/*
+ * Addresses `h1` font sizes within `section` and `article` in Firefox 4+,
+ * Safari 5, and Chrome.
+ */
+h1 {
+  font-size: 2em;
+}
+/*
+ * Addresses styling not present in IE 8/9, Safari 5, and Chrome.
+ */
+abbr[title] {
+  border-bottom: 1px dotted;
+}
+/*
+ * Addresses style set to `bolder` in Firefox 4+, Safari 5, and Chrome.
+ */
+b,
+strong {
+  font-weight: bold;
+}
+/*
+ * Addresses styling not present in Safari 5 and Chrome.
+ */
+dfn {
+  font-style: italic;
+}
+/*
+ * Addresses styling not present in IE 8/9.
+ */
+mark {
+  background: #ff0;
+  color: #000;
+}
+/*
+ * Corrects font family set oddly in Safari 5 and Chrome.
+ */
+code,
+kbd,
+pre,
+samp {
+  font-family: monospace, serif;
+  font-size: 1em;
+}
+/*
+ * Improves readability of pre-formatted text in all browsers.
+ */
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+/*
+ * Sets consistent quote types.
+ */
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+/*
+ * Addresses inconsistent and variable font size in all browsers.
+ */
+small {
+  font-size: 80%;
+}
+/*
+ * Prevents `sub` and `sup` affecting `line-height` in all browsers.
+ */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+sub {
+  bottom: -0.25em;
+}
+/* ==========================================================================
+   Embedded content
+   ========================================================================== */
+/*
+ * Removes border when inside `a` element in IE 8/9.
+ */
+img {
+  border: 0;
+}
+/*
+ * Corrects overflow displayed oddly in IE 9.
+ */
+svg:not(:root) {
+  overflow: hidden;
+}
+/* ==========================================================================
+   Figures
+   ========================================================================== */
+/*
+ * Addresses margin not present in IE 8/9 and Safari 5.
+ */
+figure {
+  margin: 0;
+}
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+/*
+ * Define consistent border, margin, and padding.
+ */
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
+/*
+ * 1. Corrects color not being inherited in IE 8/9.
+ * 2. Remove padding so people aren't caught out if they zero out fieldsets.
+ */
+legend {
+  border: 0;
+  /* 1 */
+
+  padding: 0;
+  /* 2 */
+
+}
+/*
+ * 1. Corrects font family not being inherited in all browsers.
+ * 2. Corrects font size not being inherited in all browsers.
+ * 3. Addresses margins set differently in Firefox 4+, Safari 5, and Chrome
+ */
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+
+  font-size: 100%;
+  /* 2 */
+
+  margin: 0;
+  /* 3 */
+
+}
+/*
+ * Addresses Firefox 4+ setting `line-height` on `input` using `!important` in
+ * the UA stylesheet.
+ */
+button,
+input {
+  line-height: normal;
+}
+/*
+ * 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native `audio`
+ *    and `video` controls.
+ * 2. Corrects inability to style clickable `input` types in iOS.
+ * 3. Improves usability and consistency of cursor style between image-type
+ *    `input` and others.
+ */
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"] {
+  -webkit-appearance: button;
+  /* 2 */
+
+  cursor: pointer;
+  /* 3 */
+
+}
+/*
+ * Re-set default cursor for disabled elements.
+ */
+button[disabled],
+input[disabled] {
+  cursor: default;
+}
+/*
+ * 1. Addresses box sizing set to `content-box` in IE 8/9.
+ * 2. Removes excess padding in IE 8/9.
+ */
+input[type="checkbox"],
+input[type="radio"] {
+  box-sizing: border-box;
+  /* 1 */
+
+  padding: 0;
+  /* 2 */
+
+}
+/*
+ * 1. Addresses `appearance` set to `searchfield` in Safari 5 and Chrome.
+ * 2. Addresses `box-sizing` set to `border-box` in Safari 5 and Chrome
+ *    (include `-moz` to future-proof).
+ */
+input[type="search"] {
+  -webkit-appearance: textfield;
+  /* 1 */
+
+  -moz-box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  /* 2 */
+
+  box-sizing: content-box;
+}
+/*
+ * Removes inner padding and search cancel button in Safari 5 and Chrome
+ * on OS X.
+ */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+/*
+ * 1. Removes default vertical scrollbar in IE 8/9.
+ * 2. Improves readability and alignment in all browsers.
+ */
+textarea {
+  overflow: auto;
+  /* 1 */
+
+  vertical-align: top;
+  /* 2 */
+
+}
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+/*
+ * Remove most spacing between table cells.
+ */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.pull-right {
+  float: right;
+}
+.pull-left {
+  float: left;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
+.invisible {
+  visibility: hidden;
+}
+.affix {
+  position: fixed;
+}
+.fade {
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  -moz-transition: opacity 0.15s linear;
+  -o-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+.fade.in {
+  opacity: 1;
+}
+.collapse {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  overflow: visible \9;
+  -webkit-transition: height 0.35s ease;
+  -moz-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
+  transition: height 0.35s ease;
+}
+.collapse.in {
+  height: auto;
+}
+.modal-open .dropdown-menu {
+  z-index: 2050;
+}
+.modal-open .dropdown.open {
+  *z-index: 2050;
+}
+.modal-open .popover {
+  z-index: 2060;
+}
+.modal-open .tooltip {
+  z-index: 2080;
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000000;
+}
+.modal-backdrop.fade {
+  opacity: 0;
+}
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 560px;
+  margin: -250px 0 0 -280px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  /* IE6-7 */
+
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.modal.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+.modal.fade.in {
+  top: 50%;
+}
+.modal-header {
+  padding: 9px 15px;
+  border-bottom: 1px solid #eee;
+}
+.modal-header .close {
+  margin-top: 2px;
+}
+.modal-header h3 {
+  margin: 0;
+  line-height: 30px;
+}
+.modal-body {
+  overflow-y: auto;
+  max-height: 400px;
+  padding: 15px;
+}
+.modal-form {
+  margin-bottom: 0;
+}
+.modal-footer {
+  padding: 14px 15px 15px;
+  margin-bottom: 0;
+  text-align: right;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: inset 0 1px 0 #ffffff;
+  -moz-box-shadow: inset 0 1px 0 #ffffff;
+  box-shadow: inset 0 1px 0 #ffffff;
+  *zoom: 1;
+}
+.modal-footer:before,
+.modal-footer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.modal-footer:after {
+  clear: both;
+}
+.modal-footer .btn + .btn {
+  margin-left: 5px;
+  margin-bottom: 0;
+}
+.modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+/*
+Defaults for font family
+*/
+body,
+select,
+input,
+label,
+textarea,
+blockquote {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-rendering: optimizeLegibility;
+  -webkit-margin-before: 0;
+  -webkit-margin-after: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+b,
+strong {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+b i,
+strong i,
+b em,
+strong em {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+}
+i,
+em {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: italic;
+}
+i b,
+em b,
+i strong,
+em strong {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+}
+legend {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+body pre,
+blockquote pre,
+body code,
+blockquote code,
+body tt,
+blockquote tt,
+body kbd,
+blockquote kbd,
+body samp,
+blockquote samp,
+body .foswikiDiffDebug,
+blockquote .foswikiDiffDebug {
+  font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 0.9em;
+}
+body {
+  font-size: 14px;
+  line-height: 1.5714285714285714em;
+}
+* {
+  line-height: 1.5714285714285714em;
+  font-size: 1em;
+}
+.foswikiLast {
+  margin-bottom: 0;
+}
+/*
+You will find 2 ways to set the line height of elements, and they are both wrong:
+
+   1. @body_line_height / @size : leads to very small line heights that cause overlap
+   
+   2. don't set line height at all but let the browser use body's line height : with a setting of 1.5 that leads to very high line heights with too much whitespace.
+
+The solution is to use line-height: 1 (right, no em!) for headers, and the desired line height for normal text only.
+*/
+h1 {
+  line-height: 1;
+  font-size: 2.669677734375em;
+  margin-top: 0.5886210725716898em;
+  margin-bottom: 0.5886210725716898em;
+}
+h2 {
+  line-height: 1;
+  font-size: 1.9775390625em;
+  margin-top: 0.7946384479717813em;
+  margin-bottom: 0.7946384479717813em;
+}
+h3 {
+  line-height: 1;
+  font-size: 1.834716796875em;
+  margin-top: 0.8564965307480278em;
+  margin-bottom: 0.8564965307480278em;
+}
+h4 {
+  line-height: 1;
+  font-size: 1.69189453125em;
+  margin-top: 0.9287981859410431em;
+  margin-bottom: 0.9287981859410431em;
+}
+h5 {
+  line-height: 1;
+  font-size: 1.549072265625em;
+  margin-top: 1.014432061240572em;
+  margin-bottom: 1.014432061240572em;
+}
+h6 {
+  line-height: 1;
+  font-size: 1.40625em;
+  margin-top: 1.1174603174603175em;
+  margin-bottom: 1.1174603174603175em;
+}
+h1:first-of-type,
+h2:first-of-type,
+h3:first-of-type {
+  margin-top: 0;
+}
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  margin-top: 0;
+}
+legend {
+  line-height: 1;
+  font-size: 1.69189453125em;
+  margin-top: 0.9287981859410431em;
+  margin-bottom: 0.9287981859410431em;
+}
+.foswikiLarge {
+  line-height: 1;
+  font-size: 1.69189453125em;
+  margin-top: 0.9287981859410431em;
+  margin-bottom: 0.9287981859410431em;
+}
+/* vertical margin for block level elements */
+p,
+pre,
+blockquote,
+iframe,
+address,
+ul,
+ol,
+dl,
+hr,
+.foswikiTable,
+.foswikiBroadcastMessage,
+.foswikiImage,
+.foswikiHelp,
+.foswikiNotification,
+.foswikiFormSteps,
+.foswikiFormStep,
+.foswikiFormDescription,
+div.foswikiAlert {
+  margin-bottom: 1.5714285714285714em;
+}
+dt,
+dd,
+li {
+  font-size: 1em;
+}
+/* smaller text */
+.foswikiSmallish {
+  line-height: 1.746031746031746em;
+  font-size: 0.9em;
+}
+small,
+.foswikiSmall {
+  line-height: 1.8272425249169437em;
+  font-size: 0.86em;
+}
+.foswikiTopicActionTitle {
+  font-size: 1.69189453125em;
+}
+select,
+.foswikiSelect {
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  height: 33px;
+  line-height: 33px;
+}
+.foswikiToolbar input[type='submit'],
+.foswikiToolbar input[type='text'],
+.foswikiToolbar input[type='password'],
+.foswikiToolbar input[type='file'],
+.foswikiToolbar textarea,
+.foswikiToolbar select,
+.foswikiToolbar label,
+.foswikiToolbar .uneditable-input {
+  margin-bottom: 0;
+}
+label {
+  padding-left: 0;
+  padding-right: 0;
+}
+body pre,
+blockquote pre,
+body .foswikiDiffDebug,
+blockquote .foswikiDiffDebug {
+  line-height: 1.746031746031746em;
+}
+dd,
+ul,
+ol {
+  margin-top: 0;
+  margin-left: 0;
+}
+/* prevent double margins with nested list elements */
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+/* prevent double padding with bullet list in block */
+blockquote ol:first-child,
+pre ol:first-child,
+.foswikiHelp ol:first-child,
+.foswikiBroadcastMessage ol:first-child,
+.foswikiNotification ol:first-child,
+blockquote ul:first-child,
+pre ul:first-child,
+.foswikiHelp ul:first-child,
+.foswikiBroadcastMessage ul:first-child,
+.foswikiNotification ul:first-child {
+  margin-top: 0;
+}
+blockquote ol:last-child,
+pre ol:last-child,
+.foswikiHelp ol:last-child,
+.foswikiBroadcastMessage ol:last-child,
+.foswikiNotification ol:last-child,
+blockquote ul:last-child,
+pre ul:last-child,
+.foswikiHelp ul:last-child,
+.foswikiBroadcastMessage ul:last-child,
+.foswikiNotification ul:last-child {
+  margin-bottom: 0;
+}
+/* prevent double padding inside block */
+blockquote h1:first-child,
+pre h1:first-child,
+.foswikiLogin h1:first-child,
+.foswikiHelp h1:first-child,
+.foswikiBroadcastMessage h1:first-child,
+.foswikiNotification h1:first-child,
+.foswikiFormStep h1:first-child,
+.foswikiSection h1:first-child,
+.foswikiTopicText h1:first-child,
+.foswikiTabContent h1:first-child,
+.jqTabContents h1:first-child,
+div.foswikiAlert h1:first-child,
+td h1:first-child,
+blockquote h2:first-child,
+pre h2:first-child,
+.foswikiLogin h2:first-child,
+.foswikiHelp h2:first-child,
+.foswikiBroadcastMessage h2:first-child,
+.foswikiNotification h2:first-child,
+.foswikiFormStep h2:first-child,
+.foswikiSection h2:first-child,
+.foswikiTopicText h2:first-child,
+.foswikiTabContent h2:first-child,
+.jqTabContents h2:first-child,
+div.foswikiAlert h2:first-child,
+td h2:first-child,
+blockquote h3:first-child,
+pre h3:first-child,
+.foswikiLogin h3:first-child,
+.foswikiHelp h3:first-child,
+.foswikiBroadcastMessage h3:first-child,
+.foswikiNotification h3:first-child,
+.foswikiFormStep h3:first-child,
+.foswikiSection h3:first-child,
+.foswikiTopicText h3:first-child,
+.foswikiTabContent h3:first-child,
+.jqTabContents h3:first-child,
+div.foswikiAlert h3:first-child,
+td h3:first-child,
+blockquote h4:first-child,
+pre h4:first-child,
+.foswikiLogin h4:first-child,
+.foswikiHelp h4:first-child,
+.foswikiBroadcastMessage h4:first-child,
+.foswikiNotification h4:first-child,
+.foswikiFormStep h4:first-child,
+.foswikiSection h4:first-child,
+.foswikiTopicText h4:first-child,
+.foswikiTabContent h4:first-child,
+.jqTabContents h4:first-child,
+div.foswikiAlert h4:first-child,
+td h4:first-child,
+blockquote h5:first-child,
+pre h5:first-child,
+.foswikiLogin h5:first-child,
+.foswikiHelp h5:first-child,
+.foswikiBroadcastMessage h5:first-child,
+.foswikiNotification h5:first-child,
+.foswikiFormStep h5:first-child,
+.foswikiSection h5:first-child,
+.foswikiTopicText h5:first-child,
+.foswikiTabContent h5:first-child,
+.jqTabContents h5:first-child,
+div.foswikiAlert h5:first-child,
+td h5:first-child,
+blockquote h6:first-child,
+pre h6:first-child,
+.foswikiLogin h6:first-child,
+.foswikiHelp h6:first-child,
+.foswikiBroadcastMessage h6:first-child,
+.foswikiNotification h6:first-child,
+.foswikiFormStep h6:first-child,
+.foswikiSection h6:first-child,
+.foswikiTopicText h6:first-child,
+.foswikiTabContent h6:first-child,
+.jqTabContents h6:first-child,
+div.foswikiAlert h6:first-child,
+td h6:first-child {
+  margin-top: 0;
+}
+div.foswikiAlert *:last-child {
+  margin-bottom: 0;
+}
+.foswikiPage {
+  margin: 0;
+  padding: 0;
+}
+.foswikiContainer {
+  width: auto;
+  margin-left: auto;
+  margin-right: auto;
+  *zoom: 1;
+}
+.foswikiContainer:before,
+.foswikiContainer:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiContainer:after {
+  clear: both;
+}
+.foswikiSection {
+  position: relative;
+  background-color: transparent;
+  border-style: none;
+  border-width: 1px;
+  border-color: #e1e1e1;
+}
+.foswikiMain {
+  min-height: 300px;
+}
+/* made visible if javascript available */
+/* specified in js.css */
+.foswikiNoJs .foswikiMakeVisible,
+.foswikiNoJs .foswikiMakeVisibleInline,
+.foswikiNoJs .foswikiMakeVisibleBlock {
+  display: none;
+}
+/* for all inline elements - block level elements are handled below */
+.foswikiMakeVisible {
+  display: inline;
+}
+p.foswikiMakeVisible,
+h1.foswikiMakeVisible,
+h2.foswikiMakeVisible,
+h3.foswikiMakeVisible,
+h4.foswikiMakeVisible,
+h5.foswikiMakeVisible,
+h6.foswikiMakeVisible,
+dl.foswikiMakeVisible,
+dt.foswikiMakeVisible,
+dd.foswikiMakeVisible,
+ol.foswikiMakeVisible,
+ul.foswikiMakeVisible,
+li.foswikiMakeVisible,
+address.foswikiMakeVisible,
+blockquote.foswikiMakeVisible,
+center.foswikiMakeVisible,
+del.foswikiMakeVisible,
+div.foswikiMakeVisible,
+form.foswikiMakeVisible,
+hr.foswikiMakeVisible,
+ins.foswikiMakeVisible,
+noscript.foswikiMakeVisible,
+pre.foswikiMakeVisible,
+table.foswikiMakeVisible {
+  display: block;
+}
+button.foswikiMakeVisible,
+.foswikiButtonGroup.foswikiMakeVisible {
+  display: inline-block;
+}
+/* made hidden if javascript available */
+.foswikiMakeHidden {
+  display: none;
+}
+.foswikiNoJs .foswikiMakeHidden {
+  display: block;
+}
+/*
+* BUTTONS
+*/
+.foswikiButton,
+.foswikiButtonSmall,
+.foswikiButtonLarge,
+.foswikiButtonMini {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  margin: 0 6px 0 0;
+  line-height: 22px;
+  *line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  *border: 0;
+  *margin-left: .3em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  text-decoration: none;
+}
+.foswikiButton:first-child,
+.foswikiButtonSmall:first-child,
+.foswikiButtonLarge:first-child,
+.foswikiButtonMini:first-child {
+  *margin-left: 0;
+}
+.foswikiButton .foswikiIcon,
+.foswikiButtonSmall .foswikiIcon,
+.foswikiButtonLarge .foswikiIcon,
+.foswikiButtonMini .foswikiIcon {
+  vertical-align: middle;
+  line-height: .5;
+}
+.foswikiButton,
+.foswikiButtonSmall,
+.foswikiButtonLarge,
+.foswikiButtonMini,
+.foswikiButton:link,
+.foswikiButtonSmall:link,
+.foswikiButtonLarge:link,
+.foswikiButtonMini:link {
+  text-decoration: none;
+}
+.foswikiButton,
+.foswikiButtonSmall,
+.foswikiButtonLarge,
+.foswikiButtonMini,
+.foswikiButton:link,
+.foswikiButtonSmall:link,
+.foswikiButtonLarge:link,
+.foswikiButtonMini:link,
+.foswikiButton:visited,
+.foswikiButtonSmall:visited,
+.foswikiButtonLarge:visited,
+.foswikiButtonMini:visited {
+  color: #555555;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #f1f1f1;
+  background-image: -moz-linear-gradient(top, #f6f6f6, #e9e9e9);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#e9e9e9));
+  background-image: -webkit-linear-gradient(top, #f6f6f6, #e9e9e9);
+  background-image: -o-linear-gradient(top, #f6f6f6, #e9e9e9);
+  background-image: linear-gradient(to bottom, #f6f6f6, #e9e9e9);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6f6f6', endColorstr='#ffe9e9e9', GradientType=0);
+  border-color: #e9e9e9 #e9e9e9 #c3c3c3;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e9e9e9;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #d5d5d5;
+}
+.foswikiButton .foswikiIcon,
+.foswikiButtonSmall .foswikiIcon,
+.foswikiButtonLarge .foswikiIcon,
+.foswikiButtonMini .foswikiIcon,
+.foswikiButton:link .foswikiIcon,
+.foswikiButtonSmall:link .foswikiIcon,
+.foswikiButtonLarge:link .foswikiIcon,
+.foswikiButtonMini:link .foswikiIcon,
+.foswikiButton:visited .foswikiIcon,
+.foswikiButtonSmall:visited .foswikiIcon,
+.foswikiButtonLarge:visited .foswikiIcon,
+.foswikiButtonMini:visited .foswikiIcon {
+  color: #555555;
+}
+.foswikiButton .foswikiCaret,
+.foswikiButtonSmall .foswikiCaret,
+.foswikiButtonLarge .foswikiCaret,
+.foswikiButtonMini .foswikiCaret,
+.foswikiButton:link .foswikiCaret,
+.foswikiButtonSmall:link .foswikiCaret,
+.foswikiButtonLarge:link .foswikiCaret,
+.foswikiButtonMini:link .foswikiCaret,
+.foswikiButton:visited .foswikiCaret,
+.foswikiButtonSmall:visited .foswikiCaret,
+.foswikiButtonLarge:visited .foswikiCaret,
+.foswikiButtonMini:visited .foswikiCaret {
+  border-top-color: rgba(85, 85, 85, 0.4);
+}
+.foswikiButton:hover,
+.foswikiButtonSmall:hover,
+.foswikiButtonLarge:hover,
+.foswikiButtonMini:hover,
+.foswikiButton.foswikiActive,
+.foswikiButtonSmall.foswikiActive,
+.foswikiButtonLarge.foswikiActive,
+.foswikiButtonMini.foswikiActive,
+.foswikiButton > .foswikiRequiresChangePermission a:hover,
+.foswikiButtonSmall > .foswikiRequiresChangePermission a:hover,
+.foswikiButtonLarge > .foswikiRequiresChangePermission a:hover,
+.foswikiButtonMini > .foswikiRequiresChangePermission a:hover {
+  color: #484848;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #e4e4e4;
+  background-image: -moz-linear-gradient(top, #e9e9e9, #dcdcdc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e9e9e9), to(#dcdcdc));
+  background-image: -webkit-linear-gradient(top, #e9e9e9, #dcdcdc);
+  background-image: -o-linear-gradient(top, #e9e9e9, #dcdcdc);
+  background-image: linear-gradient(to bottom, #e9e9e9, #dcdcdc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe9e9e9', endColorstr='#ffdcdcdc', GradientType=0);
+  border-color: #dcdcdc #dcdcdc #b6b6b6;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #dcdcdc;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #c8c8c8;
+  text-decoration: none;
+}
+.foswikiButton:hover .foswikiIcon,
+.foswikiButtonSmall:hover .foswikiIcon,
+.foswikiButtonLarge:hover .foswikiIcon,
+.foswikiButtonMini:hover .foswikiIcon,
+.foswikiButton.foswikiActive .foswikiIcon,
+.foswikiButtonSmall.foswikiActive .foswikiIcon,
+.foswikiButtonLarge.foswikiActive .foswikiIcon,
+.foswikiButtonMini.foswikiActive .foswikiIcon,
+.foswikiButton > .foswikiRequiresChangePermission a:hover .foswikiIcon,
+.foswikiButtonSmall > .foswikiRequiresChangePermission a:hover .foswikiIcon,
+.foswikiButtonLarge > .foswikiRequiresChangePermission a:hover .foswikiIcon,
+.foswikiButtonMini > .foswikiRequiresChangePermission a:hover .foswikiIcon {
+  color: #484848;
+}
+.foswikiButton:hover .foswikiCaret,
+.foswikiButtonSmall:hover .foswikiCaret,
+.foswikiButtonLarge:hover .foswikiCaret,
+.foswikiButtonMini:hover .foswikiCaret,
+.foswikiButton.foswikiActive .foswikiCaret,
+.foswikiButtonSmall.foswikiActive .foswikiCaret,
+.foswikiButtonLarge.foswikiActive .foswikiCaret,
+.foswikiButtonMini.foswikiActive .foswikiCaret,
+.foswikiButton > .foswikiRequiresChangePermission a:hover .foswikiCaret,
+.foswikiButtonSmall > .foswikiRequiresChangePermission a:hover .foswikiCaret,
+.foswikiButtonLarge > .foswikiRequiresChangePermission a:hover .foswikiCaret,
+.foswikiButtonMini > .foswikiRequiresChangePermission a:hover .foswikiCaret {
+  border-top-color: rgba(72, 72, 72, 0.4);
+}
+.foswikiButton .foswikiAccessKey,
+.foswikiButtonSmall .foswikiAccessKey,
+.foswikiButtonLarge .foswikiAccessKey,
+.foswikiButtonMini .foswikiAccessKey {
+  border: none;
+}
+.foswikiButtonSmall {
+  padding: 3px 9px;
+  font-size: 12px;
+  line-height: 20px;
+}
+.foswikiButtonSmall [class^="icon-"] {
+  margin-top: 0;
+}
+.foswikiButtonMini {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 18px;
+}
+.foswikiSubmit {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  margin: 0 6px 0 0;
+  line-height: 22px;
+  *line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  *border: 0;
+  *margin-left: .3em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  text-decoration: none;
+}
+.foswikiSubmit:first-child {
+  *margin-left: 0;
+}
+.foswikiSubmit .foswikiIcon {
+  vertical-align: middle;
+  line-height: .5;
+}
+.foswikiSubmit,
+.foswikiSubmit:link {
+  text-decoration: none;
+}
+.foswikiSubmit,
+.foswikiSubmit:link,
+.foswikiSubmit:visited {
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  background-color: #38a800;
+  background-image: -moz-linear-gradient(top, #3cb300, #339900);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3cb300), to(#339900));
+  background-image: -webkit-linear-gradient(top, #3cb300, #339900);
+  background-image: -o-linear-gradient(top, #3cb300, #339900);
+  background-image: linear-gradient(to bottom, #3cb300, #339900);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3cb300', endColorstr='#ff339900', GradientType=0);
+  border-color: #339900 #339900 #1a4d00;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #339900;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #297a00;
+}
+.foswikiSubmit .foswikiIcon,
+.foswikiSubmit:link .foswikiIcon,
+.foswikiSubmit:visited .foswikiIcon {
+  color: #ffffff;
+}
+.foswikiSubmit .foswikiCaret,
+.foswikiSubmit:link .foswikiCaret,
+.foswikiSubmit:visited .foswikiCaret {
+  border-top-color: rgba(255, 255, 255, 0.4);
+}
+.foswikiSubmit:hover,
+.foswikiSubmit:active {
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  background-color: #308f00;
+  background-image: -moz-linear-gradient(top, #339900, #2b8000);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#339900), to(#2b8000));
+  background-image: -webkit-linear-gradient(top, #339900, #2b8000);
+  background-image: -o-linear-gradient(top, #339900, #2b8000);
+  background-image: linear-gradient(to bottom, #339900, #2b8000);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff339900', endColorstr='#ff2b8000', GradientType=0);
+  border-color: #2b8000 #2b8000 #113300;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #2b8000;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #206100;
+  text-decoration: none;
+}
+.foswikiSubmit:hover .foswikiIcon,
+.foswikiSubmit:active .foswikiIcon {
+  color: #ffffff;
+}
+.foswikiSubmit:hover .foswikiCaret,
+.foswikiSubmit:active .foswikiCaret {
+  border-top-color: rgba(255, 255, 255, 0.4);
+}
+.foswikiButtonCancel {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  margin: 0 6px 0 0;
+  line-height: 22px;
+  *line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  *border: 0;
+  *margin-left: .3em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  text-decoration: none;
+}
+.foswikiButtonCancel:first-child {
+  *margin-left: 0;
+}
+.foswikiButtonCancel .foswikiIcon {
+  vertical-align: middle;
+  line-height: .5;
+}
+.foswikiButtonCancel,
+.foswikiButtonCancel:link {
+  text-decoration: none;
+}
+.foswikiButtonCancel,
+.foswikiButtonCancel:link,
+.foswikiButtonCancel:visited {
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  background-color: #e14b4b;
+  background-image: -moz-linear-gradient(top, #e35454, #df3e3e);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e35454), to(#df3e3e));
+  background-image: -webkit-linear-gradient(top, #e35454, #df3e3e);
+  background-image: -o-linear-gradient(top, #e35454, #df3e3e);
+  background-image: linear-gradient(to bottom, #e35454, #df3e3e);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe35454', endColorstr='#ffdf3e3e', GradientType=0);
+  border-color: #df3e3e #df3e3e #b31e1e;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #df3e3e;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #da2424;
+}
+.foswikiButtonCancel .foswikiIcon,
+.foswikiButtonCancel:link .foswikiIcon,
+.foswikiButtonCancel:visited .foswikiIcon {
+  color: #ffffff;
+}
+.foswikiButtonCancel .foswikiCaret,
+.foswikiButtonCancel:link .foswikiCaret,
+.foswikiButtonCancel:visited .foswikiCaret {
+  border-top-color: rgba(255, 255, 255, 0.4);
+}
+.foswikiButtonCancel:hover,
+.foswikiButtonCancel:active {
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  background-color: #de3535;
+  background-image: -moz-linear-gradient(top, #df3e3e, #db2828);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#df3e3e), to(#db2828));
+  background-image: -webkit-linear-gradient(top, #df3e3e, #db2828);
+  background-image: -o-linear-gradient(top, #df3e3e, #db2828);
+  background-image: linear-gradient(to bottom, #df3e3e, #db2828);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffdf3e3e', endColorstr='#ffdb2828', GradientType=0);
+  border-color: #db2828 #db2828 #9d1a1a;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #db2828;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #c42121;
+  text-decoration: none;
+}
+.foswikiButtonCancel:hover .foswikiIcon,
+.foswikiButtonCancel:active .foswikiIcon {
+  color: #ffffff;
+}
+.foswikiButtonCancel:hover .foswikiCaret,
+.foswikiButtonCancel:active .foswikiCaret {
+  border-top-color: rgba(255, 255, 255, 0.4);
+}
+.foswikiButtonDisabled,
+.foswikiSubmitDisabled {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  margin: 0 6px 0 0;
+  line-height: 22px;
+  *line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  *border: 0;
+  *margin-left: .3em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  text-decoration: none;
+}
+.foswikiButtonDisabled:first-child,
+.foswikiSubmitDisabled:first-child {
+  *margin-left: 0;
+}
+.foswikiButtonDisabled .foswikiIcon,
+.foswikiSubmitDisabled .foswikiIcon {
+  vertical-align: middle;
+  line-height: .5;
+}
+.foswikiButtonDisabled,
+.foswikiSubmitDisabled,
+.foswikiButtonDisabled:link,
+.foswikiSubmitDisabled:link,
+.foswikiButtonDisabled:hover,
+.foswikiSubmitDisabled:hover {
+  cursor: default;
+  text-decoration: none;
+}
+.foswikiButtonDisabled,
+.foswikiSubmitDisabled,
+.foswikiButtonDisabled:link,
+.foswikiSubmitDisabled:link,
+.foswikiButtonDisabled:visited,
+.foswikiSubmitDisabled:visited,
+.foswikiButtonDisabled:hover,
+.foswikiSubmitDisabled:hover {
+  color: #ddd;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  text-shadow: none;
+}
+.foswikiRight .foswikiButton,
+.foswikiRight .foswikiButtonSmall,
+.foswikiRight .foswikiButtonLarge,
+.foswikiRight .foswikiButtonMini,
+.foswikiRight .foswikiButtonDisabled,
+.foswikiRight .foswikiSubmit,
+.foswikiRight .foswikiSubmitDisabled,
+.foswikiRight .foswikiButtonCancel {
+  margin-right: 0;
+  margin-left: 6px;
+}
+.foswikiButton.foswikiRight,
+.foswikiButtonSmall.foswikiRight,
+.foswikiButtonLarge.foswikiRight,
+.foswikiButtonMini.foswikiRight,
+.foswikiButtonDisabled.foswikiRight,
+.foswikiSubmit.foswikiRight,
+.foswikiSubmitDisabled.foswikiRight,
+.foswikiButtonCancel.foswikiRight,
+.foswikiButton.foswikiLeft,
+.foswikiButtonSmall.foswikiLeft,
+.foswikiButtonLarge.foswikiLeft,
+.foswikiButtonMini.foswikiLeft,
+.foswikiButtonDisabled.foswikiLeft,
+.foswikiSubmit.foswikiLeft,
+.foswikiSubmitDisabled.foswikiLeft,
+.foswikiButtonCancel.foswikiLeft {
+  display: inline;
+}
+.foswikiCaret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: -4px;
+  content: " ";
+  border-top: 4px solid #555555;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  margin: 0 0 0 7px;
+  vertical-align: text-top;
+}
+.foswikiButton .foswikiButtonIcon,
+.foswikiButton:active .foswikiButtonIcon {
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  padding: 0 0 0 23px;
+  display: inline-block;
+  vertical-align: baseline;
+}
+.foswikiButton .foswikiLabel {
+  padding-left: 8px;
+}
+.foswikiButton .foswikiIcon.icon-empty + .foswikiLabel {
+  padding-left: 0;
+}
+/*
+* BUTTON GROUPS
+*/
+.foswikiButtonGroup {
+  position: relative;
+  font-size: 0;
+  white-space: nowrap;
+  *margin-left: .3em;
+}
+.foswikiButtonGroup:first-child {
+  *margin-left: 0;
+}
+.foswikiButtonGroup + .foswikiButtonGroup {
+  margin-left: 8px;
+}
+.foswikiButtonGroup .foswikiButtonGroup {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+}
+.foswikiButtonGroup .foswikiButtonGroup .foswikiButton,
+.foswikiButtonGroup .foswikiButtonGroup > .foswikiButton:first-child {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.foswikiButtonGroup > .foswikiButton {
+  margin-right: 0;
+}
+.foswikiButtonGroup .foswikiButtonGroup + .foswikiButtonGroup {
+  margin-left: -1px;
+}
+.foswikiButtonToolbar {
+  font-size: 0;
+}
+.foswikiButtonToolbar .foswikiButtonGroup {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+}
+.foswikiButtonToolbar .foswikiButton + .foswikiButton,
+.foswikiButtonToolbar .foswikiButtonGroup + .foswikiButton,
+.foswikiButtonToolbar .foswikiButton + .foswikiButtonGroup {
+  margin-left: 6px;
+}
+.foswikiButtonGroup > .foswikiButton {
+  position: relative;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  text-decoration: none;
+}
+.foswikiButtonGroup > .foswikiButton + .foswikiButton {
+  margin-left: -1px;
+}
+.foswikiButtonGroup > .foswikiButton,
+.foswikiButtonGroup > .foswikiDropdownToggle,
+.foswikiButtonGroup > .foswikiDropdownMenu {
+  font-size: 14px;
+}
+.foswikiButtonGroup > .foswikiButtonMini {
+  font-size: 11px;
+}
+.foswikiButtonGroup > .foswikiButtonSmall {
+  font-size: 12px;
+}
+.foswikiButtonGroup > .foswikiButtonLarge {
+  font-size: 16px;
+}
+.foswikiButtonGroup > .foswikiButton:first-child,
+.foswikiButtonGroup .foswikiButtonGroup:first-child > .foswikiButton {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 3px;
+  -moz-border-radius-topleft: 3px;
+  border-top-left-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+  -moz-border-radius-bottomleft: 3px;
+  border-bottom-left-radius: 3px;
+}
+.foswikiButtonGroup > .foswikiButton:last-child,
+.foswikiButtonGroup .foswikiButtonGroup:last-child .foswikiButton,
+.foswikiButtonGroup > .foswikiDropdownToggle {
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-radius-topright: 3px;
+  border-top-right-radius: 3px;
+  -webkit-border-bottom-right-radius: 3px;
+  -moz-border-radius-bottomright: 3px;
+  border-bottom-right-radius: 3px;
+}
+.foswikiButtonGroup > .foswikiButton.large:first-child {
+  margin-left: 0;
+  -webkit-border-top-left-radius: 6px;
+  -moz-border-radius-topleft: 6px;
+  border-top-left-radius: 6px;
+  -webkit-border-bottom-left-radius: 6px;
+  -moz-border-radius-bottomleft: 6px;
+  border-bottom-left-radius: 6px;
+}
+.foswikiButtonGroup > .foswikiButton.large:last-child,
+.foswikiButtonGroup > .large.foswikiDropdownToggle {
+  -webkit-border-top-right-radius: 6px;
+  -moz-border-radius-topright: 6px;
+  border-top-right-radius: 6px;
+  -webkit-border-bottom-right-radius: 6px;
+  -moz-border-radius-bottomright: 6px;
+  border-bottom-right-radius: 6px;
+}
+.foswikiButtonGroup > .foswikiButton:hover,
+.foswikiButtonGroup > .foswikiButton:focus,
+.foswikiButtonGroup > .foswikiButton:active,
+.foswikiButtonGroup > .foswikiButton.active {
+  z-index: 2;
+}
+.foswikiButtonGroup .foswikiDropdownToggle:active,
+.foswikiButtonGroup.open .foswikiDropdownToggle {
+  outline: 0;
+}
+.foswikiButtonGroup > .foswikiButton + .foswikiDropdownToggle {
+  padding-left: 8px;
+  padding-right: 8px;
+  *padding-top: 5px;
+  *padding-bottom: 5px;
+}
+.foswikiButtonGroup > .foswikiButtonMini + .foswikiDropdownToggle {
+  padding-left: 5px;
+  padding-right: 5px;
+  *padding-top: 2px;
+  *padding-bottom: 2px;
+}
+.foswikiButtonGroup > .foswikiButtonSmall + .foswikiDropdownToggle {
+  *padding-top: 5px;
+  *padding-bottom: 4px;
+}
+.foswikiButtonGroup > .foswikiButtonLarge + .foswikiDropdownToggle {
+  padding-left: 12px;
+  padding-right: 12px;
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+.foswikiButtonGroup.open .foswikiDropdownToggle {
+  background-image: none;
+}
+.foswikiButtonGroup.open .foswikiButton.foswikiDropdownToggle {
+  background-color: #e6e6e6;
+}
+.foswikiButtonGroup.open .foswikiButton-primary.foswikiDropdownToggle {
+  background-color: #0044cc;
+}
+.foswikiButtonGroup.open .foswikiButton-warning.foswikiDropdownToggle {
+  background-color: #f89406;
+}
+.foswikiButtonGroup.open .foswikiButton-danger.foswikiDropdownToggle {
+  background-color: #bd362f;
+}
+.foswikiButtonGroup.open .foswikiButton-success.foswikiDropdownToggle {
+  background-color: #51a351;
+}
+.foswikiButtonGroup.open .foswikiButton-info.foswikiDropdownToggle {
+  background-color: #2f96b4;
+}
+.foswikiButtonGroup.open .foswikiButton-inverse.foswikiDropdownToggle {
+  background-color: #222222;
+}
+.foswikiButton .foswikiCaret {
+  margin-top: 8px;
+  margin-left: 7px;
+}
+.foswikiButton + .foswikiButton.foswikiDropdownToggle .foswikiCaret {
+  margin-left: 0;
+}
+.foswikiButtonMini .foswikiCaret,
+.foswikiButtonSmall .foswikiCaret,
+.foswikiButtonLarge .foswikiCaret {
+  margin-top: 6px;
+}
+.foswikiButtonLarge .foswikiCaret {
+  border-left-width: 5px;
+  border-right-width: 5px;
+  border-top-width: 5px;
+}
+.dropup .foswikiButtonLarge .foswikiCaret {
+  border-bottom: 5px solid #000000;
+  border-top: 0;
+}
+.foswikiButtonGroupVertical {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+}
+.foswikiButtonGroupVertical .foswikiButton {
+  display: block;
+  float: none;
+  width: 100%;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.foswikiButtonGroupVertical .foswikiButton + .foswikiButton {
+  margin-left: 0;
+  margin-top: -1px;
+}
+.foswikiButtonGroupVertical .foswikiButton:first-child {
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+.foswikiButtonGroupVertical .foswikiButton:last-child {
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+}
+.foswikiButtonGroupVertical .foswikiButtonLarge:first-child {
+  -webkit-border-radius: 6px 6px 0 0;
+  -moz-border-radius: 6px 6px 0 0;
+  border-radius: 6px 6px 0 0;
+}
+.foswikiButtonGroupVertical .foswikiButtonLarge:last-child {
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+}
+/*
+* DROPDOWN TOGGLE
+*/
+.foswikiDropdownToggle + ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  margin: -3px 0 0 0;
+  padding: 5px 0;
+  min-width: 180px;
+  max-width: 210px;
+  width: 210px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #c8c8c8;
+  *zoom: 1;
+  background: #ffffff;
+  z-index: 1000;
+  -webkit-box-shadow: 0 0 2px #c8c8c8;
+  -moz-box-shadow: 0 0 2px #c8c8c8;
+  box-shadow: 0 0 2px #c8c8c8;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  display: none;
+  right: auto;
+  left: 0;
+}
+.foswikiDropdownToggle + ul:before,
+.foswikiDropdownToggle + ul:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiDropdownToggle + ul:after {
+  clear: both;
+}
+.foswikiDropdownToggle + ul > li {
+  display: list-item;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  color: #adcbe9;
+}
+.foswikiDropdownToggle + ul > li.foswikiSeparator {
+  height: 1px;
+  margin: 5px 0;
+  overflow: hidden;
+  background-color: #e1e1e1;
+  border-bottom: 1px solid #e1e1e1;
+}
+.foswikiDropdownToggle + ul > li > a,
+.foswikiDropdownToggle + ul > li > .foswikiRequiresChangePermission a,
+.foswikiDropdownToggle + ul > li > p,
+.foswikiDropdownToggle + ul > li > h1,
+.foswikiDropdownToggle + ul > li > h2,
+.foswikiDropdownToggle + ul > li > h3,
+.foswikiDropdownToggle + ul > li > h4,
+.foswikiDropdownToggle + ul > li > h5,
+.foswikiDropdownToggle + ul > li > h6 {
+  padding: 3px 20px;
+  margin: 0;
+  display: block;
+  text-decoration: none;
+  white-space: pre-wrap;
+}
+.foswikiDropdownToggle + ul > li > a,
+.foswikiDropdownToggle + ul > li > .foswikiRequiresChangePermission a {
+  color: #555555;
+}
+.foswikiDropdownToggle + ul > li > h1,
+.foswikiDropdownToggle + ul > li > h2,
+.foswikiDropdownToggle + ul > li > h3,
+.foswikiDropdownToggle + ul > li > h4,
+.foswikiDropdownToggle + ul > li > h5,
+.foswikiDropdownToggle + ul > li > h6 {
+  line-height: 1.5714285714285714em;
+  font-size: 1em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  text-transform: uppercase;
+  color: #adcbe9;
+}
+.foswikiDropdownToggle + ul > li > p {
+  color: #adcbe9;
+}
+.foswikiDropdownToggle + ul > li:hover > a,
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a {
+  text-decoration: none;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #3072b3;
+  background-image: -moz-linear-gradient(top, #3072b3, #3072b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3072b3), to(#3072b3));
+  background-image: -webkit-linear-gradient(top, #3072b3, #3072b3);
+  background-image: -o-linear-gradient(top, #3072b3, #3072b3);
+  background-image: linear-gradient(to bottom, #3072b3, #3072b3);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3072b3', endColorstr='#ff3072b3', GradientType=0);
+  border-color: #3072b3 #3072b3 #204c77;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #3072b3;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+}
+.foswikiDropdownToggle + ul > li:hover > a:hover,
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a:hover,
+.foswikiDropdownToggle + ul > li:hover > a:active,
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a:active,
+.foswikiDropdownToggle + ul > li:hover > a.active,
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a.active,
+.foswikiDropdownToggle + ul > li:hover > a.disabled,
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a.disabled,
+.foswikiDropdownToggle + ul > li:hover > a[disabled],
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a[disabled] {
+  color: #ffffff;
+  background-color: #3072b3;
+  *background-color: #2b659f;
+}
+.foswikiDropdownToggle + ul > li:hover > a:active,
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a:active,
+.foswikiDropdownToggle + ul > li:hover > a.active,
+.foswikiDropdownToggle + ul > li:hover > .foswikiRequiresChangePermission a.active {
+  background-color: #25588b \9;
+}
+.foswikiDropdownToggle + ul > li:hover .foswikiIcon {
+  background: none;
+  color: #ffffff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+}
+.foswikiDropdownToggle + ul > li .foswikiIcon {
+  position: absolute;
+  left: 10px;
+  padding: 3px 0;
+  line-height: inherit;
+  color: #555555;
+}
+.foswikiDropdownToggle + ul.foswikiHasActiveState > li > a,
+.foswikiDropdownToggle + ul.foswikiHasActiveState > li > .foswikiRequiresChangePermission a,
+.foswikiDropdownToggle + ul.foswikiHasActiveState > li > p {
+  padding-left: 2.25em;
+}
+.foswikiDropdownToggle + ul hr {
+  margin: 0;
+  display: inline-block;
+}
+.foswikiRight .foswikiDropdownToggle + ul {
+  right: 0;
+  left: auto;
+}
+.foswikiDropdownToggle:hover + ul,
+.foswikiDropdownToggle + ul:hover {
+  display: block;
+  font-size: 14px;
+}
+.foswikiNavigationBar {
+  margin: 0;
+  padding: 0;
+  background-color: #437197;
+  background-image: -moz-linear-gradient(top, #537ea0, #2a5f89);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#537ea0), to(#2a5f89));
+  background-image: -webkit-linear-gradient(top, #537ea0, #2a5f89);
+  background-image: -o-linear-gradient(top, #537ea0, #2a5f89);
+  background-image: linear-gradient(to bottom, #537ea0, #2a5f89);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff537ea0', endColorstr='#ff2a5f89', GradientType=0);
+  border-style: none;
+  border-width: 1px;
+  border-color: #e1e1e1;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  color: #bfcfdc;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+.foswikiNavigationBar .foswikiContainer > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+  *zoom: 1;
+}
+.foswikiNavigationBar .foswikiContainer > ul:before,
+.foswikiNavigationBar .foswikiContainer > ul:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiNavigationBar .foswikiContainer > ul:after {
+  clear: both;
+}
+.foswikiNavigationBar .foswikiContainer > ul > li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.foswikiNavigationBar .foswikiContainer a {
+  display: inline-block;
+  vertical-align: middle;
+  color: #bfcfdc;
+  text-decoration: none;
+  margin-right: 2em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+.foswikiNavigationBar .foswikiContainer a:hover {
+  color: #ffffff;
+}
+.foswikiNavigationBar .foswikiContainer li.foswikiActive a {
+  position: relative;
+  color: #ffffff;
+}
+.foswikiNavigationBar .foswikiContainer li.foswikiActive a:after {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: -6px;
+  content: " ";
+  border-bottom: 6px solid #ffffff;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+.foswikiHasIntroduction .foswikiNavigationBar .foswikiContainer li.foswikiActive a:after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: -6px;
+  content: " ";
+  border-bottom: 6px solid #f1f1f3;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+.foswikiHasIntroduction .foswikiNavigationBar .foswikiContainer li.foswikiActive a:after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: -6px;
+  content: " ";
+  border-bottom: 6px solid #1e4462;
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+}
+.foswikiTopBar {
+  *zoom: 1;
+  margin: 0;
+  background: transparent;
+  border-style: none;
+  border-width: 1px;
+  border-color: #e1e1e1;
+  color: #555555;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.foswikiTopBar:before,
+.foswikiTopBar:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiTopBar:after {
+  clear: both;
+}
+.foswikiTopBar .foswikiIcon,
+.foswikiTopBar a .foswikiIcon {
+  color: #999999;
+}
+.foswikiTopBar > .foswikiContainer > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+  *zoom: 1;
+  display: table-row;
+  width: 100%;
+  white-space: nowrap;
+}
+.foswikiTopBar > .foswikiContainer > ul:before,
+.foswikiTopBar > .foswikiContainer > ul:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiTopBar > .foswikiContainer > ul:after {
+  clear: both;
+}
+.foswikiTopBar > .foswikiContainer > ul > li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.foswikiTopBar > .foswikiContainer > ul > li {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+}
+.foswikiTopBar > .foswikiContainer > ul > li.foswikiRight {
+  float: none;
+}
+.foswikiTopBar > .foswikiContainer > ul > li.foswikiSpacer {
+  width: 100%;
+}
+.foswikiTopBar form {
+  display: inline;
+  position: relative;
+}
+.foswikiTopBar form input[type="text"] {
+  vertical-align: middle;
+  margin: 0;
+  padding-left: 27.5px;
+}
+.foswikiTopBar form .foswikiIcon {
+  position: absolute;
+  left: 8.5px;
+  top: -1px;
+  padding: 4px 6px;
+  padding-left: 0;
+  padding-right: 0;
+  color: #999999;
+}
+.foswikiTopBar form .foswikiButton {
+  vertical-align: baseline;
+}
+.foswikiTopBar .foswikiContainer > ul > li > a,
+.foswikiTopBar .foswikiContainer > ul > li > form {
+  margin: 0 0.75em 0 0;
+  vertical-align: middle;
+}
+.foswikiTopBar .foswikiContainer > ul > li > a {
+  color: #21af00;
+  text-decoration: none;
+  padding: 0.5em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.foswikiTopBar .foswikiContainer > ul > li > a.foswikiLogo {
+  padding: 0;
+  display: block;
+}
+.foswikiTopBar .foswikiContainer > ul > li > a img {
+  vertical-align: middle;
+}
+.foswikiTopBar .foswikiContainer > ul > li.foswikiAdmin > a:link,
+.foswikiTopBar .foswikiContainer > ul > li.foswikiAdmin > a:visited,
+.foswikiTopBar .foswikiContainer > ul > li.foswikiAdmin > a:hover {
+  color: #ff9999;
+}
+.foswikiTopBar .foswikiContainer > ul > li.foswikiAdmin > a:link > .foswikiIcon,
+.foswikiTopBar .foswikiContainer > ul > li.foswikiAdmin > a:visited > .foswikiIcon,
+.foswikiTopBar .foswikiContainer > ul > li.foswikiAdmin > a:hover > .foswikiIcon {
+  color: #ff9999;
+}
+.foswikiTopBar .foswikiContainer > ul > li .foswikiCaret {
+  vertical-align: middle;
+  border-top-color: rgba(85, 85, 85, 0.4);
+}
+.foswikiTopBar .foswikiContainer > ul > li input {
+  background: transparent;
+  width: 120px;
+  -webkit-transition: width 0.3s;
+  -moz-transition: width 0.3s;
+  -o-transition: width 0.3s;
+  transition: width 0.3s;
+}
+.foswikiTopBar .foswikiContainer > ul > li input:hover,
+.foswikiTopBar .foswikiContainer > ul > li input:focus {
+  background: #ffffff;
+}
+.foswikiTopBar .foswikiContainer > ul > li input:focus {
+  width: 210px;
+}
+.foswikiTopBar .foswikiContainer > ul > li.foswikiRight > a,
+.foswikiTopBar .foswikiContainer > ul > li.foswikiRight > form {
+  margin: 0 0 0 0.75em;
+}
+.foswikiBreadcrumb {
+  line-height: 1.8272425249169437em;
+  font-size: 0.86em;
+}
+.foswikiBreadcrumb ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+  *zoom: 1;
+  margin: 0;
+  color: #aaaabb;
+}
+.foswikiBreadcrumb ul:before,
+.foswikiBreadcrumb ul:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiBreadcrumb ul:after {
+  clear: both;
+}
+.foswikiBreadcrumb ul > li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.foswikiBreadcrumb ul a {
+  text-decoration: none;
+}
+.foswikiBreadcrumb ul a,
+.foswikiBreadcrumb ul a:visited {
+  color: #9c9cb0;
+}
+.foswikiBreadcrumb ul .foswikiListItemTitle {
+  display: none;
+}
+.foswikiBreadcrumb ul .foswikiSeparator {
+  padding: 0 .35em;
+}
+.foswikiBreadcrumb:hover a,
+.foswikiBreadcrumb:hover a:visited {
+  color: #008ce7;
+}
+.foswikiBreadcrumb:hover a {
+  color: #008ce7;
+  text-decoration: underline;
+}
+.foswikiBreadcrumb:hover a:hover {
+  color: #1f446c;
+}
+/* FORMS */
+form {
+  margin: 0 0 20px;
+}
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+textarea,
+.foswikiTextarea,
+input[type='text'],
+input[type='file'],
+input[type='password'],
+.foswikiInputField {
+  padding: 4px 6px;
+  height: auto;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #dadada;
+  background-color: #ffffff;
+  color: #333333;
+  line-height: 22px;
+}
+textarea:-moz-placeholder,
+.foswikiTextarea:-moz-placeholder,
+input[type='text']:-moz-placeholder,
+input[type='file']:-moz-placeholder,
+input[type='password']:-moz-placeholder,
+.foswikiInputField:-moz-placeholder {
+  color: #aaaaaa;
+}
+textarea::-webkit-input-placeholder,
+.foswikiTextarea::-webkit-input-placeholder,
+input[type='text']::-webkit-input-placeholder,
+input[type='file']::-webkit-input-placeholder,
+input[type='password']::-webkit-input-placeholder,
+.foswikiInputField::-webkit-input-placeholder {
+  color: #aaaaaa;
+}
+textarea:hover,
+.foswikiTextarea:hover,
+input[type='text']:hover,
+input[type='file']:hover,
+input[type='password']:hover,
+.foswikiInputField:hover,
+textarea:focus,
+.foswikiTextarea:focus,
+input[type='text']:focus,
+input[type='file']:focus,
+input[type='password']:focus,
+.foswikiInputField:focus,
+textarea.focused,
+.foswikiTextarea.focused,
+input[type='text'].focused,
+input[type='file'].focused,
+input[type='password'].focused,
+.foswikiInputField.focused {
+  background-color: #ffffff;
+  border-color: rgba(48, 114, 179, 0.5);
+  -webkit-box-shadow: 0 0 2px rgba(48, 114, 179, 0.5);
+  -moz-box-shadow: 0 0 2px rgba(48, 114, 179, 0.5);
+  box-shadow: 0 0 2px rgba(48, 114, 179, 0.5);
+  color: #333333;
+}
+select,
+.foswikiSelect,
+textarea,
+.foswikiTextarea,
+input[type="text"],
+input[type="password"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="date"],
+input[type="month"],
+input[type="time"],
+input[type="week"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"],
+input[type="tel"],
+input[type="color"],
+.uneditable-input,
+.foswikiInputField {
+  vertical-align: middle;
+  padding: 4px 6px;
+  margin-bottom: 1.5714285714285714em;
+}
+.foswikiInputField  + .foswikiButton,
+.foswikiTextArea  + .foswikiButton,
+.foswikiInputField  + .foswikiSubmit,
+.foswikiTextArea  + .foswikiSubmit,
+.foswikiInputField  + .foswikiButtonCancel,
+.foswikiTextArea  + .foswikiButtonCancel,
+.foswikiInputField  + .jqButton,
+.foswikiTextArea  + .jqButton,
+.foswikiInputField  + a.jqButton,
+.foswikiTextArea  + a.jqButton,
+.foswikiInputField  + .foswikiButtonSmall,
+.foswikiTextArea  + .foswikiButtonSmall,
+.foswikiInputField  + .foswikiButtonLarge,
+.foswikiTextArea  + .foswikiButtonLarge,
+.foswikiInputField  + .foswikiButtonMini,
+.foswikiTextArea  + .foswikiButtonMini {
+  margin-left: .5em;
+}
+input,
+textarea {
+  width: 210px;
+}
+textarea {
+  height: auto;
+}
+input[type="file"],
+input[type="image"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input[type="radio"],
+input[type="checkbox"] {
+  width: auto;
+}
+select {
+  height: 30px;
+  /* In IE7, the height of the select element cannot be changed by height, only font-size */
+
+  *margin-top: 4px;
+  /* For IE7, add top margin to align select with labels */
+
+  line-height: 30px;
+}
+select {
+  width: 220px;
+  border: 1px solid #bbb;
+  background-color: #ffffff;
+}
+select[multiple],
+select[size] {
+  height: auto;
+}
+select:focus,
+input[type="file"]:focus,
+input[type="radio"]:focus,
+input[type="checkbox"]:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #999999;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #999999;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #999999;
+}
+.foswikiFormGroup select,
+table select,
+.foswikiFormGroup .foswikiSelect,
+table .foswikiSelect,
+.foswikiFormGroup textarea,
+table textarea,
+.foswikiFormGroup .foswikiTextarea,
+table .foswikiTextarea,
+.foswikiFormGroup input[type="text"],
+table input[type="text"],
+.foswikiFormGroup input[type="password"],
+table input[type="password"],
+.foswikiFormGroup input[type="datetime"],
+table input[type="datetime"],
+.foswikiFormGroup input[type="datetime-local"],
+table input[type="datetime-local"],
+.foswikiFormGroup input[type="date"],
+table input[type="date"],
+.foswikiFormGroup input[type="month"],
+table input[type="month"],
+.foswikiFormGroup input[type="time"],
+table input[type="time"],
+.foswikiFormGroup input[type="week"],
+table input[type="week"],
+.foswikiFormGroup input[type="number"],
+table input[type="number"],
+.foswikiFormGroup input[type="email"],
+table input[type="email"],
+.foswikiFormGroup input[type="url"],
+table input[type="url"],
+.foswikiFormGroup input[type="search"],
+table input[type="search"],
+.foswikiFormGroup input[type="tel"],
+table input[type="tel"],
+.foswikiFormGroup input[type="color"],
+table input[type="color"],
+.foswikiFormGroup .uneditable-input,
+table .uneditable-input,
+.foswikiFormGroup .foswikiInputField,
+table .foswikiInputField {
+  margin-bottom: 0;
+}
+textarea[readonly],
+input[readonly],
+.foswikiInputFieldReadOnly,
+textarea[readonly]:hover,
+input[readonly]:hover,
+.foswikiInputFieldReadOnly:hover,
+textarea[readonly]:active,
+input[readonly]:active,
+.foswikiInputFieldReadOnly:active,
+textarea[readonly]:focus,
+input[readonly]:focus,
+.foswikiInputFieldReadOnly:focus {
+  cursor: default;
+  background-color: #fafafa;
+  color: #aaaabb;
+  border-color: #dadada;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+textarea[readonly]:focus,
+input[readonly]:focus,
+.foswikiInputFieldReadOnly:focus {
+  background-color: #ffffff;
+  border-color: #dadada;
+}
+input[disabled],
+textarea[disabled],
+.foswikiInputFieldDisabled,
+input[disabled]:hover,
+textarea[disabled]:hover,
+.foswikiInputFieldDisabled:hover,
+input[disabled]:active,
+textarea[disabled]:active,
+.foswikiInputFieldDisabled:active,
+input[disabled]:focus,
+textarea[disabled]:focus,
+.foswikiInputFieldDisabled:focus {
+  cursor: default;
+  background-color: #fafafa;
+  color: #aaaabb;
+  border-color: #dadada;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+form {
+  display: inline;
+}
+legend {
+  border: none;
+}
+/* TABLES */
+.foswikiTable {
+  max-width: 100%;
+  margin-bottom: 22;
+  padding: 0;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: 1px;
+}
+.foswikiTable th,
+.foswikiTable td {
+  padding: 0.505679012345679em;
+  line-height: 22px;
+  text-align: left;
+  border-style: none none solid none;
+  border-width: 1px;
+}
+.foswikiTable th {
+  vertical-align: middle;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+.foswikiTable td {
+  vertical-align: top;
+}
+.foswikiTable td + td {
+  border-left-style: solid;
+}
+.foswikiTable tr + tr td {
+  border-top-style: solid;
+}
+.foswikiTable,
+.foswikiTable th,
+.foswikiTable td {
+  border-color: #e1e1e1;
+}
+/* TABS */
+.foswikiTabs {
+  position: relative;
+}
+.foswikiTabs:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #e1e1e1;
+  bottom: 0;
+}
+.foswikiTabs > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  bottom: 0;
+  margin-bottom: -1px;
+  *zoom: 1;
+}
+.foswikiTabs > ul:before,
+.foswikiTabs > ul:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiTabs > ul:after {
+  clear: both;
+}
+.foswikiTabs > ul > li {
+  display: inline;
+}
+.foswikiTabs > ul > li > a {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin-right: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e1e1e1;
+  background-image: none;
+  background: #f1f1f1;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.foswikiTabs > ul > li > a:link,
+.foswikiTabs > ul > li > a:visited,
+.foswikiTabs > ul > li > a:hover,
+.foswikiTabs > ul > li > a:active {
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  text-decoration: none;
+  color: #555555;
+}
+.foswikiTabs > ul > li > a:hover {
+  background: #e9e9e9;
+}
+.foswikiTabs > ul > li.foswikiActiveTab a:hover,
+.foswikiTabs > ul > li.foswikiActive a:hover {
+  cursor: default;
+}
+.foswikiTabs > ul > li.foswikiActiveTab a,
+.foswikiTabs > ul > li.foswikiActive a {
+  border-bottom-color: #ffffff;
+  background: #ffffff;
+  z-index: 1;
+}
+.foswikiTabContent {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e1e1e1;
+  background: #ffffff;
+  margin-bottom: 1.5714285714285714em;
+}
+.foswikiNoJs .foswikiTabs > ul {
+  display: none;
+}
+.jqTab {
+  padding: 0;
+  border: none;
+  margin-bottom: 1.5714285714285714em;
+}
+.foswikiNoJs .jqTabLabel {
+  display: none;
+}
+.jqTabContents {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e1e1e1;
+  background: #ffffff;
+}
+.jqTabGroup > li > a .foswikiIcon {
+  background-repeat: no-repeat;
+  background-position: 0 50%;
+  padding: 0 0 0 23px;
+  display: inline-block;
+  vertical-align: baseline;
+  padding-left: 0;
+}
+.jqTabPaneDefault > ul.jqTabGroup {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  bottom: 0;
+  margin-bottom: -1px;
+  *zoom: 1;
+  padding-bottom: 4px;
+}
+.jqTabPaneDefault > ul.jqTabGroup:before,
+.jqTabPaneDefault > ul.jqTabGroup:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.jqTabPaneDefault > ul.jqTabGroup:after {
+  clear: both;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li {
+  background-image: none;
+  margin: 0;
+  padding: 0;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a {
+  position: relative;
+  text-indent: 10px;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:link,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:visited {
+  color: #555555;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #f1f1f1;
+  background-image: -moz-linear-gradient(top, #f6f6f6, #e9e9e9);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f6f6f6), to(#e9e9e9));
+  background-image: -webkit-linear-gradient(top, #f6f6f6, #e9e9e9);
+  background-image: -o-linear-gradient(top, #f6f6f6, #e9e9e9);
+  background-image: linear-gradient(to bottom, #f6f6f6, #e9e9e9);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff6f6f6', endColorstr='#ffe9e9e9', GradientType=0);
+  border-color: #e9e9e9 #e9e9e9 #c3c3c3;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e9e9e9;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #d5d5d5;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a .foswikiIcon,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:link .foswikiIcon,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:visited .foswikiIcon {
+  color: #555555;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a .foswikiCaret,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:link .foswikiCaret,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:visited .foswikiCaret {
+  border-top-color: rgba(85, 85, 85, 0.4);
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a:hover {
+  color: #484848;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #e4e4e4;
+  background-image: -moz-linear-gradient(top, #e9e9e9, #dcdcdc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e9e9e9), to(#dcdcdc));
+  background-image: -webkit-linear-gradient(top, #e9e9e9, #dcdcdc);
+  background-image: -o-linear-gradient(top, #e9e9e9, #dcdcdc);
+  background-image: linear-gradient(to bottom, #e9e9e9, #dcdcdc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe9e9e9', endColorstr='#ffdcdcdc', GradientType=0);
+  border-color: #dcdcdc #dcdcdc #b6b6b6;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #dcdcdc;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  border: 1px solid #c8c8c8;
+  text-decoration: none;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a:hover .foswikiIcon {
+  color: #484848;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a:hover .foswikiCaret {
+  border-top-color: rgba(72, 72, 72, 0.4);
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a:after {
+  position: absolute;
+  left: 0;
+  top: 13px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: -4px;
+  content: " ";
+  border-left: 4px solid #555555;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  margin: -3px 0 0 7px;
+  vertical-align: baseline;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:hover {
+  display: inline-block;
+  *display: inline;
+  /* IE7 inline-block hack */
+
+  *zoom: 1;
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  margin: 0 6px 0 0;
+  line-height: 22px;
+  *line-height: 22px;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  *border: 0;
+  *margin-left: .3em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+  text-decoration: none;
+  height: auto;
+  margin-right: 6px;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a:first-child,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:hover:first-child {
+  *margin-left: 0;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li > a .foswikiIcon,
+.jqTabPaneDefault > ul.jqTabGroup > li > a:hover .foswikiIcon {
+  vertical-align: middle;
+  line-height: .5;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li.current {
+  background: none;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin-right: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e1e1e1;
+  background-image: none;
+  background: #f1f1f1;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  text-indent: 12px;
+  cursor: default;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:link,
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:visited,
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:hover,
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:active {
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  text-decoration: none;
+  color: #555555;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:hover {
+  background: #e9e9e9;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a,
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:link,
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:visited {
+  padding-bottom: 7px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-border-top-left-radius: 3px;
+  -webkit-border-top-right-radius: 3px;
+  -moz-border-top-left-radius: 3px;
+  -moz-border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom-color: #ffffff;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a,
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:hover {
+  background: #ffffff;
+}
+.jqTabPaneDefault > ul.jqTabGroup > li.current > a:after {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: -4px;
+  content: " ";
+  border-top: 4px solid #555555;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+  margin: 0 0 0 7px;
+  vertical-align: text-top;
+}
+.jqTabPaneSimple > ul.jqTabGroup {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  bottom: 0;
+  margin-bottom: -1px;
+  *zoom: 1;
+}
+.jqTabPaneSimple > ul.jqTabGroup:before,
+.jqTabPaneSimple > ul.jqTabGroup:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.jqTabPaneSimple > ul.jqTabGroup:after {
+  clear: both;
+}
+.jqTabPaneSimple > ul.jqTabGroup > li {
+  background-image: none;
+  margin: 0;
+  padding: 0;
+}
+.jqTabPaneSimple > ul.jqTabGroup > li > a {
+  position: relative;
+  display: inline-block;
+  float: left;
+  margin-right: 6px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #e1e1e1;
+  background-image: none;
+  background: #f1f1f1;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+.jqTabPaneSimple > ul.jqTabGroup > li > a:link,
+.jqTabPaneSimple > ul.jqTabGroup > li > a:visited,
+.jqTabPaneSimple > ul.jqTabGroup > li > a:hover,
+.jqTabPaneSimple > ul.jqTabGroup > li > a:active {
+  padding: 3px 9.799999999999999px 3px 9.799999999999999px;
+  text-decoration: none;
+  color: #555555;
+}
+.jqTabPaneSimple > ul.jqTabGroup > li > a:hover {
+  background: #e9e9e9;
+}
+.jqTabPaneSimple > ul.jqTabGroup > li.current {
+  background: none;
+}
+.jqTabPaneSimple > ul.jqTabGroup > li.current > a {
+  border-bottom-color: #ffffff;
+  background: #ffffff;
+}
+.jqTabPaneLinks > ul.jqTabGroup {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  bottom: 0;
+  margin-bottom: -1px;
+  *zoom: 1;
+}
+.jqTabPaneLinks > ul.jqTabGroup:before,
+.jqTabPaneLinks > ul.jqTabGroup:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.jqTabPaneLinks > ul.jqTabGroup:after {
+  clear: both;
+}
+.jqTabPaneLinks > ul.jqTabGroup > li {
+  background-image: none;
+  margin: 0;
+  padding: 0;
+}
+.jqTabPaneLinks > ul.jqTabGroup > li > a {
+  margin-right: 6px;
+}
+/* TEXTAREAS */
+textarea.foswikiWysiwygEdit,
+textarea.foswikiTextareaRawView,
+textarea.foswikiEditTextarea {
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  padding: 5px;
+  margin: 0;
+}
+textarea.foswikiTextareaRawView,
+textarea.foswikiTextareaRawView:hover,
+textarea.foswikiTextareaRawView:focus {
+  color: #333333;
+}
+/* MODALS */
+.foswikiModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 560px;
+  max-height: 80%;
+  min-height: 100px;
+  margin: -250px 0 0 -280px;
+  background-color: #ffffff;
+  background-image: url(../img/processing-32-bg.gif);
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.3);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.foswikiModal.fade {
+  -webkit-transition: opacity .3s linear;
+  -moz-transition: opacity .3s linear;
+  -o-transition: opacity .3s linear;
+  transition: opacity .3s linear;
+}
+.foswikiModal .foswikiModalContents {
+  background: #ffffff;
+  overflow: scroll;
+}
+.foswikiModal .foswikiModalClose {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.foswikiModal .foswikiModalClose a .foswikiIcon {
+  font-size: 22px;
+  line-height: 1;
+  color: #aaaabb;
+}
+.foswikiModal .foswikiModalClose a:hover {
+  text-decoration: none;
+}
+.foswikiModal .foswikiModalClose a:hover .foswikiIcon {
+  color: #333333;
+}
+.foswikiModal .foswikiModalManage textarea {
+  width: 100%;
+}
+.foswikiModal .foswikiModalHeader,
+.foswikiModal .foswikiModalFooter {
+  background-color: #f5f5f6;
+}
+.foswikiModal .foswikiModalHeader h1,
+.foswikiModal .foswikiModalFooter h1,
+.foswikiModal .foswikiModalBody h1 {
+  line-height: 1;
+  font-size: 1.69189453125em;
+  margin-top: 0.9287981859410431em;
+  margin-bottom: 0.9287981859410431em;
+}
+.foswikiModal .foswikiModalHeader h2,
+.foswikiModal .foswikiModalFooter h2,
+.foswikiModal .foswikiModalBody h2 {
+  line-height: 1;
+  font-size: 1.549072265625em;
+  margin-top: 1.014432061240572em;
+  margin-bottom: 1.014432061240572em;
+}
+.foswikiModal .foswikiModalHeader h3,
+.foswikiModal .foswikiModalFooter h3,
+.foswikiModal .foswikiModalBody h3 {
+  line-height: 1;
+  font-size: 1.40625em;
+  margin-top: 1.1174603174603175em;
+  margin-bottom: 1.1174603174603175em;
+}
+.foswikiModal .foswikiModalHeader h4,
+.foswikiModal .foswikiModalFooter h4,
+.foswikiModal .foswikiModalBody h4,
+.foswikiModal .foswikiModalHeader h5,
+.foswikiModal .foswikiModalFooter h5,
+.foswikiModal .foswikiModalBody h5,
+.foswikiModal .foswikiModalHeader h6,
+.foswikiModal .foswikiModalFooter h6,
+.foswikiModal .foswikiModalBody h6 {
+  line-height: 1;
+  font-size: 1em;
+  margin-top: 1.5714285714285714em;
+  margin-bottom: 1.5714285714285714em;
+  font-weight: bold;
+}
+.foswikiModal .foswikiModalHeader h1,
+.foswikiModal .foswikiModalFooter h1,
+.foswikiModal .foswikiModalHeader h2,
+.foswikiModal .foswikiModalFooter h2,
+.foswikiModal .foswikiModalHeader h3,
+.foswikiModal .foswikiModalFooter h3,
+.foswikiModal .foswikiModalHeader h4,
+.foswikiModal .foswikiModalFooter h4,
+.foswikiModal .foswikiModalHeader h5,
+.foswikiModal .foswikiModalFooter h5,
+.foswikiModal .foswikiModalHeader h6,
+.foswikiModal .foswikiModalFooter h6 {
+  margin: 0;
+}
+.foswikiModal .foswikiModalBody h1,
+.foswikiModal .foswikiModalBody h2,
+.foswikiModal .foswikiModalBody h3,
+.foswikiModal .foswikiModalBody h4,
+.foswikiModal .foswikiModalBody h5,
+.foswikiModal .foswikiModalBody h6 {
+  margin: 0 0 .5em 0;
+  color: #888899;
+}
+.foswikiModal .foswikiModalBody .jqTab {
+  margin: 0;
+}
+.foswikiModal .foswikiModalBody p {
+  margin: 0 0 .5em 0;
+}
+.foswikiModal .foswikiModalBody input,
+.foswikiModal .foswikiModalBody textarea {
+  margin-bottom: 0;
+}
+/* Prevent that content beneath the dialog scrolls */
+body.modal-open {
+  overflow: hidden;
+}
+/* apply a natural box layout model to all elements */
+/* http://paulirish.com/2012/box-sizing-border-box-ftw/ */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+body {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  margin: 0;
+  color: #333333;
+  background-color: #f9f9fa;
+}
+h1,
+h2 {
+  color: #333333;
+}
+h3,
+h4,
+h5,
+h6 {
+  color: #888899;
+}
+a,
+.foswikiUnvisited a,
+.foswikiUnvisited a:visited {
+  color: #008ce7;
+  text-decoration: none;
+  cursor: pointer;
+}
+a:visited {
+  color: #007dce;
+}
+a:hover {
+  color: #1f446c;
+  text-decoration: underline;
+}
+::selection {
+  background: #fff2a8;
+  color: #333333;
+  text-shadow: none;
+}
+::-moz-selection {
+  background: #fff2a8;
+  color: #333333;
+  text-shadow: none;
+}
+code {
+  color: #6f60aa;
+}
+pre {
+  white-space: pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+  white-space: -moz-pre-wrap;
+  width: auto;
+  padding: 1em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #f8f8ff;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #f1eff7;
+}
+pre,
+pre h1,
+pre h2,
+pre h3,
+pre h4,
+pre h5,
+pre h6 {
+  color: #6f60aa;
+}
+.foswikiHelp pre,
+.foswikiNotification pre {
+  background-color: #eff7fd;
+  border-color: #eff7fd;
+}
+fieldset {
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+table blockquote,
+blockquote.foswikiHelp {
+  margin-left: 0;
+  margin-right: 0;
+}
+hr {
+  height: 1px;
+  border: none;
+  border-bottom-color: #c8c8c8;
+  background-color: #c8c8c8;
+}
+/* colors */
+.foswikiYellowFG {
+  color: #ffff00;
+}
+.foswikiOrangeFG {
+  color: #ff6600;
+}
+.foswikiRedFG {
+  color: #ff0000;
+}
+.foswikiPinkFG {
+  color: #ff00ff;
+}
+.foswikiPurpleFG {
+  color: #800080;
+}
+.foswikiTealFG {
+  color: #008080;
+}
+.foswikiNavyFG {
+  color: #000080;
+}
+.foswikiBlueFG {
+  color: #0000ff;
+}
+.foswikiAquaFG {
+  color: #00ffff;
+}
+.foswikiLimeFG {
+  color: #00ff00;
+}
+.foswikiGreenFG {
+  color: #008000;
+}
+.foswikiOliveFG {
+  color: #808000;
+}
+.foswikiMaroonFG {
+  color: #800000;
+}
+.foswikiBrownFG {
+  color: #996633;
+}
+.foswikiBlackFG {
+  color: #000000;
+}
+.foswikiGrayFG {
+  color: #808080;
+}
+.foswikiSilverFG {
+  color: #c0c0c0;
+}
+.foswikiWhiteFG {
+  color: #ffffff;
+}
+.foswikiYellowBG {
+  background-color: #ffff00;
+}
+.foswikiOrangeBG {
+  background-color: #ff6600;
+}
+.foswikiRedBG {
+  background-color: #ff0000;
+}
+.foswikiPinkBG {
+  background-color: #ff00ff;
+}
+.foswikiPurpleBG {
+  background-color: #800080;
+}
+.foswikiNavyBG {
+  background-color: #000080;
+}
+.foswikiBlueBG {
+  background-color: #0000ff;
+}
+.foswikiTealBG {
+  background-color: #008080;
+}
+.foswikiAquaBG {
+  background-color: #00ffff;
+}
+.foswikiLimeBG {
+  background-color: #00ff00;
+}
+.foswikiGreenBG {
+  background-color: #008000;
+}
+.foswikiOliveBG {
+  background-color: #808000;
+}
+.foswikiMaroonBG {
+  background-color: #800000;
+}
+.foswikiBrownBG {
+  background-color: #996633;
+}
+.foswikiBlackBG {
+  background-color: #000000;
+}
+.foswikiGrayBG {
+  background-color: #808080;
+}
+.foswikiSilverBG {
+  background-color: #c0c0c0;
+}
+.foswikiWhiteBG {
+  background-color: #ffffff;
+}
+.foswikiTopic {
+  border-style: none;
+  border-width: 1px;
+  border-color: #eeeeee;
+  background: #ffffff;
+}
+.foswikiTopic a {
+  text-decoration: underline;
+}
+.foswikiTopic .foswikiToc a {
+  text-decoration: none;
+}
+.foswikiTopic a.foswikiNewLink {
+  color: #b00000;
+  text-decoration: none;
+  border-bottom: 1px dotted #b00000;
+}
+.foswikiTopic a.foswikiNewLink:hover {
+  color: #1f446c;
+  border-bottom: 1px solid #1f446c;
+}
+.foswikiClearfix {
+  *zoom: 1;
+}
+.foswikiClearfix:before,
+.foswikiClearfix:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiClearfix:after {
+  clear: both;
+}
+.foswikiLeft {
+  float: left;
+  position: relative;
+}
+.foswikiRight {
+  position: relative;
+  float: right;
+}
+.foswikiClear {
+  /* to clean up floats */
+
+  margin: 0;
+  padding: 0;
+  height: 0;
+  line-height: 0;
+  clear: both;
+  display: block;
+}
+.foswikiHidden {
+  display: none;
+}
+.foswikiIcon,
+a .foswikiIcon {
+  color: #333333;
+  font-size: 17px;
+  vertical-align: baseline;
+}
+.foswikiHasActiveState .foswikiIcon {
+  line-height: inherit;
+}
+.foswikiToolbar {
+  *zoom: 1;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #eeeeee;
+  background: #fafafa;
+}
+.foswikiToolbar:before,
+.foswikiToolbar:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiToolbar:after {
+  clear: both;
+}
+.foswikiToolbar a {
+  color: #333333;
+}
+.foswikiLogin {
+  width: 350px;
+}
+.foswikiLogin input[type='text'],
+.foswikiLogin input[type='password'] {
+  width: 100%;
+}
+.foswikiLogin ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.foswikiHelp {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #deeffa;
+  border-style: none;
+  border-width: 1px;
+  border-color: #daedf8;
+}
+.foswikiHelp,
+.foswikiHelp h1,
+.foswikiHelp h2,
+.foswikiHelp h3,
+.foswikiHelp h4,
+.foswikiHelp h5,
+.foswikiHelp h6 {
+  color: #45759a;
+}
+.foswikiHelp a {
+  text-decoration: underline;
+}
+.foswikiBroadcastMessage,
+.foswikiNotification {
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background-color: #fef7e3;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #fbeed2;
+}
+.foswikiBroadcastMessage,
+.foswikiNotification,
+.foswikiBroadcastMessage h1,
+.foswikiNotification h1,
+.foswikiBroadcastMessage h2,
+.foswikiNotification h2,
+.foswikiBroadcastMessage h3,
+.foswikiNotification h3,
+.foswikiBroadcastMessage h4,
+.foswikiNotification h4,
+.foswikiBroadcastMessage h5,
+.foswikiNotification h5,
+.foswikiBroadcastMessage h6,
+.foswikiNotification h6 {
+  color: #665024;
+}
+.foswikiBroadcastMessage a,
+.foswikiNotification a {
+  text-decoration: underline;
+}
+img {
+  border: 0;
+  vertical-align: middle;
+}
+.foswikiImage {
+  overflow: auto;
+}
+.foswikiImage img {
+  padding: 3px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: #eeeeee;
+  background: #ffffff;
+}
+.foswikiTocTitle {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+.foswikiSearchResults .foswikiSearchResult {
+  position: relative;
+  border-style: none none solid none;
+  border-width: 1px;
+  border-color: #eeeeee;
+}
+.foswikiSearchResults .foswikiSearchResult .foswikiSearchResultImage img {
+  max-width: 48px;
+  float: left;
+}
+.foswikiSearchResults .foswikiSearchResult .foswikiSearchResultMeta {
+  color: #aaaabb;
+}
+.foswikiSearchResults > ul,
+.foswikiSearchResults > ul > li > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.foswikiSearchResults .foswikiSearchResultsPager {
+  margin: 1em 0;
+  padding: .25em 0;
+}
+.foswikiSearchResultTitle {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+.foswikiAlert,
+.foswikiAlert code {
+  color: #ff0000;
+}
+div.foswikiAlert {
+  background-color: #fff0f0;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+span.foswikiMessage {
+  background-color: #fef7e3;
+  border: none;
+  padding: 3px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.foswikiHorizontalList ul,
+.foswikiHorizontalList ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: block;
+  *zoom: 1;
+}
+.foswikiHorizontalList ul:before,
+.foswikiHorizontalList ol:before,
+.foswikiHorizontalList ul:after,
+.foswikiHorizontalList ol:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.foswikiHorizontalList ul:after,
+.foswikiHorizontalList ol:after {
+  clear: both;
+}
+.foswikiHorizontalList ul > li,
+.foswikiHorizontalList ol > li {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+.foswikiAccessKey {
+  text-decoration: none;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+}
+a:hover .foswikiAccessKey {
+  text-decoration: none;
+  border: none;
+}
+.foswikiTopicActions .foswikiAccessKey {
+  text-decoration: none;
+  border: none;
+}
+.foswikiInverse,
+.foswikiTopic.foswikiInverse {
+  background-color: #1e4462;
+  border-color: #e1e1e1;
+  color: #888888;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+.foswikiInverse h1,
+.foswikiTopic.foswikiInverse h1,
+.foswikiInverse h2,
+.foswikiTopic.foswikiInverse h2,
+.foswikiInverse h3,
+.foswikiTopic.foswikiInverse h3,
+.foswikiInverse h4,
+.foswikiTopic.foswikiInverse h4,
+.foswikiInverse h5,
+.foswikiTopic.foswikiInverse h5,
+.foswikiInverse h6,
+.foswikiTopic.foswikiInverse h6 {
+  color: #fbfbfc;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+.foswikiInverse a,
+.foswikiTopic.foswikiInverse a,
+.foswikiInverse a:visited,
+.foswikiTopic.foswikiInverse a:visited {
+  color: #0976bf;
+}
+.foswikiFormSteps {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #eeeeee;
+  background-color: #ffffff;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+.foswikiFormSteps hr {
+  border-color: #eeeeee;
+  background-color: #eeeeee;
+}
+.foswikiFormStep:last-child {
+  margin-bottom: 0;
+}
+.foswikiFormStep p:last-child {
+  margin-bottom: 0;
+}
+.foswikiIntroduction {
+  border-width: 0;
+  background-color: #f1f1f3;
+  background-color: #1e4462;
+  border-color: #e1e1e1;
+  color: #888888;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+.foswikiIntroduction p {
+  font-size: 24px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  margin: 1em;
+}
+.foswikiIntroduction h1,
+.foswikiIntroduction h2,
+.foswikiIntroduction h3,
+.foswikiIntroduction h4,
+.foswikiIntroduction h5,
+.foswikiIntroduction h6 {
+  color: #fbfbfc;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
+}
+.foswikiIntroduction a,
+.foswikiIntroduction a:visited {
+  color: #0976bf;
+}
+.foswikiBottomBar {
+  border-style: solid none none none;
+  border-width: 1px;
+  border-color: #eeeeee;
+  line-height: 1.8272425249169437em;
+  font-size: 0.86em;
+}
+.foswikiAttachments.foswikiDisplayList .foswikiAttachment {
+  margin-left: 0;
+}
+.foswikiAttachments.foswikiDisplayList .foswikiAttachment img,
+.foswikiAttachments.foswikiDisplayList .foswikiAttachment .foswikiIcon img {
+  vertical-align: text-bottom;
+}
+.foswikiAttachments.foswikiDisplayList .foswikiAttachment .foswikiSearchResultContents {
+  margin: 0 0 0 48px;
+  word-wrap: break-word;
+}
+.foswikiAttachments.foswikiDisplayList .foswikiAttachment .foswikiSearchResultTitle a {
+  line-height: 1.5714285714285714em;
+  font-size: 1em;
+}
+.foswikiAttachments.foswikiDisplayList .foswikiAttachment .foswikiSearchResultMeta {
+  line-height: 1.8272425249169437em;
+  font-size: 0.86em;
+}
+.foswikiAttachments.foswikiDisplayGrid .row-fluid {
+  border-style: none none solid none;
+  border-width: 1px;
+  border-color: #eeeeee;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment {
+  border: none;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment.span3 {
+  margin-left: 0;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment .foswikiSearchResultImage {
+  display: block;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment .foswikiSearchResultImage img {
+  float: none;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment img,
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment .foswikiIcon img {
+  vertical-align: text-bottom;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment .foswikiSearchResultContents {
+  margin: 0;
+  word-wrap: break-word;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment .foswikiSummary {
+  max-height: 3em;
+  overflow: hidden;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment .foswikiSearchResultTitle a {
+  line-height: 1.5714285714285714em;
+  font-size: 1em;
+}
+.foswikiAttachments.foswikiDisplayGrid .foswikiAttachment .foswikiSearchResultMeta {
+  line-height: 1.8272425249169437em;
+  font-size: 0.86em;
+}
+.WYSIWYG_LINK {
+  color: #008ce7;
+  text-decoration: underline;
+}
+.WYSIWYG_PROTECTED,
+.WYSIWYG_STICKY,
+.WYSIWYG_LITERAL,
+.TMLverbatim,
+.WYSIWYG_TT {
+  font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
+  font-weight: normal;
+  font-style: normal;
+}
+/* blank line */
+p.WYSIWYG_NBNL {
+  padding: 0;
+  margin: 0;
+}
+.WYSIWYG_PROTECTED {
+  background-color: #e8f6fa;
+  background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  color: #7a4707;
+  white-space: pre;
+  display: inline-block;
+  position: relative;
+  padding-top: 18.04px;
+}
+.WYSIWYG_PROTECTED:before {
+  position: absolute;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  top: 0;
+  left: 0;
+  line-height: 12.04px;
+  font-size: 12.04px;
+  background: #623906;
+  color: #fff;
+  padding: 3px;
+  opacity: .7;
+  text-transform: uppercase;
+}
+.WYSIWYG_PROTECTED br:first-child {
+  display: none;
+}
+.WYSIWYG_STICKY {
+  background-color: #e8f6fa;
+  background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  color: #ee3707;
+  white-space: pre;
+  display: inline-block;
+  position: relative;
+  padding-top: 18.04px;
+}
+.WYSIWYG_STICKY:before {
+  position: absolute;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  top: 0;
+  left: 0;
+  line-height: 12.04px;
+  font-size: 12.04px;
+  background: #be2c06;
+  color: #fff;
+  padding: 3px;
+  opacity: .7;
+  text-transform: uppercase;
+}
+.WYSIWYG_STICKY br:first-child {
+  display: none;
+}
+.WYSIWYG_LITERAL {
+  background-color: #e8f6fa;
+  background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  color: #606060;
+  white-space: pre;
+  display: inline-block;
+  position: relative;
+  padding-top: 18.04px;
+}
+.WYSIWYG_LITERAL:before {
+  position: absolute;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  top: 0;
+  left: 0;
+  line-height: 12.04px;
+  font-size: 12.04px;
+  background: #4d4d4d;
+  color: #fff;
+  padding: 3px;
+  opacity: .7;
+  text-transform: uppercase;
+}
+.WYSIWYG_LITERAL br:first-child {
+  display: none;
+}
+.TMLverbatim {
+  background-color: #e8f6fa;
+  background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  color: #6f60aa;
+  white-space: pre;
+  display: inline-block;
+  position: relative;
+  padding-top: 18.04px;
+  white-space: pre nowrap;
+}
+.TMLverbatim:before {
+  position: absolute;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  top: 0;
+  left: 0;
+  line-height: 12.04px;
+  font-size: 12.04px;
+  background: #594d88;
+  color: #fff;
+  padding: 3px;
+  opacity: .7;
+  text-transform: uppercase;
+}
+.TMLverbatim br:first-child {
+  display: none;
+}
+.WYSIWYG_TT {
+  color: #6f60aa;
+}
+/* Make the text in tables the same size as normal paragraph text */
+.mceContentBody table {
+  margin-bottom: 1.5714285714285714em;
+  max-width: 100%;
+  margin-bottom: 22;
+  padding: 0;
+  border-spacing: 0;
+  border-collapse: collapse;
+  border-style: solid;
+  border-width: 1px;
+}
+.mceContentBody table th,
+.mceContentBody table td {
+  padding: 0.505679012345679em;
+  line-height: 22px;
+  text-align: left;
+  border-style: none none solid none;
+  border-width: 1px;
+}
+.mceContentBody table th {
+  vertical-align: middle;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}
+.mceContentBody table td {
+  vertical-align: top;
+}
+.mceContentBody table td + td {
+  border-left-style: solid;
+}
+.mceContentBody table tr + tr td {
+  border-top-style: solid;
+}
+.mceContentBody table,
+.mceContentBody table th,
+.mceContentBody table td {
+  border-color: #e1e1e1;
+}
+.mceContentBody table,
+.mceContentBody table th,
+.mceContentBody table td {
+  line-height: 1.5714285714285714em;
+  font-size: 1em;
+}
+.mceContentBody .foswikiHidden {
+  background-color: #f6e8f4;
+  background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 14px, rgba(255, 255, 255, 0.4) 14px, rgba(255, 255, 255, 0.4) 28px);
+  color: #96008a;
+  white-space: pre;
+  display: inline-block;
+  position: relative;
+  padding-top: 18.04px;
+  white-space: pre nowrap;
+  display: block;
+}
+.mceContentBody .foswikiHidden:before {
+  position: absolute;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  top: 0;
+  left: 0;
+  line-height: 12.04px;
+  font-size: 12.04px;
+  background: #78006e;
+  color: #fff;
+  padding: 3px;
+  opacity: .7;
+  text-transform: uppercase;
+}
+.mceContentBody .foswikiHidden br:first-child {
+  display: none;
+}
+.foswikiHasWysiwyg {
+  /* hide preview button until this works again: Item10065 */
+
+}
+.foswikiHasWysiwyg .foswikiButton[name="action_preview"] {
+  display: none;
+}
+.foswikiHasWysiwyg .foswikiSticky td.mceToolbar {
+  width: 100% !important;
+}
+.foswikiHasWysiwyg .foswikiEditTextarea {
+  border-color: #e1e1e1;
+}
+body.mceContentBody {
+  margin: 0;
+  padding: 1em;
+  background: #ffffff;
+}
+.foswikiContainer {
+  padding-left: 1.40625em;
+  padding-right: 1.40625em;
+}
+.foswikiSection {
+  padding-top: 2.780914306640625em;
+  padding-bottom: 2.780914306640625em;
+}
+.foswikiTopBar {
+  padding: 1em 0;
+}
+.foswikiNavigationBar {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.foswikiNavigationBar li > a {
+  padding: 0.7111111111111111em 0;
+}
+.foswikiIntroduction {
+  padding-top: 3.910660743713379em;
+  padding-bottom: 3.910660743713379em;
+}
+.foswikiBreadcrumb {
+  margin: 0 0 1.40625em 0;
+}
+.foswikiSearchResult {
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+.foswikiSearchResult .foswikiSearchResultContents {
+  padding-left: 0.7111111111111111em;
+}
+.foswikiBottomBar {
+  padding-bottom: 10em;
+}
+pre,
+.foswikiHelp,
+.foswikiBroadcastMessage,
+.foswikiNotification,
+.foswikiFormSteps,
+.foswikiTabContent,
+.jqTabContents,
+.foswikiNoJs .jqTabContents,
+div.foswikiAlert {
+  padding: 1.40625em 1.9775390625em;
+}
+.foswikiModal {
+  padding: 0;
+}
+.foswikiModalHeader,
+.foswikiModalBody,
+.foswikiModalFooter {
+  padding: 1.40625em 1.9775390625em;
+}
+.foswikiModalClose {
+  padding: 1.40625em 1.9775390625em;
+}
+.foswikiFormSteps hr {
+  margin-left: -1.9775390625em;
+  margin-right: -1.9775390625em;
+}
+table pre,
+table .foswikiHelp,
+table .foswikiBroadcastMessage,
+table .foswikiNotification,
+table .foswikiFormStep,
+table .foswikiNoJs .jqTabContents,
+table .jqTabContents {
+  padding: 0.7111111111111111em 0.7111111111111111em;
+}
+.foswikiFormGroup {
+  margin-bottom: 1.5714285714285714em;
+}
+.foswikiTopicActions {
+  margin-bottom: 0.7111111111111111em;
+}
+.foswikiToolbar {
+  padding: 0.505679012345679em;
+}
+/* Responsive: Large desktop and up */
+@media (min-width: 1200px) {
+  .foswikiContainer {
+    padding-left: 1.40625em;
+    padding-right: 1.40625em;
+  }
+  .foswikiSection {
+    padding-top: 2.780914306640625em;
+    padding-bottom: 2.780914306640625em;
+  }
+  .foswikiTopBar {
+    padding: 1em 0;
+  }
+  .foswikiNavigationBar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .foswikiNavigationBar li > a {
+    padding: 0.7111111111111111em 0;
+  }
+  .foswikiIntroduction {
+    padding-top: 3.910660743713379em;
+    padding-bottom: 3.910660743713379em;
+  }
+  .foswikiBreadcrumb {
+    margin: 0 0 1.40625em 0;
+  }
+  .foswikiSearchResult {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  .foswikiSearchResult .foswikiSearchResultContents {
+    padding-left: 0.7111111111111111em;
+  }
+  .foswikiBottomBar {
+    padding-bottom: 10em;
+  }
+  pre,
+  .foswikiHelp,
+  .foswikiBroadcastMessage,
+  .foswikiNotification,
+  .foswikiFormSteps,
+  .foswikiTabContent,
+  .jqTabContents,
+  .foswikiNoJs .jqTabContents,
+  div.foswikiAlert {
+    padding: 1.40625em 1.9775390625em;
+  }
+  .foswikiModal {
+    padding: 0;
+  }
+  .foswikiModalHeader,
+  .foswikiModalBody,
+  .foswikiModalFooter {
+    padding: 1.40625em 1.9775390625em;
+  }
+  .foswikiModalClose {
+    padding: 1.40625em 1.9775390625em;
+  }
+  .foswikiFormSteps hr {
+    margin-left: -1.9775390625em;
+    margin-right: -1.9775390625em;
+  }
+  table pre,
+  table .foswikiHelp,
+  table .foswikiBroadcastMessage,
+  table .foswikiNotification,
+  table .foswikiFormStep,
+  table .foswikiNoJs .jqTabContents,
+  table .jqTabContents {
+    padding: 0.7111111111111111em 0.7111111111111111em;
+  }
+  .foswikiFormGroup {
+    margin-bottom: 1.5714285714285714em;
+  }
+  .foswikiTopicActions {
+    margin-bottom: 0.7111111111111111em;
+  }
+  .foswikiToolbar {
+    padding: 0.505679012345679em;
+  }
+  .foswikiContainer {
+    width: 994px;
+  }
+  .row-fluid {
+    width: 100%;
+    *zoom: 1;
+  }
+  .row-fluid:before,
+  .row-fluid:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  .row-fluid:after {
+    clear: both;
+  }
+  .row-fluid [class*="span"] {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    margin-left: 2.564102564102564%;
+    *margin-left: 2.5109110747408616%;
+  }
+  .row-fluid [class*="span"]:first-child {
+    margin-left: 0;
+  }
+  .row-fluid .span12 {
+    width: 100%;
+    *width: 99.94680851063829%;
+  }
+  .row-fluid .span11 {
+    width: 91.45299145299145%;
+    *width: 91.39979996362975%;
+  }
+  .row-fluid .span10 {
+    width: 82.90598290598291%;
+    *width: 82.8527914166212%;
+  }
+  .row-fluid .span9 {
+    width: 74.35897435897436%;
+    *width: 74.30578286961266%;
+  }
+  .row-fluid .span8 {
+    width: 65.81196581196582%;
+    *width: 65.75877432260411%;
+  }
+  .row-fluid .span7 {
+    width: 57.26495726495726%;
+    *width: 57.21176577559556%;
+  }
+  .row-fluid .span6 {
+    width: 48.717948717948715%;
+    *width: 48.664757228587014%;
+  }
+  .row-fluid .span5 {
+    width: 40.17094017094017%;
+    *width: 40.11774868157847%;
+  }
+  .row-fluid .span4 {
+    width: 31.623931623931625%;
+    *width: 31.570740134569924%;
+  }
+  .row-fluid .span3 {
+    width: 23.076923076923077%;
+    *width: 23.023731587561375%;
+  }
+  .row-fluid .span2 {
+    width: 14.52991452991453%;
+    *width: 14.476723040552828%;
+  }
+  .row-fluid .span1 {
+    width: 5.982905982905983%;
+    *width: 5.929714493544281%;
+  }
+  .row-fluid .offset12 {
+    margin-left: 105.12820512820512%;
+    *margin-left: 105.02182214948171%;
+  }
+  .row-fluid .offset12:first-child {
+    margin-left: 102.56410256410257%;
+    *margin-left: 102.45771958537915%;
+  }
+  .row-fluid .offset11 {
+    margin-left: 96.58119658119658%;
+    *margin-left: 96.47481360247316%;
+  }
+  .row-fluid .offset11:first-child {
+    margin-left: 94.01709401709402%;
+    *margin-left: 93.91071103837061%;
+  }
+  .row-fluid .offset10 {
+    margin-left: 88.03418803418803%;
+    *margin-left: 87.92780505546462%;
+  }
+  .row-fluid .offset10:first-child {
+    margin-left: 85.47008547008548%;
+    *margin-left: 85.36370249136206%;
+  }
+  .row-fluid .offset9 {
+    margin-left: 79.48717948717949%;
+    *margin-left: 79.38079650845607%;
+  }
+  .row-fluid .offset9:first-child {
+    margin-left: 76.92307692307693%;
+    *margin-left: 76.81669394435352%;
+  }
+  .row-fluid .offset8 {
+    margin-left: 70.94017094017094%;
+    *margin-left: 70.83378796144753%;
+  }
+  .row-fluid .offset8:first-child {
+    margin-left: 68.37606837606839%;
+    *margin-left: 68.26968539734497%;
+  }
+  .row-fluid .offset7 {
+    margin-left: 62.393162393162385%;
+    *margin-left: 62.28677941443899%;
+  }
+  .row-fluid .offset7:first-child {
+    margin-left: 59.82905982905982%;
+    *margin-left: 59.72267685033642%;
+  }
+  .row-fluid .offset6 {
+    margin-left: 53.84615384615384%;
+    *margin-left: 53.739770867430444%;
+  }
+  .row-fluid .offset6:first-child {
+    margin-left: 51.28205128205128%;
+    *margin-left: 51.175668303327875%;
+  }
+  .row-fluid .offset5 {
+    margin-left: 45.299145299145295%;
+    *margin-left: 45.1927623204219%;
+  }
+  .row-fluid .offset5:first-child {
+    margin-left: 42.73504273504273%;
+    *margin-left: 42.62865975631933%;
+  }
+  .row-fluid .offset4 {
+    margin-left: 36.75213675213675%;
+    *margin-left: 36.645753773413354%;
+  }
+  .row-fluid .offset4:first-child {
+    margin-left: 34.18803418803419%;
+    *margin-left: 34.081651209310785%;
+  }
+  .row-fluid .offset3 {
+    margin-left: 28.205128205128204%;
+    *margin-left: 28.0987452264048%;
+  }
+  .row-fluid .offset3:first-child {
+    margin-left: 25.641025641025642%;
+    *margin-left: 25.53464266230224%;
+  }
+  .row-fluid .offset2 {
+    margin-left: 19.65811965811966%;
+    *margin-left: 19.551736679396257%;
+  }
+  .row-fluid .offset2:first-child {
+    margin-left: 17.094017094017094%;
+    *margin-left: 16.98763411529369%;
+  }
+  .row-fluid .offset1 {
+    margin-left: 11.11111111111111%;
+    *margin-left: 11.004728132387708%;
+  }
+  .row-fluid .offset1:first-child {
+    margin-left: 8.547008547008547%;
+    *margin-left: 8.440625568285142%;
+  }
+}
+@media (min-width: 980px) and (max-width: 1199px) {
+  .foswikiContainer {
+    padding-left: 1.40625em;
+    padding-right: 1.40625em;
+  }
+  .foswikiSection {
+    padding-top: 2.780914306640625em;
+    padding-bottom: 2.780914306640625em;
+  }
+  .foswikiTopBar {
+    padding: 1em 0;
+  }
+  .foswikiNavigationBar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .foswikiNavigationBar li > a {
+    padding: 0.7111111111111111em 0;
+  }
+  .foswikiIntroduction {
+    padding-top: 3.910660743713379em;
+    padding-bottom: 3.910660743713379em;
+  }
+  .foswikiBreadcrumb {
+    margin: 0 0 1.40625em 0;
+  }
+  .foswikiSearchResult {
+    padding-top: 1em;
+    padding-bottom: 1em;
+  }
+  .foswikiSearchResult .foswikiSearchResultContents {
+    padding-left: 0.7111111111111111em;
+  }
+  .foswikiBottomBar {
+    padding-bottom: 10em;
+  }
+  pre,
+  .foswikiHelp,
+  .foswikiBroadcastMessage,
+  .foswikiNotification,
+  .foswikiFormSteps,
+  .foswikiTabContent,
+  .jqTabContents,
+  .foswikiNoJs .jqTabContents,
+  div.foswikiAlert {
+    padding: 1.40625em 1.9775390625em;
+  }
+  .foswikiModal {
+    padding: 0;
+  }
+  .foswikiModalHeader,
+  .foswikiModalBody,
+  .foswikiModalFooter {
+    padding: 1.40625em 1.9775390625em;
+  }
+  .foswikiModalClose {
+    padding: 1.40625em 1.9775390625em;
+  }
+  .foswikiFormSteps hr {
+    margin-left: -1.9775390625em;
+    margin-right: -1.9775390625em;
+  }
+  table pre,
+  table .foswikiHelp,
+  table .foswikiBroadcastMessage,
+  table .foswikiNotification,
+  table .foswikiFormStep,
+  table .foswikiNoJs .jqTabContents,
+  table .jqTabContents {
+    padding: 0.7111111111111111em 0.7111111111111111em;
+  }
+  .foswikiFormGroup {
+    margin-bottom: 1.5714285714285714em;
+  }
+  .foswikiTopicActions {
+    margin-bottom: 0.7111111111111111em;
+  }
+  .foswikiToolbar {
+    padding: 0.505679012345679em;
+  }
+  .foswikiContainer {
+    width: 950px;
+  }
+  .row-fluid {
+    width: 100%;
+    *zoom: 1;
+  }
+  .row-fluid:before,
+  .row-fluid:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  .row-fluid:after {
+    clear: both;
+  }
+  .row-fluid [class*="span"] {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    margin-left: 2.857142857142857%;
+    *margin-left: 2.803951367781155%;
+  }
+  .row-fluid [class*="span"]:first-child {
+    margin-left: 0;
+  }
+  .row-fluid .span12 {
+    width: 100%;
+    *width: 99.94680851063829%;
+  }
+  .row-fluid .span11 {
+    width: 91.42857142857143%;
+    *width: 91.37537993920972%;
+  }
+  .row-fluid .span10 {
+    width: 82.85714285714286%;
+    *width: 82.80395136778115%;
+  }
+  .row-fluid .span9 {
+    width: 74.28571428571429%;
+    *width: 74.23252279635258%;
+  }
+  .row-fluid .span8 {
+    width: 65.71428571428572%;
+    *width: 65.66109422492401%;
+  }
+  .row-fluid .span7 {
+    width: 57.14285714285714%;
+    *width: 57.08966565349544%;
+  }
+  .row-fluid .span6 {
+    width: 48.57142857142857%;
+    *width: 48.51823708206687%;
+  }
+  .row-fluid .span5 {
+    width: 40%;
+    *width: 39.9468085106383%;
+  }
+  .row-fluid .span4 {
+    width: 31.42857142857143%;
+    *width: 31.37537993920973%;
+  }
+  .row-fluid .span3 {
+    width: 22.857142857142858%;
+    *width: 22.803951367781156%;
+  }
+  .row-fluid .span2 {
+    width: 14.285714285714286%;
+    *width: 14.232522796352585%;
+  }
+  .row-fluid .span1 {
+    width: 5.714285714285714%;
+    *width: 5.661094224924012%;
+  }
+  .row-fluid .offset12 {
+    margin-left: 105.71428571428571%;
+    *margin-left: 105.60790273556229%;
+  }
+  .row-fluid .offset12:first-child {
+    margin-left: 102.85714285714286%;
+    *margin-left: 102.75075987841944%;
+  }
+  .row-fluid .offset11 {
+    margin-left: 97.14285714285714%;
+    *margin-left: 97.03647416413372%;
+  }
+  .row-fluid .offset11:first-child {
+    margin-left: 94.28571428571429%;
+    *margin-left: 94.17933130699087%;
+  }
+  .row-fluid .offset10 {
+    margin-left: 88.57142857142857%;
+    *margin-left: 88.46504559270515%;
+  }
+  .row-fluid .offset10:first-child {
+    margin-left: 85.71428571428572%;
+    *margin-left: 85.6079027355623%;
+  }
+  .row-fluid .offset9 {
+    margin-left: 80%;
+    *margin-left: 79.89361702127658%;
+  }
+  .row-fluid .offset9:first-child {
+    margin-left: 77.14285714285715%;
+    *margin-left: 77.03647416413374%;
+  }
+  .row-fluid .offset8 {
+    margin-left: 71.42857142857143%;
+    *margin-left: 71.32218844984801%;
+  }
+  .row-fluid .offset8:first-child {
+    margin-left: 68.57142857142858%;
+    *margin-left: 68.46504559270517%;
+  }
+  .row-fluid .offset7 {
+    margin-left: 62.857142857142854%;
+    *margin-left: 62.75075987841945%;
+  }
+  .row-fluid .offset7:first-child {
+    margin-left: 59.99999999999999%;
+    *margin-left: 59.89361702127659%;
+  }
+  .row-fluid .offset6 {
+    margin-left: 54.285714285714285%;
+    *margin-left: 54.17933130699088%;
+  }
+  .row-fluid .offset6:first-child {
+    margin-left: 51.42857142857142%;
+    *margin-left: 51.32218844984802%;
+  }
+  .row-fluid .offset5 {
+    margin-left: 45.714285714285715%;
+    *margin-left: 45.60790273556231%;
+  }
+  .row-fluid .offset5:first-child {
+    margin-left: 42.857142857142854%;
+    *margin-left: 42.75075987841945%;
+  }
+  .row-fluid .offset4 {
+    margin-left: 37.142857142857146%;
+    *margin-left: 37.03647416413374%;
+  }
+  .row-fluid .offset4:first-child {
+    margin-left: 34.285714285714285%;
+    *margin-left: 34.17933130699088%;
+  }
+  .row-fluid .offset3 {
+    margin-left: 28.571428571428573%;
+    *margin-left: 28.46504559270517%;
+  }
+  .row-fluid .offset3:first-child {
+    margin-left: 25.714285714285715%;
+    *margin-left: 25.607902735562313%;
+  }
+  .row-fluid .offset2 {
+    margin-left: 20%;
+    *margin-left: 19.893617021276597%;
+  }
+  .row-fluid .offset2:first-child {
+    margin-left: 17.142857142857142%;
+    *margin-left: 17.03647416413374%;
+  }
+  .row-fluid .offset1 {
+    margin-left: 11.428571428571429%;
+    *margin-left: 11.322188449848024%;
+  }
+  .row-fluid .offset1:first-child {
+    margin-left: 8.571428571428571%;
+    *margin-left: 8.465045592705168%;
+  }
+}
+/* Responsive: Tablet to desktop */
+@media (min-width: 768px) and (max-width: 979px) {
+  .foswikiContainer {
+    padding-left: 1.40625em;
+    padding-right: 1.40625em;
+  }
+  .foswikiSection {
+    padding-top: 1.9775390625em;
+    padding-bottom: 1.9775390625em;
+  }
+  .foswikiTopBar {
+    padding: 0.505679012345679em 0;
+  }
+  .foswikiNavigationBar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .foswikiNavigationBar li > a {
+    padding: 0.505679012345679em 0;
+  }
+  .foswikiIntroduction {
+    padding-top: 2.780914306640625em;
+    padding-bottom: 2.780914306640625em;
+  }
+  .foswikiBreadcrumb {
+    margin: 0 0 1.40625em 0;
+  }
+  .foswikiSearchResult {
+    padding-top: 0.7111111111111111em;
+    padding-bottom: 0.7111111111111111em;
+  }
+  .foswikiSearchResult .foswikiSearchResultContents {
+    padding-left: 0.7111111111111111em;
+  }
+  .foswikiBottomBar {
+    padding-bottom: 10em;
+  }
+  pre,
+  .foswikiHelp,
+  .foswikiBroadcastMessage,
+  .foswikiNotification,
+  .foswikiFormSteps,
+  .foswikiTabContent,
+  .jqTabContents,
+  .foswikiNoJs .jqTabContents,
+  div.foswikiAlert {
+    padding: 1em 1em;
+  }
+  .foswikiModal {
+    padding: 0;
+  }
+  .foswikiModalHeader,
+  .foswikiModalBody,
+  .foswikiModalFooter {
+    padding: 1em 1em;
+  }
+  .foswikiModalClose {
+    padding: 1em 1em;
+  }
+  .foswikiFormSteps hr {
+    margin-left: -1em;
+    margin-right: -1em;
+  }
+  table pre,
+  table .foswikiHelp,
+  table .foswikiBroadcastMessage,
+  table .foswikiNotification,
+  table .foswikiFormStep,
+  table .foswikiNoJs .jqTabContents,
+  table .jqTabContents {
+    padding: 0.7111111111111111em 0.7111111111111111em;
+  }
+  .foswikiFormGroup {
+    margin-bottom: 1.5714285714285714em;
+  }
+  .foswikiTopicActions {
+    margin-bottom: 0.7111111111111111em;
+  }
+  .foswikiToolbar {
+    padding: 0.505679012345679em;
+  }
+  .foswikiContainer {
+    width: 738px;
+  }
+  .row-fluid {
+    width: 100%;
+    *zoom: 1;
+  }
+  .row-fluid:before,
+  .row-fluid:after {
+    display: table;
+    content: "";
+    line-height: 0;
+  }
+  .row-fluid:after {
+    clear: both;
+  }
+  .row-fluid [class*="span"] {
+    display: block;
+    width: 100%;
+    min-height: 30px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    margin-left: 2.7624309392265194%;
+    *margin-left: 2.709239449864817%;
+  }
+  .row-fluid [class*="span"]:first-child {
+    margin-left: 0;
+  }
+  .row-fluid .span12 {
+    width: 100%;
+    *width: 99.94680851063829%;
+  }
+  .row-fluid .span11 {
+    width: 91.43646408839778%;
+    *width: 91.38327259903608%;
+  }
+  .row-fluid .span10 {
+    width: 82.87292817679558%;
+    *width: 82.81973668743387%;
+  }
+  .row-fluid .span9 {
+    width: 74.30939226519337%;
+    *width: 74.25620077583166%;
+  }
+  .row-fluid .span8 {
+    width: 65.74585635359117%;
+    *width: 65.69266486422946%;
+  }
+  .row-fluid .span7 {
+    width: 57.18232044198895%;
+    *width: 57.12912895262725%;
+  }
+  .row-fluid .span6 {
+    width: 48.61878453038674%;
+    *width: 48.56559304102504%;
+  }
+  .row-fluid .span5 {
+    width: 40.05524861878453%;
+    *width: 40.00205712942283%;
+  }
+  .row-fluid .span4 {
+    width: 31.491712707182323%;
+    *width: 31.43852121782062%;
+  }
+  .row-fluid .span3 {
+    width: 22.92817679558011%;
+    *width: 22.87498530621841%;
+  }
+  .row-fluid .span2 {
+    width: 14.3646408839779%;
+    *width: 14.311449394616199%;
+  }
+  .row-fluid .span1 {
+    width: 5.801104972375691%;
+    *width: 5.747913483013988%;
+  }
+  .row-fluid .offset12 {
+    margin-left: 105.52486187845304%;
+    *margin-left: 105.41847889972962%;
+  }
+  .row-fluid .offset12:first-child {
+    margin-left: 102.76243093922652%;
+    *margin-left: 102.6560479605031%;
+  }
+  .row-fluid .offset11 {
+    margin-left: 96.96132596685082%;
+    *margin-left: 96.8549429881274%;
+  }
+  .row-fluid .offset11:first-child {
+    margin-left: 94.1988950276243%;
+    *margin-left: 94.09251204890089%;
+  }
+  .row-fluid .offset10 {
+    margin-left: 88.39779005524862%;
+    *margin-left: 88.2914070765252%;
+  }
+  .row-fluid .offset10:first-child {
+    margin-left: 85.6353591160221%;
+    *margin-left: 85.52897613729868%;
+  }
+  .row-fluid .offset9 {
+    margin-left: 79.8342541436464%;
+    *margin-left: 79.72787116492299%;
+  }
+  .row-fluid .offset9:first-child {
+    margin-left: 77.07182320441989%;
+    *margin-left: 76.96544022569647%;
+  }
+  .row-fluid .offset8 {
+    margin-left: 71.2707182320442%;
+    *margin-left: 71.16433525332079%;
+  }
+  .row-fluid .offset8:first-child {
+    margin-left: 68.50828729281768%;
+    *margin-left: 68.40190431409427%;
+  }
+  .row-fluid .offset7 {
+    margin-left: 62.70718232044199%;
+    *margin-left: 62.600799341718584%;
+  }
+  .row-fluid .offset7:first-child {
+    margin-left: 59.94475138121547%;
+    *margin-left: 59.838368402492065%;
+  }
+  .row-fluid .offset6 {
+    margin-left: 54.14364640883978%;
+    *margin-left: 54.037263430116376%;
+  }
+  .row-fluid .offset6:first-child {
+    margin-left: 51.38121546961326%;
+    *margin-left: 51.27483249088986%;
+  }
+  .row-fluid .offset5 {
+    margin-left: 45.58011049723757%;
+    *margin-left: 45.47372751851417%;
+  }
+  .row-fluid .offset5:first-child {
+    margin-left: 42.81767955801105%;
+    *margin-left: 42.71129657928765%;
+  }
+  .row-fluid .offset4 {
+    margin-left: 37.01657458563536%;
+    *margin-left: 36.91019160691196%;
+  }
+  .row-fluid .offset4:first-child {
+    margin-left: 34.25414364640884%;
+    *margin-left: 34.14776066768544%;
+  }
+  .row-fluid .offset3 {
+    margin-left: 28.45303867403315%;
+    *margin-left: 28.346655695309746%;
+  }
+  .row-fluid .offset3:first-child {
+    margin-left: 25.69060773480663%;
+    *margin-left: 25.584224756083227%;
+  }
+  .row-fluid .offset2 {
+    margin-left: 19.88950276243094%;
+    *margin-left: 19.783119783707537%;
+  }
+  .row-fluid .offset2:first-child {
+    margin-left: 17.12707182320442%;
+    *margin-left: 17.02068884448102%;
+  }
+  .row-fluid .offset1 {
+    margin-left: 11.32596685082873%;
+    *margin-left: 11.219583872105325%;
+  }
+  .row-fluid .offset1:first-child {
+    margin-left: 8.56353591160221%;
+    *margin-left: 8.457152932878806%;
+  }
+}
+/* Responsive: Landscape phone to desktop/tablet */
+@media (max-width: 767px) {
+  .foswikiContainer {
+    padding-left: 1.40625em;
+    padding-right: 1.40625em;
+  }
+  .foswikiSection {
+    padding-top: 1.40625em;
+    padding-bottom: 1.40625em;
+  }
+  .foswikiTopBar {
+    padding: 0.505679012345679em 0;
+  }
+  .foswikiNavigationBar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .foswikiNavigationBar li > a {
+    padding: 0.505679012345679em 0;
+  }
+  .foswikiIntroduction {
+    padding-top: 1.9775390625em;
+    padding-bottom: 1.9775390625em;
+  }
+  .foswikiBreadcrumb {
+    margin: 0 0 1em 0;
+  }
+  .foswikiSearchResult {
+    padding-top: 0.7111111111111111em;
+    padding-bottom: 0.7111111111111111em;
+  }
+  .foswikiSearchResult .foswikiSearchResultContents {
+    padding-left: 0.505679012345679em;
+  }
+  .foswikiBottomBar {
+    padding-bottom: 10em;
+  }
+  pre,
+  .foswikiHelp,
+  .foswikiBroadcastMessage,
+  .foswikiNotification,
+  .foswikiFormSteps,
+  .foswikiTabContent,
+  .jqTabContents,
+  .foswikiNoJs .jqTabContents,
+  div.foswikiAlert {
+    padding: 1em 1em;
+  }
+  .foswikiModal {
+    padding: 0;
+  }
+  .foswikiModalHeader,
+  .foswikiModalBody,
+  .foswikiModalFooter {
+    padding: 1em 1em;
+  }
+  .foswikiModalClose {
+    padding: 1em 1em;
+  }
+  .foswikiFormSteps hr {
+    margin-left: -1em;
+    margin-right: -1em;
+  }
+  table pre,
+  table .foswikiHelp,
+  table .foswikiBroadcastMessage,
+  table .foswikiNotification,
+  table .foswikiFormStep,
+  table .foswikiNoJs .jqTabContents,
+  table .jqTabContents {
+    padding: 0.7111111111111111em 0.7111111111111111em;
+  }
+  .foswikiFormGroup {
+    margin-bottom: 1.5714285714285714em;
+  }
+  .foswikiTopicActions {
+    margin-bottom: 0.505679012345679em;
+  }
+  .foswikiToolbar {
+    padding: 0.505679012345679em;
+  }
+}
+/* Responsive: up to landscape phone */
+@media (max-width: 480px) {
+  .foswikiContainer {
+    padding-left: 1.40625em;
+    padding-right: 1.40625em;
+  }
+  .foswikiSection {
+    padding-top: 1.40625em;
+    padding-bottom: 1.40625em;
+  }
+  .foswikiTopBar {
+    padding: 0.505679012345679em 0;
+  }
+  .foswikiNavigationBar {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .foswikiNavigationBar li > a {
+    padding: 0.505679012345679em 0;
+  }
+  .foswikiIntroduction {
+    padding-top: 1.9775390625em;
+    padding-bottom: 1.9775390625em;
+  }
+  .foswikiBreadcrumb {
+    margin: 0 0 1em 0;
+  }
+  .foswikiSearchResult {
+    padding-top: 0.7111111111111111em;
+    padding-bottom: 0.7111111111111111em;
+  }
+  .foswikiSearchResult .foswikiSearchResultContents {
+    padding-left: 0.505679012345679em;
+  }
+  .foswikiBottomBar {
+    padding-bottom: 10em;
+  }
+  pre,
+  .foswikiHelp,
+  .foswikiBroadcastMessage,
+  .foswikiNotification,
+  .foswikiFormSteps,
+  .foswikiTabContent,
+  .jqTabContents,
+  .foswikiNoJs .jqTabContents,
+  div.foswikiAlert {
+    padding: 1em 1em;
+  }
+  .foswikiModal {
+    padding: 0;
+  }
+  .foswikiModalHeader,
+  .foswikiModalBody,
+  .foswikiModalFooter {
+    padding: 1em 1em;
+  }
+  .foswikiModalClose {
+    padding: 1em 1em;
+  }
+  .foswikiFormSteps hr {
+    margin-left: -1em;
+    margin-right: -1em;
+  }
+  table pre,
+  table .foswikiHelp,
+  table .foswikiBroadcastMessage,
+  table .foswikiNotification,
+  table .foswikiFormStep,
+  table .foswikiNoJs .jqTabContents,
+  table .jqTabContents {
+    padding: 0.7111111111111111em 0.7111111111111111em;
+  }
+  .foswikiFormGroup {
+    margin-bottom: 1.5714285714285714em;
+  }
+  .foswikiTopicActions {
+    margin-bottom: 0.505679012345679em;
+  }
+  .foswikiToolbar {
+    padding: 0.505679012345679em;
+  }
+}

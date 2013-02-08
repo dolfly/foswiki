@@ -1,0 +1,230 @@
+/* TABS */
+
+#fw_tab_simple() {
+    position: relative;
+    display: inline-block;
+    float: left;
+    margin-right: @fw_tab_side_margin;
+    border-style: @fw_tab_border_style;
+    border-width: @fw_tab_border_width;
+    border-color: @fw_tab_border_color;
+    background-image: none;
+    background: @fw_tab_background_color;
+    .fw_regular();
+    
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+        padding: @fw_tab_padding;
+        text-decoration: none;
+        color: @fw_tab_color;
+    }
+    
+    &:hover {
+        background: @fw_tab_hover_background_color;
+    }
+}
+
+#fw_tab_list() {
+    .fw_no_bullets;
+    bottom: 0;
+    margin-bottom: -1px;
+    .fw_clearfix;
+}
+
+.foswikiTabs {
+    position: relative;
+    
+    &:after {
+        content: '';  
+        position: absolute;  
+        width: 100%;  
+        height: @fw_tab_border_width;  
+        border-bottom-width: @fw_tab_border_width;
+        border-bottom-style: solid;
+        border-bottom-color: @fw_tab_pane_border_color;
+        bottom: 0;
+    }
+    
+    > ul {
+        #fw_tab_list;
+
+        > li {
+            display: inline;
+
+            > a {
+                #fw_tab_simple;
+            }
+            
+            &.foswikiActiveTab a:hover, // deprecated
+            &.foswikiActive a:hover {
+                cursor: default;
+            }
+            
+            &.foswikiActiveTab a, // deprecated
+            &.foswikiActive a {
+                border-bottom-color: @fw_tab_active_background_color;
+            	background: @fw_tab_active_background_color;
+                z-index: 1;
+            }
+        }
+    }
+}
+
+.foswikiTabContent {
+    border-style: @fw_tab_pane_border_style;
+    border-width: @fw_tab_pane_border_width;
+    border-color: @fw_tab_pane_border_color;
+    background: @fw_tab_pane_background_color;
+    // padding set in responsive.less
+    .fw_block_p;
+}
+
+.foswikiNoJs {
+    .foswikiTabs {    
+        > ul {
+            display: none;
+        }
+    }
+}
+
+// JQUERY TABS OVERRIDES
+
+.jqTab {
+    padding: 0;
+    border: none;
+    .fw_block_p;
+}
+
+.foswikiNoJs {
+    .jqTabLabel {
+        display: none;
+    }
+}
+
+.jqTabContents {
+    border-style: @fw_tab_pane_border_style;
+    border-width: @fw_tab_pane_border_width;
+    border-color: @fw_tab_pane_border_color;
+    background: @fw_tab_pane_background_color;
+}
+
+.jqTabGroup > li > a .foswikiIcon {
+    .fw_16px_icon;
+    padding-left: 0;
+}
+
+.jqTabPaneDefault {
+    @row_margin: 5px;
+    
+    > ul.jqTabGroup {
+        #fw_tab_list;
+        padding-bottom: @row_margin - 1;
+
+        > li {
+            background-image: none;
+            margin: 0;
+            padding: 0;
+            
+            > a {
+                position: relative;
+                text-indent: @fw_tab_caret_size + 6;
+                
+                &,
+                &:link,
+                &:visited {
+                    #button > .normal;
+                }
+                
+                &:hover {
+                    #button > .highlight;
+                    text-decoration: none;
+                }
+                
+                &:after {
+                    position: absolute;
+                    left: 0;
+                    top: @fw_button_padding_top + @fw_body_line_height/2 - 1;
+                    #fw_caret(@fw_tab_caret_size, @fw_tab_color, right);
+                }
+            }
+            
+            > a,
+            > a:hover {
+                .fw_btn();
+                height: auto;
+                margin-right: @fw_tab_side_margin;
+            }
+
+            &.current {
+                background: none;
+                
+                > a {
+                    #fw_tab_simple;
+                    text-indent: @fw_tab_caret_size + 8;
+                    
+                    &,
+                    &:link,
+                    &:visited {
+                        padding-bottom: @row_margin + 2;
+                        .border-radius(0);
+                        .fw_border-radius-top(@fw_corner_radius_button);
+                        border-bottom-color: @fw_tab_active_background_color;
+                    }
+                    
+                    cursor: default;
+                                        
+                    &,
+                    &:hover {
+                        background: @fw_tab_active_background_color;
+                    }
+                    
+                    &:after {
+                        #fw_caret(@fw_tab_caret_size, @fw_tab_color, down);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.jqTabPaneSimple {    
+    > ul.jqTabGroup {
+        #fw_tab_list;
+
+        > li {
+            background-image: none;
+            margin: 0;
+            padding: 0;
+            
+            > a {
+                #fw_tab_simple;
+            }
+            
+            &.current {
+                background: none;
+                
+                > a {
+                    border-bottom-color: @fw_tab_active_background_color;
+                	background: @fw_tab_active_background_color;
+                }
+            }
+        }
+    }
+}
+
+.jqTabPaneLinks {
+    > ul.jqTabGroup {
+        #fw_tab_list;
+        > li {
+            background-image: none;
+            margin: 0;
+            padding: 0;
+            
+            > a {
+                margin-right: @fw_tab_side_margin;
+            }
+        }
+    }
+}

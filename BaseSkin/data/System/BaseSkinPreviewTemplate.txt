@@ -1,0 +1,33 @@
+%{<verbatim class="tml">
+===================================================
+Base Skin topic template
+
+	The preview template defines the display of contents through the save script
+		
+===================================================
+}%%TMPL:INCLUDE{"edit"}%%{
+---------------------------------------------------
+	CSS class for body element says this is a preview page
+---------------------------------------------------
+}%%TMPL:DEF{"body:class"}%foswikiPreviewPage%TMPL:END%%{
+---------------------------------------------------
+	Title action
+---------------------------------------------------
+}%%TMPL:DEF{"titleaction"}%%MAKETEXT{"(preview)"}%%TMPL:END%%{
+---------------------------------------------------
+	editcontrols:actions
+	    Add "go back", remove Preview
+---------------------------------------------------
+}%%TMPL:DEF{"editcontrols:actions"}%%TMPL:P{"editcontrols:save"}%%TMPL:P{"topicaction:goback:button"}%%TMPL:P{"editcontrols:cancel"}%%TMPL:END%%{
+---------------------------------------------------
+	formparameters
+---------------------------------------------------
+}%%TMPL:DEF{"formparameters"}%%TMPL:PREV%<input type="hidden" name="text" value="%HIDDENTEXT%"/>%TMPL:END%%{
+---------------------------------------------------
+	topiceditor
+---------------------------------------------------
+}%%TMPL:DEF{"topiceditor"}%<div class='foswikiAlert'>%MAKETEXT{"This is a preview. Do not forget to save your changes."}%</div>
+%TEXT%
+%TMPL:END%%{
+===================================================
+</verbatim>}%
