@@ -1,0 +1,58 @@
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = Patch a critical vulnerability in Locale::Maketext  
+-->
+---+!! PatchItem12391Contrib
+
+%SHORTDESCRIPTION%
+
+%TOC%
+
+---++ Usage
+
+This extensions applies a "hotfix" for Item12285 and Item12391 to your Foswiki 1.1.0 thru 1.1.7 system.   Foswiki 1.0.x versions need to be manually patched.
+
+<blockquote>
+<div class="foswikiAlert">%X% *NOTICE:* This patch addresses a critical
+Foswiki vulnerability and should be installed as soon as possible. </div>
+</blockquote>
+
+   * If a warning about MAKETEXT Rejected is displayed here, your system is patched for Item12285:  %MAKETEXT{"[_101]"}%
+   * If ==[quant,4,singular,plural]== is displayed at the end of this line, your system is patched for Item12391: <b><tt>%MAKETEXT{" ~~[quant,4,singular,plural~~] "}%</tt></b>
+
+When this extension is installed, it uses the Post-installation exit to apply any patch files found in the manifest.  This extension ships with a hotfix for the following items:
+
+| *Original Issue* | *Patch File* | *Description* | *Applies to* |
+| [[http://foswiki.org/Tasks/Item12285][Item12285]] | =Item12285-001= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.0 - Foswiki 1.1.2 |
+| [[http://foswiki.org/Tasks/Item12285][Item12285]] | =Item12285-002= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.3 - Foswiki 1.1.6 |
+| [[http://foswiki.org/Tasks/Item12391][Item12391]] | =Item12391-001= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.0 - Foswiki 1.1.2 (Post Item12385) |
+| [[http://foswiki.org/Tasks/Item12391][Item12391]] | =Item12391-002= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.3 - Foswiki 1.1.6 (Post Item12385) |
+| [[http://foswiki.org/Tasks/Item12391][Item12391]] | =Item12391-003= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.7 (Post Item12385) |
+
+Before any file is patched, a backup is copied to =working/configure/backup/&lt;Item12285-001-date-time&gt;=. Each file that is a candidate to be patched is backed up.  If the extensions is installed multple times, a new backup is made for each run, regardless of whether or not the patch will be applied.  For this patch, the following files are copied:
+   * =lib/Foswiki/Macros/MAKETEXT.pm=
+
+Patches are only applied if the target file is an _exact_ match to the original file.  There is no attempt to do "fuzzy" patching.   Note however that a patch can be built to cover multiple versions of the file.
+
+There is no "dependency order" established between patches.  Patches are installed in order of their patch file name.
+
+Patches will be mapped from the default Foswiki filename to the directory location used on the target system.
+
+Note:  This extension was re-released with a slightly different patch.  It is strongly recommmended that prior versions of the patch be reverted and the final version be applied.
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author: | GeorgeClark |
+|  Copyright &copy;: | Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.0 (13 Feb 2013) | Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+
+
