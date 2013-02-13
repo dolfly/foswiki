@@ -1,0 +1,61 @@
+%META:TOPICPARENT{name="Plugins"}%
+<!--
+   * Set SHORTDESCRIPTION = %SHORTDESCRIPTION%
+-->
+---+!! Honey Pot Plugin
+
+%SHORTDESCRIPTION%
+
+%TOC%
+
+Public wiki sites are often plagued with spammers and other unwelcome visitors,
+such as search engine indexers that can suck the life out of an otherwise
+fast site.
+
+[[http://www.projecthoneypot.org][Project HoneyPot]] has been set up to 
+record data about IP addresses that constitute a threat to websites, either
+because they are an excessive drain on the resources of the sites
+or because they are known sources of spam.
+
+This plugin checks incoming requests against the honeypot database and
+rejects operations from IP addresses found there.
+
+The admin has full control over the operations that are checked, and the
+nature of the checks. Configuration is done using the =%SCRIPTURL{configure}%=
+interface.
+
+---++ REST handler
+The plugin also publishes a REST handler that can be used to check an IP
+address against the database. The handler is called =check= and is passed
+the parameters =ip= (the IP address to check) and =tests= (a comma-separated
+list of tests to perform). If any of the tests fails, the handler will respond
+with a 403 (forbidden) with the name of the failing test in the response body.
+For example,
+<verbatim>
+http://my.foswiki/rest/HoneyPotPlugin/check?ip=12.34.56.78&tests=is_search_engine,is_harvester
+</verbatim>
+A description of the available tests can be found at http://search.cpan.org/dist/WWW-Honeypot-httpBL/lib/WWW/Honeypot/httpBL.pm
+
+---++ API
+There is also an API that other plugins can use when this plugin is loaded:
+
+=Foswiki::Plugins::HoneyPotPlugin::check($domain, $tests) -> $result=
+   * =$domain= - domain name or IP address to check
+   * =$tests= - either an array of predicate names or a comma-separated
+     string list of predicates to perform e.g. 'is_comment_spammer,is_search_engine'
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author: | Foswiki:Main.CrawfordCurrie |
+|  Copyright: | &copy; 2013, Foswiki Contributors |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.0.0 (13 Feb 2013): | Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |
+

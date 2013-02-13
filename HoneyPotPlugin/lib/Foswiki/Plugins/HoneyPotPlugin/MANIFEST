@@ -1,0 +1,4 @@
+!noci
+data/System/HoneyPotPlugin.txt 0644 Documentation page
+lib/Foswiki/Plugins/HoneyPotPlugin.pm 0444 Perl module
+lib/Foswiki/Plugins/HoneyPotPlugin/Config.spec 0444 Configuration
