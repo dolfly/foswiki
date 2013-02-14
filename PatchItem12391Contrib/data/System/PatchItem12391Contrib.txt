@@ -27,7 +27,7 @@ When this extension is installed, it uses the Post-installation exit to apply an
 | [[http://foswiki.org/Tasks/Item12285][Item12285]] | =Item12285-002= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.3 - Foswiki 1.1.6 |
 | [[http://foswiki.org/Tasks/Item12391][Item12391]] | =Item12391-001= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.0 - Foswiki 1.1.2 (Post Item12385) |
 | [[http://foswiki.org/Tasks/Item12391][Item12391]] | =Item12391-002= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.3 - Foswiki 1.1.6 (Post Item12385) |
-| [[http://foswiki.org/Tasks/Item12391][Item12391]] | =Item12391-003= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.7 (Post Item12385) |
+| [[http://foswiki.org/Tasks/Item12391][Item12391]] | =Item12391-003= | Addresses a vulnerability in Locale::Maketext. | Foswiki 1.1.7 |
 
 Before any file is patched, a backup is copied to =working/configure/backup/&lt;Item12285-001-date-time&gt;=. Each file that is a candidate to be patched is backed up.  If the extensions is installed multple times, a new backup is made for each run, regardless of whether or not the patch will be applied.  For this patch, the following files are copied:
    * =lib/Foswiki/Macros/MAKETEXT.pm=
@@ -38,7 +38,7 @@ There is no "dependency order" established between patches.  Patches are install
 
 Patches will be mapped from the default Foswiki filename to the directory location used on the target system.
 
-Note:  This extension was re-released with a slightly different patch.  It is strongly recommmended that prior versions of the patch be reverted and the final version be applied.
+This patch does not include an uninstaller routine.  If this contrib is removed, the files will remain patched.
 
 ---++ Installation
 %$INSTALL_INSTRUCTIONS%
