@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278807" format="1.1" version="3"}%
+%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278807" format="1.1" version="3"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -157,6 +157,7 @@ target webs...
 |  Version: | %$VERSION% |
 |  Release: | %$RELEASE% |
 |  Change History: | |
+|  18 Feb 2013 | fixed topicinfo; removed legacy twb.js file breaking =configure= and/or the plugin installer |
 |  07 Jan 2013 | first public release |
 |  30 Oct 2007 | first version in svn |
 |  30 Apr 2007 | initial version |

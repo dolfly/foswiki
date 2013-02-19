@@ -1,5 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278736" format="1.1" version="3"}%
-
+%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278736" format="1.1" version="3"}%
 %META:TOPICPARENT{name="TopicTemplate"}%
 | *Name:*| *Type:* | *Size:* | *Values:* | *Description:* | *Attributes:* |
 | TopicType | label | 1 | WikiTopic | Document type  | |

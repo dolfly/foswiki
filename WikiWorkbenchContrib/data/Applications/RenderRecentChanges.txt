@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1357307494" format="1.1" reprev="11" version="11"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1358512120" format="1.1" reprev="11" version="14"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -8,6 +8,8 @@ This uses solr and infintescroll to create a frontpage widget.
 
 ---+++++ Parameters
    * HEIGHT: height of scroll container, defaults to 40em
+   * LIMIT: number of rows to render, defaults to 50
+   * PAGE: from which page to start rendering
    * THEWEB: the web to render recent changes for
    * FILTER: lucene filter to be added to the search query
 
@@ -19,6 +21,8 @@ This uses solr and infintescroll to create a frontpage widget.
 <div class="jqInfiniteScroll recentChanges {itemSelector:'.clsIndexItem', localMode:true, bufferPx:200}">
 %DBCALL{"%WEB%.%TOPIC%" 
   section="backend" 
+  LIMIT="%IF{"defined LIMIT" then="%LIMIT%" else="50"}%"
+  PAGE="%IF{"defined PAGE" then="%PAGE%" else="0"}%"
   THEWEB="%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%"
   FILTER="%IF{"defined FILTER" then="%FILTER%"}%"
 }%
@@ -43,8 +47,8 @@ This uses solr and infintescroll to create a frontpage widget.
   "%URLPARAM{"filter" default="%FILTER%"}%"
   exclude="^(WebChanges|WebPreferences|WebTopicLinks|WebIndex|WebNotify|WebHome|WebLinks|TopCategory|Category|ClassifiedTopic|TopicType|WebTopicEditTemplate|WebAtom|WebRss|WebLeftBar|WebSearch.*)$"
   web="%URLPARAM{"web" default="%THEWEB%"}%"
-  skip="%CALC{"$EVAL(%URLPARAM{"page" default="0"}%*%URLPARAM{"limit" default="50"}%)"}%"
-  limit="%URLPARAM{"limit" default="50"}%" 
+  skip="%CALC{"$EVAL(%URLPARAM{"page" default="%PAGE%"}%*%URLPARAM{"limit" default="%LIMIT%"}%)"}%"
+  limit="%URLPARAM{"limit" default="%LIMIT%"}%" 
   sort="modified"
   reverse="on"
   format="$percntDBCALL{\"$web.$topic->RenderIndexItem\"}$percnt"
