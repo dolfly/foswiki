@@ -1,9 +1,9 @@
 %META:TOPICPARENT{name="Plugins"}%
 <!--
-   * Set SHORTDESCRIPTION = %SHORTDESCRIPTION%
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
 -->
 ---+!! Honey Pot Plugin
-
+<img style="float:right" src="https://www.projecthoneypot.org/images/php_logo.gif" />
 %SHORTDESCRIPTION%
 
 %TOC%
