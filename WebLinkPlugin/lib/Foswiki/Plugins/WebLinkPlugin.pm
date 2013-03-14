@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# WebLinkPlugin is Copyright (C) 2010-2012 Michael Daum http://michaeldaumconsulting.com
+# WebLinkPlugin is Copyright (C) 2010-2013 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -26,14 +26,13 @@ use warnings;
 
 use Foswiki::Func ();
 
-our $VERSION = '$Rev$';
-our $RELEASE = '1.20';
+our $VERSION = '1.30';
+our $RELEASE = '1.30';
 our $SHORTDESCRIPTION = 'A parametrized %WEB macro';
 our $NO_PREFS_IN_TOPIC = 1;
 our $baseWeb;
 our $baseTopic;
 our $doneInit;
-
 
 =begin TML
 

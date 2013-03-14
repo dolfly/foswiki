@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# WebLinkPlugin is Copyright (C) 2010-2012 Michael Daum http://michaeldaumconsulting.com
+# WebLinkPlugin is Copyright (C) 2010-2013 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -128,14 +128,6 @@ sub WEBLINK {
 
 sub getTopicTitle {
   my ($web, $topic) = @_;
-
-  if (Foswiki::Func::getContext()->{DBCachePluginEnabled}) {
-    #print STDERR "using DBCachePlugin\n";
-    require Foswiki::Plugins::DBCachePlugin;
-    return Foswiki::Plugins::DBCachePlugin::getTopicTitle($web, $topic);
-  } 
-
-  #print STDERR "using foswiki core means\n";
 
   my ($meta, $text) = Foswiki::Func::readTopic($web, $topic);
 
