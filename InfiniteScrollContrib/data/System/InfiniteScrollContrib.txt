@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="save topic" date="1307348209" format="1.1" reprev="7" version="8"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1364485421" format="1.1" reprev="10" version="10"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -183,7 +183,7 @@ Example:
 ---++ Example
 %JQREQUIRE{"infinitescroll"}%
 
-<div id="testScroller" class="jqInfiniteScroll {localMode:true, bufferPx:100}">
+<div id="testScroller" class="jqInfiniteScroll {localMode:true, bufferPx:100, zeroBased:false}">
 %STARTSECTION{"result"}%
 <div class="jqInfiniteScrollItem">
 %SEARCH{
@@ -193,8 +193,8 @@ Example:
     nonoise="on" 
     order="modified" 
     reverse="on"
-    pagesize="10
-    showpage="%URLPARAM{"page" default="1"}%
+    pagesize="10"
+    showpage="%URLPARAM{"page" default="1"}%"
 }%
 </div>%ENDSECTION{"result"}%
 </div>
@@ -225,6 +225,7 @@ Example:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  28 Mar 2013 | fixed demo |
 |  01 Oct 2012 | fix for newer jqueries |
 |  24 Feb 2012 | fixed syntax error breaking dependency check of configure and pseudo-install |
 |  06 Jun 2011 | initial release |

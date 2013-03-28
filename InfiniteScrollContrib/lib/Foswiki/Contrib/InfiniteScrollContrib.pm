@@ -3,8 +3,8 @@ package Foswiki::Contrib::InfiniteScrollContrib;
 use strict;
 use warnings;
 
-our $VERSION = '$Rev$';
-our $RELEASE = '1.12';
+our $VERSION = '1.13';
+our $RELEASE = '1.13';
 our $SHORTDESCRIPTION = 'Infinite scrolling layouts';
 our $NO_PREFS_IN_TOPIC = 1;
 
