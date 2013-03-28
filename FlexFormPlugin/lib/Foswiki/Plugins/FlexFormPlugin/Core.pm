@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 # 
-# Copyright (C) 2009-2012 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2009-2013 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -16,6 +16,8 @@
 package Foswiki::Plugins::FlexFormPlugin::Core;
 
 use strict;
+use warnings;
+
 use Foswiki::Func ();    # The plugins API
 use Foswiki::Form ();
 use Foswiki::Plugins ();
@@ -496,10 +498,11 @@ sub handleRENDERFOREDIT {
     my $fieldClone;
     if (defined($params->{$fieldName.'_type'}) || 
 	defined($params->{$fieldName.'_size'}) ||
+        defined($params->{$fieldName.'_name'}) ||
         $fieldSort) {
       $fieldClone = $form->createField(
 	$fieldType,
-	name          => $fieldName,
+	name          => $params->{$fieldName.'_name'} || $fieldName,
 	title         => $fieldTitle,
 	size          => $fieldSize,
 	value         => $fieldAllowedValues,
