@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278737" format="1.1" version="6"}%
+%META:TOPICINFO{author="micha" comment="autosave" date="1366269886" format="1.1" version="7"}%
 %META:TOPICPARENT{name="TopicView"}%
 %{<verbatim class="tml">}%
 %TMPL:INCLUDE{"edit"}%
@@ -12,12 +12,10 @@
 %{</verbatim>}%
 
 %{<verbatim class="tml">}%
-%TMPL:DEF{"firsttab::impl"}%<!-- firsttab::impl -->
-%TAB{"%MAKETEXT{"Text"}%"}%
-%TMPL:P{"topicmeta"}%<!-- topicmeta// -->
-%TMPL:P{"textarea"}%<!-- textarea// -->
-%ENDTAB%
-<!-- //firsttab::impl -->%TMPL:END%
+%TMPL:DEF{"firsttab::impl"}%%TAB{"%MAKETEXT{"Text"}%"}%
+%TMPL:P{"topicmeta"}%<!-- -->
+%TMPL:P{"textarea"}%<!-- -->
+%ENDTAB%%TMPL:END%
 %{</verbatim>}%
 
 %{<verbatim class="tml">}%
@@ -37,14 +35,12 @@
 %{</verbatim>}%
 
 %{<verbatim class="tml">}%
-%TMPL:DEF{"contenttitle"}%<!-- contenttitle -->
-<h1 class="natEditTitle">
+%TMPL:DEF{"contenttitle"}%<h1 class="natEditTitle">
 %IF{"istopic '%WEB%.%TOPIC%'"
   then="[[%WEB%.%TOPIC%][%TMPL:P{"topictitle"}%]] (%MAKETEXT{"edit [_1]" args="%TMPL:P{"topictype"}%"}%)"
   else="<nop>%TMPL:P{"topictitle"}% (%MAKETEXT{"new [_1]" args="%TMPL:P{"topictype"}%"}%)"
 }%
-</h1>
-<!-- //contenttitle -->%TMPL:END%
+</h1>%TMPL:END%
 %{</verbatim>}%
 
 %{<verbatim class="tml">}%
@@ -56,7 +52,7 @@
 %{</verbatim>}%
 
 %{<verbatim class="tml">}%
-%TMPL:DEF{"formattop"}%<!-- formattop --><literal>
+%TMPL:DEF{"formattop"}%<literal>
 %RENDERFOREDIT{
   field="TopicType" 
   header="" 
@@ -64,11 +60,11 @@
   hidden="TopicType" 
   form="%TMPL:P{"formdefinition"}%"
 }%
-</literal><!-- //formattop -->%TMPL:END%
+</literal>%TMPL:END%
 %{</verbatim>}%
 
 %META:FORM{name="Applications.ApplicationTopic"}%
 %META:FIELD{name="TopicType" title="TopicType" value="TopicView"}%
-%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WikiTopicEditTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
 %META:FIELD{name="Summary" attributes="c" title="Summary" value="TopicView to edit a WikiTopic"}%
 %META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

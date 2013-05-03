@@ -1,19 +1,13 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278736" format="1.1" version="3"}%
+%META:TOPICINFO{author="micha" comment="autosave" date="1367307453" format="1.1" version="4"}%
 %META:TOPICPARENT{name="TopicTemplate"}%
 | *Name:*| *Type:* | *Size:* | *Values:* | *Description:* | *Attributes:* |
 | TopicType | label | 1 | WikiTopic | Document type  | |
 | <nop>TopicTitle | text | 75 | | title | |
 | Summary | text | 75 | | Short description of the role of this topic | |
 
-See also: %SYSTEMWEB%.DataForms
-%STARTSECTION{type="templateonly"}%
-%RED%Note, this is only a template.%ENDCOLOR%
-
-See also: DataForm
-%ENDSECTION{type="templateonly"}%
 
 %META:FORM{name="Applications.ApplicationTopic"}%
 %META:FIELD{name="TopicType" title="TopicType" value="TopicTemplate"}%
-%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="DataFormTemplate"}%
-%META:FIELD{name="Summary" attributes="" title="Summary" value="Template to create DataForm topics"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="Template to create DataForm topics"}%
 %META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

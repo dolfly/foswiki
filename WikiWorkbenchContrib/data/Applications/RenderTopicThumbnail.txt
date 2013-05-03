@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278736" format="1.1" version="15"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1366970119" format="1.1" reprev="16" version="17"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -6,7 +6,7 @@
 %STARTSECTION{"documentation"}%
 This function gets the first image attachment from a topic and creates
 a 48x48 thumbnail using <nop>ImagePlugin. The attachment taken must end
-with =jpeg, jpg, gif or png=. If there are multiple image attachments
+with =jpeg, jpg, gif, bmp, svg or png=. If there are multiple image attachments
 then the first one ordered by comment and name is taken. The empty string
 is returned if no image attachment is found.
 
@@ -24,19 +24,19 @@ is returned if no image attachment is found.
 <verbatim class="tml">
 %STARTINCLUDE%%ATTACHMENTS{
    "%OBJECT%"
-   name=".*\.(jpe?g|gif|png|JE?PG|GIF|PNG)"
+   name=".*\.(jpe?g|gif|png|bmp|svg|JE?PG|GIF|PNG|BMP|SVG)"
    warn="off"
    limit="1"
-   sort="%IF{"defined SORT" then="%SORT%" else="comment:name"}%"
+   sort="%SORT{default="comment:name"}%"
    reverse="%IF{"'%SORT%' = 'date'" then="on" else="off"}%"
    hidenull="on"
    format="$percntIMAGE{
      \"$name\"
      topic=\"$web.$topic\"
-     align=\"%IF{"defined ALIGN" then="%ALIGN%" else="right"}%\"
-     type=\"%IF{"defined TYPE" then="%TYPE%" else="simple"}%\"
-     size=\"%IF{"defined SIZE" then="%SIZE%" else="48x48>"}%\"
-     crop=\"%IF{"defined CROP" then="%CROP%" else="northwest"}%\"
+     align=\"%ALIGN{default="right"}%\"
+     type=\"%TYPE{default="simple"}%\"
+     size=\"%SIZE{default="48x48>"}%\"
+     crop=\"%CROP{default="northwest"}%\"
      title=\"\"
      tooltip=\"on\"
      warn=\"off\"

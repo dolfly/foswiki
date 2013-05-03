@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1358512120" format="1.1" reprev="11" version="14"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1361882916" format="1.1" reprev="15" version="15"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -8,7 +8,7 @@ This uses solr and infintescroll to create a frontpage widget.
 
 ---+++++ Parameters
    * HEIGHT: height of scroll container, defaults to 40em
-   * LIMIT: number of rows to render, defaults to 50
+   * LIMIT: number of rows to render, defaults to 20
    * PAGE: from which page to start rendering
    * THEWEB: the web to render recent changes for
    * FILTER: lucene filter to be added to the search query
@@ -21,14 +21,14 @@ This uses solr and infintescroll to create a frontpage widget.
 <div class="jqInfiniteScroll recentChanges {itemSelector:'.clsIndexItem', localMode:true, bufferPx:200}">
 %DBCALL{"%WEB%.%TOPIC%" 
   section="backend" 
-  LIMIT="%IF{"defined LIMIT" then="%LIMIT%" else="50"}%"
+  LIMIT="%IF{"defined LIMIT" then="%LIMIT%" else="20"}%"
   PAGE="%IF{"defined PAGE" then="%PAGE%" else="0"}%"
   THEWEB="%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%"
   FILTER="%IF{"defined FILTER" then="%FILTER%"}%"
 }%
 </div>
 <div class="jqInfiniteScrollNavi foswikiHidden">
-  <a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?page=1;section=backend;skin=text;web=%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%;filter=%IF{"defined FILTER" then="%FILTER%"}%" class='jqInfiniteScrollNext'>More</a>
+  <a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?page=1;section=backend;skin=text;web=%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%;filter=%IF{"defined FILTER" then="%FILTER%"}%;limit=%IF{"defined LIMIT" then="%LIMIT%" else="50"}%" class='jqInfiniteScrollNext'>More</a>
 </div>
 <literal><style>
 .recentChanges {

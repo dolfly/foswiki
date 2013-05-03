@@ -1,10 +1,5 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278737" format="1.1" version="3"}%
+%META:TOPICINFO{author="micha" comment="autosave" date="1367307489" format="1.1" version="4"}%
 %META:TOPICPARENT{name="TopicTemplate"}%
-%STARTSECTION{type="templateonly"}%
-%RED%Note, this is only a template.%ENDCOLOR%
-
-See also: WikiApplication
-%ENDSECTION{type="templateonly"}%
 %TOC{depth="4"}%
 ---++ Description
 ...

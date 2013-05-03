@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278737" format="1.1" version="8"}%
+%META:TOPICINFO{author="micha" comment="autosave" date="1367307504" format="1.1" version="9"}%
 %META:TOPICPARENT{name="TopicTemplate"}%
 %TOC{depth="2"}%
 
@@ -27,15 +27,10 @@
 
 %DBCALL{"%URLPARAM{"License"}%" section="notice"}%
 
-%STARTSECTION{type="templateonly"}%
-%RED%Note, this is only a template.%ENDCOLOR%
-
-See also: TopicFunction
-%ENDSECTION{type="templateonly"}%
 
 %META:FORM{name="Applications.ApplicationTopic"}%
 %META:FIELD{name="TopicType" title="TopicType" value="TopicTemplate"}%
-%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="TopicFunctionTemplate"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
 %META:FIELD{name="Summary" attributes="c" title="Summary" value="Template to create TopicFunctions"}%
 %META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%
 %META:PREFERENCE{name="EDIT_TEMPLATE" title="EDIT_TEMPLATE" type="Set" value="Applications.WikiTopicEdit"}%

@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278736" format="1.1" version="14"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1366817328" format="1.1" reprev="15" version="15"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -18,11 +18,10 @@
 %STARTINCLUDE%<!-- -->
 <noautolink>
 %GRID{ 
-  query="TopicType=~'\b%IF{"defined TYPE" then="%TYPE%" else="%BASETOPIC%"}%\b' 
-         %IF{"defined FILTER" then="AND %FILTER%"}%" 
-  web="%IF{"defined THEWEB and not isempty THEWEB" then="%THEWEB%" else="%BASEWEB%"}%"
-  columns="%IF{"defined FIELDS" then="%FIELDS%" else="TopicTitle,Summary,WikiApplication,Changed"}%" 
-  rows="%IF{"defined ROWS" then="%ROWS%" else="10"}%"
+  query="TopicType=~'\b%TYPE{default="%BASETOPIC%"}%\b' %IF{"defined FILTER" then="AND %FILTER%"}%" 
+  web="%THEWEB{default="%BASEWEB%"}%"
+  columns="%FIELDS{default="TopicTitle,Summary,WikiApplication,Changed"}%" 
+  rows="%ROWS{default="10"}%"
   filterbar="on" 
   toolbar="on" 
   rownumbers="on" 
@@ -35,7 +34,7 @@
   TopicTitle_title="%MAKETEXT{"Title"}%"
   Summary_title="%MAKETEXT{"Summary"}%"
   Changed_title="%MAKETEXT{"Changed"}%"
-  %FORMATLIST{"%IF{"defined FIELDS" then="%FIELDS%"}%"
+  %FORMATLIST{"%FIELDS{default="TopicTitle,Summary,WikiApplication,Changed"}%"
     split="\s*,\s*"
     format="$percntIF{\"defined $1_title\" 
               then=\"$1_title=\\"$percnt$1_title$percnt\\"\"
@@ -49,7 +48,6 @@
 
 ---++ Test
 %DBCALL{"%TOPIC%" TYPE="TopicType" 
-  FIELDS="TopicTitle, Summary, WikiApplication, Changed"
   WikiApplication_title="App"
 }%
 

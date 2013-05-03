@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278736" format="1.1" version="20"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1367243436" format="1.1" reprev="23" version="24"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -17,7 +17,7 @@ This function renders a topic creator form that holds a set of initial input ele
    * TYPE: initial TopicType value, defaults to values predefined in the form definition
    * PARENT: parent topic for the new topic, defaults to the BASETOPIC
    * WHITEBOARD: switch on/off the whiteboard textarea
-   * EXTRA: additional =&lt;input &hellip; />= (deprecated: use =c= attribute in form definition to include it in the creator)
+   * EXTRA: additional =&lt;input &hellip; />= 
    * ACTION: script to be used to create the topic, eg =save= or =edit=, defaults to =edit=
    * EDITOR: TopicView to be used as an edit_template 
 
@@ -27,60 +27,55 @@ This function renders a topic creator form that holds a set of initial input ele
 <verbatim class="tml">
 %STARTINCLUDE%%TWISTY{
   link="%BUTTON{
-    "%IF{"defined BUTTONTEXT" then="%BUTTONTEXT%" else="%MAKETEXT{"New"}%"}%"
+    "%BUTTONTEXT{default="%MAKETEXT{"New"}%"}%"
     icon="add"
   }%%CLEAR%"
   mode="div"
 }%
 
 <noautolink>
-<form class='createTopicForm' action="%SCRIPTURLPATH{"%IF{"defined ACTION" then="%ACTION%" else="edit"}%"}%/%BASEWEB%/" method="%IF{"'%ACTION%'='save'" then="post" else="get"}%">
+<form class='createTopicForm' action="%SCRIPTURLPATH{"%ACTION{default="edit"}%"}%/%BASEWEB%/" method="%ACTION{default="get"}%">
 <div class='foswikiFormSteps'>
 <input type="hidden" name="web" value="%BASEWEB%" />
 <input type="hidden" name="onlynewtopic" value="on" />
 <input type="hidden" name="action" value="%IF{"$WHITEBOARD='off'" then="form"}%" />
 <input type="hidden" name="onlywikiname" value="off" />
-<input type="hidden" name="topicparent" value="%IF{"defined PARENT" then="%PARENT%" else="%BASETOPIC%"}%" />
-<input type="hidden" name="templatetopic" value="%IF{"defined TEMPLATE" then="%TEMPLATE%"}%" />
-<input type="hidden" name="formtemplate" value="%IF{"defined FORM" then="%FORM%" else="Applications.WikiTopic"}%" />
-<input type="hidden" name="template" value="%IF{"defined EDITOR" then="%EDITOR%"}%" />
-<input type="hidden" name="topic" value="%IF{
-  "defined TOPICVALUE" 
-  then="%TOPICVALUE%" 
-  else="%IF{"defined VALUE" then="%VALUE%"}%"
-}%" %IF{"'%TOPICVALUE%'=~'AUTOINC'" else="class=\"jqWikiWord {source:'input[name=TopicTitle]'}\""}% />
-%IF{"defined EXTRA" then="$percntEXTRA$percnt" else="<!-- no extras -->"}%
+<input type="hidden" name="topicparent" value="%PARENT{default="%BASETOPIC%"}%" />
+<input type="hidden" name="templatetopic" value="%TEMPLATE{default=""}%" />
+<input type="hidden" name="formtemplate" value="%FORM{default="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%" />
+<input type="hidden" name="template" value="%EDITOR{default=""}%" />
+<input type="hidden" name="topic" value="%TOPICVALUE{default="%VALUE{default=""}%"}%" %IF{"'%TOPICVALUE%'=~'AUTOINC'" else="class=\"jqWikiWord {source:'input[name=TopicTitle]'}\""}% />
+%EXTRA{default="<!-- -->"}%
 <h2 >%IF{"defined TEXT"
        then="$percntTEXT$percnt" 
        else="%MAKETEXT{"Create a new [_1]" args="<nop>%INCLUDINGTOPIC%"}%"
      }%
 </h2>
 %RENDERFOREDIT{
-  form="%IF{"defined FORM" then="%FORM%" else="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
-  topic="%IF{"defined TEMPLATE" then="%TEMPLATE%"}%"
+  form="%FORM{default="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
+  topic="%TEMPLATE{default=""}%"
   fields="TopicTitle"
   format="<div class='foswikiFormStep'><h3>$title:$mandatory</h3>$edit</div>"
-  TopicTitle_value="%IF{"defined VALUE" then="%VALUE%"}%"
-  TopicTitle_title="%IF{"defined LABEL" then="%LABEL%" else="%MAKETEXT{"Title"}%"}%"
+  TopicTitle_value="%VALUE{default=""}%"
+  TopicTitle_title="%LABEL{default="%MAKETEXT{"Title"}%"}%"
 }%
 %RENDERFOREDIT{
-  form="%IF{"defined FORM" then="%FORM%" else="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
-  topic="%IF{"defined TEMPLATE" then="%TEMPLATE%"}%"
+  form="%FORM{default="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
+  topic="%TEMPLATE{default=""}%"
   exclude="TopicType|TopicTitle"
   includeattr="\bc\b"
   Summary_value=""
   format="<div class='foswikiFormStep'><h3>$title:$mandatory</h3>$edit</div>"
 }%
 %RENDERFOREDIT{
-  form="%IF{"defined FORM" then="%FORM%" else="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
-  topic="%IF{"defined TEMPLATE" then="%TEMPLATE%"}%"
+  form="%FORM{default="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
+  topic="%TEMPLATE{default=""}%"
   fields="TopicType,WikiApplication,Summary"
   excludeattr="\bc\b"
   WikiApplication_value="%FLEXWEBLIST{include="%BASEWEB%" format="$name"}%" 
-  TopicType_value="%IF{"defined TYPE" 
-    then="%TYPE%"
-    else="%RENDERFORDISPLAY{
-      form="%IF{"defined FORM" then="%FORM%" else="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
+  TopicType_value="%TYPE{
+    default="%RENDERFORDISPLAY{
+      form="%FORM{default="%INCLUDINGWEB%.%INCLUDINGTOPIC%"}%"
       fields="TopicType"
       format="$values"
     }%"
@@ -91,7 +86,7 @@ This function renders a topic creator form that holds a set of initial input ele
   format="<input type='hidden' name='$name' value='$value' />"
   separator="$n"
 }%
-  <div class="foswikiFormStep foswikiFormButtons foswikiFormLast">
+  <div class="foswikiFormStep foswikiFormButtons">
     %BUTTON{"%MAKETEXT{"Submit"}%" type="submit" icon="tick"}%
     %CLEAR%
   </div>

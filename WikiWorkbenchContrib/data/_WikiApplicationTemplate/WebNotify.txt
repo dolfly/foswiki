@@ -1,5 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1357124465" format="1.1" version="3"}%
-
+%META:TOPICINFO{author="micha" comment="reprev" date="1366187222" format="1.1" reprev="4" version="4"}%
 ---+ <nop>%TOPIC%
 
 This is a subscription service to be automatically notified by e-mail when topics change in this *%BASEWEB%* web. This is a convenient service, so you do not have to come back and check all the time if something has changed. To subscribe, please add a bullet with your %SYSTEMWEB%.WikiName in alphabetical order to this list:
@@ -18,6 +17,6 @@ Format:
 
 %META:FORM{name="Applications.ApplicationTopic"}%
 %META:FIELD{name="TopicType" title="TopicType" value="WebTool"}%
-%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WebNotify"}%
-%META:FIELD{name="Summary" attributes="" title="Summary" value="EMail subscription service for the %25WEB%25 web"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="EMail subscription service for the %25WEB%25 web"}%
 %META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

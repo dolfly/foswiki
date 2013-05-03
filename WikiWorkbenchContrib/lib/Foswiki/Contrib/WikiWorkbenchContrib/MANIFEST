@@ -61,7 +61,6 @@ data/Applications/WebStatistics.txt 0644
 data/Applications/WebTool.txt 0644
 data/Applications/WebTopicEditTemplate.txt 0644
 data/Applications/WebTopicList.txt 0644
-data/Applications/WebTopicViewTemplate.txt 0644
 data/Applications/WikiApplicationEditTemplate.txt 0644
 data/Applications/WikiApplicationTemplate.txt 0644
 data/Applications/WikiApplication.txt 0644
@@ -89,12 +88,11 @@ data/_WikiApplicationTemplate/WebLinks.txt 0644
 data/_WikiApplicationTemplate/WebNotify.txt 0644
 data/_WikiApplicationTemplate/WebPreferences.txt 0644
 data/_WikiApplicationTemplate/WebRss.txt 0644
-data/_WikiApplicationTemplate/WebSearchAdvanced.txt 0644
 data/_WikiApplicationTemplate/WebSearch.txt 0644
 data/_WikiApplicationTemplate/WebStatistics.txt 0644
 data/_WikiApplicationTemplate/WebTool.txt 0644
+data/_WikiApplicationTemplate/WebTopicEditTemplate.txt 0644
 data/_WikiApplicationTemplate/WebTopicList.txt 0644
-data/_WikiApplicationTemplate/WebTopicViewTemplate.txt 0644
 data/_WikiApplicationTemplate/WikiApplication.txt 0644
 data/_WikiApplicationTemplate/WikiTopic.txt 0644
 lib/Foswiki/Contrib/WikiWorkbenchContrib.pm 0644
@@ -102,5 +100,9 @@ lib/Foswiki/Form/Wikiapp.pm 0644
 pub/Applications/RenderImageSelector/nobody.jpeg 0644
 pub/System/WikiWorkbenchContrib/book.png 0644
 pub/System/WikiWorkbenchContrib/exec.png 0644
+pub/System/WikiWorkbenchContrib/jquery.topictitle.js 0644
+pub/System/WikiWorkbenchContrib/jquery.topictitle.js.gz 0644
+pub/System/WikiWorkbenchContrib/jquery.topictitle.uncompressed.js 0644
+pub/System/WikiWorkbenchContrib/Makefile 0644
 pub/System/WikiWorkbenchContrib/model.png 0644
 tools/twikiworkbench2wikiworkbench 0755

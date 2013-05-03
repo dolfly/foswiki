@@ -1,17 +1,11 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278737" format="1.1" version="6"}%
+%META:TOPICINFO{author="micha" comment="autosave" date="1366897438" format="1.1" version="8"}%
 %META:TOPICPARENT{name="TopicTemplate"}%
 %DBCALL{"Applications.RenderTopicInstaller" TEXT="Install '%TOPIC%' TopicType" TYPE="TopicType"}%
 
-%STARTSECTION{type="templateonly"}%
-%RED%Note, this is only a template.%ENDCOLOR%
-
-See also: TopicType
-%ENDSECTION{type="templateonly"}%
 ---++ Documentation
 %STARTSECTION{"documentation"}%
 %RED%TODO%ENDCOLOR%
 
-See also: %TOPIC%Template
 %ENDSECTION{"documentation"}%
 
 ---++ Topics of type '%TOPIC%'
