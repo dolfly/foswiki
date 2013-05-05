@@ -1,10 +1,66 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278736" format="1.1" version="1"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1367689751" format="1.1" reprev="2" version="2"}%
 %META:TOPICPARENT{name="TopicView"}%
-<?xml version="1.0" encoding="%CHARSET%"?>
+%{<verbatim class="tml">}%
+%TMPL:P{"atomhead"}%%TMPL:P{"atombody"}%%TMPL:P{"atomfooter"}%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"atomhead"}%<?xml version="1.0" encoding="%CHARSET%" ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-%DBCALL{"%BASEWEB%.%TOPIC%" warn="off"}%
-</feed>
+  <title>%WEB% - %WIKITOOLNAME%</title>
+  <subtitle>%WEBSUMMARY%</subtitle>
+  <link href="%SCRIPTURL{"view"}%/%WEB%" />
+  <link href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?%QUERYSTRING%" rel="self" />
+  <updated>%DBQUERY{"%FILTER%" sort="modified" reverse="on" limit="1" format="$formatTime(info.date, '$year-$mo-$dayT$hour:$minute:$secondsZ')"}%</updated>
+  <logo>%WIKILOGOIMG%</logo>
+  <id>%SCRIPTURL{"view"}%/%WEB%</id>
+  <rights>%WEBRSSCOPYRIGHT%</rights>
+%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"atomfooter"}%</feed>%TMPL:END%
+%{</verbatim>}%
+
+%{<verbatim class="tml">}%
+%TMPL:DEF{"atombody"}%<noautolink>
+%DBQUERY{"%FILTER%" 
+   exclude="WebTopicEditTemplate"
+   sort="created" 
+   reverse="on" 
+   limit="%LIMIT%" 
+   separator="$n"
+   format="  <entry>
+   <title>$expand(topictitle)</title>
+   <id>%SCRIPTURL{"view"}%/$web/$topic</id>
+   <link rel=\"alternate\" type=\"text/html\" href=\"%SCRIPTURL{"view"}%/$web/$topic\"/>
+   <updated>$formatTime(createdate, '$year-$mo-$dayT$hour:$minute:$secondsZ')</updated>
+   $percntFORMATLIST{\"$expand(Author or createauthor)\"
+      split=\"\s*,\s*\"
+      format=\"<author><name>$1</name></author>\"
+   }$percnt
+   $percntCATINFO{\"$web.$topic\" 
+      format=\"<category label=\\"$title\\" term=\\"$dollartopic\\" />\"
+      separator=\"$n        \"
+   }$percnt<!-- -->
+   $percntTAGINFO{\"$web.$topic\"
+      format=\"<category term=\\"$dollarname\\" />\"
+      separator=\"$n        \"
+   }$percnt<!-- -->
+   <content type=\"html\"><![CDATA[$percntDBCALL{\"$web.$topic\"}$percnt$percntTAGINFO{
+           \"$web.$topic\"
+           header=\"<p>%MAKETEXT{"Tags"}%: \"
+           format=\"$dollarname\"
+           footer=\"</p>\"
+         }$percnt
+   ]]></content>
+   </entry>"
+}%
+</noautolink>%TMPL:END%
+%{</verbatim>}%
+
 %META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" attributes="M" title="TopicType" value="TopicView"}%
-%META:FIELD{name="Summary" attributes="M" title="Summary" value="View for the atom feeds"}%
+%META:FIELD{name="TopicType" title="TopicType" value="TopicView"}%
+%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value=""}%
+%META:FIELD{name="Summary" attributes="c" title="Summary" value="View for the atom feeds"}%
 %META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

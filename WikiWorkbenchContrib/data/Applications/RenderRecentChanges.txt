@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1361882916" format="1.1" reprev="15" version="15"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1367666657" format="1.1" reprev="15" version="16"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -28,7 +28,7 @@ This uses solr and infintescroll to create a frontpage widget.
 }%
 </div>
 <div class="jqInfiniteScrollNavi foswikiHidden">
-  <a href="%SCRIPTURL{"view"}%/%WEB%/%TOPIC%?page=1;section=backend;skin=text;web=%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%;filter=%IF{"defined FILTER" then="%FILTER%"}%;limit=%IF{"defined LIMIT" then="%LIMIT%" else="50"}%" class='jqInfiniteScrollNext'>More</a>
+  <a href="%SCRIPTURLPATH{"view"}%/%WEB%/%TOPIC%?page=1;section=backend;skin=text;web=%IF{"defined THEWEB" then="%THEWEB%" else="%BASEWEB%"}%;filter=%IF{"defined FILTER" then="%FILTER%"}%;limit=%IF{"defined LIMIT" then="%LIMIT%" else="50"}%" class='jqInfiniteScrollNext'>More</a>
 </div>
 <literal><style>
 .recentChanges {
