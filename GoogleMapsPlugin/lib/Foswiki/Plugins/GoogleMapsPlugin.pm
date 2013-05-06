@@ -21,8 +21,8 @@ use warnings;
 use Foswiki::Func ();
 use Foswiki::Plugins::JQueryPlugin ();
 
-our $VERSION = '1.00';
-our $RELEASE = '1.00';
+our $VERSION = '2.00';
+our $RELEASE = '2.00';
 our $SHORTDESCRIPTION = 'Google Maps for Foswiki';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;

@@ -5,4 +5,4 @@ TARGET=gmap3.js
 
 gmap3.uncompressed.js: git/gmap3.js
 	@echo copying $< to $@ 
-	@$(CP) $< $@
+	@cp $< $@

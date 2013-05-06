@@ -170,7 +170,7 @@ jQuery(function($) {
    * address: free form address to center the map on
    * center: comma-separated latitude and longitude position to center the map on, e.g. =53, 9= (use either =address= or =center=);
    * zoom: integer zoom factor
-   * markeraddress: the address to display a marker on the map
+   * markeraddress: addresses of markers to be displayed on the map; addresses are separated by newlines
    * infowindow: content of the info window to be displayed at the marker, or at the =infowindowaddress=
    * infowindowaddress: position where to put the infowindow
    * infowindowposition: coma-separated latitude and longitude position of the infowindow (use either =infowindowaddress= or =infowindowposition=);
@@ -203,9 +203,9 @@ See
 |  Author(s): | Michael Daum|
 |  Copyright: | &copy; 2013 Michael Daum http://michaeldaumconsulting.com (Foswiki integration), &copy; 2010-2012 Jean-Baptiste Demonte (gmap3) |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
-|  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  06 May 2013: | implement multiple markers, all having a click event to open an infowindow |
 |  08 Feb 2013: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |

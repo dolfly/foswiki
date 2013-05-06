@@ -30,7 +30,7 @@ sub new {
 
   my $this = bless(
     $class->SUPER::new(
-      name => 'Tweet',
+      name => 'GoogleMaps',
       version => '5.0b',
       author => 'Jean-Baptiste Demonte',
       homepage => 'http://gmap3.net',
@@ -74,7 +74,12 @@ sub GOOGLEMAPS {
   $opts{map}{options}{zoom} = int($zoom) if defined $zoom;
 
   my $markerAddress = $params->{markeraddress};
-  $opts{marker}{address} = $markerAddress if defined $markerAddress;
+  if (defined $markerAddress) {
+    foreach my $address (split(/\s*[\n;]\s*/, $markerAddress)) {
+      my @address = split(/\s*,\s*/, $address);
+      push @{$opts{marker}{values}}, {address => $address, data => join("<br />", @address)}
+    }
+  }
 
   my $infoWindow = $params->{infowindow};
   $opts{infowindow}{options}{content} = $infoWindow if defined $infoWindow;
@@ -111,11 +116,40 @@ sub GOOGLEMAPS {
   my $id = $params->{id};
   $id = 'gmap3' . Foswiki::Plugins::JQueryPlugin::Plugins::getRandom() unless defined $id;
  
+  my $opts = JSON::to_json(\%opts, {pretty=>1});
+  $opts =~ s/\n$//;
+
   my $script = "<script>jQuery(function(\$) {\n";
-  $script .= '$("#'.$id.'").gmap3(';
-  $script .= JSON::to_json(\%opts, {pretty=>1});
-  $script =~ s/\n$//;
-  $script .= ");});\n</script>";
+  $script .= "var opts = $opts;\n";
+
+  if (defined $markerAddress) {
+    $script .= <<'JAVASCRIPT';
+opts.marker = $.extend(opts.marker, {
+  "events": {
+    "click": function(marker, event, context) {
+      var map = marker.map; //$(this).gmap3("get"),
+        infowindow = $(this).gmap3({get:{name:"infowindow"}});
+
+      if (infowindow){
+        infowindow.open(map, marker);
+        infowindow.setContent(context.data);
+      } else {
+        $(this).gmap3({
+          infowindow:{
+            anchor:marker, 
+            options:{content: context.data}
+          }
+        });
+      }
+    }
+  }
+});
+JAVASCRIPT
+  };
+
+  #$script .= 'console.log("opts=",opts);'."\n";
+  $script .= '$("#'.$id.'").gmap3(opts);';
+  $script .= "\n});\n</script>";
 
   Foswiki::Func::addToZone("script", $id, $script, "JQUERYPLUGIN, GOOGLEMAPSAPI");
 
