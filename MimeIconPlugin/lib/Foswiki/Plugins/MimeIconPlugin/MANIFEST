@@ -2,6 +2,8 @@ data/System/MimeIconPlugin.txt 0644
 data/System/VarMIMEICON.txt 0644
 lib/Foswiki/Plugins/MimeIconPlugin/Config.spec 0644
 lib/Foswiki/Plugins/MimeIconPlugin.pm 0644
+pub/System/MimeIconPlugin/MimeIconPluginSnap1.png 0644
+pub/System/MimeIconPlugin/MimeIconPluginSnap2.png 0644
 pub/System/MimeIconPlugin/crystal/mapping.txt 0644
 pub/System/MimeIconPlugin/oxygen/mapping.txt 0644
 pub/System/MimeIconPlugin/crystal/16x16/applix.png 0644
