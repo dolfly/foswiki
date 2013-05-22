@@ -1,0 +1,73 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+use constant DEBUG => 0;
+
+my $foswikiRoot = $ENV{FOSWIKI_ROOT} || "$ENV{HOME}/foswiki/trunk/core";
+my $themesPath = "pub/System/MimeIconPlugin";
+chdir $foswikiRoot || die "can't chdir to $foswikiRoot";
+
+my $dh;
+opendir ($dh, $themesPath) || die "can't open $themesPath";
+my @themes = grep {!/\./} readdir $dh;
+close $dh;
+
+
+sub writeDebug {
+  print STDERR "@_\n" if DEBUG;
+}
+
+writeDebug("themesPath=$themesPath");
+writeDebug("themes=@themes");
+
+foreach my $theme (@themes) {
+  my $themeDir = "$themesPath/$theme";
+  my $mappingFile = "$themeDir/mapping.txt";
+  my %icons = ();
+  my @sizes = ();
+  
+  writeDebug("processing $theme");
+  writeDebug("themeDir=$themeDir");
+
+  my $IN_FILE;
+  open( $IN_FILE, '<', $mappingFile ) || die "can't open $mappingFile";
+
+  foreach my $line (<$IN_FILE>) {
+    $line =~ s/#.*$//;
+    $line =~ s/^\s+//;
+    $line =~ s/\s+$//;
+    next if $line =~ /^$/;
+
+    if ($line =~ /^(.*?)\s*=\s*(.*?)$/) {
+      my $key = $1;
+      my $val = $2;
+      if ($key eq 'sizes') {
+        @sizes = split(/\s*,\s*/, $val);
+      } else {
+        $icons{$val} = 1;
+      }
+    }
+  }
+  close($IN_FILE);
+
+  @sizes = ('16') unless @sizes;
+  my @icons = sort keys %icons;
+
+  writeDebug("found sizes @sizes");
+  writeDebug("found icons ".scalar(@icons));
+  
+  foreach my $size (@sizes) {
+    foreach my $icon (@icons) {
+      my $iconPath = "$themeDir/${size}x${size}/$icon";
+      if (-f $iconPath) {
+        print "$iconPath\n";
+      } else {
+        writeDebug("### no icon found for $theme, $size, $icon at $iconPath");
+      }
+    }
+  }
+}
+
+1;

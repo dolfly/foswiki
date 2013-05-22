@@ -70,12 +70,13 @@ file extension is totally unknown.
    * Set SHORTDESCRIPTION = Icon sets for mimetypes
 -->
 |  Author(s): | Michael Daum|
-|  Copyright: | &copy; 2010-2011 Michael Daum http://michaeldaumconsulting.com |
+|  Copyright: | &copy; 2010-2013 Michael Daum http://michaeldaumconsulting.com |
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
-|  2011-11-16: | (1.1) fixed mapping in oxygen icon set; fix to make sure the icon mapping is read in properly |
+|  2013-05-22: | (1.20) only ship icons covered by a mapping |
+|  2011-11-16: | (1.10) fixed mapping in oxygen icon set; fix to make sure the icon mapping is read in properly |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
