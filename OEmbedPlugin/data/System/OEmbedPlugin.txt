@@ -1,0 +1,138 @@
+---+!! %TOPIC%
+%SHORTDESCRIPTION%
+
+%TOC%
+
+oEmbed is a format for allowing an embedded representation of a URL on third
+party sites. The simple API allows a website to display embedded content (such
+as photos or videos) when a user posts a link to that resource, without having
+to parse the resource directly.
+
+All you need to do to embed material from one of the supported providers is to
+add a link to it. The plugin will contact the provider and use the appropriate
+code to add it to the page, e.g. add an iframe for videos and the like. 
+
+---++ Supported providers
+
+<noautolink>
+   1 Amazon (embed.ly)
+   1 Blib.tv
+   1 Chirbit 
+   1 CircuitLab 
+   1 Clickthrough
+   1 Clipfish (embed.ly)
+   1 CollegeHumor 
+   1 DailyMotion
+   1 Dotsub
+   1 Flickr
+   1 Geograph Britain 
+   1 Geograph Channel Islands
+   1 Geograph Germany 
+   1 Hulu
+   1 Instagram (embed.ly)
+   1 Jest
+   1 Kinomap
+   1 MixCloud
+   1 Nfb
+   1 PollEverywhere 
+   1 Qik
+   1 Quiz.biz
+   1 Revision3
+   1 Scribd
+   1 SlideShare
+   1 SoundCloud (embed.ly)
+   1 Ted
+   1 Twitpic (embed.ly)
+   1 Twitter
+   1 Viddler
+   1 Viddler 
+   1 Vimeo 
+   1 Vimeon
+   1 WordPress
+   1 Youtube
+</noautolink>
+
+A lot of providers are available via http://embed.ly. However, you'll have to register to get an api-key.
+Some of the listed providers have already been added to this plugin, yet not all. 
+
+---++ Usage
+*Syntax*: =%EMBED<nop>{"url" [width="..." height="..."]}%=
+
+   * =url=: an external link to the resource to be embedded
+   * =width=, =height=: optional maximum values for the image/video/... being embedded (note: not all providers properly implement these parameters)
+
+---++ Examples
+
+---+++ Youbtube
+<verbatim class="tml">
+%EMBED{"http://www.youtube.com/watch?v=O8e8Ttfz-pY" width="600"}%
+</verbatim>
+
+%EMBED{"http://www.youtube.com/watch?v=O8e8Ttfz-pY" width="600"}%
+
+---+++ Soundcloud
+<verbatim class="tml">
+%EMBED{"https://soundcloud.com/safia-music/listen-to-soul-listen-to-blues" width="600"}%
+</verbatim>
+
+%EMBED{"https://soundcloud.com/safia-music/listen-to-soul-listen-to-blues" width="600"}%
+
+---+++ Flickr
+<verbatim class="tml">
+%EMBED{"http://www.flickr.com/photos/onement/1239189689/" height="400"}%
+</verbatim>
+%EMBED{"http://www.flickr.com/photos/onement/1239189689/" height="400"}%
+
+---+++ More examples
+<verbatim class="tml">
+%EMBED{"http://www.jest.com/video/197394/paul-ryan-rap"}%
+%EMBED{"http://chirb.it/Jh25OE"}%
+%EMBED{"http://dotsub.com/view/10e3cb5e-96c7-4cfb-bcea-8ab11e04e090"}%
+%EMBED{"http://geo.hlipp.de/photo/20260"}%
+%EMBED{"http://instagram.com/p/Z-u2XxQJ7H/"}%
+%EMBED{"http://matt.wordpress.com/2011/07/14/clouds-over-new-york/"}%
+%EMBED{"http://pycon.blip.tv/file/2058801"}%
+%EMBED{"http://qik.com/video/50925"}%
+%EMBED{"http://revision3.com/diggnation/2008-04-17xsanned"}%
+%EMBED{"https://twitter.com/nuddlegg/status/330610557793210369"}%
+%EMBED{"https://www.circuitlab.com/circuit/e38756/555-timer-as-astable-multivibrator-oscillator/"}%
+%EMBED{"http://twitpic.com/cuisl3"}%
+%EMBED{"http://vimeo.com/7100569"}%
+%EMBED{"http://www.amazon.com/Myths-Innovation-Scott-Berkun/dp/0596527055/"}%
+%EMBED{"http://www.clikthrough.com/theater/video/45//en-US"}%
+%EMBED{"http://www.clipfish.de/special/boese-maedchen/video/3687388/boese-maedchen-ladys-first/"}%
+%EMBED{"http://www.collegehumor.com/video/3922232/prank-war-7-the-half-million-dollar-shot"}%
+%EMBED{"http://www.dailymotion.com/video/x5ioet_phoenix-mars-lander_tech"}%
+%EMBED{"http://www.geograph.org.gg/photo/773"}%
+%EMBED{"http://www.geograph.org.uk/photo/2928776"}%
+%EMBED{"http://www.hulu.com/watch/471667"}%
+%EMBED{"http://www.kinomap.com/kms-vzkpc7"}%
+%EMBED{"http://www.mixcloud.com/johndigweed/transitions-with-john-digweed-30th-may-2013/"}%
+%EMBED{"http://www.nfb.ca/film/blackfly/"}%
+%EMBED{"http://www.polleverywhere.com/multiple_choice_polls/LTIwNzM1NTczNTE"}%
+%EMBED{"http://www.quiz.biz/quizz-182015.html"}%
+%EMBED{"http://www.scribd.com/doc/17896323/Indian-Automobile-industryPEST" width="600"}%
+%EMBED{"http://www.slideshare.net/haraldf/business-quotes-for-2011"}%
+%EMBED{"http://www.ted.com/talks/hendrik_poinar_bring_back_the_woolly_mammoth.html"}%
+%EMBED{"http://www.viddler.com/v/1646c55"}%
+</verbatim>
+
+
+---++ Installation Instructions
+
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+
+|  Author(s): | Michael Daum|
+|  Copyright: | &copy; 2013 Michael Daum http://michaeldaumconsulting.com |
+|  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
+|  Release: | %$RELEASE% |
+|  Version: | %$VERSION% |
+|  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Home page: | Foswiki:Extensions/%TOPIC% |
+|  Support: | Foswiki:Support/%TOPIC% |
