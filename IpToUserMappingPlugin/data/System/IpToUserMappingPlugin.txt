@@ -1,0 +1,55 @@
+%META:TOPICPARENT{name="Plugins"}%
+<!--
+One line description, required for extensions repository catalog.
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+---+!! Ip To User Mapping Plugin
+
+%SHORTDESCRIPTION%
+
+%TOC%
+
+There are times when you need to auto-login specific computers automatically - search engine indexers, Wiki Kiosks,
+special scripts, users that are not able to be created in your Enterprise LDAP for policy reasons or perhaps as a fallback if your centralised
+User system has crashed.
+
+This plugin makes it possible for your wiki admin to associate an IP address with a foswiki user account - note that this comes with a risk - anyone with access to that 
+computer will be logged in as that user.
+
+You _should_ therefore give any users that are set up in =configure= should be put into a foswiki group to manage their permissions.
+
+Also, please be careful to only give these mappings to ip addresses that are statically assigned.
+
+---++ Preferences
+
+Plugin preferences are set using =configure=.
+
+an example setting:
+
+<verbatim>
+$Foswiki::cfg{IpToUserMappingPlugin}{Mapping} = {
+    '192.168.1.220' => {login=>'one', wikiname=>'OneUser'},
+    };
+</verbatim>
+
+When a request comes from a computer via the network interface 
+(if that computer has more than one network card, it is likely to have more than one ip address), foswiki will
+consider it logged in as use !OneUser - so you can create that topic in %USERSWEB% and set some preferences for that access.
+
+For example, you might like to use the simpler =Set SKIN=plain= plain skin when indexing topics, so you only get hits on topic content.
+
+---++ Installation
+%$INSTALL_INSTRUCTIONS%
+
+---++ Info
+
+|  Author: | SvenDowideit |
+|  Copyright: | %$CREATEDYEAR%, SvenDowideit, All Rights Reserved |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Dependencies: | %$DEPENDENCIES% |
+|  Version: | %$VERSION% |
+|  Release: | %$RELEASE% |
+|  Change&nbsp;History: | <!-- versions below in reverse order -->&nbsp; |
+|  1.0.0 (%$CREATEDATE%): | Initial version |
+|  Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Support: | http://foswiki.org/Support/%TOPIC% |

@@ -1,0 +1,5 @@
+!noci
+data/System/IpToUserMappingPlugin.txt 0644 Documentation page
+data/Sandbox/PluginTestIpToUserMappingPlugin.txt 0644 Examples
+lib/Foswiki/Plugins/IpToUserMappingPlugin.pm 0444 Perl module
+lib/Foswiki/Plugins/IpToUserMappingPlugin/Config.spec 0444 Configuration
