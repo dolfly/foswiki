@@ -48,8 +48,8 @@ sub initPlugin {
 sub initializeUserHandler {
     my ( $loginName, $url, $pathInfo ) = @_;
 
-    if (
-        exists $Foswiki::cfg{IpToUserMappingPlugin}{Mapping}
+    if (   exists $ENV{REMOTE_ADDR}
+        && exists $Foswiki::cfg{IpToUserMappingPlugin}{Mapping}
         { $ENV{REMOTE_ADDR} } )
     {
         $Foswiki::Plugins::SESSION->enterContext('authenticated');

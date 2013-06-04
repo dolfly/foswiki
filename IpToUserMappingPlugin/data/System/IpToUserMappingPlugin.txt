@@ -11,12 +11,12 @@ One line description, required for extensions repository catalog.
 
 There are times when you need to auto-login specific computers automatically - search engine indexers, Wiki Kiosks,
 special scripts, users that are not able to be created in your Enterprise LDAP for policy reasons or perhaps as a fallback if your centralised
-User system has crashed.
+User system is temporarily unavailable.
 
 This plugin makes it possible for your wiki admin to associate an IP address with a foswiki user account - note that this comes with a risk - anyone with access to that 
 computer will be logged in as that user.
 
-You _should_ therefore give any users that are set up in =configure= should be put into a foswiki group to manage their permissions.
+Any users that are auto-authenticated by IP address, _should_ be put into a foswiki group to manage their permissions.
 
 Also, please be careful to only give these mappings to ip addresses that are statically assigned.
 
@@ -34,7 +34,7 @@ $Foswiki::cfg{IpToUserMappingPlugin}{Mapping} = {
 
 When a request comes from a computer via the network interface 
 (if that computer has more than one network card, it is likely to have more than one ip address), foswiki will
-consider it logged in as use !OneUser - so you can create that topic in %USERSWEB% and set some preferences for that access.
+consider it logged in as use !OneUser - so you can create that topic in %USERSWEB% and set some preferences for that access. If the =one= user exists (by that login name) in the main user mapping system, the =wikiname= configure setting will be ignored.
 
 For example, you might like to use the simpler =Set SKIN=plain= plain skin when indexing topics, so you only get hits on topic content.
 
