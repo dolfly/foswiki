@@ -16,19 +16,24 @@ code to add it to the page, e.g. add an iframe for videos and the like.
 
 <noautolink>
    1 Amazon (embed.ly)
+   1 Aol
    1 Blib.tv
    1 Chirbit 
    1 CircuitLab 
    1 Clickthrough
    1 Clipfish (embed.ly)
    1 CollegeHumor 
+   1 !DeviantArt
    1 DailyMotion
    1 Dotsub
    1 Flickr
+   1 Foursquare (embed.ly)
    1 Geograph Britain 
    1 Geograph Channel Islands
    1 Geograph Germany 
+   1 Google Maps (embed.ly)
    1 Hulu
+   1 IMDB (embed.ly)
    1 Instagram (embed.ly)
    1 Jest
    1 Kinomap
@@ -38,6 +43,8 @@ code to add it to the page, e.g. add an iframe for videos and the like.
    1 Qik
    1 Quiz.biz
    1 Revision3
+   1 Screencast (embed.ly)
+   1 Screenr
    1 Scribd
    1 SlideShare
    1 SoundCloud (embed.ly)
@@ -48,6 +55,7 @@ code to add it to the page, e.g. add an iframe for videos and the like.
    1 Viddler 
    1 Vimeo 
    1 Vimeon
+   1 Washington Post (embed.ly)
    1 WordPress
    1 Youtube
 </noautolink>
@@ -60,8 +68,47 @@ Some of the listed providers have already been added to this plugin, yet not all
 
    * =url=: an external link to the resource to be embedded
    * =width=, =height=: optional maximum values for the image/video/... being embedded (note: not all providers properly implement these parameters)
+   * =format=: a format string to implement a custom renderer
+   * =template=: the name of a template defined in =oembed.tmpl=; known templates shipped with %TOPIC% are "article" (todo add more)
+   * =&lt;custom_key>=: any custom key="value" pair may be defined and made use of in the format (or template) using =$custom_key= to expand it; 
+     these have higher precendence than the default values submitted by the oembed provider; for example use a custom =thumbnail_width="100"= parameter
+     to override the default width.
+
+The keys in the json submitted from the oembed provider can be used in a format string (or a template definition). Some well-known keys are:
+
+   * =$author_name=
+   * =$author_url=
+   * =$descriptio=
+   * =$html=
+   * =$provider_name=
+   * =$provider_url=
+   * =$thumbnail_height=
+   * =$thumbnail_url=
+   * =$thumbnail_width=
+   * =$title=
+   * =$type=
+   * =$url=
+   * =$web_page=
+
+In addition all standard format tokens can be used (=$percnt=, =$dollar=, =$nop=, etc).
+
+See the =oembed.tmpl= file on how to use them.
 
 ---++ Examples
+
+---+++ Washington Post
+
+<verbatim class="tml">
+%EMBED{"http://www.washingtonpost.com/investigations/us-intelligence-mining-data-from-nine-us-internet-companies-in-broad-secret-program/2013/06/06/3a0c0da8-cebf-11e2-8845-d970ccb04497_story.html"
+  template="article"
+  thumbnail_width="100"
+}%
+</verbatim>
+
+%EMBED{"http://www.washingtonpost.com/investigations/us-intelligence-mining-data-from-nine-us-internet-companies-in-broad-secret-program/2013/06/06/3a0c0da8-cebf-11e2-8845-d970ccb04497_story.html"
+  template="article"
+  thumbnail_width="100"
+}%
 
 ---+++ Youbtube
 <verbatim class="tml">
@@ -72,10 +119,10 @@ Some of the listed providers have already been added to this plugin, yet not all
 
 ---+++ Soundcloud
 <verbatim class="tml">
-%EMBED{"https://soundcloud.com/safia-music/listen-to-soul-listen-to-blues" width="600"}%
+%EMBED{"http://soundcloud.com/safia-music/listen-to-soul-listen-to-blues" width="600"}%
 </verbatim>
 
-%EMBED{"https://soundcloud.com/safia-music/listen-to-soul-listen-to-blues" width="600"}%
+%EMBED{"http://soundcloud.com/safia-music/listen-to-soul-listen-to-blues" width="600"}%
 
 ---+++ Flickr
 <verbatim class="tml">
@@ -115,6 +162,11 @@ Some of the listed providers have already been added to this plugin, yet not all
 %EMBED{"http://www.slideshare.net/haraldf/business-quotes-for-2011"}%
 %EMBED{"http://www.ted.com/talks/hendrik_poinar_bring_back_the_woolly_mammoth.html"}%
 %EMBED{"http://www.viddler.com/v/1646c55"}%
+%EMBED{"http://www.screencast.com/t/jHhhu39t"}%
+%EMBED{"http://www.screenr.com/fTK"}%
+%EMBED{"http://goo.gl/maps/22OR8"}%
+%EMBED{"https://foursquare.com/v/vapiano/4b212bc4f964a520ac3724e3"}%
+%EMBED{"http://feigiap.deviantart.com/art/Shop-380055652"}%
 </verbatim>
 
 
@@ -133,6 +185,8 @@ Some of the listed providers have already been added to this plugin, yet not all
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  24 Jun 2013 | added format, template and custom params; \
+                 added a few more providers |
 |  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |

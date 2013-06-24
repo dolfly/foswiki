@@ -57,7 +57,7 @@ $Foswiki::cfg{OEmbedPlugin}{Providers} = {
   },
  
   Youtube => {
-    url => 'http://*.youtube.com/*',
+    url => ['http://*.youtube.com/*', 'https://*.youtube.com/*'],
     api => 'http://www.youtube.com/oembed',
   },
 
@@ -175,15 +175,36 @@ $Foswiki::cfg{OEmbedPlugin}{Providers} = {
     url => [
       'http://*.amazon.com/*', 
       'http://*.amazon.de/*', 
-      'http://instagram.com/p/*',
-      'http://twitpic.com/*',
       'http://*.clipfish.de/*',
+      'http://goo.gl/maps/*',
+      'http://*.imdb.com/*',
+      'http://instagram.com/p/*',
+      'http://*.screencast.com/*',
+      'https://foursquare.com/*',
+      'https://maps.google.com/maps/*',
+      'http://soundcloud.com/*',
       'https://soundcloud.com/*',
+      'http://twitpic.com/*',
+      'http://www.washingtonpost.com/*',
       # TODO: add more
     ],
     api => 'http://api.embed.ly/1/oembed',
   },
 
+  Screenr => {
+    url => 'http://*.screenr.com/*',
+    api => 'http://www.screenr.com/api/oembed.json',
+  },
+
+  Aol => {
+    url => 'http://on.aol.com/*',
+    api => 'http://on.aol.com/api',
+  },
+
+  Deviantart => {
+    url => 'http://*.deviantart.com/art/*',
+    api => 'http://backend.deviantart.com/oembed',
+  },
 
 };
 

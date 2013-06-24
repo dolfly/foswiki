@@ -1,0 +1,12 @@
+%TMPL:DEF{"article"}%<div class="oEmbedArticle">
+<div class="foswikiImage foswikiLeft">
+<a href="$thumbnail_url"><img src="$thumbnail_url" width="$thumbnail_width" /></a>
+</div>
+<h4><a href="$url">$title</a></h4>
+<div class="oembedDescription">
+$description
+... <a class="foswikiGrayText" style='text-decoration:none' href='%IF{"'$author_url' != ''" then="$author_url" else="$provider_url"}%'>$author_name, $provider_name</a>
+%IF{"'$type' = 'video'" then="<p class='oEmbedVideo'>$html</p>"}%<!-- -->
+</div>
+%CLEAR%
+</div>%TMPL:END%

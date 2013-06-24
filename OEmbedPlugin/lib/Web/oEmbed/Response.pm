@@ -24,6 +24,7 @@ has 'width', is => 'rw';
 has 'height', is => 'rw';
 
 has 'html', is => 'rw';
+has 'data', is => 'rw';
 
 use HTML::Element;
 
@@ -44,11 +45,11 @@ sub new_from_response {
         croak "Content-Type is not either JSON or XML: " . $http_res->content_type;
     }
 
+    $res->data($data);
+
     for my $key (keys %$data) {
         if ($res->can($key)) {
             $res->$key( $data->{$key} );
-        } else {
-            $res->{$key} = $data->{$key};
         }
     }
 
@@ -70,42 +71,46 @@ sub parse_xml {
 sub render {
     my ($self, $opts) = @_;
 
-    if ($self->type eq 'photo') {
-        my $width = $self->width;
-        my $height = $self->height;
+    if ($self->type) {
+      if ($self->type eq 'photo') {
+          my $width = $self->width;
+          my $height = $self->height;
 
-        if ($opts->{maxwidth} && $width > $opts->{maxwidth}) {
-          $width = $opts->{maxwidth};
-          $height = "auto"; # TODO set according to aspect ratio
-        } 
+          if ($opts->{maxwidth} && $width > $opts->{maxwidth}) {
+            $width = $opts->{maxwidth};
+            $height = "auto"; # TODO set according to aspect ratio
+          } 
 
-        if ($opts->{maxheight} && $height > $opts->{maxheight}) {
-          $height = $opts->{maxheight};
-          $width = "auto"; # TODO set according to aspect ratio
-        } 
+          if ($opts->{maxheight} && $height > $opts->{maxheight}) {
+            $height = $opts->{maxheight};
+            $width = "auto"; # TODO set according to aspect ratio
+          } 
 
-        my $element = HTML::Element->new('a', href => $self->web_page || $self->url);
-        $element->attr(title => $self->title) if defined $self->title;
-        my $img     = HTML::Element->new(
-            'img',
-            src    => $self->url,
-            width  => $width,
-            height => $height,
-        );
-        $img->attr(alt => $self->title) if defined $self->title;
+          my $element = HTML::Element->new('a', href => $self->web_page || $self->url);
+          $element->attr(title => $self->title) if defined $self->title;
+          my $img     = HTML::Element->new(
+              'img',
+              src    => $self->url,
+              width  => $width,
+              height => $height,
+          );
+          $img->attr(alt => $self->title) if defined $self->title;
 
-        $element->push_content($img);
-        return $element->as_HTML;
-    }
+          $element->push_content($img);
+          return $element->as_HTML;
+      }
 
-    if ($self->type eq 'link') {
-        my $element = HTML::Element->new('a', href => $self->url);
-        $element->push_content(defined $self->title ? $self->title : $self->url);
-        return $element->as_HTML;
+      if ($self->type eq 'link') {
+          my $element = HTML::Element->new('a', href => $self->url);
+          $element->push_content(defined $self->title ? $self->title : $self->url);
+          return $element->as_HTML;
+      }
     }
 
     if ($self->html) {
-        return $self->html;
+        my $result = $self->html;
+        $result =~ s/^<!\[CDATA\[([^]+]*)\]\]>$/$1/;
+        return $result;
     }
 }
 

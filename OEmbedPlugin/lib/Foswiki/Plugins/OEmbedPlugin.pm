@@ -20,20 +20,13 @@ use warnings;
 
 use Foswiki::Func ();
 
-our $VERSION = '1.00';
-our $RELEASE = '1.00';
+our $VERSION = '2.00';
+our $RELEASE = '2.00';
 our $SHORTDESCRIPTION = 'Easy embedding of third party content';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;
 
-sub initPlugin {
-
-  Foswiki::Func::registerTagHandler('EMBED', sub { return getCore()->EMBED(@_); });
-
-  return 1;
-}
-
-sub getCore {
+sub core {
 
   unless (defined $core) {
     require Foswiki::Plugins::OEmbedPlugin::Core;
@@ -41,6 +34,16 @@ sub getCore {
   }
 
   return $core;
+}
+
+
+sub initPlugin {
+
+  core->init;
+
+  Foswiki::Func::registerTagHandler('EMBED', sub { return core->EMBED(@_); });
+
+  return 1;
 }
 
 

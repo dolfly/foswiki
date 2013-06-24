@@ -5,3 +5,4 @@ lib/Foswiki/Plugins/OEmbedPlugin/Core.pm 0644
 lib/Foswiki/Plugins/OEmbedPlugin.pm 0644
 lib/Web/oEmbed.pm 0644
 lib/Web/oEmbed/Response.pm 0644
+templates/oembed.tmpl 0644

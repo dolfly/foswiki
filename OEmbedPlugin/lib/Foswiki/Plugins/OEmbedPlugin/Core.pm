@@ -74,7 +74,27 @@ sub new {
     }
   }
 
+  $this->init();
+
+
   return $this;
+}
+
+sub init {
+  my $this = shift;
+
+  $this->{_doneReadTemplate} = 0;
+}
+
+sub expandTemplate {
+  my ($this, $tmpl) = @_;
+
+  unless ($this->{_doneReadTemplate}) {
+    $this->{_doneReadTemplate} = 1;
+    Foswiki::Func::readTemplate("oembed");
+  }
+
+  return Foswiki::Func::expandTemplate($tmpl);
 }
 
 sub EMBED {
@@ -84,6 +104,7 @@ sub EMBED {
 
   my $url = $params->{_DEFAULT} || $params->{url};
   return "<span class='foswikiAlert'>ERROR: no url param</span>" unless $url;
+
 
   my $width = $params->{width} || Foswiki::Func::getPreferencesValue("OEMBED_MAXWIDTH") || '';
   my $height = $params->{height} || Foswiki::Func::getPreferencesValue("OEMBED_MAXHEIGHT") || '';
@@ -104,8 +125,31 @@ sub EMBED {
 
   $response->web_page($url); # SMELL: hook in the orig url
 
-  my $result = $response->render($opts);
-  return '<literal>'.$result.'</literal>' if defined $result;
+  my $format = $params->{format};
+  my $template = $params->{template};
+  $format = $this->expandTemplate($template) if defined $template;
+
+  my $result;
+  if (defined $format) {
+    my $data = $response->data();
+    $result = $format;
+    while (my ($key, $val) = each %$data) {
+      $val =~ s/^<!\[CDATA\[([^]+]*)\]\]>$/$1/;
+      $val = $params->{$key} if defined $params->{$key};
+      $result =~ s/\$$key\b/$val/g;
+    }
+    $result =~ s/\$url\b/$url/g; # ... if left over
+
+    # clean up some
+    $result =~ s/\$(thumbnail_url|thumbnail_width|thumbnail_height|html|provider_url|provider_name|description|title|author_name|height|width|author_url|version|type)\b//g;
+    return Foswiki::Func::decodeFormatTokens($result);
+
+  } else {
+    $result = $response->render($opts);
+    if (defined $result) {
+      return '<literal>'.$result.'</literal>';
+    }
+  }
 
   #print STDERR "WARNING: Hm, can't render response from $url\n";
   return $url;
