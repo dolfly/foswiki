@@ -1,31 +1,42 @@
 .metaDataView table {
-  margin-right:60px;
+  width:100%;
   position:relative;
   cursor:pointer;
+  border-collapse:separate;
 }
 .metaDataReadOnly table {
   margin-right:0px;
 }
-.metaDataView tr.hover td {
-  background: #F4F4F4;
+.metaDataActions,
+.metaDataView table tr.hover td {
+  border-color:#E7B6B9 !important;
 }
-/*
-.metaDataView tr.selected td {
-  background:#f2f7ff;
+.metaDataActions,
+.metaDataView table tr.hover td {
+  background-color:#FBE3E4;
 }
-*/
+
+.metaDataView tbody tr td {
+  border-width:1px 0px 1px 0px;
+  border-style:solid;
+  border-color:transparent;
+}
 .metaDataActions {
   display:none;
   position:absolute;
-  right:-63px;
-  margin-top:-10px;
-  padding:5px;
+  right:7px;
+  border-style:solid;
+  border-width:1px 1px 0 1px;
+  border-radius:0.5em 0.5em 0 0;
 }
 .metaDataActions a {
   padding:5px;
   display:block;
   float:left;
   vertical-align:middle;
+}
+.hover .metaDataActions {
+  display:block;
 }
 #metaDataForm tr.name {
   display:none;

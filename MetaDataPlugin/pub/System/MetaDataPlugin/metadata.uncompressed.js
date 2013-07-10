@@ -5,7 +5,7 @@
     pluginName = 'metaDataView',
     pluginClass = '.metaDataView',
     defaults = {
-      actionFadeoutTime: 1000
+      hideActionDelay: 1500
     };
 
 
@@ -23,30 +23,69 @@
     return self;
   };
 
+  // show actions 
+  MetaDataView.prototype.showActions = function($row) {
+    var self = this, 
+        $actions = $row.find(".metaDataActions"),
+        rowPos = $row.position(),
+        height = $actions.outerHeight()-1;
+
+    self.elem.find(".hover").removeClass("hover");
+    $row.addClass("hover");
+    $actions.show().css("top", rowPos.top-height);
+  };
+
+  // hide actions 
+  MetaDataView.prototype.hideActions = function() {
+    var self = this;
+
+    self.elem.find(".hover").removeClass("hover");
+  };
+
+  // adds a hide-action timer
+  MetaDataView.prototype.startTimer = function() {
+    var self = this;
+    self.timeout = setTimeout(function() {
+      if (!self.active) {
+        self.hideActions();
+      }
+    }, self.opts.hideActionDelay);
+  };
+
   // init method
   MetaDataView.prototype.init = function() {
     var self = this;
+    
+    self.active = false;
 
-    self.elem.find("tr")
-    .hover(
+    self.elem.find(".metaDataActions").hover(
       function() {
-        var $row = $(this);
-        $row.addClass("hover");
-        self.elem.find(".metaDataActions").hide();
-        $row.find(".metaDataActions").show();
-        if (self.timeout) {
-          clearTimeout(self.timeout);
+        self.active = true;
+      },
+      function() {
+        self.active = false;
+        self.startTimer();
+      }
+    );
+
+    self.elem.find("tbody tr").hover(
+      function() {
+        var $row = $(this), 
+            $actions = $row.find(".metaDataActions");
+
+        if ($actions.length) {
+          self.active = true;
+          if (self.timeout) {
+            clearTimeout(self.timeout);
+          }
+          self.showActions($row);
         }
       }, 
       function() {
-        var $row = $(this);
-        $row.removeClass("hover");
-        self.timeout = setTimeout(function() {
-          $row.find(".metaDataActions").stop().fadeOut();
-        }, self.opts.actionFadeoutTime);
+        self.active = false;
+        self.startTimer();
       }
-    )
-    .click(function(e) {
+    ).click(function(e) {
       var $this = $(this), 
           $editAction = $this.find(".metaDataEditAction");
 

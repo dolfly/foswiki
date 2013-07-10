@@ -64,12 +64,13 @@ sub init {
 
   Foswiki::Plugins::JQueryPlugin::createPlugin("ui::dialog");
   Foswiki::Plugins::JQueryPlugin::createPlugin("ui::button");
-  Foswiki::Plugins::JQueryPlugin::createPlugin("ui::validate");
+  Foswiki::Plugins::JQueryPlugin::createPlugin("validate");
   Foswiki::Plugins::JQueryPlugin::createPlugin("blockui");
   Foswiki::Plugins::JQueryPlugin::createPlugin("form");
+  Foswiki::Plugins::JQueryPlugin::createPlugin("jsonrpc");
 
     #my ( $zone, $tag, $data, $requires ) = @_;
-  Foswiki::Func::addToZone("script", "METADATAPLUGIN", <<'EOB', "JQUERYPLUGIN, JQUERYPLUGIN::UI::DIALOG, JQUERYPLUGIN::UI::BUTTON");
+  Foswiki::Func::addToZone("script", "METADATAPLUGIN", <<'EOB', "JQUERYPLUGIN, JQUERYPLUGIN::UI::DIALOG, JQUERYPLUGIN::UI::BUTTON, JQUERYPLUGIN::JSONRPC");
 <script src='%PUBURLPATH%/%SYSTEMWEB%/MetaDataPlugin/metadata.js'></script>
 EOB
 
@@ -129,6 +130,7 @@ sub NEWMETADATA {
   my $theTemplate = $params->{template} || 'metadata::new';
   my $theTopic = $params->{topic} || $this->{baseWeb}.'.'.$this->{baseTopic};
   my $theMap = $params->{map} || '';
+  my $theIcon = $params->{icon} || 'add';
 
   foreach my $map (split(/\s*,\s*/, $theMap)) {
     $map =~ s/\s*$//;
@@ -138,16 +140,20 @@ sub NEWMETADATA {
     }
   }
 
-  # rebuild the mapping string
   my @mapping = ();
+  my @values = ();
   foreach my $key (keys %$params) {
+    my $val = $params->{$key};
     if ($key =~ /_title$/) {
-      my $val = $params->{$key};
       $key =~ s/_title$//;
       push @mapping, $key.'='.$val;
+    } elsif ($key =~ /_value$/) {
+      $key =~ s/_value$//;
+      push @values, $key.'='.$val;
     }
   }
   $theMap = join(",", @mapping);
+  my $theValues = join("&", @values);
 
   $theTitle = '%MAKETEXT{"New [_1]" args="'.ucfirst($theMetaData).'"}%' unless defined $theTitle;
   $theButtonTitle = $theTitle unless defined $theButtonTitle;
@@ -168,6 +174,8 @@ sub NEWMETADATA {
   $theFormat =~ s/%title%/$theTitle/g;
   $theFormat =~ s/%buttontitle%/$theButtonTitle/g;
   $theFormat =~ s/%map%/$theMap/g;
+  $theFormat =~ s/%values%/$theValues/g;
+  $theFormat =~ s/%icon%/$theIcon/g;
 
   #writeDebug("done NEWMETADATA()");
   
@@ -262,6 +270,9 @@ sub renderMetaData {
   my $theFilter = $params->{filter};
   my $theWarn = Foswiki::Func::isTrue($params->{warn}, 1);
   my $theMap = $params->{map} || '';
+  my $theFieldHeader = $params->{fieldheader} || '';
+  my $theFieldFooter = $params->{fieldfooter} || '';
+  my $theFieldSep = $params->{fieldseparator} || '';
 
   foreach my $map (split(/\s*,\s*/, $theMap)) {
     $map =~ s/\s*$//;
@@ -440,9 +451,8 @@ sub renderMetaData {
       $theFieldFormat = '$value';
     } else {
       $theFieldFormat = '  <tr class="$metadata $name">$n'.
-        '    <th>$title:$mandatory</th>$n'.
-        '    <td>$n$edit$n</td>'.
-        '    <td><div class=\'foswikiFormDescription foswikiHidden\'>$description</div></td>$n'.
+        '    <th valign=\'top\'>$title:$mandatory</th>$n'.
+        '    <td>$n$edit$n<div class=\'foswikiFormDescription\'>$description</div></td>'.
         '  </tr>';
     }
   }
@@ -496,6 +506,7 @@ sub renderMetaData {
     next if defined $theExclude && $excludeMap{$name};
 
     # loop over all fields of a record
+    my @fieldResult = ();
     foreach my $field (@selectedFields) {
       next unless $field;
 
@@ -580,11 +591,12 @@ sub renderMetaData {
 
       if ($theAction eq 'edit') { # or get value from url (highest prio)
         my $urlValue;
+        my $key = 'META_'.uc($metaData).'_'.$fieldName;
         if ($field->isMultiValued) {
-          my @urlValue = $query->param('META:'.$metaData.':'.$fieldName);
+          my @urlValue = $query->param($key);
           $urlValue = join(", ", @urlValue) if @urlValue;
         } else {
-          $urlValue = $query->param('META:'.$metaData.':'.$fieldName);
+          $urlValue = $query->param($key);
         }
         $fieldValue = $urlValue if defined $urlValue;
       }
@@ -685,6 +697,8 @@ sub renderMetaData {
       $row =~ s/\$$fieldName/$line/g;
       $row =~ s/\$orig$fieldName/$fieldValue/g;
 
+      push @fieldResult, $line;
+
       # cleanup
       $fieldClone->finish() if defined $fieldClone;
       $field->{name} = $origFieldName;
@@ -718,8 +732,12 @@ sub renderMetaData {
       $fieldActions =~ s/\%map\%/$theMap/g;
     }
 
+    my $fieldResult = '';
+    $fieldResult = $theFieldHeader.join($theFieldSep, @fieldResult).$theFieldFooter if @fieldResult;
+
     $row =~ s/\$actions\b/$fieldActions/g;
     $row =~ s/\$index\b/$index/g;
+    $row =~ s/\$fields\b/$fieldResult/g;
 
     push @result, $row;
     $index++;
