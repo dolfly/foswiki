@@ -47,17 +47,18 @@ sub finish {
 ##############################################################################
 # create a new topic object, reuse already created ones
 sub getTopicObject {
-  my ($session, $web, $topic) = @_;
+  my ($session, $web, $topic, $rev) = @_;
 
   $web ||= '';
   $topic ||= '';
+  $rev ||= '';
   
   $web =~ s/\//\./go;
-  my $key = $web.'.'.$topic;
+  my $key = $web.'.'.$topic.'@'.$rev;
   my $topicObj = $topicObjs{$key};
   
   unless ($topicObj) {
-    ($topicObj, undef) = Foswiki::Func::readTopic($web, $topic);
+    ($topicObj, undef) = Foswiki::Func::readTopic($web, $topic, $rev);
     $topicObjs{$key} = $topicObj;
   }
 
@@ -71,6 +72,7 @@ sub handleRENDERFORDISPLAY {
   #writeDebug("called handleRENDERFORDISPLAY($theTopic, $theWeb)");
 
   my $thisTopic = $params->{_DEFAULT} || $params->{topic} || $theTopic;
+  my $thisRev = $params->{revision};
   my $theFields = $params->{field} || $params->{fields};
   my $theForm = $params->{form};
   my $theFormat = $params->{format};
@@ -113,7 +115,7 @@ sub handleRENDERFORDISPLAY {
 
   my $thisWeb = $theWeb;
   ($thisWeb, $thisTopic) = Foswiki::Func::normalizeWebTopicName($thisWeb, $thisTopic);
-  my $topicObj = getTopicObject($session, $thisWeb, $thisTopic); 
+  my $topicObj = getTopicObject($session, $thisWeb, $thisTopic, $thisRev); 
 
   $theForm = $session->{request}->param('formtemplate') unless defined $theForm;
   $theForm = $topicObj->getFormName unless defined $theForm;
@@ -287,10 +289,10 @@ sub handleRENDERFORDISPLAY {
     $line =~ s/\$title\b/$fieldTitle/g;
 
     $line = $field->renderForDisplay($line, $fieldValue, {
-      bar=>'|', # SMELL: keep bars
-      newline=>'$n', # SMELL: keep newlines
-    }); # SMELL what about the attrs param in Foswiki::Form
-        # SMELL wtf is this attr anyway
+      bar=>'|', #  keep bars
+      newline=>'$n', # keep newlines
+      display=>1,
+    }); 
 
     $line =~ s/\$name\b/$fieldName/g;
     $line =~ s/\$type\b/$fieldType/g;
@@ -326,6 +328,7 @@ sub handleRENDERFOREDIT {
   #writeDebug("called handleRENDERFOREDIT($theTopic, $theWeb)");
 
   my $thisTopic = $params->{_DEFAULT} || $params->{topic} || $theTopic;
+  my $thisRev = $params->{revision};
   my $theFields = $params->{field} || $params->{fields};
   my $theForm = $params->{form};
   my $theValue = $params->{value};
@@ -364,7 +367,7 @@ sub handleRENDERFOREDIT {
   my $thisWeb = $theWeb;
 
   ($thisWeb, $thisTopic) = Foswiki::Func::normalizeWebTopicName($thisWeb, $thisTopic);
-  my $topicObj = getTopicObject($session, $thisWeb, $thisTopic); 
+  my $topicObj = getTopicObject($session, $thisWeb, $thisTopic, $thisRev); 
 
   # give beforeEditHandlers a chance
   # SMELL: watch out for the fix of Item1965; it must be applied here as well; for now

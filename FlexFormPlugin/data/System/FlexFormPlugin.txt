@@ -26,6 +26,7 @@ In addition, !FlexFormPlugin facilitates the extraction of field default values 
 ---+++ RENDERFOREDIT
 | *Parameter* | *Description* | *Default* |
 | "..." (or topic="..." | name of a topic to render the edit form for | the base topic of the current url |
+| revision="..." | topic revision which to use the data from while populating the edit form |
 | excludeattr="..." | regular expression field attributes must match to be excluded from the output | undefined |
 | exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
 | fields="&lt;fieldname1>, &lt;fieldname2>, ..." | list of formfields to render the interface for | all known formfields |
@@ -59,6 +60,7 @@ In addition, !FlexFormPlugin facilitates the extraction of field default values 
 ---+++ RENDERFORDISPLAY
 | *Parameter* | *Description* | *Default* |
 | "..." or topic="..." | name of a topic to display the form for | the base topic of the current url |
+| revision="..." | topic revision to display |
 | autolink="on/off" | enable/disable !WikiWord autolinking when rendering a formfield; setting =autolink= sets the default for all fields specific settings of =&lt;fieldname>_autolink=which can, that is you can disable autolinking globally and switch it back on per field | on |
 | excludeattr="..." | regular expression field attributes must match to be excluded from the output | undefined |
 | exclude="..." | regular expression fieldnames must match to be excluded from the output | undefined |
@@ -154,6 +156,8 @@ The =format= parameter may contain the following pseudo-variables:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  13 Jul 2013: | added =revision= parameter to access non-top revisions; \
+                  improved compatibility with foswiki-1.2.x |
 |  20 Mar 2013: | added =&lt;fieldname>_name= to temporarily override the input field name |
 |  17 Oct 2012: | rationalized =include= and =exclude=; adding =$mandatory= to the default format |
 |  24 Feb 2012: | added =$origvalues= to display unmapped values of +values formfields; \
