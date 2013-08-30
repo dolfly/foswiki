@@ -103,8 +103,11 @@ sub EMBED {
   writeDebug("called EMBED()");
 
   my $url = $params->{_DEFAULT} || $params->{url};
-  return "<span class='foswikiAlert'>ERROR: no url param</span>" unless $url;
-
+  my $warn = Foswiki::Func::isTrue($params->{warn}, 1);
+  unless ($url) {
+    return "<span class='foswikiAlert'>ERROR: no url param</span>" if $warn;
+    return "";
+  }
 
   my $width = $params->{width} || Foswiki::Func::getPreferencesValue("OEMBED_MAXWIDTH") || '';
   my $height = $params->{height} || Foswiki::Func::getPreferencesValue("OEMBED_MAXHEIGHT") || '';
@@ -115,11 +118,11 @@ sub EMBED {
 
   my $response = eval {$this->{consumer}->embed($url, $opts)};
   if ($@) {
-    print STDERR "ERROR: $@\n";
+    print STDERR "ERROR: $@\n" if $warn;
   }
 
   unless (defined $response) {
-    #print STDERR "no response for $url\n";
+    print STDERR "no response for $url\n";
     return $url;
   }
 

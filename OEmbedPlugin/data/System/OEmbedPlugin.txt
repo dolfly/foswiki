@@ -15,46 +15,69 @@ code to add it to the page, e.g. add an iframe for videos and the like.
 ---++ Supported providers
 
 <noautolink>
+   1 23HQ
    1 Amazon (embed.ly)
+   1 Animoto
    1 Aol
    1 Blib.tv
+   1 Cacoo
    1 Chirbit 
    1 CircuitLab 
-   1 Clickthrough
+   1 ClikThrough
    1 Clipfish (embed.ly)
    1 CollegeHumor 
+   1 Coub
+   1 CrowdRanking
    1 !DeviantArt
    1 DailyMotion
+   1 Dipity
    1 Dotsub
    1 Flickr
    1 Foursquare (embed.ly)
-   1 Geograph Britain 
+   1 FunnyOrDie
+   1 Geograph Britain and Ireland
    1 Geograph Channel Islands
    1 Geograph Germany 
    1 Google Maps (embed.ly)
    1 Hulu
+   1 HuffDuffer
    1 IMDB (embed.ly)
-   1 Instagram (embed.ly)
+   1 Instagram
    1 Jest
+   1 JustinTV
+   1 Kickstarter
    1 Kinomap
+   1 Meetup
    1 MixCloud
+   1 MobyPicture
+   1 MyOpera
    1 Nfb
+   1 OfficialFM
    1 PollEverywhere 
+   1 PollyDaddy
    1 Qik
    1 Quiz.biz
    1 Revision3
+   1 Rdio
+   1 Roomshare
+   1 SapoVideos
    1 Screencast (embed.ly)
    1 Screenr
    1 Scribd
+   1 Sketchfab
    1 SlideShare
-   1 SoundCloud (embed.ly)
+   1 SoundCloud 
+   1 SpeakerDeck
    1 Ted
    1 Twitpic (embed.ly)
    1 Twitter
+   1 Urtak
+   1 Ustream
    1 Viddler
    1 Viddler 
    1 Vimeo 
    1 Vimeon
+   1 VideoJug
    1 Washington Post (embed.ly)
    1 WordPress
    1 Youtube
@@ -130,6 +153,12 @@ See the =oembed.tmpl= file on how to use them.
 </verbatim>
 %EMBED{"http://www.flickr.com/photos/onement/1239189689/" height="400"}%
 
+---++ Dipty
+<verbatim class="tml">
+%EMBED{"http://www.dipity.com/nuddlegg/Foswiki/" width="100%"}%
+</verbatim>
+%EMBED{"http://www.dipity.com/nuddlegg/Foswiki/" width="100%"}%
+
 ---+++ More examples
 <verbatim class="tml">
 %EMBED{"http://www.jest.com/video/197394/paul-ryan-rap"}%
@@ -167,6 +196,26 @@ See the =oembed.tmpl= file on how to use them.
 %EMBED{"http://goo.gl/maps/22OR8"}%
 %EMBED{"https://foursquare.com/v/vapiano/4b212bc4f964a520ac3724e3"}%
 %EMBED{"http://feigiap.deviantart.com/art/Shop-380055652"}%
+%EMBED{"https://speakerdeck.com/reneeb_perl/the-renaissance-of-perl"}%
+%EMBED{"http://www.videojug.com/film/how-to-tie-a-knot-braid"}%
+%EMBED{"http://www.justin.tv/deepellumonair"}%
+%EMBED{"http://mobypicture.com/user/Henk_Voermans/view/15880044"
+  format="<a href='$url'><img src='$url' width='$width' /></a> %BR% by <a href='$author_url'>$author_name</a>"
+  width="500"
+}%
+%EMBED{"http://www.23hq.com/brinjal/photo/13305970" width="500"}%
+%EMBED{"http://official.fm/playlists/cxBp?from=homepage&track_id=g8x7"}%
+%EMBED{"http://videos.sapo.pt/dNbiosGa9YZHfLrhkA88"}%
+%EMBED{"http://crowdranking.com/crowdrankings/t446g0--best-movies-2013"}%
+%EMBED{"https://cacoo.com/diagrams/m9uZtizE5I2GkFR6"}%
+%EMBED{"http://huffduffer.com/jxpx777/125342"}%
+%EMBED{"http://my.opera.com/cstrep/albums/showpic.dml?album=504322&picture=6964560"}%
+%EMBED{"http://www.funnyordie.com/videos/2555a0702b/clint-eastwod-s-chair-auditions"}%
+%EMBED{"http://animoto.com/play/JzwsBn5FRVxS0qoqcBP5zA"}%
+%EMBED{"http://www.rdio.com/artist/The_Black_Keys/album/Brothers/"}%
+%EMBED{"http://coub.com/view/agqbu"}%
+%EMBED{"http://www.kickstarter.com/projects/1115015686/help-support-the-kiggins-theatre-to-go-digital"}%
+%EMBED{"https://sketchfab.com/show/b7LzIm8JrnPw4GBDOMBNGYc39qM"}%
 </verbatim>
 
 
@@ -185,6 +234,7 @@ See the =oembed.tmpl= file on how to use them.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  30 Aug 2013 | added more providers |
 |  24 Jun 2013 | added format, template and custom params; \
                  added a few more providers |
 |  Dependencies: | %$DEPENDENCIES% |

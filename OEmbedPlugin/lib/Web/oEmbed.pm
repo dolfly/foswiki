@@ -91,7 +91,6 @@ sub embed {
     my($self, $uri, $opt) = @_;
 
     my $url = $self->request_url($uri, $opt) or return;
-    #print STDERR "request url=$url\n";
     my $res = $self->agent->get($url);
 
     Web::oEmbed::Response->new_from_response($res, $uri);
