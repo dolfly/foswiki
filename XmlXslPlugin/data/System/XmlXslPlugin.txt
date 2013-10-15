@@ -1,0 +1,47 @@
+---+!! XML XSL Plugin
+<!--
+   * Set SHORTDESCRIPTION = %$SHORTDESCRIPTION%
+-->
+The plugin is used to return HTML containing an XML data island which, *when processed by the browser*, will show the XML as formatted by the XSL.
+
+%TOC%
+
+---++ Syntax Rules
+
+   * =%<nop>XMLXSLTRANSFORM{...}%=
+
+| *Parameter* | *Comment* | *Default* |
+| =xml= | xml source text |(none) |
+| =xsl= | xsl source text |(none) |
+| =css= | css source text |(none) |
+| =id= | identifier (must begin with a letter) | =""= |
+
+The xml source, xsl source, and css source parameters may be TWiki topic names or urls.
+
+---++ Plugin Installation Instructions	
+%$INSTALLATION_INSTRUCTIONS%
+
+---++ Test
+If the plugin is installed and configured correctly, the following tag should
+expand to "Hello, World!"
+
+=%<nop>XMLXSLTRANSFORM{xml="XmlXslExampleXml" xsl="XmlXslExampleXsl"}%= expands to %XMLXSLTRANSFORM{xml="XmlXslExampleXml" xsl="XmlXslExampleXsl"}%
+
+   * [[XmlXslExampleXml?raw=all][XML source]]
+   * [[XmlXslExampleXsl?raw=all][XSL source]]
+
+---++ Plugin Info
+
+|  Plugin Author: | Foswiki:Main.MartinCleaver and friends |
+|  Copyright: | &copy; 2001, Foswiki:Main.MartinCleaver, 2013 Foswiki:Main.CrawfordCurrie |
+|  License: | GPL ([[http://www.gnu.org/copyleft/gpl.html][GNU General Public License]]) |
+|  Plugin Version: | %$VERSION% |
+|  Change History: | <!-- specify latest version first -->&nbsp; |
+|  1.0.0 | Ported to Foswiki, code cleaned up and modernised by Foswiki:Main.CrawfordCurrie |
+|  CPAN Dependencies: | none |
+|  Other Dependencies: | a browser that supports XML transformations/processing |
+|  Perl Version: | 5.0 |
+|  Plugin Home: | http://foswiki.org/Extensions/%TOPIC% |
+|  Feedback: | http://foswiki.org/Extensions/%TOPIC%Dev |
+
+<!-- Do _not_ attempt to edit this topic; it is auto-generated. Please add comments/questions/remarks to the Dev topic instead. -->

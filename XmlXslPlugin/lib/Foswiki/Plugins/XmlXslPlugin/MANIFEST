@@ -1,0 +1,6 @@
+!noci
+data/System/XmlXslExampleXml.txt 0644
+data/System/XmlXslExampleXsl.txt 0644
+data/System/XmlXslPlugin.txt 0644
+lib/Foswiki/Plugins/XmlXslPlugin.pm 0600
+pub/System/XmlXslPlugin/xmlxsl2html.js 0644
