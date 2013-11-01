@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1368703686" format="1.1" reprev="15" version="17"}%
+%META:TOPICINFO{author="ProjectContributor" comment="reprev" date="1368703686" format="1.1" reprev="15" version="17"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
