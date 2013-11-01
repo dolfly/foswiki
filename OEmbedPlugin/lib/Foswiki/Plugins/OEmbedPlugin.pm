@@ -20,8 +20,8 @@ use warnings;
 
 use Foswiki::Func ();
 
-our $VERSION = '2.10';
-our $RELEASE = '2.10';
+our $VERSION = '2.20';
+our $RELEASE = '2.20';
 our $SHORTDESCRIPTION = 'Easy embedding of third party content';
 our $NO_PREFS_IN_TOPIC = 1;
 our $core;

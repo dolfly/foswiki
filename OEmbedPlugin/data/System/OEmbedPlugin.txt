@@ -1,3 +1,4 @@
+%META:TOPICINFO{author="ProjectContributor" comment="" date="1383306444" format="1.1" version="2"}%
 ---+!! %TOPIC%
 %SHORTDESCRIPTION%
 
@@ -16,6 +17,7 @@ code to add it to the page, e.g. add an iframe for videos and the like.
 
 <noautolink>
    1 23HQ
+   1 Alpha App
    1 Amazon (embed.ly)
    1 Animoto
    1 Aol
@@ -28,8 +30,9 @@ code to add it to the page, e.g. add an iframe for videos and the like.
    1 CollegeHumor 
    1 Coub
    1 CrowdRanking
-   1 !DeviantArt
+   1 DeviantArt
    1 DailyMotion
+   1 DailyMile
    1 Dipity
    1 Dotsub
    1 Flickr
@@ -39,6 +42,8 @@ code to add it to the page, e.g. add an iframe for videos and the like.
    1 Geograph Channel Islands
    1 Geograph Germany 
    1 Google Maps (embed.ly)
+   1 Github 
+   1 GMEP
    1 Hulu
    1 HuffDuffer
    1 IMDB (embed.ly)
@@ -64,6 +69,7 @@ code to add it to the page, e.g. add an iframe for videos and the like.
    1 Screencast (embed.ly)
    1 Screenr
    1 Scribd
+   1 Shoudio
    1 Sketchfab
    1 SlideShare
    1 SoundCloud 
@@ -80,6 +86,8 @@ code to add it to the page, e.g. add an iframe for videos and the like.
    1 VideoJug
    1 Washington Post (embed.ly)
    1 WordPress
+   1 WordPress TV
+   1 YFrog
    1 Youtube
 </noautolink>
 
@@ -157,6 +165,7 @@ See the =oembed.tmpl= file on how to use them.
 <verbatim class="tml">
 %EMBED{"http://www.dipity.com/nuddlegg/Foswiki/" width="100%"}%
 </verbatim>
+
 %EMBED{"http://www.dipity.com/nuddlegg/Foswiki/" width="100%"}%
 
 ---+++ More examples
@@ -234,6 +243,7 @@ See the =oembed.tmpl= file on how to use them.
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  01 Nov 2013 | added more providers |
 |  30 Aug 2013 | added more providers |
 |  24 Jun 2013 | added format, template and custom params; \
                  added a few more providers |

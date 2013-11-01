@@ -90,6 +90,14 @@ $Foswiki::cfg{OEmbedPlugin}{Providers} = {
     }
   },
 
+  WordPress_tv => {
+    url => 'http://wordpress.tv/*',
+    api => 'http://public-api.wordpress.com/oembed/1.0/',
+    params => {
+      for => "foswiki"
+    }
+  },
+
   chirbit => {
     url => 'http://chirb.it/*',
     api => 'http://chirb.it/oembed.json',
@@ -186,7 +194,6 @@ $Foswiki::cfg{OEmbedPlugin}{Providers} = {
       'http://*.clipfish.de/*',
       'http://goo.gl/maps/*',
       'http://*.imdb.com/*',
-      'http://instagram.com/p/*',
       'http://*.screencast.com/*',
       'https://foursquare.com/*',
       'https://maps.google.com/maps/*',
@@ -384,7 +391,51 @@ $Foswiki::cfg{OEmbedPlugin}{Providers} = {
     api => 'https://api.meetup.com/oembed',
   },
 
+  Shoudio => {
+    url => [
+      'http://shoudio.com/*',
+      'http://shoud.io/*',
+    ],
+    api => 'http://shoudio.com/api/oembed',
+    params => {
+      format => 'json'
+    },
+  },
+
+  AlphaAppNet => {
+    url => [
+      'https://alpha.app.net/*/post/*',
+      'https://photos.app.net/*/*',
+    ],
+    api => 'https://alpha-api.app.net/oembed',
+  },
+
+  YFrog => {
+    url => [
+      'http://*.yfrog.com/*',
+      'http://yfrog.us/*',
+    ],
+    api => 'http://www.yfrog.com/api/oembed',
+  },
+
+  GithubGist => {
+    url => 'https://gist.github.com/*',
+    api => 'https://github.com/api/oembed',
+  },
+
+  GMEP => {
+    url => 'https://gmep.org/media/*',
+    api => 'https://gmep.org/oembed.json',
+  },
+
+  DailyMile => {
+    url => 'http://www.dailymile.com/people/*/entries/*',
+    api => 'http://api.dailymile.com/oembed',
+    params => {
+      format => 'json'
+    },
+  },
 };
 
-
+# TODO: check examples for newcomers at https://github.com/mpratt/oembed/commit/8f6e84ed4162fdb85efb972288d8fccf57f0a523
 1;
