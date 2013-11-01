@@ -13,12 +13,3 @@ See also: RenderSideBar
 %STOPINCLUDE%
 </div>
 </div>
-
-<!--
-   * Set VIEW_TEMPLATE = Applications.HiddenFormView
--->
-
-%META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" attributes="" title="TopicType" value="WebTool"}%
-%META:FIELD{name="Summary" attributes="" title="Summary" value="Sidebar navigation used by the System.PatternSkin"}%
-%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%

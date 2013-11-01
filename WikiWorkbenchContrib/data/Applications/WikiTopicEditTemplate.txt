@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="autosave" date="1366269886" format="1.1" version="7"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1371558121" format="1.1" reprev="8" version="8"}%
 %META:TOPICPARENT{name="TopicView"}%
 %{<verbatim class="tml">}%
 %TMPL:INCLUDE{"edit"}%
@@ -40,7 +40,8 @@
   then="[[%WEB%.%TOPIC%][%TMPL:P{"topictitle"}%]] (%MAKETEXT{"edit [_1]" args="%TMPL:P{"topictype"}%"}%)"
   else="<nop>%TMPL:P{"topictitle"}% (%MAKETEXT{"new [_1]" args="%TMPL:P{"topictype"}%"}%)"
 }%
-</h1>%TMPL:END%
+</h1>
+<!-- -->%ADDTOZONE{"head" text="<style>.natEditH1Button {display:none}</style>"}%%TMPL:END%
 %{</verbatim>}%
 
 %{<verbatim class="tml">}%

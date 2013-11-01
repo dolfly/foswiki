@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278736" format="1.1" version="6"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1377008226" format="1.1" reprev="9" version="9"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -14,19 +14,10 @@ showing its title and the summary line.
 
 ---++ Implementation
 <verbatim class="tml">
-%STARTINCLUDE%<!-- -->
-%IF{"'%BASEWEB%.%BASETOPIC%'/text=~'\-\-\-\+[^\+]'" 
-  else="$percntDBCALL{\"%WEB%.%TOPIC%\" section=\"title\"}$percnt"
-}%<!-- -->%STOPINCLUDE%
-</verbatim>
-
----++ Render title
-<verbatim class="tml">
-%STARTSECTION{"title"}%<noautolink>
+%STARTINCLUDE%<noautolink><h1>
 %DBQUERY{topic="%BASEWEB%.%BASETOPIC%"
-  format="<h1 >[[$web.$topic][$expand(topictitle)]] %IF{"defined 'TITLE_EXTRA'" then="<span class='foswikiTopicExtra'>%TITLE_EXTRA%</span>"}% $expand('<br /><span class=\"foswikiTopicSummary\">' and Summary and '</span>')</h1>"
-}%</noautolink>
-%ENDSECTION{"title"}%
+  format="[[$web.$topic][<span itemprop='name'>$expand(topictitle)</span>]] %IF{"defined TITLE_EXTRA and not isempty TITLE_EXTRA" then="<span class='foswikiTopicExtra'>%TITLE_EXTRA%</span>"}% $expand('<br /><span itemprop=\"description\" class=\"foswikiTopicSummary\">' and Summary and '</span>')"
+}%</h1></noautolink>%STOPINCLUDE%
 </verbatim>
 
 ---++ Test

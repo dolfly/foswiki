@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="micha" comment="reprev" date="1366970119" format="1.1" reprev="16" version="17"}%
+%META:TOPICINFO{author="micha" comment="reprev" date="1376999887" format="1.1" reprev="18" version="18"}%
 %META:TOPICPARENT{name="TopicFunction"}%
 %TOC{depth="2"}%
 
@@ -22,33 +22,64 @@ is returned if no image attachment is found.
 
 ---++ Implementation
 <verbatim class="tml">
-%STARTINCLUDE%%ATTACHMENTS{
-   "%OBJECT%"
-   name=".*\.(jpe?g|gif|png|bmp|svg|JE?PG|GIF|PNG|BMP|SVG)"
+%STARTINCLUDE%%DBCALL{"Applications.RenderTopicThumbnail" 
+  section="%IF{"'%OBJECT%'/attachments[attr=~'.*t.*'" then="thumbnailed" else="defaultthumbnail"}%"
+  object="%OBJECT%"
+  align="%ALIGN{default="right"}%"
+  size="%SIZE{default="48x48>"}%"
+  type="%TYPE{default="simple"}%"
+  crop="%CROP{default="northwest"}%"
+  sort="%SORT{default="comment:name"}%"
+}%%STOPINCLUDE%
+</verbatim>
+
+<verbatim class="tml">
+%STARTSECTION{"thumbnailed"}%%ATTACHMENTS{
+   "%object%"
+   attr=".*t.*"
    warn="off"
-   limit="1"
-   sort="%SORT{default="comment:name"}%"
-   reverse="%IF{"'%SORT%' = 'date'" then="on" else="off"}%"
    hidenull="on"
    format="$percntIMAGE{
      \"$name\"
      topic=\"$web.$topic\"
-     align=\"%ALIGN{default="right"}%\"
-     type=\"%TYPE{default="simple"}%\"
-     size=\"%SIZE{default="48x48>"}%\"
-     crop=\"%CROP{default="northwest"}%\"
+     align=\"%align%\"
+     type=\"%type%\"
+     size=\"%size%\"
+     crop=\"%crop%\"
      title=\"\"
      tooltip=\"on\"
      warn=\"off\"
    }$percnt"
-}%%STOPINCLUDE%
+}%%ENDSECTION{"thumbnailed"}%
+
+%STARTSECTION{"defaultthumbnail"}%%ATTACHMENTS{
+   "%object%"
+   name=".*\.(jpe?g|gif|png|bmp|svg|JE?PG|GIF|PNG|BMP|SVG)"
+   warn="off"
+   limit="1"
+   sort="%sort%"
+   reverse="%IF{"'%sort%' = 'date'" then="on" else="off"}%"
+   hidenull="on"
+   format="$percntIMAGE{
+     \"$name\"
+     topic=\"$web.$topic\"
+     align=\"%align%\"
+     type=\"%type%\"
+     size=\"%size%\"
+     crop=\"%crop%\"
+     title=\"\"
+     tooltip=\"on\"
+     warn=\"off\"
+   }$percnt"
+}%%ENDSECTION{"defaultthumbnail"}%
 </verbatim>
 
 ---++ Test
-%DBCALL{"%TOPIC%" 
+%DBCALL{"%WEB%.%TOPIC%" 
   OBJECT="%WIKIUSERNAME%"
   ALIGN="left"
 }%
+
 %DBCALL{"%TOPIC%" 
   OBJECT="%WIKIUSERNAME%"
   SORT="date"
@@ -56,6 +87,8 @@ is returned if no image attachment is found.
   SIZE="100x100"
 }%
 %CLEAR%
+
+
 
 ---++ List of all attachments at %WIKIUSERNAME%
 <a name="sort"></a>

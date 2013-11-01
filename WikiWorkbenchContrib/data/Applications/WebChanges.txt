@@ -1,10 +1,2 @@
 %META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278737" format="1.1" version="4"}%
-
 %INCLUDE{"%SYSTEMWEB%.%TOPIC%"}%
-
-%META:FORM{name="Applications.ApplicationTopic"}%
-%META:FIELD{name="TopicType" title="TopicType" value="WebTool"}%
-%META:FIELD{name="TopicTitle" attributes="" title="<nop>TopicTitle" value="WebChanges"}%
-%META:FIELD{name="Summary" attributes="" title="Summary" value="Most recent changes in this web"}%
-%META:FIELD{name="WikiApplication" attributes="" title="WikiApplication" value="WikiWorkbench"}%
-%META:PREFERENCE{name="DISPLAYFORM" title="DISPLAYFORM" type="Local" value="off"}%
