@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2006-2012 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2006-2013 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -15,9 +15,10 @@
 package Foswiki::Plugins::BreadCrumbsPlugin;
 
 use strict;
+use warnings;
 
-our $VERSION = '$Rev$';
-our $RELEASE = '2.43';
+our $VERSION = '2.50';
+our $RELEASE = '2.50';
 our $NO_PREFS_IN_TOPIC = 1;
 our $SHORTDESCRIPTION = 'A flexible way to display breadcrumbs navigation';
 our $doneInit = 0;
@@ -33,9 +34,7 @@ sub initPlugin {
     }
   );
 
-  my $doRecordTrail = Foswiki::Func::getPreferencesValue('BREADCRUMBSPLUGIN_RECORDTRAIL') || '';
-  $doRecordTrail = ($doRecordTrail eq 'on') ? 1 : 0;
-
+  my $doRecordTrail = Foswiki::Func::isTrue(Foswiki::Func::getPreferencesValue('BREADCRUMBSPLUGIN_RECORDTRAIL'), 0);
   if ($doRecordTrail) {
     init();
     Foswiki::Plugins::BreadCrumbsPlugin::Core::recordTrail($_[1], $_[0]);

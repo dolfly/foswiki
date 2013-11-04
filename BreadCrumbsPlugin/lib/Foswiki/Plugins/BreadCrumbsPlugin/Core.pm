@@ -1,6 +1,6 @@
 # Plugin for Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 #
-# Copyright (C) 2006-2012 Michael Daum http://michaeldaumconsulting.com
+# Copyright (C) 2006-2013 Michael Daum http://michaeldaumconsulting.com
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -17,10 +17,15 @@ package Foswiki::Plugins::BreadCrumbsPlugin::Core;
 use strict;
 use warnings;
 
-use vars qw($homeTopic $lowerAlphaRegex $upperAlphaRegex $numericRegex);
+use Foswiki::Func ();
 use Foswiki::Plugins ();
 
-use constant DEBUG => 0;    # toggle me
+our $homeTopic;
+our $lowerAlphaRegex;
+our $upperAlphaRegex;
+our $numericRegex;
+
+use constant DEBUG => 0; # toggle me
 
 ###############################################################################
 sub writeDebug {
@@ -84,6 +89,7 @@ sub renderBreadCrumbs {
   my $header = $params->{header} || '';
   my $format = $params->{format};
   my $topicformat = $params->{topicformat};
+  my $newTopicFormat = $params->{newtopicformat};
   my $footer = $params->{footer} || '';
   my $separator = $params->{separator};
   my $recurse = $params->{recurse} || 'on';
@@ -100,6 +106,7 @@ sub renderBreadCrumbs {
   $separator = '' if $separator eq 'none';
   $format = '[[$webtopic][$name]]' unless defined $format;
   $topicformat = $format unless defined $topicformat;
+  $newTopicFormat = $topicformat unless defined $newTopicFormat;
   $ellipsis = ' ... ' unless defined $ellipsis;
   $spaceout = ($spaceout eq 'on') ? 1 : 0;
   $spaceoutsep = '-' unless defined $spaceoutsep;
@@ -137,18 +144,22 @@ sub renderBreadCrumbs {
   foreach my $item (@$breadCrumbs) {
     next unless $item;
     my $line;
+
     if ($item->{istopic}) {
       next if $exclude ne '' && $item->{topic} =~ /^($exclude)$/;
       next if $include ne '' && $item->{topic} !~ /^($include)$/;
-      $line = $topicformat;
+      $line = $item->{isnew}?$newTopicFormat:$topicformat;
     } else {
       next if $exclude ne '' && $item->{web} =~ /^($exclude)$/;
       next if $include ne '' && $item->{web} !~ /^($include)$/;
       $line = $format;
     }
+
     my $webtopic = $item->{target};
     $webtopic =~ s/\//./go;
+
     my $name = $item->{name};
+
     $name = spaceOutWikiWord($item->{name}, $spaceoutsep) if $spaceout;
     $name = $i18n->maketext($name) if $translate;
     $line =~ s/\$name/$name/g;
@@ -183,7 +194,8 @@ sub getPathBreadCrumbs {
       name => $name,
       web => $web,
       topic => $topic,
-      istopic => 1
+      istopic => 1,
+      isnew => Foswiki::Func::topicExists($web, $topic)?0:1,
     }
   } split(',', $trail);
 
@@ -195,6 +207,7 @@ sub getLocationBreadCrumbs {
   my ($thisWeb, $thisTopic, $recurse) = @_;
 
   my @breadCrumbs = ();
+  #writeDebug("called getLocationBreadCrumbs($thisWeb, $thisTopic)");
 
   # collect all parent webs as breadcrumbs
   if ($recurse->{off} || $recurse->{weboff}) {
@@ -204,14 +217,14 @@ sub getLocationBreadCrumbs {
     }
 
     #writeDebug("adding breadcrumb: target=$thisWeb/$homeTopic, name=$webName");
-    push @breadCrumbs,
-      {
+    push @breadCrumbs, {
       target => "$thisWeb/$homeTopic",
       name => $webName,
       web => $thisWeb,
       topic => $homeTopic,
-      istopic => 0
-      };
+      istopic => 0,
+      isnew => Foswiki::Func::webExists($thisWeb)?0:1,
+    };
   } else {
     my $parentWeb = '';
     my @webCrumbs;
@@ -222,14 +235,14 @@ sub getLocationBreadCrumbs {
       $name = $parentName if $name eq $homeTopic;
 
       #writeDebug("adding breadcrumb: target=$parentWeb/$homeTopic, name=$name");
-      push @webCrumbs,
-        {
+      push @webCrumbs, {
         target => "$parentWeb/$homeTopic",
         name => $name,
         web => $parentWeb,
         topic => $homeTopic,
-        istopic => 0
-        };
+        istopic => 0,
+        isnew => Foswiki::Func::webExists($parentWeb)?0:1,
+      };
     }
     if ($recurse->{once} || $recurse->{webonce}) {
       my @list;
@@ -266,14 +279,14 @@ sub getLocationBreadCrumbs {
 
       # add breadcrumb
       #writeDebug("adding breadcrumb: target=$web/$topic, name=$topic");
-      unshift @topicCrumbs,
-        {
+      unshift @topicCrumbs, {
         target => "$web/$topic",
         name => getTopicTitle($web, $topic),
         web => $web,
         topic => $topic,
-        istopic => 1
-        };
+        istopic => 1,
+        isnew => Foswiki::Func::topicExists($web, $topic)?0:1,
+      };
       $seen{"$web.$topic"} = 1;
 
       # check for bailout
@@ -288,14 +301,14 @@ sub getLocationBreadCrumbs {
   unless ($seen{"$thisWeb.$thisTopic"} || $recurse->{topicoff} || $thisTopic eq $homeTopic) {
 
     #writeDebug("finally adding breadcrumb: target=$thisWeb/$thisTopic, name=$thisTopic");
-    push @breadCrumbs,
-      {
+    push @breadCrumbs, {
       target => "$thisWeb/$thisTopic",
       name => getTopicTitle($thisWeb, $thisTopic),
       web => $thisWeb,
       topic => $thisTopic,
-      istopic => 1
-      };
+      istopic => 1,
+      isnew => Foswiki::Func::topicExists($thisWeb, $thisTopic)?0:1,
+    };
   }
 
   return \@breadCrumbs;
