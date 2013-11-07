@@ -1,4 +1,4 @@
-%META:TOPICINFO{author="BaseUserMapping_999" comment="autosave" date="1356278771" format="1.1" version="3"}%
+%META:TOPICINFO{author="ProjectContributor" comment="autosave" date="1356278771" format="1.1" version="3"}%
 ---+!! %TOPIC%
 %$SHORTDESCRIPTION% 
 
@@ -156,6 +156,7 @@ The =format= parameter may contain the following pseudo-variables:
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  07 Nov 2013: | properly render =checkbox+buttons= formfields |
 |  13 Jul 2013: | added =revision= parameter to access non-top revisions; \
                   improved compatibility with foswiki-1.2.x |
 |  20 Mar 2013: | added =&lt;fieldname>_name= to temporarily override the input field name |
@@ -184,7 +185,7 @@ The =format= parameter may contain the following pseudo-variables:
 |  11 Mar 2010: | Foswiki:Main.MartinCleaver - added ability to extract allowed values of a field Foswiki:Tasks.Item8671 | 
 |  10 Mar 2010: | added fine-grained control over each formfield, i.e. remapping of the formfield type |
 |  08 Mar 2010: | initial release |
-|  Dependencies: | None |
+|  Dependencies: | %$DEPENDENCIES% |
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
 

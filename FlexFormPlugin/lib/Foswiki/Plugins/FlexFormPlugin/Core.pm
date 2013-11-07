@@ -353,7 +353,8 @@ sub handleRENDERFOREDIT {
     $theFooter = '</div>';
     $theFormat = '<div class=\'foswikiFormStep\'>
       <h3> $title:$mandatory </h3>
-      $edit 
+      $edit
+      $extra
       <div class=\'foswikiFormDescription\'>$description</div>
     </div>';
   } else {
