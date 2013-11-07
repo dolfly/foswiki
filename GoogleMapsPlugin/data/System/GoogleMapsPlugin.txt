@@ -205,6 +205,7 @@ See
 |  License: | [[http://www.gnu.org/licenses/gpl.html][GPL (Gnu General Public License)]] |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  07 Nov 2013: | fixed issue mixing HTTP and HTTPS assets |
 |  06 May 2013: | implement multiple markers, all having a click event to open an infowindow |
 |  08 Feb 2013: | initial release |
 |  Dependencies: | %$DEPENDENCIES% |

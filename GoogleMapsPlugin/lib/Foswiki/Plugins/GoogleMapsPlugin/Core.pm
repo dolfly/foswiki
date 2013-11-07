@@ -54,7 +54,7 @@ sub init {
   my $language = $session->i18n->language();
 
   Foswiki::Func::addToZone('script', "GOOGLEMAPSAPI", <<"HERE");
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=$language" type="text/javascript"></script>
+<script src="//maps.googleapis.com/maps/api/js?sensor=false&language=$language" type="text/javascript"></script>
 HERE
 
 }
