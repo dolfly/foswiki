@@ -212,4 +212,4 @@ See
 |  Home page: | Foswiki:Extensions/%TOPIC% |
 |  Support: | Foswiki:Support/%TOPIC% |
 
-%META:FILEATTACHMENT{name="GoogleMapsSnap1.png" attachment="GoogleMapsSnap1.png" attr="" comment="" date="1360334835" size="270907" user="micha" version="1"}%
+%META:FILEATTACHMENT{name="GoogleMapsSnap1.png" attachment="GoogleMapsSnap1.png" attr="" comment="" date="1360334835" size="270907" user="ProjectContributor" version="1"}%
