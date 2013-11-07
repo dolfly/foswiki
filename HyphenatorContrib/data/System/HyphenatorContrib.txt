@@ -104,12 +104,13 @@ Dieser Text wird mit deutscher Silbentrennung verarbeitet.
 -->
 
 |  Author(s): | Michael Daum|
-|  Copyright: | &copy; 2011 Mathias Nater http://code.google.com/p/hyphenator/ (Hyphenator.js) %BR% \
-                &copy; 2011 Michael Daum http://michaeldaumconsulting.com (foswiki integration) |
+|  Copyright: | &copy; 2011-2013 Mathias Nater http://code.google.com/p/hyphenator/ (Hyphenator.js) %BR% \
+                &copy; 2011-2013 Michael Daum http://michaeldaumconsulting.com (foswiki integration) |
 |  License: | [[http://www.gnu.org/licenses/lgpl.html][GNU Lesser General Public License]] |
 |  Release: | %$RELEASE% |
 |  Version: | %$VERSION% |
 |  Change History: | <!-- versions below in reverse order -->&nbsp; |
+|  07 Nov 2013: | (3.00) upgraded to Hyphenator-4.2.0 |
 |  09 Aug 2011: | (2.00) upgraded to Hyphenator-4.0.0 |
 |  10 Jun 2011: | (1.01) recognize language tags using underscores as well as hyphens |
 |  06 Jun 2011: | (1.0) initial release of foswiki plugin |

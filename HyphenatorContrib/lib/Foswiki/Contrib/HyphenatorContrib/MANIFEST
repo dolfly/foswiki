@@ -19,7 +19,9 @@ pub/System/HyphenatorContrib/patterns/el-monoton.js 0644
 pub/System/HyphenatorContrib/patterns/el-polyton.js 0644
 pub/System/HyphenatorContrib/patterns/en-gb.js 0644
 pub/System/HyphenatorContrib/patterns/en-us.js 0644
+pub/System/HyphenatorContrib/patterns/eo.js 0644
 pub/System/HyphenatorContrib/patterns/es.js 0644
+pub/System/HyphenatorContrib/patterns/et.js 0644
 pub/System/HyphenatorContrib/patterns/fi.js 0644
 pub/System/HyphenatorContrib/patterns/fr.js 0644
 pub/System/HyphenatorContrib/patterns/grc.js 0644
@@ -39,9 +41,11 @@ pub/System/HyphenatorContrib/patterns/or.js 0644
 pub/System/HyphenatorContrib/patterns/pa.js 0644
 pub/System/HyphenatorContrib/patterns/pl.js 0644
 pub/System/HyphenatorContrib/patterns/pt.js 0644
+pub/System/HyphenatorContrib/patterns/ro.js 0644
 pub/System/HyphenatorContrib/patterns/ru.js 0644
 pub/System/HyphenatorContrib/patterns/sk.js 0644
 pub/System/HyphenatorContrib/patterns/sl.js 0644
+pub/System/HyphenatorContrib/patterns/sr-latn.js 0644
 pub/System/HyphenatorContrib/patterns/sv.js 0644
 pub/System/HyphenatorContrib/patterns/ta.js 0644
 pub/System/HyphenatorContrib/patterns/te.js 0644
