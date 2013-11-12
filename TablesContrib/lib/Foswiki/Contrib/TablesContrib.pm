@@ -11,8 +11,8 @@ package Foswiki::Contrib::TablesContrib;
 use strict;
 use warnings;
 
-our $VERSION = '$Rev : 14686 $';
-our $RELEASE = '1.0.0';
+use version; our $VERSION = version->declare("v1.0.1");
+our $RELEASE = '12 Nov 2013';
 
 our $SHORTDESCRIPTION =
 'Tables module for use with 1.1.x Foswiki versions that don\'t have the tables handling';
@@ -24,7 +24,7 @@ Foswiki - The Free and Open Source Wiki, http://foswiki.org/
 
 Author: CrawfordCurrie
 
-Copyright (C) 2012 Foswiki Contributors. Foswiki Contributors
+Copyright (C) 2012-2013 Foswiki Contributors. Foswiki Contributors
 are listed in the AUTHORS file in the root of this distribution.
 NOTE: Please extend that file, not this notice.
 

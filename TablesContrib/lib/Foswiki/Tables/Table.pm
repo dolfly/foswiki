@@ -81,6 +81,15 @@ sub row_class {
     return 'Foswiki::Tables::Row';
 }
 
+# Private - renumber the rows in the table after a row is moved
+sub _renumber {
+    my ( $this, $start ) = @_;
+    $start ||= 0;
+    for ( my $i = $start ; $i < scalar( @{ $this->{rows} } ) ; $i++ ) {
+        $this->{rows}->[$i]->number($i);
+    }
+}
+
 =begin TML
 
 ---++ ClassMethod getMacro() -> $macroname
@@ -185,27 +194,27 @@ sub getID {
 =begin TML
 
 ---++ ObjectMethod getFirstBodyRow() -> $integer
-Get the row index of the first row after the header.
+Get the 0-based row index of the first row after the header.
 
 =cut
 
 sub getFirstBodyRow {
     my $this = shift;
 
-    return $this->{headerrows} + 1;
+    return $this->{headerrows};
 }
 
 =begin TML
 
 ---++ ObjectMethod getLastBodyRow() -> $integer
-Get the row index of the last row before the footer.
+Get the 0-based row index of the last row before the footer.
 
 =cut
 
 sub getLastBodyRow {
     my $this = shift;
 
-    return scalar( @{ $this->{rows} } ) - $this->{footerrows};
+    return $#{ $this->{rows} } - $this->{footerrows};
 }
 
 =begin TML
@@ -305,10 +314,10 @@ sub addRow {
 
     my @vals = map { $_->{initial_value} } @{ $this->{colTypes} };
 
-    # widen up to the width of the previous row
+    # widen up to the width of the first (hopefully header) row
     my $count;
     if ( scalar( @{ $this->{rows} } ) ) {
-        my $count = scalar( @{ $this->{rows}->[ $row - 1 ]->{cols} } );
+        my $count = scalar( @{ $this->{rows}->[0]->{cols} } );
         while ( scalar(@vals) < $count ) {
             push( @vals, '' );
         }
@@ -316,10 +325,7 @@ sub addRow {
     my $newRow = $this->row_class->new( $this, '', '', \@vals );
     splice( @{ $this->{rows} }, $row, 0, $newRow );
 
-    # renumber lower rows
-    for ( my $i = $row + 1 ; $i < scalar( @{ $this->{rows} } ) ; $i++ ) {
-        $this->{rows}->[$i]->number( $this->{rows}->[$i]->number + 1 );
-    }
+    $this->_renumber($row);
 
     return $newRow;
 }
@@ -355,6 +361,7 @@ sub deleteRow {
     return 0 unless $row >= $this->getFirstBodyRow();
     my @dead = splice( @{ $this->{rows} }, $row - 1, 1 );
     map { $_->finish() } @dead;
+    $this->_renumber($row);
     return 1;
 }
 
@@ -369,16 +376,21 @@ Move a row
 
 sub moveRow {
     my ( $this, $from, $to ) = @_;
-    my @moving = splice( @{ $this->{rows} }, $from, 1 );
-    if ( $from < $to ) {
 
-        # from is below to, so decrement the $to row
-        $to--;
+    return if $to == $from;
+
+    my @moving = splice( @{ $this->{rows} }, $from, 1 );
+
+    # compensate for row just removed
+    my $rto = ( $to > $from ) ? $to - 1 : $to;
+
+    if ( $rto >= scalar( @{ $this->{rows} } ) ) {
+        push( @{ $this->{rows} }, @moving );
     }
-    splice( @{ $this->{rows} }, $to, 0, @moving );
-    for ( my $i = 0 ; $i < scalar( @{ $this->{rows} } ) ; $i++ ) {
-        $this->{rows}->[$i]->number( $i + 1 );
+    else {
+        splice( @{ $this->{rows} }, $rto, 0, @moving );
     }
+    $this->_renumber();
 }
 
 =begin TML
@@ -391,9 +403,10 @@ Move a row up one position in the table
 
 sub upRow {
     my ( $this, $row ) = @_;
-    my $tmp = $this->{rows}->[ $row - 1 ];
-    $this->{rows}->[ $row - 1 ] = $this->{rows}->[ $row - 2 ];
-    $this->{rows}->[ $row - 2 ] = $tmp;
+    my $tmp = $this->{rows}->[$row];
+    $this->{rows}->[$row] = $this->{rows}->[ $row - 1 ];
+    $this->{rows}->[ $row - 1 ] = $tmp;
+    $this->_renumber( $row - 1 );
 }
 
 =begin TML
@@ -406,9 +419,10 @@ Move a row down one position in the table
 
 sub downRow {
     my ( $this, $row ) = @_;
-    my $tmp = $this->{rows}->[ $row - 1 ];
-    $this->{rows}->[ $row - 1 ] = $this->{rows}->[$row];
-    $this->{rows}->[$row] = $tmp;
+    my $tmp = $this->{rows}->[$row];
+    $this->{rows}->[$row] = $this->{rows}->[ $row + 1 ];
+    $this->{rows}->[ $row + 1 ] = $tmp;
+    $this->_renumber($row);
 }
 
 # PROTECTED method that parses a column type specification
