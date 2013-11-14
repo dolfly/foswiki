@@ -33,8 +33,7 @@ our $VERSION = '1.1';
 # topic - if you use %$RELEASE% with BuildContrib this is done automatically.
 our $RELEASE = '1.1';
 
-our $SHORTDESCRIPTION =
-  'Improve Store performance for Foswiki 1.1.5 and 1.1.6.';
+our $SHORTDESCRIPTION = 'Improve Store performance for Foswiki 1.1.5-1.1.9.';
 
 1;
 

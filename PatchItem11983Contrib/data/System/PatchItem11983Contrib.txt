@@ -1,6 +1,6 @@
 <!--
 One line description, required for extensions repository catalog.
-   * Set SHORTDESCRIPTION = Patch Foswiki 1.1.5 and 1.1.6 store to improve perfomance  
+   * Set SHORTDESCRIPTION = Patch Foswiki 1.1.5-1.1.9 store to improve perfomance
 -->
 ---+!! PatchItem11983Contrib
 
@@ -10,7 +10,7 @@ One line description, required for extensions repository catalog.
 
 ---++ Usage
 
-This extensions applies a "hotfix" for Item11983 to your Foswiki 1.1.5 or 1.1.6 system. 
+This extensions applies a "hotfix" for Item11983 to your Foswiki 1.1.5-1.1.9 system.
 
 <blockquote>
 <div class="foswikiAlert">%X% *CAUTION:* This patch can significantly improve the performance of the Foswiki "Store" system by reducing calls to the "RCS" -

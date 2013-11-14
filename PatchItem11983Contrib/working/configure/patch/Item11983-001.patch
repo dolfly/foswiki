@@ -10,7 +10,7 @@ Date:   Mon Nov 26 04:32:23 2012 +0000
     Foswiki 1.2 will have a more extensive fix that avoids incorrect revision information
     without incuring the performance penalty.
 
-~~~PATCH 596b5999cb61f941b5425555d9d232c4:affb114e4a8f29a14d65702e0b7934de  lib/Foswiki/Store/VC/Store.pm (Foswiki 1.1.5, Foswiki 1.1.6)
+~~~PATCH 596b5999cb61f941b5425555d9d232c4:affb114e4a8f29a14d65702e0b7934de  lib/Foswiki/Store/VC/Store.pm (Foswiki 1.1.5-1.1.9)
 --- ./lib/Foswiki/Store/VC/Store.pm.orig	2012-12-06 00:56:34.138034928 -0500
 +++ ./lib/Foswiki/Store/VC/Store.pm	2012-12-06 00:56:53.163811954 -0500
 @@ -93,15 +93,16 @@
@@ -82,7 +82,7 @@ Date:   Mon Nov 26 04:32:23 2012 +0000
      # If there is a pending pseudo-revision, need n+1, but only if there is
      # an existing history
 
-~~~PATCH 497d27bc2cd58232e9b54eaa63877851:679ee38be5a30d8ed26727757a9afd45  lib/Foswiki/Store/VC/Handler.pm (Foswiki 1.1.6)
+~~~PATCH 497d27bc2cd58232e9b54eaa63877851:679ee38be5a30d8ed26727757a9afd45  lib/Foswiki/Store/VC/Handler.pm (Foswiki 1.1.6-1.1.9)
 --- ./lib/Foswiki/Store/VC/Handler.pm.orig	2012-12-06 10:25:55.865698878 -0500
 +++ ./lib/Foswiki/Store/VC/Handler.pm	2012-12-06 10:27:51.505358144 -0500
 @@ -446,7 +446,17 @@
