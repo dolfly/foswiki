@@ -425,6 +425,20 @@ All settings start with =$Foswiki::cfg{Plugins}{DirectedGraphPlugin}=, and on ma
       * The plugin will not longer generate graphs when it detects that a topic revision is being viewed, or a topic comparison is being performed. See the expert configuration parameters to restore the prior behavior.
       * Support for inline SVG - Scalable Vector Graphics - has been added.
 
+---+++ Special instructions when migrating between architctures
+<div class="foswikiAlert"> %X% *Caution* Prior releases of this extension wrote the file hash information in a non-portable format. This version
+of the plugin writes hash in a portable format, but existing hash files will all be unreadble when the data is moved to the new platform.</div>
+
+When migrating to across architectures (for example from Intel =ia32= to =x64=) special steps are needed to ensure that the file hash information (and cached graphs) are not all invalidated.  Note that the new portable format is fully backwards compatbile with both the old and new versions of the plugin.
+
+   * *BEFORE Migrating*
+      1 Install this new version of the extension to ensure that no hashes are written in the old non-portable format.
+      1 Change to the working directory containing the filehash files (Typically =foswiki/working/work_areas/DirectedGraphPlugin=).
+      1 run =tools/FixFilehash.pl= from this directory.  This will rewrite all hash files in the new portable format.
+      * _This tool may be run multiple times._  Files in the portable format are fully backwards compatible with older versions of this extension.
+   * Complete the Foswiki migration
+      1 Be sure to copy the =foswiki/working/work_areas/DirectedGraphPlugin= directory to the new system.
+
 ---+++ Installation
    1 <em>follow instructions for your distribution. </em>Install !GraphViz, Imagemagick, ghostscript. If available, install the msttcorefonts. Also install perl modules Digest::MD5, Storable, File::Copy, File::Path, File::Spec, and File::Temp using CPAN whatever is appropriate for your distribution.
    1 Use the "Extensions" tab in bin/configure Click the "Find More Extensions" button, locate the DirectedGraphPlugin and click the "Install" button. 
