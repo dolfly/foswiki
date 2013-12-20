@@ -28,7 +28,7 @@ package Foswiki::Plugins::DirectedGraphPlugin;
 use strict;
 
 use Digest::MD5 qw( md5_hex );
-use Storable qw(store retrieve freeze thaw);
+use Storable qw(nstore retrieve nfreeze thaw);
 
 use File::Path ();
 use File::Temp ();
@@ -37,18 +37,8 @@ use File::Copy ();    # Used for Foswiki attach API bypass
 
 use Foswiki::Func ();
 
-# $VERSION is referred to by Foswiki, and is the only global variable that
-# # *must* exist in this package.
-# # This should always be $Rev$ so that Foswiki can determine the checked-in
-# # status of the plugin. It is used by the build automation tools, so
-# # you should leave it alone.
-our $VERSION = '$Rev$';
-
-#
-# # This is a free-form string you can use to "name" your own plugin version.
-# # It is *not* used by the build automation tools, but is reported as part
-# # of the version number in PLUGINDESCRIPTIONS.
-our $RELEASE = '1.12';
+our $VERSION = '1.13';
+our $RELEASE = '1.13';
 
 #
 # # Short description of this plugin
@@ -315,7 +305,8 @@ sub initPlugin {
 
     my %oldHashArray =
       _loadHashCodes();    # Load the -filehash file into the old hash
-    Foswiki::Func::setSessionValue( 'DGP_hash', freeze \%oldHashArray );
+    Foswiki::Func::setSessionValue( 'DGP_hash',
+        Storable::nfreeze \%oldHashArray );
     Foswiki::Func::clearSessionValue('DGP_newhash')
       ;                    # blank slate for new attachments
 
@@ -843,7 +834,8 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
     }    ### else [ if ($oldHashCode ne $hashCode) |
 
     $newHashArray{GRNUM} = $grNum;
-    Foswiki::Func::setSessionValue( 'DGP_newhash', freeze \%newHashArray );
+    Foswiki::Func::setSessionValue( 'DGP_newhash',
+        Storable::nfreeze \%newHashArray );
 
     #  ##############################
     #  End Generation of attachments
@@ -1118,7 +1110,7 @@ sub _loadHashCodes {
     # Write out new hashfile
     if ( keys %tempHash ) {
         _writeDebug("    - Writing hashfile ");
-        store \%tempHash, "$workAreaDir/${usWeb}_${topic}-filehash";
+        Storable::nstore \%tempHash, "$workAreaDir/${usWeb}_${topic}-filehash";
     }
     return %tempHash;
 
@@ -1140,7 +1132,7 @@ sub wrapupTagsHandler {
         _writeDebug('     -- newHashRef existed in session - writing out ');
         %newHash = %{$newHashRef};
         my $workAreaDir = Foswiki::Func::getWorkArea('DirectedGraphPlugin');
-        store \%newHash, "$workAreaDir/${usWeb}_${topic}-filehash";
+        Storable::nstore \%newHash, "$workAreaDir/${usWeb}_${topic}-filehash";
 
         if ( $newHash{SET} ) {    # dot tags have been processed
             my %oldHash    = ();
