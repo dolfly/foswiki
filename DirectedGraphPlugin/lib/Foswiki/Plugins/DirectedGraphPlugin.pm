@@ -101,12 +101,12 @@ my $svgLinkTargetDefault;    #
 #
 # Locations of the commands, etc. passed in from LocalSite.cfg
 #
-my $enginePath;              # Location of the "dot" command
-my $magickPath;              # Location of ImageMagick
-my $toolsPath;               # Location of the Tools directory for helper script
-my $attachPath;              # Location of attachments if not using Foswiki API
-my $attachUrlPath;           # URL to find attachments
-my $perlCmd;                 # perl command
+my $enginePath;       # Location of the "dot" command
+my $magickPath;       # Location of ImageMagick
+my $toolsPath;        # Location of the Tools directory for helper script
+my $attachPath;       # Location of attachments if not using Foswiki API
+my $attachUrlPath;    # URL to find attachments
+my $perlCmd;          # perl command
 
 my $HASH_CODE_LENGTH = 32;
 
@@ -151,8 +151,9 @@ sub initPlugin {
     }
 
     if ( $query && $query->param('rev') ) {
-        if ( !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}
-            {generateRevAttachments} )
+        if (
+            !$Foswiki::cfg{Plugins}{DirectedGraphPlugin}{generateRevAttachments}
+          )
         {
             _writeDebug('DirectedGraphPlugin - Disabled  - revision provided');
             return 0;
@@ -429,6 +430,7 @@ sub _handleDot {
     # $deleteAttachDefault
     # $legacyCleanup
 
+#<<< Tidy makes a mess here
 # Strip all trailing white space on any parameters set by set statements - WYSIWYG seems to pad it.
     $antialias           =~ s/\s+$//;
     $density             =~ s/\s+$//;
@@ -440,6 +442,7 @@ sub _handleDot {
     $inlineAttach        =~ s/\s+$//;
     $deleteAttachDefault =~ s/\s+$//;
     $forceAttachAPI      =~ s/\s+$//;
+#>>>
 
     # Make sure outFilename is clean
     if ( $outFilename ne '' ) {
@@ -567,8 +570,8 @@ sub _handleDot {
 # as they are include in $attr.
 
     my $hashCode =
-      md5_hex( 'DOT' 
-          . $desc 
+      md5_hex( 'DOT'
+          . $desc
           . $attr
           . $antialias
           . $density
@@ -590,7 +593,7 @@ sub _handleDot {
     $vectorFormats =~ s/,/ /g;     #Replace any comma's in the list with spaces.
     $vectorFormats .= ' ' . $inlineAttach
       if !( $vectorFormats =~ m/$inlineAttach/ )
-    ;                              # whatever specified inline is mandatory
+      ;                            # whatever specified inline is mandatory
     $vectorFormats .= ' ' . "$svgFallback"
       if ( $inlineAttach =~ m/svg/ && $svgFallback ne 'none' )
       ;    # Generate png if SVG is inline - for browser fallback
@@ -598,7 +601,7 @@ sub _handleDot {
     $vectorFormats .= ' ps'
       if ( ($antialias)
         && !( $vectorFormats =~ m/ps/ )
-        && !( $inlineAttach  =~ m/svg/ ) )
+        && !( $inlineAttach =~ m/svg/ ) )
       ;    # postscript for antialias or as requested
     $vectorFormats .= ' cmapx'
       if ( ($doMap) && !( $vectorFormats =~ m/cmapx/ ) );    # client side map
@@ -869,7 +872,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                 my $fname = $attachFile{$key};
                 $fname .= '.txt' if ( $key eq 'dot' );
                 $fileLinks .=
-                    '<a href=' 
+                    '<a href='
                   . $urlPath
                   . Foswiki::urlEncode("/$web/$topic/$fname")
                   . ">[$key]</a> ";
@@ -937,10 +940,10 @@ s/(<map\ id\=\")(.*?)(\"\ name\=\")(.*?)(\">)/$1$hashCode$3$hashCode$5/g;
         my $srcfb = Foswiki::urlEncode("$loc/$outFilename.$fbtype");
         $returnData .=
           "<img src=\"$srcfb\" type=\"image/$fbtype\" "
-          . $newHashArray{IMAGESIZE}
-          { $outFilename . $fbtype };    #Embedded img tag for fallback
+          . $newHashArray{IMAGESIZE}{ $outFilename . $fbtype }
+          ;    #Embedded img tag for fallback
         $returnData .= " usemap=\"#$hashCode\""
-          if ($doMap);                   #Include the image map if required
+          if ($doMap);    #Include the image map if required
         $returnData .= " alt=\"$outFilename.$inlineAttach diagram\"";
         $returnData .= "> \n";
     }
