@@ -129,6 +129,10 @@ my $identifyCmd = 'identify %INFILE|F%';
 sub initPlugin {
     ( $topic, $web, $user, $installWeb ) = @_;
 
+    #SMELL: topic and web are tainted when using Locale's
+    $topic = Foswiki::Sandbox::untaintUnchecked($topic);
+    $web   = Foswiki::Sandbox::untaintUnchecked($web);
+
     _writeDebug(' >>> initPlugin Entered');
 
     #  Disable the plugin if a topic revision is requested in the query.
@@ -338,6 +342,11 @@ sub commonTagsHandler {
 
     $topic = $_[1];     # Can't trust globals
     $web   = $_[2];
+
+    #SMELL: topic and web are tainted when using Locale's
+    $topic = Foswiki::Sandbox::untaintUnchecked($topic);
+    $web   = Foswiki::Sandbox::untaintUnchecked($web);
+
     $usWeb = $web;
     $usWeb =~ s/\//_/g;    #Convert any subweb separators to underscore
 
@@ -814,6 +823,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                 );
                 $fname = Foswiki::Sandbox::untaintUnchecked($fname)
                   ;    #untaint - fails on trunk
+
                 Foswiki::Func::saveAttachment(
                     $web, $topic, "$fname",
                     {
@@ -1132,6 +1142,7 @@ sub wrapupTagsHandler {
         _writeDebug('     -- newHashRef existed in session - writing out ');
         %newHash = %{$newHashRef};
         my $workAreaDir = Foswiki::Func::getWorkArea('DirectedGraphPlugin');
+
         Storable::nstore \%newHash, "$workAreaDir/${usWeb}_${topic}-filehash";
 
         if ( $newHash{SET} ) {    # dot tags have been processed
