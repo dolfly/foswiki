@@ -257,7 +257,7 @@ sub initPlugin {
     # Get plugin library default
     $libraryDefault =
       Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_LIBRARY')
-      || 'System.DirectedGraphPlugin';
+      || $Foswiki::cfg{SystemWebName} . '.DirectedGraphPlugin';
 
     # Get plugin hideattachments default
     $hideAttachDefault =
