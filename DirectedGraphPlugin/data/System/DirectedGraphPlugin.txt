@@ -269,16 +269,21 @@ Details on how to install cairo, graphviz and imagemagick are beyond the scope o
 |  Plugin Version: | %$VERSION% |
 |  Plugin Release: | %$RELEASE% |
 |  Change History: | <!-- versions below in reverse order --> |
-| 06 Dec 2010 (1.12): | Foswikitask:Item8239 - Intermittent issues when using under !FastCGI -- Foswiki:Main.AndrewJones |
-| 30 Oct 2010 (1.11): | Foswikitask:Item9875 - Change permissions management so that other plugins may also create directories |
-| 15 Oct 2010 (1.10): | Foswikitask:Item9832 - Restore compatibility with Foswiki 1.0.x |
-| 14 Jul 2010 (1.9): | Foswikitask:Item9163 - Taint errors, Foswikitask:9319 - Files written with incorrect permissions |
+|  <span style="white-space:nowrap">20 Dec 2013 (1.13):</span> | Foswikitask:Item11164 - Refer to System web name by configuration parameter, support renamed system webs.<br/>  \
+                        Foswikitask:Item11401 - Tainting issues on systems running with locales enabled.<br/> \
+                        Foswikitask:Item11470 - linkattachments parmeter not working.<br/> \
+                        Foswikitask:Item11673 - Restructure examples to avoid writing to System web.<br/> \
+                        Foswikitask:Item12697 - Filehash files are not portable between 32 / 64 bit platforms. |
+|  <span style="white-space:nowrap">06 Dec 2010 (1.12):</span> | Foswikitask:Item8239 - Intermittent issues when using under !FastCGI -- Foswiki:Main.AndrewJones |
+|  <span style="white-space:nowrap">30 Oct 2010 (1.11):</span> | Foswikitask:Item9875 - Change permissions management so that other plugins may also create directories |
+|  <span style="white-space:nowrap">15 Oct 2010 (1.10):</span> | Foswikitask:Item9832 - Restore compatibility with Foswiki 1.0.x |
+|  <span style="white-space:nowrap">14 Jul 2010 (1.9):</span> | Foswikitask:Item9163 - Taint errors, Foswikitask:9319 - Files written with incorrect permissions |
 |  <span style="white-space:nowrap">28 Mar 2010 (1.8):</span> | Foswikitask:Item8710 - Add support for Graphviz 2.26<br/> Foswikitask:Item8711 - Add support for mod_perl2<br/> |
-|  8 Mar 2010 (1.7): | Foswikitask:Item8604 - Resolve some taint issues.  Release as 1.7 |
+|  <span style="white-space:nowrap">8 Mar 2010 (1.7):</span> | Foswikitask:Item8604 - Resolve some taint issues.  Release as 1.7 |
 |  12 Feb 2010: | Foswikitask:Item8495 - Insert image size in &lt/img> and &lt;object tags |
-|  31 Jan 2010: | Foswikitask:Item8415 - Clean up global variables, Foswikitask:Item8442: Documentation updates, Foswikitask:Item8443: Automate the size= parameter for antialiasing |
+|  31 Jan 2010: | Foswikitask:Item8415 - Clean up global variables, Foswikitask:Item8442: Documentation updates,<br/> Foswikitask:Item8443: Automate the size= parameter for antialiasing |
 |  8 Nov 2009: | Foswikitask:Item8314 - Bypass plungin processing for diff operations and viewing of topic revisions.  |
-|  8 Nov 2009: | Foswikitask:Item8234, Foswikitask:Item8239, Foswikitask:Item8241, Foswikitask:Item8314 - Add support for inline SVG objects. Fix issues with recursive rendering, CGI acceleration, diff and rev handling  |
+|  8 Nov 2009: | Foswikitask:Item8234, Foswikitask:Item8239, Foswikitask:Item8241,<br/> Foswikitask:Item8314 - Add support for inline SVG objects. Fix issues with recursive rendering, CGI acceleration, diff and rev handling  |
 |  8 Nov 2009: | Foswikitask:Item8233 - Fix imagemaps when attachpath is used |
 |  8 Nov 2009: | Foswikitask:Item1202 - Add DEPENDENCIES on htmldoc and other external applications. |
 |  28 Jun 2009: | Foswikitask:Item1778 - Notify !WysiwygPlugin about &lt;dot&gt; markup so that it is protected in WYSIWYG editors -- Foswiki:Main.MichaelTempest |
