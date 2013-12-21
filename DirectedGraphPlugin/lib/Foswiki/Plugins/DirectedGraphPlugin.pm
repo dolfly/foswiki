@@ -75,7 +75,7 @@ my $sizeDefault;           # Size of graph
 my $vectorFormatsDefault;  # Types of images to be generated
 my $hideAttachDefault;     # Should attachments be shown in the attachment table
 my $inlineAttachDefault;   # Image type that will be shown inline in the topic
-my $linkFilesDefault
+my $linkAttachmentsDefault
   ;    # Should other file types have links shown under the inline image
 my $engineDefault
   ;    # Which GraphVize engine should generate the image (default is "dot")
@@ -284,7 +284,7 @@ sub initPlugin {
       || 'on';
 
     # Get the default link file attachment default
-    $linkFilesDefault =
+    $linkAttachmentsDefault =
       Foswiki::Func::getPreferencesValue('DIRECTEDGRAPHPLUGIN_LINKATTACHMENTS')
       || 'on';
 
@@ -416,7 +416,10 @@ sub _handleDot {
     my $hideAttach    = $params{hideattachments} || $hideAttachDefault;
     my $inlineAttach  = $params{inline}          || $inlineAttachDefault;
     $forceAttachAPI = $params{forceattachapi} || $forceAttachAPIDefault;
-    my $linkFiles     = $params{linkfiles}     || $linkFilesDefault;
+
+#SMELL: linkfiles is deprecated setting for linkattachments.  Use it if present.
+    my $linkAttachments =
+      $params{linkattachments} || $params{linkfiles} || $linkAttachmentsDefault;
     my $svgFallback   = $params{svgfallback}   || $svgFallbackDefault;
     my $svgLinkTarget = $params{svglinktarget} || $svgLinkTargetDefault;
 
@@ -491,9 +494,9 @@ sub _handleDot {
 "<font color=\"red\"><nop>DirectedGraph Error: hideattachments  must be either \"off\" or \"on\" (was: $hideAttach)</font>";
     }
 
-    unless ( $linkFiles =~ m/^(on|off)$/ ) {
+    unless ( $linkAttachments =~ m/^(on|off)$/ ) {
         return
-"<font color=\"red\"><nop>DirectedGraph Error: links  must be either \"off\" or \"on\" (was: $linkFiles)</font>";
+"<font color=\"red\"><nop>DirectedGraph Error: links  must be either \"off\" or \"on\" (was: $linkAttachments)</font>";
     }
 
     unless ( $inlineAttach =~ m/^(png|jpg|svg)$/ ) {
@@ -867,7 +870,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
     #  The "inline" file format, and any image map file
 
     my $fileLinks = '';
-    if ($linkFiles) {
+    if ( Foswiki::Func::isTrue($linkAttachments) ) {
         $fileLinks = '<br />';
         foreach my $key ( keys(%attachFile) ) {
             if ( ( $key ne $inlineAttach ) && ( $key ne 'cmapx' ) ) {
@@ -880,7 +883,7 @@ s/.*\s([[:digit:]]+)x([[:digit:]]+)\s.*/width="$1" height="$2"/i;
                   . ">[$key]</a> ";
             }    # if (($key ne
         }    # foreach my $key
-    }    # if ($linkFiles
+    }    # if ($linkAttachments
 
     my $mapfile = '';
     if ($doMap) {

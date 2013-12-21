@@ -76,7 +76,7 @@ You can use the following parameters in the =dot= tag to control the rendering o
 | =file="file_prefix"= | Overrides the dynamically generated filenames. If specified, must be unique for each graph within a single topic! Suffix is still generated automatically based upon file type.  | =graph_nn= nn increments per graph |
 | =hideattachments="on"= | Set whether or not attachments should be hidden from the attachment table | =on= |
 | =inline="png"<br />inlineattach="png"= | Specifies the type of file to be attached inline to the page. Must be png or jpg or svg. | =png= |
-| =linkattachments="off"= | Add links for file types other than the inline type if present | =off= |
+| =linkattachments="on"= | Add links for file types other than the inline type if present | =on= |
 | =dothash="on"= | Controls the hash calculation against the =dot= command input. If the =dot= hash is disabled, a previously created .png file will not be recreated unless the attachment is deleted, or the =dothash= parameter is enabled or removed. This can be used to create a portable topic and attachments that can be moved without regenerating all of the graphs. Used in the HowtoDirectedGraphs topic. | =on= |
 | =forceattachapi="off"= | Force standard Foswiki attachment API processing. Ignores setting of configure attachPath and attachUrlPath parameters. Used if revision control is desired for the attachments. | =off= |
 | *Postscript based Antialiasing (optional)* |||
